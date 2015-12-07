@@ -239,6 +239,8 @@
 		<execute function="Type" locator1="TextArea#DESCRIPTION" value1="${dmFolderDescriptionEdit}" />
 		<execute function="AssertClick" locator1="Button#SAVE" value1="Save" />
 
+		<var name="key_dmFolderNameEdit" value="${dmFolderNameEdit}" />
+
 		<execute function="AssertTextEquals#assertPartialText" locator1="Message#SUCCESS" value1="Your request completed successfully." />
 		<execute function="AssertTextEquals#assertPartialText" locator1="DocumentsAndMedia#DESCRIPTIVE_LIST_FOLDER_EDITED_TITLE" value1="${dmFolderNameEdit}" />
 	</command>
