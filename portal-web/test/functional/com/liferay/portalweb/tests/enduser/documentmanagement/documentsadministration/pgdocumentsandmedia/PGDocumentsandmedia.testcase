@@ -359,6 +359,10 @@
 			<var name="dmFolderName" value="DM Folder Name" />
 		</execute>
 
+		<execute macro="DMNavigator#gotoFolderPG">
+			<var name="dmFolderName" value="DM Folder Name" />
+		</execute>
+
 		<execute macro="DMFolder#viewPG">
 			<var name="dmFolderName" value="DM Folder Name" />
 		</execute>
@@ -633,6 +637,10 @@
 			<var name="dmFolderName" value="Folder1 Name" />
 		</execute>
 
+		<execute macro="DMNavigator#gotoFolderPG">
+			<var name="dmFolderName" value="Folder1 Name" />
+		</execute>
+
 		<execute macro="DMFolder#viewPG">
 			<var name="dmFolderDescription" value="DM Folder1 Description" />
 			<var name="dmFolderName" value="Folder1 Name" />
@@ -647,6 +655,10 @@
 			<var name="dmFolderName" value="Folder2 Name" />
 		</execute>
 
+		<execute macro="DMNavigator#gotoFolderPG">
+			<var name="dmFolderName" value="Folder2 Name" />
+		</execute>
+
 		<execute macro="DMFolder#viewPG">
 			<var name="dmFolderDescription" value="DM Folder2 Description" />
 			<var name="dmFolderName" value="Folder2 Name" />
@@ -658,6 +670,10 @@
 
 		<execute macro="DMFolder#addPG">
 			<var name="dmFolderDescription" value="DM Folder3 Description" />
+			<var name="dmFolderName" value="Folder3 Name" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolderPG">
 			<var name="dmFolderName" value="Folder3 Name" />
 		</execute>
 
@@ -782,6 +798,10 @@
 			<var name="dmFolderName" value="Folder Name" />
 		</execute>
 
+		<execute macro="DMNavigator#gotoFolderPG">
+			<var name="dmFolderName" value="Folder Name" />
+		</execute>
+
 		<execute macro="DMFolder#viewPG">
 			<var name="dmFolderDescription" value="DM Folder Description" />
 			<var name="dmFolderName" value="Folder Name" />
@@ -798,6 +818,10 @@
 		<execute macro="DMFolder#addSubfolderPG">
 			<var name="dmSubFolderDescription" value="DM Subfolder1 Description" />
 			<var name="dmSubFolderName" value="Subfolder1 Name" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolderPG">
+			<var name="dmFolderName" value="Subfolder1 Name" />
 		</execute>
 
 		<execute macro="DMFolder#viewPG">
@@ -817,6 +841,10 @@
 			<var name="dmSubFolderName" value="Subfolder2 Name" />
 		</execute>
 
+		<execute macro="DMNavigator#gotoFolderPG">
+			<var name="dmFolderName" value="Subfolder2 Name" />
+		</execute>
+
 		<execute macro="DMFolder#viewPG">
 			<var name="dmFolderName" value="Subfolder2 Name" />
 		</execute>
@@ -832,6 +860,10 @@
 		<execute macro="DMFolder#addSubfolderPG">
 			<var name="dmSubFolderDescription" value="DM Subfolder3 Description" />
 			<var name="dmSubFolderName" value="Subfolder3 Name" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolderPG">
+			<var name="dmFolderName" value="Subfolder3 Name" />
 		</execute>
 
 		<execute macro="DMFolder#viewPG">

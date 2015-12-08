@@ -502,8 +502,6 @@
 	<command name="viewPG">
 		<var name="key_dmFolderName" value="${dmFolderName}" />
 
-		<execute function="Click" locator1="DocumentsAndMedia#DESCRIPTIVE_LIST_FOLDER_TITLE" />
-
 		<var method="StringUtil#upperCase('${dmFolderName}')" name="dmFolderNameUpperCase" />
 
 		<execute function="AssertTextEquals#assertPartialText" locator1="DocumentsAndMedia#BREADCRUMB_FOLDER_NAME" value1="${dmFolderNameUpperCase}" />
