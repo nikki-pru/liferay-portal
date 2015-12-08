@@ -248,6 +248,8 @@
 			<var name="pageName" value="${pageName}" />
 		</execute>
 
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
 		<execute macro="DMDocument#viewDocumentToolbarCmdAsGuestPG">
 			<var name="dmDocumentTitle" value="Document_1.doc" />
 		</execute>
@@ -445,6 +447,8 @@
 			<var name="columnNumberTo" value="2" />
 			<var name="portletName" value="Documents and Media" />
 		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
 
 		<execute macro="Page#gotoPG">
 			<var name="pageName" value="${pageName}" />
@@ -1191,6 +1195,8 @@
 
 		<execute macro="DMDocument#enableActionsMenuOnPortlet" />
 
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
 		<execute macro="Page#gotoPG">
 			<var name="pageName" value="${pageName}" />
 		</execute>
@@ -1249,6 +1255,8 @@
 			<var name="columnNumberTo" value="2" />
 			<var name="portletName" value="Documents and Media" />
 		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
 
 		<execute macro="Page#gotoPG">
 			<var name="pageName" value="Documents and Media Page" />
