@@ -129,8 +129,8 @@ if (portletTitleBasedNavigation) {
 		/>
 	</c:if>
 
-	<c:if test="<%= dlPortletInstanceSettingsHelper.isShowActions() && !portletTitleBasedNavigation %>">
-		<div class="btn-group">
+	<div class="btn-group">
+		<c:if test="<%= dlPortletInstanceSettingsHelper.isShowActions() && !portletTitleBasedNavigation %>">
 
 			<%
 			for (ToolbarItem toolbarItem : dlViewFileVersionDisplayContext.getToolbarItems()) {
@@ -142,9 +142,10 @@ if (portletTitleBasedNavigation) {
 			}
 			%>
 
-			<liferay-frontend:management-bar-sidenav-toggler-button cssClass="btn btn-default" href="javascript:;" label="info" sidenavId='<%= liferayPortletResponse.getNamespace() + "infoPanelId" %>' />
-		</div>
-	</c:if>
+		</c:if>
+
+		<liferay-frontend:management-bar-sidenav-toggler-button cssClass="btn btn-default" href="javascript:;" label="info" sidenavId='<%= liferayPortletResponse.getNamespace() + "infoPanelId" %>' />
+	</div>
 
 	<liferay-frontend:sidebar-panel>
 
