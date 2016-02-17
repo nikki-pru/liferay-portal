@@ -31,6 +31,7 @@ ToolbarItem toolbarItem = (ToolbarItem)request.getAttribute("liferay-ui:toolbar-
 			<c:if test="<%= Validator.isNotNull(javaScriptToolbarItem.getIcon()) %>">
 				<aui:icon image="<%= javaScriptToolbarItem.getIcon() %>" markupView="lexicon" />
 			</c:if>
+
 			<%= javaScriptToolbarItem.getLabel() %>
 		</aui:a>
 
@@ -44,20 +45,13 @@ ToolbarItem toolbarItem = (ToolbarItem)request.getAttribute("liferay-ui:toolbar-
 
 		<%
 		URLToolbarItem urlToolbarItem = (URLToolbarItem)toolbarItem;
-
-		String taglibOnClick = "javascript:;";
-
-		String url = urlToolbarItem.getURL();
-
-		if (Validator.isNotNull(url) || !url.equals("javascript:;")) {
-			taglibOnClick = "window.open('" + url + "', '" + urlToolbarItem.getTarget() + "')";
-		}
 		%>
 
-		<aui:a cssClass="btn btn-default" href="javascript:;" onClick="<%= taglibOnClick %>">
+		<aui:a cssClass="btn btn-default" href="<%= urlToolbarItem.getURL() %>" target="<%= urlToolbarItem.getTarget() %>">
 			<c:if test="<%= Validator.isNotNull(urlToolbarItem.getIcon()) %>">
 				<aui:icon image="<%= urlToolbarItem.getIcon() %>" markupView="lexicon" />
 			</c:if>
+
 			<%= urlToolbarItem.getLabel() %>
 		</aui:a>
 	</c:when>
