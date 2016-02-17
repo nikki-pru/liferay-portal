@@ -36,9 +36,9 @@ ToolbarItem toolbarItem = (ToolbarItem)request.getAttribute("liferay-ui:toolbar-
 		</aui:a>
 
 		<c:if test="<%= Validator.isNotNull(javaScriptToolbarItem.getJavaScript()) %>">
-			<aui:script>
+			<script>
 				<%= javaScriptToolbarItem.getJavaScript() %>
-			</aui:script>
+			</script>
 		</c:if>
 	</c:when>
 	<c:when test="<%= toolbarItem instanceof URLToolbarItem %>">
