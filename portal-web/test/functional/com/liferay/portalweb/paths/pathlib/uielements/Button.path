@@ -364,6 +364,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>INFO</td>
+	<td>//a[contains(@class,'btn') and contains(.,'Info')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>INVOKE</td>
 	<td>//button[contains(.,'Invoke')]</td>
 	<td></td>
