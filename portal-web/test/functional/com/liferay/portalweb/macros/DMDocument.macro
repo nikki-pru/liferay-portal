@@ -1629,6 +1629,8 @@
 			</else>
 		</if>
 
+		<execute function="Click" locator1="Icon#INFO" />
+
 		<execute macro="DMDocument#viewDocumentVersionNumberCmdPG">
 			<var name="dmDocumentVersionNumber" value="${dmDocumentVersionNumber}" />
 		</execute>
@@ -1699,6 +1701,8 @@
 		<var name="key_dmDocumentTitle" value="${dmDocumentTitle}" />
 
 		<execute function="AssertTextEquals" locator1="DocumentsAndMediaDocument#DOCUMENT_INFO_TITLE" value1="${dmDocumentTitle}" />
+
+		<execute function="Click" locator1="Icon#INFO" />
 
 		<if>
 			<and>
