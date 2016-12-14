@@ -1,6 +1,5 @@
 <definition component-name="portal-collaboration">
 	<property name="custom.properties" value="default.layout.template.id=1_column" />
-	<property name="portal.release" value="true" />
 	<property name="plugins.deployment.type" value="osgi" />
 	<property name="testray.main.component.name" value="My Subscriptions" />
 
@@ -37,6 +36,8 @@
 	</tear-down>
 
 	<command name="SubscribeAndUnsubscribetoBookmarksRootFolder">
+		<property name="portal.acceptance" value="mysubscriptions"
+
 		<execute macro="Page#add">
 			<var name="pageName" value="Bookmarks Page" />
 		</execute>
