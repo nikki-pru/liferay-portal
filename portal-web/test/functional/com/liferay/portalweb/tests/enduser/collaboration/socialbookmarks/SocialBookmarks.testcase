@@ -34,6 +34,8 @@
 	</tear-down>
 
 	<command name="ChangeSocialBookmarkSitesForKBArticle" priority="4">
+		<property name="portal.acceptance" value="socialbookmarks" />
+		
 		<execute macro="Page#add">
 			<var name="pageName" value="Knowledge Base Display Page" />
 		</execute>
