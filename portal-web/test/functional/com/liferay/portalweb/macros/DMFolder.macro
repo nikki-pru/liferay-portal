@@ -274,6 +274,8 @@
 
 		<execute function="Check" locator1="DocumentsAndMedia#DESCRIPTIVE_LIST_FOLDER_CHECKBOX" />
 
+		<execute function="AssertChecked" locator1="DocumentsAneMedia#DocumentsAndMedia#DESCRIPTIVE_LIST_FOLDER_CHECKBOX" />
+
 		<execute function="Click" locator1="Icon#MOVE_TO_RECYCLE_BIN" />
 
 		<execute function="AssertElementPresent" locator1="Message#SUCCESS" />
