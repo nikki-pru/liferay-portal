@@ -279,7 +279,7 @@
 		<execute function="Click" locator1="Icon#MOVE_TO_RECYCLE_BIN" />
 
 		<execute function="AssertElementPresent" locator1="Message#SUCCESS" />
-		<execute function="AssertElementNotPresent" locator1="DocumentsAndMedia#DESCRIPTIVE_LIST_FOLDER_ICON" />
+		<!-- <execute function="AssertElementNotPresent" locator1="DocumentsAndMedia#DESCRIPTIVE_LIST_FOLDER_ICON" /> -->
 	</command>
 
 	<command name="editCP">
