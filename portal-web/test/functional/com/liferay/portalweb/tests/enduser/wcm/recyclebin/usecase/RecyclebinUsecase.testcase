@@ -496,6 +496,7 @@
 
 	<command name="RecycleBinSearchDMEntriesInFolder" priority="3">
 		<property name="custom.properties" value="default.layout.template.id=1_column" />
+		<property name="portal.acceptance" value="LRQA-29562" />
 
 		<execute macro="Navigator#gotoSitePage">
 			<var name="pageName" value="Test Page" />
