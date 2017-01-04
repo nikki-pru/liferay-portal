@@ -17,6 +17,8 @@
 	</tear-down>
 
 	<command name="InvitationPortletSmoke" priority="">
+		<property name="portal.acceptance" value="invitation" />
+
 		<var name="appName" value="Invitation" />
 
 		<execute macro="Navigator#gotoPage">
