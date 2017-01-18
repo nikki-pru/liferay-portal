@@ -731,6 +731,8 @@
 	</command>
 
 	<command name="ViewBlogsEntryDraftWithCoverImage" priority="3">
+		<property name="portal.acceptance" value="coverimage" />
+
 		<execute macro="Navigator#openURL" />
 
 		<execute macro="ProductMenu#gotoSitesContent">
@@ -772,6 +774,8 @@
 	</command>
 
 	<command name="ViewCoverImageDetails" priority="3">
+		<property name="portal.acceptance" value="coverimage" />
+
 		<execute macro="Navigator#openURL" />
 
 		<execute macro="ProductMenu#gotoSitesContent">

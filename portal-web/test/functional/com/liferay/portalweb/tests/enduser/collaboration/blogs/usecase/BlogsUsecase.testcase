@@ -236,6 +236,8 @@
 	</command>
 
 	<command name="ChangeBlogsEntryCoverImage" priority="3">
+		<property name="portal.acceptance" value="coverimage" />
+
 		<execute macro="Navigator#openURL" />
 
 		<execute macro="ProductMenu#gotoSitesContent">
@@ -1561,6 +1563,8 @@
 	</command>
 
 	<command name="ViewBlogsEntryWithCoverImageFromDMFolders" priority="3">
+		<property name="portal.acceptance" value="coverimage" />
+
 		<execute macro="Page#add">
 			<var name="pageName" value="Documents and Media Page" />
 		</execute>
@@ -1679,6 +1683,8 @@
 	</command>
 
 	<command name="ViewBlogsEntryWithCoverImageUploadedToDM" priority="3">
+		<property name="portal.acceptance" value="coverimage" />
+
 		<execute macro="Navigator#openURL" />
 
 		<execute macro="ProductMenu#gotoSitesContent">
@@ -1991,6 +1997,8 @@
 	</command>
 
 	<command name="ViewBlogsEntryWithUploadedCoverImage" priority="4">
+		<property name="portal.acceptance" value="coverimage" />
+
 		<execute macro="Navigator#openURL" />
 
 		<execute macro="ProductMenu#gotoSitesContent">
