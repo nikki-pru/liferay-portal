@@ -8,8 +8,6 @@ processResources {
 }
 
 repositories {
-	mavenLocal()
-
 	maven {
 		url "https://cdn.lfrs.sl/repository.liferay.com/nexus/content/groups/public"
 	}
@@ -33,7 +31,7 @@ runGradleTest {
 	}
 }
 
-wrapAlloyTemplate {
+wrapSoyAlloyTemplate {
 	enabled = true
 	moduleName = "samples-hello-world"
 	namespace = "samples"
