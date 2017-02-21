@@ -61,6 +61,8 @@
 	</tear-down>
 
 	<command name="ApproveMessageBoardsThreadPG" priority="4">
+		<property name="portal.acceptance" value="ci-run" />
+
 		<execute macro="Navigator#gotoPage">
 			<var name="pageName" value="Message Boards Page" />
 		</execute>
