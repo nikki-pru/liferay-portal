@@ -1029,7 +1029,7 @@
 
 		<execute function="Pause" locator1="3000" />
 
-		<execute function="SelectWindow" locator1="title=${siteName}" />
+		<execute function="AssertLocation" value1="http://localhost:8080/c/blogs/rss?p_l_id=33868&amp;groupId=20140" />
 
 		<execute function="AssertTextEquals" locator1="Blogs#RSS_FEED_TITLE" value1="${siteName}" />
 		<execute function="AssertTextEquals" locator1="Blogs#RSS_FEED_SUBTITLE" value1="${siteName}" />
