@@ -3249,6 +3249,7 @@
 
 		<execute macro="SitePages#configurePage">
 			<var name="columnName" value="1 Column" />
+			<var name="depth" value="2" />
 			<var name="pageName" value="Knowledge Base Display Page" />
 			<var name="privacy" value="Public Pages" />
 			<var name="sitePageType" value="Widget Page" />

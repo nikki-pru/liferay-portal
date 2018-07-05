@@ -198,6 +198,15 @@
 			<var name="privacy" value="${privacy}" />
 		</execute>
 
+		<if>
+			<isset var="depth" />
+			<then>
+				<execute macro="SitePages#expandPageTree">
+					<var name="depth" value="${depth}" />
+				</execute>
+			</then>
+		</if>
+
 		<execute macro="SitePages#gotoPageMenuItem">
 			<var name="menuItem" value="Configure" />
 			<var name="pageName" value="${pageName}" />
