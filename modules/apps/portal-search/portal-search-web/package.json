@@ -12,5 +12,5 @@
 	"scripts": {
 		"test": "karma start"
 	},
-	"version": "3.0.11"
+	"version": "3.0.13"
 }
