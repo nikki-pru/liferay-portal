@@ -300,7 +300,7 @@
 		</execute>
 	</command>
 
-	<command name="importWikiLARLinkNode" priority="5">
+	<command name="ImportWikiLARLinkNode" priority="5">
 		<property name="testray.component.names" value="Training" />
 
 		<execute macro="ProductMenu#gotoPortlet">
