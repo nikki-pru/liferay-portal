@@ -964,7 +964,9 @@ definition {
 	}
 
 	macro expandInfo {
-		Click(locator1 = "Icon#INFO");
+		if (IsElementNotPresent(locator1 = "Icon#INFO_ACTIVE")) {
+			Click(locator1 = "Icon#INFO");
+		}
 
 		AssertVisible(locator1 = "Icon#INFO_ACTIVE");
 	}
