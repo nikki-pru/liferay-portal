@@ -78,10 +78,6 @@ definition {
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
-		BlogsNavigator.gotoEntryPG(
-			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
-
 		Pause(locator1 = "3000");
 
 		Comments.addPG(entryComment = "Blogs Entry Comment");
