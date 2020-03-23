@@ -408,6 +408,7 @@ definition {
 			dmDocumentVersionNumber = "2.0");
 	}
 
+	@ignore = "true"
 	@description = "This test ensures that a Powerpoint presentation title can be changed via the OneDrive editor."
 	@priority = "4"
 	test EditPowerPointPresentation {

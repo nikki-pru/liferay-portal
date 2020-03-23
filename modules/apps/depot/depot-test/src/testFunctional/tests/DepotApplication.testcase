@@ -357,6 +357,7 @@ definition {
 			value1 = "This application is not supported for Asset Libraries.");
 	}
 
+	@ignore = "true"
 	@description = "This ensures that a depot image persists in blog entry as previously and it's not appeared in the item selector on a connected site when DM application is disabled."
 	@priority = "5"
 	test ViewDisabledImageViaBlogs {

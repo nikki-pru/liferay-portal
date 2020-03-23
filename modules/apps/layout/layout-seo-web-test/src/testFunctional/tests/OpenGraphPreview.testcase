@@ -28,6 +28,7 @@ definition {
 		}
 	}
 
+	@ignore = "true"
 	@description = "This ensures that the OG preview is updated when the image is changed."
 	@priority = "5"
 	test PreviewAfterReplacingImage {

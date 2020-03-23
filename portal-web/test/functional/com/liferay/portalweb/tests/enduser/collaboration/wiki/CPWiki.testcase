@@ -92,6 +92,7 @@ definition {
 			wikiPageTitle = "Wiki Page Title");
 	}
 
+	@ignore = "true"
 	@description = "This test covers LPS-89884. It ensures that a DL image can be added to a wiki page via URL."
 	@priority = "5"
 	test AddPageWithDMImageViaURL {

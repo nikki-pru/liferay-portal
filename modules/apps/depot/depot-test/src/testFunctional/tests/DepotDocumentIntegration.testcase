@@ -85,6 +85,7 @@ definition {
 			uploadFileName = "Document_2");
 	}
 
+	@ignore = "true"
 	@description = "This ensures that a depot image can be used through page creation on a connected site."
 	@priority = "5"
 	test AddImageViaContentPage {
@@ -202,6 +203,7 @@ definition {
 			uploadFileName = "Document_2");
 	}
 
+	@ignore = "true"
 	@description = "This ensures that a depot image can be used through web content on a connected site."
 	@priority = "5"
 	test AddImageViaWebContent {

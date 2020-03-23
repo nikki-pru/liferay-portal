@@ -58,6 +58,7 @@ definition {
 		BlogsEntry.viewInlineImage(uploadFileName = "https://raw.githubusercontent.com/liferay/liferay-portal/master/portal-web/test/functional/com/liferay/portalweb/dependencies/Document_1.png");
 	}
 
+	@ignore = "true"
 	@description = "This ensures that the SVG image can be added to a fragment background."
 	@priority = "5"
 	test AddSVGImageToFragmentBackground {
@@ -129,6 +130,7 @@ definition {
 		NavigationMenusAdmin.viewItem(itemName = "Test Page Name 2");
 	}
 
+	@ignore = "true"
 	@description = "This ensures that the background image of a fragment can be added."
 	@priority = "5"
 	test FragmentSmoke {

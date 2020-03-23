@@ -26,6 +26,7 @@ definition {
 		}
 	}
 
+	@ignore = "true"
 	@description = "This ensures that the documents with document type can be selected through Content Sets in a depot."
 	@priority = "5"
 	test AddDocTypeDocumentsManually {
@@ -404,6 +405,7 @@ definition {
 			dynamicSelection = "true");
 	}
 
+	@ignore = "true"
 	@description = "This ensures that the image is displayed by AP through Content Sets in a depot."
 	@priority = "5"
 	test DisplayImageInAP {

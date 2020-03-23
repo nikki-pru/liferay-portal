@@ -287,6 +287,7 @@ definition {
 			value1 = "Edited Google Document");
 	}
 
+	@ignore = "true"
 	@description = "This test ensures that special characters  can be saved through the Google Doc editor"
 	@priority = "4"
 	test EditGoogleDocWithSpecialCharacters {
@@ -462,6 +463,7 @@ definition {
 			status = "Draft");
 	}
 
+	@ignore = "true"
 	@description = "This test covers LPS-93897. It ensures that previously entered Google credentials can be cleared."
 	@priority = "5"
 	test RevokeGoogleDriveCredentials {

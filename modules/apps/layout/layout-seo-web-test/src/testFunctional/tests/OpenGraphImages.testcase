@@ -106,6 +106,7 @@ definition {
 		OpenGraph.viewOpenGraphProperties(ogPropertyList = '''"og:image" content="${portalURL}/documents/${siteID}/0/Document_2.jpg''');
 	}
 
+	@ignore = "true"
 	@description = "This makes sure that the previously added image can be cleared at the page level."
 	@priority = "5"
 	test ClearImageAtPageLevel {
@@ -285,6 +286,7 @@ definition {
 		OpenGraph.viewOpenGraphProperties(ogPropertyList = '''property="og:image:alt" content="This is new image alternative description"''');
 	}
 
+	@ignore = "true"
 	@description = "This makes sure that it will apply the OG image of the page when images are set at both the site level and the page level."
 	@priority = "5"
 	test ConfigurePageSpecificImage {
