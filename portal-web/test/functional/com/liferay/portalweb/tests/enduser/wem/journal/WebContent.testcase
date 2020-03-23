@@ -675,6 +675,7 @@ definition {
 		}
 	}
 
+	@ignore = "true"
 	@description = "This is a test for LPS-90066. A user can preview a scheduled Web Content article through the 'View Usages' screen."
 	@priority = "5"
 	test PreviewScheduledWebContentInWCD {

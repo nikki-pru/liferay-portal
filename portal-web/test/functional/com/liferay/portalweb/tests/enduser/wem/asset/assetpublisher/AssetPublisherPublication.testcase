@@ -34,6 +34,7 @@ definition {
 		}
 	}
 
+	@ignore = "true"
 	@description = "This is a use case for LPS-82674."
 	@priority = "4"
 	test PublishDeleteWCFolderWithArticleViaAP {

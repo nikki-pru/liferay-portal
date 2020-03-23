@@ -562,6 +562,7 @@ definition {
 			value1 = "Profile");
 	}
 
+	@ignore = "true"
 	@description = "This is a test for LPS-105943. When convert a widget page with one Customizable column and a non-standard layout, there will be two warning messages shown in conversion preview"
 	@priority = "3"
 	test ConvertWidgetPageWithNonStandardLayoutAndCustomizableColumns {
@@ -658,6 +659,7 @@ definition {
 			locator1 = "Home#PAGE_COLUMN_2_LAYOUT_WESTROS_2_COLUMNS_PORTLET_TITLE");
 	}
 
+	@ignore = "true"
 	@description = "This is a test for LPS-105943. When convert a widget page with one Nested Applications widget containing widgets and a non-standard layout, there will be two warning messages shown in conversion preview"
 	@priority = "3"
 	test ConvertWidgetPageWithNonStandardLayoutAndNestedApplicationsContainingWidgets {

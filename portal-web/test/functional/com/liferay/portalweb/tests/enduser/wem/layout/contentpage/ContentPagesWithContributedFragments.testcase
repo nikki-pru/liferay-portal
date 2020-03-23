@@ -135,6 +135,7 @@ definition {
 			value1 = "This content maps from blog content");
 	}
 
+	@ignore = "true"
 	@description = "This case ensures that a user can map an image to a fragment via the content display."
 	@priority = "5"
 	test MapImageViaContentDisplay {

@@ -92,6 +92,7 @@ definition {
 			totalPortletCount = "4");
 	}
 
+	@ignore = "true"
 	@description = "This is a use case for LPS-47619 and LPS-67326."
 	@priority = "5"
 	test AddAssetTypesViaAPAndAddRespectivePortletsToSamePage {
