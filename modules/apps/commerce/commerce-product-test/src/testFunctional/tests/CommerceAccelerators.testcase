@@ -206,7 +206,7 @@ definition {
 	}
 
 	test MiniumSiteFullFlow {
-		property portal.acceptance = "quarantine";
+		property portal.acceptance = "minium";
 		property test.name.skip.portal.instance = "CommerceAccelerators#MiniumSiteFullFlow";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
