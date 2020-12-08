@@ -1,0 +1,184 @@
+definition {
+
+	var formName = "Created Form Name";
+	var rowIndexNumber = "1";
+
+	macro enableLocalNetworkDataProvider {
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Data Providers",
+			configurationName = "Data Providers",
+			configurationScope = "Site Scope");
+
+		WaitForElementPresent(
+			key_checkboxOption = "Access Local Network",
+			locator1 = "Checkbox#ENABLE_CHECKBOX_VIA_SPAN");
+
+		if (IsElementPresent(locator1 = "Button#UPDATE")) {
+			Button.clickUpdate();
+		}
+		else if (IsElementPresent(locator1 = "Button#SAVE")) {
+			Click(
+				key_checkboxOption = "Access Local Network",
+				locator1 = "Checkbox#ENABLE_CHECKBOX_VIA_SPAN");
+
+			Button.clickSave();
+
+			Pause(locator1 = "5000");
+		}
+	}
+
+	macro gotoAddDataProvider {
+		LexiconEntry.gotoAdd();
+	}
+
+	macro gotoAddElementSet {
+		LexiconEntry.gotoAdd();
+	}
+
+	macro gotoAddForm {
+		LexiconEntry.gotoAdd();
+	}
+
+	macro gotoBack {
+		Navigator.gotoBack();
+
+		if (IsElementPresent(locator1 = "Button#LEAVE")) {
+			Click(locator1 = "Button#LEAVE");
+		}
+	}
+
+	macro gotoDeleteField {
+		FormsAdminNavigator.gotoEditField(fieldName = "${fieldName}");
+
+		var key_fieldName = "${fieldName}";
+
+		ScrollBy(value1 = "0, 230");
+
+		while (IsElementNotPresent(locator1 = "Form#SIDEBAR_MENUITEM_REMOVE_FIELD")) {
+			Click(locator1 = "Form#SIDEBAR_ELLIPSIS");
+		}
+
+		Click(locator1 = "Form#SIDEBAR_MENUITEM_REMOVE_FIELD");
+	}
+
+	macro gotoEditField {
+		var key_fieldName = "${fieldName}";
+		var key_fieldPositionNumber = "${fieldPositionNumber}";
+
+		if (isSet(key_fieldPositionNumber)) {
+			ScrollWebElementIntoView(locator1 = "Form#FIELD_BODY_IN_SPECIFIC_POSITION");
+
+			Click(locator1 = "Form#FIELD_BODY_IN_SPECIFIC_POSITION");
+		}
+		else {
+			ScrollWebElementIntoView(locator1 = "Form#FIELD_BODY");
+
+			Click(locator1 = "Form#FIELD_BODY");
+		}
+
+		AssertElementPresent(locator1 = "Form#SIDEBAR_BASIC_TAB");
+	}
+
+	macro gotoEditFormByName {
+		AssertClick(
+			key_formName = "${formName}",
+			locator1 = "FormsAdmin#FORMS_TABLE_NAME",
+			value1 = "${formName}");
+	}
+
+	macro gotoFormBuilder {
+		var key_assetTitle = "Form";
+
+		WaitForElementPresent(
+			locator1 = "NavBar#ASSET_TITLE",
+			value1 = "Form");
+
+		AssertClick(
+			locator1 = "NavBar#ASSET_TITLE",
+			value1 = "Form");
+	}
+
+	macro gotoPermissions {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Permissions",
+			rowEntry = "${formName}");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+	}
+
+	macro gotoPreviewForm {
+		WaitForElementPresent(
+			locator1 = "Form#PREVIEW_FORM_BUTTON",
+			value1 = "Preview");
+
+		AssertClick(
+			locator1 = "Form#PREVIEW_FORM_BUTTON",
+			value1 = "Preview");
+	}
+
+	macro gotoPublishCopyURLLink {
+		WaitForElementPresent(locator1 = "Form#PUBLISH_ICON");
+
+		Click(locator1 = "Form#PUBLISH_ICON");
+	}
+
+	macro gotoPublishedForm {
+		FormsAdminNavigator.gotoPublishCopyURLLink();
+
+		var publishedFormPublicURL = Form.getPublishedFormPublicURL(
+			publishedFormPublicURL = "${publishedFormPublicURL}"
+		);
+
+		Navigator.openSpecificURL(url = "${publishedFormPublicURL}");
+	}
+
+	macro gotoRules {
+		var key_assetTitle = "Rules";
+
+		WaitForElementPresent(
+			locator1 = "NavBar#ASSET_TITLE",
+			value1 = "Rules");
+
+		AssertClick(
+			locator1 = "NavBar#ASSET_TITLE",
+			value1 = "Rules");
+	}
+
+	macro gotoSettings {
+		AssertElementPresent(locator1 = "Form#NAME_FIELD");
+
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Settings");
+	}
+
+	macro gotoView {
+		var key_rowIndexNumber = "${rowIndexNumber}";
+
+		AssertElementPresent(locator1 = "Icon#ROW_VERTICAL_ELLIPSIS_N");
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "View");
+	}
+
+	macro gotoViewEntries {
+		AssertElementPresent(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "View Entries");
+	}
+
+	macro openPublishURL {
+		FormsAdminNavigator.gotoPublishCopyURLLink();
+
+		Pause(locator1 = "2000");
+
+		var publishFormURL = selenium.getElementValue("Form#PUBLISH_FORM_PUBLIC_URL");
+
+		Navigator.openSpecificURL(url = "${publishFormURL}");
+	}
+
+}

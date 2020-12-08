@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>MediaGallery</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MediaGallery</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>BREADCRUMB</td>
+	<td>//h3[@class='header-title']/span[contains(.,'${key_mgFolderName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_RECYCLE_BIN_ICON</td>
+	<td>//ul//span[contains(.,'Move to Recycle Bin')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>IMAGE_TITLE</td>
+	<td>//div[contains(@class,'image')]//span[contains(@class,'card-title') and contains(.,'${key_mgDocumentTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ENTRY-->
+<tr>
+	<td>ENTRY_THUMBNAIL</td>
+	<td>//div[contains(@title,'${key_mgDocumentTitle}')]//div/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRIES_FOLDER</td>
+	<td>//span[@class='image-thumbnail']/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_VIDEO_PLAYED</td>
+	<td>//div[contains(@class,'preview-video-content')]/video</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--FOLDER-->
+<tr>
+	<td>FOLDER_NAME</td>
+	<td>//span//a[@title='${key_mgFolderName}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FOLDER_HEADER_TITLE</td>
+	<td>//h3[@class='header-title']/span[contains(.,'${mgFolderName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ADT_CAROUSEL-->
+<tr>
+	<td>ADT_CAROUSEL_ITEM</td>
+	<td>//div[contains(@class,'image-viewer-base carousel')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADT_CAROUSEL_PLAY_PAUSE</td>
+	<td>//menu/li/a[contains(@class,'carousel-menu-item')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADT_CAROUSEL_PREVIOUS_ARROW</td>
+	<td>//li/a[contains(@class,'carousel-menu-item') and contains(@class,'carousel-menu-prev')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADT_CAROUSEL_NEXT_ARROW</td>
+	<td>//li/a[contains(@class,'carousel-menu-item') and contains(@class,'carousel-menu-next')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADT_CAROUSEL_MENU_INDEX</td>
+	<td>//li/a[contains(@class,'carousel-menu-item') and contains(@class,'carousel-menu-index')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

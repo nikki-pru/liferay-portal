@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<suppressions>
+	<checkstyle>
+		<suppress checks="MapBuilderCheck" files="staging-test/src/testIntegration/java/com/liferay/staging/test/StagingLocalizationTest\.java" />
+	</checkstyle>
+</suppressions>

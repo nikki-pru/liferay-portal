@@ -1,0 +1,96 @@
+@component-name = "portal-frontend-infrastructure"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Theme";
+	property testray.main.component.name = "Theme";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test ConfigureLookAndFeelSettingsSinglePage {
+		property portal.acceptance = "true";
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Classic Theme Page");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Classic Theme Page");
+
+		Navigator.gotoNavTab(navTab = "Look and Feel");
+
+		Theme.configureLookAndFeelSpecificLook();
+
+		Theme.configureLookAndFeelShowHeaderSearch(showHeaderSearch = "false");
+
+		Theme.configureLookAndFeelShowMaxMinAppLinks(showMaxMinAppLinks = "true");
+
+		Theme.configureLookAndFeelCustomCSS(cssText = '''body{background-color:#42f4c5}''');
+
+		PortletEntry.save();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Classic Theme Page");
+
+		Navigator.gotoNavTab(navTab = "Look and Feel");
+
+		Navigator.gotoPage(pageName = "Classic Theme Page");
+
+		var htmlSourceText = '''body{background-color:#42f4c5}''';
+
+		AssertHTMLSourceTextPresent(value1 = "${htmlSourceText}");
+
+		takeScreenshot();
+
+		AssertElementNotPresent(locator1 = "Search#EMBEDDED_SEARCH_BAR");
+
+		Portlet.addPG(portletName = "Hello World");
+
+		Portlet.gotoPortletOptions(portletName = "Hello World");
+
+		Theme.viewMaxPortletOption();
+
+		Theme.viewMinPortlet();
+
+		AssertTextEquals(
+			locator1 = "HelloWorld#PORTLET_TITLE",
+			value1 = "Hello World");
+
+		AssertTextNotPresent(
+			locator1 = "HelloWorld#PORTLET_CONTENT",
+			value1 = "Welcome to Liferay");
+
+		Portlet.gotoPortletOptions(portletName = "Hello World");
+
+		Theme.viewRestorePortlet();
+
+		Smoke.viewWelcomePage();
+	}
+
+}

@@ -1,0 +1,128 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%
+DLFilePicker dlFilePicker = dlEditFileEntryDisplayContext.getDLFilePicker(liferayPortletResponse.getNamespace() + "onFilePick");
+%>
+
+<c:choose>
+	<c:when test="<%= dlFilePicker == null %>">
+		<aui:input autoFocus="<%= windowState.equals(WindowState.MAXIMIZED) || windowState.equals(LiferayWindowState.POP_UP) %>" name="file" onChange='<%= liferayPortletResponse.getNamespace() + "updateFileNameAndTitle();" %>' type="file">
+			<aui:validator name="acceptFiles">
+				'<%= StringUtil.merge(dlConfiguration.fileExtensions()) %>'
+			</aui:validator>
+
+			<aui:validator errorMessage='<%= LanguageUtil.format(locale, "please-enter-a-file-with-a-valid-file-size-no-larger-than-x", LanguageUtil.formatStorageSize(dlEditFileEntryDisplayContext.getMaximumUploadSize(), locale)) %>' name="maxFileSize"><%= dlEditFileEntryDisplayContext.getMaximumUploadSize() %></aui:validator>
+		</aui:input>
+	</c:when>
+	<c:otherwise>
+		<c:if test="<%= dlFilePicker.isCustomizedFileButtonVisible() %>">
+			<aui:field-wrapper label="file">
+				<aui:button cssClass="customized-file-button disabled" disabled="<%= true %>" name="file" value="select-file" />
+
+				<img class="pick-button-icon" id="<portlet:namespace />pickButtonIcon" src="<%= GetterUtil.getString(dlFilePicker.getCurrentIconURL()) %>" />
+
+				<span id="<portlet:namespace />pickButtonTitle"><%= GetterUtil.getString(dlFilePicker.getCurrentTitle()) %></span>
+			</aui:field-wrapper>
+		</c:if>
+
+		<%
+		PortalIncludeUtil.include(pageContext, dlFilePicker::renderFilePicker);
+		%>
+
+		<aui:script sandbox="<%= true %>">
+			window.<portlet:namespace />onFilePick = function (fields) {
+				var documentIconURL = fields['<%= dlFilePicker.getIconFieldName() %>'];
+
+				var pickButtonIcon = document.getElementById(
+					'<portlet:namespace />pickButtonIcon'
+				);
+
+				if (pickButtonIcon) {
+					pickButtonIcon.setAttribute('src', documentIconURL);
+				}
+
+				var title = fields['<%= dlFilePicker.getTitleFieldName() %>'];
+
+				var pickButtonTitleElement = document.getElementById(
+					'<portlet:namespace />pickButtonTitle'
+				);
+
+				if (pickButtonTitleElement) {
+					pickButtonTitleElement.innerHTML = title || fields['URL'];
+				}
+
+				var titleElement = document.getElementById('<portlet:namespace />title');
+
+				if (titleElement) {
+					titleElement.value = title;
+				}
+
+				var fileNameElement = document.getElementById(
+					'<portlet:namespace />fileName'
+				);
+
+				var fileName = fields['<%= dlFilePicker.getFileNameFieldName() %>'];
+
+				if (fileNameElement) {
+					fileNameElement.value = fileName || '';
+				}
+
+				var documentDescription =
+					fields['<%= dlFilePicker.getDescriptionFieldName() %>'];
+
+				var documentDescriptionElement = document.getElementById(
+					'<portlet:namespace />description'
+				);
+
+				if (documentDescriptionElement) {
+					documentDescriptionElement.value = documentDescription;
+				}
+
+				var ddmFieldWrappers = document.querySelectorAll(
+					'#<portlet:namespace />fm .lfr-ddm-form-container .ddm-field'
+				);
+
+				Array.prototype.forEach.call(ddmFieldWrappers, function (ddmFieldWrapper) {
+					var fieldName = ddmFieldWrapper.dataset.fieldName;
+
+					var input = ddmFieldWrapper.querySelector('input');
+
+					if (input) {
+						input.value = fields[fieldName];
+					}
+				});
+			};
+
+			<%= dlFilePicker.getJavaScript() %>;
+
+			var customizedFileButton = document.getElementById('<portlet:namespace />file');
+
+			if (customizedFileButton) {
+				var filePicker = new <%= dlFilePicker.getJavaScriptModuleName() %>(
+					function () {
+						Liferay.Util.toggleDisabled(customizedFileButton, false);
+					}
+				);
+
+				customizedFileButton.addEventListener(
+					'click',
+					filePicker['<%= dlFilePicker.getOnClickCallback() %>'].bind(filePicker)
+				);
+			}
+		</aui:script>
+	</c:otherwise>
+</c:choose>

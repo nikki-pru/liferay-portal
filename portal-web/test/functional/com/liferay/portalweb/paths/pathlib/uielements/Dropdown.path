@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Dropdown</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Dropdown</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>CAPTION</td>
+	<td>//div[contains(@class,'caption') and normalize-space()='${key_caption}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EMPTY_MESSAGE_DROPDOWN</td>
+	<td>//div[contains(@class,'empty-result-message')]//button[contains(@class,'dropdown-toggle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRIES</td>
+	<td>//*[contains(@class,'dropdown') and contains(.,'Entries')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FRIENDLY_URL_LOCALE</td>
+	<td>//button[contains(@id,'friendlyURLMenu')]//span[contains(@class,'btn-section')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECTED_VALUE</td>
+	<td>//div[@class='option-selected']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TRIGGER</td>
+	<td>//a[*[name()='svg'][contains(@class,'icon-caret-double')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--FILTER-->
+<tr>
+	<td>FILTER_AND_ORDER</td>
+	<td>//button[*[normalize-space(text())='Filter and Order']]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

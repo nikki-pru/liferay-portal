@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>FormPortlet</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">FormPortlet</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>FORM_CONTAINER</td>
+	<td>//div[contains(@class,'form-container')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LOCALIZATION_BUTTON</td>
+	<td>//button[contains(@id,'DDMFormPortlet')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LOCALIZATION_OPTION</td>
+	<td>//div[contains(@class,'menu-open')]//a[//span[contains(.,'${key_locale}')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FORM</td>
+	<td>//span[contains(@class,'taglib-text') and contains(.,'Select Form')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FORM_PAGE</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'${key_formPageName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FORM_PAGE_ACTIVE</td>
+	<td>//ol[contains(@class,'multi-step-nav')]//li[contains(@class,'active')]/div[contains(.,'${key_formPageName}')] | //ol[contains(@class,'multi-step-nav')]//li[contains(@class,'complete')]/div[contains(.,'${key_formPageName}')] | //ul[contains(@class,'multi-step-nav')]/li[contains(@class,'active')]//div[contains(.,'${key_formPageName}') and contains(@class,'multi-step-indicator-label')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FORM_PAGE_INACTIVE</td>
+	<td>//ol[contains(@class,'multi-step-nav')]//li[not(contains(@class,'active'))]/div[contains(.,'${key_formPageName}')] | //ol[contains(@class,'multi-step-nav')]//li[not(contains(@class,'complete'))]/div[contains(.,'${key_formPageName}')] | //ul[contains(@class,'multi-step-nav')]/li[not(contains(@class,'active'))]//div[contains(.,'${key_formPageName}') and contains(@class,'multi-step-indicator-label')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PORTLET_CONTENT</td>
+	<td>//div[contains(@class,'portlet-content-editable')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SUCCESS_PAGE_TITLE</td>
+	<td>//div[contains(@class,'basic-info')]//h1[contains(.,'${key_successPageTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SUCCESS_PAGE_DESCRIPTION</td>
+	<td>//div[contains(@class,'basic-info')]//p[contains(.,'${key_successPageDescription}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

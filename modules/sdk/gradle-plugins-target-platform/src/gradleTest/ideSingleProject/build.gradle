@@ -1,0 +1,33 @@
+apply plugin: "com.liferay.target.platform.ide"
+apply plugin: "java"
+
+task runGradleTest
+
+dependencies {
+	compile group: "org.osgi", name: "org.osgi.service.component.annotations"
+
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom.compile.only", version: "7.2.1"
+}
+
+repositories {
+	maven {
+		url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+	}
+}
+
+runGradleTest {
+	doLast {
+		assert plugins.hasPlugin("com.liferay.target.platform")
+
+		Exception expectedException = null
+
+		try {
+			configurations["targetPlatform"]
+		}
+		catch (Exception e) {
+			expectedException = e
+		}
+
+		assert expectedException.message == "Configuration with name 'targetPlatform' not found."
+	}
+}

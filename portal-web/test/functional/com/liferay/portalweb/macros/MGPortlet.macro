@@ -1,0 +1,39 @@
+definition {
+
+	macro configureShowAllPG {
+		Portlet.gotoPortletOptions(
+			portletName = "Media Gallery",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		Pause(locator1 = "5000");
+
+		WaitForElementPresent(locator1 = "Checkbox#SHOW_ACTIONS_CHECKBOX");
+
+		Check(locator1 = "Checkbox#SHOW_ACTIONS_CHECKBOX");
+
+		PortletEntry.save();
+	}
+
+	macro viewCustomADTCarouselPG {
+		AssertElementPresent(locator1 = "MediaGallery#ADT_CAROUSEL_ITEM");
+
+		AssertElementPresent(locator1 = "MediaGallery#ADT_CAROUSEL_PLAY_PAUSE");
+
+		AssertElementPresent(locator1 = "MediaGallery#ADT_CAROUSEL_PREVIOUS_ARROW");
+
+		AssertElementPresent(locator1 = "MediaGallery#ADT_CAROUSEL_NEXT_ARROW");
+
+		AssertElementPresent(locator1 = "MediaGallery#ADT_CAROUSEL_MENU_INDEX");
+	}
+
+	macro viewShowAllPG {
+		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
+
+		for (var menuItem : list "Permissions,Multiple Media,Add Shortcut,Access from Desktop") {
+			MenuItem.viewPresent(menuItem = "${menuItem}");
+		}
+	}
+
+}

@@ -1,0 +1,7 @@
+Bundle-Name: Liferay Frontend Editor API
+Bundle-SymbolicName: com.liferay.frontend.editor.api
+Bundle-Version: 6.0.0
+Export-Package:\
+	com.liferay.frontend.editor,\
+	com.liferay.frontend.editor.embed,\
+	com.liferay.frontend.editor.embed.constants

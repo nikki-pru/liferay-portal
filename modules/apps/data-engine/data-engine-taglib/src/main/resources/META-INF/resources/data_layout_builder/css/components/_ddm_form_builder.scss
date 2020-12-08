@@ -1,0 +1,132 @@
+.data-engine-form-builder {
+	> .sheet {
+		margin-top: 0;
+		padding: 0;
+	}
+
+	&.ddm-form-builder {
+		transition: padding ease 0.5s;
+
+		&--sidebar-open {
+			padding-left: 0;
+			padding-right: $sidebarMainWidth + $sidebarMiniWidth;
+		}
+
+		.col-ddm {
+			padding: 0 1px;
+		}
+
+		.ddm-field-types-fieldset__nested {
+			margin: 0;
+			padding: 0;
+
+			&__nested-separator,
+			.text-uppercase {
+				padding: 0;
+			}
+
+			.fields-group,
+			.fields-group.hovered {
+				margin-left: 12px;
+				width: calc(100% - 12px);
+			}
+		}
+	}
+
+	.ddm-form-builder {
+		&.container {
+			padding: 0 21px;
+		}
+
+		.ddm-drag {
+			padding: 2px 0 6px;
+
+			&.dragging {
+				background-color: #fff;
+				padding: 2px 6px 6px !important;
+			}
+		}
+
+		.ddm-field-container {
+			margin: 0;
+			padding: 0 6px;
+
+			&.fields-group,
+			&.fields-group .ddm-drag.dragging {
+				padding: 0 10px !important;
+			}
+
+			&.dragging {
+				background-color: transparent;
+				border-radius: 4px;
+			}
+
+			&,
+			&.dragging.hovered,
+			&.dragging.selected {
+				border-radius: 0 4px 4px;
+			}
+
+			&.hovered {
+				border-width: 2px;
+				margin: 0;
+			}
+		}
+
+		.placeholder.row .ddm-target {
+			&.targetOver,
+			&.target-over {
+				background-color: transparent;
+				border: 0 none;
+				border-radius: unset;
+			}
+
+			&.targetOver:after,
+			&.target-over:after {
+				background-color: #0b5fff;
+				border-radius: 2px;
+				bottom: 0;
+				content: '';
+				height: 2px;
+				margin: auto;
+				position: absolute;
+				top: 0;
+				width: calc(100% - 4px);
+			}
+		}
+	}
+
+	.ddm-empty-page {
+		margin: 24px !important;
+		width: calc(100% - #{24px * 2}) !important;
+	}
+
+	.form-builder-layout {
+		padding: 0 !important;
+
+		.ddm-form-page > .row {
+			margin: 0;
+		}
+	}
+
+	.lfr-ddm-form-container > .horizontal-line {
+		display: none;
+	}
+
+	.lfr-initial-col {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+}
+
+.data-engine-form-builder-messages {
+	transition: padding ease 0.5s;
+
+	&--collapsed {
+		padding-right: $sidebarMainWidth + $sidebarMiniWidth;
+	}
+
+	.alert {
+		z-index: 1000;
+	}
+}

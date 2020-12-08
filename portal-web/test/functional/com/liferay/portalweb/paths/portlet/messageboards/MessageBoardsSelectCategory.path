@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>MessageBoardsSelectCategory</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MessageBoardsSelectCategory</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>IFRAME</td>
+	<td>//iframe[contains(@id,'selectCategory_iframe')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CATEGORY_TABLE-->
+<tr>
+	<td>CATEGORY_TABLE_SELECT_BUTTON_2</td>
+	<td>xpath=(//div[contains(@id,'mbCategoriesSearchContainer')]//tr/td[5]//button)[2]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

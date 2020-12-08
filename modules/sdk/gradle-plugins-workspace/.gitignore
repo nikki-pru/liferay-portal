@@ -1,0 +1,4 @@
+!/lib/
+/lib/*
+!/lib/com.liferay.workspace.bundle.url.codec-1.0.0.jar
+/src/gradleTest/distBundleZip/plugins-sdk

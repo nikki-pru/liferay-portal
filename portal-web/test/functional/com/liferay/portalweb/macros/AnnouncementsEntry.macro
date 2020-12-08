@@ -1,0 +1,285 @@
+definition {
+
+	macro addEntryWithFutureDate {
+		AssertClick(
+			locator1 = "Button#ADD_ANNOUNCEMENT",
+			value1 = "Add Announcement");
+
+		AssertElementPresent(locator1 = "TextInput#TITLE");
+
+		Type(
+			locator1 = "TextInput#TITLE",
+			value1 = "${entryTitle}");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+
+		KeyPress(
+			locator1 = "CKEditor#BODY",
+			value1 = "${entryContent}");
+
+		SelectFrame(value1 = "relative=top");
+
+		Panel.expandPanel(panel = "Configuration");
+
+		Select(
+			locator1 = "AnnouncementsManageEntries#DISTRIBUTION_SCOPE_SELECT",
+			value1 = "${distributionScope}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${entryURL}");
+
+		ScrollWebElementIntoView(locator1 = "Button#SAVE");
+
+		Uncheck(locator1 = "Checkbox#DISPLAY_IMMEDIATELY");
+
+		var displayDateHour = selenium.getAttribute("//input[contains(@id,'displayDateHour')]@value");
+		var displayDateHourLength = StringUtil.length("${displayDateHour}");
+
+		if ("${displayDateHourLength}" == "1") {
+			var displayDateHour = "0${displayDateHour}";
+		}
+
+		var displayDateAMPM = selenium.getAttribute("//input[contains(@id,'displayDateAmPm')]@value");
+		var displayDateAMPM = StringUtil.replace("${displayDateAMPM}", "0", "AM");
+		var displayDateAMPM = StringUtil.replace("${displayDateAMPM}", "1", "PM");
+		var displayDateMinute = selenium.getAttribute("//input[contains(@id,'displayDateMinute')]@value");
+		var displayDateMinuteFuture = ${displayDateMinute} + 2;
+		var displayDateMinuteFutureLength = StringUtil.length("${displayDateMinuteFuture}");
+
+		if ("${displayDateMinuteFutureLength}" == "1") {
+			var displayDateMinuteFuture = "0${displayDateMinuteFuture}";
+		}
+
+		var displayDate = "${displayDateHour}:${displayDateMinuteFuture} ${displayDateAMPM}";
+
+		Type(
+			locator1 = "TextInput#DISPLAY_DATE_TIME",
+			value1 = "${displayDate}");
+
+		Button.clickSave();
+	}
+
+	macro addPG {
+		AssertClick(
+			locator1 = "Button#ADD_ANNOUNCEMENT",
+			value1 = "Add Announcement");
+
+		AssertElementPresent(locator1 = "TextInput#TITLE");
+
+		Type(
+			locator1 = "TextInput#TITLE",
+			value1 = "${entryTitle}");
+
+		CKEditor.addContent(content = "${entryContent}");
+
+		Panel.expandPanel(panel = "Configuration");
+
+		Select(
+			locator1 = "AnnouncementsManageEntries#DISTRIBUTION_SCOPE_SELECT",
+			value1 = "${distributionScope}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${entryURL}");
+
+		if (isSet(priority)) {
+			Select(
+				locator1 = "Announcements#PRIORITY_SELECT",
+				value1 = "${priority}");
+		}
+
+		if (isSet(expirationDate)) {
+			ScrollWebElementIntoView(locator1 = "Button#SAVE");
+
+			Type(
+				locator1 = "TextInput#EXPIRATION_DATE",
+				value1 = "${expirationDate}");
+
+			Button.clickSave();
+		}
+
+		if (isSet(pastDate)) {
+			Alert.viewRequestFailedToComplete();
+		}
+		else {
+			PortletEntry.save();
+		}
+	}
+
+	macro deletePG {
+		var key_distributionScope = "${distributionScope}";
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_TITLE",
+			value1 = "${entryTitle}");
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_SCOPE",
+			value1 = "${distributionScope}");
+
+		var key_entryContent = "${entryContent}";
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_CONTENT",
+			value1 = "${entryContent}");
+
+		LexiconEntry.gotoEllipsisMenuItemNoError(menuItem = "Delete");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		AssertTextNotPresent(value1 = "${entryTitle}");
+
+		AssertTextNotPresent(value1 = "${entryContent}");
+	}
+
+	macro editPG {
+		var key_distributionScope = "${distributionScope}";
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_TITLE",
+			value1 = "${entryTitle}");
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_SCOPE",
+			value1 = "${distributionScope}");
+
+		AssertTextEquals(
+			key_entryContent = "${entryContent}",
+			locator1 = "Announcements#CARD_VIEW_ENTRY_CONTENT",
+			value1 = "${entryContent}");
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Edit");
+
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "${entryTitle}");
+
+		Type(
+			locator1 = "TextInput#TITLE",
+			value1 = "${entryTitleEdit}");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+
+		Type(
+			locator1 = "CKEditor#BODY",
+			value1 = "${entryContentEdit}");
+
+		SelectFrame(value1 = "relative=top");
+
+		Panel.expandPanel(panel = "Configuration");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${entryURLEdit}");
+
+		Button.clickSave();
+	}
+
+	macro markAsReadPG {
+		var key_entryContent = "${entryContent}";
+
+		AssertVisible(locator1 = "Announcements#CARD_VIEW_ENTRY_CONTENT");
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Mark as Read");
+
+		AssertElementNotPresent(locator1 = "Announcements#CARD_VIEW_ENTRY_CONTENT");
+	}
+
+	macro tearDownPG {
+		Click(locator1 = "Announcements#NAVIGATION_MANAGE_ENTRIES");
+
+		Select(
+			locator1 = "AnnouncementsManageEntries#DISTRIBUTION_SCOPE_SELECT",
+			value1 = "General");
+
+		while (IsElementPresent(locator1 = "AnnouncementsManageEntries#ENTRY_TABLE_ACTIONS_GENERIC")) {
+			Click(locator1 = "AnnouncementsManageEntries#ENTRY_TABLE_ACTIONS_GENERIC");
+
+			MenuItem.clickNoError(menuItem = "Delete");
+
+			AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+		}
+	}
+
+	macro viewDeletePG {
+		AssertTextNotPresent(value1 = "${entryTitle}");
+
+		AssertTextNotPresent(value1 = "${entryContent}");
+	}
+
+	macro viewList {
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextEquals(
+			locator1 = "Blogs#ENTRY_TABLE_TITLE",
+			value1 = "${entryTitle}");
+
+		AssertTextEquals(
+			locator1 = "Blogs#ENTRY_TABLE_AUTHOR",
+			value1 = "${distributionScope}");
+	}
+
+	macro viewNoPG {
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextNotPresent(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_TITLE",
+			value1 = "${entryTitle}");
+	}
+
+	macro viewPG {
+		var key_distributionScope = "${distributionScope}";
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_TITLE",
+			value1 = "${entryTitle}");
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_SCOPE",
+			value1 = "${distributionScope}");
+
+		var key_entryContent = "${entryContent}";
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_CONTENT",
+			value1 = "${entryContent}");
+	}
+
+	macro viewReadPG {
+		Click(
+			locator1 = "Announcements#NAVIGATION_ENTRIES_READ",
+			value1 = "Read");
+
+		AnnouncementsEntry.viewPG(
+			announcementType = "${announcementType}",
+			distributionScope = "${distributionScope}",
+			entryContent = "${entryContent}",
+			entryTitle = "${entryTitle}",
+			key_distributionScope = "${distributionScope}",
+			key_entryTitle = "${entryTitle}");
+	}
+
+	macro viewViaEntriesPG {
+		var key_distributionScope = "${distributionScope}";
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_TITLE",
+			value1 = "${entryTitle}");
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_SCOPE",
+			value1 = "${distributionScope}");
+
+		var key_entryContent = "${entryContent}";
+
+		AssertTextEquals(
+			locator1 = "Announcements#CARD_VIEW_ENTRY_CONTENT",
+			value1 = "${entryContent}");
+	}
+
+}

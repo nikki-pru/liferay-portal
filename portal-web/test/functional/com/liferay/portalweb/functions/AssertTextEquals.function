@@ -1,0 +1,87 @@
+@default = "assertTextEquals"
+@summary = "Assert that '${locator1}' equals the value '${value1}'"
+definition {
+
+	@summary = "Assert that '${locator1}' contains the value '${value1}'"
+	function assertPartialText {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForPartialTextCaseInsensitive();
+
+		selenium.assertPartialTextCaseInsensitive();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertPartialTextAceEditor {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForPartialTextAceEditor();
+
+		selenium.assertPartialTextAceEditor();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertText {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForTextCaseInsensitive();
+
+		selenium.assertTextCaseInsensitive();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertTextCaseSensitive {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForText();
+
+		selenium.assertText();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertTextEquals {
+		WaitForSPARefresh();
+
+		if (contains("${locator1}", "/input")) {
+			AssertTextEquals.assertValue();
+		}
+		else {
+			AssertTextEquals.assertText();
+		}
+	}
+
+	function assertValue {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForValue();
+
+		selenium.assertValue();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

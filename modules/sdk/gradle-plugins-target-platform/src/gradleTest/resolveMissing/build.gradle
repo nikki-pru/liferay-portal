@@ -1,0 +1,69 @@
+buildscript {
+	dependencies {
+		classpath(group: "com.liferay", name: "com.liferay.gradle.plugins", version: "13.0.2") {
+			exclude group: "biz.aQute.bnd", module: "biz.aQute.bnd"
+			exclude group: "com.liferay", module: "com.liferay.gradle.util"
+		}
+	}
+
+	repositories {
+		File dir = rootProject.projectDir
+
+		while (dir != null) {
+			File tmpMavenRepositoryDir = new File(dir, ".m2-tmp")
+
+			if (tmpMavenRepositoryDir.exists()) {
+				maven {
+					url tmpMavenRepositoryDir
+				}
+			}
+
+			dir = dir.getParentFile();
+		}
+
+		maven {
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+apply plugin: "com.liferay.plugin"
+apply plugin: "com.liferay.target.platform"
+
+task runGradleTest
+
+dependencies {
+	compileOnly group: "com.google.guava", name: "guava", version: "23.0"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib"
+	compileOnly group: "javax.portlet", name: "portlet-api"
+	compileOnly group: "jstl", name: "jstl"
+	compileOnly group: "org.apache.felix", name: "org.apache.felix.http.servlet-api", version: "1.1.2"
+	compileOnly group: "org.osgi", name: "osgi.cmpn"
+
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom", version: "7.2.1"
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom.compile.only", version: "7.2.1"
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom.third.party", version: "7.2.1"
+
+	targetPlatformDistro group: "com.liferay.portal", name: "release.portal.distro", version: "7.2.1"
+}
+
+repositories {
+	maven {
+		url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+	}
+}
+
+runGradleTest {
+	doLast {
+		Task resolveTask = tasks["resolve"]
+
+		try {
+			resolveTask.execute()
+		}
+		catch (Exception e) {
+		}
+
+		assert resolveTask.runBundles.isEmpty()
+	}
+}

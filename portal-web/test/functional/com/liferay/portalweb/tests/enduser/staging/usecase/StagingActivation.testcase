@@ -1,0 +1,120 @@
+@component-name = "portal-staging"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Staging";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONGroup.addGroup(groupName = "Site Name");
+
+		SitePages.openPagesAdmin(siteURLKey = "Site Name");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			JSONGroup.deleteGroupByName(groupName = "Site Name");
+		}
+	}
+
+	@priority = "4"
+	test CheckPublicationSummaryLocal {
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Staging Test Page");
+
+		Staging.openStagingAdmin(siteURLKey = "site-name");
+
+		Staging.activateStagingCP(siteName = "Site Name");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Site Name-staging",
+			layoutName = "Staging Test Page",
+			site = "false",
+			widgetName = "Documents and Media");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive(publicationName = "summCheck");
+
+		Staging.openStagingAdmin(siteURLKey = "site-name-staging");
+
+		Staging.viewPublicationSummary(
+			dateRestrictionOption = "From Last Publish Date",
+			deletions = "true",
+			pagesOption = "Public Pages",
+			permissions = "true",
+			publicationTitle = "summCheck");
+	}
+
+	@priority = "4"
+	test CheckPublicationSummaryRemote {
+		property app.server.bundles.size = "1";
+		property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
+		property databases.size = "1";
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "StagingActivation#CheckPublicationSummaryRemote";
+
+		Staging.remoteStagingSetUp(
+			remotePort = "9080",
+			remoteStaging = "true",
+			siteName = "Site Name");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Staging Test Page");
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive(
+			publicationName = "summCheck",
+			remoteStaging = "true");
+
+		Staging.openStagingAdmin(siteURLKey = "site-name");
+
+		Staging.viewPublicationSummary(publicationTitle = "summCheck");
+	}
+
+	@priority = "4"
+	test DeleteRecycleBinOnStagingActivation {
+		property portal.acceptance = "true";
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name");
+
+		WebContent.addArticleCP(
+			webContentContent = "Web Content Content",
+			webContentTitle = "Web Content Title");
+
+		WebContent.moveToRecycleBinCP(webContentTitle = "Web Content Title");
+
+		Staging.openStagingAdmin(siteURLKey = "site-name");
+
+		Staging.activateStagingCP(
+			recycleBinNotification = "true",
+			siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Recycle Bin",
+			portlet = "Recycle Bin");
+
+		RecycleBin.viewDefaultCP(assetName = "Web Content Title");
+	}
+
+}

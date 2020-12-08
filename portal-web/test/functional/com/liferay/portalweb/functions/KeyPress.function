@@ -1,0 +1,68 @@
+@default = "keyPress"
+definition {
+
+	function keyDown {
+		WaitForSPARefresh();
+
+		selenium.mouseOver();
+
+		selenium.keyDown();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function keyPress {
+		WaitForSPARefresh();
+
+		selenium.mouseOver();
+
+		selenium.keyPress();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function keyPressCKEditorWaitForCKEditor {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible(
+			"//a[contains(@class,'cke_button__source') and contains(@class,'cke_button_off')]"
+		);
+
+		selenium.pause("1000");
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.keyPress();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function keyPressNoError {
+		WaitForSPARefresh();
+
+		selenium.mouseOver();
+
+		selenium.keyPress();
+	}
+
+	function keyUp {
+		WaitForSPARefresh();
+
+		selenium.mouseOver();
+
+		selenium.keyUp();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

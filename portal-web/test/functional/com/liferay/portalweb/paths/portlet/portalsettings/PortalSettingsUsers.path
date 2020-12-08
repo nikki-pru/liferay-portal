@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>PortalSettingsUsers</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">PortalSettingsUsers</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>APPLY_TO_EXISTING_USERS_CHECKBOX</td>
+	<td>//input[contains(@id,'admin-sync-default-associations')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--RESERVED_CREDENTIALS-->
+<tr>
+	<td>RESERVED_CREDENTIALS_SCREEN_NAMES_HEADER</td>
+	<td>//label[contains(@for,'admin-reserved-screen-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESERVED_CREDENTIALS_SCREEN_NAMES_FIELD</td>
+	<td>//textarea[contains(@id,'admin-reserved-screen-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESERVED_CREDENTIALS_EMAIL_ADDRESSES_HEADER</td>
+	<td>//label[contains(@for,'admin-reserved-email-addresses')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESERVED_CREDENTIALS_EMAIL_ADDRESSES_FIELD</td>
+	<td>//textarea[contains(@id,'admin-reserved-email-addresses')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DEFAULT_USER_ASSOCIATIONS-->
+<tr>
+	<td>DEFAULT_USER_ASSOCIATIONS_SITES_HEADER</td>
+	<td>//label[contains(@for,'admin-default-group-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DEFAULT_USER_ASSOCIATIONS_SITES_FIELD</td>
+	<td>//textarea[contains(@id,'admin-default-group-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DEFAULT_USER_ASSOCIATIONS_ORGANIZATION_SITES_HEADER</td>
+	<td>//label[contains(@for,'admin-default-organization-group-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DEFAULT_USER_ASSOCIATIONS_ORGANIZATION_SITES_FIELD</td>
+	<td>//textarea[contains(@id,'admin-default-organization-group-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DEFAULT_USER_ASSOCIATIONS_ROLES_HEADER</td>
+	<td>//label[contains(@for,'admin-default-role-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DEFAULT_USER_ASSOCIATIONS_ROLES_FIELD</td>
+	<td>//textarea[contains(@id,'admin-default-role-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DEFAULT_USER_ASSOCIATIONS_USER_GROUPS_HEADER</td>
+	<td>//label[contains(@for,'admin-default-user-group-names')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DEFAULT_USER_ASSOCIATIONS_USER_GROUPS_FIELD</td>
+	<td>//textarea[contains(@id,'admin-default-user-group-names')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

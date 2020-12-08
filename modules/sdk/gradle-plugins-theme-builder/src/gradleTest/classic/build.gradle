@@ -1,0 +1,79 @@
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+
+apply plugin: "com.liferay.portal.tools.theme.builder"
+
+task runGradleTest
+
+buildTheme {
+	parentName = "classic"
+}
+
+dependencies {
+	cssBuilder group: "com.liferay", name: "com.liferay.css.builder", version: "3.0.2"
+}
+
+repositories {
+	File dir = rootProject.projectDir
+
+	while (dir != null) {
+		File tmpMavenRepositoryDir = new File(dir, ".m2-tmp")
+
+		if (tmpMavenRepositoryDir.exists()) {
+			maven {
+				url tmpMavenRepositoryDir
+			}
+		}
+
+		dir = dir.getParentFile();
+	}
+
+	maven {
+		url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+	}
+}
+
+runGradleTest {
+	dependsOn war
+
+	doLast {
+		ZipFile zipFile = new ZipFile(war.archivePath)
+
+		String[] expectedFileNames = [
+			"WEB-INF/liferay-look-and-feel.xml",
+			"css/clay.css",
+			"css/clay_rtl.css",
+			"css/main.css",
+			"css/main_rtl.css",
+			"fonts/opensans-regular-webfont.woff",
+			"fonts/opensans-regular-webfont.woff2",
+			"images/screenshot.png",
+			"images/thumbnail.png",
+			"js/main.js",
+			"templates/init.ftl"
+		]
+
+		String[] unexpectedFileNames = [
+			"css/_custom.scss",
+			"templates/init.vm"
+		]
+
+		zipFile.withCloseable {
+			for (String fileName in expectedFileNames) {
+				assert zipFile.getEntry(fileName) != null
+			}
+
+			for (String fileName in unexpectedFileNames) {
+				assert zipFile.getEntry(fileName) == null
+			}
+
+			ZipEntry zipEntry = zipFile.getEntry("WEB-INF/liferay-look-and-feel.xml")
+
+			InputStream inputStream = zipFile.getInputStream(zipEntry)
+
+			inputStream.withStream {
+				assert it.text.contains('<theme id="classic" name="Classic">')
+			}
+		}
+	}
+}

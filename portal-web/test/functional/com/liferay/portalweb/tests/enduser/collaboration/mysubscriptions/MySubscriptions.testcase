@@ -1,0 +1,74 @@
+@component-name = "portal-collaboration"
+definition {
+
+	property custom.properties = "default.layout.template.id=1_column";
+	property osgi.app.includes = "my-subscriptions";
+	property plugins.deployment.type = "osgi";
+	property portal.release = "false";
+	property portal.upstream = "true";
+	property test.assert.warning.exceptions = "true";
+	property testray.main.component.name = "My Subscriptions";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(
+			pageName = "My Subscriptions Page",
+			sitePageType = "Widget Page");
+
+		Navigator.gotoPage(pageName = "My Subscriptions Page");
+
+		Portlet.addPG(portletName = "My Subscriptions");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			Page.tearDownCP();
+		}
+	}
+
+	test SubscribeAndUnsubscribetoBookmarksRootFolder {
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(
+			pageName = "Bookmarks Page",
+			sitePageType = "Widget Page");
+
+		Navigator.gotoPage(pageName = "Bookmarks Page");
+
+		Portlet.addPG(portletName = "Bookmarks");
+
+		Subscriptions.subscribeViaInfoPanelPG();
+
+		Navigator.gotoPage(pageName = "My Subscriptions Page");
+
+		Subscriptions.viewSubscription(
+			assetName = "Bookmarks Folder",
+			assetTitle = "Home",
+			assetType = "Bookmarks Folder");
+
+		Subscriptions.unsubscribeViaMySubscriptions(rowNumber = "1");
+
+		Navigator.gotoPage(pageName = "My Subscriptions Page");
+
+		Subscriptions.viewDefaultPG();
+
+		Navigator.gotoPage(pageName = "Bookmarks Page");
+
+		Subscriptions.viewUnsubscribedViaInfoPanel();
+	}
+
+}

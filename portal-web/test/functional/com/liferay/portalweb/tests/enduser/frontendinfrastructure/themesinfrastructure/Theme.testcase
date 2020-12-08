@@ -1,0 +1,371 @@
+@component-name = "portal-frontend-infrastructure"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Theme";
+	property testray.main.component.name = "Theme";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+
+		Page.changeSinglePageTheme(
+			pageName = "Home",
+			tabName = "Look and Feel",
+			themeName = "Classic");
+
+		Navigator.gotoBack();
+
+		Button.clickPublish();
+	}
+
+	@priority = "5"
+	test ActivateStagingForSiteWithTheme {
+		property test.name.skip.portal.instance = "Theme#ActivateStagingForSiteWithTheme";
+
+		FileInstall.deployFileOnServer(liferayDependencyJars = "test-theme.war");
+
+		WaitForConsoleTextPresent(value1 = "STARTED test-theme");
+
+		User.firstLoginPG();
+
+		Page.changeSinglePageTheme(themeName = "test-theme-7-4");
+
+		Navigator.gotoBack();
+
+		Button.clickPublish();
+
+		Staging.openStagingAdmin(siteURLKey = "guest");
+
+		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+
+		Staging.activateStagingCP(
+			pageVersioningEnabled = "true",
+			siteName = "${siteName}");
+
+		Navigator.openStagingSiteURL(defaultSite = "true");
+
+		SikuliAssertElementPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		// Workaround for LPS-110206
+
+		//AssertCssValue(
+		//	locator1 = "//body",
+		//	locator2 = "background-color",
+		//	value1 = "rgba(255, 165, 0, 1)");
+
+		takeScreenshot();
+
+		Navigator.openURL();
+
+		SikuliAssertElementPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		AssertCssValue(
+			locator1 = "//body",
+			locator2 = "background-color",
+			value1 = "rgba(255, 165, 0, 1)");
+
+		takeScreenshot();
+	}
+
+	@description = "This test validates that a theme can be applied to a single page."
+	@priority = "5"
+	test ApplyThemeToSinglePage {
+		property test.name.skip.portal.instance = "Theme#ApplyThemeToSinglePage";
+
+		User.firstLoginPG();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "App Manager");
+
+		AppManager.uploadAppCP(
+			appName = "test-theme",
+			warFileName = "test-theme.war");
+
+		Navigator.openURL();
+
+		Page.changeSinglePageTheme(themeName = "test-theme-7-4");
+
+		Navigator.gotoBack();
+
+		Button.clickPublish();
+
+		ProductMenuHelper.closeProductMenu();
+
+		SikuliAssertElementPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		takeScreenshot();
+	}
+
+	@priority = "5"
+	test DeactivateAndReactivateTheme {
+		property test.name.skip.portal.instance = "Theme#DeactivateAndReactivateTheme";
+
+		var appName = "test-theme";
+
+		User.firstLoginPG();
+
+		FileInstall.deployFileOnServer(liferayDependencyJars = "${appName}.war");
+
+		WaitForConsoleTextPresent(value1 = "STARTED ${appName}");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Theme Test Page");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		Page.changeCurrentTheme(
+			pageName = "Theme Test Page",
+			themeName = "test-theme-7-4");
+
+		Navigator.openSitePage(
+			pageName = "Theme Test Page",
+			siteName = "Guest");
+
+		SikuliAssertElementPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "App Manager");
+
+		Search.searchCP(searchTerm = "${appName}");
+
+		AppManager.deactivateAppCP(appName = "${appName}");
+
+		AssertConsoleTextPresent(value1 = "STOPPED test-theme_1.0.0");
+
+		Navigator.openSitePage(
+			pageName = "Theme Test Page",
+			siteName = "Guest");
+
+		AssertConsoleTextPresent(value1 = "No theme found for specified theme id testtheme74_WAR_testtheme. Returning the default theme.");
+
+		SikuliAssertElementNotPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		takeScreenshot();
+
+		Page.viewCurrentTheme(
+			page = "Public Pages",
+			pageName = "Theme Test Page",
+			themeName = "Classic");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "App Manager");
+
+		Search.searchCP(searchTerm = "${appName}");
+
+		AppManager.activateAppCP(appName = "${appName}");
+
+		Navigator.openSitePage(
+			pageName = "Theme Test Page",
+			siteName = "Guest");
+
+		SikuliAssertElementPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		takeScreenshot();
+
+		Page.viewCurrentTheme(
+			page = "Public Pages",
+			pageName = "Theme Test Page",
+			themeName = "test-theme-7-4");
+	}
+
+	@priority = "5"
+	test PublishThemeFromStagedToLive {
+		property test.name.skip.portal.instance = "Theme#PublishThemeFromStagedToLive";
+
+		FileInstall.deployFileOnServer(liferayDependencyJars = "test-theme.war");
+
+		WaitForConsoleTextPresent(value1 = "STARTED test-theme");
+
+		User.firstLoginPG();
+
+		Staging.openStagingAdmin(siteURLKey = "guest");
+
+		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+
+		Staging.activateStagingCP(
+			pageVersioningEnabled = "true",
+			siteName = "${siteName}");
+
+		Navigator.openStagingSiteURL(defaultSite = "true");
+
+		Page.changeSinglePageTheme(themeName = "test-theme-7-4");
+
+		Navigator.gotoBack();
+
+		Button.clickPublish();
+
+		SikuliAssertElementPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		// Workaround for LPS-110206
+
+		//AssertCssValue(
+		//	locator1 = "//body",
+		//	locator2 = "background-color",
+		//	value1 = "rgba(255, 165, 0, 1)");
+
+		takeScreenshot();
+
+		Navigator.openURL();
+
+		SikuliAssertElementNotPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		AssertCssValue(
+			locator1 = "//body",
+			locator2 = "background-color",
+			value1 = "rgba(255, 255, 255, 1)");
+
+		takeScreenshot();
+
+		Navigator.openStagingSiteURL(defaultSite = "true");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		Navigator.openURL();
+
+		SikuliAssertElementPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		AssertCssValue(
+			locator1 = "//body",
+			locator2 = "background-color",
+			value1 = "rgba(255, 165, 0, 1)");
+
+		takeScreenshot();
+	}
+
+	@priority = "5"
+	test StartPortalWithoutClassicTheme {
+		property skip.start-app-server = "true";
+		property test.name.skip.portal.instance = "Theme#StartPortalWithoutClassicTheme";
+
+		AntCommand(
+			locator1 = "build-test.xml",
+			value1 = "delete-portal-theme -Dtheme-name=classic-theme");
+
+		FileInstall.deployFileOnServer(liferayDependencyJars = "test-theme.war");
+
+		Portlet.startServer(deleteLiferayHome = "false");
+
+		Navigator.openURL();
+
+		AssertConsoleTextPresent(value1 = "No theme found for specified theme id classic_WAR_classictheme. Returning the default theme.");
+
+		AssertConsoleTextNotPresent(value1 = "java.lang.NullPointerException");
+
+		AssertHTMLSourceTextPresent(value1 = "-theme/images/favicon.ico");
+
+		AssertHTMLSourceTextNotPresent(value1 = "classic-theme/images/favicon.ico");
+
+		Portlet.viewTitle(portletName = "Hello World");
+
+		takeScreenshot();
+	}
+
+	@priority = "5"
+	test UninstallAndRedeployTheme {
+		property test.name.skip.portal.instance = "Theme#UninstallAndRedeployTheme";
+
+		var appName = "test-theme";
+
+		User.firstLoginPG();
+
+		FileInstall.deployFileOnServer(liferayDependencyJars = "${appName}.war");
+
+		WaitForConsoleTextPresent(value1 = "STARTED ${appName}");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Theme Test Page");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		Page.changeCurrentTheme(
+			pageName = "Theme Test Page",
+			themeName = "test-theme-7-4");
+
+		Navigator.openSitePage(
+			pageName = "Theme Test Page",
+			siteName = "Guest");
+
+		SikuliAssertElementPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "App Manager");
+
+		Search.searchCP(searchTerm = "${appName}");
+
+		AppManager.uninstallAppCP(appName = "${appName}");
+
+		AssertConsoleTextPresent(value1 = "Stopping blacklisted bundle test-theme_1.0.0");
+
+		Navigator.openSitePage(
+			pageName = "Theme Test Page",
+			siteName = "Guest");
+
+		AssertConsoleTextPresent(value1 = "No theme found for specified theme id testtheme74_WAR_testtheme. Returning the default theme.");
+
+		SikuliAssertElementNotPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		takeScreenshot();
+
+		Page.viewCurrentTheme(
+			page = "Public Pages",
+			pageName = "Theme Test Page",
+			themeName = "Classic");
+
+		Click(locator1 = "SitePagesEditPage#CHANGE_CURRENT_THEME_BUTTON");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		LexiconCard.viewCardNotPresent(card = "test-theme-7-4");
+
+		FileInstall.deleteWarOffline(liferayDependencyWars = "test-theme.war");
+
+		FileInstall.deployFileOnServer(liferayDependencyJars = "${appName}.war");
+
+		Pause(locator1 = "30000");
+
+		Navigator.openSitePage(
+			pageName = "Theme Test Page",
+			siteName = "Guest");
+
+		SikuliAssertElementNotPresent(locator1 = "Theme#TEST_THEME_HOME_PAGE_PNG");
+
+		takeScreenshot();
+
+		Page.viewCurrentTheme(
+			page = "Public Pages",
+			pageName = "Theme Test Page",
+			themeName = "Classic");
+
+		Click(locator1 = "SitePagesEditPage#CHANGE_CURRENT_THEME_BUTTON");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		LexiconCard.viewCardNotPresent(card = "test-theme-7-4");
+	}
+
+}

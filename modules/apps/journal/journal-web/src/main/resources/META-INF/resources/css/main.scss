@@ -1,0 +1,282 @@
+@import 'atlas-variables';
+
+@import '../ddm_template_editor/components/App';
+
+$toolbarDesktopHeight: 4rem;
+$toolbarHeight: 6.875rem;
+$toolbarZIndex: 971;
+
+$controlMenuHeight: 56px;
+$sidebarHeaderHeight: 104px;
+
+$portletLayoutMargin: 35px;
+
+$productMenuTransitionDuration: 0.5s;
+$productMenuWidth: 320px;
+
+.portlet-journal {
+	.article-content-content {
+		word-wrap: break-word;
+
+		img,
+		.cke_widget_image {
+			max-width: 100%;
+
+			&[style*='float: left;'],
+			&[style*='float:left;'] {
+				margin-right: 24px;
+			}
+
+			&[style*='float: right;'],
+			&[style*='float:right;'] {
+				margin-left: 24px;
+			}
+
+			&[style*='float: left;'],
+			&[style*='float:left;'],
+			&[style*='float: right;'],
+			&[style*='float:right;'] {
+				margin-bottom: 24px;
+				margin-top: 24px;
+			}
+		}
+
+		.alloy-editor-container .alloy-editor-wrapper {
+			padding-top: 0;
+		}
+
+		.alloy-editor-switch {
+			margin-top: -40px;
+		}
+
+		.form-builder-field {
+			box-shadow: none;
+			margin: 0;
+			padding-bottom: 0;
+			padding-right: 0;
+		}
+
+		.input-localized.input-localized-editor .form-control {
+			border-width: 1px;
+			min-height: 2.5rem;
+			padding: 0.5rem 1rem;
+		}
+
+		.input-localized-content {
+			margin-bottom: 24px;
+		}
+
+		.lfr-ddm-field-group {
+			margin-bottom: 10px;
+			margin-top: 10px;
+			padding: 28px 24px;
+		}
+
+		.lfr-ddm-container > .lfr-ddm-field-group {
+			padding: 0;
+		}
+	}
+
+	.edit-article-form {
+		.component-tbar.tbar-article {
+			height: auto;
+			left: 0;
+			min-height: 3.5rem;
+			position: fixed;
+			transition: left ease $productMenuTransitionDuration,
+				width ease $productMenuTransitionDuration;
+			width: 100%;
+			z-index: $toolbarZIndex;
+
+			body.open & {
+				left: $productMenuWidth;
+				width: calc(100% - #{$productMenuWidth});
+
+				@media (max-width: 768px) {
+					left: 0;
+					width: 100%;
+				}
+			}
+
+			> .container-fluid {
+				padding: 0;
+
+				> .tbar-nav {
+					flex-wrap: wrap;
+
+					@include media-breakpoint-up(lg) {
+						flex-wrap: nowrap;
+					}
+
+					> .tbar-item {
+						padding: 0.5em;
+					}
+
+					> .tbar-item:first-child {
+						border-top: solid thin #e7e7ed;
+						order: 1;
+						width: 100%;
+					}
+
+					> .tbar-item:last-child {
+						flex-grow: 1;
+						padding-right: 1em;
+
+						> .tbar-section {
+							display: flex;
+							justify-content: flex-end;
+						}
+					}
+				}
+			}
+
+			.form-text {
+				display: none;
+			}
+
+			.input-localized {
+				flex-direction: row-reverse;
+
+				.form-validator-stack {
+					display: none;
+				}
+
+				.input-group-item {
+					order: 2;
+				}
+
+				.input-localized-content {
+					order: 1;
+					padding-right: 0.5rem;
+				}
+			}
+
+			.journal-article-button-row .btn-cancel {
+				border: 0;
+			}
+
+			@include media-breakpoint-up(lg) {
+				min-height: $toolbarDesktopHeight;
+
+				> .container-fluid > .tbar-nav {
+					> .tbar-item:first-child {
+						border-top: none;
+						order: 0;
+						width: auto;
+					}
+
+					> .tbar-item:last-child {
+						flex-grow: 0;
+					}
+				}
+
+				.input-localized {
+					flex-direction: row;
+				}
+			}
+		}
+
+		.contextual-sidebar-content {
+			margin-top: $toolbarHeight;
+
+			@include media-breakpoint-up(lg) {
+				margin-top: $toolbarDesktopHeight;
+			}
+
+			> .container-fluid {
+				max-height: calc(
+					100vh - #{$controlMenuHeight + $portletLayoutMargin} - #{$toolbarHeight}
+				);
+				overflow: auto;
+
+				@include media-breakpoint-up(lg) {
+					max-height: calc(
+						100vh - #{$controlMenuHeight + $portletLayoutMargin} - #{$toolbarDesktopHeight}
+					);
+				}
+
+				@include media-breakpoint-down(md) {
+					margin: 0 auto;
+					padding: 0;
+
+					> .sheet {
+						border: none;
+						border-radius: 0;
+					}
+				}
+			}
+
+			.sidebar-body {
+				@include media-breakpoint-down(lg) {
+					height: calc(
+						100vh - #{$controlMenuHeight +$sidebarHeaderHeight} - #{$toolbarHeight}
+					);
+				}
+			}
+		}
+
+		.edit-article-sidebar {
+			border-left: 1px #e7e7ed solid;
+			box-shadow: none;
+			margin-top: $toolbarHeight;
+			max-width: 90vw;
+			overflow-y: scroll;
+			padding-top: 0;
+			position: fixed;
+			top: auto;
+			width: $productMenuWidth;
+			z-index: 1;
+
+			@include media-breakpoint-up(lg) {
+				margin-top: $toolbarDesktopHeight;
+			}
+
+			.article-content-description {
+				@extend .article-content-content;
+
+				.language-value,
+				.input-localized-content {
+					margin-bottom: 0;
+				}
+
+				.alloy-editor-switch {
+					display: none;
+				}
+			}
+
+			.schedule {
+				.form-group-autofit {
+					margin-bottom: 16px;
+				}
+
+				.expiration-date,
+				.review-date {
+					.form-group-autofit {
+						margin-bottom: 8px;
+					}
+				}
+			}
+		}
+
+		.sidebar-body {
+			.panel {
+				margin-bottom: 0;
+			}
+
+			.panel-body {
+				margin-bottom: 16px;
+				padding: 0;
+
+				.article-default-language {
+					margin-bottom: 1rem;
+				}
+			}
+		}
+	}
+
+	.check-circle-center {
+		.green {
+			color: #008000;
+		}
+	}
+}

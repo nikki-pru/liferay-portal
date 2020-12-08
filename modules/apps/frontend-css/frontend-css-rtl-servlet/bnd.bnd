@@ -1,0 +1,10 @@
+Bundle-Name: Liferay Frontend CSS RTL Servlet
+Bundle-SymbolicName: com.liferay.frontend.css.rtl.servlet
+Bundle-Version: 5.0.0
+Import-Package:\
+	!org.junit,\
+	!org.junit.*,\
+	\
+	!org.omg.CORBA_2_3.*,\
+	\
+	*

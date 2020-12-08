@@ -1,0 +1,46 @@
+@default = "doubleClick"
+definition {
+
+	function doubleClick {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.doubleClick();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function doubleClickAt {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.doubleClickAt();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function javaScriptDoubleClick {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.javaScriptDoubleClick();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

@@ -1,0 +1,40 @@
+@default = "assertChecked"
+definition {
+
+	function assertChecked {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.assertChecked();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertCheckedHiddenToggleSwitch {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.assertChecked("xpath=(${locator1})/../../input");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertCheckedNotVisible {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.assertChecked();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

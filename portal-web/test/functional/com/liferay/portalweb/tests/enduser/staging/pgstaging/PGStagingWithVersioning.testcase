@@ -1,0 +1,133 @@
+@component-name = "portal-staging"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Staging";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONGroup.addGroup(groupName = "Site Name");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Staging Test Page");
+
+		Staging.openStagingAdmin(siteURLKey = "site-name");
+
+		Staging.activateStagingCP(
+			pageVersioningEnabled = "true",
+			siteName = "Site Name");
+
+		Navigator.openStagingSiteURL(siteName = "Site Name");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			JSONGroup.deleteGroupByName(groupName = "Site Name");
+		}
+	}
+
+	@priority = "4"
+	test AddEventRepeatDaily {
+		Staging.addRepeatEvent(
+			frequency = "Daily",
+			scheduleTitleName = "Event Daily Name",
+			siteName = "Site Name",
+			startOnTomorrow = "true");
+
+		Staging.viewRepeatingEventDetails(
+			endDate = "No End Date",
+			scheduleTitleName = "Event Daily Name",
+			siteName = "site-name-staging");
+	}
+
+	@priority = "5"
+	test AddPageVariation {
+		property portal.acceptance = "true";
+		property test.assert.warning.exceptions = "true";
+		property test.name.skip.portal.instance = "PGStagingWithVersioning#AddPageVariation";
+		property testray.component.names = "Training";
+
+		Staging.addPageVariationPG(pageVariationName = "Page Variation Name");
+
+		Navigator.openStagingSiteURL(siteName = "Site Name");
+
+		Staging.viewPageVariationPG(pageVariationName = "Page Variation Name");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Staging Test Page");
+
+		Page.addFriendlyURLLocalizedPG(
+			friendlyUrlLocalized = "de-DE",
+			localizedFriendlyURL = "/german");
+
+		PortletEntry.inputName(name = "German Staging Test Page");
+
+		Button.click(button = "Save");
+
+		Alert.viewSuccessMessage();
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Staging Test Page");
+
+		Page.viewPageFriendlyURLPG(
+			friendlyUrlLocalized = "de_DE",
+			pageName = "german");
+	}
+
+	@priority = "5"
+	test AddPageWithPageVersioningEnabled {
+		property portal.acceptance = "true";
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicPage(pageName = "Staging Page Versioning");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Page Versioning",
+			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Hello World");
+
+		Staging.markAsReadyForPublication();
+
+		Navigator.openStagingSiteURL(siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Page Versioning",
+			siteName = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Hello World");
+	}
+
+	@priority = "5"
+	test AddSitePagesVariation {
+		property portal.acceptance = "true";
+
+		Staging.addSitePagesVariationPG(sitePagesVariationName = "Site Pages Variation Name");
+
+		Navigator.openStagingSiteURL(siteName = "Site Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Site Pages Variation Name");
+	}
+
+}

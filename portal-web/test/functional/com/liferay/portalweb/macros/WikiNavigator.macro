@@ -1,0 +1,177 @@
+definition {
+
+	macro gotoAddPageViaPG {
+		Portlet.clickPortletPlusIconPG(portletName = "Wiki");
+
+		MenuItem.click(menuItem = "Add Page");
+	}
+
+	macro gotoAllPagesCP {
+		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		MenuItem.click(menuItem = "All Pages");
+	}
+
+	macro gotoAllPagesPG {
+		AssertClick(
+			locator1 = "WikiTable#NAVIGATION_ALL_PAGES",
+			value1 = "All Pages");
+
+		var key_tabName = "All Pages";
+
+		AssertElementPresent(locator1 = "WikiTable#NAVIGATION_ACTIVE_TAB");
+
+		AssertElementPresent(locator1 = "Portlet#H3_HEADER");
+
+		AssertTextEquals(
+			locator1 = "Portlet#H3_HEADER",
+			value1 = "All Pages");
+	}
+
+	macro gotoAllPagesPGViaWD {
+		AssertClick(
+			locator1 = "WikiTable#NAVIGATION_ALL_PAGES",
+			value1 = "All Pages");
+	}
+
+	macro gotoBodyLinkPG {
+		AssertClick(
+			locator1 = "WikiEntry#BODY_LINK",
+			value1 = "${wikiPageContent}");
+	}
+
+	macro gotoChangeParent {
+		AssertClick(
+			locator1 = "Wiki#PAGE_TABS_CHANGE_PARENT",
+			value1 = "Change Parent");
+	}
+
+	macro gotoChildPagePG {
+		var key_wikiChildPageTitle = "${wikiChildPageTitle}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Wiki#CHILD_PAGE_HEADER",
+			value1 = "Child Page");
+
+		AssertClick(
+			locator1 = "Wiki#CHILD_PAGE_TITLE",
+			value1 = "${wikiChildPageTitle}");
+	}
+
+	macro gotoCP {
+		Click.pauseClickAt(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		if ("${isOrphanPage}" == "true") {
+			MenuItem.click(menuItem = "Orphan Pages");
+		}
+		else {
+			MenuItem.click(menuItem = "All Pages");
+		}
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		LexiconList.clickListEntryTitle(listEntry = "${wikiPageTitle}");
+
+		AssertElementNotPresent(locator1 = "Button#PLUS");
+
+		AssertVisible(
+			locator1 = "Portlet#HEADER",
+			value1 = "${wikiPageTitle}");
+	}
+
+	macro gotoDraftPagesPG {
+		AssertClick(
+			locator1 = "WikiTable#NAVIGATION_DRAFT_PAGES",
+			value1 = "Draft Pages");
+	}
+
+	macro gotoEntryCopyViaPGTable {
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		Click(locator1 = "WikiTable#ALL_PAGES_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Copy");
+	}
+
+	macro gotoEntryEditViaPGTable {
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		Click(locator1 = "WikiTable#ALL_PAGES_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Edit");
+	}
+
+	macro gotoEntryMoveViaTable {
+		LexiconEntry.changeDisplayStyle(displayStyle = "table");
+
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		Click(locator1 = "WikiTable#ALL_PAGES_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Move");
+	}
+
+	macro gotoEntryViaPGTable {
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		AssertClick(
+			locator1 = "WikiTable#ALL_PAGES_WIKI_PAGE_TITLE",
+			value1 = "${wikiPageTitle}");
+	}
+
+	macro gotoFrontPagePG {
+		AssertClick(
+			locator1 = "WikiTable#NAVIGATION_FRONTPAGE",
+			value1 = "FrontPage");
+	}
+
+	macro gotoNode {
+		var key_wikiNodeName = "${wikiNodeName}";
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "table");
+
+		AssertTextEquals(
+			locator1 = "Wiki#NODE_TABLE_WIKI_NAME",
+			value1 = "${wikiNodeName}");
+
+		AssertClick(
+			locator1 = "Wiki#NODE_TABLE_WIKI_NAME",
+			value1 = "${wikiNodeName}");
+
+		AssertElementPresent(locator1 = "Dropdown#FILTER_AND_ORDER");
+	}
+
+	macro gotoPG {
+		if ("${isOrphanPage}" == "true") {
+			AssertClick(
+				locator1 = "WikiTable#NAVIGATION_ORPHAN_PAGES",
+				value1 = "Orphan Pages");
+		}
+		else {
+			WikiNavigator.gotoAllPagesPG();
+		}
+
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		AssertClick.assertTextClickAt(
+			locator1 = "WikiTable#ALL_PAGES_WIKI_PAGE_TITLE",
+			value1 = "${wikiPageTitle}");
+	}
+
+	macro gotoPGViaWD {
+		AssertClick(
+			locator1 = "WikiTable#NAVIGATION_ALL_PAGES",
+			value1 = "All Pages");
+
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		AssertClick(
+			locator1 = "WikiTable#ALL_PAGES_WIKI_PAGE_TITLE",
+			value1 = "${wikiPageTitle}");
+	}
+
+	macro openWikiAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_wiki_web_portlet_WikiAdminPortlet");
+	}
+
+}

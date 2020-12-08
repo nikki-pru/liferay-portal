@@ -1,0 +1,14 @@
+@default = "runScript"
+definition {
+
+	function runScript {
+		WaitForSPARefresh();
+
+		selenium.runScript();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

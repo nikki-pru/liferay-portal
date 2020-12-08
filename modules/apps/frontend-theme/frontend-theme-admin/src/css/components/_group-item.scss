@@ -1,0 +1,85 @@
+.list-group-card {
+	background-color: #fff;
+	border: 1px solid rgba(220, 220, 220, 0.5);
+	display: block;
+	margin-bottom: -1px;
+	padding: 0 10px;
+	position: relative;
+
+	.list-group {
+		flex-flow: row wrap;
+		margin-top: 16px;
+	}
+}
+
+.list-group-card-item {
+	display: block;
+	margin-top: 16px;
+	position: relative;
+	text-align: center;
+	width: 50%;
+	word-wrap: break-word;
+
+	@include media-breakpoint-up(md) {
+		width: 25%;
+	}
+
+	@include media-breakpoint-up(lg) {
+		width: 16.6%;
+	}
+
+	@include media-breakpoint-up(sm) {
+		width: 33.33%;
+	}
+
+	@include media-breakpoint-up(xl) {
+		width: 12.5%;
+	}
+
+	.controls-visible.open & {
+		@include media-breakpoint-up(md) {
+			width: 50%;
+		}
+
+		@include media-breakpoint-up(lg) {
+			width: 25%;
+		}
+
+		@include media-breakpoint-up(xl) {
+			width: 16.6%;
+		}
+	}
+
+	a {
+		color: $secondary;
+		display: block;
+		padding: 0.5rem;
+
+		&:hover,
+		&:active {
+			color: $dark;
+			text-decoration: none;
+
+			.list-group-card-item-text {
+				color: $dark;
+			}
+		}
+	}
+
+	.list-group-card-item-text {
+		color: $secondary;
+		display: block;
+		margin-top: 16px;
+	}
+
+	.lexicon-icon {
+		display: inline-block;
+		height: 24px;
+		width: 24px;
+	}
+}
+
+.list-group-item-flex > .autofit-col:first-of-type {
+	padding-left: 10px;
+	padding-right: 4px;
+}

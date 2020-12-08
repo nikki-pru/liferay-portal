@@ -1,0 +1,114 @@
+definition {
+
+	macro addCP {
+		LexiconEntry.gotoAdd();
+
+		Type(
+			locator1 = "TextInput#WEB_ID",
+			value1 = "${webId}");
+
+		Type(
+			locator1 = "TextInput#VIRTUAL_HOST",
+			value1 = "${virtualHost}");
+
+		Type(
+			locator1 = "TextInput#MAIL_DOMAIN",
+			value1 = "${mailDomain}");
+
+		if ("${maxUsers}" == "true") {
+			Type(
+				locator1 = "TextInput#MAX_USERS",
+				value1 = "${maxUserNumber}");
+		}
+
+		if ("${portalInstanceActive}" == "false") {
+			Uncheck(locator1 = "Checkbox#ACTIVE");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro deactivatePortalInstance {
+		var key_virtualHost = "${virtualHost}";
+
+		LexiconEntry.openEntryMenu(rowEntry = "${virtualHost}");
+
+		MenuItem.click(menuItem = "Edit");
+
+		Uncheck.uncheckToggleSwitch(locator1 = "Checkbox#ACTIVE");
+
+		Button.clickSave();
+
+		AssertTextEquals(
+			locator1 = "PortalInstances#INSTANCE_TABLE_ACTIVE",
+			value1 = "No");
+	}
+
+	macro deleteCP {
+		var key_virtualHost = "${virtualHost}";
+
+		AssertTextEquals(
+			locator1 = "PortalInstances#INSTANCE_TABLE_VIRTUAL_HOST",
+			value1 = "${virtualHost}");
+
+		LexiconEntry.openEntryMenu(rowEntry = "${virtualHost}");
+
+		MenuItem.clickNoError(menuItem = "Delete");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		Alert.viewSuccessMessage();
+
+		AssertTextNotPresent(
+			locator1 = "PortalInstances#INSTANCE_TABLE_VIRTUAL_HOST",
+			value1 = "${virtualHost}");
+	}
+
+	macro editCP {
+		var key_virtualHost = "${virtualHost}";
+
+		AssertTextEquals(
+			locator1 = "PortalInstances#INSTANCE_TABLE_VIRTUAL_HOST",
+			value1 = "${virtualHost}");
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Edit");
+
+		Type(
+			locator1 = "TextInput#MAIL_DOMAIN",
+			value1 = "${mailDomain}");
+
+		AssertClick(
+			locator1 = "Button#SAVE",
+			value1 = "Save");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro openVirtualInstancesAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_portal_instances_web_portlet_PortalInstancesPortlet");
+	}
+
+	@summary = "Clean up Portal Instances as part of standard teardown"
+	macro tearDownCP {
+		JSONUser.tearDownNonAdminUsers();
+
+		HeadlessPortalInstanceAPI.cleanAllPortalInstances();
+	}
+
+	macro viewCP {
+		var key_virtualHost = "${virtualHost}";
+
+		AssertTextEquals(
+			locator1 = "PortalInstances#INSTANCE_TABLE_WEB_ID",
+			value1 = "${virtualHost}");
+
+		AssertTextEquals(
+			locator1 = "PortalInstances#INSTANCE_TABLE_VIRTUAL_HOST",
+			value1 = "${virtualHost}");
+
+		AssertTextEquals(
+			locator1 = "PortalInstances#INSTANCE_TABLE_MAIL_DOMAIN",
+			value1 = "${virtualHost}");
+	}
+
+}

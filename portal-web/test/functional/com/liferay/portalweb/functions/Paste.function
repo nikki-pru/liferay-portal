@@ -1,0 +1,18 @@
+@default = "paste"
+definition {
+
+	function paste {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.paste();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

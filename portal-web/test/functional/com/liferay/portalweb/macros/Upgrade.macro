@@ -1,0 +1,3268 @@
+definition {
+
+	macro addAutoTaggedBlogsEntry {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "site-name");
+
+		Blogs.addEntry(
+			entryContent = "Alice's Adventures in Wonderland",
+			entryTitle = "Blogs Entry Title");
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/site-name/test-page");
+
+		AssertClick.assertTextClickAt(
+			key_entryTitle = "Blogs Entry Title",
+			locator1 = "BlogsEntry#TITLE_LINK",
+			value1 = "Blogs Entry Title");
+
+		BlogsEntry.viewAutoTag(
+			entryTitle = "Blogs Entry Title",
+			tagName = "adventures");
+	}
+
+	macro addAutoTaggedDM {
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "site-name");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentFile = "${dmDocumentFile}",
+			dmDocumentTitle = "${dmDocumentTitle}");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "site-name");
+
+		DMNavigator.gotoDocumentCP(dmDocumentTitle = "${dmDocumentTitle}");
+
+		DMDocument.viewCP(dmDocumentTitle = "${dmDocumentTitle}");
+
+		AutoTagging.assertAutoTagPresent(tagName = "${tagName}");
+	}
+
+	macro addAutoTaggedWebContent {
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "Alice's Adventures in Wonderland",
+			webContentTitle = "Web Content Title");
+
+		PortletEntry.publish();
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name");
+
+		WebContentNavigator.gotoEditCP(webContentTitle = "Web Content Title");
+
+		Panel.expandPanel(panel = "Categorization");
+
+		AssertTextEquals(
+			key_tagName = "alice",
+			locator1 = "AssetCategorization#TAG",
+			value1 = "alice");
+	}
+
+	macro addContentPage {
+		task ("Add a content page in Test Site Name site") {
+			SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+			ContentPages.addPage(pageName = "Test Content Page Name");
+		}
+
+		task ("Add a Title fragment to the content page") {
+			PageEditor.addFragment(
+				collectionName = "Collection Name",
+				fragmentName = "Title");
+		}
+
+		task ("Add a Rich Text fragment to the content page") {
+			PageEditor.addFragment(
+				collectionName = "Collection Name",
+				fragmentName = "Rich Text",
+				targetFragmentName = "Title");
+		}
+
+		task ("Add a Button fragment to the content page") {
+			PageEditor.addFragment(
+				collectionName = "Collection Name",
+				fragmentName = "Button",
+				targetFragmentName = "Rich Text");
+		}
+
+		task ("Publish the content page") {
+			PageEditor.clickPublish();
+		}
+
+		task ("Navigate to the content page") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
+		}
+
+		task ("Assert the Title fragment is present") {
+			AssertVisible(
+				key_content = "Lorem ipsum dolor sit amet",
+				key_fragmentClass = "header",
+				locator1 = "Fragment#FRAGMENT");
+		}
+
+		task ("Assert the Rich Text fragment is present") {
+			AssertVisible(
+				key_content = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+				key_fragmentClass = "rich-text",
+				locator1 = "Fragment#FRAGMENT");
+		}
+
+		task ("Assert the Button fragment is present") {
+			AssertVisible(
+				key_content = "Submit",
+				key_fragmentClass = "footer",
+				locator1 = "Fragment#FRAGMENT");
+
+			AssertVisible(
+				key_content = "Cancel",
+				key_fragmentClass = "footer",
+				locator1 = "Fragment#FRAGMENT");
+		}
+
+		task ("Navigate to regular content page from 7.1") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-regular-content-page");
+		}
+
+		task ("Navigate to the content page's 'Edit Mode'") {
+			ContentPages.clickPencil();
+		}
+
+		task ("Edit the Title fragment's editable text") {
+			PageEditor.editFragmentText(
+				contributed = "false",
+				fragmentName = "Title",
+				id = "title",
+				text = "New editable fragment text");
+		}
+
+		task ("Publish the content page") {
+			PageEditor.clickPublish();
+		}
+
+		task ("Assert the Title fragment is updated") {
+			AssertVisible(
+				key_content = "New editable fragment text",
+				key_fragmentClass = "header",
+				locator1 = "Fragment#FRAGMENT");
+		}
+
+		task ("Navigate to content page created from page template from 7.1") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-template-content-page");
+		}
+
+		task ("Navigate to the content page's 'Edit Mode'") {
+			ContentPages.clickPencil();
+		}
+
+		task ("Add a Rich Text fragment to the content page") {
+			PageEditor.addFragment(
+				collectionName = "Collection Name",
+				fragmentName = "Rich Text",
+				targetFragmentName = "Button");
+		}
+
+		task ("Publish the content page") {
+			PageEditor.clickPublish();
+		}
+
+		task ("Assert the Button fragment is present") {
+			AssertVisible(
+				key_content = "Submit",
+				key_fragmentClass = "footer",
+				locator1 = "Fragment#FRAGMENT");
+
+			AssertVisible(
+				key_content = "Cancel",
+				key_fragmentClass = "footer",
+				locator1 = "Fragment#FRAGMENT");
+		}
+
+		task ("Assert the Rich Text fragment is present") {
+			AssertVisible(
+				key_content = "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+				key_fragmentClass = "rich-text",
+				locator1 = "Fragment#FRAGMENT");
+		}
+	}
+
+	macro addDataDefinitionWithDB2 {
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Dynamic Data Lists",
+			site = "${site}");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no lists.");
+
+		DDLNavigator.gotoManageDataDefinitions();
+
+		for (var ddlDataDefinitionName : list "Contacts,Events,Inventory,Issues Tracking,Meeting Minutes,To Do") {
+			DDLDataDefinition.viewName(ddlDataDefinitionName = "${ddlDataDefinitionName}");
+		}
+
+		AssertConsoleTextNotPresent(value1 = "SQLCODE=-134");
+
+		AssertConsoleTextNotPresent(value1 = "SQLCODE=-727");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Dynamic Data Lists");
+
+		DDLDataDefinition.addCP(ddlDataDefinitionName = "Data Definition");
+
+		DynamicDataMapping.addField(
+			field = "Text",
+			fieldFieldLabel = "Text",
+			fieldName = "Text");
+
+		DDLDataDefinition.save();
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Dynamic Data Lists");
+
+		DDLDataDefinition.viewCP(
+			ddlDataDefinitionName = "Data Definition",
+			fieldFieldLabel = "Text");
+
+		AssertConsoleTextNotPresent(value1 = "SQLCODE=-134");
+
+		AssertConsoleTextNotPresent(value1 = "SQLCODE=-727");
+	}
+
+	macro addForm {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Forms",
+			site = "${site}");
+
+		AssertElementPresent(locator1 = "Message#EMPTY_INFO_TAGLIB");
+
+		FormsAdminNavigator.gotoAddForm();
+
+		Form.editName(formName = "Form Name");
+
+		Form.editDescription(formDescription = "Form Description");
+
+		Form.addTextField(fieldPositionNumber = "1");
+
+		var fieldName = FormFields.getFieldName();
+
+		Form.editFieldLabelMetal(fieldValue = "Text Field");
+
+		Form.closeSidebar();
+
+		Form.save();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Forms");
+
+		FormsAdmin.viewForm(
+			formDescription = "Form Description",
+			formName = "Form Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Form Page");
+
+		Navigator.gotoPage(pageName = "Form Page");
+
+		Portlet.addPG(
+			pageName = "Form Page",
+			portletName = "Form");
+
+		FormPortletNavigator.gotoSelectForm(formName = "Form Name");
+
+		FormPortletConfiguration.selectForm(formName = "Form Name");
+
+		PortletEntry.save();
+
+		Navigator.gotoPage(pageName = "Form Page");
+
+		FormFields.viewTextField(
+			fieldLabel = "Text Field",
+			fieldName = "${fieldName}");
+	}
+
+	macro addMessageBoards {
+		Navigator.gotoPage(pageName = "Message Boards");
+
+		MessageboardsThread.addPG(
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject 3");
+	}
+
+	macro addOneDriveDocument {
+		Navigator.openURL();
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		DMNavigator.gotoAddDocumentTypePG(dmDocumentTypeName = "${dmDocumentTypeName}");
+
+		OneDrive.AddDocument(
+			dmDocumentTitle = "${dmDocumentTypeName} Title After Upgrade",
+			dmDocumentTypeName = "${dmDocumentTypeName}");
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		DMDocument.viewCheckedoutPG(
+			dmDocumentTitle = "${dmDocumentTypeName} Title After Upgrade",
+			status = "Draft");
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		DMDocument.checkinPG(dmDocumentTitle = "${dmDocumentTypeName} Title After Upgrade");
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		AssertTextEquals.assertPartialText(
+			key_dmDocumentTitle = "${dmDocumentTypeName} Title After Upgrade",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
+			value1 = "${dmDocumentTypeName} Title After Upgrade");
+	}
+
+	macro addOrganization {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		Organization.addCP(
+			orgName = "Organization Name",
+			orgType = "Organization");
+	}
+
+	macro addUserAndSuborganization {
+		JSONOrganization.addOrganization(organizationName = "Organization2");
+
+		JSONOrganization.addOrganization(
+			organizationName = "Sub-organization2",
+			parentOrganizationName = "Organization2");
+
+		JSONOrganization.addOrganization(
+			organizationName = "Sub-organization1",
+			parentOrganizationName = "Organization1");
+
+		JSONUser.addUser(
+			userEmailAddress = "user2@liferay.com",
+			userFirstName = "user2",
+			userLastName = "user2",
+			userScreenName = "user2");
+
+		JSONOrganization.assignUserToOrganization(
+			organizationName = "Organization1",
+			userEmailAddress = "user2@liferay.com");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.assignUser(
+			orgName = "Sub-organization1",
+			userFirstName = "user2",
+			userLastName = "user2",
+			userName = "user2 user2",
+			userScreenName = "user2");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.gotoCP(
+			orgName = "Organization1",
+			searchToken = "Organization1");
+
+		User.searchCP(searchTerm = "usersn");
+
+		Organization.viewAssignMemberCP(
+			userName = "userfn userln",
+			userScreenName = "usersn");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.viewSubOrganizationCP(
+			orgName = "Organization1",
+			orgType = "Organization",
+			suborgName = "Sub-organization-Pre",
+			suborgType = "Organization");
+
+		Organization.gotoCP(
+			orgName = "Sub-organization-Pre",
+			searchToken = "Sub-organization-Pre");
+
+		Organization.viewAssignMemberCP(
+			userName = "userfn userln",
+			userScreenName = "usersn");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.editSiteCP(
+			orgName = "Organization1",
+			orgNameEdit = "Organization1 Edit");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.editSiteCP(
+			orgName = "Sub-organization1",
+			orgNameEdit = "Sub-organization1 Edit");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.deleteCP(orgName = "Sub-organization2");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.deleteCP(orgName = "Organization2");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.removeMemberCP(
+			orgName = "Sub-organization1 Edit",
+			userFullName = "user2 user2");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.deleteCP(orgName = "Sub-organization1 Edit");
+
+		Navigator.openURL();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.searchCP(
+			orgName = "Organization1 Edit",
+			searchTerm = "Organization1 Edit");
+
+		Organization.viewCP(
+			orgName = "Organization1 Edit",
+			orgType = "Organization");
+	}
+
+	macro addWCStructureAndTemplate {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		Navigator.gotoNavItem(navItem = "Structures");
+
+		AssertElementNotPresent(locator1 = "Message#ERROR");
+
+		WebContentStructures.addCP(
+			structureDescription = "WC Structure Description",
+			structureName = "WC Structure Name");
+
+		DataEngine.addField(
+			fieldFieldLabel = "Text",
+			fieldName = "Text");
+
+		WebContentStructures.saveCP(structureName = "WC Structure Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		Navigator.gotoNavItem(navItem = "Templates");
+
+		WebContentTemplates.addCP(
+			structureName = "WC Structure Name",
+			templateDescription = "WC Template Description",
+			templateFieldNames = "Text",
+			templateName = "WC Template Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddWithStructureCP(structureName = "WC Structure Name");
+
+		WebContent.addWithStructureCP(
+			structureName = "WC Structure Name",
+			webContentText = "WC WebContent Text",
+			webContentTitle = "WC WebContent Title");
+
+		PortletEntry.publish();
+
+		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+
+		WebContent.viewWithStructureCP(
+			webContentText = "WC WebContent Text",
+			webContentTitle = "WC WebContent Title");
+	}
+
+	macro approveWorkflow {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		Workflow.viewWebContentWithWorkflowCP(
+			webContentTitle = "WC Workflow Title",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.viewTaskAssignedToMyRoles(
+			workflowAssetTitle = "WC Workflow Title",
+			workflowAssetType = "Web Content Article",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Submissions");
+
+		Workflow.viewMySubmissions(
+			workflowAssetTitle = "WC Workflow Title",
+			workflowAssetType = "Web Content Article",
+			workflowDefinition = "Single Approver",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "WC Workflow Title",
+			workflowAssetType = "Web Content Article",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		Workflow.viewWebContentWithWorkflowCP(
+			webContentTitle = "WC Workflow Title",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "WC Workflow Title",
+			workflowAssetType = "Web Content Article",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoEditCP(webContentTitle = "WC Workflow Title");
+
+		Workflow.viewWebContentWithWorkflowStatus(
+			webContentStatus = "Approved",
+			webContentTitle = "WC Workflow Title");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Submissions");
+
+		Workflow.gotoViewCompletedAssetViaMySubmissions(workflowAssetTitle = "WC Workflow Title");
+
+		WebContent.viewEntryAsWorkflowAsset(
+			webContentContent = "WC Workflow Content",
+			webContentTitle = "WC Workflow Title");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsEntry.viewWithWorkflowCP(
+			entryContent = "Blogs Workflow Content",
+			entryTitle = "Blogs Workflow Title");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsEntry.viewWithWorkflowCP(
+			entryContent = "Blogs Workflow Content",
+			entryTitle = "Blogs Workflow Title");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.viewTaskAssignedToMyRoles(
+			workflowAssetTitle = "Blogs Workflow Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Submissions");
+
+		Workflow.viewMySubmissions(
+			workflowAssetTitle = "Blogs Workflow Title",
+			workflowAssetType = "Blogs Entry",
+			workflowDefinition = "Single Approver",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Workflow Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsEntry.viewWithWorkflowCP(
+			entryContent = "Blogs Workflow Content",
+			entryTitle = "Blogs Workflow Title");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "Blogs Workflow Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsEntry.viewEntryTable(entryTitle = "Blogs Workflow Title");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "cards");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Workflow Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Workflow Content",
+			entryTitle = "Blogs Workflow Title");
+
+		BlogsEntry.viewStatus(entryStatus = "Approved");
+	}
+
+	macro configurePageEditor {
+		task ("View fragment persists and could add anther fragment in react edtor") {
+			FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "test-site-name");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Fragment Name");
+
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-fragment-content-page");
+
+			ContentPages.clickPencil();
+
+			PageEditor.addFragment(
+				collectionName = "Basic Components",
+				fragmentName = "Card",
+				targetFragmentName = "Fragment Name");
+
+			PageEditor.viewFragment(fragmentName = "Card");
+		}
+
+		task ("Assert could edit fragment upgrading from 7.2") {
+			FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "test-site-name");
+
+			FragmentsAdminNavigator.gotoEntry(entry = "Fragment Name");
+
+			FragmentsEditor.typeFileContent(fileName = "fragment_title.html");
+
+			FragmentsEditor.typeFileContent(fileName = "fragment_title.css");
+
+			FragmentsEditor.assertFragmentPreview(
+				fragmentLocator = "//div[@class='fragment-header']/h1[@class='title']",
+				text = "LOREM IPSUM DOLOR SIT AMET");
+
+			PortletEntry.publish();
+		}
+
+		task ("Assert could delete fragment upgrading from 7.2") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-fragment-content-page");
+
+			ContentPages.clickPencil();
+
+			PageEditor.removeFragment(fragmentName = "Fragment Name");
+		}
+
+		task ("Assert the experience survived and could edit") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-experience-content-page");
+
+			ContentPages.clickPencil();
+
+			PageEditor.changeExperience(newExperience = "New Experience Name");
+
+			PageEditor.addComment(
+				content = "Lorem ipsum dolor sit amet",
+				fragmentClass = "header",
+				fragmentComment = "This is a fragment comment.",
+				fragmentName = "Title");
+
+			PageEditor.changeExperience(newExperience = "Default");
+
+			PageEditor.removeFragment(fragmentName = "Title");
+
+			AssertTextEquals(
+				locator1 = "PageEditor#FRAGMENT_SIDEBAR_CENTER_TEXT",
+				value1 = "There are no comments yet.");
+
+			PageEditor.changeExperience(newExperience = "New Experience Name");
+
+			PageEditor.viewCommentList(
+				commentCount = "1 Comment",
+				fragmentName = "Title",
+				openComment = "true");
+		}
+
+		task ("Assert layout has been converted to a section with columns inside") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-layout-content-page");
+
+			ContentPages.clickPencil();
+
+			AssertElementPresent(
+				key_elementType = "Container",
+				key_position = "1",
+				locator1 = "PageEditor#LAYOUT_ELEMENTS_HEADER");
+
+			AssertElementPresent(
+				key_elementType = "Grid",
+				key_position = "1",
+				locator1 = "PageEditor#LAYOUT_ELEMENTS_HEADER");
+		}
+
+		task ("Assert translation is working after migration") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-translation-content-page");
+
+			ContentPages.clickPencil();
+
+			AssertVisible(
+				key_content = "New editable fragment en-US text",
+				key_fragmentClass = "rich-text",
+				locator1 = "Fragment#FRAGMENT");
+
+			Click(locator1 = "PageEditor#DROPDOWN");
+
+			MenuItem.click(menuItem = "zh-CN");
+
+			AssertVisible(
+				key_content = "New editable fragment zh-CN text",
+				key_fragmentClass = "rich-text",
+				locator1 = "Fragment#FRAGMENT");
+		}
+
+		task ("Assert mapped content is working after migration") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/w/webcontent-title");
+
+			AssertVisible(
+				key_content = "Webcontent Title",
+				key_fragmentClass = "header",
+				locator1 = "Fragment#FRAGMENT");
+
+			AssertVisible(
+				key_content = "Webcontent Content",
+				key_fragmentClass = "rich-text",
+				locator1 = "Fragment#FRAGMENT");
+
+			DisplayPageTemplate.clickPencilItem(item = "Edit Webcontent Title");
+
+			Click(locator1 = "TextInput#TITLE");
+
+			PortletEntry.inputTitle(title = "Webcontent Title Edit");
+
+			CKEditor.addContentInWebContent(
+				content = "Webcontent Content Edit",
+				fieldLabel = "content");
+
+			Button.clickPublish();
+
+			AssertVisible(
+				key_content = "Webcontent Title Edit",
+				key_fragmentClass = "header",
+				locator1 = "Fragment#FRAGMENT");
+
+			AssertVisible(
+				key_content = "Webcontent Content Edit",
+				key_fragmentClass = "rich-text",
+				locator1 = "Fragment#FRAGMENT");
+		}
+
+		task ("Assert could add fragment added to display page after upgrading") {
+			DisplayPageTemplatesAdmin.openDisplayPagesAdmin(siteURLKey = "test-site-name");
+
+			DisplayPageTemplatesAdmin.gotoDisplayPageEllipsisItem(
+				displayPageName = "Display Page Name",
+				item = "Edit");
+
+			PageEditor.addFragment(
+				collectionName = "Basic Components",
+				fragmentName = "Paragraph",
+				targetFragmentName = "Rich Text");
+		}
+	}
+
+	macro publishStagedSite {
+		Navigator.openSiteURL(siteName = "Staging Site Staging");
+
+		AssertElementNotPresent(locator1 = "Home#PORTLET");
+
+		ProductMenu.gotoStagingSite(site = "Staging Site");
+
+		WebContent.viewPGViaWCD(
+			webContentContent = "Web Content Content",
+			webContentTitle = "Web Content Title");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite(site = "Staging Site");
+
+		WebContent.viewPGViaWCD(
+			webContentContent = "Web Content Content",
+			webContentTitle = "Web Content Title");
+	}
+
+	macro publishWCDraft {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoViewStatus(
+			webContentStatus = "DRAFT",
+			webContentTitle = "Web Content Draft Title");
+
+		WebContent.viewStatus(
+			webContentContent = "Web Content Draft Content",
+			webContentStatus = "Draft",
+			webContentTitle = "Web Content Draft Title");
+
+		WebContent.editCP(
+			webContentContentEdit = "Web Content Content",
+			webContentTitle = "Web Content Draft Title",
+			webContentTitleEdit = "Web Content Title");
+
+		WebContentNavigator.gotoViewStatus(
+			webContentStatus = "APPROVED",
+			webContentTitle = "Web Content Title");
+
+		WebContent.viewStatus(
+			webContentContent = "Web Content Content",
+			webContentStatus = "Approved",
+			webContentTitle = "Web Content Title");
+	}
+
+	macro publishWorkflowDefinition {
+		var testRunEnvironment = PropsUtil.get("test.run.environment");
+
+		if ("${testRunEnvironment}" == "EE") {
+			ApplicationsMenu.gotoPortlet(
+				category = "Workflow",
+				panel = "Applications",
+				portlet = "Process Builder");
+
+			Workflow.viewDefinitionUnpublished(workflowDefinitionTitle = "New Workflow Definition Draft");
+
+			Workflow.publishExistingWorkflowDefinition(workflowDefinitionTitle = "New Workflow Definition Draft");
+
+			Navigator.gotoBack();
+
+			Workflow.viewDefinitionPublished(workflowDefinitionTitle = "New Workflow Definition Draft");
+		}
+	}
+
+	macro resetTestUserPassword {
+		Type(
+			locator1 = "TextInput#EMAIL",
+			value1 = "${administratorEmail}");
+
+		SetupWizard.finishConfigurationPG();
+
+		Portlet.shutdownServer();
+
+		Portlet.startServer(deleteLiferayHome = "false");
+
+		Navigator.openURL();
+
+		if (IsElementPresent(locator1 = "UserBar#USER_SIGN_IN")) {
+			User.loginPG(
+				password = "test",
+				setupWizardEnabled = "true",
+				userEmailAddress = "test@liferay.com");
+		}
+		else {
+			User.acceptEndUserLicenseAgreement();
+
+			User.resetPassword(setupWizardEnabled = "true");
+
+			User.answerPasswordReminder();
+
+			AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+		}
+
+		User.logoutPG();
+
+		User.loginPG(
+			password = "test2",
+			userEmailAddress = "test@liferay.com");
+	}
+
+	macro submitNewWorkflow {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		Blogs.addWithWorkflow(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Subtitle",
+			entryTitle = "New Blog After Upgrade");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsEntry.viewWithWorkflowCP(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "New Blog After Upgrade");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "New Blog After Upgrade",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsEntry.viewWithWorkflowCP(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "New Blog After Upgrade");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "New Blog After Upgrade",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsEntry.viewEntryTable(entryTitle = "New Blog After Upgrade");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "cards");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "New Blog After Upgrade");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "New Blog After Upgrade");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Submissions");
+
+		Workflow.gotoViewCompletedAssetViaMySubmissions(workflowAssetTitle = "New Blog After Upgrade");
+
+		BlogsEntry.viewEntryAsWorkflowAsset(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "New Blog After Upgrade");
+	}
+
+	macro viewAndDeleteAutoTaggedBlogsEntry {
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/site-name/test-page");
+
+		BlogsNavigator.gotoEntryPG(
+			entryContent = "Digital Transformation or Digital Experience? When selecting a DXP, companies should decide whether they are ready for deep transformation of their business operations, or are focused primarily on marketing and brand awareness, as these priorities tend to reflect the different strengths among the DXP vendors. Having an attractive website or mobile app is good, but more substantial gains in...",
+			entryTitle = "Digital Transformation or Digital Experience?");
+
+		BlogsEntry.viewAutoTag(
+			entryTitle = "Digital Transformation or Digital Experience?",
+			tagName = "DXP");
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/site-name/test-page");
+
+		BlogsEntry.moveToRecycleBinPG(
+			assetType = "Blogs Entry",
+			entryContent = "Digital Transformation or Digital Experience? When selecting a DXP, companies should decide whether they are ready for deep transformation of their business operations, or are focused primarily on marketing and brand awareness, as these priorities tend to reflect the different strengths among the DXP vendors. Having an attractive website or mobile app is good, but more substantial gains in...",
+			entryTitle = "Digital Transformation or Digital Experience?");
+
+		BlogsEntry.viewNoPG(
+			entryContent = "Digital Transformation or Digital Experience? When selecting a DXP, companies should decide whether they are ready for deep transformation of their business operations, or are focused primarily on marketing and brand awareness, as these priorities tend to reflect the different strengths among the DXP vendors. Having an attractive website or mobile app is good, but more substantial gains in...",
+			entryTitle = "Digital Transformation or Digital Experience?");
+	}
+
+	macro viewAndDeleteAutoTaggedDM {
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "site-name");
+
+		DMNavigator.gotoDocumentCP(dmDocumentTitle = "${dmDocumentTitle}");
+
+		DMDocument.viewCP(dmDocumentTitle = "${dmDocumentTitle}");
+
+		AutoTagging.assertAutoTagPresent(tagName = "${tagName}");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "site-name");
+
+		DMDocument.deleteCP(dmDocumentTitle = "${dmDocumentTitle}");
+	}
+
+	macro viewAndDeleteAutoTaggedWebContent {
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name");
+
+		WebContentNavigator.gotoEditCP(webContentTitle = "Digital Transformation or Digital Experience?");
+
+		Panel.expandPanel(panel = "Categorization");
+
+		AssertTextEquals(
+			key_tagName = "dxp",
+			locator1 = "AssetCategorization#TAG",
+			value1 = "dxp");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name");
+
+		WebContent.deleteCP(
+			siteURLKey = "site-name",
+			webContentTitle = "Digital Transformation or Digital Experience?");
+	}
+
+	macro viewAndDeleteFormEntry {
+		Navigator.openURL();
+
+		Navigator.gotoPage(pageName = "Form Page");
+
+		FormFields.viewParagraphField(
+			fieldTitle = "Paragraph",
+			fieldValue = "Paragraph body text.");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoViewEntries();
+
+		FormsAdmin.viewFormTableEntry(
+			fieldLabel = "Status",
+			fieldValue = "Approved");
+
+		FormsAdmin.viewFormTableEntry(
+			fieldLabel = "Checkbox",
+			fieldValue = "Checkbox");
+
+		FormsAdmin.viewFormTableEntry(
+			fieldLabel = "Multiple Selection",
+			fieldValue = "1, 2, 4");
+
+		FormsAdminNavigator.gotoView();
+
+		FormFields.viewParagraphField(
+			fieldTitle = "Paragraph",
+			fieldValue = "Paragraph body text.");
+
+		FormsAdmin.viewTextEntry(
+			fieldLabel = "SingleLineText",
+			fieldName = "SingleLineText",
+			fieldValue = "Single Line Text");
+
+		FormsAdmin.viewMultilineTextEntry(
+			fieldLabel = "MultilineText",
+			fieldName = "MultilineText",
+			fieldValue = "Multiline Text");
+
+		FormsAdmin.viewSelectEntry(
+			fieldLabel = "Select",
+			fieldName = "Select",
+			selectOption = "Select 1");
+
+		FormsAdmin.viewRadioEntry(
+			fieldLabel = "Radio",
+			fieldName = "Radio",
+			fieldValue = "Option 1");
+
+		FormsAdmin.viewDateEntry(
+			fieldLabel = "Date",
+			fieldName = "Date",
+			fieldValue = "05/02/2016");
+
+		FormsAdmin.viewCheckboxEntry(
+			fieldName = "Checkbox",
+			fieldValue = "Checkbox");
+
+		FormPortlet.clickNextPage();
+
+		FormsAdmin.viewTextEntry(
+			fieldLabel = "SingleLineText2",
+			fieldName = "SingleLineText2",
+			fieldValue = "SingleLineText2");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Forms");
+
+		FormsAdminNavigator.gotoViewEntries();
+
+		FormsAdmin.deleteFormEntry(formEntryValue = "Option 1");
+
+		FormsAdmin.viewNoFormEntries();
+	}
+
+	macro viewAndDeleteGoogleDriveDocuments {
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		DMDocument.deletePG(dmDocumentTitle = "Edited Google Document");
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		DMDocument.deletePG(dmDocumentTitle = "Edited Google Sheet");
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		DMDocument.deletePG(dmDocumentTitle = "Edited Google Slide");
+	}
+
+	macro viewAndDeleteOneDriveDocument {
+		Navigator.openURL();
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		AssertTextEquals(
+			key_dmDocumentTitle = "OneDrive ${dmDocumentTypeName} Title",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
+			value1 = "OneDrive ${dmDocumentTypeName} Title");
+
+		DMDocument.deletePG(dmDocumentTitle = "OneDrive ${dmDocumentTypeName} Title");
+	}
+
+	macro viewAndEditContentPageReview {
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
+
+		ContentPages.clickPencil();
+
+		PageEditor.gotoTab(tabName = "Comments");
+
+		Click(
+			key_content = "This is static text.",
+			key_fragmentClass = "static-text",
+			locator1 = "Fragment#FRAGMENT");
+
+		PageEditor.viewComment(fragmentComment = "This is a fragment comment");
+
+		PageEditor.viewCommentReply(
+			commentReply = "Fragment Comment 1",
+			user = "Test Test");
+
+		PageEditor.deleteComment(fragmentComment = "This is a fragment comment");
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
+
+		ContentPages.clickPencil();
+
+		PageEditor.addComment(
+			content = "This is static text.",
+			fragmentClass = "static-text",
+			fragmentComment = "This is a new fragment comment",
+			fragmentName = "Static Text");
+
+		PageEditor.replyToComment(commentReply = "Fragment Comment 2");
+
+		PageEditor.clickPublish();
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
+
+		ContentPages.clickPencil();
+
+		PageEditor.gotoTab(tabName = "Comments");
+
+		Click(
+			key_content = "This is static text.",
+			key_fragmentClass = "static-text",
+			locator1 = "Fragment#FRAGMENT");
+
+		PageEditor.viewComment(fragmentComment = "This is a new fragment comment");
+
+		PageEditor.viewCommentReply(
+			commentReply = "Fragment Comment 2",
+			user = "Test Test");
+	}
+
+	macro viewAndEditCustomMetaTag {
+		var portalURL = PropsUtil.get("portal.url");
+
+		User.logoutPG();
+
+		Navigator.openSpecificURL(url = "${portalURL}/web/test-site-name/test-page-name");
+
+		CustomMetaTags.viewTags(customMetaTagsList = '''property="custom Tag 1 property" content="custom Tag 1 content",property="custom Tag 2 property" content="custom Tag 2 content"''');
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "test@liferay.com");
+
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Test Page Name");
+
+		Navigator.gotoNavTab(navTab = "Custom Meta Tags");
+
+		CustomMetaTags.editTag(
+			customContent = "custom Tag 1 content",
+			customProperty = "custom Tag 1 property",
+			newCustomContent = "custom Tag 1 content edit",
+			newCustomProperty = "custom Tag 1 property edit");
+
+		CustomMetaTags.removeTag(tagNum = "2");
+
+		CustomMetaTags.addMultipleTags(customTagsList = "custom Tag 3");
+
+		User.logoutPG();
+
+		Navigator.openSpecificURL(url = "${portalURL}/web/test-site-name/test-page-name");
+
+		CustomMetaTags.viewTags(customMetaTagsList = '''property="custom Tag 1 property edit" content="custom Tag 1 content edit",property="custom Tag 3 property" content="custom Tag 3 content"''');
+	}
+
+	macro viewAndEditGoogleDriveDocuments {
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		var key_dmDocumentTitle = "Untitled (1)";
+
+		Click(locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Edit in Google Sheets");
+
+		Google.signIn(
+			userEmailAddress = PropsUtil.get("email.address.3"),
+			userPassword = PropsUtil.get("email.password.3"),
+			windowTitle = "Documents and Media Page - Liferay");
+
+		GoogleDoc.editTitleInGoogleDoc(dmDocumentTitle = "Edited Google Sheet");
+
+		GoogleDoc.saveAndExit();
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		AssertTextEquals(
+			key_dmDocumentTitle = "Edited Google Sheet",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
+			value1 = "Edited Google Sheet");
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		GoogleDoc.gotoEdit(
+			dmDocumentTitle = "Untitled (2)",
+			dmDocumentTypeName = "Google Slides");
+
+		GoogleDoc.editTitleInGoogleDoc(dmDocumentTitle = "Edited Google Slide");
+
+		GoogleDoc.saveAndExit();
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		AssertTextEquals(
+			key_dmDocumentTitle = "Edited Google Slide",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
+			value1 = "Edited Google Slide");
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		GoogleDoc.gotoEdit(
+			dmDocumentTitle = "Untitled",
+			dmDocumentTypeName = "Google Docs");
+
+		GoogleDoc.editTitleInGoogleDoc(dmDocumentTitle = "Edited Google Document");
+
+		GoogleDoc.saveAndExit();
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		AssertTextEquals(
+			key_dmDocumentTitle = "Edited Google Document",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
+			value1 = "Edited Google Document");
+	}
+
+	macro viewAndEditOpenGraph {
+		var portalURL = PropsUtil.get("portal.url");
+		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Test Page Name");
+
+		Navigator.gotoNavTab(navTab = "Open Graph");
+
+		Page.viewPreview(
+			description = "This is a custom description",
+			htmlTitle = "This is a custom title - Test Site Name - ${siteName}",
+			key_imageName = "Document_1.jpg",
+			openGraph = "true",
+			portalURL = "${portalURL}",
+			siteNameURL = "test-site-name");
+
+		var siteID = Site.getSiteId();
+
+		User.logoutPG();
+
+		Navigator.openSpecificURL(url = "${portalURL}/web/test-site-name/test-page-name");
+
+		OpenGraph.viewOpenGraphProperties(ogPropertyList = '''"og:title" content="This is a custom title","og:description" content="This is a custom description","og:image" content="${portalURL}/documents/${siteID}/0/Document_1.jpg''');
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "test@liferay.com");
+
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Test Page Name");
+
+		Navigator.gotoNavTab(navTab = "Open Graph");
+
+		OpenGraph.configureOpenGraph(
+			customDescription = "This is a custom description edit",
+			customImage = "true",
+			customTitle = "This is a custom title edit",
+			pageName = "Test Page Name",
+			uploadFileName = "Document_2.jpg");
+
+		Page.viewPreview(
+			description = "This is a custom description edit",
+			htmlTitle = "This is a custom title edit - Test Site Name - ${siteName}",
+			key_imageName = "Document_2.jpg",
+			openGraph = "true",
+			portalURL = "${portalURL}",
+			siteNameURL = "test-site-name");
+
+		User.logoutPG();
+
+		Navigator.openSpecificURL(url = "${portalURL}/web/test-site-name/test-page-name");
+
+		OpenGraph.viewOpenGraphProperties(ogPropertyList = '''"og:title" content="This is a custom title edit","og:description" content="This is a custom description edit","og:image" content="${portalURL}/documents/${siteID}/0/Document_2.jpg''');
+	}
+
+	macro viewAndEditSERPPreview {
+		var portalURL = PropsUtil.get("portal.url");
+		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+
+		Navigator.gotoPage(pageName = "Test Page");
+
+		Navigator.gotoEditPageViaControlMenu(pageName = "Test Page");
+
+		Navigator.gotoNavTab(navTab = "SEO");
+
+		Page.viewPreview(
+			description = "Page Description",
+			htmlTitle = "Page HTML Title - ${siteName}",
+			pageName = "Test Page",
+			portalURL = "${portalURL}");
+
+		PortletEntry.inputText(
+			fieldLabel = "HTML Title",
+			text = "Page HTML Title Edit");
+
+		PortletEntry.inputTextArea(
+			fieldId = "GroupPagesPortlet_description",
+			text = "Page Description Edit");
+
+		Button.clickSave();
+
+		Page.viewPreview(
+			description = "Page Description Edit",
+			htmlTitle = "Page HTML Title Edit - ${siteName}",
+			pageName = "Test Page",
+			portalURL = "${portalURL}");
+	}
+
+	macro viewAndEditUser {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.viewCP(
+			userBirthday = "09/09/1999",
+			userEmailAddress = "user@liferay.com",
+			userFirstName = "userfn",
+			userJobTitle = "PhD",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		AssertTextEquals(
+			key_tagName = "tag1",
+			locator1 = "AssetCategorization#TAG",
+			value1 = "tag1");
+
+		AssertTextEquals(
+			locator1 = "TextArea#COMMENTS",
+			value1 = "This is a pre-upgrade comment!");
+
+		UserNavigator.gotoContact();
+
+		User.viewAddress(
+			addressType = "Business",
+			city = "Walnut",
+			country = "United States",
+			postalCode = "91789",
+			region = "California",
+			street1 = "1220 Brea Canyon Rd");
+
+		Navigator.gotoNavNested(navNested = "Contact Information");
+
+		User.viewContactInformation(
+			number = "555-555-5555",
+			numberType = "Business",
+			searchContainerType = "phonesSearchContainer");
+
+		User.viewContactInformation(
+			addressCount = "10",
+			addressPrefix = "test",
+			searchContainerType = "emailAddressesSearchContainer");
+
+		User.viewContactInformation(
+			searchContainerType = "websitesSearchContainer",
+			url = "https://www.google.com/",
+			websiteType = "Other");
+
+		User.viewContactInformation(skype = "orgusersnskype");
+
+		UserNavigator.gotoPreferences();
+
+		for (var announcementType : list "General,News,Test") {
+			var key_announcementType = "${announcementType}";
+			var key_notificationType = "Email";
+
+			AssertChecked(locator1 = "UsersAndOrganizationsEditUser#ALERTS_AND_ANNOUNCEMENTS_DELIVERY_CHECKBOX");
+		}
+
+		Navigator.gotoNavNested(navNested = "Display Settings");
+
+		if (IsTextNotEqual(locator1 = "Select#LOS_ANGELES_TIME_ZONE", value1 = "(UTC -07:00) Pacific Daylight Time")) {
+			AssertSelectedLabel(
+				locator1 = "Select#TIME_ZONE",
+				value1 = "(UTC -08:00) Pacific Standard Time");
+		}
+		else {
+			AssertSelectedLabel(
+				locator1 = "Select#TIME_ZONE",
+				value1 = "(UTC -07:00) Pacific Daylight Time");
+		}
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#DISPLAY_SETTINGS_GREETING_FIELD",
+			value1 = "Welcome Organization Usersn! This is a pre-upgrade edit!");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.gotoEditCP(userScreenName = "usersn");
+
+		UserNavigator.gotoOrganizations();
+
+		AssertTextEquals(
+			key_orgName = "Organization1",
+			locator1 = "ContentRow#ORGANIZATION_TABLE_NAME",
+			value1 = "Organization1");
+
+		User.viewUserInfomationSitesCP(siteName = "Test Site Name");
+
+		User.viewUserInfomationRolesCP(roleTitle = "Administrator");
+
+		AssertTextEquals(
+			key_roleTitle = "Organization Administrator",
+			locator1 = "Permissions#CONTENT_PERMISSIONS_ROLE_NAME",
+			value1 = "Organization Administrator");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.editPasswordCP(
+			requirePasswordReset = "true",
+			userEmailAddress = "user@liferay.com",
+			userScreenName = "usersn");
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "user@liferay.com");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Profile");
+
+		BlogsEntry.viewEntryPG(
+			entryContent = "Usersn Blog Entry Content",
+			entryTitle = "Usersn Blog Entry Title");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Dashboard");
+
+		AssertClick(
+			key_pageName = "Documents and Media",
+			locator1 = "Home#PAGE",
+			value1 = "Documents and Media");
+
+		DMDocument.viewPG(dmDocumentTitle = "Document txt Title");
+
+		Navigator.gotoBack();
+
+		DMDocument.viewPG(dmDocumentTitle = "Document doc Title");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.gotoEditCP(userScreenName = "usersn");
+
+		User.deleteProfileImage();
+
+		User.editUserInformation(
+			userFirstNameEdit = "userfn1",
+			userLastNameEdit = "userln1",
+			userScreenNameEdit = "usersn1");
+
+		Type(
+			locator1 = "TextArea#COMMENTS",
+			value1 = "This is a post-upgrade comment!");
+
+		PortletEntry.save();
+
+		User.editAddressCP(
+			addressType = "Personal",
+			city = "Diamond Bar",
+			postalCode = "91765",
+			street1 = "1400 Montefino Ave");
+
+		UserNavigator.gotoDisplaySettings();
+
+		User.editUserDisplaySettingsTimeZonePacific(displaySettingsGreeting = "Welcome Organization Usersn! This is a post-upgrade edit!");
+
+		PortletEntry.save();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.viewCP(
+			userEmailAddress = "user@liferay.com",
+			userFirstName = "userfn1",
+			userLastName = "userln1",
+			userScreenName = "usersn1");
+
+		AssertTextEquals(
+			locator1 = "TextArea#COMMENTS",
+			value1 = "This is a post-upgrade comment!");
+
+		UserNavigator.gotoContact();
+
+		User.viewAddress(
+			addressType = "Personal",
+			city = "Diamond Bar",
+			country = "United States",
+			postalCode = "91765",
+			region = "California",
+			street1 = "1400 Montefino Ave");
+
+		UserNavigator.gotoDisplaySettings();
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#DISPLAY_SETTINGS_GREETING_FIELD",
+			value1 = "Welcome Organization Usersn! This is a post-upgrade edit!");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.gotoEditCP(userScreenName = "usersn1");
+
+		AssetCategorization.removeTag(tagName = "tag1");
+
+		PortletEntry.save();
+
+		UserNavigator.gotoOrganizations();
+
+		Click(locator1 = "Icon#DELETE");
+
+		PortletEntry.save();
+
+		UserNavigator.gotoMemberships();
+
+		Click(locator1 = "Icon#DELETE");
+
+		PortletEntry.save();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.unassignRegularRoleCP(
+			regularRoleName = "Administrator",
+			userScreenName = "usersn1");
+
+		UserNavigator.gotoContact();
+
+		User.removeContactInformation(rowEntry = "1400 Montefino Ave");
+
+		Navigator.gotoNavNested(navNested = "Contact Information");
+
+		User.removeContactInformation(rowEntry = "555-555-5555");
+
+		User.removeContactInformation(rowEntry = "test1@liferay.com");
+
+		User.removeContactInformation(rowEntry = "https://www.google.com/");
+
+		PortletEntry.save();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.deactivateCP(userFirstName = "userfn1");
+
+		User.deleteCP();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.searchCP(searchTerm = "usersn");
+
+		User.viewNoUsersFoundCP();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.deleteCP(orgName = "Organization1");
+	}
+
+	macro viewAssetPublisher {
+		Navigator.gotoPage(pageName = "Asset Publisher");
+
+		AssetPublisherPortlet.configureAssetLinkBehaviorPG(assetLinkBehavior = "Show Full Content");
+
+		AssertTextEquals(
+			key_portletName = "Asset Publisher",
+			locator1 = "Portlet#TITLE",
+			value1 = "Asset Publisher");
+
+		AssetPublisherPortlet.viewAssetPG(
+			assetContent = "Web Content Content",
+			assetTitle = "Web Content Title");
+
+		if (isSet(categoryName)) {
+			AssetPublisherPortlet.viewAssetMetadataPG(categoryName = "${categoryName}");
+		}
+
+		if (IsElementPresent(locator1 = "Home#PAGE_4")) {
+			Click(locator1 = "Home#PAGE_4");
+
+			AssertTextEquals(
+				key_portletName = "Asset Publisher",
+				locator1 = "Portlet#TITLE",
+				value1 = "Asset Publisher");
+
+			AssetPublisherPortlet.viewAssetPG(
+				assetContent = "Web Content Content",
+				assetTitle = "Web Content Title");
+		}
+	}
+
+	macro viewCalendar {
+		Navigator.gotoPage(pageName = "Calendar");
+
+		ProductMenuHelper.closeProductMenu();
+
+		CalendarEvent.view(eventTitle = "Calendar Event Title");
+
+		CalendarNavigator.gotoEditEvent(eventTitle = "Calendar Event Title");
+
+		CalendarEvent.editTitle(eventTitle = "Calendar Event Title Edited");
+
+		CalendarEvent.publishRepeating(saveOption = "Entire Series");
+
+		Navigator.gotoPage(pageName = "Calendar");
+
+		ProductMenuHelper.closeProductMenu();
+
+		CalendarEvent.view(eventTitle = "Calendar Event Title Edited");
+
+		Navigator.gotoPage(pageName = "Calendar");
+
+		CalendarNavigator.gotoAddEvent();
+
+		CalendarEvent.add(
+			eventTitle = "Post Upgrade Calendar Event",
+			eventType = "Regular",
+			pageName = "Calendar");
+
+		Navigator.gotoPage(pageName = "Calendar");
+
+		ProductMenuHelper.closeProductMenu();
+
+		CalendarEvent.view(eventTitle = "Post Upgrade Calendar Event");
+	}
+
+	macro viewClassicSearchPortletConfiguration {
+		Navigator.gotoSitePage(
+			pageName = "Site Page",
+			siteName = "Site Name");
+
+		ClassicSearch.gotoOptions(portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		AssertTextEquals(
+			key_scopeName = "Everything",
+			locator1 = "Select#SCOPE_SELECTED",
+			value1 = "Everything");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "UserSearchFacet");
+
+		Navigator.gotoNavTab(navTab = "Spell Check Settings");
+
+		FormFields.viewCheckboxChecked(fieldName = "collatedSpellCheckResultEnabled");
+
+		IFrame.closeFrame();
+
+		Navigator.gotoSitePage(
+			pageName = "Site Page",
+			siteName = "Site Name");
+
+		ClassicSearch.search(searchTerm = "WC Title");
+
+		ClassicSearch.viewSearchResultPG(
+			searchAssetTitle = "WC Title 1",
+			searchAssetType = "Web Content Article");
+
+		ClassicSearch.viewSearchResultPG(
+			searchAssetTitle = "WC Title 2",
+			searchAssetType = "Web Content Article");
+
+		AssertElementNotPresent(locator1 = "SearchResults#USER_FACET_ANY_USER");
+	}
+
+	macro viewContributedFragmentStyle {
+		task ("Navigate to page in view mode") {
+			ApplicationsMenu.gotoSite(site = "Test Site Name");
+
+			Navigator._gotoPage(pageName = "Test Fragment Content Page");
+
+			Pause(locator1 = "5000");
+
+			Refresh();
+
+			Pause(locator1 = "10000");
+		}
+
+		task ("Assert styles of Container in view mode") {
+			var screenWidth	= selenium.getElementWidth("//body");
+
+			var containerWidth	= selenium.getElementWidth("//div[contains(@class,'container')][contains(@class,'pb-3 pt-3')]");
+
+			TestUtils.assertNotEquals(
+				actual = "${containerWidth}",
+				expected = "${screenWidth}");
+
+			var screenWidth	= selenium.getElementWidth("//body");
+
+			var containerWidth	= selenium.getElementWidth("//div[contains(@class,'container')][contains(@class,'pb-3 pt-3')]");
+
+			TestUtils.assertNotEquals(
+				actual = "${containerWidth}",
+				expected = "${screenWidth}");
+
+			AssertVisible(locator1 = "//div[contains(@class,'container')][contains(@class,'pb-3 pt-3')]");
+
+			AssertCssValue(
+				locator1 = "//div[contains(@class,'container')][contains(@class,'pb-3 pt-3')]",
+				locator2 = "background-color",
+				value1 = "rgba(46, 90, 172, 1)");
+
+			AssertCssValue(
+				locator1 = "//div[contains(@class,'container')][contains(@class,'pb-3 pt-3')]",
+				locator2 = "max-width",
+				value1 = "${containerWidth}px");
+
+			AssertElementNotPresent(locator1 = "//div[contains(@class,'container')][contains(@class,'ml-0')]");
+
+			AssertElementNotPresent(locator1 = "//div[contains(@class,'container')][contains(@class,'mr-0')]");
+		}
+
+		task ("Assert styles of Button in view mode") {
+			PageEditor.viewFragmentStyle(
+				fragmentName = "button",
+				size = "lg",
+				type = "link");
+
+			AssertElementPresent(
+				key_alignment = "center",
+				key_fragmentName = "button",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_ALIGNMENT_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_fragmentName = "button",
+				key_marginBottom = "1",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_MARGIN_BOTTOM_IN_VIEW_MODE");
+		}
+
+		task ("Assert styles of Card in view mode") {
+			PageEditor.viewFragmentStyle(
+				fragmentName = "card",
+				imageSize = "0");
+
+			AssertElementPresent(
+				key_borderRadius = "0.375rem",
+				key_fragmentName = "card",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_BORDER_RADIUS_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_boxShadow = "0 1rem 3rem rgba(0, 0, 0, .175)",
+				key_fragmentName = "card",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_BOX_SHADOW_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_alignment = "center",
+				key_fragmentName = "card",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_ALIGNMENT_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_fragmentName = "card",
+				key_marginBottom = "1",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_MARGIN_BOTTOM_IN_VIEW_MODE");
+		}
+
+		task ("Assert styles of Heading in view mode") {
+			PageEditor.viewFragmentStyle(
+				fragmentName = "heading",
+				headingLevel = "h2");
+
+			AssertElementPresent(
+				key_fragmentName = "heading",
+				key_textColor = "#287D3C",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_TEXT_COLOR_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_alignment = "center",
+				key_fragmentName = "heading",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_ALIGNMENT_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_fragmentName = "heading",
+				key_marginBottom = "1",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_MARGIN_BOTTOM_IN_VIEW_MODE");
+		}
+
+		task ("Assert styles of HTML in view mode") {
+			AssertElementPresent(
+				key_fragmentName = "html",
+				key_marginBottom = "1",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_MARGIN_BOTTOM_IN_VIEW_MODE");
+		}
+
+		task ("Assert styles of Image in view mode") {
+			PageEditor.viewFragmentStyle(
+				fragmentName = "image",
+				imageSize = "0");
+
+			AssertElementPresent(
+				key_alignment = "center",
+				key_fragmentName = "image",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_ALIGNMENT_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_fragmentName = "image",
+				key_marginBottom = "1",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_MARGIN_BOTTOM_IN_VIEW_MODE");
+		}
+
+		task ("Assert styles of Paragraph in view mode") {
+			AssertElementPresent(
+				key_fragmentName = "paragraph",
+				key_textColor = "#B95000",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_TEXT_COLOR_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_alignment = "center",
+				key_fragmentName = "paragraph",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_ALIGNMENT_IN_VIEW_MODE");
+
+			AssertElementPresent(
+				key_fragmentName = "paragraph",
+				key_marginBottom = "1",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_MARGIN_BOTTOM_IN_VIEW_MODE");
+		}
+
+		task ("Assert styles of Separator in view mode") {
+			PageEditor.viewFragmentStyle(
+				bottomSpacing = "3",
+				separatorColor = "dark");
+		}
+
+		task ("Assert styles of Spacer in view mode") {
+			PageEditor.viewFragmentStyle(height = "5");
+		}
+
+		task ("Assert styles of Video in view mode") {
+			AssertElementPresent(
+				key_alignment = "center",
+				locator1 = "Fragment#ALIGN");
+
+			AssertElementPresent(
+				key_height = "300px",
+				locator1 = "Fragment#VIDEO_HEIGHT");
+
+			AssertElementPresent(
+				key_width = "300px",
+				locator1 = "Fragment#VIDEO_WIDTH");
+
+			AssertElementPresent(locator1 = "//div[contains(@class,'video')]/parent::div/parent::div/parent::div[contains(@class,'mb-1')]");
+		}
+
+		task ("Navigate to page in edit mode") {
+			ContentPages.clickPencil();
+
+			Pause(locator1 = "10000");
+		}
+
+		task ("Assert styles of Container in edit mode") {
+			PageEditor.viewContainerStyle(
+				containerWidth = "Fixed Width",
+				paddingBottom = "3",
+				paddingTop = "3",
+				position = "1");
+
+			AssertCssValue(
+				key_position = "1",
+				locator1 = "PageEditor#CONTAINER_CONTAINER",
+				locator2 = "background-color",
+				value1 = "rgba(46, 90, 172, 1)");
+		}
+
+		task ("Assert styles of Button in edit mode") {
+			PageEditor.viewFragmentStyle(
+				alignment = "center",
+				fragmentName = "button",
+				marginBottom = "1",
+				size = "lg",
+				type = "link");
+		}
+
+		task ("Assert styles of Card in edit mode") {
+			PageEditor.viewFragmentStyle(
+				alignment = "center",
+				fragmentName = "card",
+				imageSize = "0",
+				marginBottom = "1");
+
+			AssertElementPresent(
+				key_borderRadius = "0.375rem",
+				key_fragmentName = "card",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_BORDER_RADIUS_IN_VIEW_MODE");
+
+			AssertElementPresent(locator1 = "//div[contains(@class,'page-editor__topper__bar') and contains(.,'Card')]/parent::div[contains(@style,'box-shadow: rgba(0, 0, 0, 0.176) 0px 1rem 3rem')]");
+		}
+
+		task ("Assert styles of Heading in edit mode") {
+			PageEditor.viewFragmentStyle(
+				alignment = "center",
+				fragmentName = "heading",
+				headingLevel = "h2",
+				marginBottom = "1");
+
+			AssertElementPresent(
+				key_fragmentName = "heading",
+				key_textColor = "rgb(40, 125, 60)",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_TEXT_COLOR_IN_VIEW_MODE");
+		}
+
+		task ("Assert styles of HTML in edit mode") {
+			AssertElementPresent(
+				key_fragmentName = "html",
+				key_marginBottom = "1",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_MARGIN_BOTTOM_IN_VIEW_MODE");
+		}
+
+		task ("Assert styles of Image in edit mode") {
+			PageEditor.viewFragmentStyle(
+				alignment = "center",
+				fragmentName = "image",
+				imageSize = "0",
+				marginBottom = "1");
+		}
+
+		task ("Assert styles of Paragraph in edit mode") {
+			AssertElementPresent(
+				key_fragmentName = "paragraph",
+				key_textColor = "rgb(185, 80, 0)",
+				locator1 = "Fragment#FRAGMENT_CONFIGURATION_TEXT_COLOR_IN_VIEW_MODE");
+
+			PageEditor.viewFragmentStyle(
+				alignment = "center",
+				fragmentName = "paragraph",
+				marginBottom = "1");
+		}
+
+		task ("Assert styles of Separator in edit mode") {
+			PageEditor.viewFragmentStyle(
+				bottomSpacing = "3",
+				separatorColor = "dark");
+		}
+
+		task ("Assert styles of Spacer in edit mode") {
+			PageEditor.viewFragmentStyle(height = "5");
+		}
+
+		task ("Assert styles of Video in edit mode") {
+			AssertElementPresent(
+				key_alignment = "center",
+				locator1 = "Fragment#ALIGN");
+
+			AssertElementPresent(
+				key_height = "300px",
+				locator1 = "Fragment#VIDEO_HEIGHT");
+
+			AssertElementPresent(
+				key_width = "300px",
+				locator1 = "Fragment#VIDEO_WIDTH");
+
+			AssertElementPresent(locator1 = "//div[contains(@class,'video')]/parent::div/parent::div/parent::div[contains(@class,'mb-1')]");
+		}
+	}
+
+	macro viewDefaultPage {
+		Navigator.openURL();
+
+		// Assert the Home/Welcome page is a widget page in the default site when upgrade from 7.2/7.1/7.0
+
+		AssertElementNotPresent(locator1 = "Icon#EDIT_PENCIL");
+
+		AssertVisible(locator1 = "ControlMenu#ADD");
+	}
+
+	macro viewDocument {
+		Navigator.gotoPage(pageName = "Document");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		DMDocument.enableActionsMenuOnPortlet();
+
+		Navigator.gotoPage(pageName = "Document");
+
+		DMDocument.viewAllPG(
+			commentBody = "Document Comment",
+			dmDocumentTitle = "Document1");
+
+		DMDocument.viewDocumentDetailsCmdPG(dmDocumentTitle = "Document1");
+
+		DMDocument.viewDocumentMetadataCP(
+			metadataData = "application/msword",
+			metadataLabel = "Content Type");
+
+		DMDocument.viewDocumentMetadataCP(
+			metadataData = "Liferay",
+			metadataLabel = "Creator");
+	}
+
+	macro ViewDroolsAppManager {
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "App Manager");
+
+		AppManager.viewAppCP(
+			appName = "Liferay Drools",
+			appStatus = "Active",
+			searchTerm = "Drools");
+
+		AppManager.viewAppCP(
+			appName = "Liferay Portal Rules Engine Drools",
+			appStatus = "Active",
+			searchTerm = "Drools");
+	}
+
+	macro viewInstanceSettings {
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Instance Configuration",
+			configurationName = "General",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewTextValue(
+			fieldName = "homeURL",
+			fieldValue = "/web/test/home");
+
+		FormFields.viewTextValue(
+			fieldName = "default-logout-page",
+			fieldValue = "/web/test/home");
+
+		FormFields.viewTextValue(
+			fieldName = "default-landing-page",
+			fieldValue = "/web/test/home");
+
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "User Authentication",
+			configurationName = "General",
+			configurationScope = "Virtual Instance Scope");
+
+		AssertSelectedLabel(
+			locator1 = "PortalSettingsAuthentication#AUTHENTICATION_GENERAL_HOW_DO_USERS_AUTHENTICATE_SELECT",
+			value1 = "By Screen Name");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "company-security-auto-login");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "company-security-send-password");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "company-security-send-password-reset-link");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "company-security-strangers");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "company-security-strangers-with-mx");
+
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "User Authentication",
+			configurationName = "Reserved Credentials",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewTextMultilineValue(
+			fieldName = "reserved.screen.names",
+			fieldValue = "usersn");
+
+		FormFields.viewTextMultilineValue(
+			fieldName = "reserved.email.addresses",
+			fieldValue = "userea@liferay.com");
+
+		// Ignore test until LPS-98192 is resolved
+
+		/*
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Users",
+			configurationName = "Fields",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxChecked(fieldName = "users-screen-name-always-autogenerate");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "field-enable-com-liferay-portal-kernel-model-Contact-birthday");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "field-enable-com-liferay-portal-kernel-model-Contact-male");*/
+
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Users",
+			configurationName = "Default User Associations",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewTextMultilineValue(
+			fieldName = "default.group.names",
+			fieldValue = "Liferay");
+
+		FormFields.viewTextMultilineValue(
+			fieldName = "default.role.names",
+			fieldValue = "Administrator");
+
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Email",
+			configurationName = "Email Sender",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewTextValue(
+			fieldName = "email.from.name",
+			fieldValue = "Test Test");
+
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Sharing",
+			configurationName = "Content Sharing",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "sites-content-sharing-through-administrators-enabled");
+
+		AssertSelectedLabel(
+			locator1 = "PortalSettingsContentSharing#CONTENT_SHARING_SELECTOR",
+			value1 = "Disabled by Default");
+
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Localization",
+			configurationName = "Language",
+			configurationScope = "Virtual Instance Scope");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "LanguageConfiguration#LANGUAGES_CURRENT",
+			value1 = "English (United States)");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "LanguageConfiguration#LANGUAGES_CURRENT",
+			value1 = "Spanish (Spain)");
+
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Localization",
+			configurationName = "Time Zone",
+			configurationScope = "Virtual Instance Scope");
+
+		AssertSelectedLabel(
+			locator1 = "Select#TIME_ZONE",
+			value1 = "(UTC +03:00) Eastern European Time");
+	}
+
+	macro viewLDAPConfiguration {
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "LDAP",
+			configurationName = "Authentication",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxChecked(fieldName = "enabled");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "LDAP",
+			configurationName = "Import",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxChecked(fieldName = "importEnabled");
+
+		FormFields.viewCheckboxChecked(fieldName = "importOnStartup");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "LDAP",
+			configurationName = "Export",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxChecked(fieldName = "exportEnabled");
+	}
+
+	macro viewMessageBoards {
+		Navigator.gotoPage(pageName = "Message Boards");
+
+		MessageboardsThread.viewLockedPG(threadSubject = "Message Boards Subject 2");
+	}
+
+	macro viewMSBUpgrade {
+		task ("Assert the fragments survived") {
+			FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "test-site-name");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Content");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Image");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Button");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Multiple Editables");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Static Text");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Image 2");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Rich Text");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Title 2");
+
+			FragmentsAdmin.viewEntryPresent(entry = "Title");
+
+			FragmentsAdminNavigator.gotoEntryEllipsisItem(
+				entry = "Button",
+				item = "Edit");
+
+			SelectFrame.selectFrameNoLoading(locator1 = "FragmentEditor#PREVIEW_IFRAME");
+
+			AssertElementPresent(locator1 = "Button#SUBMIT");
+
+			AssertElementPresent(locator1 = "Button#CANCEL");
+
+			SelectFrameTop();
+		}
+
+		task ("Assert the content page template survived") {
+			PageTemplatesAdmin.openPageTemplatesAdmin(siteURLKey = "test-site-name");
+
+			PageTemplatesAdmin.gotoPageTemplate(pageTemplateName = "Page Template Name");
+
+			AssertVisible(
+				key_content = "Submit",
+				key_fragmentClass = "footer",
+				key_position = "1",
+				locator1 = "Fragment#PAGE_EDITOR_FRAGMENT");
+
+			for (var button : list "Submit,Cancel") {
+				Button.viewPresent(button = "${button}");
+			}
+		}
+
+		task ("Assert the content pages and Navigation Menu widget configuration survived") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name");
+
+			Click(
+				key_pageName = "Test Template Content Page",
+				locator1 = "Home#PAGE");
+
+			AssertVisible(
+				key_content = "Submit",
+				key_fragmentClass = "footer",
+				locator1 = "Fragment#FRAGMENT");
+
+			for (var button : list "Submit,Cancel") {
+				Button.viewPresent(button = "${button}");
+			}
+
+			Click(
+				key_pageName = "Test Regular Content Page",
+				locator1 = "Home#PAGE");
+
+			AssertVisible(
+				key_content = "Lorem ipsum dolor sit amet",
+				key_fragmentClass = "header",
+				locator1 = "Fragment#FRAGMENT");
+
+			AssertVisible(
+				key_href = "https://www.liferay.com/",
+				key_pageName = "Liferay",
+				locator1 = "Home#PAGE_HREF");
+		}
+
+		task ("Assert the navigation menu survived") {
+			NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "test-site-name");
+
+			AssertVisible(
+				key_rowEntry = "Test Navigation Menu Name",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK");
+		}
+
+		task ("Assert the display page survived") {
+			DisplayPageTemplatesAdmin.openDisplayPagesAdmin(siteURLKey = "test-site-name");
+
+			DisplayPageTemplatesAdmin.viewDisplayPagePresent(displayPageName = "Display Page Name");
+
+			DisplayPageTemplatesAdmin.viewDisplayPagePresent(displayPageName = "Non-Default Display Page");
+		}
+
+		task ("Assert the web content articles that use display pages are viewable through display page template") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/w/webcontent-title-1");
+
+			AssertVisible(
+				key_content = "Webcontent Title 1",
+				key_fragmentClass = "header",
+				locator1 = "Fragment#FRAGMENT");
+
+			AssertVisible(
+				key_content = "Webcontent Content 1",
+				key_fragmentClass = "rich-text",
+				locator1 = "Fragment#FRAGMENT");
+
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/w/webcontent-title-2");
+
+			AssertVisible(
+				key_content = "Webcontent Content 2",
+				key_fragmentClass = "rich-text",
+				locator1 = "Fragment#FRAGMENT");
+
+			AssertVisible(
+				key_content = "Lorem ipsum dolor sit amet",
+				key_fragmentClass = "header",
+				locator1 = "Fragment#FRAGMENT");
+		}
+
+		task ("Assert the web content article that has no display page is not viewable through display page") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/w/webcontent-title-3");
+
+			AssertTextPresent(value1 = "The requested resource could not be found.");
+		}
+	}
+
+	macro viewNestedPortlets {
+		Navigator.gotoPage(pageName = "Nested Portlets");
+
+		AssertTextEquals(
+			key_portletName = "Nested Applications",
+			locator1 = "Portlet#TITLE",
+			value1 = "Nested Applications");
+
+		AssertTextNotEquals(
+			locator1 = "Message#INFO",
+			value1 = "Drag applications below to nest them.");
+
+		NestedPortlets.viewPG(
+			portletColumnNumberTo = "1",
+			portletName = "Web Content Display");
+	}
+
+	macro viewNotifications {
+		Navigator.gotoPage(pageName = "Welcome");
+
+		Notifications.gotoNotifications();
+
+		Notifications.viewNewContent(
+			assetType = "message boards message",
+			contentBody = "Message Boards Subject 1",
+			user = "Test Test");
+
+		Notifications.navigateToContent(contentBody = "Message Boards Subject 1");
+
+		MessageboardsThread.viewPG(
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject 1");
+
+		Notifications.viewBadgeCount(
+			activePanel = "Notifications",
+			notificationCount = "2");
+
+		Notifications.gotoNotifications();
+
+		Notifications.viewNewContent(
+			assetType = "message boards message",
+			contentBody = "Message Boards Subject 2",
+			user = "Test Test");
+
+		Notifications.navigateToContent(contentBody = "Message Boards Subject 2");
+
+		MessageboardsThread.viewPG(
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject 2");
+
+		Notifications.viewBadgeCount(
+			activePanel = "Notifications",
+			notificationCount = "1");
+
+		Notifications.gotoNotifications();
+
+		Notifications.viewNewContent(
+			assetType = "message boards message",
+			contentBody = "Message Boards Subject 3",
+			user = "Test Test");
+
+		Notifications.navigateToContent(contentBody = "Message Boards Subject 3");
+
+		MessageboardsThread.viewPG(
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject 3");
+	}
+
+	macro viewPolls {
+		Navigator.gotoPage(pageName = "Polls");
+
+		AssertElementNotPresent(locator1 = "Message#INFO");
+
+		Navigator.gotoPage(pageName = "Polls");
+
+		Polls.viewPollPG(
+			pollsQuestion = "Sample Polls Question",
+			pollsQuestionChoiceList = "Yes,No");
+
+		Polls.votePollPG(pollsQuestionChoice = "Yes");
+
+		Navigator.gotoPage(pageName = "Polls");
+
+		Polls.viewVotedPollPG(
+			pollsQuestionChoice = "Yes",
+			pollsQuestionTotalVotes = "1",
+			pollsQuestionVoteCount = "1",
+			pollsQuestionVotePercent = "100%");
+	}
+
+	macro viewPortalCORS {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "${name}");
+
+		AssertTextEquals(
+			key_configurationValue = "filter.mapping.url.pattern",
+			locator1 = "SystemSettings#CORS_CONFIGURATION",
+			value1 = "${urlPattern}");
+
+		AssertTextEquals(
+			key_configurationValue = "header",
+			locator1 = "SystemSettings#CORS_CONFIGURATION",
+			value1 = "${header}");
+	}
+
+	macro ViewPortletsPermissions {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea1@liferay.com",
+			userLoginFullName = "userfn1 userln1");
+
+		Navigator.gotoSitePage(
+			pageName = "Message Boards Page",
+			siteName = "Site Name 1");
+
+		MessageboardsThread.gotoPG(
+			lastPostUserName = "Test Test",
+			replyCount = "0",
+			threadSubject = "Message Boards Subject");
+
+		MessageboardsThread.viewPG(
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject");
+
+		Navigator.gotoSitePage(
+			pageName = "Message Boards Page",
+			siteName = "Site Name 1");
+
+		AssertElementNotPresent(locator1 = "Portlet#OPTIONS_ICON");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name 1");
+
+		WebContent.viewPGViaWCD(webContentContent = "Web Content Content");
+
+		Navigator.openSpecificURL(url = "http://localhost:8080/web/site-name-2/blogs-page");
+
+		Portlet.viewNoPermissionPG();
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea2@liferay.com",
+			userLoginFullName = "userfn2 userln2");
+
+		Navigator.gotoSitePage(
+			pageName = "Wiki Page",
+			siteName = "Site Name 2");
+
+		WikiPage.viewFrontPagePG(wikiPageContent = "Wiki Front Page Content");
+
+		Navigator.gotoSitePage(
+			pageName = "Wiki Page",
+			siteName = "Site Name 2");
+
+		Portlet.viewPortletOptions(OptionsName = "Configuration");
+
+		Navigator.gotoSitePage(
+			pageName = "Documents and Media Page",
+			siteName = "Site Name 2");
+
+		DMDocument.viewPG(dmDocumentTitle = "Document1");
+
+		Navigator.gotoSitePage(
+			pageName = "Documents and Media Page",
+			siteName = "Site Name 2");
+
+		Portlet.viewPortletOptions(OptionsName = "Permissions");
+
+		Navigator.gotoSitePage(
+			pageName = "Blogs Page",
+			siteName = "Site Name 2");
+
+		Portlet.viewNoPermissionPG();
+	}
+
+	macro viewSAMLGeneralConfiguration {
+		ApplicationsMenu.gotoPortlet(
+			category = "Security",
+			panel = "Control Panel",
+			portlet = "SAML Admin");
+
+		FormFields.viewCheckboxChecked(fieldName = "enabled");
+
+		if (isSet(samlRoleType)) {
+			AssertTextEquals(
+				locator1 = "CPSAMLAdmin#SAML_SELECTED_ROLE",
+				value1 = "${samlRoleType}");
+		}
+
+		AssertTextEquals(
+			locator1 = "CPSAMLAdmin#SAML_ENTITY_ID_FIELD",
+			value1 = "samlidp");
+	}
+
+	macro viewSAMLSPConnectionConfiguration {
+		SAMLNavigation.gotoServiceProviderConnection();
+
+		Click(locator1 = "CPSAMLAdminServiceProviderConnections#SERVICE_PROVIDER_CONNECTION_DROPDOWN");
+
+		MenuItem.click(menuItem = "Edit");
+
+		AssertTextEquals(
+			locator1 = "TextInput#NAME",
+			value1 = "samlsp");
+
+		AssertTextEquals(
+			locator1 = "CPSAMLAdminServiceProviderConnections#SERVICE_PROVIDER_CONNECTION_ENTITY_ID_FIELD",
+			value1 = "samlsp");
+
+		FormFields.viewCheckboxChecked(fieldName = "enabled");
+
+		if (isSet(forceEncryption)) {
+			FormFields.viewCheckboxChecked(fieldName = "encryptionForced");
+		}
+
+		AssertTextEquals(
+			locator1 = "TextInput#SAML_METADATA_URL_FIELD",
+			value1 = "http://www.able.com:9080//c/portal/saml/metadata");
+
+		AssertTextEquals(
+			locator1 = "CPSAMLAdminServiceProviderConnections#SERVICE_PROVIDER_CONNECTION_NAME_IDENTIFIER_ATTRIBUTE_NAME_FIELD",
+			value1 = "emailAddress");
+	}
+
+	macro viewSearchPortletsConfiguration {
+		Navigator.gotoSitePage(
+			pageName = "Site Page",
+			siteName = "Site Name");
+
+		SearchPortlets.gotoEmbeddedOptions(portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		FormFields.viewTextValue(
+			fieldName = "destination",
+			fieldValue = "site-page");
+
+		IFrame.closeFrame();
+
+		Portlet.gotoPortletOptions(
+			portletName = "Search Result",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		FormFields.viewTextValue(
+			fieldName = "paginationDelta",
+			fieldValue = "2");
+
+		IFrame.closeFrame();
+
+		Portlet.gotoPortletOptions(
+			portletName = "Search Options",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		FormFields.viewCheckboxChecked(fieldName = "allowEmptySearches");
+
+		IFrame.closeFrame();
+
+		Portlet.gotoPortletOptions(
+			portletName = "Suggestion",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		FormFields.viewCheckboxChecked(fieldName = "spellCheckSuggestionEnabled");
+
+		IFrame.closeFrame();
+
+		Portlet.gotoPortletOptions(
+			portletName = "Type Facet",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "frequenciesVisible");
+
+		IFrame.closeFrame();
+
+		SearchPortlets.searchEmbedded(searchTerm = "WC Title");
+
+		Pagination.viewResults(results = "Showing 1 to 2 of 3 entries.");
+
+		AssertElementNotPresent(locator1 = "Search#SEARCH_TYPE_FACET_TERM_COUNT");
+	}
+
+	macro viewSharedBlog {
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "user2@liferay.com");
+
+		Notifications.viewBadgeCount(notificationCount = "1");
+
+		Notifications.gotoNotifications();
+
+		Notifications.viewNewSharedContent(
+			contentSharingPermission = "viewing",
+			contentTitle = "Blogs Entry Title",
+			openNotification = "true",
+			ownerName = "Test Test");
+
+		BlogsEntry.viewSharedAsset(
+			contentSharingPermission = "View",
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	macro viewSharedDocument {
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "user1@liferay.com");
+
+		Notifications.viewBadgeCount(notificationCount = "1");
+
+		Notifications.gotoNotifications();
+
+		Notifications.viewNewSharedContent(
+			contentSharingPermission = "viewing",
+			contentTitle = "DM Document Title 1",
+			openNotification = "true",
+			ownerName = "Test Test");
+
+		DMDocumentSharing.viewDocumentViaSharedContent(
+			contentSharingPermission = "View",
+			dmDocumentTitle = "DM Document Title 1");
+	}
+
+	macro viewStagingNestedPortlets {
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Staging Site");
+
+		AssertTextEquals(
+			key_portletName = "Nested Applications",
+			locator1 = "Portlet#TITLE",
+			value1 = "Nested Applications");
+
+		AssertTextNotEquals(
+			locator1 = "Message#INFO",
+			value1 = "Drag applications below to nest them.");
+
+		NestedPortlets.viewPG(
+			portletColumnNumberTo = "1",
+			portletName = "Web Content Display");
+
+		NestedPortlets.viewPG(
+			portletColumnNumberTo = "1",
+			portletName = "Blogs");
+	}
+
+	macro viewSystemSettings {
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Web Content",
+			configurationName = "Web Content",
+			configurationScope = "Virtual Instance Scope");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "addDefaultStructures");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "charactersblacklist",
+			fieldValue = "test");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "errorTemplateFTL",
+			fieldValue = "errortest.ftl");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "errorTemplateVM",
+			fieldValue = "errortest.vm");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "errorTemplateXSL",
+			fieldValue = "errortest.xsl");
+
+		FormFields.viewTextValue(
+			fieldName = "checkInterval",
+			fieldValue = "5");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "customTokenNames",
+			fieldValue = "Custom Token Name1");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "customTokenValues",
+			fieldValue = "Custom Token Value1");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "articleCommentsEnabled");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "databaseContentKeywordSearchEnabled");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "expireAllArticleVersionsEnabled");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "articleViewPermissionsCheckEnabled");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Web Content",
+			configurationName = "Administration",
+			configurationScope = "System Scope");
+
+		FormFields.viewCheckboxChecked(fieldName = "changeableDefaultLanguage");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "defaultDisplayView",
+			fieldValue = "list");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "journalArticleForceAutogenerateId");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Web Content",
+			configurationName = "Service",
+			configurationScope = "Site Scope");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "emailFromName",
+			fieldValue = "test name");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "emailFromAddress",
+			fieldValue = "test@liferay.com");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "emailArticleAddedEnabled");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "emailArticleUpdatedEnabled");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Wiki",
+			configurationName = "Wiki Service",
+			configurationScope = "Site Scope");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "emailFromAddress",
+			fieldValue = "test@liferay.com");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "emailFromName",
+			fieldValue = "test name");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "emailPageAddedEnabled");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "emailPageUpdatedEnabled");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "frontPageName",
+			fieldValue = "TestFrontPage");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "getCreoleEditor",
+			fieldValue = "ckeditor_creole");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "getHTMLEditor",
+			fieldValue = "creole");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "initialNodeName",
+			fieldValue = "TestMainNode");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "pageCommentsEnabled");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "pageMinorEditAddSocialActivity");
+
+		FormFields.viewTextValue(
+			fieldName = "rssAbstractLength",
+			fieldValue = "500");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Wiki",
+			configurationName = "Widgets Display",
+			configurationScope = "Widget Scope");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "enableCommentRatings");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "enableComments");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "enableHighlighting");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "enablePageRatings");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "enableRelatedAssets");
+
+		// Ignore test until LPS-97976 is resolved
+
+		/*
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Dynamic Data Mapping",
+			configurationName = "Dynamic Data Mapping Service",
+			configurationScope = "Site Scope");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "smallImageExtensions",
+			fieldValue = ".svg",
+			repeatableFieldNumber = "4");
+
+		SystemSettings.viewTextareaValue(
+			fieldName = "smallImageExtensions",
+			fieldValue = "*",
+			repeatableFieldNumber = "5");
+
+		FormFields.viewTextValue(
+			fieldName = "smallImageMaxSize",
+			fieldValue = "5120");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Dynamic Data Mapping",
+			configurationName = "Dynamic Data Mapping Web",
+			configurationScope = "System Scope");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "autogenerateStructureKey");
+
+		FormFields.viewCheckboxNotChecked(fieldName = "autogenerateTemplateKey");*/
+	}
+
+	macro viewUpgrade {
+		Navigator.gotoPage(pageName = "Web Content");
+
+		WebContent.viewPGViaWCD(webContentContent = "Web Content Content");
+
+		Navigator.gotoPage(pageName = "Document");
+
+		ManagementBar.changeDisplayStyle(displayStyle = "List");
+
+		DMDocument.viewPG(dmDocumentTitle = "Document1");
+
+		DMDocument.expandInfo();
+
+		AssertTextEquals(
+			locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_UPLOADED_BY",
+			value1 = "Test Test");
+
+		AssertTextEquals(
+			key_dmDocumentVersionNumber = "1.0",
+			locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_VERSION",
+			value1 = "VERSION 1.0");
+
+		AssertTextEquals(
+			locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_WORKFLOW_STATUS",
+			value1 = "APPROVED");
+
+		var key_text = "Download";
+
+		AssertTextEquals(
+			locator1 = "Button#ANY",
+			value1 = "Download");
+
+		Navigator.gotoPage(pageName = "Message Boards");
+
+		MessageboardsThread.gotoPG(
+			lastPostUserName = "Test Test",
+			replyCount = "0",
+			startedByUserName = "Test Test",
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject");
+
+		MessageboardsThread.viewPG(
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject");
+
+		Navigator.gotoPage(pageName = "Wiki");
+
+		WikiPage.viewFrontPagePG(
+			wikiPageContent = "Wiki Front Page Content",
+			wikiPageTitle = "FrontPage");
+
+		Navigator.gotoPage(pageName = "Blogs");
+
+		BlogsEntry.viewEntryPG(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		AssertVisible(
+			key_pageName = "Site Page",
+			locator1 = "Home#PAGE_ACTIVE");
+
+		SignOut.signOut();
+
+		SignIn.signIn(userEmailAddress = "user@liferay.com");
+
+		Smoke.viewWelcomePage(
+			upgrade = "true",
+			userFirstName = "Userfn",
+			userLastName = "Userln");
+
+		Navigator.gotoPage(pageName = "Web Content");
+
+		WebContent.viewPGViaWCD(webContentContent = "Web Content Content");
+
+		Navigator.gotoPage(pageName = "Document");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		DMDocument.viewPG(dmDocumentTitle = "Document1");
+
+		DMDocument.expandInfo();
+
+		AssertTextEquals(
+			locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_UPLOADED_BY",
+			value1 = "Test Test");
+
+		AssertTextEquals(
+			key_dmDocumentVersionNumber = "1.0",
+			locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_VERSION",
+			value1 = "VERSION 1.0");
+
+		AssertTextEquals(
+			locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_WORKFLOW_STATUS",
+			value1 = "APPROVED");
+
+		AssertTextEquals(
+			key_dmDocumentSize = "22 KB",
+			locator1 = "DocumentsAndMediaDocument#DOCUMENT_DETAILS_DOWNLOAD",
+			value1 = "Download");
+
+		Navigator.gotoPage(pageName = "Message Boards");
+
+		MessageboardsThread.gotoPG(
+			lastPostUserName = "Test Test",
+			replyCount = "0",
+			startedByUserName = "Test Test",
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject");
+
+		MessageboardsThread.viewPG(
+			threadBody = "Message Boards Body",
+			threadSubject = "Message Boards Subject");
+
+		Navigator.gotoPage(pageName = "Wiki");
+
+		WikiPage.viewFrontPagePG(
+			wikiPageContent = "Wiki Front Page Content",
+			wikiPageTitle = "FrontPage");
+
+		Navigator.gotoPage(pageName = "Blogs");
+
+		BlogsEntry.viewEntryPG(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		AssertVisible(
+			key_pageName = "Site Page",
+			locator1 = "Home#PAGE_ACTIVE");
+
+		SignOut.signOut();
+
+		SignIn.signIn();
+	}
+
+	macro viewWebContentWithAllFields {
+		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content",
+			site = "${siteName}");
+
+		WebContentAdmin.viewEntryWorkflowStatus(
+			entry = "Web Content Title",
+			workflowStatus = "Approved");
+
+		WebContentUpgrade.viewWithStructureCP(
+			webContentBoolean = "true",
+			webContentDate = "10/10/2020",
+			webContentDecimal = "0.5",
+			webContentDocumentsAndMedia = "Document Title",
+			webContentDocumentsAndMediaFieldName = "Documents_and_Media",
+			webContentHTML = "This is a HTML field",
+			webContentImage = "Document_1.jpg",
+			webContentInteger = "9",
+			webContentLinkToPage = "Welcome",
+			webContentLinkToPageFieldName = "Link_to_Page",
+			webContentNumber = "-1",
+			webContentRadio = "option 1",
+			webContentSelect = "option 2",
+			webContentSeparator = "true",
+			webContentText = "This is a Text field",
+			webContentTextBox = "This is a Text Box field",
+			webContentTextBoxFieldName = "Text_Box",
+			webContentTitle = "Web Content Title");
+	}
+
+	macro viewWebContentWithPredefinedValueInWebContentField {
+		var siteName = TestCase.getSiteName(siteName = "${siteName}");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content",
+			site = "${siteName}");
+
+		for (var webContentTitle : list "Web Content Title,Web Content With Predefined Value") {
+			WebContentAdmin.viewEntryWorkflowStatus(
+				entry = "${webContentTitle}",
+				workflowStatus = "Approved");
+		}
+
+		WebContentUpgrade.viewWithStructureCP(
+			webContentTitle = "Web Content With Predefined Value",
+			webContentWebContent = "Web Content Title",
+			webContentWebContentFieldName = "WebContent");
+	}
+
+	macro viewWebContextsCORS {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "${filter}");
+
+		AssertTextEquals(
+			key_configurationValue = "filter.mapping.url.pattern",
+			locator1 = "SystemSettings#CORS_CONFIGURATION",
+			value1 = "${urlPattern}");
+	}
+
+}

@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>WCConfiguration</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">WCConfiguration</td></tr>
+</thead>
+<tbody>
+<!--NAVIGATION-->
+<tr>
+	<td>NAVIGATION_WEB_CONTENT_ADDED_EMAIL</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'Web Content Added Email')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_WEB_CONTENT_REVIEW_EMAIL</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'Web Content Review Email')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_WEB_CONTENT_UPDATED_EMAIL</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'Web Content Updated Email')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_WEB_CONTENT_DENIED_EMAIL</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'Web Content Denied Email')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_WEB_CONTENT_GRANTED_EMAIL</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'Web Content Granted Email')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_WEB_CONTENT_REQUESTED_EMAIL</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'Web Content Requested Email')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

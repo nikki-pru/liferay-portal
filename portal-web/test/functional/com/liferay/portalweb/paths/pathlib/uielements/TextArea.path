@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>TextArea</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">TextArea</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ACE_EDITOR</td>
+	<td>//textarea[contains(@class,'ace_text')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ANY</td>
+	<td>//textarea[contains(@name,'${key_text}') or contains(@title,'${key_text}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ANY_LABELED</td>
+	<td>//*[normalize-space(text())='${key_label}']/following-sibling::textarea</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHANGE_LOG</td>
+	<td>//textarea[contains(@id,'ChangeLog')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COMMENTS</td>
+	<td>//textarea[contains(@id,'comments')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONFIGURATION</td>
+	<td>//div[${key_counter}]//textarea[contains(@name,'configuration')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DESCRIPTION</td>
+	<td>//textarea[contains(@id,'description')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_INPUT</td>
+	<td>//textarea[contains(@class,'field-input')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SECURITY_QUESTIONS</td>
+	<td>//textarea[contains(@id,'reminderQueries')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SEO_META_TAGS_KEYWORDS</td>
+	<td>//textarea[contains(@id,'keywords')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TRANSLATIONS_TARGET_TEXT_BOX_FIELD</td>
+	<td>//textarea[contains(@id,'${key_fieldName}') and (not(contains(@readonly,'true')))]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>URL</td>
+	<td>//textarea[contains(@name,'url')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

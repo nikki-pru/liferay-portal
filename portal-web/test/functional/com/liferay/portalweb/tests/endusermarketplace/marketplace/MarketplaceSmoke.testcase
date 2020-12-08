@@ -1,0 +1,20 @@
+@component-name = "marketplace"
+definition {
+
+	property marketplace.app.acceptance = "true";
+	property testray.main.component.name = "Marketplace";
+
+	setUp {
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		BlogsEntry.tearDownCP();
+	}
+
+	@priority = "5"
+	test MarketplaceSmoke {
+		Marketplace.smoke();
+	}
+
+}

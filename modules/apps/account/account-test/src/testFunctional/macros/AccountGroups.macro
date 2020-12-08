@@ -1,0 +1,119 @@
+definition {
+
+	macro addAssignee {
+		LexiconEntry.gotoAdd();
+
+		Pause(locator1 = "3000");
+
+		SelectFrame(
+			key_accountName = "${accountGroupName}",
+			key_assigneeType = "${assigneeType}",
+			locator1 = "IFrame#ADD_ASSIGNEE_TO_ACCOUNT");
+
+		if (isSet(assigneeAll)) {
+			PortletEntry.selectAll();
+		}
+		else {
+			Search.searchCP(searchTerm = "${assigneeName}");
+
+			Check(
+				key_tableEntry = "${assigneeName}",
+				locator1 = "LexiconTable#TABLE_ENTRY_CHECKBOX");
+		}
+
+		SelectFrameTop();
+
+		Button.clickAssign();
+
+		Alert.viewSuccessMessage();
+
+		Refresh();
+
+		for (var assigneeName : list "${assigneeNames}") {
+			AssertTextEquals.assertPartialText(
+				key_tableEntry = "${assigneeName}",
+				locator1 = "LexiconTable#TABLE_ENTRY",
+				value1 = "${assigneeName}");
+		}
+	}
+
+	macro addCP {
+		LexiconEntry.gotoAdd();
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Add Account Group");
+
+		PortletEntry.inputName(name = "${accountGroupName}");
+
+		if (isSet(accountGroupDescription)) {
+			PortletEntry.inputDescription(description = "${accountGroupDescription}");
+		}
+
+		Button.clickSave();
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro removeAccount {
+		Search.searchCP(searchTerm = "${accountGroupName}");
+
+		if ("${removeType}" == "Toolbar Remove Icon") {
+			LexiconEntry.selectEntry(key_rowEntry = "${accountGroupName}");
+
+			ClickNoError(locator1 = "ManagementBar#REMOVE");
+
+			AssertConfirm(value1 = "Are you sure you want to remove the selected accounts?");
+
+			Alert.viewSuccessMessage();
+		}
+		else if ("${removeType}" == "Management Toolbar") {
+			LexiconEntry.selectEntry(key_rowEntry = "${accountGroupName}");
+
+			Click(locator1 = "Icon#TOOLBAR_ELLIPSIS");
+
+			MenuItem.clickNoError(menuItem = "Remove");
+
+			AssertConfirm(value1 = "Are you sure you want to remove the selected accounts?");
+
+			Alert.viewSuccessMessage();
+		}
+		else {
+			ClickNoError(
+				key_entryName = "${accountGroupName}",
+				locator1 = "LexiconTable#TABLE_ENTRY_DELETE");
+
+			AssertConfirm(value1 = "Are you sure you want to remove this account?");
+
+			Alert.viewSuccessMessage();
+		}
+
+		LexiconEntry.viewNoEntry(rowEntry = "${accountGroupName}");
+	}
+
+	macro viewAssignee {
+		AssertElementPresent(
+			key_tab = "Accounts",
+			locator1 = "NavTab#ACTIVE_TAB_LINK");
+
+		AssertTextEquals.assertPartialText(
+			key_tableEntry = "${assigneeName}",
+			locator1 = "LexiconTable#TABLE_ENTRY",
+			value1 = "${assigneeName}");
+	}
+
+	macro viewDefault {
+		if (IsElementPresent(locator1 = "NavTab#ACTIVE_TAB_LINK")) {
+			AssertElementPresent(
+				key_tab = "${tabName}",
+				locator1 = "NavTab#ACTIVE_TAB_LINK");
+		}
+
+		var tabName = StringUtil.toLowerCase("${tabName}");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No ${tabName} were found.");
+	}
+
+}

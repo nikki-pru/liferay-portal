@@ -1,0 +1,52 @@
+@import 'atlas-variables';
+
+@import 'variables';
+
+.source-editor {
+	border-bottom: solid $editorBorderWidth $editorBorderColor;
+	border-right: solid $editorBorderWidth $editorBorderColor;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	height: $editorHeight;
+	min-height: $editorMinHeight;
+	overflow: hidden;
+	position: relative;
+	width: 100%;
+
+	@include media-breakpoint-up(sm) {
+		float: left;
+		height: 50%;
+		width: 50%;
+	}
+
+	&.json {
+		height: 100%;
+		width: 100%;
+	}
+
+	&__syntax {
+		pointer-events: none;
+		position: absolute;
+		right: 1em;
+		top: 0.5em;
+		z-index: 10;
+	}
+
+	&__fixed-text {
+		background-color: #fff;
+		border-bottom: solid thin #f0f0f0;
+		border-left: 2.25ch solid #f0f0f0;
+		font-size: 0.85rem;
+		line-height: 1.5rem;
+		padding: 0 0 0 0.75ch;
+
+		&__help {
+			margin-right: 0.55rem;
+
+			&__tooltip {
+				pointer-events: none;
+			}
+		}
+	}
+}

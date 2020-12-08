@@ -1,0 +1,112 @@
+definition {
+
+	var userEmailAddress = "test@liferay.com";
+	var userPassword = "test";
+	var userPasswordReminderAnswer = "test";
+
+	macro _signIn {
+		if (IsElementNotPresent(locator1 = "TextInput#EMAIL_ADDRESS")) {
+			AssertClick(
+				locator1 = "UserBar#USER_SIGN_IN",
+				value1 = "Sign In");
+		}
+
+		Type.typePause(
+			locator1 = "TextInput#EMAIL_ADDRESS",
+			value1 = "${userEmailAddress}");
+
+		Type.typePause(
+			locator1 = "TextInput#PASSWORD",
+			value1 = "${userPassword}");
+
+		if ("${rememberMe}" == "true") {
+			Check(locator1 = "Checkbox#REMEMBER_ME");
+		}
+
+		AssertClick(
+			locator1 = "Button#SIGN_IN",
+			value1 = "Sign In");
+
+		AssertElementNotPresent(locator1 = "Button#SIGN_IN");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	@summary = "Agree to Liferay Portal Terms of Use"
+	macro agreeToTermsOfUse {
+		AssertClick(
+			locator1 = "Button#I_AGREE",
+			value1 = "I Agree");
+
+		AssertElementNotPresent(locator1 = "Button#I_AGREE");
+	}
+
+	@summary = "Enter '${userPasswordReminderAnswer}' as password reminder"
+	macro setPasswordReminder {
+		Type(
+			locator1 = "TextInput#ANSWER",
+			value1 = "${userPasswordReminderAnswer}");
+
+		Button.clickSave();
+	}
+
+	@summary = "Sign in to Liferay Portal as '${userEmailAddress}' using the password '${userPassword}'"
+	macro signIn {
+		Navigator.openURL();
+
+		SignIn._signIn(
+			rememberMe = "${rememberMe}",
+			userEmailAddress = "${userEmailAddress}",
+			userPassword = "${userPassword}");
+	}
+
+	macro signInPortalInstanceSetUp {
+		var defaultPortalURL = PropsUtil.get("default.portal.url");
+
+		SignIn.signInSpecificURL(url = "${defaultPortalURL}");
+
+		if (IsElementPresent(locator1 = "Button#I_AGREE")) {
+			SignIn.agreeToTermsOfUse();
+		}
+
+		if (IsElementPresent(locator1 = "Select#QUESTION")) {
+			SignIn.setPasswordReminder();
+		}
+
+		var portalURL = PropsUtil.get("portal.url");
+		var portalURL = StringUtil.replace("${portalURL}", "http://", "");
+		var portalURL = StringUtil.replace("${portalURL}", ":8080", "");
+
+		HeadlessPortalInstanceAPI.cleanAllPortalInstances();
+
+		HeadlessPortalInstanceAPI.addPortalInstance(
+			domain = "liferay.com",
+			portalInstanceId = "${portalURL}",
+			virtualHost = "${portalURL}");
+	}
+
+	macro signInSpecificURL {
+		Navigator.openSpecificURL(url = "${url}");
+
+		SignIn._signIn(
+			rememberMe = "${rememberMe}",
+			userEmailAddress = "${userEmailAddress}",
+			userPassword = "${userPassword}");
+	}
+
+	@summary = "Sign in to Liferay Portal as '${userEmailAddress}' using the password '${userPassword}'"
+	macro signInTestSetup {
+		SignOut.signOut();
+
+		SignIn.signIn();
+
+		if (IsElementPresent(locator1 = "Button#I_AGREE")) {
+			SignIn.agreeToTermsOfUse();
+		}
+
+		if (IsElementPresent(locator1 = "Select#QUESTION")) {
+			SignIn.setPasswordReminder();
+		}
+	}
+
+}

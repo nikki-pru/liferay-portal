@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>Card</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Card</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>CARD</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_ITEM</td>
+	<td>xpath=(//li[contains(@class,'asset-item')])[${key_index}]//*[contains(@class,'card-title')][contains(.,'${key_card}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_LINK</td>
+	<td>//div[contains(@data-analytics-asset-title,'${key_card}')]//a[contains(@class,'card-link')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_TITLE</td>
+	<td>//*[contains(@class,'card-title')][contains(.,'${key_card}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_TITLE_LINK</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//*[contains(@class,'card-title')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_SUBTITLE</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//*[contains(@class,'card-subtitle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_LABEL</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//span[contains(@class,'label-item')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_CHECKBOX</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//input[@type='checkbox']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_ELLIPSIS</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//*[contains(@class,'dropdown-toggle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_SELECTED</td>
+	<td>//li[contains(@class,'active')]//div[contains(@class,'card')][contains(.,'${key_card}')] | //div[contains(@class,'card')][contains(@class,'active')][contains(.,'${key_card}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_STICKER</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//span[contains(@class,'sticker')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_STYLE</td>
+	<td>//div[contains(@data-analytics-asset-title,'${key_card}')]/parent::div[contains(@class,'${key_cardStyle}') or contains(@style,'${key_cardStyle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_THUMBNAIL</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_TYPE_ASSET</td>
+	<td>//div[contains(@aria-label,'${key_card}') and contains(@class,'card-type-asset')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_CUSTOM_LOGO</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//span[contains(@class,'sticker')]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CARD_RADIO</td>
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//input[@type='radio']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

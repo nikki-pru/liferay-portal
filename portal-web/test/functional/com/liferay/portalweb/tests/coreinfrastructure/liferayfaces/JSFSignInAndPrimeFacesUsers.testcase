@@ -1,0 +1,188 @@
+@component-name = "core-infrastructure"
+definition {
+
+	property liferay.faces = "true";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Liferay Faces";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONUser.addUser(
+			userEmailAddress = "john.adams@liferay.com",
+			userFirstName = "John",
+			userLastName = "Adams",
+			userScreenName = "john.adams");
+
+		JSONUser.addUser(
+			userEmailAddress = "johnny.adamsy@liferay.com",
+			userFirstName = "Johnny",
+			userLastName = "Adamsy",
+			userScreenName = "john.adams");
+
+		JSONUser.addUser(
+			userEmailAddress = "josiah.bartlett@liferay.com",
+			userFirstName = "Josiah",
+			userLastName = "Bartlett",
+			userScreenName = "josiah.bartlett");
+
+		JSONUser.addUser(
+			userEmailAddress = "carter.braxton@liferay.com",
+			userFirstName = "Carter",
+			userLastName = "Braxton",
+			userScreenName = "carter.braxton");
+
+		JSONUser.addUser(
+			userEmailAddress = "benjamin.adams@liferay.com",
+			userFirstName = "Benjamin",
+			userLastName = "Adams",
+			userScreenName = "benjamin.adams");
+
+		JSONUser.addUser(
+			userEmailAddress = "philip.livingston@liferay.com",
+			userFirstName = "Philip",
+			userLastName = "Livingston",
+			userScreenName = "philip.livingston");
+
+		JSONUser.addUser(
+			userEmailAddress = "john.Franklin@liferay.com",
+			userFirstName = "John",
+			userLastName = "Franklin",
+			userScreenName = "john.franklin");
+
+		JSONUser.addUser(
+			userEmailAddress = "John.Braxton@liferay.com",
+			userFirstName = "John",
+			userLastName = "Braxton",
+			userScreenName = "john.Braxton");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			User.logoutPG();
+		}
+	}
+
+	@priority = "5"
+	test PrimeFacesUsersSmoke {
+
+		// UsersPagination and UsersSort
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+
+		JSFSignInAndPrimeFacesUsers.setRowsPerPage();
+
+		JSFSignInAndPrimeFacesUsers.viewPaginator();
+
+		JSFSignInAndPrimeFacesUsers.sortUsers(
+			screenName1 = "benjamin.adams",
+			screenName2 = "carter.braxton",
+			screenName3 = "john.adams",
+			screenName4 = "philip.livingston",
+			sort = "ascending");
+
+		JSFSignInAndPrimeFacesUsers.sortUsers(
+			screenName1 = "test",
+			screenName2 = "philip.livingston",
+			screenName3 = "josiah.bartlett",
+			screenName4 = "carter.braxton");
+
+		JSFSignInAndPrimeFacesUsers.filterUsers(
+			filterName = "John",
+			name = "firstName",
+			screenName1 = "john.adams",
+			screenName2 = "john.braxton",
+			screenName3 = "john.franklin",
+			sort = "ascending",
+			sortName = "lastName");
+
+		JSFSignInAndPrimeFacesUsers.filterUsers(
+			name = "firstName",
+			screenName1 = "john.franklin",
+			screenName2 = "john.braxton",
+			screenName3 = "john.adams",
+			sortName = "lastName");
+
+		// UsersFilter
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+
+		JSFSignInAndPrimeFacesUsers.filterUsers(
+			filterName = "adams",
+			name = "lastName",
+			screenName1 = "benjamin.adams",
+			screenName2 = "john.adams",
+			sort = "ascending",
+			sortName = "firstName");
+
+		JSFSignInAndPrimeFacesUsers.filterUsers(
+			name = "lastName",
+			screenName1 = "john.adams",
+			screenName2 = "benjamin.adams",
+			sortName = "firstName");
+
+		// DetailViewErrorMessages
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+
+		JSFSignInAndPrimeFacesUsers.filterUsers(
+			filterName = "john.adams",
+			name = "screenName",
+			screenName1 = "john.adams",
+			sort = "ascending",
+			sortName = "screenName");
+
+		JSFSignInAndPrimeFacesUsers.goToEditUsers(screenName = "john.adams");
+
+		JSFSignInAndPrimeFacesUsers.validateUserField(
+			emailAddress = "john.adamsliferay.com",
+			name = "firstName,lastName,emailAddress");
+
+		// DetailViewChangeUserAttributes
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+
+		JSFSignInAndPrimeFacesUsers.filterUsers(
+			filterName = "john.adams",
+			name = "screenName",
+			screenName1 = "john.adams",
+			sort = "ascending",
+			sortName = "screenName");
+
+		JSFSignInAndPrimeFacesUsers.goToEditUsers(screenName = "john.adams");
+
+		JSFSignInAndPrimeFacesUsers.uploadPortrait(
+			fileName = "Document_1.jpeg",
+			filterName = "john.adams",
+			name = "screenName",
+			screenName1 = "john.adams",
+			sortName = "screenName");
+
+		// DetailViewChangeUserAttributes
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=1_WAR_primefacesusersportlet");
+
+		JSFSignInAndPrimeFacesUsers.filterUsers(
+			filterName = "john.adams",
+			name = "screenName",
+			screenName1 = "john.adams",
+			sort = "ascending",
+			sortName = "screenName");
+
+		JSFSignInAndPrimeFacesUsers.goToEditUsers(screenName = "john.adams");
+
+		JSFSignInAndPrimeFacesUsers.editUsers(
+			emailAddress = "johnny.adamsy@liferay.com",
+			firstName = "Johnny",
+			lastName = "Adamsy");
+	}
+
+}

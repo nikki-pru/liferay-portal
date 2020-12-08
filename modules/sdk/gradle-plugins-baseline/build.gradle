@@ -1,0 +1,44 @@
+apply plugin: "com.gradle.plugin-publish"
+apply plugin: "org.ysb33r.gradletest"
+
+task copyGradleTestDependencies(type: Copy)
+task installGradleTestSmokeSample100(type: GradleBuild)
+
+String gradleVersion = "6.6.1"
+File userMavenRepoLocalDir = new File(System.getProperty("user.home"), ".m2/repository")
+
+tasks.eclipse {
+	ext.gradleVersion = gradleVersion
+}
+
+copyGradleTestDependencies {
+	from configurations.compile
+	into jar.destinationDir
+}
+
+dependencies {
+	compile group: "com.liferay", name: "com.liferay.ant.bnd", version: "3.2.6"
+	compile group: "com.liferay", name: "com.liferay.gradle.util", version: "1.0.44"
+
+	compileOnly fileTree(builtBy: [rootProject.tasks.getByName("extractGradleApi" + gradleVersion.replace(".", ""))], dir: new File(rootProject.buildDir, "gradle-${gradleVersion}"))
+}
+
+gradleTest {
+	dependsOn copyGradleTestDependencies
+	dependsOn installGradleTestSmokeSample100
+	dependsOn jar
+
+	deprecationMessagesAreFailures = false
+
+	versions "5.6.4", gradleVersion
+}
+
+installGradleTestSmokeSample100 {
+	dir = "src/gradleTest/smoke/dependencies/sample-100"
+	startParameter.systemPropertiesArgs = ["maven.repo.local": userMavenRepoLocalDir.absolutePath]
+	tasks = ["install"]
+}
+
+pluginBundle {
+	tags = ["baseline", "bnd", "bundle", "java", "osgi", "semantic", "semver", "versioning"]
+}

@@ -1,0 +1,110 @@
+<html>
+<head>
+<title>DDLEditRecord</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">DDLEditRecord</td></tr>
+</thead>
+<tbody>
+<!--FIELDS-->
+<tr>
+	<td>FIELD_LABEL</td>
+	<td>//div[@data-fieldname='${key_fieldName}']//label | //div[@data-fieldname='${key_fieldName}']//span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_LABEL_HIDDEN</td>
+	<td>//div[@data-fieldname='${key_fieldName}']/../../div/input[@type='hidden']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RECORD_FIELD_ALERT</td>
+	<td>//div[@role='alert']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_ADD</td>
+	<td>//div[@data-fieldname='${key_fieldName}']//a[contains(@class,'ddm-repeatable-add-button')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_DELETE</td>
+	<td>xpath=(//div[@data-fieldname='${key_fieldName}']//a[contains(@class,'ddm-repeatable-delete-button')])[${key_fieldNumber}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENTS_AND_MEDIA_CHILD_FIELD_CHOOSE_FROM_DOCUMENT_LIBRARY_BUTTON_</td>
+	<td>xpath=(//div[@data-fieldname='${key_parentFieldName}'][2]/div/following-sibling::div//button/span)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENTS_AND_MEDIA_CLEAR_BUTTON</td>
+	<td>//div[@data-fieldname='${key_fieldName}']//button[contains(.,'Clear')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GEOLOCATION_GOOGLE_MAP</td>
+	<td>//div[@data-fieldname='${key_fieldName}' and contains(@class,'geolocation')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HTML_FIELD</td>
+	<td>//div[contains(@id,'${key_fieldName}') and @contenteditable='true']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_LINK</td>
+	<td>//div[contains(@class,'ddm-container')]//a[contains(.,'${key_pageName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_NAV_ITEM</td>
+	<td>//nav[contains(@class,'navbar-default')]//a[contains(.,'${key_navItem}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_BREADCRUMB</td>
+	<td>//ul[contains(@class,'breadcrumb')]/li[${key_number}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_PAGE_RADIO</td>
+	<td>//a[contains(.,'${key_pageName}')]/../input[@type='radio']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_PAGE_CARET</td>
+	<td>//a[contains(.,'${key_pageName}')]/../input[@type='radio']/../a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAGRAPH_FIELD</td>
+	<td>//div[@class='lfr-ddm-container']/p[contains(.,'${key_fieldText}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RADIO_OPTION_LABEL</td>
+	<td>//div[@data-fieldname='${key_fieldName}']//label[contains(.,'${key_ddlRecordFieldData}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RADIO_OPTION_RADIO</td>
+	<td>//div[@data-fieldname='${key_fieldName}']//label[contains(.,'${key_ddlRecordFieldData}')]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SEPARATOR_FIELD</td>
+	<td>//div[@class='separator']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_BOX_FIELD</td>
+	<td>//div[@data-fieldname='${key_fieldName}']//textarea</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,16 @@
+@default = "assertTextNotPresent"
+definition {
+
+	function assertTextNotPresent {
+		WaitForSPARefresh();
+
+		selenium.waitForTextNotPresent();
+
+		selenium.assertTextNotPresent();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

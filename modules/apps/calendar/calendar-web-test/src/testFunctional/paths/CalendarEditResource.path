@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>CalendarEditResource</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CalendarEditResource</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>DETAILS_PANEL_COLLAPSED</td>
+	<td>//a[@aria-expanded='false' and contains(@aria-controls,'calendarResourceDetailsPanelContent')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_PANEL_EXPANDED</td>
+	<td>//a[@aria-expanded='true' and contains(@aria-controls,'calendarResourceDetailsPanelContent')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_PANEL_ACTIVE_CHECKBOX</td>
+	<td>//input[contains(@id,'_active')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,2922 @@
+definition {
+
+	var password = "test";
+	var userEmailAddress = "test@liferay.com";
+
+	macro _login {
+		AssertClick(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+
+		Type.typePause(
+			locator1 = "TextInput#EMAIL_ADDRESS",
+			value1 = "${userEmailAddress}");
+
+		Type.typePause(
+			locator1 = "TextInput#PASSWORD",
+			value1 = "${password}");
+
+		Click(locator1 = "Button#SIGN_IN");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro _signInLocalization {
+		if ("${localization}" == "JA") {
+			var localizedSignIn = "ログイン";
+		}
+		else if ("${localization}" == "ZH") {
+			var localizedSignIn = "登录";
+		}
+		else if ("${localization}" == "ES") {
+			var localizedSignIn = "Acceder";
+		}
+		else {
+			var localizedSignIn = "Sign In";
+		}
+
+		return "${localizedSignIn}";
+	}
+
+	macro acceptEndUserLicenseAgreement {
+		if (IsElementPresent(locator1 = "Button#I_AGREE")) {
+			AssertClick(
+				locator1 = "Button#I_AGREE",
+				value1 = "I Agree");
+
+			AssertElementNotPresent(locator1 = "Button#I_AGREE");
+		}
+	}
+
+	macro acceptEndUserLicenseAgreementLocalized {
+		var key_localizedAgree = "${localizedAgree}";
+
+		if (IsElementPresent(locator1 = "Button#I_AGREE_LOCALIZED")) {
+			AssertClick(
+				locator1 = "Button#I_AGREE_LOCALIZED",
+				value1 = "${localizedAgree}");
+
+			AssertElementNotPresent(locator1 = "Button#I_AGREE_LOCALIZED");
+		}
+	}
+
+	macro activateCP {
+		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		MenuItem.click(menuItem = "Inactive");
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Activate",
+			rowEntry = "${userScreenName}");
+
+		Alert.viewSuccessMessage();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		var key_userScreenName = "${userScreenName}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizations#USER_TABLE_NAME",
+			value1 = "${userName}");
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+	}
+
+	macro addAddressViaMyAccount {
+		Click(locator1 = "NavBar#ADDRESSES");
+
+		Click(locator1 = "Button#ADD_ADDRESS");
+
+		Type(
+			locator1 = "TextInput#STREET_1",
+			value1 = "${userAddressStreet1}");
+
+		if (isSet(userAddressCountry)) {
+			Select(
+				locator1 = "Select#COUNTRY",
+				value1 = "${userAddressCountry}");
+		}
+
+		if (isSet(userAddressRegion)) {
+			Select(
+				locator1 = "Select#REGION",
+				value1 = "${userAddressRegion}");
+		}
+
+		if (isSet(userAddressPostalCode)) {
+			Type(
+				locator1 = "TextInput#POSTAL_CODE",
+				value1 = "${userAddressPostalCode}");
+		}
+
+		if (isSet(userAddressType)) {
+			Select(
+				locator1 = "Select#TYPE",
+				value1 = "${userAddressType}");
+		}
+
+		Type(
+			locator1 = "TextInput#CITY",
+			value1 = "${userAddressCity}");
+
+		Check(locator1 = "Checkbox#MAKE_PRIMARY");
+
+		Check(locator1 = "Checkbox#MAILING");
+
+		Click(locator1 = "Button#SAVE");
+
+		Alert.viewSuccessMessage();
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro addContactInformation {
+		if (isSet(contactType)) {
+			var key_contactType = "${contactType}";
+
+			Click.mouseDownMouseUp(locator1 = "UsersAndOrganizationsEditUser#CONTACT_ADD_BUTTON");
+
+			if ("${makePrimary}" == "true") {
+				Check(
+					checkboxName = "Make Primary",
+					locator1 = "Checkbox#ANY_CHECKBOX");
+			}
+
+			// Addresses
+
+			if (isSet(street1)) {
+				Type(
+					locator1 = "TextInput#STREET_1",
+					value1 = "${street1}");
+			}
+
+			if (isSet(city)) {
+				Type(
+					locator1 = "TextInput#CITY",
+					value1 = "${city}");
+			}
+
+			if (isSet(country)) {
+				Select(
+					locator1 = "Select#COUNTRY",
+					value1 = "${country}");
+			}
+
+			if (isSet(region)) {
+				Select(
+					locator1 = "Select#REGION",
+					value1 = "${region}");
+			}
+
+			if (isSet(postalCode)) {
+				Type(
+					locator1 = "TextInput#POSTAL_CODE",
+					value1 = "${postalCode}");
+			}
+
+			// Phone Numbers
+
+			if (isSet(number)) {
+				Type(
+					locator1 = "TextInput#NUMBER",
+					value1 = "${number}");
+			}
+
+			if (isSet(extension)) {
+				Type(
+					locator1 = "TextInput#EXTENSION",
+					value1 = "${extension}");
+			}
+
+			// Additional Email Addresses
+
+			if (isSet(address)) {
+				Type(
+					locator1 = "TextInput#ADDRESS",
+					value1 = "${address}");
+			}
+
+			// Websites
+
+			if (isSet(url)) {
+				Type(
+					locator1 = "TextInput#URL",
+					value1 = "${url}");
+			}
+		}
+
+		// Instant Messenger
+
+		if (isSet(skype)) {
+			Type(
+				locator1 = "TextInput#SKYPE",
+				value1 = "${skype}");
+		}
+
+		Click(locator1 = "Button#SAVE");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro addCP {
+		LexiconEntry.gotoAdd();
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_SCREEN_NAME_FIELD",
+			value1 = "${userScreenName}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "${userEmailAddress}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_FIRST_NAME_FIELD",
+			value1 = "${userFirstName}");
+
+		if (isSet(userBirthday)) {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_BIRTHDAY_FIELD",
+				value1 = "${userBirthday}");
+		}
+
+		if (isSet(userMiddleName)) {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_MIDDLE_NAME_FIELD",
+				value1 = "${userMiddleName}");
+		}
+
+		if (isSet(userJobTitle)) {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_JOB_TITLE_FIELD",
+				value1 = "${userJobTitle}");
+		}
+
+		if (isSet(userGender)) {
+			Select(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_GENDER_SELECT",
+				value1 = "${userGender}");
+		}
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_LAST_NAME_FIELD",
+			value1 = "${userLastName}");
+
+		if (isSet(userTag)) {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_TAG_FIELD_INPUT",
+				value1 = "${userTag}");
+
+			KeyPress(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_TAG_FIELD_INPUT",
+				value1 = "\ENTER");
+		}
+
+		if (isSet(userComment)) {
+			Type(
+				locator1 = "TextArea#COMMENTS",
+				value1 = "${userComment}");
+		}
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Button.clickSave();
+		}
+
+		else {
+			AssertClick(
+				locator1 = "Button#SUBMIT",
+				value1 = "Save");
+		}
+
+		if ("${userEmailAddressVariation}" == "Invalid") {
+			AssertTextEquals(
+				locator1 = "Message#ERROR_ENTER_A_VALID_EMAIL_ADDRESS",
+				value1 = "Please enter a valid email address.");
+		}
+		else if ("${userEmailAddressVariation}" == "Null") {
+			Alert.viewRequiredField();
+		}
+		else if ("${userEmailAddressVariation}" == "Root") {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_ENTER_A_VALID_EMAIL_ADDRESS",
+				value1 = "Please enter a valid email address.");
+		}
+		else if ("${userScreenNameVariation}" == "Invalid") {
+			AssertTextEquals(
+				locator1 = "Message#ERROR_FORM_VALIDATION",
+				value1 = "The screen name cannot be an email address or a reserved word, such as postfix. It must contain only alphanumeric or the following special characters: -._.");
+		}
+		else {
+			var userEmailAddress = StringUtil.lowerCase("${userEmailAddress}");
+			var userScreenName = StringUtil.lowerCase("${userScreenName}");
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_SCREEN_NAME_FIELD",
+				value1 = "${userScreenName}");
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+				value1 = "${userEmailAddress}");
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_FIRST_NAME_FIELD",
+				value1 = "${userFirstName}");
+
+			if (isSet(userMiddleName)) {
+				AssertTextEquals(
+					locator1 = "UsersAndOrganizationsEditUser#DETAILS_MIDDLE_NAME_FIELD",
+					value1 = "${userMiddleName}");
+			}
+
+			if (isSet(userJobTitle)) {
+				AssertTextEquals(
+					locator1 = "UsersAndOrganizationsEditUser#DETAILS_JOB_TITLE_FIELD",
+					value1 = "${userJobTitle}");
+			}
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_LAST_NAME_FIELD",
+				value1 = "${userLastName}");
+
+			if (isSet(userTag)) {
+				AssertTextEquals(
+					key_userTag = "${userTag}",
+					locator1 = "UsersAndOrganizationsEditUser#DETAILS_TAG_FIELD",
+					value1 = "${userTag}");
+			}
+
+			if (isSet(userComment)) {
+				AssertTextEquals(
+					locator1 = "TextArea#COMMENTS",
+					value1 = "${userComment}");
+			}
+		}
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro addMultipleCP {
+		for (var userEmail : list "${usersEmailsList}") {
+			var userEmailAddress = "${userEmail}";
+			var userName = StringUtil.replace("${userEmail}", "@liferay.com", "");
+
+			ApplicationsMenu.gotoPortlet(
+				category = "Users",
+				panel = "Control Panel",
+				portlet = "Users and Organizations");
+
+			User.addCP(
+				userBirthday = "${userBirthday}",
+				userEmailAddress = "${userEmailAddress}",
+				userEmailAddressVariation = "${userEmailAddressVariation}",
+				userFirstName = "${userName}",
+				userGender = "${userGender}",
+				userLastName = "${userName}",
+				userMiddleName = "${userMiddleName}",
+				userScreenName = "${userName}",
+				userScreenNameVariation = "${userScreenNameVariation}");
+		}
+	}
+
+	macro addPersonalSiteCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoProfileAndDashboard();
+
+		if ("${personalSite}" == "Public") {
+			AssertTextEquals(
+				key_subtitle = "Profile",
+				locator1 = "UsersAndOrganizationsEditUser#PERSONAL_SITE_LABEL",
+				value1 = "PROFILE");
+
+			Select(
+				locator1 = "UsersAndOrganizationsEditUser#PERSONAL_SITE_MY_PROFILE",
+				value1 = "${siteTemplateName}");
+		}
+		else {
+			AssertTextEquals(
+				key_subtitle = "Dashboard",
+				locator1 = "UsersAndOrganizationsEditUser#PERSONAL_SITE_LABEL",
+				value1 = "DASHBOARD");
+
+			Select(
+				locator1 = "UsersAndOrganizationsEditUser#PERSONAL_SITE_MY_DASHBOARD",
+				value1 = "${siteTemplateName}");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro addReservedEmailAddressCP {
+		LexiconEntry.gotoAdd();
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_SCREEN_NAME_FIELD",
+			value1 = "${userScreenName}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "${userEmailAddress}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_FIRST_NAME_FIELD",
+			value1 = "${userFirstName}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_LAST_NAME_FIELD",
+			value1 = "${userLastName}");
+
+		Button.clickSave();
+
+		Alert.viewErrorMessage(errorMessage = "The email address you requested is reserved.");
+	}
+
+	macro addReservedScreenNameCP {
+		LexiconEntry.gotoAdd();
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_SCREEN_NAME_FIELD",
+			value1 = "${userScreenName}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "${userEmailAddress}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_FIRST_NAME_FIELD",
+			value1 = "${userFirstName}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_LAST_NAME_FIELD",
+			value1 = "${userLastName}");
+
+		Button.clickSave();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#ERROR_1",
+			value1 = "The screen name you requested is reserved.");
+	}
+
+	macro addScreenNameNumberSiteIdCP {
+		LexiconEntry.gotoAdd();
+
+		Paste(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_SCREEN_NAME_FIELD",
+			value1 = "${siteID}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "${userEmailAddress}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_FIRST_NAME_FIELD",
+			value1 = "${userFirstName}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_LAST_NAME_FIELD",
+			value1 = "${userLastName}");
+
+		Button.clickSave();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#ERROR_1",
+			value1 = "The screen name cannot contain only numeric values.");
+	}
+
+	macro advancedSearchViaFriendsDirectoryPG {
+		Click(locator1 = "NavBar#SEARCH_TOGGLE_ADVANCED");
+
+		if ("${searchField}" == "First Name") {
+			Type(
+				locator1 = "TextInput#FIRST_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Middle Name") {
+			Type(
+				locator1 = "TextInput#MIDDLE_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Last Name") {
+			Type(
+				locator1 = "TextInput#LAST_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Screen Name") {
+			Type(
+				locator1 = "TextInput#SCREEN_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Email Address") {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+				value1 = "${searchTerm}");
+		}
+
+		KeyPress(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "\RETURN");
+
+		if ("${searchNoResults}" == "true") {
+			AssertTextEquals(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+
+			var key_userScreenName = "${userScreenName}";
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_FIRST_NAME_LINK");
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_LAST_NAME_LINK");
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_SCREEN_NAME_LINK");
+		}
+		else {
+			var key_userScreenName = "${userScreenName}";
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_FIRST_NAME_LINK",
+				value1 = "${userFirstName}");
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_LAST_NAME_LINK",
+				value1 = "${userLastName}");
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_SCREEN_NAME_LINK",
+				value1 = "${userScreenName}");
+		}
+	}
+
+	macro advancedSearchViaMySitesDirectoryPG {
+		Click(locator1 = "NavBar#SEARCH_TOGGLE_ADVANCED");
+
+		if ("${searchField}" == "First Name") {
+			Type(
+				locator1 = "TextInput#FIRST_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Middle Name") {
+			Type(
+				locator1 = "TextInput#MIDDLE_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Last Name") {
+			Type(
+				locator1 = "TextInput#LAST_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Screen Name") {
+			Type(
+				locator1 = "TextInput#SCREEN_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Email Address") {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+				value1 = "${searchTerm}");
+		}
+
+		KeyPress(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "\RETURN");
+
+		if ("${searchNoResults}" == "true") {
+			AssertTextEquals(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+
+			var key_userScreenName = "${userScreenName}";
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_FIRST_NAME_LINK");
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_LAST_NAME_LINK");
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_SCREEN_NAME_LINK");
+		}
+		else {
+			var key_userScreenName = "${userScreenName}";
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_FIRST_NAME_LINK",
+				value1 = "${userFirstName}");
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_LAST_NAME_LINK",
+				value1 = "${userLastName}");
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_SCREEN_NAME_LINK",
+				value1 = "${userScreenName}");
+		}
+	}
+
+	macro advancedSearchViaPortalDirectoryPG {
+		Click(locator1 = "NavBar#SEARCH_TOGGLE_ADVANCED");
+
+		if ("${searchField}" == "First Name") {
+			Type(
+				locator1 = "TextInput#FIRST_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Middle Name") {
+			Type(
+				locator1 = "TextInput#MIDDLE_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Last Name") {
+			Type(
+				locator1 = "TextInput#LAST_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Screen Name") {
+			Type(
+				locator1 = "TextInput#SCREEN_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Email Address") {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+				value1 = "${searchTerm}");
+		}
+
+		KeyPress(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "\RETURN");
+
+		if ("${searchNoResults}" == "true") {
+			AssertTextEquals(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+
+			var key_userScreenName = "${userScreenName}";
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_FIRST_NAME_LINK");
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_LAST_NAME_LINK");
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_SCREEN_NAME_LINK");
+		}
+		else {
+			var key_userScreenName = "${userScreenName}";
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_FIRST_NAME_LINK",
+				value1 = "${userFirstName}");
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_LAST_NAME_LINK",
+				value1 = "${userLastName}");
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_SCREEN_NAME_LINK",
+				value1 = "${userScreenName}");
+		}
+	}
+
+	macro advancedSearchViaSiteMembersDirectoryPG {
+		Click(locator1 = "NavBar#SEARCH_TOGGLE_ADVANCED");
+
+		if ("${searchField}" == "First Name") {
+			Type(
+				locator1 = "TextInput#FIRST_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Middle Name") {
+			Type(
+				locator1 = "TextInput#MIDDLE_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Last Name") {
+			Type(
+				locator1 = "TextInput#LAST_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Screen Name") {
+			Type(
+				locator1 = "TextInput#SCREEN_NAME",
+				value1 = "${searchTerm}");
+		}
+		else if ("${searchField}" == "Email Address") {
+			Type(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+				value1 = "${searchTerm}");
+		}
+
+		KeyPress(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "\RETURN");
+
+		if ("${searchNoResults}" == "true") {
+			AssertTextEquals(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+
+			var key_userScreenName = "${userScreenName}";
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_FIRST_NAME_LINK");
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_LAST_NAME_LINK");
+
+			AssertElementNotPresent(locator1 = "PortalDirectory#USER_TABLE_SCREEN_NAME_LINK");
+		}
+		else {
+			var key_userScreenName = "${userScreenName}";
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_FIRST_NAME_LINK",
+				value1 = "${userFirstName}");
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_LAST_NAME_LINK",
+				value1 = "${userLastName}");
+
+			AssertTextEquals(
+				locator1 = "PortalDirectory#USER_TABLE_SCREEN_NAME_LINK",
+				value1 = "${userScreenName}");
+		}
+	}
+
+	macro answerPasswordReminder {
+		Pause(locator1 = "3000");
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#REMINDER_QUERY")) {
+			Type(
+				locator1 = "TextInput#REMINDER_QUERY",
+				value1 = "test");
+
+			Click(locator1 = "Button#SUBMIT");
+		}
+	}
+
+	macro answerPasswordReminderLocalized {
+		Pause(locator1 = "3000");
+
+		var key_localizedAnswer = "${localizedAnswer}";
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#ANSWER_LOCALIZED")) {
+			Type(
+				locator1 = "TextInput#ANSWER_LOCALIZED",
+				value1 = "test");
+
+			Button.click(button = "${localizedSaveButton}");
+
+			Button.viewNotPresent(button = "${localizedSaveButton}");
+		}
+	}
+
+	macro assignAssetLibraryRole {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoRoles();
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_DEPOT_ROLE",
+			value1 = "This user is not assigned any asset library roles.");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#DEPOT_ROLES_SELECT_LINK",
+			value1 = "SELECT");
+
+		SelectFrame(locator1 = "IFrame#SELECT_DEPOT_ROLE");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#DEPOT_ROLES_SELECT_BUTTON",
+			roleTitle = "${roleTitle}",
+			value1 = "Choose");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals(
+			key_roleTitle = "${roleTitle}",
+			locator1 = "UsersAndOrganizationsEditUser#DEPOT_ROLES_TITLE",
+			value1 = "${roleTitle}");
+
+		PortletEntry.save();
+	}
+
+	macro assignOrgRoleCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoRoles();
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_ORGANIZATION_ROLES_SELECT_LINK",
+			value1 = "Select");
+
+		SelectFrame(locator1 = "IFrame#SELECT_ORGANIZATION_ROLE");
+
+		var key_roleTitle = "${roleTitle}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_SELECT_ROLE_NAME",
+			value1 = "${roleTitle}");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_ORGANIZATION_SELECT_CHOOSE_BUTTON",
+			value1 = "Choose");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_SELECT_ROLE_NAME",
+			value1 = "${roleTitle}");
+
+		PortletEntry.save();
+	}
+
+	macro assignRegularRoleCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoRoles();
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_REGULAR_ROLES_SELECT_LINK",
+			value1 = "Select");
+
+		Pause(locator1 = "3000");
+
+		SelectFrame(locator1 = "IFrame#SELECT_REGULAR_ROLE");
+
+		var key_roleTitle = "${roleTitle}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_SELECT_ROLE_NAME",
+			value1 = "${roleTitle}");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_REGULAR_SELECT_CHOOSE_BUTTON",
+			value1 = "Choose");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_SELECT_ROLE_NAME",
+			value1 = "${roleTitle}");
+
+		PortletEntry.save();
+	}
+
+	macro assignSiteRoleCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoRoles();
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_SITE_ROLES_SELECT_LINK",
+			value1 = "Select");
+
+		SelectFrame(locator1 = "IFrame#SELECT_SITE_ROLE");
+
+		var key_roleTitle = "${siteRoleName}";
+		var key_siteRoleName = "${siteRoleName}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_SITE_ROLES_TABLE_TITLE",
+			value1 = "${siteRoleName}");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_REGULAR_SELECT_CHOOSE_BUTTON",
+			value1 = "Choose");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_SITE_ROLES_TABLE_TITLE",
+			value1 = "${siteRoleName}");
+
+		PortletEntry.save();
+	}
+
+	macro assignUserGroupCP {
+		UserNavigator.gotoMemberships();
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#USER_GROUPS_SELECT_LINK",
+			value1 = "Select");
+
+		Pause(locator1 = "3000");
+
+		SelectFrame(locator1 = "IFrame#SELECT_USER_GROUP");
+
+		AssertTextEquals(
+			key_userGroupName = "${userGroupName}",
+			locator1 = "UsersAndOrganizationsEditUser#USER_GROUPS_TABLE_NAME",
+			value1 = "${userGroupName}");
+
+		AssertClick(
+			key_userGroupName = "${userGroupName}",
+			locator1 = "UsersAndOrganizationsEditUser#USER_GROUPS_CHOOSE_BUTTON",
+			value1 = "Choose");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals(
+			key_userGroupName = "${userGroupName}",
+			locator1 = "UsersAndOrganizationsEditUser#USER_GROUPS_TABLE_NAME",
+			value1 = "${userGroupName}");
+
+		AssertElementPresent(
+			key_userGroupName = "${userGroupName}",
+			locator1 = "UsersAndOrganizationsEditUser#USER_GROUPS_TABLE_REMOVE");
+
+		PortletEntry.save();
+	}
+
+	macro attemptImpersonateCP {
+		Search.searchCP(searchTerm = "${userScreenName}");
+
+		var key_rowEntry = "${userScreenName}";
+
+		if (isSet(notAdmin)) {
+			AssertElementNotPresent(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_ELLIPSIS");
+
+			AssertElementNotPresent(locator1 = "UsersAndOrganizations#USER_TABLE_IMPERSONATE");
+		}
+		else {
+			Click(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_ELLIPSIS");
+
+			MenuItem.viewNotPresent(menuItem = "Impersonate User");
+		}
+	}
+
+	macro basicSearchCP {
+		if ("${userBasicSearch}" == "Basic") {
+			Search.searchCP(searchTerm = "${userScreenName}");
+
+			var key_userScreenName = "${userScreenName}";
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizations#USER_TABLE_NAME",
+				value1 = "${userName}");
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+				value1 = "${userScreenName}");
+
+			Search.searchCP(searchTerm = "user1*");
+
+			AssertTextPresent(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+		}
+		else if ("${userBasicSearch}" == "Full Name") {
+			var fullName = '''"${userFirstName} ${userLastName}"''';
+
+			Search.searchCP(searchTerm = "${fullName}");
+
+			var key_userScreenName = "${userScreenName}";
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizations#USER_TABLE_NAME",
+				value1 = "${userName}");
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+				value1 = "${userScreenName}");
+
+			var fullName = '''"${userFirstName} 1 ${userLastName}"''';
+
+			Search.searchCP(searchTerm = "${fullName}");
+
+			AssertTextEquals(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+		}
+		else if ("${userBasicSearch}" == "Quotes") {
+			var quotes = '''"${userScreenName}"''';
+
+			Search.searchCP(searchTerm = "${quotes}");
+
+			var key_userScreenName = "${userScreenName}";
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizations#USER_TABLE_NAME",
+				value1 = "${userName}");
+
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+				value1 = "${userScreenName}");
+		}
+	}
+
+	macro changePasswordCP {
+		UserNavigator.gotoPassword();
+
+		if ("${userPassword}" == "Invalid") {
+			Type(
+				locator1 = "TextInput#CURRENT_PASSWORD",
+				value1 = "");
+
+			Type(
+				locator1 = "TextInput#NEW_PASSWORD",
+				value1 = "test1");
+
+			Type(
+				locator1 = "TextInput#ENTER_AGAIN",
+				value1 = "test1");
+
+			Button.clickSave();
+
+			Alert.viewRequiredField();
+
+			User.logoutPG();
+
+			User.loginUserPG(
+				password = "test",
+				userEmailAddress = "${userEmailAddress}");
+
+			User.logoutUserPG();
+
+			User.loginPG(
+				authenticationMethod = "${authenticationMethod}",
+				nodePort = "${nodePort}",
+				password = "test",
+				resetPassword = "${resetPassword}",
+				syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+				userEmailAddress = "test@liferay.com",
+				userScreenName = "${userScreenName}");
+		}
+		else {
+			Type(
+				locator1 = "TextInput#CURRENT_PASSWORD",
+				value1 = "test");
+
+			Type(
+				locator1 = "TextInput#NEW_PASSWORD",
+				value1 = "test1");
+
+			Type(
+				locator1 = "TextInput#ENTER_AGAIN",
+				value1 = "test1");
+
+			PortletEntry.save();
+
+			User.logoutPG();
+
+			User.loginUserPG(
+				password = "test1",
+				userEmailAddress = "${userEmailAddress}");
+
+			User.logoutUserPG();
+
+			User.loginPG(
+				authenticationMethod = "${authenticationMethod}",
+				nodePort = "${nodePort}",
+				password = "test",
+				resetPassword = "${resetPassword}",
+				syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+				userEmailAddress = "test@liferay.com",
+				userScreenName = "${userScreenName}");
+		}
+	}
+
+	macro changeProfileImage {
+		Button.click(button = "Change");
+
+		IFrame.selectModalFrame();
+
+		AssertElementPresent(locator1 = "UsersAndOrganizationsEditUser#UPLOAD_IMAGE_SELECT");
+
+		UploadCommonFile.uploadCommonFileHiddenNoMouseOver(
+			locator1 = "TextInput#UPLOAD_FILE",
+			value1 = "${imageName}");
+
+		Pause(locator1 = "3000");
+
+		WaitForElementPresent(locator1 = "UsersAndOrganizationsEditUser#USER_PORTRAIT_CROPPER");
+
+		WaitForElementNotPresent(
+			key_text = "Done",
+			locator1 = "Button#ANY_DISABLED");
+
+		Button.click(button = "Done");
+
+		IFrame.selectTopFrame();
+
+		AssertVisible(
+			key_imageName = "${imageName}",
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_PROFILE_IMAGE");
+	}
+
+	macro confirmPassword {
+		SelectFrame.selectFrameNoLoading(locator1 = "IFrame#CONFIRM_PASSWORD");
+
+		Click(locator1 = "TextInput#PASSWORD_CONFIRM");
+
+		Type(
+			locator1 = "TextInput#PASSWORD_CONFIRM",
+			value1 = "${password}");
+
+		Button.clickConfirm();
+
+		Alert.viewSuccessMessage();
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro createAccount {
+		SignInNavigator.gotoCreateAccount();
+
+		Type(
+			locator1 = "TextInput#FIRST_NAME",
+			value1 = "${userFirstName}");
+
+		Type(
+			locator1 = "TextInput#LAST_NAME",
+			value1 = "${userLastName}");
+
+		Type(
+			locator1 = "TextInput#SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		Type(
+			locator1 = "TextInput#EMAIL_ADDRESS",
+			value1 = "${userEmailAddress}");
+
+		Type(
+			locator1 = "TextInput#PASSWORD",
+			value1 = "${newPassword}");
+
+		Type(
+			locator1 = "TextInput#ENTER_AGAIN",
+			value1 = "${newPassword}");
+
+		Button.clickSave();
+
+		Alert.viewSuccessMessageText(successMessage = "Thank you for creating an account. Use your password to log in.");
+	}
+
+	@description = "Create a new Portal user named ${userFirstName} that is associated with the OpenID ${openIDURL}."
+	macro createUserViaOpenID {
+		Navigator.openURL();
+
+		AssertClick(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+
+		AssertClick(
+			locator1 = "Link#OPENID",
+			value1 = "OpenID");
+
+		Type(
+			locator1 = "SignInOpenID#OPENID_FIELD",
+			value1 = "${openIDURL}");
+
+		Click(locator1 = "Button#SIGN_IN");
+
+		Type(
+			locator1 = "OpenIDLogin#YAHOO_LOGIN_USERNAME_FIELD",
+			value1 = "${openIDUsername}");
+
+		KeyPress(
+			locator1 = "OpenIDLogin#YAHOO_LOGIN_USERNAME_FIELD",
+			value1 = "\RETURN");
+
+		Type(
+			locator1 = "TextInput#PASSWORD_TYPE",
+			value1 = "${openIDPassword}");
+
+		KeyPress(
+			locator1 = "TextInput#PASSWORD_TYPE",
+			value1 = "\RETURN");
+
+		if (IsElementPresent(locator1 = "OpenIDLogin#YAHOO_LOGIN_SKIP_SECURE_BUTTON")) {
+			Click(locator1 = "OpenIDLogin#YAHOO_LOGIN_SKIP_SECURE_BUTTON");
+		}
+
+		Type(
+			locator1 = "TextInput#FIRST_NAME",
+			value1 = "${userFirstName}");
+
+		Type(
+			locator1 = "TextInput#LAST_NAME",
+			value1 = "${userLastName}");
+
+		Type(
+			locator1 = "TextInput#SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		Type(
+			locator1 = "TextInput#EMAIL_ADDRESS",
+			value1 = "${userEmailAddress}");
+
+		Button.clickSave();
+	}
+
+	macro deactivateCP {
+		Search.searchCP(searchTerm = "${userFirstName}");
+
+		if ("${deactivateType}" == "Actions") {
+			LexiconEntry.gotoEntryMenuItemNoError(
+				menuItem = "Deactivate",
+				rowEntry = "${userFirstName}");
+
+			AssertConfirm(value1 = "Are you sure you want to deactivate this?");
+
+			Alert.viewSuccessMessage();
+		}
+		else {
+			PortletEntry.selectAll();
+
+			ClickNoError(locator1 = "Icon#DEACTIVATE");
+
+			AssertConfirm(value1 = "Are you sure you want to deactivate the selected users?");
+
+			Alert.viewSuccessMessage();
+
+			LexiconEntry.viewNoEntry(rowEntry = "${userFirstName}");
+		}
+	}
+
+	macro deleteCP {
+		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		MenuItem.click(menuItem = "Inactive");
+
+		if (IsElementPresent(locator1 = "ContentRow#ENTRY_CONTENT_ROW_1")) {
+			PortletEntry.selectAll();
+
+			ClickNoError(locator1 = "Icon#DELETE");
+
+			AssertConfirm.waitForConfirmation(value1 = "Are you sure you want to permanently delete the selected users?");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro deletePersonalDataCP {
+		Search.searchCP(searchTerm = "${userFirstName}");
+
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Delete Personal Data",
+			rowEntry = "${userFirstName}");
+
+		AssertConfirm(value1 = "The user must be deactivated before starting the data erasure process. Are you sure you want to deactivate the user?");
+
+		Alert.viewSuccessMessage();
+
+		AssertElementPresent(
+			key_firstName = "${userFirstName}",
+			key_lastName = "${userLastName}",
+			locator1 = "DataErasure#HEADER");
+	}
+
+	macro deleteProfileImage {
+		Button.click(button = "Delete");
+
+		AssertVisible(
+			key_imageName = "user_portrait",
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_PROFILE_IMAGE");
+	}
+
+	macro editAddressCP {
+		UserNavigator.gotoContact();
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Edit");
+
+		if (isSet(addressType)) {
+			Select(
+				locator1 = "Select#TYPE",
+				value1 = "${addressType}");
+		}
+
+		if (isSet(street1)) {
+			Type(
+				locator1 = "TextInput#STREET_1",
+				value1 = "${street1}");
+		}
+
+		if (isSet(city)) {
+			Type(
+				locator1 = "TextInput#CITY",
+				value1 = "${city}");
+		}
+
+		if (isSet(country)) {
+			Select(
+				locator1 = "Select#COUNTRY",
+				value1 = "${country}");
+		}
+
+		if (isSet(postalCode)) {
+			Type(
+				locator1 = "TextInput#POSTAL_CODE",
+				value1 = "${postalCode}");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro editCategorizationCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		AssertElementPresent(locator1 = "UsersAndOrganizationsEditUser#CATEGORIZATION_LABEL");
+
+		AssertElementPresent(
+			key_vocabularyName = "${vocabularyName}",
+			locator1 = "UsersAndOrganizationsEditUser#VOCABULARY_LABEL");
+
+		AssertElementPresent.assertVisible(
+			key_vocabularyName = "${vocabularyName}",
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_CATEGORY_SELECT",
+			value1 = "Select");
+
+		AssertClick(
+			key_vocabularyName = "${vocabularyName}",
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_CATEGORY_SELECT",
+			value1 = "Select");
+
+		AssertElementPresent(
+			key_iframeTitle = "Select ${vocabularyName}",
+			locator1 = "IFrame#IFRAME_TITLE");
+
+		AssetCategorization.selectCategory(categoryName = "${categoryName}");
+
+		PortletEntry.save();
+	}
+
+	macro editDetailsViaProfile {
+		Click.mouseOverClick(locator1 = "Icon#EDIT_PENCIL");
+
+		Portlet.viewSpecificPG(portletName = "Account Settings");
+
+		AssertElementPresent.assertElementPresent(locator1 = "TextInput#FIRST_NAME");
+
+		if (isSet(userContact)) {
+			User.editAddressCP(
+				addressType = "${addressType}",
+				city = "${city}",
+				country = "${country}",
+				postalCode = "${postalCode}",
+				street1 = "${street1}");
+		}
+	}
+
+	macro editDisplaySettingsCP {
+		User.searchCP(searchTerm = "${userScreenName}");
+
+		var key_rowEntry = "${userScreenName}";
+
+		Click(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Edit");
+
+		Select(
+			locator1 = "Select#DEFAULT_LANGUAGE",
+			value1 = "${languageName}");
+
+		PortletEntry.save();
+	}
+
+	macro editPasswordCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		if (!(isSet(newPassword))) {
+			var newPassword = "password";
+		}
+
+		UserNavigator.gotoPassword();
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#PASSWORD_NEW_PASSWORD_FIELD",
+			value1 = "${newPassword}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#PASSWORD_ENTER_AGAIN_FIELD",
+			value1 = "${newPassword}");
+
+		if ("${requirePasswordReset}" == "true") {
+			Check(
+				checkboxName = "Require Password Reset",
+				locator1 = "Checkbox#ANY_CHECKBOX");
+		}
+
+		PortletEntry.save();
+
+		User.logoutPG();
+
+		if ("${samlEnabled}" == "true") {
+			User.viewLoggedOutPG();
+		}
+
+		User.loginPG(
+			authenticationMethod = "${authenticationMethod}",
+			nodePort = "${nodePort}",
+			password = "${newPassword}",
+			resetPassword = "${resetPassword}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+			userEmailAddress = "${userEmailAddress}",
+			userScreenName = "${userScreenName}");
+
+		User.logoutPG();
+
+		if ("${samlEnabled}" == "true") {
+			User.viewLoggedOutPG();
+		}
+
+		User.loginPG(
+			authenticationMethod = "${authenticationMethod}",
+			nodePort = "${nodePort}",
+			password = "test",
+			userEmailAddress = "test@liferay.com",
+			userScreenName = "${userScreenName}");
+	}
+
+	macro editPasswordInvalidCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		if (!(isSet(newPassword))) {
+			var newPassword = "password";
+		}
+
+		UserNavigator.gotoPassword();
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#PASSWORD_NEW_PASSWORD_FIELD",
+			value1 = "${newPassword}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#PASSWORD_ENTER_AGAIN_FIELD",
+			value1 = "${newPassword}");
+
+		Button.clickSave();
+
+		if ("${changeable}" == "false") {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_1",
+				value1 = "Passwords may not be changed under the current password policy.");
+		}
+		else if ("${passwordTooShort}" == "true") {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_1",
+				value1 = "That password is too short. Please make sure your password is at least 6 characters long.");
+		}
+		else if (isSet(minimumNumbers)) {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_1",
+				value1 = "That password must contain at least ${minimumNumbers} numbers.");
+		}
+		else if (isSet(regex)) {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_1",
+				value1 = "That password does not comply with the regular expression ${regex}. Please enter a different password.");
+		}
+		else {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_1",
+				value1 = "That password is invalid. Please enter in a different password.");
+		}
+	}
+
+	macro editPasswordViaMyAccount {
+		UserNavigator.gotoPassword();
+
+		Type(
+			locator1 = "TextInput#CURRENT_PASSWORD",
+			value1 = "${currentPassword}");
+
+		Type(
+			locator1 = "TextInput#NEW_PASSWORD",
+			value1 = "${newPassword}");
+
+		Type(
+			locator1 = "TextInput#ENTER_AGAIN",
+			value1 = "${newPassword}");
+
+		PortletEntry.save();
+	}
+
+	macro editPrimary {
+		if ("${makePrimary}" == "true") {
+			Check(
+				checkboxName = "Make Primary",
+				locator1 = "Checkbox#ANY_CHECKBOX");
+		}
+		else if ("${makePrimary}" == "false") {
+			Uncheck(
+				checkboxName = "Make Primary",
+				locator1 = "Checkbox#ANY_CHECKBOX");
+		}
+
+		Click(locator1 = "Button#SAVE");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro editUserAlertsAndAnnouncementsDeliveryCP {
+		UserNavigator.gotoAlertsAndAnnouncementsDelivery();
+
+		if ("${checkbox}" == "Enable") {
+			for (var deliveryOption : list "${deliveryOptions}") {
+				Check(
+					key_tableEntry = "${deliveryOption}",
+					locator1 = "LexiconTable#TABLE_ENTRY_CHECKBOX");
+			}
+		}
+
+		PortletEntry.save();
+	}
+
+	macro editUserAssetLibraryCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoMemberships();
+
+		AssertElementPresent.assertVisible(
+			locator1 = "UsersAndOrganizationsEditUser#DEPOT_SELECT_LINK",
+			value1 = "SELECT");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#DEPOT_SELECT_LINK",
+			value1 = "SELECT");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		LexiconEntry.gotoEntry(rowEntry = "${depotName}");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals.assertPartialText(
+			key_siteName = "${depotName}",
+			locator1 = "UsersAndOrganizationsEditUser#SITES_TABLE_NAME",
+			value1 = "${depotName}");
+
+		PortletEntry.save();
+	}
+
+	macro editUserDisplaySettingsCP {
+		var key_userScreenName = "${userScreenName}";
+
+		Pause(locator1 = "1000");
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		User.editUserDisplaySettingsTimeZonePacific(displaySettingsGreeting = "${displaySettingsGreeting}");
+	}
+
+	macro editUserDisplaySettingsTimeZonePacific {
+		UserNavigator.gotoDisplaySettings();
+
+		if (IsTextNotEqual(locator1 = "Select#LOS_ANGELES_TIME_ZONE", value1 = "(UTC -07:00) Pacific Daylight Time")) {
+			Select(
+				locator1 = "Select#TIME_ZONE",
+				value1 = "(UTC -08:00) Pacific Standard Time");
+		}
+		else {
+			Select(
+				locator1 = "Select#TIME_ZONE",
+				value1 = "(UTC -07:00) Pacific Daylight Time");
+		}
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DISPLAY_SETTINGS_GREETING_FIELD",
+			value1 = "${displaySettingsGreeting}");
+
+		PortletEntry.save();
+
+		UserNavigator.gotoDisplaySettings();
+
+		if (IsTextNotEqual(locator1 = "Select#LOS_ANGELES_TIME_ZONE", value1 = "(UTC -07:00) Pacific Daylight Time")) {
+			AssertSelectedLabel(
+				locator1 = "Select#TIME_ZONE",
+				value1 = "(UTC -08:00) Pacific Standard Time");
+		}
+		else {
+			AssertSelectedLabel(
+				locator1 = "Select#TIME_ZONE",
+				value1 = "(UTC -07:00) Pacific Daylight Time");
+		}
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#DISPLAY_SETTINGS_GREETING_FIELD",
+			value1 = "${displaySettingsGreeting}");
+	}
+
+	macro editUserGenderCP {
+		LexiconEntry.gotoEntry(rowEntry = "${userName}");
+
+		Select(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_GENDER_SELECT",
+			value1 = "${userGender}");
+
+		PortletEntry.save();
+	}
+
+	macro editUserInformation {
+		AssertElementPresent.assertElementPresent(locator1 = "TextInput#FIRST_NAME");
+
+		if (isSet(userFirstNameEdit)) {
+			Type(
+				locator1 = "TextInput#FIRST_NAME",
+				value1 = "${userFirstNameEdit}");
+		}
+
+		if (isSet(userLastNameEdit)) {
+			Type(
+				locator1 = "TextInput#LAST_NAME",
+				value1 = "${userLastNameEdit}");
+		}
+
+		if (isSet(userMiddleNameEdit)) {
+			Type(
+				locator1 = "TextInput#MIDDLE_NAME",
+				value1 = "${userMiddleNameEdit}");
+		}
+
+		PortletEntry.save();
+
+		if (isSet(userScreenNameEdit)) {
+			Type(
+				locator1 = "TextInput#SCREEN_NAME",
+				value1 = "${userScreenNameEdit}");
+
+			Button.clickSave();
+
+			User.confirmPassword(password = "${password}");
+		}
+
+		if (isSet(userEmailAddressEdit)) {
+			Type(
+				locator1 = "TextInput#EMAIL_ADDRESS",
+				value1 = "${userEmailAddressEdit}");
+
+			Button.clickSave();
+
+			User.confirmPassword(password = "${password}");
+		}
+	}
+
+	macro editUserJobTitleCP {
+		LexiconEntry.gotoEntry(rowEntry = "${userName}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_JOB_TITLE_FIELD",
+			value1 = "${userJobTitle}");
+
+		PortletEntry.save();
+	}
+
+	macro editUserOrganizationCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoOrganizations();
+
+		var key_orgName = "${orgName}";
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#ORGANIZATIONS_SELECT_LINK",
+			value1 = "Select");
+
+		SelectFrame(locator1 = "UsersAndOrganizationsSelectOrganization#SELECT_ORGANIZATION_IFRAME");
+
+		Search.searchCP(searchTerm = "${orgName}");
+
+		AssertTextEquals(
+			locator1 = "ContentRow#ORGANIZATION_TABLE_NAME",
+			value1 = "${orgName}");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsSelectOrganization#ORGANIZATION_TABLE_CHOOSE_BUTTON",
+			value1 = "Choose");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals(
+			locator1 = "ContentRow#ORGANIZATION_TABLE_NAME",
+			value1 = "${orgName}");
+
+		PortletEntry.save();
+	}
+
+	macro editUserSiteCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoMemberships();
+
+		var key_siteName = "${siteName}";
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		AssertClick(
+			locator1 = "UsersAndOrganizationsEditUser#SITES_SELECT_LINK",
+			value1 = "SELECT");
+
+		SelectFrame(locator1 = "IFrame#SELECT_USER_SITES");
+
+		Type(
+			locator1 = "TextInput#SITE_SEARCH_KEYWORDS",
+			value1 = "${siteName}");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" != "safari") {
+			KeyPress(
+				locator1 = "TextInput#SEARCH",
+				value1 = "\RETURN");
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "UsersAndOrganizationsEditUser#SITES_TABLE_NAME",
+				value1 = "${siteName}");
+
+			Click(locator1 = "SitesSelectSite#SITES_TABLE_CHOOSE_SITE_LINK");
+		}
+		else {
+			Click.javaScriptClick(locator1 = "SitesSelectSite#SITES_TABLE_CHOOSE_SITE_LINK");
+		}
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "UsersAndOrganizationsEditUser#SITES_TABLE_NAME",
+			value1 = "${siteName}");
+
+		PortletEntry.save();
+	}
+
+	macro editUserSuffixCP {
+		LexiconEntry.gotoEntry(rowEntry = "${userName}");
+
+		Select(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_SUFFIX_SELECT",
+			value1 = "${userSuffix}");
+
+		PortletEntry.save();
+	}
+
+	macro exportPersonalDataCP {
+		Search.searchCP(searchTerm = "${userFirstName}");
+
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Export Personal Data",
+			rowEntry = "${userFirstName}");
+
+		AssertElementPresent(
+			key_firstName = "${userFirstName}",
+			key_lastName = "${userLastName}",
+			locator1 = "ExportPersonalData#HEADER");
+	}
+
+	@summary = "Log into Liferay Portal as '${userEmailAddress}' using the password '${password}'; if not logged in as '${userEmailAddress}', then log out first"
+	macro firstLoginPG {
+		if (isSet(virtualHostsURL)) {
+			Navigator.openSpecificURL(url = "${virtualHostsURL}");
+		}
+		else {
+			Navigator.openURL();
+		}
+
+		if (IsElementNotPresent(locator1 = "UserBar#USER_SIGN_IN")) {
+			User.logoutPG(
+				nodePort = "${nodePort}",
+				specificURL = "${virtualHostsURL}");
+
+			User.loginPG(
+				specificURL = "${virtualHostsURL}",
+				userEmailAddress = "${userEmailAddress}");
+		}
+		else {
+			User.loginPG(
+				localization = "${localization}",
+				localizedAgree = "${localizedAgree}",
+				localizedAnswer = "${localizedAnswer}",
+				localizedSaveButton = "${localizedSaveButton}",
+				samlEnabled = "${samlEnabled}",
+				setupWizardEnabled = "${setupWizardEnabled}",
+				specificURL = "${virtualHostsURL}",
+				userEmailAddress = "${userEmailAddress}");
+		}
+	}
+
+	macro forgotPasswordSendResetLink {
+		SignInNavigator.gotoForgotPassword();
+
+		Type(
+			locator1 = "TextInput#EMAIL_ADDRESS",
+			value1 = "${userEmailAddress}");
+
+		Button.clickNext();
+
+		AssertClick(
+			locator1 = "Button#SEND_PASSWORD_RESET_LINK",
+			value1 = "Send Password Reset Link");
+
+		Alert.viewSuccessMessageText(successMessage = "Your request completed successfully.");
+	}
+
+	macro gotoEditCP {
+		var key_userScreenName = "${userScreenName}";
+
+		AssertClick(
+			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Portlet#HEADER",
+			value1 = "Edit User");
+	}
+
+	macro impersonateCP {
+		Pause(locator1 = "1000");
+
+		if (isSet(userName)) {
+			var userScreenName = "${userName}";
+		}
+
+		Search.searchCP(searchTerm = "${userScreenName}");
+
+		var key_rowEntry = "${userScreenName}";
+
+		Click(locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Impersonate User");
+
+		SelectWindow(locator1 = "title=Home - ${siteName}");
+
+		UserBar.gotoDropdown();
+	}
+
+	macro loginLocalizationPG {
+		if (IsElementNotPresent(locator1 = "Button#SIGN_IN")) {
+			var localizedSignIn = User._signInLocalization(localization = "${localization}");
+
+			AssertClick(
+				locator1 = "UserBar#USER_SIGN_IN",
+				value1 = "${localizedSignIn}");
+		}
+	}
+
+	@summary = "Log into Liferay Portal as '${userEmailAddress}' using the password '${password}'"
+	macro loginPG {
+		if (isSet(nodePort)) {
+			Navigator.openSpecificURL(url = "http://localhost:${nodePort}");
+		}
+		else if (isSet(specificURL)) {
+			Navigator.openSpecificURL(url = "${specificURL}");
+		}
+		else {
+			Navigator.openURL();
+		}
+
+		if (IsElementPresent(locator1 = "Message#PORTAL_LOCALIZATION")) {
+			Alert.closePortalLocalizationWarning();
+		}
+
+		if ("${samlEnabled}" != "true") {
+			User.loginLocalizationPG(localization = "${localization}");
+		}
+
+		if ("${samlMultiIdPs}" == "true") {
+			Select(
+				key_fieldLabel = "Identity Provider",
+				locator1 = "Select#GENERIC_SELECT_FIELD",
+				value1 = "${idpName}");
+
+			Button.click(button = "Sign In");
+		}
+
+		if ((isSet(authenticationMethod)) && ("${authenticationMethod}" == "By Screen Name")) {
+			Type(
+				locator1 = "TextInput#SCREEN_NAME",
+				value1 = "${userScreenName}");
+		}
+		else {
+			Type.typePause(
+				locator1 = "TextInput#EMAIL_ADDRESS",
+				value1 = "${userEmailAddress}");
+		}
+
+		Type.typePause(
+			locator1 = "TextInput#PASSWORD",
+			value1 = "${password}");
+
+		if ((isSet(rememberMeChecked)) && ("${rememberMeChecked}" == "true")) {
+			Check(locator1 = "Checkbox#REMEMBER_ME");
+		}
+
+		if (isSet(localization)) {
+			var localizedSignIn = User._signInLocalization(localization = "${localization}");
+
+			Button.click(button = "${localizedSignIn}");
+		}
+		else {
+			Button.click(button = "Sign In");
+		}
+
+		if (IsElementPresent(locator1 = "Message#ERROR_FORM_FIELD_REQUIRED") && (IsElementNotPresent(locator1 = "TextInput#ENTER_AGAIN"))) {
+			echo("Sign in failed due to empty required field. Retrying...");
+
+			if ((isSet(authenticationMethod)) && ("${authenticationMethod}" == "By Screen Name")) {
+				Type(
+					locator1 = "TextInput#SCREEN_NAME",
+					value1 = "${userScreenName}");
+			}
+			else {
+				Type.typePause(
+					locator1 = "TextInput#EMAIL_ADDRESS",
+					value1 = "${userEmailAddress}");
+			}
+
+			Type.typePause(
+				locator1 = "TextInput#PASSWORD",
+				value1 = "${password}");
+
+			Button.click(button = "Sign In");
+		}
+
+		Button.viewNotPresent(button = "Sign In");
+
+		if (isSet(localizedAgree)) {
+			User.acceptEndUserLicenseAgreementLocalized(localizedAgree = "${localizedAgree}");
+		}
+		else {
+			User.acceptEndUserLicenseAgreement();
+		}
+
+		User.resetPassword(
+			resetPassword = "${resetPassword}",
+			setupWizardEnabled = "${setupWizardEnabled}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}");
+
+		if (isSet(localizedAnswer)) {
+			User.answerPasswordReminderLocalized(
+				localizedAnswer = "${localizedAnswer}",
+				localizedSaveButton = "${localizedSaveButton}");
+		}
+		else {
+			User.answerPasswordReminder();
+		}
+
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro loginUserInvalidPG {
+		Navigator.openURL();
+
+		var count = "0";
+
+		if (!(isSet(loginAttempts))) {
+			var loginAttempts = "1";
+		}
+
+		if (!(isSet(maxLoginAttempts))) {
+			var maxLoginAttempts = "0";
+		}
+
+		while ("${count}" != "${loginAttempts}") {
+			var count = ${count} + 1;
+
+			User._login(
+				password = "${password}",
+				userEmailAddress = "${userEmailAddress}");
+
+			if ("${count}" == "${maximumFailure}") {
+				AssertTextEquals.assertPartialText(
+					locator1 = "Message#ERROR_1",
+					value1 = "This account is locked. Please contact an administrator to have this account unlocked.");
+			}
+			else {
+				AssertTextEquals.assertPartialText(
+					locator1 = "Message#ERROR_1",
+					value1 = "Authentication failed. Please try again.");
+			}
+		}
+	}
+
+	@description = "Log into Liferay Portal as ${userEmailAddress} using the password ${password}."
+	macro loginUserPG {
+		Navigator.openURL();
+
+		User._login(
+			password = "${password}",
+			userEmailAddress = "${userEmailAddress}");
+
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+	}
+
+	@description = "Log into Liferay Portal as ${userEmailAddress} using the password ${password} with CAS authentication enabled."
+	macro loginUserWithCASEnabledPG {
+		Navigator.openURL();
+
+		AssertClick(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+
+		Type(
+			locator1 = "CAS#NETID_FIELD",
+			value1 = "${userScreenName}");
+
+		Type(
+			locator1 = "CAS#PASSWORD_FIELD",
+			value1 = "${userPassword}");
+
+		AssertClick(
+			locator1 = "CAS#LOGIN_BUTTON",
+			value1 = "LOGIN");
+
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+	}
+
+	@description = "Log into Facebook as ${facebookEmail} using the password ${facebookPassword}."
+	macro loginUserWithFacebookSSOEnabledPG {
+		Navigator.openURL();
+
+		AssertClick(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+
+		AssertClick(
+			locator1 = "Link#FACEBOOK",
+			value1 = "Facebook");
+
+		SelectWindow(locator1 = "title=Log into Facebook | Facebook");
+
+		Type(
+			locator1 = "FacebookLogin#LOGIN_EMAIL_FIELD",
+			value1 = "${facebookEmail}");
+
+		Type(
+			locator1 = "FacebookLogin#LOGIN_PASSWORD_FIELD",
+			value1 = "${facebookPassword}");
+
+		Click(locator1 = "FacebookLogin#LOGIN_BUTTON");
+
+		SelectWindow.selectWindowTopNoSPARefresh();
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#EMAIL_ADDRESS")) {
+			if (IsElementPresent(locator1 = "Button#SUBMIT")) {
+				Click(locator1 = "Button#SUBMIT");
+
+				Pause(locator1 = "30000");
+			}
+
+			SelectWindow.selectWindowNoSPARefresh(locator1 = "title=Terms of Use");
+
+			if (IsElementPresent.pauseIsElementPresent(
+					locator1 = "Button#I_AGREE",
+					value1 = "I Agree")) {
+				AssertClick(
+					locator1 = "Button#I_AGREE",
+					value1 = "I Agree");
+			}
+
+			if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#PASSWORD")) {
+				if ((isSet(syntaxCheckingEnabled)) && ("${syntaxCheckingEnabled}" == "true")) {
+					Type(
+						locator1 = "TextInput#PASSWORD",
+						value1 = "${resetPassword}");
+
+					Type(
+						locator1 = "TextInput#ENTER_AGAIN",
+						value1 = "${resetPassword}");
+				}
+				else {
+					Type(
+						locator1 = "TextInput#PASSWORD",
+						value1 = "test");
+
+					Type(
+						locator1 = "TextInput#ENTER_AGAIN",
+						value1 = "test");
+				}
+
+				Button.click(button = "Save");
+			}
+
+			if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#ANSWER")) {
+				Type(
+					locator1 = "TextInput#ANSWER",
+					value1 = "test");
+
+				Button.click(button = "Save");
+			}
+		}
+
+		SelectWindow.selectWindowTopNoSPARefresh();
+
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+	}
+
+	macro loginUserWithGoogleSSOEnabledPG {
+		GoogleLogin.accountSignIn(
+			userEmailAddress = "${userEmailAddress}",
+			userPassword = "${userPassword}");
+
+		SelectWindow.selectWindowTopNoSPARefresh();
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#EMAIL_ADDRESS")) {
+			SelectWindow.selectWindowNoSPARefresh(locator1 = "title=Terms of Use");
+
+			GoogleLogin.acceptConditions();
+		}
+
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+	}
+
+	macro loginUserWithOpenIDConnectEnabledPG {
+		OpenIDConnect.accountSignIn(
+			userEmailAddress = "${userEmailAddress}",
+			userPassword = "${userPassword}");
+
+		OpenIDConnect.acceptConditions();
+
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+	}
+
+	@description = "Log into Portal as ${userFirstName} via OpenID ${openIDURL}."
+	macro loginUserWithOpenIDEnabledPG {
+		Navigator.openURL();
+
+		AssertClick(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+
+		AssertClick(
+			locator1 = "Link#OPENID",
+			value1 = "OpenID");
+
+		Type(
+			locator1 = "SignInOpenID#OPENID_FIELD",
+			value1 = "${openIDURL}");
+
+		Click(locator1 = "Button#SIGN_IN");
+
+		if (IsElementPresent.pauseIsElementPresent(
+				locator1 = "Button#I_AGREE",
+				value1 = "I Agree")) {
+			AssertClick(
+				locator1 = "Button#I_AGREE",
+				value1 = "I Agree");
+		}
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#PASSWORD")) {
+			Type(
+				locator1 = "TextInput#PASSWORD",
+				value1 = "test");
+
+			Type(
+				locator1 = "TextInput#ENTER_AGAIN",
+				value1 = "test");
+
+			Button.clickSave();
+		}
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#ANSWER")) {
+			Type(
+				locator1 = "TextInput#ANSWER",
+				value1 = "test");
+
+			Button.clickSave();
+		}
+
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	@description = "Log into OpenAM as ${userScreenName} using the password ${password}."
+	macro loginUserWithOpenSSOEnabledPG {
+		Navigator.openSpecificURL(url = "${hostsURL}");
+
+		AssertClick(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+
+		Type(
+			locator1 = "TextInput#TEXT",
+			value1 = "${userScreenName}");
+
+		Type(
+			locator1 = "TextInput#PASSWORD_TYPE",
+			value1 = "${password}");
+
+		Click(locator1 = "OpenAM#LOG_IN");
+
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+	}
+
+	macro logoutAndLoginPG {
+		Navigator.openURL();
+
+		UserBar.signOut();
+
+		User.loginPG(
+			authenticationMethod = "${authenticationMethod}",
+			nodePort = "${nodePort}",
+			userEmailAddress = "${userLoginEmailAddress}",
+			userScreenName = "${userScreenName}");
+	}
+
+	@description = "Log out of Liferay Portal."
+	macro logoutPG {
+		if (isSet(nodePort)) {
+			Navigator.openSpecificURL(url = "http://localhost:${nodePort}");
+		}
+		else {
+			if (isSet(specificURL)) {
+				Navigator.openSpecificURL(url = "${specificURL}");
+			}
+			else {
+				Navigator.openURL();
+			}
+		}
+
+		UserBar.signOut();
+	}
+
+	@description = "Log out of Liferay Portal."
+	macro logoutUserPG {
+		Navigator.openURL();
+
+		UserBar.signOut();
+	}
+
+	macro makePrimary {
+		Click.waitForMenuToggleJSClick(
+			key_rowEntry = "${rowEntry}",
+			locator1 = "Icon#TABLE_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Make Primary");
+	}
+
+	macro openUsersAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_users_admin_web_portlet_UsersAdminPortlet");
+	}
+
+	macro removeContactInformation {
+		Click.waitForMenuToggleJSClick(
+			key_rowEntry = "${rowEntry}",
+			locator1 = "Icon#TABLE_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Remove");
+	}
+
+	macro removeUserAssetLibraryCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoMemberships();
+
+		Click(
+			key_entryName = "${depotName}",
+			locator1 = "LexiconTable#TABLE_ENTRY_DELETE");
+
+		PortletEntry.save();
+	}
+
+	macro resetPassword {
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#PASSWORD")) {
+			if ("${syntaxCheckingEnabled}" == "true") {
+				Type(
+					locator1 = "TextInput#PASSWORD_1",
+					value1 = "${resetPassword}");
+
+				Type(
+					locator1 = "TextInput#PASSWORD_2",
+					value1 = "${resetPassword}");
+			}
+			else {
+				if ("${setupWizardEnabled}" == "true") {
+					Type(
+						locator1 = "TextInput#PASSWORD_1",
+						value1 = "test2");
+
+					Type(
+						locator1 = "TextInput#PASSWORD_2",
+						value1 = "test2");
+				}
+				else {
+					Type(
+						locator1 = "TextInput#PASSWORD_1",
+						value1 = "test");
+
+					Type(
+						locator1 = "TextInput#PASSWORD_2",
+						value1 = "test");
+				}
+			}
+
+			Button.clickSubmitButton();
+
+			AssertElementNotPresent(locator1 = "TextInput#ENTER_AGAIN");
+		}
+	}
+
+	macro searchCP {
+		Search.searchCP(searchTerm = "${searchTerm}");
+
+		AssertElementPresent(locator1 = "Search#SEARCH_INFO");
+	}
+
+	macro setPasswordByResetLink {
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#PASSWORD_NEW_PASSWORD_FIELD",
+			value1 = "${newPassword1}");
+
+		Type(
+			locator1 = "UsersAndOrganizationsEditUser#PASSWORD_ENTER_AGAIN_FIELD",
+			value1 = "${newPassword2}");
+
+		Button.clickSave();
+
+		if ("${newPassword1}" != "${newPassword2}") {
+			AssertTextEquals.assertPartialText(
+				locator1 = "TextInput#ALERT",
+				value1 = "Please enter the same value again.");
+		}
+		else if (!(isSet(invalidateLength))) {
+			User.acceptEndUserLicenseAgreement();
+
+			User.answerPasswordReminder();
+		}
+		else if ("${invalidateLength}" == "Short") {
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR",
+				value1 = "That password is too short. Please make sure your password is at least 6 characters long.");
+		}
+	}
+
+	macro signInPG {
+		AssertClick(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+
+		Type(
+			locator1 = "TextInput#EMAIL_ADDRESS",
+			value1 = "${userEmailAddress}");
+
+		Type(
+			locator1 = "TextInput#PASSWORD",
+			value1 = "${emailPassword}");
+
+		Check(locator1 = "Checkbox#REMEMBER_ME");
+
+		AssertClick(
+			locator1 = "Button#SIGN_IN",
+			value1 = "Sign In");
+
+		if (IsElementPresent.pauseIsElementPresent(
+				locator1 = "Button#I_AGREE",
+				value1 = "I Agree")) {
+			AssertClick(
+				locator1 = "Button#I_AGREE",
+				value1 = "I Agree");
+		}
+
+		AssertTextEquals(
+			locator1 = "Message#INFO",
+			value1 = "Please enter your verification code.");
+
+		Type(
+			locator1 = "SignInCreateAccount#EMAIL_VERIFICATION_CODE_FIELD",
+			value1 = "${emailVerification}");
+
+		AssertClick(
+			locator1 = "Button#VERIFY",
+			value1 = "Verify");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#PASSWORD")) {
+			if ((isSet(syntaxCheckingEnabled)) && ("${syntaxCheckingEnabled}" == "true")) {
+				Type(
+					locator1 = "TextInput#PASSWORD",
+					value1 = "${resetPassword}");
+
+				Type(
+					locator1 = "TextInput#ENTER_AGAIN",
+					value1 = "${resetPassword}");
+			}
+			else {
+				Type(
+					locator1 = "TextInput#PASSWORD",
+					value1 = "test");
+
+				Type(
+					locator1 = "TextInput#ENTER_AGAIN",
+					value1 = "test");
+			}
+
+			Button.clickSave();
+		}
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#ANSWER")) {
+			Type(
+				locator1 = "TextInput#ANSWER",
+				value1 = "test");
+
+			Button.clickSave();
+		}
+	}
+
+	macro tearDownCP {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		MenuItem.click(menuItem = "Active");
+
+		while (IsElementPresent(locator1 = "ContentRow#ENTRY_CONTENT_ROW_NUMBER", key_rowNumber = "2")) {
+			Click.waitForMenuToggleJSClick(
+				key_rowNumber = "2",
+				locator1 = "ContentRow#ENTRY_CONTENT_ROW_NUMBER_ELLIPSIS");
+
+			MenuItem.clickNoError(menuItem = "Deactivate");
+
+			AssertConfirm(value1 = "Are you sure you want to deactivate this?");
+		}
+
+		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		MenuItem.click(menuItem = "Inactive");
+
+		if (IsElementPresent(locator1 = "ContentRow#ENTRY_CONTENT_ROW_1")) {
+			PortletEntry.selectAll();
+
+			ClickNoError(locator1 = "Icon#DELETE");
+
+			AssertConfirm(value1 = "Are you sure you want to permanently delete the selected users?");
+
+			Alert.viewSuccessMessage();
+		}
+
+		AssertElementPresent(locator1 = "Message#EMPTY_INFO");
+	}
+
+	macro tearDownSpecificUser {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		MenuItem.click(menuItem = "Active");
+
+		User.searchCP(searchTerm = "${userScreenName}");
+
+		if (IsElementPresent(locator1 = "ContentRow#ENTRY_CONTENT_ROW_1")) {
+			PortletEntry.selectAll();
+
+			ClickNoError(locator1 = "Icon#MOVE_TO_RECYCLE_BIN");
+
+			AssertConfirm(value1 = "Are you sure you want to deactivate the selected users?");
+
+			Alert.viewSuccessMessage();
+		}
+
+		Click(locator1 = "Dropdown#FILTER_AND_ORDER");
+
+		MenuItem.click(menuItem = "Inactive");
+
+		if (IsElementPresent(locator1 = "ContentRow#ENTRY_CONTENT_ROW_1")) {
+			PortletEntry.selectAll();
+
+			ClickNoError(locator1 = "Icon#MOVE_TO_RECYCLE_BIN");
+
+			AssertConfirm(value1 = "Are you sure you want to permanently delete the selected users?");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro unassignRegularRoleCP {
+		UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+		UserNavigator.gotoRoles();
+
+		var key_regularRoleName = "${regularRoleName}";
+
+		Click(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_REGULAR_ROLES_REMOVE_ROLE",
+			value1 = "${regularRoleName}");
+
+		PortletEntry.save();
+
+		AssertElementNotPresent(
+			locator1 = "UsersAndOrganizationsEditUser#ROLES_REGULAR_ROLES_TABLE_TITLE",
+			value1 = "${regularRoleName}");
+	}
+
+	macro unlockUserAccount {
+		Pause(locator1 = "1000");
+
+		var key_userScreenName = "${userScreenName}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		AssertClick(
+			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		AssertTextEquals(
+			locator1 = "Message#ERROR_3",
+			value1 = "Warning:This user account has been locked due to excessive failed login attempts.");
+
+		AssertClick(
+			locator1 = "Button#UNLOCK",
+			value1 = "Unlock");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro verifyEmail {
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "TextInput#EMAIL_VERIFICATION_CODE")) {
+			var bodySpecificText = MockMock.getBodySpecificText(
+				asset = "${portalURL}: Email Address Verification",
+				content = "Please verify your email address for ${portalURL}",
+				extractFirstText = "&",
+				recipient = "${recipient}",
+				sender = "Joe Bloggs",
+				specificText = "ticketKey=",
+				subject = "${portalURL}: Email Address Verification");
+
+			Navigator.openURL();
+
+			Type(
+				locator1 = "TextInput#EMAIL_VERIFICATION_CODE",
+				value1 = "${bodySpecificText}");
+
+			Button.clickVerifyButton();
+
+			AssertElementNotPresent(locator1 = "TextInput#EMAIL_VERIFICATION_CODE");
+		}
+	}
+
+	macro viewAddress {
+		var key_primaryValue = "${street1}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "UsersAndOrganizations#USER_ADDRESS_TABLE",
+			value1 = "${city}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "UsersAndOrganizations#USER_ADDRESS_TABLE",
+			value1 = "${country}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "UsersAndOrganizations#USER_ADDRESS_TABLE",
+			value1 = "${postalCode}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "UsersAndOrganizations#USER_ADDRESS_TABLE",
+			value1 = "${region}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "UsersAndOrganizations#USER_ADDRESS_TABLE",
+			value1 = "${street1}");
+
+		if (isSet(addressType)) {
+			AssertTextEquals.assertPartialText(
+				locator1 = "UsersAndOrganizations#USER_ADDRESS_TABLE_ADDRESS_TYPE",
+				value1 = "${addressType}");
+		}
+	}
+
+	macro viewCaptchaPG {
+		if ("${captchaType}" == "captcha") {
+			AssertElementPresent.assertElementPresent(locator1 = "SignInCreateAccount#CAPTCHA_IMAGE");
+		}
+		else if ("${captchaType}" == "recaptcha") {
+			SelectFrame.selectFrameNoLoading(locator1 = "IFrame#RECAPTCHA");
+
+			AssertElementPresent.assertElementPresent(locator1 = "SignInCreateAccount#RECAPTCHA_LABEL");
+		}
+	}
+
+	macro viewContactInformation {
+		if (isSet(searchContainerType)) {
+			var key_searchContainerType = "${searchContainerType}";
+
+			// Phone Numbers
+
+			if (isSet(number)) {
+				AssertTextEquals.assertPartialText(
+					locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_PHONE_NUMBER_TABLE",
+					value1 = "${number}");
+			}
+
+			if (isSet(numberType)) {
+				AssertTextEquals.assertPartialText(
+					locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_TYPE_TABLE",
+					value1 = "${numberType}");
+			}
+
+			if (isSet(extension)) {
+				AssertTextEquals.assertPartialText(
+					locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_EXTENSION_TABLE",
+					value1 = "${extension}");
+			}
+
+			// Additional Email Addresses
+
+			if (isSet(address)) {
+				AssertTextEquals.assertPartialText(
+					locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_EMAIL_ADDRESS_TABLE",
+					value1 = "${address}");
+			}
+
+			if (isSet(addressCount)) {
+				var i = "0";
+
+				while ("${i}" != "${addressCount}") {
+					var i = ${i} + 1;
+
+					AssertTextEquals.assertPartialText(
+						locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_CONTAINER_TABLE",
+						value1 = "${addressPrefix}${i}@liferay.com");
+				}
+			}
+
+			// Websites
+
+			if (isSet(url)) {
+				AssertTextEquals.assertPartialText(
+					locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_EMAIL_ADDRESS_TABLE",
+					value1 = "${url}");
+			}
+
+			if (isSet(websiteType)) {
+				AssertTextEquals.assertPartialText(
+					locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_TYPE_TABLE",
+					value1 = "${websiteType}");
+			}
+		}
+
+		// Instant Messenger
+
+		if (isSet(skype)) {
+			AssertTextEquals.assertValue(
+				locator1 = "TextInput#SKYPE",
+				value1 = "${skype}");
+		}
+	}
+
+	macro viewCP {
+		if ("${userEmailAddressVariation}" == "At") {
+			Pause(locator1 = "1000");
+
+			Search.searchCP(searchTerm = "${userEmailAddress}");
+
+			AssertTextEquals(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+		}
+		else if ("${userEmailAddressVariation}" == "Period") {
+			Pause(locator1 = "1000");
+
+			Search.searchCP(searchTerm = "${userEmailAddress}");
+
+			AssertTextEquals(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+		}
+		else if ("${userScreenNameVariation}" == "Invalid") {
+			Pause(locator1 = "1000");
+
+			Search.searchCP(searchTerm = "${userScreenName}");
+
+			AssertTextEquals(
+				locator1 = "Message#EMPTY_INFO",
+				value1 = "No users were found.");
+		}
+		else {
+			UserNavigator.gotoUser(userScreenName = "${userScreenName}");
+
+			User.viewUserInfomation(
+				userEmailAddress = "${userEmailAddress}",
+				userFirstName = "${userFirstName}",
+				userLastName = "${userLastName}",
+				userScreenName = "${userScreenName}");
+		}
+	}
+
+	macro viewIsPrimary {
+		if (isSet(primaryValue)) {
+			var key_primaryValue = "${primaryValue}";
+
+			AssertElementPresent(locator1 = "UsersAndOrganizations#USER_ADDRESS_PRIMARY_TABLE");
+		}
+
+		if (isSet(searchContainerType)) {
+			var key_contactInfoPrimaryValue = "${contactInfoPrimaryValue}";
+			var key_searchContainerType = "${searchContainerType}";
+
+			AssertElementPresent(locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_PRIMARY_TABLE");
+		}
+	}
+
+	macro viewLoggedInPG {
+		if ("${authenticationMethod}" == "By Screen Name") {
+			AssertElementNotPresent(locator1 = "TextInput#SCREEN_NAME");
+		}
+		else {
+			AssertElementNotPresent(locator1 = "TextInput#EMAIL_ADDRESS");
+		}
+
+		AssertElementNotPresent(locator1 = "TextInput#PASSWORD");
+
+		AssertElementNotPresent(locator1 = "Checkbox#REMEMBER_ME");
+
+		AssertElementNotPresent(locator1 = "Button#SIGN_IN");
+
+		AssertVisible(locator1 = "UserBar#USER_AVATAR_IMAGE");
+	}
+
+	macro viewLoggedOutPG {
+		AssertElementNotPresent(locator1 = "UserBar#USER_AVATAR_IMAGE");
+
+		AssertElementNotPresent(locator1 = "ControlMenu#ADD");
+
+		AssertTextEquals(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+	}
+
+	macro viewLoggedOutWithCASEnabledPG {
+		AssertTextEquals(
+			locator1 = "CAS#APP_NAME_HEADER",
+			value1 = "Central Authentication Service (CAS)");
+
+		AssertTextEquals(
+			locator1 = "CAS#LOGOUT_SUCCESSFUL_HEADER",
+			value1 = "Logout successful");
+
+		AssertTextEquals(
+			locator1 = "CAS#LOGOUT_SUCCESSFUL_MESSAGE_1",
+			value1 = "You have successfully logged out of the Central Authentication Service.");
+
+		AssertTextEquals(
+			locator1 = "CAS#LOGOUT_SUCCESSFUL_MESSAGE_2",
+			value1 = "For security reasons, exit your web browser.");
+	}
+
+	macro viewLoginPG {
+		if ("${authenticationMethod}" == "By Screen Name") {
+			AssertElementPresent(locator1 = "TextInput#SCREEN_NAME");
+		}
+		else {
+			AssertElementPresent(locator1 = "TextInput#EMAIL_ADDRESS");
+		}
+
+		AssertElementPresent(locator1 = "TextInput#PASSWORD");
+
+		AssertElementPresent(locator1 = "Checkbox#REMEMBER_ME");
+
+		AssertTextEquals(
+			locator1 = "Button#SIGN_IN",
+			value1 = "Sign In");
+	}
+
+	macro viewNotPrimary {
+		if (isSet(primaryValue)) {
+			var key_primaryValue = "${primaryValue}";
+
+			AssertElementNotPresent(locator1 = "UsersAndOrganizations#USER_ADDRESS_PRIMARY_TABLE");
+		}
+
+		if (isSet(searchContainerType)) {
+			var key_contactInfoPrimaryValue = "${contactInfoPrimaryValue}";
+			var key_searchContainerType = "${searchContainerType}";
+
+			AssertElementNotPresent(locator1 = "UsersAndOrganizations#USER_CONTACT_INFORMATION_PRIMARY_TABLE");
+		}
+	}
+
+	macro viewNoUsersFoundCP {
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No users were found.");
+	}
+
+	macro viewUserCustomFieldsCP {
+		var key_customFieldName = "${customFieldName}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#CUSTOM_FIELDS_LABEL",
+			value1 = "${customFieldName}");
+
+		if (isSet(startingValue)) {
+			if ("${customFieldType}" == "Text Field") {
+				AssertTextEquals(
+					key_fieldLabel = "${customFieldName}",
+					locator1 = "TextInput#GENERIC_TEXT_INPUT",
+					value1 = "${startingValue}");
+			}
+		}
+	}
+
+	macro viewUserInfomation {
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_SCREEN_NAME_FIELD",
+			value1 = "${userScreenName}");
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_EMAIL_ADDRESS_FIELD",
+			value1 = "${userEmailAddress}");
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_FIRST_NAME_FIELD",
+			value1 = "${userFirstName}");
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#DETAILS_LAST_NAME_FIELD",
+			value1 = "${userLastName}");
+
+		if (isSet(userBirthday)) {
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_BIRTHDAY_FIELD",
+				value1 = "${userBirthday}");
+		}
+
+		if (isSet(userJobTitle)) {
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_JOB_TITLE_FIELD",
+				value1 = "${userJobTitle}");
+		}
+
+		if (isSet(userID)) {
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#DETAILS_SCREEN_NAME_FIELD",
+				value1 = "${userID}");
+		}
+	}
+
+	macro viewUserInfomationOrganizationSitesCP {
+		UserNavigator.gotoMemberships();
+
+		var key_siteName = "${siteName}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#SITES_TABLE_NAME",
+			value1 = "${orgName}");
+	}
+
+	macro viewUserInfomationRolesCP {
+		UserNavigator.gotoRoles();
+
+		var key_roleTitle = "${roleTitle}";
+
+		if ("${roleType}" == "Inherited Site Roles") {
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#ROLES_INHERITED_SITE_ROLES_TABLE_TITLE",
+				value1 = "${roleTitle}");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "UsersAndOrganizationsEditUser#ROLES_SELECT_ROLE_NAME",
+				value1 = "${roleTitle}");
+		}
+	}
+
+	macro viewUserInfomationSitesCP {
+		UserNavigator.gotoMemberships();
+
+		var key_siteName = "${siteName}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#SITES_TABLE_NAME",
+			value1 = "${siteName}");
+	}
+
+	macro viewUserInfomationUserGroupsCP {
+		UserNavigator.gotoMemberships();
+
+		var key_userGroupName = "${userGroupName}";
+
+		AssertTextEquals(
+			locator1 = "UsersAndOrganizationsEditUser#USER_GROUPS_TABLE_NAME",
+			value1 = "${userGroupName}");
+	}
+
+}

@@ -1,0 +1,288 @@
+definition {
+
+	var formDescription = "Created Form Description";
+	var formName = "Created Form Name";
+
+	macro deleteFormEntry {
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Delete",
+			rowEntry = "${formEntryValue}");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro editDataProvider {
+		FormFields.editText(
+			fieldName = "DataProviderPortlet_name",
+			fieldValue = "${name}");
+
+		FormFields.editText(
+			fieldName = "$url",
+			fieldValue = "${url}");
+
+		FormFields.editText(
+			fieldName = "$username",
+			fieldValue = "${username}");
+
+		var key_fieldName = "$password";
+
+		if (IsElementPresent(locator1 = "FormFields#PASSWORD_FIELD")) {
+			FormFields.editPassword(
+				fieldName = "$password",
+				fieldValue = "${password}");
+		}
+		else {
+			FormFields.editText(
+				fieldName = "$password",
+				fieldValue = "${password}");
+		}
+
+		FormsAdmin.editDataProviderOutputParameter(
+			outputParameterLabel = "${outputParameterLabel}",
+			outputParameterLabel2 = "${outputParameterLabel2}",
+			outputParameterName = "${outputParameterName}",
+			outputParameterName2 = "${outputParameterName2}",
+			outputParameterPath = "${outputParameterPath}",
+			outputParameterPath2 = "${outputParameterPath2}",
+			outputParameterType = "${outputParameterType}",
+			outputParameterType2 = "${outputParameterType2}");
+	}
+
+	macro editDataProviderOutputParameter {
+		Type(
+			locator1 = "Form#DATA_PROVIDER_OUTPUT_PARAMETER_PATH_FIELD",
+			value1 = "${outputParameterPath}");
+
+		Type(
+			locator1 = "Form#DATA_PROVIDER_OUTPUT_PARAMETER_LABEL_FIELD",
+			value1 = "${outputParameterLabel}");
+
+		FormFields.selectDataProviderOutputType(outputParameterType = "${outputParameterType}");
+
+		if (isSet(outputParameterPath2)) {
+			Click(locator1 = "Form#DATA_PROVIDER_OUTPUT_PARAMETER_REPEAT_ICON");
+
+			Type(
+				locator1 = "Form#DATA_PROVIDER_OUTPUT_PARAMETER_PATH_FIELD_2",
+				value1 = "${outputParameterPath2}");
+
+			Type(
+				locator1 = "Form#DATA_PROVIDER_OUTPUT_PARAMETER_LABEL_FIELD_2",
+				value1 = "${outputParameterLabel2}");
+
+			Click(locator1 = "Form#DATA_PROVIDER_OUTPUT_PARAMETER_TYPE_FIELD_2");
+
+			var key_outputParameterType = "${outputParameterType2}";
+
+			AssertClick(
+				locator1 = "Form#DATA_PROVIDER_OUTPUT_PARAMETER_TYPE_FIELD_OPTIONS_LIST_2",
+				value1 = "${outputParameterType2}");
+		}
+	}
+
+	macro saveDataProvider {
+		PortletEntry.save();
+
+		Pause(locator1 = "5000");
+	}
+
+	macro teardownDataProviders {
+		while (IsElementPresent(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS")) {
+			LexiconEntry.gotoEllipsisMenuItemNoError(menuItem = "Delete");
+
+			AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro teardownElementSets {
+		while (IsElementPresent(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS")) {
+			LexiconEntry.gotoEllipsisMenuItemNoError(menuItem = "Delete");
+
+			AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro teardownForms {
+		while (IsElementPresent(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS")) {
+			LexiconEntry.gotoEllipsisMenuItemNoError(menuItem = "Delete");
+
+			AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro viewCannotEditFormEntries {
+		if ("${onSitePage}" == "true") {
+			AssertElementNotPresent(locator1 = "FormFields#FIELD_ADD");
+		}
+		else {
+			AssertElementNotPresent(locator1 = "Button#SUBMIT");
+
+			AssertElementNotPresent(locator1 = "FormFields#FIELD_ADD");
+		}
+	}
+
+	macro viewCheckboxEntry {
+		FormsAdmin.viewCannotEditFormEntries();
+
+		var key_fieldName = "${fieldName}";
+		var key_fieldValue = "${fieldValue}";
+
+		FormFields.viewCheckboxEntry(
+			fieldName = "${fieldName}",
+			fieldValue = "${fieldValue}");
+
+		AssertElementPresent(locator1 = "FormFields#CHECKBOX");
+	}
+
+	macro viewDateEntry {
+		FormsAdmin.viewCannotEditFormEntries();
+
+		FormFields.viewDateLabel(
+			fieldLabel = "${fieldLabel}",
+			fieldName = "${fieldName}");
+
+		FormFields.viewDateValue(
+			fieldLabel = "${fieldLabel}",
+			fieldName = "${fieldName}",
+			fieldValue = "${fieldValue}");
+	}
+
+	macro viewForm {
+		var key_formName = "${formName}";
+
+		AssertTextEquals(
+			locator1 = "FormsAdmin#FORMS_TABLE_NAME",
+			value1 = "${formName}");
+
+		var key_formDescription = "${formDescription}";
+
+		if (IsVisible(locator1 = "FormsAdmin#FORMS_TABLE_DESCRIPTION")) {
+			AssertTextEquals(
+				locator1 = "FormsAdmin#FORMS_TABLE_DESCRIPTION",
+				value1 = "${formDescription}");
+		}
+
+		var key_rowEntry = "${formName}";
+
+		AssertElementPresent(locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
+	}
+
+	macro viewFormTableEntry {
+		var key_fieldLabel = "${fieldLabel}";
+		var key_fieldValue = "${fieldValue}";
+
+		AssertTextEquals(
+			locator1 = "FormsAdmin#FORM_ENTRY_TABLE_ENTRY",
+			value1 = "${fieldValue}");
+	}
+
+	macro viewFormTableEntryNotPresent {
+		var key_fieldLabel = "${fieldLabel}";
+		var key_fieldValue = "${fieldValue}";
+
+		AssertElementNotPresent(locator1 = "FormsAdmin#FORM_ENTRY_TABLE_ENTRY");
+	}
+
+	macro viewImageTableEntry {
+		AssertElementPresent(locator1 = "FormFields#IMAGE_TABLE_ENTRY");
+	}
+
+	macro viewMultilineTextEntry {
+		FormsAdmin.viewCannotEditFormEntries();
+
+		FormFields.viewTextLabel(
+			fieldLabel = "${fieldLabel}",
+			fieldName = "${fieldName}");
+
+		FormFields.viewMultilineTextValue(
+			fieldName = "${fieldName}",
+			fieldValue = "${fieldValue}");
+	}
+
+	macro viewNoDuplicateForms {
+		var key_formName = "${formName}";
+
+		AssertElementNotPresent(locator1 = "FormsAdmin#FORMS_TABLE_NAME_2");
+	}
+
+	macro viewNoFormEntries {
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no entries.");
+	}
+
+	macro viewNoFormEntriesFound {
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No entries were found.");
+	}
+
+	macro viewNoForms {
+		AssertElementPresent(locator1 = "Message#EMPTY_INFO_TAGLIB");
+	}
+
+	macro viewRadioEntry {
+		FormsAdmin.viewCannotEditFormEntries(onSitePage = "${onSitePage}");
+
+		FormFields.viewRadioLabel(
+			fieldLabel = "${fieldLabel}",
+			fieldName = "${fieldName}");
+
+		FormFields.viewRadioValue(
+			fieldName = "${fieldName}",
+			fieldValue = "${fieldValue}");
+	}
+
+	macro viewSelectEntry {
+		FormsAdmin.viewCannotEditFormEntries(onSitePage = "${onSitePage}");
+
+		FormFields.viewSelectLabel(
+			fieldLabel = "${fieldLabel}",
+			fieldName = "${fieldName}");
+
+		FormFields.viewSelectValue(fieldName = "${fieldName}");
+	}
+
+	macro viewTableEntryNotPresent {
+		AssertElementNotPresent(
+			key_fieldLabel = "${fieldLabel}",
+			key_fieldValue = "${fieldValue}",
+			locator1 = "FormsAdmin#FORM_ENTRY_TABLE_ENTRY");
+	}
+
+	macro viewTextEntry {
+		FormsAdmin.viewCannotEditFormEntries(onSitePage = "${onSitePage}");
+
+		FormFields.viewTextLabel(
+			fieldLabel = "${fieldLabel}",
+			fieldName = "${fieldName}");
+
+		FormFields.viewTextValue(
+			fieldName = "${fieldName}",
+			fieldValue = "${fieldValue}");
+	}
+
+	macro viewUploadFile {
+		FormFields.viewUploadLabel(
+			fieldLabel = "${fieldLabel}",
+			fieldName = "${fieldName}");
+
+		var key_fieldName = "${fieldName}";
+		var key_uploadFileName = "${uploadFileName}";
+
+		AssertTextEquals(
+			locator1 = "FormFields#UPLOAD_FILE_NAME",
+			value1 = "${uploadFileName}");
+
+		AssertElementPresent(locator1 = "FormFields#UPLOAD_DOWNLOAD_ICON");
+	}
+
+}

@@ -1,0 +1,114 @@
+@component-name = "portal-security"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Security";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			PortalSettings.tearDownAuthenticationCP();
+
+			Page.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test ServiceAccessPolicySmoke {
+		property custom.properties = "json.service.auth.token.hosts.allowed=";
+		property custom.properties = "json.service.serialize.throwable=true";
+		property test.name.skip.portal.instance = "ServiceAccessPolicy#ServiceAccessPolicySmoke";
+
+		var companyId = JSONCompany.getCompanyId();
+
+		var portalURL = JSONCompany.getPortalURL();
+
+		var curl = '''
+			${portalURL}/api/jsonws/user/get-user-by-email-address \
+				-d companyId=${companyId} \
+				-d emailAddress=test@liferay.com
+		''';
+		var output = JSONCurlUtil.post("${curl}");
+
+		if (contains("${output}", "Access denied to com.liferay.portal.kernel.service.UserService#getUserByEmailAddress")) {
+			echo("Access denied to com.liferay.portal.kernel.service.UserService#getUserByEmailAddress");
+		}
+		else {
+			fail("FAIL! Cannot find the warning message.");
+		}
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Security",
+			panel = "Control Panel",
+			portlet = "Service Access Policy");
+
+		ServiceAccessPolicy.editServiceAccessPolicy(
+			allowedServiceSignature = "com.liferay.portal.kernel.service.UserService#getUserByEmailAddress",
+			policyName = "SYSTEM_DEFAULT");
+
+		var userId = JSONUserAPI._getUserIdByEmailAddress(userEmailAddress = "test@liferay.com ");
+
+		var curl = '''
+			${portalURL}/api/jsonws/user/get-user-by-email-address \
+				-d companyId=${companyId} \
+				-d emailAddress=test@liferay.com
+		''';
+		var output = JSONCurlUtil.post("${curl}");
+
+		if (contains("${output}", "must have VIEW permission for com.liferay.portal.kernel.model.User ${userId}")) {
+			echo("Default user must have VIEW permission for com.liferay.portal.kernel.model.User ${userId}");
+		}
+		else {
+			fail("FAIL! Cannot find the user info message.");
+		}
+
+		var curl = '''
+			${portalURL}/api/jsonws/user/get-current-user \
+				-basic \
+				-u test@liferay.com:test
+		''';
+		var output = JSONCurlUtil.post("${curl}");
+
+		if ((contains("${output}", ""agreedToTermsOfUse":true")) && (contains("${output}", ""companyId":"${companyId}""))) {
+			echo("Get current user successful.");
+		}
+		else {
+			fail("FAIL! Cannot find the currrent user.");
+		}
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Security",
+			panel = "Control Panel",
+			portlet = "Service Access Policy");
+
+		ServiceAccessPolicy.editServiceAccessPolicy(
+			allowedServiceSignature = " ",
+			policyName = "SYSTEM_USER_PASSWORD");
+
+		var curl = '''
+			${portalURL}/api/jsonws/user/get-current-user \
+				-basic \
+				-u test@liferay.com:test
+		''';
+		var output = JSONCurlUtil.post("${curl}");
+
+		if (contains("${output}", "Access denied to com.liferay.portal.kernel.service.UserService#getCurrentUser")) {
+			echo("Access denied to com.liferay.portal.kernel.service.UserService#getCurrentUser");
+		}
+		else {
+			fail("FAIL! Cannot find the warning message.");
+		}
+	}
+
+}

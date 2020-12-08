@@ -1,0 +1,88 @@
+@component-name = "portal-commerce"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "quarantine";
+	property testray.main.component.name = "Commerce";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			Navigator.openURL();
+
+			CommerceNavigator.gotoPortlet(
+				category = "Pricing",
+				portlet = "Discounts");
+
+			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				CommerceEntry.deleteCommerceEntry();
+			}
+
+			CommerceNavigator.gotoPortlet(
+				category = "Store Management",
+				portlet = "Channels");
+
+			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				CommerceEntry.deleteCommerceEntry();
+			}
+		}
+	}
+
+	test CreateNewDiscount {
+		property portal.acceptance = "quarantine";
+		property test.name.skip.portal.instance = "CPCommerceDiscounts#CreateNewDiscount";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Store Management",
+			portlet = "Channels");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewChannelsEntry(
+			channelCurrency = "US Dollar",
+			channelName = "Test Channel",
+			channelType = "Site",
+			siteName = "Guest");
+
+		CommerceNavigator.gotoPortlet(
+			category = "Pricing",
+			portlet = "Discounts");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewDiscountsEntry(
+			channelsEligibility = "Test Channel",
+			discountAmount = "15",
+			discountName = "Test Discount",
+			discountTarget = "Products",
+			discountType = "Percentage",
+			maximumDiscountAmount = "10");
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		CommerceNavigator.gotoPortlet(
+			category = "Pricing",
+			portlet = "Discounts");
+
+		CommerceNavigator.gotoEntry(entryName = "Test Discount");
+
+		CommerceEntry.viewDiscountsEntry(
+			channelsEligibility = "Test Channel",
+			discountAmount = "15.00",
+			discountName = "Test Discount",
+			discountTarget = "Products",
+			discountType = "Percentage",
+			maximumDiscountAmount = "10.00");
+	}
+
+}

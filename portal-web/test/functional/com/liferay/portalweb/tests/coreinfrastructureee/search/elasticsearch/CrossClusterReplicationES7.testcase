@@ -1,0 +1,709 @@
+@component-name = "portal-search-ee"
+definition {
+
+	property osgi.app.includes = "portal-search-elasticsearch-cross-cluster-replication";
+	property portal.release = "true";
+	property portal.suite.search.engine = "elasticsearch7";
+	property portal.upstream = "true";
+	property remote.elasticsearch.clusters.enabled = "true";
+	property remote.elasticsearch.enabled = "true";
+	property test.run.environment = "EE";
+	property testray.main.component.name = "Elasticsearch Impl";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			MessageboardsThread.tearDownCP();
+
+			DMDocument.tearDownCP();
+
+			Page.tearDownCP();
+		}
+	}
+
+	@priority = "4"
+	test AssertReplicationAfterReindex {
+		property portal.upstream = "quarantine";
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#AssertReplicationAfterReindex";
+
+		JSONDocument.addFile(
+			dmDocumentDescription = "DM Description",
+			dmDocumentTitle = "Apple1",
+			groupName = "Guest");
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "Apple");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "Apple1",
+			searchAssetType = "Document");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
+		JSONDocument.addFile(
+			dmDocumentDescription = "DM Description",
+			dmDocumentTitle = "Apple2",
+			groupName = "Guest");
+
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "Apple");
+
+		SearchResultPortlet.viewMultipleSearchResults(
+			resultsList = "Apple1/Document,Apple2/Document",
+			searchTerm = "Apple");
+	}
+
+	@priority = "3"
+	test BreakWorkflowSLA {
+		property portal.upstream = "false";
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#BreakWorkflowSLA";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		WorkflowMetrics.goToWorkflowSLASettings(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetricsSLA#ADD_NEW_SLA_BUTTON");
+
+		WorkflowMetrics.fillSLAForm(
+			slaDefinitionDays = "0",
+			slaDefinitionDescription = "SLA Description",
+			slaDefinitionEnd = "Process Ends: Approved",
+			slaDefinitionHours = "00:02",
+			slaDefinitionName = "SLA Name",
+			slaDefinitionStart = "Enters Task: Review");
+
+		Button.clickSave();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		WorkflowMetrics.waitForSLA(
+			key_expectedValue = "0",
+			key_status = "ONTIME");
+
+		WorkflowMetrics.checkPendingWorkflowValues(
+			key_ontime = "1",
+			key_overdue = "0",
+			key_pending = "1",
+			key_untracked = "0");
+
+		Refresh();
+
+		WorkflowMetrics.waitForSLA(
+			key_expectedValue = "0",
+			key_status = "OVERDUE");
+
+		WorkflowMetrics.checkPendingWorkflowValues(
+			key_ontime = "0",
+			key_overdue = "1",
+			key_pending = "1",
+			key_untracked = "0");
+	}
+
+	@ignore = "true"
+	@priority = "3"
+	test CleanAndReindexWorkflowMetricsInstances {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#CleanAndReindexWorkflowMetricsInstances";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		CrossClusterReplication.setupWorkflow();
+
+		CrossClusterReplication.cleanWorkflowIndex(workflowIndexName = "workflow-metrics-instances");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		AssertTextEquals(
+			locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE",
+			value1 = "0");
+
+		WorkflowMetrics.executeIndexActions(actionDescription = "Workflow Metrics Instances");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		AssertTextEquals(
+			locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_VALUE",
+			value1 = "1");
+	}
+
+	@ignore = "true"
+	@priority = "3"
+	test CleanAndReindexWorkflowMetricsNodes {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#CleanAndReindexWorkflowMetricsNodes";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		CrossClusterReplication.cleanWorkflowIndex(workflowIndexName = "workflow-metrics-nodes");
+
+		WorkflowMetrics.goToWorkflowSLASettings(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetricsSLA#ADD_NEW_SLA_BUTTON");
+
+		Click(locator1 = "WorkflowMetricsSLA#SLA_DEFINITION_START");
+
+		AssertTextEquals(
+			key_slaDefinitionStart = "No results were found.",
+			locator1 = "WorkflowMetricsSLA#SLA_DROPDOWN_START_OPTION",
+			value1 = "No results were found.");
+
+		WorkflowMetrics.executeIndexActions(actionDescription = "Workflow Metrics Nodes");
+
+		WorkflowMetrics.goToWorkflowSLASettings(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetricsSLA#ADD_NEW_SLA_BUTTON");
+
+		WorkflowMetrics.fillSLAForm(
+			slaDefinitionDays = "0",
+			slaDefinitionDescription = "SLA Description",
+			slaDefinitionEnd = "Process Ends: Approved",
+			slaDefinitionHours = "00:02",
+			slaDefinitionName = "SLA Name",
+			slaDefinitionStart = "Enters Task: Review");
+	}
+
+	@ignore = "true"
+	@priority = "3"
+	test CleanAndReindexWorkflowMetricsProcesses {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#CleanAndReindexWorkflowMetricsProcesses";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		CrossClusterReplication.cleanWorkflowIndex(workflowIndexName = "workflow-metrics-processes");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Applications",
+			portlet = "Metrics");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "Once there are active processes, metrics will appear here.");
+
+		WorkflowMetrics.executeIndexActions(actionDescription = "Workflow Metrics Processes");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+	}
+
+	@ignore = "true"
+	@priority = "3"
+	test CleanAndReindexWorkflowMetricsSLAInstanceResults {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#CleanAndReindexWorkflowMetricsSLAInstanceResults";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		CrossClusterReplication.cleanWorkflowIndex(workflowIndexName = "workflow-metrics-sla-instance-results");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Applications",
+			portlet = "Metrics");
+
+		AssertElementNotPresent(
+			key_workflowProcessName = "Single Approver",
+			locator1 = "WorkflowMetrics#METRICS_WORKFLOW_PROCESS_NAME");
+
+		WorkflowMetrics.executeIndexActions(actionDescription = "Workflow SLA Instance Results");
+
+		WorkflowMetrics.goToWorkflowSLASettings(workflowProcessName = "Single Approver");
+	}
+
+	@ignore = "true"
+	@priority = "3"
+	test CleanAndReindexWorkflowMetricsSLATaskResults {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#CleanAndReindexWorkflowMetricsSLATaskResults";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		CrossClusterReplication.cleanWorkflowIndex(workflowIndexName = "workflow-metrics-sla-task-results");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		AssertElementNotPresent(
+			key_rowName = "Update",
+			key_rowNumber = "2",
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_STEP_ROW_ORDER_CHECK");
+
+		WorkflowMetrics.executeIndexActions(actionDescription = "Workflow SLA Task Results");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		AssertElementPresent(
+			key_rowName = "Update",
+			key_rowNumber = "2",
+			locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_STEP_ROW_ORDER_CHECK");
+	}
+
+	@ignore = "true"
+	@priority = "3"
+	test CleanAndReindexWorkflowMetricsTasks {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#CleanAndReindexWorkflowMetricsTasks";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		CrossClusterReplication.setupWorkflow();
+
+		CrossClusterReplication.cleanWorkflowIndex(workflowIndexName = "workflow-metrics-tasks");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		AssertElementPresent(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_BY_ASSIGNEE_CARD_EMPTY_STATE");
+
+		WorkflowMetrics.executeIndexActions(actionDescription = "Workflow Metrics Tasks");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#METRICS_PERFORMANCE_TAB");
+
+		WorkflowMetrics.viewPerformanceByAssignee(
+			assignee = "Test Test",
+			avgCompletionTime = "1min",
+			taskCount = "1");
+	}
+
+	@ignore = "true"
+	@priority = "3"
+	test CleanAndReindexWorkflowMetricsTransitions {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#CleanAndReindexWorkflowMetricsTransitions";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		CrossClusterReplication.setupWorkflow();
+
+		CrossClusterReplication.cleanWorkflowIndex(workflowIndexName = "workflow-metrics-transitions");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_TITLE");
+
+		Click(
+			locator1 = "WorkflowAllItems#KEBAB_DROPDOWN",
+			task = "1");
+
+		AssertElementNotPresent(
+			key_menuItem = "Approve",
+			locator1 = "MenuItem#DROPDOWN_MENU_ITEM");
+
+		WorkflowMetrics.executeIndexActions(actionDescription = "Workflow Metrics Transitions");
+
+		WorkflowMetrics.goToWorkflowProcessMetrics(workflowProcessName = "Single Approver");
+
+		Click(locator1 = "WorkflowMetrics#DASHBOARD_TOTAL_PENDING_ITEMS_TITLE");
+
+		Click(
+			locator1 = "WorkflowAllItems#KEBAB_DROPDOWN",
+			task = "1");
+
+		AssertElementPresent(
+			key_menuItem = "Approve",
+			locator1 = "MenuItem#DROPDOWN_MENU_ITEM");
+	}
+
+	@priority = "3"
+	test CreateBlogsEntryWithNewWorkflow {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#CreateBlogsEntryWithNewWorkflow";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Workflow",
+			panel = "Applications",
+			portlet = "Process Builder");
+
+		Workflow.duplicateSingleApproverWorkflow(workflowName = "CCR Single Approver");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "CCR Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			panel = "Site Administration",
+			portlet = "Blogs");
+
+		Blogs.addWithWorkflow(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Subtitle",
+			entryTitle = "Blogs Entry Title");
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Workflow Tasks");
+
+		Workflow.assignToMeTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Workflow.approveTaskByActions(
+			workflowAssetTitle = "Blogs Entry Title",
+			workflowAssetType = "Blogs Entry",
+			workflowTask = "Review");
+
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "Blogs");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "Blogs Entry Title",
+			searchAssetType = "Blogs Entry",
+			searchTerm = "Blogs");
+	}
+
+	@priority = "3"
+	test HotDeployApp {
+		property hot.deploy.osgi.app.includes = "portal-search-elasticsearch-cross-cluster-replication";
+		property osgi.app.includes = "";
+		property test.assert.warning.exceptions = "true";
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#HotDeployApp";
+
+		var appName = "Liferay Enterprise Search Cross-Cluster Replication";
+
+		AssertConsoleTextNotPresent(value1 = "The portal instance needs to be restarted");
+
+		AssertConsoleTextPresent(value1 = "STARTED ${appName}");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "App Manager");
+
+		AppManager.viewAppCP(
+			appName = "${appName}",
+			appStatus = "Active",
+			searchTerm = "Replication");
+
+		AppManager.deactivateAppCP(appName = "${appName}");
+
+		AppManager.viewAppCP(
+			appName = "${appName}",
+			appStatus = "Resolved",
+			searchTerm = "Replication");
+
+		AssertConsoleTextPresent(value1 = "STOPPED com.liferay.portal.search.elasticsearch.cross.cluster.replication.impl");
+
+		AppManager.activateAppCP(appName = "${appName}");
+
+		AssertConsoleTextPresent(value1 = "STARTED com.liferay.portal.search.elasticsearch.cross.cluster.replication.impl");
+
+		AssertConsoleTextNotPresent(value1 = "The portal instance needs to be restarted");
+	}
+
+	@priority = "3"
+	test SearchWithResultRankings {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#SearchWithResultRankings";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		JSONWebcontent.addWebContent(
+			content = "",
+			groupName = "Guest",
+			title = "WC Title 1");
+
+		JSONWebcontent.addWebContent(
+			content = "",
+			groupName = "Guest",
+			title = "WC Title 2");
+
+		JSONWebcontent.addWebContent(
+			content = "",
+			groupName = "Guest",
+			title = "WC Title 3");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Search Tuning",
+			panel = "Applications",
+			portlet = "Result Rankings");
+
+		SearchTuning.addResultRanking(searchQuery = "WC Title");
+
+		SearchTuning.pinResult(assetTitle = "WC Title 3");
+
+		SearchTuning.hideResult(assetTitle = "WC Title 2");
+
+		Button.clickSave();
+
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "WC Title");
+
+		SearchResultPortlet.viewSearchResultsSpecificOrder(resultsList = "WC Title 3,WC Title 1");
+
+		SearchResultPortlet.viewSearchResultNotPresent(
+			searchAssetTitle = "WC Title 2",
+			searchAssetType = "Web Content Article");
+	}
+
+	@priority = "3"
+	test SearchWithSynonyms {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#SearchWithSynonyms";
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		for (var title : list "banana,red apple") {
+			JSONWebcontent.addWebContent(
+				content = "WC Content",
+				groupName = "Guest",
+				title = "${title}");
+		}
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Search Tuning",
+			panel = "Applications",
+			portlet = "Synonyms");
+
+		SearchTuning.addSynonymSet(synonyms = "banana,red apple,fruit");
+
+		AssertElementPresent(
+			key_synonyms = "banana, red apple, fruit",
+			locator1 = "SearchTuning#SYNONYMS_ENTRY");
+
+		Navigator.openURL();
+
+		Pause(locator1 = "70000");
+
+		var searchTerms = "banana,red apple,fruit";
+
+		for (var searchTerm : list "${searchTerms}") {
+			SearchPortlets.searchEmbedded(searchTerm = "${searchTerm}");
+
+			SearchResultPortlet.viewMultipleSearchResults(
+				resultsList = "banana/Web Content Article,red apple/Web Content Article",
+				searchTerm = "${searchTerm}");
+		}
+	}
+
+	@priority = "3"
+	test SearchWithVirtualInstance {
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#SearchWithVirtualInstance";
+
+		JSONDocument.addFile(
+			dmDocumentDescription = "DM Description",
+			dmDocumentTitle = "Apple 1",
+			groupName = "Guest");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "Virtual Instances");
+
+		PortalInstances.addCP(
+			mailDomain = "www.able.com",
+			virtualHost = "www.able.com",
+			webId = "www.able.com");
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		User.firstLoginPG(
+			password = "test",
+			userEmailAddress = "test@www.able.com",
+			virtualHostsURL = "http://www.able.com:8080");
+
+		Navigator.openSpecificURL(url = "http://www.able.com:8080");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentFile = "Document_1.doc",
+			dmDocumentTitle = "Apple 2");
+
+		Navigator.openSpecificURL(url = "http://www.able.com:8080");
+
+		SearchPortlets.searchEmbedded(searchTerm = "Apple");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "Apple 2",
+			searchAssetType = "Document");
+
+		SearchResultPortlet.viewSearchResultNotPresent(
+			searchAssetTitle = "Apple 1",
+			searchAssetType = "Document");
+	}
+
+	@priority = "5"
+	test Smoke {
+		property osgi.module.configuration.file.names = "com.liferay.portal.bundle.blacklist.internal.configuration.BundleBlacklistConfiguration.config";
+		property osgi.module.configurations = "blacklistBundleSymbolicNames=&quot;com.liferay.portal.search.tuning.rankings.web&quot;";
+		property portal.upstream = "quarantine";
+		property test.name.skip.portal.instance = "CrossClusterReplicationES7#Smoke";
+
+		JSONDocument.addFile(
+			dmDocumentDescription = "DM Description",
+			dmDocumentTitle = "DM Title 1",
+			groupName = "Guest");
+
+		CrossClusterReplication.setupCrossClusterReplication();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Search");
+
+		AssertTextEquals.assertPartialText(
+			key_connectionID = "__REMOTE__",
+			locator1 = "SearchAdmin#CLUSTER_NAME",
+			value1 = "LiferayElasticsearchCluster");
+
+		AssertTextEquals.assertPartialText(
+			key_connectionID = "ccr",
+			locator1 = "SearchAdmin#CLUSTER_NAME",
+			value1 = "LiferayElasticsearchClusterTwo");
+
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "DM");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "DM Title 1",
+			searchAssetType = "Document");
+
+		AntCommand(
+			locator1 = "build-test-elasticsearch7.xml",
+			value1 = "stop-elasticsearch");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Search");
+
+		AssertTextEquals.assertPartialText(
+			key_connectionID = "ccr",
+			locator1 = "SearchAdmin#CLUSTER_NAME",
+			value1 = "LiferayElasticsearchClusterTwo");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#ERROR",
+			value1 = "Connection refused");
+
+		AssertElementNotPresent(
+			key_connectionID = "__REMOTE__",
+			locator1 = "SearchAdmin#CLUSTER_NAME");
+
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "DM");
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "DM Title 1",
+			searchAssetType = "Document");
+
+		AntCommand(
+			locator1 = "build-test-elasticsearch7.xml",
+			value1 = "start-elasticsearch-node -Dremote.elasticsearch.cluster.size=1");
+
+		Pause(locator1 = "30000");
+
+		AntCommand(
+			locator1 = "build-test-elasticsearch7.xml",
+			value1 = "stop-elasticsearch-local-cluster");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Search");
+
+		AssertTextEquals.assertPartialText(
+			key_connectionID = "__REMOTE__",
+			locator1 = "SearchAdmin#CLUSTER_NAME",
+			value1 = "LiferayElasticsearchCluster");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#ERROR",
+			value1 = "Connection refused");
+
+		AssertElementNotPresent(
+			key_connectionID = "ccr",
+			locator1 = "SearchAdmin#CLUSTER_NAME");
+
+		Navigator.openURL();
+
+		SearchPortlets.searchEmbedded(searchTerm = "DM");
+
+		SearchResultPortlet.viewSearchResultNotPresent(searchTerm = "DM");
+	}
+
+}

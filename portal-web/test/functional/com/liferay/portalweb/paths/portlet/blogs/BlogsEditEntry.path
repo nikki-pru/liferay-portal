@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>BlogsEditEntry</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">BlogsEditEntry</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>STATUS_READING_TIME</td>
+	<td>//div[@class='info-bar-center']//small/time[contains(@id,'readingTime') and contains (.,'${key_readingTime}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

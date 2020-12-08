@@ -1,0 +1,36 @@
+@component-name = "portal-frontend-infrastructure"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "User Interface";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test AssertLoadingBar {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "SPA#AssertLoadingBar";
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		AssertVisible.assertVisibleNoSPAWait(locator1 = "//html[contains(@class,'lfr-spa-loading')]");
+	}
+
+}

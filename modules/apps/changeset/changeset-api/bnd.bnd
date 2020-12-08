@@ -1,0 +1,9 @@
+Bundle-Name: Liferay Changeset API
+Bundle-SymbolicName: com.liferay.changeset.api
+Bundle-Version: 4.0.0
+Export-Package:\
+	com.liferay.changeset.exception,\
+	com.liferay.changeset.model,\
+	com.liferay.changeset.service,\
+	com.liferay.changeset.service.persistence,\
+	com.liferay.changeset.util

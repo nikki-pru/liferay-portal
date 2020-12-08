@@ -1,0 +1,953 @@
+definition {
+
+	macro _editFieldLabel {
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${field}");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if (("${browserType}" == "safari") || (IsElementPresent(locator1 = "Publications#PUBLICATIONS_INDICATOR_BUTTON"))) {
+			Click(locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL");
+
+			DoubleClick.javaScriptDoubleClick(locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL");
+		}
+		else {
+			DoubleClick(locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL");
+		}
+
+		Type(
+			locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD",
+			value1 = "${fieldFieldLabel}");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+		}
+	}
+
+	macro addField {
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		var key_field = "${field}";
+
+		DragAndDrop(
+			locator1 = "DDMEditStructure#FIELDS_FIELD",
+			locator2 = "DDMEditStructure#FORM_BUILDER",
+			value1 = "${field}");
+
+		DynamicDataMapping._editFieldLabel(
+			field = "${field}",
+			fieldFieldLabel = "${fieldFieldLabel}");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL",
+			value1 = "${fieldFieldLabel}");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		DynamicDataMapping.editFieldNameCmd(
+			fieldFieldLabel = "${fieldFieldLabel}",
+			fieldName = "${fieldName}");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_NAME",
+			value1 = "${fieldName}");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+	}
+
+	macro addFieldFormTemplateSpecific {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		var key_field = "${field}";
+
+		DragAndDrop(
+			locator1 = "DDMEditStructure#FIELDS_FIELD",
+			locator2 = "DDMEditStructure#FORM_BUILDER",
+			value1 = "${field}");
+
+		var key_fieldFieldLabel = "${field}";
+
+		if ("${field}" == "Fieldset") {
+			Click(locator1 = "DDMEditStructure#FORM_FIELDSET");
+
+			DoubleClick(locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL");
+
+			Type(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD",
+				value1 = "${fieldFieldLabel}");
+
+			AssertClick(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON",
+				value1 = "Save");
+
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL",
+				value1 = "${fieldFieldLabel}");
+		}
+		else if ("${field}" == "Paragraph") {
+			DoubleClick(locator1 = "DDMEditStructure#FORM_FIELD");
+		}
+		else if ("${field}" == "Separator") {
+			Click(locator1 = "DDMEditStructure#FORM_SEPARATOR");
+		}
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro addFieldNested {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		ScrollWebElementIntoView(locator1 = "DDMEditStructure#FIELDS_LINK");
+
+		var key_field = "${field}";
+
+		DragAndDrop(
+			locator1 = "DDMEditStructure#FIELDS_FIELD",
+			locator2 = "DDMEditStructure#FORM_BUILDER_FIELD",
+			value1 = "${field}");
+
+		DynamicDataMapping._editFieldLabel(
+			field = "${field}",
+			fieldFieldLabel = "${fieldFieldLabel}");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL",
+			value1 = "${fieldFieldLabel}");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		DynamicDataMapping.editFieldNameCmd(
+			fieldFieldLabel = "${fieldFieldLabel}",
+			fieldName = "${fieldName}");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_NAME",
+			value1 = "${fieldName}");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro addFieldViaJSON {
+		Navigator.gotoNavTab(navTab = "Source");
+
+		var sourceJSON = JSONUtil.formatJSONString("${sourceJSON}");
+
+		Type.typeNotVisibleNoMouseOver(
+			locator1 = "DDMEditStructure#SOURCE_EDITOR_CONTENT",
+			value1 = "${sourceJSON} ");
+	}
+
+	macro addFieldWithoutRename {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		var key_field = "${field}";
+
+		DragAndDrop(
+			locator1 = "DDMEditStructure#FIELDS_FIELD",
+			locator2 = "DDMEditStructure#FORM_BUILDER",
+			value1 = "${field}");
+
+		DynamicDataMapping._editFieldLabel(
+			field = "${field}",
+			fieldFieldLabel = "${fieldFieldLabel}");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL",
+			value1 = "${fieldFieldLabel}");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro assertFieldNameErrorMessage {
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD_ALERT",
+			value1 = "Please enter a unique field name.");
+	}
+
+	macro deleteField {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		DoubleClick(locator1 = "DDMEditStructure#FORM_FIELD");
+
+		MouseOver(locator1 = "DDMEditStructure#FORM_FIELD");
+
+		SikuliClick(locator1 = "DDMEditStructure#FORM_FIELD_DELETE_BUTTON");
+
+		AssertTextEquals(
+			locator1 = "IFrame#DIALOG_BOX",
+			value1 = "${fieldFieldLabel}");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#ARE_YOU_SURE_DIALOG_BOX_BODY",
+			value1 = "Are you sure you want to delete the selected entries? They will be deleted immediately.");
+
+		AssertClick(
+			locator1 = "Button#OK",
+			value1 = "OK");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editField {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		if (isSet(fieldFieldLabelEdit)) {
+			DoubleClick(locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL");
+
+			Type(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD",
+				value1 = "${fieldFieldLabelEdit}");
+
+			AssertClick(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON",
+				value1 = "Save");
+
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL",
+				value1 = "${fieldFieldLabelEdit}");
+		}
+
+		if (isSet(fieldNameEdit)) {
+			DoubleClick(locator1 = "DDMEditStructure#SETTINGS_NAME");
+
+			Type(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD",
+				value1 = "${fieldNameEdit}");
+
+			AssertClick(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON",
+				value1 = "Save");
+
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_NAME",
+				value1 = "${fieldNameEdit}");
+		}
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editFieldIndexable {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_INDEXABLE");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_NOT_INDEXABLE_RADIO");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editFieldLabel {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping._editFieldLabel(
+			field = "${field}",
+			fieldFieldLabel = "${fieldFieldLabel}");
+
+		SelectFrame(value1 = "relative=top");
+
+		DynamicDataMapping.viewField(
+			field = "${field}",
+			fieldFieldLabel = "${fieldFieldLabel}",
+			fieldName = "${fieldName}");
+	}
+
+	macro editFieldLocalizable {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_LOCALIZABLE");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_NO_RADIO");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editFieldNameCmd {
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		if (!(isSet(fieldName))) {
+			var fieldName = StringUtil.replace("${fieldFieldLabel}", " ", "");
+		}
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if (("${browserType}" == "safari") || (IsElementPresent(locator1 = "Publications#PUBLICATIONS_INDICATOR_BUTTON"))) {
+			Click(locator1 = "DDMEditStructure#SETTINGS_NAME");
+
+			DoubleClick.javaScriptDoubleClick(locator1 = "DDMEditStructure#SETTINGS_NAME");
+		}
+		else {
+			DoubleClick(locator1 = "DDMEditStructure#SETTINGS_NAME");
+		}
+
+		Type(
+			locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD",
+			value1 = "${fieldName}");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+		}
+	}
+
+	macro editFieldNameInvalidCharacter {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		var key_fieldFieldLabel = "${field}";
+
+		DynamicDataMapping.editFieldNameCmd(
+			fieldFieldLabel = "${fieldFieldLabel}",
+			fieldName = "${fieldName}");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD_ALERT",
+			value1 = "Please enter only alphanumeric characters or underscore.");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editFieldNameNested {
+		DynamicDataMapping.editFieldSettingsNested();
+
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_NAME");
+
+		Type(
+			locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD",
+			value1 = "${fieldName}");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+		}
+	}
+
+	macro editFieldNestedWithDuplicateName {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldNameNested(fieldName = "${fieldName}");
+
+		DynamicDataMapping.assertFieldNameErrorMessage();
+
+		DynamicDataMapping.editFieldNameNested(fieldName = "${fieldNameEdit}");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editFieldOptions {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_OPTIONS");
+
+		var i = "0";
+
+		for (var fieldOptionsName : list "${fieldOptionsNames}") {
+			var i = ${i} + 1;
+
+			Type(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_OPTIONS_NAME_${i}",
+				value1 = "${fieldOptionsName}");
+		}
+
+		var j = "0";
+
+		if (isSet(fieldOptionsValues)) {
+			for (var fieldOptionsValue : list "${fieldOptionsValues}") {
+				var j = ${j} + 1;
+
+				Type(
+					locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_OPTIONS_VALUE_${j}",
+					value1 = "${fieldOptionsValue}");
+			}
+		}
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+		}
+
+		DynamicDataMapping.viewFieldOptionsCmd(
+			field = "${field}",
+			fieldEditable = "${fieldEditable}",
+			fieldFieldLabel = "${fieldFieldLabel}",
+			fieldName = "${fieldName}",
+			fieldOptionsName = "${fieldOptionsName}",
+			fieldOptionsNames = "${fieldOptionsNames}",
+			fieldOptionsValue = "${fieldOptionsValue}",
+			fieldOptionsValues = "${fieldOptionsValues}",
+			i = "${i}",
+			j = "${j}");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+	}
+
+	macro editFieldPredefinedValue {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_PREDEFINED_VALUE");
+
+		if ("${field}" == "Boolean") {
+			if ("${fieldPredefinedValue}" == "Yes") {
+				Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_YES_RADIO");
+			}
+			else if ("${fieldPredefinedValue}" == "No") {
+				Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_NO_RADIO");
+			}
+			else {
+				fail("Invalid var fieldPredefinedValue. Must be (true|false).");
+			}
+		}
+
+		if ("${field}" == "Date") {
+			YUICalendarwidget.addDate(
+				day = "${fieldPredefinedValueDay}",
+				month = "${fieldPredefinedValueMonth}",
+				year = "${fieldPredefinedValueYear}");
+		}
+
+		if (("${field}" == "Color") || ("${field}" == "Decimal") || ("${field}" == "HTML") || ("${field}" == "Integer") || ("${field}" == "Number") || ("${field}" == "Text")) {
+			Type(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_FIELD",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Documents and Media") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SELECT_BUTTON");
+
+			if (isSet(imageFileName)) {
+				ItemSelector.selectDMImage(imageFileName = "${imageFileName}");
+			}
+			else if (isSet(uploadFileName)) {
+				ItemSelector.uploadFile(uploadFileName = "${uploadFileName}");
+			}
+
+			AssertVisible(
+				key_text = "${fieldPredefinedValue}",
+				locator1 = "Link#ANY");
+		}
+
+		if (("${field}" == "Radio") || ("${field}" == "Select")) {
+			Select(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SELECT_FIELD",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Text Box") {
+			Type(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_TEXT_AREA",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Web Content") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SELECT_BUTTON");
+
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+			var key_listEntry = "${fieldPredefinedValue}";
+			var key_webContentTitle = "${fieldPredefinedValue}";
+
+			LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+			if (IsElementPresent.pauseIsElementPresent(locator1 = "LexiconList#LIST_ENTRY_TITLE")) {
+				AssertClick(
+					locator1 = "LexiconList#LIST_ENTRY_TITLE",
+					value1 = "${fieldPredefinedValue}");
+			}
+
+			SelectFrame(value1 = "relative=top");
+
+			var urlTitle = StringUtil.replace("${fieldPredefinedValue}", " ", "-");
+			var urlTitle = StringUtil.lowerCase("${urlTitle}");
+
+			var resourcePrimKey = JSONWebcontentAPI._getResourcePrimKeyByURLTitle(
+				groupName = "${groupName}",
+				urlTitle = "${urlTitle}");
+
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_WEB_CONTENT_ARTICLE_CONTENT",
+				value1 = "Web Content: ${resourcePrimKey}");
+		}
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+		}
+
+		if ("${field}" == "Documents and Media") {
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_PREDEFINED_VALUE",
+				value1 = "(File)");
+		}
+		else if ("${field}" == "Web Content") {
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_PREDEFINED_VALUE",
+				value1 = "(Web Content)");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_PREDEFINED_VALUE",
+				value1 = "${fieldPredefinedValue}");
+
+			DynamicDataMapping.viewFieldPredefinedValueCmd(
+				field = "${field}",
+				fieldFieldLabel = "${fieldFieldLabel}",
+				fieldName = "${fieldName}",
+				fieldPredefinedValue = "${fieldPredefinedValue}");
+		}
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editFieldRepeatable {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_REPEATABLE");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_YES_RADIO");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editFieldRequired {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		DynamicDataMapping.makeFieldRequired();
+	}
+
+	macro editFieldSettings {
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Click(locator1 = "DDMEditStructure#FORM_FIELD");
+
+			DoubleClick.javaScriptDoubleClick(locator1 = "DDMEditStructure#FORM_FIELD");
+		}
+		else {
+			DoubleClick(locator1 = "DDMEditStructure#FORM_FIELD");
+		}
+
+		AssertClick(
+			locator1 = "DDMEditStructure#SETTINGS_LINK",
+			value1 = "Settings");
+	}
+
+	macro editFieldSettingsNested {
+		DoubleClick(locator1 = "DDMEditStructure#FORM_FIELD_NESTED");
+
+		AssertClick(
+			locator1 = "DDMEditStructure#SETTINGS_LINK",
+			value1 = "Settings");
+	}
+
+	macro editFieldShowLabel {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_SHOW_LABEL");
+
+		if ("${fieldShowLabel}" == "Yes") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_YES_RADIO");
+		}
+		else if ("${fieldShowLabel}" == "No") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_NO_RADIO");
+		}
+		else {
+			fail("Invalid var fieldShowLabel. Must be (Yes|No).");
+		}
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_SHOW_LABEL",
+			value1 = "${fieldShowLabel}");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editFieldTip {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettings(fieldFieldLabel = "${fieldFieldLabel}");
+
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_TIP");
+
+		Type(
+			locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_TEXT_AREA",
+			value1 = "${fieldTip}");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+		}
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_TIP",
+			value1 = "${fieldTip}");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro makeFieldRequired {
+		DoubleClick(locator1 = "DDMEditStructure#SETTINGS_REQUIRED");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_YES_RADIO");
+
+		Click(locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_SAVE_BUTTON");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "DDMEditStructure#FIELDS_LINK",
+			value1 = "Fields");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro moveNestedField {
+		var key_nestedFieldLabel = "${nestedFieldLabel}";
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		DoubleClick(locator1 = "DDMEditStructure#FORM_FIELD_NESTED_ANY");
+
+		DragAndDrop.dragAndDropReorganizeObjects(
+			locator1 = "DDMEditStructure#FORM_FIELD_NESTED_ANY",
+			locator2 = "DDMEditStructure#FORM_FIELD",
+			position = "0,20");
+	}
+
+	macro selectDynamicDataMappingFrame {
+		if (IsElementPresent(locator1 = "DDMEditStructure#IFRAME")) {
+			SelectFrame(locator1 = "DDMEditStructure#IFRAME");
+		}
+		else if (IsElementPresent(locator1 = "IFrame#MODAL_BODY")) {
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+		}
+	}
+
+	macro viewCanAddField {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		var key_field = "${field}";
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#FIELDS_FIELD",
+			value1 = "${field}");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro viewCannotAddField {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		var key_field = "${field}";
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#FIELDS_FIELD_UNSELECTABLE",
+			value1 = "${field}");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro viewField {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		if ("${fieldShowLabel}" == "No") {
+			Click(locator1 = "DDMEditStructure#FORM_FIELD_1_NO_LABEL");
+		}
+		else {
+			AssertClick.assertPartialTextClickAt(
+				locator1 = "DDMEditStructure#FORM_FIELD",
+				value1 = "${fieldFieldLabel}");
+		}
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_NAME",
+			value1 = "${fieldName}");
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL",
+			value1 = "${fieldFieldLabel}");
+
+		if (isSet(fieldShowLabel)) {
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_SHOW_LABEL",
+				value1 = "${fieldShowLabel}");
+		}
+
+		if (isSet(fieldReadOnly)) {
+			DynamicDataMapping.viewFieldReadOnlyCmd(
+				ddlFormTemplateMode = "${ddlFormTemplateMode}",
+				fieldReadOnly = "${fieldReadOnly}");
+		}
+
+		if (isSet(fieldPredefinedValue)) {
+			DynamicDataMapping.viewFieldPredefinedValueCmd(
+				field = "${field}",
+				fieldFieldLabel = "${fieldFieldLabel}",
+				fieldName = "${fieldName}",
+				fieldPredefinedValue = "${fieldPredefinedValue}");
+		}
+
+		if (isSet(fieldTip)) {
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_TIP",
+				value1 = "${fieldTip}");
+		}
+
+		if (isSet(fieldOptionsNames)) {
+			DynamicDataMapping.viewFieldOptionsCmd(
+				field = "${field}",
+				fieldEditable = "${fieldEditable}",
+				fieldFieldLabel = "${fieldFieldLabel}",
+				fieldName = "${fieldName}",
+				fieldOptionsName = "${fieldOptionsName}",
+				fieldOptionsNames = "${fieldOptionsNames}",
+				fieldOptionsValue = "${fieldOptionsValue}",
+				fieldOptionsValues = "${fieldOptionsValues}",
+				i = "${i}",
+				j = "${j}");
+		}
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro viewFieldFormTemplateSpecific {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		if ("${field}" == "Fieldset") {
+			Click(locator1 = "DDMEditStructure#FORM_FIELDSET");
+
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_FIELD_LABEL",
+				value1 = "${fieldFieldLabel}");
+		}
+		else if ("${field}" == "Paragraph") {
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDMEditStructure#FORM_FIELD",
+				value1 = "${field}");
+		}
+		else if ("${field}" == "Separator") {
+			AssertElementPresent(locator1 = "DDMEditStructure#FORM_SEPARATOR");
+		}
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro viewFieldNameNested {
+		DynamicDataMapping.selectDynamicDataMappingFrame();
+
+		DynamicDataMapping.editFieldSettingsNested();
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_NAME",
+			value1 = "${fieldNameNested}");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro viewFieldOptionsCmd {
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+		var key_fieldName = "${fieldName}";
+
+		for (var fieldOptionsName : list "${fieldOptionsNames}") {
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDMEditStructure#SETTINGS_OPTIONS",
+				value1 = "${fieldOptionsName}");
+		}
+
+		if ("${fieldEditable}" != "false") {
+			DoubleClick(locator1 = "DDMEditStructure#SETTINGS_OPTIONS");
+
+			var i = "0";
+
+			for (var fieldOptionsName : list "${fieldOptionsNames}") {
+				var i = ${i} + 1;
+
+				AssertTextEquals(
+					locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_OPTIONS_NAME_${i}",
+					value1 = "${fieldOptionsName}");
+			}
+
+			var j = "0";
+
+			if (isSet(fieldOptionsValues)) {
+				for (var fieldOptionsValue : list "${fieldOptionsValues}") {
+					var j = ${j} + 1;
+
+					AssertTextEquals(
+						locator1 = "DDMEditStructure#SETTINGS_CELL_EDITOR_OPTIONS_VALUE_${j}",
+						value1 = "${fieldOptionsValue}");
+				}
+			}
+
+			if ("${field}" == "Radio") {
+				for (var fieldOptionsName : list "${fieldOptionsNames}") {
+					var key_fieldOptionsName = "${fieldOptionsName}";
+
+					AssertTextEquals(
+						locator1 = "DDMEditStructure#FORM_FIELD_RADIO_LABEL",
+						value1 = "${fieldOptionsName}");
+				}
+			}
+		}
+
+		if ("${field}" == "Select") {
+			for (var fieldOptionsName : list "${fieldOptionsNames}") {
+				var key_fieldOptionsName = "${fieldOptionsName}";
+
+				Select(
+					locator1 = "DDMEditStructure#FORM_FIELD_SELECT",
+					value1 = "${fieldOptionsName}");
+			}
+		}
+	}
+
+	macro viewFieldPredefinedValueCmd {
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+		var key_fieldName = "${fieldName}";
+
+		AssertTextEquals(
+			locator1 = "DDMEditStructure#SETTINGS_PREDEFINED_VALUE",
+			value1 = "${fieldPredefinedValue}");
+
+		if ("${field}" == "Boolean") {
+			if ("${fieldPredefinedValue}" == "Yes") {
+				AssertChecked(locator1 = "DDMEditStructure#FORM_FIELD_FIELD");
+			}
+			else if ("${fieldPredefinedValue}" == "No") {
+				AssertNotChecked(locator1 = "DDMEditStructure#FORM_FIELD_FIELD");
+			}
+		}
+
+		if (("${field}" == "Date") || ("${field}" == "Decimal") || ("${field}" == "Integer") || ("${field}" == "Number") || ("${field}" == "Text")) {
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#FORM_FIELD_FIELD",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Radio") {
+			FormFields.viewRadioValue(
+				fieldName = "${fieldName}",
+				fieldValue = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Select") {
+			AssertSelectedLabel(
+				locator1 = "DDMEditStructure#FORM_FIELD_SELECT",
+				value1 = "${fieldPredefinedValue}");
+		}
+	}
+
+	macro viewFieldReadOnlyCmd {
+		if ("${ddlFormTemplateMode}" == "Create") {
+			AssertElementNotPresent(locator1 = "DDMEditStructure#SETTINGS_READ_ONLY");
+		}
+		else if ("${ddlFormTemplateMode}" == "Edit") {
+			AssertTextEquals(
+				locator1 = "DDMEditStructure#SETTINGS_READ_ONLY",
+				value1 = "${fieldReadOnly}");
+		}
+	}
+
+}

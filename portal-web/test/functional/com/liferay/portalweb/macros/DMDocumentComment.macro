@@ -1,0 +1,36 @@
+definition {
+
+	macro addPG {
+		AssertClick(
+			key_dmDocumentTitle = "${dmDocumentTitle}",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
+			value1 = "${dmDocumentTitle}");
+
+		Type(
+			locator1 = "Comments#COMMENT_FIELD",
+			value1 = "${commentBody}");
+
+		Pause(locator1 = "3000");
+
+		AssertClick(
+			locator1 = "Button#REPLY",
+			value1 = "Reply");
+
+		Pause(locator1 = "3000");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro viewPG {
+		AssertClick(
+			key_dmDocumentTitle = "${dmDocumentTitle}",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
+			value1 = "${dmDocumentTitle}");
+
+		AssertTextEquals.assertPartialText(
+			key_entryComment = "${commentBody}",
+			locator1 = "Comments#COMMENT_BODY_SPECIFIC",
+			value1 = "${commentBody}");
+	}
+
+}

@@ -1,0 +1,14 @@
+@default = "assertValue"
+definition {
+
+	function assertValue {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForValue();
+
+		selenium.assertValue();
+	}
+
+}

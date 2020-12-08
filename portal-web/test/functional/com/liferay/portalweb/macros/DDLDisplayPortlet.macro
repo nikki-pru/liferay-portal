@@ -1,0 +1,51 @@
+definition {
+
+	macro assertCannotEditSpreadsheet {
+		AssertElementNotPresent(locator1 = "DDLSpreadsheet#SPREADSHEET_EDIT_CONTROLS_ADD_ROWS_BUTTON");
+
+		AssertElementNotPresent(locator1 = "DDLSpreadsheet#SPREADSHEET_EDIT_CONTROLS_ADD_ROWS_SELECT_MENULIST");
+	}
+
+	macro configureListViewPG {
+		Portlet.gotoPortletOptions(portletOption = "Configuration");
+
+		DDLNavigator.gotoOptionalConfiguration();
+
+		if ("${configureChecked}" == "false") {
+			Uncheck(locator1 = "DDLConfiguration#${configureCheckBoxName}");
+		}
+		else {
+			Check(locator1 = "DDLConfiguration#${configureCheckBoxName}");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro viewAddToolbar {
+		var key_ddlDataDefinitionName = "${ddlDataDefinitionName}";
+
+		AssertElementPresent(locator1 = "DDL#TOOLBAR_ADD");
+	}
+
+	macro viewDDLTemplateRecordFieldData {
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+
+		AssertTextEquals(
+			locator1 = "DDL#RECORD_TABLE_DISPLAY_FIELD",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro viewFieldSelectViaSpreadsheetView {
+		var key_ddlRecordRow = "${ddlRecordRow}";
+		var key_fieldName = "${fieldName}";
+
+		AssertTextEquals(
+			locator1 = "DDLSpreadsheet#RECORD_TABLE_FIELD_ENTRY",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro viewSpreadsheetContainer {
+		AssertElementPresent(locator1 = "DDLSpreadsheet#SPREADSHEET_CONTAINER");
+	}
+
+}

@@ -1,0 +1,8 @@
+{
+	"name": "dynamic-data-lists-web",
+	"scripts": {
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix"
+	},
+	"version": "6.0.0"
+}

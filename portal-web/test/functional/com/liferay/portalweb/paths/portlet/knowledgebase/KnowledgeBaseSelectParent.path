@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>KnowledgeBaseSelectParent</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">KnowledgeBaseSelectParent</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>IFRAME</td>
+	<td>//iframe[contains(@id,'knowledge_base_web') and contains(@class,'iframe')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_PARENT_DISPLAY_IFRAME</td>
+	<td>//iframe[contains(@id,'selectKBObject') and contains(@id,'iframe')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB_HOME</td>
+	<td>//ol[contains(@class,'breadcrumb')]//li[contains(.,'Home')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FOLDER_TITLE_LINK</td>
+	<td>//tr[contains(.,'${key_kbFolderName}')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_BUTTON</td>
+	<td>//button[@data-title='${key_kbArticleTitle}' and contains(.,'Select')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FOLDER_BUTTON</td>
+	<td>//button[@data-title='${key_kbFolderName}' and contains(.,'Select')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

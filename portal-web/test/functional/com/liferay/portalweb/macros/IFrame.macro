@@ -1,0 +1,61 @@
+definition {
+
+	macro addCP {
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		Type(
+			locator1 = "TextInput#SOURCE_URL",
+			value1 = "${sourceURL}");
+
+		PortletEntry.save();
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro closeFrame {
+		SelectFrame(value1 = "relative=top");
+
+		Click(locator1 = "Modal#CLOSE_BUTTON");
+	}
+
+	macro saveConfiguration {
+		PortletEntry.save();
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro selectCategoryFrame {
+		SelectFrame(locator1 = "IFrame#SELECT_CATEGORY");
+	}
+
+	macro selectConfigurationFrame {
+		if (IsElementPresent(locator1 = "IFrame#MODAL_BODY")) {
+			echo("Selecting configuration iframe");
+
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+		}
+	}
+
+	macro selectEditAssetFrame {
+		SelectFrame(locator1 = "IFrame#EDIT_ASSET");
+	}
+
+	macro selectModalFrame {
+		SelectFrame(locator1 = "IFrame#MODAL_IFRAME");
+	}
+
+	macro selectPermissionsFrame {
+		while (IsElementPresent(locator1 = "IFrame#MODAL_BODY")) {
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+		}
+	}
+
+	macro selectTagFrame {
+		SelectFrame(locator1 = "IFrame#SELECT_TAG");
+	}
+
+	macro selectTopFrame {
+		SelectFrame(value1 = "relative=top");
+	}
+
+}

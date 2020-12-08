@@ -1,0 +1,85 @@
+definition {
+
+	macro enableMetal {
+		SystemSettings.openSystemSettingsAdmin();
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Forms",
+			configurationName = "Forms",
+			configurationScope = "Site Scope");
+
+		SystemSettings.saveConfiguration();
+
+		SystemSettings.resetConfiguration();
+
+		Click(locator1 = "Checkbox#ENABLE_EXPERIMENTAL_INTERFACE");
+
+		SystemSettings.saveConfiguration();
+	}
+
+	macro getDownloadedTempFileName {
+		var tempDir = PropsUtil.get("output.dir.name");
+
+		var pattern = StringUtil.split("**/${fileNamePattern}");
+		var filePath = FileUtil.getIncludedResourceURLs("${pattern}", "${tempDir}");
+		var filePath = StringUtil.valueOf("${filePath}");
+		var filePath = RegexUtil.replace("${filePath}", "\[(.*)\]", "1");
+		var filePath = StringUtil.replace("${filePath}", "file:/", "");
+		var fileName = FileUtil.getFileName("${filePath}");
+
+		return "${fileName}";
+	}
+
+	macro getFileContent {
+		var baseDir = PropsUtil.get("test.base.dir.name");
+		var dependenciesDir = PropsUtil.get("test.dependencies.dir.name");
+		var fileContent = FileUtil.read("${baseDir}${dependenciesDir}/${fileName}");
+
+		return "${fileContent}";
+	}
+
+	macro getSiteName {
+		var testNameSkipPortalInstance = PropsUtil.get("test.name.skip.portal.instance");
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if (("${siteName}" == "Liferay") || (!(isSet(siteName)))) {
+			if (("${testPortalInstance}" == "true") && (!(IsTestName(locator1 = "", value1 = "${testNameSkipPortalInstance}")))) {
+				var portalURL = PropsUtil.get("portal.url");
+				var portalURL = StringUtil.replace("${portalURL}", "http://", "");
+				var portalURL = StringUtil.replace("${portalURL}", ":8080", "");
+
+				return "${portalURL}";
+			}
+			else {
+				var testRunEnvironment = PropsUtil.get("test.run.environment");
+
+				if ("${testRunEnvironment}" == "EE") {
+					return "Liferay DXP";
+				}
+				else {
+					return "Liferay";
+				}
+			}
+		}
+		else {
+			return "${siteName}";
+		}
+	}
+
+	macro getTestName {
+		var testName = PropsUtil.get("test.name");
+		var testName = RegexUtil.replace("${testName}", "[^\.]*\.(.*)", "1");
+
+		return "${testName}";
+	}
+
+	macro setUpPortalInstance {
+		var testNameSkipPortalInstance = PropsUtil.get("test.name.skip.portal.instance");
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if (("${testPortalInstance}" == "true") && (!(IsTestName(locator1 = "", value1 = "${testNameSkipPortalInstance}")))) {
+			SignIn.signInPortalInstanceSetUp();
+		}
+	}
+
+}

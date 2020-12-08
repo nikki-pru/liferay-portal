@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollectionInput renders collection type 1`] = `
+<DocumentFragment>
+  <input
+    class="criterion-input form-control"
+    data-testid="collection-key-input"
+    placeholder="key"
+    type="text"
+    value="testKey"
+  />
+  <input
+    class="criterion-input form-control"
+    data-testid="collection-value-input"
+    placeholder="value"
+    type="text"
+    value="testValue"
+  />
+</DocumentFragment>
+`;

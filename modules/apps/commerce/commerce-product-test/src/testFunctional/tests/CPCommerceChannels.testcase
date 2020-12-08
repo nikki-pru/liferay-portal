@@ -1,0 +1,103 @@
+@component-name = "portal-commerce"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "quarantine";
+	property testray.main.component.name = "Commerce";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			Navigator.openURL();
+
+			CommerceNavigator.gotoPortlet(
+				category = "Store Management",
+				portlet = "Channels");
+
+			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				CommerceEntry.deleteCommerceEntry();
+			}
+		}
+	}
+
+	test CreateNewChannel {
+		property portal.acceptance = "quarantine";
+		property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewChannel";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Store Management",
+			portlet = "Channels");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewChannelsEntry(
+			channelCurrency = "US Dollar",
+			channelName = "Test Channel",
+			channelType = "Site",
+			siteName = "Guest");
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		CommerceNavigator.gotoPortlet(
+			category = "Store Management",
+			portlet = "Channels");
+
+		Refresh();
+
+		CommerceNavigator.gotoEntry(entryName = "Test Channel");
+
+		CommerceEntry.viewChannelsEntry(
+			channelCurrency = "US Dollar",
+			channelName = "Test Channel",
+			channelType = "Site");
+	}
+
+	test CreateNewNotificationTemplate {
+		property portal.acceptance = "quarantine";
+		property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewNotificationTemplate";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Store Management",
+			portlet = "Channels");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewChannelsEntry(
+			channelCurrency = "US Dollar",
+			channelName = "Test Channel",
+			channelType = "Site",
+			siteName = "Guest");
+
+		CommerceEntry.gotoMenuTab(menuTab = "Notification Templates");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewNotificationTemplate(
+			entryName = "New Notification Template",
+			fromAddress = "test@liferay.com",
+			fromName = "Test Test",
+			notificationType = "Order Placed");
+
+		Button.clickSave();
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+}

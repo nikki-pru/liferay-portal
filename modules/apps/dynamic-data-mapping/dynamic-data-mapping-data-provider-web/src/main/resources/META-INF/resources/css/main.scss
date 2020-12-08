@@ -1,0 +1,38 @@
+@import 'mixins';
+
+.lfr-ddm-edit-data-provider .has-success .form-control {
+	background-color: #f1f2f5;
+	border: 0.0625rem solid #e7e7ed;
+}
+
+.portlet-dynamic-data-mapping-data-provider {
+	.data-provider-instance-id,
+	.data-provider-instance-modified-date {
+		margin-right: 20px;
+	}
+
+	.ddm-select-dropdown .dropdown-toggle {
+		width: 100%;
+	}
+
+	.form {
+		.input-localized {
+			.form-feedback-item {
+				margin-top: 21px;
+			}
+		}
+	}
+
+	.required-warning {
+		margin: 0 0 20px;
+	}
+
+	td.lfr-name-column,
+	.lfr-search-container-wrapper .list-group .list-group-item .autofit-col h4 {
+		font-weight: 600;
+	}
+}
+
+.taglib-empty-result-message {
+	margin-top: 104px;
+}

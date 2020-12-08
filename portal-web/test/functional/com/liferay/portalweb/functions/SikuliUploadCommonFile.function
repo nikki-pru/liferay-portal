@@ -1,0 +1,14 @@
+@default = "sikuliUploadCommonFile"
+definition {
+
+	function sikuliUploadCommonFile {
+		WaitForSPARefresh();
+
+		selenium.sikuliUploadCommonFile();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

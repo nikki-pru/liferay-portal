@@ -1,0 +1,162 @@
+@component-name = "portal-collaboration"
+definition {
+
+	property custom.properties = "jsonws.web.service.paths.excludes=";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Mentions";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONUser.addUser(
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
+
+		User.logoutPG();
+
+		User.loginPG(
+			password = "test",
+			userEmailAddress = "userea@liferay.com");
+
+		User.logoutPG();
+
+		User.loginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			MessageboardsCategory.tearDownCP();
+
+			MessageboardsThread.tearDownCP(assetType = "Message Boards Thread");
+
+			Page.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test ViewMentionViaMessageBoardsThread {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Mentions.addMentionViaMessageBoardThread(
+			mentionsUserFullName = "userfn userln",
+			mentionsUserScreenName = "usersn",
+			threadSubject = "Thread Subject");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		MessageboardsThread.gotoCP(threadSubject = "Thread Subject");
+
+		Mentions.viewMentionTagLink(
+			mentionsUserFullName = "userfn userln",
+			mentionsUserScreenName = "usersn");
+	}
+
+	@priority = "5"
+	test ViewMentionViaMessageBoardsThreadReply {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		MessageboardsThread.addCP(
+			threadBody = "Thread Body",
+			threadSubject = "Thread Subject");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Mentions.addMentionViaMessageBoardsReply(
+			mentionsUserFullName = "userfn userln",
+			mentionsUserScreenName = "usersn",
+			threadBody = "Thread Reply Body",
+			threadSubject = "Thread Subject");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		MessageboardsThread.gotoCP(threadSubject = "Thread Subject");
+
+		MessageboardsThread.viewReplyCP(
+			replyCount = "2",
+			threadBody = "Thread Body",
+			threadBody2 = "Thread Reply Body",
+			threadSubject = "Thread Subject",
+			userName = "Test Test",
+			userName2 = "Test Test");
+
+		Mentions.viewMentionTagLink(
+			mentionsUserFullName = "userfn userln",
+			mentionsUserScreenName = "usersn");
+	}
+
+	@priority = "5"
+	test ViewMentionViaUpdatedMessageBoardsThread {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		MessageboardsThread.addCP(
+			threadBody = "Thread Body",
+			threadSubject = "Thread Subject");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Mentions.addMentionViaMessageBoardThreadEdit(
+			mentionsUserFullName = "userfn userln",
+			mentionsUserScreenName = "usersn",
+			threadBody = "Thread Body Edit",
+			threadSubject = "Thread Subject");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		MessageboardsThread.viewCP(
+			replyCount = "0",
+			threadBody = "Thread Body Edit",
+			threadSubject = "Thread Subject");
+
+		Mentions.viewMentionTagLink(
+			mentionsUserFullName = "userfn userln",
+			mentionsUserScreenName = "usersn");
+	}
+
+}

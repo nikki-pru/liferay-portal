@@ -1,0 +1,266 @@
+definition {
+
+	macro configureNotificationPG {
+		MouseOver.mouseOverNotVisible(locator1 = "Notifications#NOTIFICATIONS_PORTLET_VERTICAL_ELLIPSIS");
+
+		Click(locator1 = "Notifications#NOTIFICATIONS_PORTLET_VERTICAL_ELLIPSIS");
+
+		var key_menuItem = "${menuItem}";
+
+		AssertClick(
+			locator1 = "Notifications#NOTIFICATIONS_CONFIGURATION_MENUITEM",
+			value1 = "${menuItem}");
+	}
+
+	macro disableUserDeliveries {
+		var key_contentType = "${contentType}";
+		var key_panel = "${contentType}";
+
+		if (IsElementPresent(locator1 = "Panel#PANEL_COLLAPSED")) {
+			AssertClick(
+				locator1 = "Notifications#NOTIFICATION_DELIVERY_PANEL",
+				value1 = "${contentType}");
+		}
+
+		var key_actionType = "${actionType}";
+		var key_contentType = StringUtil.replace("${contentType}", " ", "-");
+
+		if ("${notificationType}" == "Website") {
+			ScrollWebElementIntoView(locator1 = "Notifications#NOTIFICATIONS_CONFIGURATION_WEBSITE_SWITCH");
+
+			Check.toggleSwitch(locator1 = "Notifications#NOTIFICATIONS_CONFIGURATION_WEBSITE_SWITCH");
+		}
+
+		if ("${notificationType}" == "Email") {
+			Click(locator1 = "Notifications#NOTIFICATIONS_CONFIGURATION_EMAIL_SWITCH");
+		}
+
+		Button.clickSave();
+	}
+
+	macro gotoNotificationDelivery {
+		Navigator.gotoNotifications();
+
+		if ("${notificationPG}" == "true") {
+			NotificationsPortlet.configureNotificationPG(menuItem = "Configuration");
+		}
+		else {
+			LexiconEntry.gotoHeaderMenuItem(menuItem = "Configuration");
+		}
+	}
+
+	macro tearDownUserDeliveries {
+		var actionList = "adds,updates";
+		var contentList = "Wiki,Message Boards,Comments,Documents and Media,Bookmarks,Web Content,Blogs";
+		var notificationList = "Email,Website";
+
+		NotificationsPortlet.gotoNotificationDelivery();
+
+		for (var actionType : list "${actionList}") {
+			var key_actionType = "${actionType}";
+
+			for (var contentType : list "${contentList}") {
+				var key_contentType = "${contentType}";
+
+				for (var notificationType : list "${notificationList}") {
+					var key_notificationType = "${notificationType}";
+
+					Check(locator1 = "Notifications#NOTIFICATION_DELIVERY_CHECKBOX");
+				}
+			}
+		}
+	}
+
+	macro viewDefaultNotificationDeliveries {
+		var key_contentType = "Blogs";
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_1",
+			value1 = "Adds a new blog entry in a blog you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_2",
+			value1 = "Updates a blog entry you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_EMAIL_OPTION",
+			value1 = "Email");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_WEBSITE_OPTION",
+			value1 = "Website");
+
+		var key_contentType = "Bookmarks";
+
+		AssertClick(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_PANEL",
+			value1 = "Bookmarks");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_1",
+			value1 = "Adds a new bookmark in a folder you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_2",
+			value1 = "Updates a bookmark you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_EMAIL_OPTION",
+			value1 = "Email");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_WEBSITE_OPTION",
+			value1 = "Website");
+
+		var key_contentType = "Comments";
+
+		AssertClick(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_PANEL",
+			value1 = "Comments");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_1",
+			value1 = "Adds a comment to comments you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_2",
+			value1 = "Updates a comment you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_EMAIL_OPTION",
+			value1 = "Email");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_WEBSITE_OPTION",
+			value1 = "Website");
+
+		var key_contentType = "Documents and Media";
+
+		AssertClick(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_PANEL",
+			value1 = "Documents and Media");
+
+		var key_contentType = StringUtil.replace("${key_contentType}", " ", "-");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_1",
+			value1 = "Adds a new document in a folder you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_2",
+			value1 = "Updates a document you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_EMAIL_OPTION",
+			value1 = "Email");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_WEBSITE_OPTION",
+			value1 = "Website");
+
+		var key_contentType = "Mentions";
+
+		AssertClick(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_PANEL",
+			value1 = "Mentions");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_1",
+			value1 = "Mentions you in a blogs entry, comment, or message boards message.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_EMAIL_OPTION",
+			value1 = "Email");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_WEBSITE_OPTION",
+			value1 = "Website");
+
+		var key_contentType = "Message Boards";
+
+		AssertClick(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_PANEL",
+			value1 = "Message Boards");
+
+		var key_contentType = StringUtil.replace("${key_contentType}", " ", "-");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_1",
+			value1 = "Adds a new post in a thread or category you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_2",
+			value1 = "Updates a post you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_EMAIL_OPTION",
+			value1 = "Email");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_WEBSITE_OPTION",
+			value1 = "Website");
+
+		var key_contentType = "Web Content";
+
+		AssertClick(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_PANEL",
+			value1 = "Web Content");
+
+		var key_contentType = StringUtil.replace("${key_contentType}", " ", "-");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_1",
+			value1 = "Adds new web content in a folder you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_2",
+			value1 = "Moves from folder web content you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_3",
+			value1 = "Restores from trash web content you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_4",
+			value1 = "Moves to folder web content you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_5",
+			value1 = "Moves to trash web content you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_6",
+			value1 = "Updates web content you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_EMAIL_OPTION",
+			value1 = "Email");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_WEBSITE_OPTION",
+			value1 = "Website");
+
+		var key_contentType = "Wiki";
+
+		AssertClick(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_PANEL",
+			value1 = "Wiki");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_1",
+			value1 = "Adds a new wiki page in a wiki you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_TEXT_2",
+			value1 = "Updates a wiki page you are subscribed to.");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_EMAIL_OPTION",
+			value1 = "Email");
+
+		AssertTextEquals(
+			locator1 = "Notifications#NOTIFICATION_DELIVERY_WEBSITE_OPTION",
+			value1 = "Website");
+	}
+
+}

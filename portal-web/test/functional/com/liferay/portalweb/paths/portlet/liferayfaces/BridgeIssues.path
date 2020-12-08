@@ -1,0 +1,309 @@
+<html>
+<head>
+<title>BridgeIssues</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">BridgeIssues</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ACTION_BUTTON</td>
+	<td>//*[contains(@class,'testAction')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AS7LEAKTRACKER</td>
+	<td>//span[contains(@id,'as7LeakInstances')]//li/code[contains(text(),'AS7LeakRequestScopeBean')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BODY_LINK</td>
+	<td>//body//link[${key_blcount}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BODY_SCRIPT</td>
+	<td>//body//script[${key_bscount}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BODY_SCRIPT_2</td>
+	<td>xpath=(//body//script[@src='${key_bscount}'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CALENDA_DATEPICKER</td>
+	<td>//table[contains(@class, 'ui-datepicker-calendar')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CALENDA_TABLE</td>
+	<td>//table[contains(@class, 'ui-datepicker-calendar')]//a[contains(text(), '14')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CALENDA_TRIGGER_BUTTON</td>
+	<td>//button[contains(@class, 'ui-datepicker-trigger')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHOOSE_FILE_BUTTON</td>
+	<td>//span[contains(text(),'Choose')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHOOSE_FILE_BUTTON_2</td>
+	<td>//input[contains(@id,'simpleModeFileUpload')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHOOSE_FILE_BUTTON_3</td>
+	<td>xpath=(//span[contains(text(),'Choose')])</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAIL_VALUE</td>
+	<td>//div[@class='liferay-faces-bridge-body']//p[contains(.,'Detail: ')]/span[contains(text(),'${key_attribute}')] | //div[@id='FACES-3404-result']//p[contains(.,'Detail: ')]/span[contains(text(),'${key_attribute}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ERROR_MESSAGE</td>
+	<td>//div[contains(@class,'alert')][contains(@class,'alert-danger') or contains(@class,'alert-error')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FACE_VIEW1_XHTML</td>
+	<td>//div[contains(@class, 'liferay-faces-bridge')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FACE_VIEW2_BUTTON</td>
+	<td>//input[contains(@value,'view2.xhtml')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FILE_NAME</td>
+	<td>//span[contains(text(),'Document_2.jpeg')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FILE_NAME_2</td>
+	<td>xpth=(//span[contains(text(),'Document_2.jpeg')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FILE_NAME_3</td>
+	<td>xpath=(//span[contains(text(),'Document_2.jpeg')])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HEAD_LINK</td>
+	<td>//head//link[${key_hlcount}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HEAD_LINK_2</td>
+	<td>xpath=(//head//link[@src='${key_hlcount}'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HEAD_SCRIPT</td>
+	<td>//head//script[${key_hscount}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HEAD_SCRIPT_2</td>
+	<td>xpath=(//head//script[@src='${key_hscount}'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HTML_BASIC</td>
+	<td>//div[@class='liferay-faces-bridge-body']/code[contains(text(),'${key_attribute}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>INVALID_URL</td>
+	<td>//ol[@id='invalidTestURLs']/li[${key_inValidURL}]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LIFERAY_LOGO</td>
+	<td>//div[contains(@id,'jsf')][contains(@id,'applicant')][contains(@class,'liferay-faces-bridge-body')]//img[contains(@src, 'liferay-logo.png')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LIFERAY_LOGO_P</td>
+	<td>//div[contains(@id,'prime')][contains(@id,'applicant')][contains(@class,'liferay-faces-bridge-body')]//img[contains(@src, 'liferay-logo.png')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATE_TO_VIEW</td>
+	<td>//a[contains(text(), '${key_PageLink}')] | //div[@class='liferay-faces-bridge-body']/a[contains(text(), '${key_PageLink}')] | //input[contains(@value, '${key_PageLink}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATE_TO_VIEW1</td>
+	<td>//div[contains(@class, 'portlet-body')]/div[@class='liferay-faces-bridge-body']/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGE_LINK</td>
+	<td>//*[contains(text(),'${key_PageLink}')] | //*[contains(@class,'testAction')] | //input[@value='${key_PageLink}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAMETER_ALPHA</td>
+	<td>//span[contains(@id, ':alpha')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAMETER_BETA</td>
+	<td>//span[contains(@id, ':beta')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAMETER_GAMMA</td>
+	<td>//span[contains(@id, ':gamma')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAM_LINK</td>
+	<td>//div[contains(@class,'liferay-faces-bridge-body')]//ul[${key_ulIndex}]/li[${key_liIndex}]/a[contains(text(),'-Item')][@href]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAM_VALUE</td>
+	<td>//div[contains(@class,'liferay-faces-bridge-body')]//ul[${key_ulIndex}]/li[${key_liIndex}]/span[@class='param-value']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAM_URL1</td>
+	<td>//span[contains(@id,':parameter1')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAM_URL2</td>
+	<td>//span[contains(@id,':parameter2')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESULT_BUTTON</td>
+	<td>//input[@value='result.xhtml']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RENDER_KITID</td>
+	<td>//code[@id='renderKitId']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REQUESTED_MESSAGE</td>
+	<td>//div[@class='html-field'][${key_field}]//span[contains(text(), 'Value is required.')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REQUESTED_URL</td>
+	<td>//span[contains(@id, ':requestedURL')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESOURCE_SIZE</td>
+	<td>//span[@id='component_resources_size']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESOURCE</td>
+	<td>//ul[@id='FACES_1618_resources']/li/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESOURCE2</td>
+	<td>//ul[@id='FACES_1618_resources']/li[2]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RESOURCE3</td>
+	<td>//ul[@id='FACES_1618_resources']/li[3]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RUN_TEST_BUTTON</td>
+	<td>//input[@value='Run Test']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_MENU_OPTION</td>
+	<td>//div[@class='ui-selectonemenu-items-wrapper']//li[contains(text(),'${key_opt}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_MENU_VALUE</td>
+	<td>//label[contains(text(),'${key_attribute}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_ONE_MENU</td>
+	<td>//*[contains(@id,'p_selectOneMenu')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>STATUS_VALUE</td>
+	<td>//div[@class='liferay-faces-bridge-body']//p[contains(.,'Status: ')]/span[contains(text(),'${key_attribute}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SUBMIT_FILE_BUTTON</td>
+	<td>//span[contains(text(),'${key_attribute}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_VALUE</td>
+	<td>//div[@class='liferay-faces-bridge-body']//p[contains(.,'Test:')]/span[contains(text(),'${key_attribute}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TO_PAGE_LINK</td>
+	<td>//a[contains(text(),'${key_toPageLink}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>URL_BUTTON</td>
+	<td>//input[@type='button' and contains(@value, '${key_buttonName}')] </td>
+	<td></td>
+</tr>
+<tr>
+	<td>URL_MESSAGE</td>
+	<td>//span[contains(@id,':url')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VALID_URL</td>
+	<td>//ol[@id='validTestURLs']/li[${key_validURL}]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIEW_PARAM_VALUE1</td>
+	<td>//span[contains(@id,':viewParamValue1')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIEW_PARAM1</td>
+	<td>//span[contains(@id,':viewParam1')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIEW_PARAM_VALUE2</td>
+	<td>//span[contains(@id,':viewParamValue2')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIEW_PARAM2</td>
+	<td>//span[contains(@id,':viewParam2')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

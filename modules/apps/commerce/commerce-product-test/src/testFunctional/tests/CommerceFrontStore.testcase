@@ -1,0 +1,94 @@
+@component-name = "portal-commerce"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "quarantine";
+	property testray.main.component.name = "Commerce";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		CommerceConfiguration.commerceStoreFrontSetUp();
+
+		CommerceNavigator.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			CommerceConfiguration.commerceAdminTearDown();
+
+			User.logoutPG();
+		}
+	}
+
+	test ViewStoreFrontSimpleProduct {
+		property portal.acceptance = "quarantine";
+		property test.name.skip.portal.instance = "CommerceFrontStore#ViewStoreFrontSimpleProduct";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Product Management",
+			portlet = "Options");
+
+		echo("Creating new Option complete with Values...");
+
+		Pause(locator1 = "2000");
+
+		CPCommerceCatalog.newOptionsEntry(
+			optionDescription = "Option Description",
+			optionFieldType = "Select from List",
+			optionName = "Color",
+			optionValuesList = "Black,Blue,White",
+			valuePriority = "1");
+
+		echo("Creating new Product...");
+
+		CommerceNavigator.gotoPortlet(
+			category = "Product Management",
+			portlet = "Options");
+
+		CPCommerceCatalog.newProductsEntry(
+			productName = "Simple T-Shirt",
+			productType = "Simple");
+
+		echo("Associating the Option to the Product...");
+
+		CommerceEntry.gotoMenuTab(menuTab = "Options");
+
+		CommerceRelations.assignSingleRelationToProductsEntry(
+			entryName = "Color",
+			title = "Add Options");
+
+		echo("Creating SKUs...");
+
+		CommerceEntry.gotoMenuTab(menuTab = "SKUs");
+
+		CommerceSKUs.addSKU(optionValuesList = "Black:10.0,Blue:20.0,White:30.0");
+
+		echo("Adding Product Images...");
+
+		CommerceEntry.gotoMenuTab(menuTab = "Media");
+
+		CommerceProductImages.addProductImages(optionValuesList = "Black,Blue,White");
+
+		echo("Asserting all the attributes are correctly shown in Front Store...");
+
+		CommerceNavigator.gotoFrontStoreProductPage(productName = "Simple T-Shirt");
+
+		FrontStore.viewProductDetail(
+			FSOptionValuesList = "Black:10.0,Blue:20.0,White:30.0",
+			FSProductName = "Simple T-Shirt");
+	}
+
+}

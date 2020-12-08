@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocalizedInput rendering with pre-existing value has dropdown with options 1`] = `
+<DocumentFragment>
+  <div
+    class="input-group input-localized input-localized-input"
+  >
+    <div
+      class="dropdown postion-relative lfr-icon-menu open"
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="btn btn-monospaced btn-secondary dropdown-toggle"
+        data-testid="localized-dropdown-button"
+        role="button"
+        title=""
+        type="button"
+      >
+        <span
+          class="inline-item"
+        >
+          <svg
+            class="lexicon-icon lexicon-icon-en-us"
+            role="presentation"
+          >
+            <use
+              xlink:href="#en-us"
+            />
+          </svg>
+        </span>
+        <span
+          class="btn-section"
+        >
+          en-US
+        </span>
+      </button>
+      <ul
+        class="d-block dropdown-menu"
+        role="menu"
+      >
+        <li
+          role="presentation"
+        >
+          <span
+            class="dropdown-item lfr-icon-item palette-item taglib-icon"
+            role="menuitem"
+            tabindex="0"
+            target="_self"
+          >
+            <span
+              class="inline-item inline-item-before"
+            >
+              <svg
+                class="lexicon-icon lexicon-icon-en-us"
+                role="presentation"
+              >
+                <use
+                  xlink:href="#en-us"
+                />
+              </svg>
+            </span>
+            <span
+              class="taglib-text-icon"
+            >
+              en-US
+              <span
+                class="label label-success ml-1"
+              >
+                translated
+              </span>
+            </span>
+          </span>
+        </li>
+        <li
+          role="presentation"
+        >
+          <span
+            class="dropdown-item lfr-icon-item palette-item taglib-icon"
+            role="menuitem"
+            tabindex="0"
+            target="_self"
+          >
+            <span
+              class="inline-item inline-item-before"
+            >
+              <svg
+                class="lexicon-icon lexicon-icon-es-es"
+                role="presentation"
+              >
+                <use
+                  xlink:href="#es-es"
+                />
+              </svg>
+            </span>
+            <span
+              class="taglib-text-icon"
+            >
+              es-ES
+              <span
+                class="label label-success ml-1"
+              >
+                translated
+              </span>
+            </span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="input-group-item ml-2"
+    >
+      <input
+        class="field form-control form-control-inline language-value rounded"
+        data-testid="localized-main-input"
+        placeholder=""
+        type="text"
+        value="Testing default value"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`LocalizedInput rendering with pre-existing value renders 1`] = `
+<DocumentFragment>
+  <div
+    class="input-group input-localized input-localized-input"
+  >
+    <div
+      class="dropdown postion-relative lfr-icon-menu "
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="btn btn-monospaced btn-secondary dropdown-toggle"
+        data-testid="localized-dropdown-button"
+        role="button"
+        title=""
+        type="button"
+      >
+        <span
+          class="inline-item"
+        >
+          <svg
+            class="lexicon-icon lexicon-icon-en-us"
+            role="presentation"
+          >
+            <use
+              xlink:href="#en-us"
+            />
+          </svg>
+        </span>
+        <span
+          class="btn-section"
+        >
+          en-US
+        </span>
+      </button>
+    </div>
+    <div
+      class="input-group-item ml-2"
+    >
+      <input
+        class="field form-control form-control-inline language-value rounded"
+        data-testid="localized-main-input"
+        placeholder=""
+        type="text"
+        value="Testing default value"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`LocalizedInput with minimal configuration renders 1`] = `
+<DocumentFragment>
+  <div
+    class="input-group input-localized input-localized-input"
+  >
+    <div
+      class="dropdown postion-relative lfr-icon-menu "
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="btn btn-monospaced btn-secondary dropdown-toggle"
+        data-testid="localized-dropdown-button"
+        role="button"
+        title=""
+        type="button"
+      >
+        <span
+          class="inline-item"
+        >
+          <svg
+            class="lexicon-icon lexicon-icon-en-us"
+            role="presentation"
+          >
+            <use
+              xlink:href="#en-us"
+            />
+          </svg>
+        </span>
+        <span
+          class="btn-section"
+        >
+          en-US
+        </span>
+      </button>
+    </div>
+    <div
+      class="input-group-item ml-2"
+    >
+      <input
+        class="field form-control form-control-inline language-value rounded"
+        data-testid="localized-main-input"
+        placeholder=""
+        type="text"
+        value=""
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

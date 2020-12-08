@@ -1,0 +1,118 @@
+$c: '.ddm-form-builder';
+
+#{$c} {
+	.moveable {
+		.ddm-field-container {
+			cursor: grab;
+		}
+	}
+
+	.ddm-field-container {
+		border: 1px solid transparent;
+		position: relative;
+	}
+
+	.ddm-drag {
+		background-color: #fff;
+		padding: 1rem 0;
+		width: 100%;
+
+		.form-group {
+			margin-bottom: 0;
+		}
+	}
+
+	.ddm-drag .form-control {
+		cursor: grab;
+	}
+
+	.ddm-drag.dragging .form-control {
+		cursor: grabbing;
+	}
+
+	.ddm-drag.dragging {
+		border-radius: 4px;
+		box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.2);
+		cursor: grabbing;
+		opacity: 0.7;
+		position: absolute;
+		z-index: 10;
+	}
+
+	.ddm-drag-item {
+		cursor: move;
+		cursor: grab;
+		position: inherit;
+	}
+
+	.ddm-drag-item.dragging {
+		box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+		cursor: grabbing;
+		z-index: 20;
+	}
+
+	.col.col-empty.lfr-initial-col .ddm-target,
+	.dragging {
+		background-color: #f7f8f9;
+		border: 2px dashed #a7a9bc;
+		border-radius: 4px;
+		color: #a7a9bc;
+	}
+
+	.col.col-empty {
+		.ddm-empty-page {
+			border-radius: 6px;
+			height: auto;
+			line-height: 32px;
+			text-align: center;
+
+			&.target-droppable {
+				animation-direction: alternate;
+				animation-duration: 0.7s;
+				animation-iteration-count: infinite;
+				animation-name: drop-color;
+				animation-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+				background-color: $strong-blue;
+				border-color: $active-blue;
+				color: $active-blue;
+			}
+
+			&.targetOver,
+			&.target-over {
+				color: $strong-blue;
+
+				.ddm-empty-page-message {
+					visibility: hidden;
+				}
+			}
+
+			@keyframes drop-color {
+				0% {
+					background-color: $light-blue-100;
+				}
+
+				100% {
+					background-color: $dark-blue;
+				}
+			}
+
+			.ddm-empty-page-message {
+				margin-bottom: 0;
+				padding: 24px 0;
+			}
+		}
+
+		.ddm-target {
+			border: 2px dashed transparent;
+			border-radius: 4px;
+			min-height: 16px;
+
+			&.targetOver,
+			&.target-over {
+				background-color: $light-blue-100;
+				border-color: $active-blue;
+				border-style: solid;
+			}
+		}
+	}
+}

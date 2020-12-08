@@ -1,0 +1,665 @@
+@component-name = "portal-wcm"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Roles";
+	property testray.main.component.name = "Web Content Administration";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			User.firstLoginPG();
+
+			PortalSettings.tearDownCP();
+
+			JSONUser.tearDownNonAdminUsers();
+
+			Role.tearDownCP();
+
+			Organization.tearDownCP();
+
+			Site.tearDownCP();
+
+			Page.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test AddFolderSiteRoleDefaultPermission {
+		property portal.acceptance = "true";
+
+		Permissions.setUpSiteRoleCP(
+			page = "Public Pages",
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		AssertElementNotPresent(locator1 = "Button#PLUS");
+	}
+
+	@priority = "5"
+	test AddFolderSiteRoleDefinePermission {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddFolderSiteRoleDefinePermission";
+
+		Permissions.setUpSiteRoleCP(
+			page = "Public Pages",
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ADD_FOLDER",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentFolder.addCP(
+			folderDescription = "WC Folder Description",
+			folderName = "WC Folder Name 1");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentFolder.addCP(
+			folderDescription = "WC Folder Description",
+			folderName = "WC Folder Name 2");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentFolder.addSubfolderCP(
+			folderName = "WC Folder Name 2",
+			subfolderDescription = "WC SubFolder Description",
+			subfolderName = "WC SubFolder Name");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentFolder.checkSubfolderPermissions(
+			folderName = "WC Folder Name 1",
+			subfolder = "false");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		Permissions.removePermissionViaAPI(
+			resourceAction = "ADD_FOLDER",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		AssertElementNotPresent(locator1 = "Button#PLUS");
+	}
+
+	@priority = "5"
+	test AddStructureSiteRoleDefaultPermission {
+		property portal.acceptance = "true";
+
+		Permissions.setUpSiteRoleCP(
+			page = "Public Pages",
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		AssertElementNotPresent(locator1 = "Toolbar#MANAGE");
+	}
+
+	@priority = "5"
+	test AddStructureSiteRoleDefinePermission {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddStructureSiteRoleDefinePermission";
+
+		Permissions.setUpSiteRoleCP(
+			page = "Public Pages",
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ADD_STRUCTURE",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		Navigator.gotoNavItem(navItem = "Structures");
+
+		WebContentStructures.addCP(
+			structureDescription = "WC Structure Description",
+			structureName = "WC Structure Name");
+
+		DataEngine.addField(
+			fieldFieldLabel = "Text",
+			fieldName = "Text");
+
+		WebContentStructures.saveCP(structureName = "WC Structure Name");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		Permissions.removePermissionViaAPI(
+			resourceAction = "ADD_STRUCTURE",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		AssertElementNotPresent(locator1 = "Toolbar#MANAGE");
+	}
+
+	@priority = "5"
+	test AddTemplateSiteRoleDefaultPermission {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddTemplateSiteRoleDefaultPermission";
+
+		Permissions.setUpSiteRoleCP(
+			page = "Public Pages",
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		AssertElementNotPresent(locator1 = "Toolbar#MANAGE");
+	}
+
+	@priority = "5"
+	test AddTemplateSiteRoleDefinePermission {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddTemplateSiteRoleDefinePermission";
+
+		Permissions.setUpSiteRoleCP(
+			page = "Public Pages",
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ADD_TEMPLATE",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		Navigator.gotoNavItem(navItem = "Templates");
+
+		WebContentTemplates.addCP(
+			templateDescription = "WC Template Description",
+			templateName = "WC Template Name");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		Permissions.removePermissionViaAPI(
+			resourceAction = "ADD_TEMPLATE",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		AssertElementNotPresent(locator1 = "Toolbar#MANAGE");
+	}
+
+	@priority = "5"
+	test AddWebContentSiteRoleDefaultPermission {
+		property portal.acceptance = "true";
+
+		Permissions.setUpSiteRoleCP(
+			page = "Public Pages",
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		AssertElementNotPresent(locator1 = "Button#PLUS");
+	}
+
+	@priority = "5"
+	test AddWebContentSiteRoleDefinePermission {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "CPRolesCPWebcontent#AddWebContentSiteRoleDefinePermission";
+
+		Permissions.setUpSiteRoleCP(
+			page = "Public Pages",
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ADD_ARTICLE",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		AssertVisible(locator1 = "Button#PLUS");
+
+		Pause(locator1 = "3000");
+
+		LexiconEntry.gotoAdd();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "WC WebContent Title");
+
+		PortletEntry.publish();
+
+		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		Permissions.removePermissionViaAPI(
+			resourceAction = "ADD_ARTICLE",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		AssertElementNotPresent(locator1 = "Button#PLUS");
+	}
+
+	@priority = "4"
+	test ViewWebContentPortletRegRole {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
+		Permissions.setUpRegRoleLoginUserCP(
+			roleTitle = "Regrole Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		Navigator.openURL();
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Regrole Name");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Regrole Name");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Regrole Name");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContent.viewNoPermissionCP();
+	}
+
+	@priority = "4"
+	test ViewWebContentPortletSiteRole {
+		Permissions.setUpSiteRoleLoginUserCP(
+			pageName = "Web Content Page",
+			portletName = "Web Content",
+			roleTitle = "Roles Siterole Name",
+			roleType = "Site",
+			siteName = "Site Name",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln",
+			userScreenName = "usersn");
+
+		Navigator.gotoSitePage(
+			pageName = "Web Content Page",
+			siteName = "Site Name");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.journal",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_journal_web_portlet_JournalPortlet",
+			roleTitle = "Roles Siterole Name",
+			roleType = "site");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContent.viewNoPermissionCP();
+	}
+
+}

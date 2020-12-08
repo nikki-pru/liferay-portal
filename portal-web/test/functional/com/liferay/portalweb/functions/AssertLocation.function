@@ -1,0 +1,24 @@
+@default = "assertLocation"
+definition {
+
+	function assertLocation {
+		WaitForSPARefresh();
+
+		selenium.assertLocation();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertPartialLocation {
+		WaitForSPARefresh();
+
+		selenium.assertPartialLocation();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

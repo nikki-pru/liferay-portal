@@ -1,0 +1,221 @@
+definition {
+
+	macro changeLocale {
+		Portlet.waitForForm();
+
+		if (isSet(fieldName)) {
+			Click.clickNoMouseOver(
+				key_fieldName = "${fieldName}",
+				locator1 = "Button#LOCALIZATION");
+		}
+
+		else if (isSet(friendlyURLHistory)) {
+			Click.clickNoMouseOver(locator1 = "Icon#FRIENDLY_URL_HISTORY_LOCALIZATION");
+		}
+
+		else {
+			Click.clickNoMouseOver(locator1 = "Button#LOCALIZATION_GENERIC");
+		}
+
+		if (isSet(localizedFriendlyURL)) {
+			Click.clickNoMouseOver(locator1 = "Icon#FRIENDLY_URL_HISTORY_SPANISH_LOCALIZATION");
+		}
+
+		else {
+			Click(
+				key_locale = StringUtil.replace("${locale}", "-", "_"),
+				locator1 = "Translation#LOCALIZATION_NAME");
+		}
+	}
+
+	macro clickEditFromEllipsis {
+		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Edit");
+	}
+
+	macro clickMoveToRecycleBin {
+		MenuItem.click(menuItem = "Move to Recycle Bin");
+	}
+
+	macro deleteViaMenuItem {
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Delete",
+			rowEntry = "${rowEntry}");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+	}
+
+	macro deleteViaToolbar {
+		for (var rowEntry : list "${rowEntries}") {
+			LexiconEntry.selectEntry(key_rowEntry = "${rowEntry}");
+		}
+
+		ClickNoError(locator1 = "Icon#DELETE");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+	}
+
+	macro deselectAll {
+		if (IsChecked(locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT")) {
+			Click(locator1 = "Checkbox#LEXICON_SELECT_ALL_CONTAINER");
+		}
+
+		AssertNotChecked.assertNotCheckedNotVisible(locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT");
+	}
+
+	macro inputDescription {
+		Click(locator1 = "TextArea#DESCRIPTION");
+
+		Type(
+			locator1 = "TextArea#DESCRIPTION",
+			value1 = "${description}");
+	}
+
+	macro inputDescriptionTextInput {
+		Click(locator1 = "TextInput#DESCRIPTION");
+
+		Type(
+			locator1 = "TextInput#DESCRIPTION",
+			value1 = "${description}");
+	}
+
+	macro inputLocalizedName {
+		PortletEntry.changeLocale(
+			fieldName = "Name",
+			locale = "${language}");
+
+		PortletEntry.inputName(name = "${localizedName}");
+	}
+
+	macro inputName {
+		Click(locator1 = "TextInput#NAME");
+
+		Type(
+			locator1 = "TextInput#NAME",
+			value1 = "${name}");
+	}
+
+	macro inputStructureKeyTextInput {
+		Click(locator1 = "TextInput#STRUCTURE_KEY_FIELD");
+
+		Type(
+			locator1 = "TextInput#STRUCTURE_KEY_FIELD",
+			value1 = "${structureKey}");
+	}
+
+	macro inputText {
+		Click(
+			key_fieldLabel = "${fieldLabel}",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT");
+
+		Type(
+			key_fieldLabel = "${fieldLabel}",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			value1 = "${text}");
+	}
+
+	macro inputTextArea {
+		Click(
+			key_text = "${fieldId}",
+			locator1 = "TextArea#ANY");
+
+		Type(
+			key_text = "${fieldId}",
+			locator1 = "TextArea#ANY",
+			value1 = "${text}");
+	}
+
+	macro inputTitle {
+		Click(locator1 = "TextInput#TITLE");
+
+		Type(
+			locator1 = "TextInput#TITLE",
+			value1 = "${title}");
+	}
+
+	macro publish {
+		Button.clickPublish();
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro publishAndWait {
+		Button.clickPublish();
+
+		Pause(locator1 = "3000");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro save {
+		Button.clickSave();
+
+		Alert.viewSuccessMessage();
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro saveAsDraft {
+		Button.clickSaveAsDraft();
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro selectAll {
+		if (IsNotChecked.isNotCheckedNotVisible(locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT")) {
+			Click(locator1 = "Checkbox#LEXICON_SELECT_ALL_CONTAINER");
+		}
+		else if (IsNotChecked(locator1 = "Checkbox#SELECT_ALL")) {
+			Click(locator1 = "Checkbox#SELECT_ALL");
+		}
+
+		AssertChecked.assertCheckedNotVisible(locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT");
+	}
+
+	macro submitForPublication {
+		Button.clickSubmitForPublication();
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro update {
+		Button.clickUpdate();
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro viewEmptyMessage {
+		var entity = StringUtil.toLowerCase("${entity}");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no ${entity}.");
+	}
+
+	macro viewLocale {
+		if ("${portletName}" == "Web Content") {
+			AssertElementPresent(
+				key_locale = "${locale}",
+				locator1 = "Translation#CURRENT_LOCALE_TITLE");
+
+			AssertElementPresent(
+				key_locale = "${locale}",
+				locator1 = "Translation#CURRENT_LOCALE_CONTENT");
+
+			AssertElementPresent(
+				key_locale = "${locale}",
+				locator1 = "Translation#CURRENT_LOCALE_DESCRIPTION");
+		}
+		else {
+			AssertElementPresent(
+				key_locale = "${locale}",
+				locator1 = "Translation#CURRENT_LOCALE");
+		}
+	}
+
+	macro viewNoNavItemLink {
+		AssertElementNotPresent(locator1 = "NavBar#NAV_ITEM_LINK");
+	}
+
+}

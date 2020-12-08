@@ -1,0 +1,23 @@
+definition {
+
+	macro gotoGeneral {
+		Navigator.gotoNavTab(navTab = "General");
+	}
+
+	macro gotoIdentityProvider {
+		Navigator.gotoNavTab(navTab = "Identity Provider");
+	}
+
+	macro gotoIdentityProviderConnections {
+		Navigator.gotoNavTab(navTab = "Identity Provider Connections");
+	}
+
+	macro gotoServiceProvider {
+		Navigator.gotoNavTab(navTab = "Service Provider");
+	}
+
+	macro gotoServiceProviderConnection {
+		Navigator.gotoNavTab(navTab = "Service Provider Connections");
+	}
+
+}

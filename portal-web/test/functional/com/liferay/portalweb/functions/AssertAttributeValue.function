@@ -1,0 +1,18 @@
+@default = "assertAttributeValue"
+definition {
+
+	function assertAttributeValue {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForVisible();
+
+		selenium.assertAttributeValue("${attribute1}", "${locator1}", "${value1}");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

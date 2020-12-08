@@ -1,0 +1,72 @@
+definition {
+
+	macro gotoDropdown {
+		if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_PORTRAIT")) {
+			Click.waitForPersonalMenuJSClick(locator1 = "UserBar#USER_AVATAR_PORTRAIT");
+		}
+		else if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_TOGGLE")) {
+			Click.waitForMenuToggleJSClick(locator1 = "UserBar#USER_AVATAR_TOGGLE");
+		}
+		else {
+			Click.waitForPersonalMenuJSClick(locator1 = "UserBar#USER_AVATAR_ICON");
+		}
+
+		AssertVisible(locator1 = "UserBar#USER_AVATAR_DROPDOWN_PORTAL_OPEN");
+	}
+
+	@description = "Navigate to a dropdown item in the User Personal Bar."
+	macro gotoDropdownItem {
+		UserBar.gotoDropdown();
+
+		AssertClick(
+			key_dropdownItem = "${dropdownItem}",
+			locator1 = "UserBar#USER_AVATAR_DROPDOWN_ITEM",
+			value1 = "${dropdownItem}");
+	}
+
+	macro openUserOrganizations {
+		UserBar.gotoDropdown();
+
+		Click(locator1 = "UserBar#USER_ORGANIZATIONS");
+	}
+
+	macro signOut {
+		if (IsElementNotPresent(locator1 = "UserBar#USER_SIGN_IN")) {
+			UserBar.gotoDropdown();
+
+			ScrollWebElementIntoView(locator1 = "UserBar#USER_AVATAR_DROPDOWN_SIGNOUT");
+
+			Click(locator1 = "UserBar#USER_AVATAR_DROPDOWN_SIGNOUT");
+		}
+	}
+
+	macro viewFullName {
+		AssertTextEquals(
+			locator1 = "UserBar#USER_FULL_NAME",
+			value1 = "${userName}");
+	}
+
+	macro viewNoDropdownItem {
+		AssertElementNotPresent(
+			key_dropdownItem = "${dropdownItem}",
+			locator1 = "UserBar#USER_AVATAR_DROPDOWN_ITEM");
+	}
+
+	macro viewUserDefaultIcon {
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_ICON");
+	}
+
+	macro viewUserPortraitMatchConfiguration {
+		AssertElementPresent(locator1 = "UserBar#USER_AVATAR_PORTRAIT");
+
+		AssertElementPresent(locator1 = "UsersAndOrganizationsEditUser#DETAILS_PORTRAIT");
+
+		var accountDetailImage = selenium.getAttribute("//a//img[contains(@src,'user_portrait')]@src");
+		var accountImage = selenium.getAttribute("//button//img[contains(@src,'user_portrait')]@src");
+
+		if ("${accountImage}" != "${accountDetailImage}") {
+			fail("User portrait not match configuration!");
+		}
+	}
+
+}

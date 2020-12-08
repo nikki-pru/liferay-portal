@@ -1,0 +1,64 @@
+@component-name = "portal-upgrades"
+definition {
+
+	property database.types = "db2,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Security";
+	property testray.main.component.name = "Upgrades Security";
+
+	setUp {
+		SignIn.signIn();
+
+		Smoke.viewWelcomePage();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	@priority = "5"
+	test ViewPortalCORSAfterUpgrade72101 {
+		property data.archive.type = "data-archive-portal-cors";
+		property portal.version = "7.2.10.1";
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Security Tools",
+			configurationName = "Portal Cross-Origin Resource Sharing (CORS)",
+			configurationScope = "Virtual Instance Scope");
+
+		Upgrade.viewPortalCORS(
+			header = "Test-Header",
+			name = "Test",
+			urlPattern = "/api/*/test");
+	}
+
+	@priority = "5"
+	test ViewWebContextsCORSAfterUpgrade72101 {
+		property data.archive.type = "data-archive-web-contexts-cors";
+		property portal.version = "7.2.10.1";
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Security Tools",
+			configurationName = "Web Contexts Cross-Origin Resource Sharing (CORS)",
+			configurationScope = "System Scope");
+
+		Upgrade.viewWebContextsCORS(
+			filter = "(&((liferay.cors=true))(osgi.jaxrs.name=*))",
+			urlPattern = "/api/*/test");
+	}
+
+}

@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Ratings</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Ratings</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>LIKE</td>
+	<td>//div[contains(@class,'ratings-like')]//button[contains(@title,'Like This') or contains(@data-title,'Like This')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THUMB</td>
+	<td>//div[contains(@class,'ratings-thumbs')]//button[contains(@title,'${key_ratingResult}') or contains(@data-title,'${key_ratingResult}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THUMB_UP_OFF</td>
+	<td>//div[contains(@class,'ratings-thumbs')]//button[contains(@disabled,'')]//span[*[name()='svg'][contains(@class,'thumbs-up')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THUMB_DOWN_OFF</td>
+	<td>//div[contains(@class,'ratings-thumbs')]//button[contains(@disabled,'')]//span[*[name()='svg'][contains(@class,'thumbs-down')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--COMMENT_RATING-->
+<tr>
+	<td>COMMENT_RATING_THUMB</td>
+	<td>//div[contains(@class,'comment')]//div[contains(@class,'ratings')]//button[contains(@title,'${key_ratingResult}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPLY_RATING_THUMB</td>
+	<td>//h4[contains(@title,'RE: ${key_threadSubject}')]//following-sibling::div//button[contains(@title,'${key_ratingResult}') or contains(@data-title,'${key_ratingResult}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--YOUR_RATING-->
+<tr>
+	<td>YOUR_RATING_LIKE_COUNT</td>
+	<td>//div[contains(@class,'ratings-like')]//button[contains(@title,'Unlike This')]//span[contains(@class,'current')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_LIKE_RESULT</td>
+	<td>//div[contains(@class,'ratings-like')]//button[contains(@title,'Unlike This')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STAR</td>
+	<td>//div[contains(@class,'ratings-stars')]//button[contains(@class,'dropdown-toggle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STACKED_STAR</td>
+	<td>//div[contains(@class,'stacked-stars')]//div[contains(@class,'ratings-stacked-stars-vote-stars')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STACKED_STAR_COUNT</td>
+	<td>//div[contains(@class,'stacked-stars')]//label[contains(@for,'zqmy_column1_0_star${key_ratingStarCount}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STAR_COUNT</td>
+	<td>//div[contains(@class,'ratings-stars-dropdown')]//button[contains(.,'Rate this ${key_ratingStarCount} stars out of 5')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STAR_DELETE</td>
+	<td>//div[contains(@class,'ratings-stars')]//button[@class='dropdown-item' and contains(.,'Delete')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STAR_DELETE_DISABLE</td>
+	<td>//div[contains(@class,'ratings-stars')]//button[contains(@class,'dropdown-item disabled') and contains(.,'Delete')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STAR_DISABLE</td>
+	<td>//div[contains(@class,'ratings-stars')]//button[@title='Ratings are disabled in Staging']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STAR_EMPTY</td>
+	<td>//div[contains(@class,'ratings-stars')]//button[contains(@title,'Vote')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STACKED_STAR_RESULT</td>
+	<td>//div[contains(@class,'stacked-stars')]//label[contains(@class,'ratings-stars-star-full') and contains(@for,'zqmy_column1_0_star${key_ratingStarCount}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STAR_RESULT</td>
+	<td>//div[contains(@class,'ratings-stars')]//button[contains(@title,'You have rated this ${key_ratingStarCount} stars out of 5') or contains(@data-title,'You have rated this ${key_ratingStarCount} stars out of 5')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>YOUR_RATING_STAR_RESULT_COUNT</td>
+	<td>//div[contains(@class,'ratings-stars')]//button[contains(@title,'You have rated this ${key_ratingStarCount} stars out of 5') or contains(@data-title,'You have rated this ${key_ratingStarCount} stars out of 5')]//span[contains(@class,'ratings-stars-button-text')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--AVERAGE-->
+<tr>
+	<td>AVERAGE_STAR</td>
+	<td>//div[contains(@class,'ratings-stars')]//*[name()='svg'][contains(@class,'ratings-stars-average-icon')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AVERAGE_STACKED_STAR_RESULT</td>
+	<td>//div[contains(@class,'ratings')]//div[contains(@class,'ratings-stars-average') and @title='${key_averageStarCount}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AVERAGE_STAR_RESULT</td>
+	<td>//div[contains(@class,'ratings-stars')]//span[contains(@class,'ratings-stars-average-text')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

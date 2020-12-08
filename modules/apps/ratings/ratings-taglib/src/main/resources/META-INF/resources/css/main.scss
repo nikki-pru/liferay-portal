@@ -1,0 +1,26 @@
+@import 'atlas-variables';
+
+.ratings {
+	.btn {
+		align-items: center;
+		display: inline-flex;
+		overflow: hidden;
+
+		.inline-item .counter {
+			font-size: 0.875rem;
+		}
+
+		.lexicon-icon {
+			margin-top: 0;
+		}
+	}
+
+	@import './counter';
+}
+
+@import './ratings_animated';
+@import './ratings_like';
+@import './ratings_thumbs';
+
+@import './ratings_stacked_stars';
+@import './ratings_stars';

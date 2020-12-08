@@ -1,0 +1,193 @@
+<html>
+<head>
+<title>AP</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AP</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ADD_ASSET_PLUS_ICON</td>
+	<td>//*[@data-qa-id='addButton']//a[contains(@id,'AssetPublisherPortlet')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADD_ASSET_SCOPED</td>
+	<td>//a[@data-title='Add Content (Select Scope and Type)']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ELLIPSIS_ICON</td>
+	<td>//div[contains(@class,'asset-abstract')]//div[contains(.,'${key_assetTitle}')]//a[contains(@class,'dropdown-toggle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CATEGORIES_FILTER-->
+<tr>
+	<td>CATEGORIES_FILTER_CATEGORY</td>
+	<td>//div[contains(@class,'portlet-asset-publisher')]//div[@class='portlet-body']//span[contains(.,'${key_categoryName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORIES_FILTER_CATEGORY_REMOVE</td>
+	<td>//div[contains(@class,'portlet-asset-publisher')]//div[@class='portlet-body']//span[contains(.,'${key_categoryName}')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ASSET_EDIT-->
+<tr>
+	<td>ASSET_EDIT</td>
+	<td>//span[contains(@class,'visible-interaction')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ASSET_RICH_SUMMARY-->
+<tr>
+	<td>ASSET_RICH_SUMMARY_TITLE</td>
+	<td>//section[@class='portlet']//h3[@class='asset-title']/a[contains(.,'${key_assetTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ASSET_ABSTRACT-->
+<tr>
+	<td>ASSET_ABSTRACT_TITLE</td>
+	<td>//div[contains(@data-fragments-editor-item-type,'fragments-editor-mapped-item')]//*[contains(@class,'asset-title')][normalize-space(text())='${key_assetTitle}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ABSTRACT_EDIT</td>
+	<td>//p[contains(@class,'h4')][contains(.,'${key_assetTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ABSTRACT_DESCRIPTION</td>
+	<td>//div[contains(@data-fragments-editor-item-type,'fragments-editor-mapped-item')][*//*[contains(@class,'asset-title')][normalize-space(text())='${key_assetTitle}']]//div[contains(@class,'asset-content')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CUSTOM_ASSET_ABSTRACT_DESCRIPTION</td>
+	<td>//div[contains(@class,'asset-abstract') and h3[contains(.,'${key_assetTitle}')]]/div[contains(@class,'asset-content')]/div[contains(@class,'asset-summary')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ABSTRACT_GENERIC</td>
+	<td>//div[contains(@class,'asset-abstract')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ASSET_ABSTRACT_DETAIL-->
+<tr>
+	<td>ASSET_ABSTRACT_DETAIL_CONTENT</td>
+	<td>//div[contains(@class,'asset-content')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ABSTRACT_DETAIL_WEB_CONTENT_FOLDER_CONTENT</td>
+	<td>//div[contains(@class,'asset-details')][${key_position}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ASSET_ABSTRACT_BOOKMARK-->
+<tr>
+	<td>ASSET_ABSTRACT_BOOKMARK_TABLE_DISPLAY_TEMPLATE_BOOKMARK_ICON</td>
+	<td>//h3/a[contains(.,'${key_bookmarkName}')]/i[@class='icon-bookmark-empty']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ASSET_ABSTRACT_BOOKMARK_DETAIL-->
+<tr>
+	<td>ASSET_ABSTRACT_BOOKMARK_DETAIL_LINK</td>
+	<td>//div[contains(@class,'asset-content')]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ABSTRACT_BOOKMARK_LIFERAY_LOGO</td>
+	<td>//a[contains(@class,'logo-icon-container')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ASSET_ABSTRACT_DDL_RECORD-->
+<tr>
+	<td>ASSET_ABSTRACT_DDL_RECORD_1</td>
+	<td>//div[contains(@class,'asset-content')]//div[contains(@class,'field-wrapper-content')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ABSTRACT_DDL_RECORD_2</td>
+	<td>xPath=(//div[contains(@class,'asset-content')]//div[contains(@class,'field-wrapper-content')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ABSTRACT_DDL_RECORD_3</td>
+	<td>xPath=(//div[contains(@class,'asset-content')]//div[contains(@class,'field-wrapper-content')])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--METADATA-->
+<tr>
+	<td>METADATA_AUTHOR</td>
+	<td>//div[contains(@class,'author')]//span[contains(.,'${key_author}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_VOCABULARY</td>
+	<td>//dd[contains(@class,'categories')]/span[contains(.,'${key_vocabularyName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_CATEGORY</td>
+	<td>//div[contains(@class,'categories')]/span/a[contains(.,'${key_categoryName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_PRIORITY</td>
+	<td>//div[contains(@class,'asset-priority') and contains(.,'${key_assetPriority}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_TAGS</td>
+	<td>//span[@class='taglib-asset-tags-summary']/a[contains(@class,'label')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

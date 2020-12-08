@@ -1,0 +1,14 @@
+@import 'atlas-variables';
+
+.page-editor__item-selector__content {
+	&-input {
+		cursor: pointer;
+	}
+
+	&-button.btn {
+		border-color: $gray-300;
+		display: block;
+		min-width: 2rem;
+		padding-top: 1px;
+	}
+}

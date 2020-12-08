@@ -1,0 +1,741 @@
+definition {
+
+	macro add {
+		if ((!(isSet(roleKey))) && (!(isSet(roleTitle)))) {
+			fail("Please declear the roleKey or roleTitle when refering this macro.");
+		}
+
+		LexiconEntry.gotoAdd();
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "New Role");
+
+		if (isSet(roleTitle)) {
+			PortletEntry.inputTitle(title = "${roleTitle}");
+		}
+
+		if (isSet(roleDescription)) {
+			PortletEntry.inputDescription(description = "${roleDescription}");
+		}
+
+		if (isSet(roleKey)) {
+			Type(
+				locator1 = "TextInput#KEY",
+				value1 = "${roleKey}");
+		}
+
+		AssertClick(
+			locator1 = "Button#SUBMIT",
+			value1 = "Save");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro addAssignees {
+		LexiconEntry.gotoAdd();
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		SelectFrame(locator1 = "IFrame#SELECT_ASSIGNEES");
+
+		Search.searchCP(searchTerm = "${assigneeName}");
+
+		var key_assigneeName = "${assigneeName}";
+
+		AssertTextEquals(
+			locator1 = "RolesAssignMembers#ADD_ASSIGNEE_TABLE_NAME",
+			value1 = "${assigneeName}");
+
+		Check(locator1 = "RolesAssignMembers#ADD_ASSIGNEE_TABLE_CHECKBOX");
+
+		SelectFrameTop(value1 = "relative=top");
+
+		Button.clickAdd();
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro assignRegRoleCP {
+		Search.searchCP(searchTerm = "${roleTitle}");
+
+		var key_itemName = "${roleTitle}";
+
+		AssertClick(
+			locator1 = "ListGroupItem#ITEM_NAME_LINK",
+			value1 = "${roleTitle}");
+
+		Navigator.gotoNavItem(navItem = "Assignees");
+
+		LexiconEntry.gotoAdd();
+
+		SelectFrame(locator1 = "IFrame#SELECT_ASSIGNEES");
+
+		Pause(locator1 = "3000");
+
+		var key_userScreenName = "${userScreenName}";
+
+		Search.searchCP(searchTerm = "${userScreenName}");
+
+		AssertTextPresent(value1 = "Results for ${userScreenName}");
+
+		AssertTextEquals(
+			locator1 = "RolesAssignMembers#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		Check(locator1 = "RolesAssignMembers#USER_TABLE_CHECKBOX");
+
+		SelectFrameTop(value1 = "relative=top");
+
+		Button.clickAdd();
+
+		Alert.viewSuccessMessage();
+
+		AssertTextEquals(
+			locator1 = "RolesAssignMembers#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+	}
+
+	macro definePermissionCmdCP {
+		Role.editPermissionCmdCP(
+			assetLibrariesScope = "${assetLibrariesScope}",
+			define = "true",
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			permissionDefinitionKeyChange = "${permissionDefinitionKeyChange}",
+			permissionDefinitionKeys = "${permissionDefinitionKeys}",
+			permissionDefinitionKeySiteScope = "${permissionDefinitionKeySiteScope}",
+			permissionNavigationKey = "${permissionNavigationKey}",
+			permissionNavigationValue = "${permissionNavigationValue}",
+			remove = "${remove}",
+			roleTitle = "${roleTitle}",
+			roleTitleEdit = "${roleTitleEdit}",
+			roleType = "${roleType}",
+			roleUser = "${roleUser}",
+			siteNameScope = "${siteNameScope}");
+	}
+
+	macro definePermissionCP {
+		Role.definePermissionCmdCP(
+			assetLibrariesScope = "${assetLibrariesScope}",
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			roleTitle = "${roleTitle}",
+			roleTitleEdit = "${roleTitleEdit}",
+			roleType = "${roleType}",
+			roleUser = "${roleUser}",
+			siteNameScope = "${siteNameScope}");
+
+		Role.viewPermissionCP(
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			permissionDefinitionValue = "${permissionDefinitionValue}",
+			permissionNavigationValue = "${permissionNavigationValue}",
+			remove = "${remove}",
+			siteNameScope = "${siteNameScope}");
+	}
+
+	macro definePermissionPG {
+		var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+		var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
+
+		if (IsElementPresent.isElementPresentAfterWait(locator1 = "IFrame#MODAL_BODY")) {
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+		}
+
+		if (isSet(permissionsList)) {
+			for (var permissionDefinitionKey : list "${permissionsList}") {
+				Check(locator1 = "Permissions#${permissionDefinitionKey}");
+			}
+		}
+		else {
+			Check(locator1 = "Permissions#${permissionDefinitionKey}");
+		}
+
+		Button.clickSave();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#SUCCESS",
+			value1 = "Your request completed successfully.");
+
+		AssertChecked(locator1 = "Permissions#${permissionDefinitionKey}");
+	}
+
+	macro definePermissionsCP {
+		Role.definePermissionCmdCP(
+			permissionDefinitionKeys = "${permissionDefinitionKeys}",
+			roleTitle = "${roleTitle}",
+			roleType = "${roleType}",
+			roleUser = "${roleUser}");
+	}
+
+	macro deleteCP {
+		Search.searchCP(searchTerm = "Name");
+
+		LexiconEntry.delete(rowEntry = "${roleTitle}");
+	}
+
+	macro editPermissionCmdCP {
+		var key_roleTitle = "${roleTitle}";
+
+		if (contains("Asset Library,Organization,Site", "${roleType}")) {
+			Navigator.gotoNavItem(navItem = "${roleType} Roles");
+		}
+		else {
+			Navigator.gotoNavItem(navItem = "Regular Roles");
+		}
+
+		Search.searchCP(searchTerm = "${roleTitle}");
+
+		if (isSet(roleUser)) {
+			var key_itemName = "${roleUser}";
+
+			AssertClick(
+				locator1 = "ListGroupItem#ITEM_NAME_LINK",
+				value1 = "${roleUser}");
+		}
+		else {
+			var key_itemName = "${roleTitle}";
+
+			AssertClick(
+				locator1 = "ListGroupItem#ITEM_NAME_LINK",
+				value1 = "${roleTitle}");
+		}
+
+		if (isSet(roleTitleEdit)) {
+			PortletEntry.inputTitle(title = "${roleTitleEdit}");
+
+			AssertClick(
+				locator1 = "Button#SUBMIT",
+				value1 = "Save");
+		}
+
+		Navigator.gotoNavItem(navItem = "Define Permissions");
+
+		if ((IsElementPresent.isElementPresentAfterWait(locator1 = "Message#INFO")) && (IsVisible(locator1 = "Message#INFO"))) {
+			AssertTextEquals(
+				locator1 = "Message#INFO",
+				value1 = "This role does not have any permissions.");
+		}
+
+		if (!(isSet(permissionDefinitionKeys))) {
+			var permissionDefinitionKeys = "${permissionDefinitionKey}";
+		}
+
+		for (var permissionDefinitionKey : list "${permissionDefinitionKeys}") {
+			if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_GENERAL_PERMISSIONS")) {
+				var permissionNavigationKey = "CONTROL_PANEL_GENERAL_PERMISSIONS";
+				var permissionNavigationValue = "General Permissions";
+			}
+			else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_USERS_ROLES")) {
+				var permissionNavigationKey = "CONTROL_PANEL_USERS_ROLES";
+				var permissionNavigationValue = "Roles";
+			}
+			else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_SITES_SITES")) {
+				var permissionNavigationKey = "CONTROL_PANEL_SITES_SITES";
+				var permissionNavigationValue = "Sites";
+			}
+			else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_USERS_USER_GROUPS")) {
+				var permissionNavigationKey = "CONTROL_PANEL_USERS_USER_GROUPS";
+				var permissionNavigationValue = "User Groups";
+			}
+			else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_USERS_USERS_AND_ORGANIZATIONS")) {
+				var permissionNavigationKey = "CONTROL_PANEL_USERS_USERS_AND_ORGANIZATIONS";
+				var permissionNavigationValue = "Users and Organizations";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_ASSET_PUBLISHER")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_ASSET_PUBLISHER";
+				var permissionNavigationValue = "Asset Publisher";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_BLOGS")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_BLOGS";
+				var permissionNavigationValue = "Blogs";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_BOOKMARKS")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_BOOKMARKS";
+				var permissionNavigationValue = "Bookmarks";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_CALENDAR")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_CALENDAR";
+				var permissionNavigationValue = "Calendar";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_CATEGORIES_NAVIGATION")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_CATEGORIES_NAVIGATION";
+				var permissionNavigationValue = "Categories Navigation";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_DOCUMENTS_AND_MEDIA")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_DOCUMENTS_AND_MEDIA";
+				var permissionNavigationValue = "Documents and Media";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_LANGUAGE")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_LANGUAGE";
+				var permissionNavigationValue = "Language Selector";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_MESSAGE_BOARDS")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_MESSAGE_BOARDS";
+				var permissionNavigationValue = "Message Boards";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_WEB_CONTENT_DISPLAY")) {
+				var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_WEB_CONTENT_DISPLAY";
+				var permissionNavigationValue = "Web Content Display";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_BUILDER_COLLECTIONS")) {
+				var permissionNavigationKey = "SITE_ADMIN_BUILDER_COLLECTIONS";
+				var permissionNavigationValue = "Collections";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONFIGURATION_REDIRECTION")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONFIGURATION_REDIRECTION";
+				var permissionNavigationValue = "Redirection";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONFIGURATION_SITE_SETTINGS")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONFIGURATION_SITE_SETTINGS";
+				var permissionNavigationValue = "Settings";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_BLOGS")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_BLOGS";
+				var permissionNavigationValue = "Blogs";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_BOOKMARKS")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_BOOKMARKS";
+				var permissionNavigationValue = "Bookmarks";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CATEGORIES")) {
+				var permissionNavigationKey = "SITE_ADMIN_CATEGORIES";
+				var permissionNavigationValue = "Categories";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA";
+				var permissionNavigationValue = "Documents and Media";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_DYNAMIC_DATA_LISTS")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_DYNAMIC_DATA_LISTS";
+				var permissionNavigationValue = "Dynamic Data Lists";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_FORMS")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_FORMS";
+				var permissionNavigationValue = "Forms";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_KALEO_FORMS")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_KALEO_FORMS";
+				var permissionNavigationValue = "Kaleo Forms Admin";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_MESSAGE_BOARDS")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_MESSAGE_BOARDS";
+				var permissionNavigationValue = "Message Boards";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_MEMBERS_SITE_MEMBERSHIPS")) {
+				var permissionNavigationKey = "SITE_ADMIN_MEMBERS_SITE_MEMBERSHIPS";
+				var permissionNavigationValue = "Memberships";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_MEMBERS_SITE_TEAMS")) {
+				var permissionNavigationKey = "SITE_ADMIN_MEMBERS_SITE_TEAMS";
+				var permissionNavigationValue = "Teams";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_PAGES_SITE_PAGES")) {
+				var permissionNavigationKey = "SITE_ADMIN_PAGES_SITE_PAGES";
+				var permissionNavigationValue = "Pages";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_WEB_CONTENT")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_WEB_CONTENT";
+				var permissionNavigationValue = "Web Content";
+			}
+			else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_WIKI")) {
+				var permissionNavigationKey = "SITE_ADMIN_CONTENT_WIKI";
+				var permissionNavigationValue = "Wiki";
+			}
+			else if (contains("${permissionDefinitionKey}", "USER_MY_ACCOUNT_MY_WORKFLOW_TASKS")) {
+				var permissionNavigationKey = "USER_MY_ACCOUNT_MY_WORKFLOW_TASKS";
+				var permissionNavigationValue = "My Workflow Tasks";
+			}
+
+			if (!(IsElementPresent(locator1 = "RolesPermissions#${permissionDefinitionKey}"))) {
+				Type(
+					locator1 = "RolesPermissionsNavigation#SEARCH_FIELD",
+					value1 = "${permissionNavigationValue}");
+
+				AssertClick(
+					locator1 = "RolesPermissionsNavigation#${permissionNavigationKey}",
+					value1 = "${permissionNavigationValue}");
+
+				AssertTextEquals(
+					locator1 = "RolesPermissions#PERMISSION_HEADER",
+					value1 = "${permissionNavigationValue}");
+			}
+
+			if ("${define}" == "true") {
+				Check(locator1 = "RolesPermissions#${permissionDefinitionKey}");
+			}
+			else if ("${remove}" == "true") {
+				Uncheck(locator1 = "RolesPermissions#${permissionDefinitionKey}");
+			}
+
+			if (isSet(siteNameScope)) {
+				var permissionDefinitionKeyChange = StringUtil.replace("${permissionDefinitionKey}", "CHECKBOX", "CHANGE_LINK");
+
+				AssertClick(
+					locator1 = "RolesPermissions#${permissionDefinitionKeyChange}",
+					value1 = "Change");
+
+				var key_card = "${siteNameScope}";
+
+				SelectFrame(locator1 = "RolesPermissionsSelectSite#SELECT_SITE_IFRAME");
+
+				AssertClick(
+					locator1 = "NavBar#RECENT",
+					value1 = "Recent");
+
+				if ("${assetLibrariesScope}" == "true") {
+					AssertClick(
+						locator1 = "NavBar#ASSET_LIBRARIES",
+						value1 = "Asset Libraries");
+				}
+				else {
+					AssertClick(
+						locator1 = "NavBar#MY_SITES",
+						value1 = "My Sites");
+				}
+
+				AssertClick.assertPartialTextClickAt(
+					locator1 = "Card#CARD_TITLE",
+					value1 = "${siteNameScope}");
+
+				var key_siteNameScope = "${siteNameScope}";
+				var permissionDefinitionKeySiteScope = StringUtil.replace("${permissionDefinitionKey}", "CHECKBOX", "SITE_SCOPE");
+
+				SelectFrame(value1 = "relative=top");
+
+				AssertTextEquals.assertPartialText(
+					locator1 = "RolesPermissions#${permissionDefinitionKeySiteScope}",
+					value1 = "${siteNameScope}");
+			}
+		}
+
+		ScrollWebElementIntoView(locator1 = "RolesPermissions#SAVE_BUTTON");
+
+		PortletEntry.save();
+	}
+
+	macro openRolesAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_roles_admin_web_portlet_RolesAdminPortlet");
+	}
+
+	macro removeAssignee {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		RoleNavigator.gotoAssignees(roleTitle = "${roleTitle}");
+
+		RoleNavigator.gotoAssigneeType(assigneeType = "${assigneeType}");
+
+		Search.searchCP(searchTerm = "${assigneeName}");
+
+		LexiconEntry.selectEntry(key_rowEntry = "${assigneeName}");
+
+		ClickNoError(locator1 = "Icon#DELETE");
+	}
+
+	macro removePermissionCP {
+		Role.editPermissionCmdCP(
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			permissionDefinitionKeyChange = "${permissionDefinitionKeyChange}",
+			permissionDefinitionKeys = "${permissionDefinitionKeys}",
+			permissionDefinitionKeySiteScope = "${permissionDefinitionKeySiteScope}",
+			permissionNavigationKey = "${permissionNavigationKey}",
+			permissionNavigationValue = "${permissionNavigationValue}",
+			remove = "true",
+			roleTitle = "${roleTitle}",
+			roleType = "${roleType}",
+			roleUser = "${roleUser}",
+			siteNameScope = "${siteNameScope}");
+
+		Role.viewPermissionCP(
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			permissionDefinitionValue = "${permissionDefinitionValue}",
+			permissionNavigationValue = "${permissionNavigationValue}",
+			remove = "true");
+	}
+
+	macro removePermissionPG {
+		var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+		var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
+
+		if (IsElementPresent.isElementPresentAfterWait(locator1 = "IFrame#MODAL_BODY")) {
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+		}
+
+		Uncheck(locator1 = "Permissions#${permissionDefinitionKey}");
+
+		Button.clickSave();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#SUCCESS",
+			value1 = "Your request completed successfully.");
+
+		AssertNotChecked(locator1 = "Permissions#${permissionDefinitionKey}");
+	}
+
+	macro removeStagingAdminRole {
+		var roleTitle = "Staging Admin";
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		RoleNavigator.gotoRoleType(roleType = "Site");
+
+		Search.searchCP(searchTerm = "${roleTitle}");
+
+		var key_itemName = "${roleTitle}";
+
+		if (IsElementPresent.pauseIsElementPresent(locator1 = "ListGroupItem#ITEM_NAME")) {
+			LexiconEntry.delete(rowEntry = "${roleTitle}");
+		}
+	}
+
+	macro tearDownCP {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		Search.searchCP(searchTerm = "Name");
+
+		while (IsElementPresent.pauseIsElementPresent(locator1 = "ListGroupItem#ITEM_ACTIONS_DEFAULT")) {
+			Click(locator1 = "ListGroupItem#ITEM_ACTIONS_DEFAULT");
+
+			MenuItem.clickNoError(menuItem = "Delete");
+
+			AssertConfirm(value1 = "Are you sure you want to delete this role? It will be deleted immediately. If it is a reviewer role, its task assignments will be deleted along with it.");
+		}
+	}
+
+	macro viewAssignee {
+		RoleNavigator.gotoAssignees(roleTitle = "${roleTitle}");
+
+		RoleNavigator.gotoAssigneeType(assigneeType = "${assigneeType}");
+
+		LexiconEntry.viewEntryName(rowEntry = "${assigneeName}");
+	}
+
+	macro viewCP {
+		if (contains("Asset Library,Organization,Site", "${roleType}")) {
+			Navigator.gotoNavItem(navItem = "${roleType} Roles");
+		}
+		else {
+			Navigator.gotoNavItem(navItem = "Regular Roles");
+		}
+
+		if ((isSet(roleKey)) && (!(isSet(roleTitle)))) {
+			var rowEntry = "${roleKey}";
+			var roleTitle = "";
+		}
+		else {
+			var rowEntry = "${roleTitle}";
+		}
+
+		if (!(isSet(roleKey))) {
+			var roleKey = "${roleTitle}";
+		}
+
+		AssertClick(
+			key_itemName = "${rowEntry}",
+			locator1 = "ListGroupItem#ITEM_NAME_LINK",
+			value1 = "${rowEntry}");
+
+		SiteAdmin.viewPortletTitle(portletTitle = "${rowEntry}");
+
+		if (isSet(toolTip)) {
+			MouseOver(locator1 = "Icon#TOOLTIP");
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#TOOLTIP",
+				value1 = "${toolTip}");
+		}
+
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "${roleTitle}");
+
+		AssertTextEquals(
+			locator1 = "TextInput#KEY",
+			value1 = "${roleKey}");
+	}
+
+	macro viewDefaultCP {
+		Search.searchCP(searchTerm = "Name");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No roles were found.");
+	}
+
+	macro viewPermissionCP {
+		if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_GENERAL_PERMISSIONS")) {
+			var permissionNavigationKey = "CONTROL_PANEL_GENERAL_PERMISSIONS";
+			var permissionNavigationValue = "General Permissions";
+		}
+		else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_USERS_ROLES")) {
+			var permissionNavigationKey = "CONTROL_PANEL_USERS_ROLES";
+			var permissionNavigationValue = "Roles";
+		}
+		else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_SITES_SITES_RESOURCE_PERMISSIONS_SITE")) {
+			var permissionNavigationKey = "CONTROL_PANEL_SITES_SITES";
+			var permissionNavigationValue = "Settings";
+		}
+		else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_SITES_SITES")) {
+			var permissionNavigationKey = "CONTROL_PANEL_SITES_SITES";
+			var permissionNavigationValue = "Sites";
+		}
+		else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_USERS_USER_GROUPS")) {
+			var permissionNavigationKey = "CONTROL_PANEL_USERS_USER_GROUPS";
+			var permissionNavigationValue = "User Groups";
+		}
+		else if (contains("${permissionDefinitionKey}", "CONTROL_PANEL_USERS_USERS_AND_ORGANIZATIONS")) {
+			var permissionNavigationKey = "CONTROL_PANEL_USERS_USERS_AND_ORGANIZATIONS";
+			var permissionNavigationValue = "Users and Organizations";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_ASSET_PUBLISHER")) {
+			var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_ASSET_PUBLISHER";
+			var permissionNavigationValue = "Asset Publisher";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_BLOGS")) {
+			var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_BLOGS";
+			var permissionNavigationValue = "Blogs";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_BOOKMARKS")) {
+			var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_BOOKMARKS";
+			var permissionNavigationValue = "Bookmarks";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_CALENDAR")) {
+			var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_CALENDAR";
+			var permissionNavigationValue = "Calendar";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_DOCUMENTS_AND_MEDIA")) {
+			var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_DOCUMENTS_AND_MEDIA";
+			var permissionNavigationValue = "Documents and Media";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_LANGUAGE")) {
+			var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_LANGUAGE";
+			var permissionNavigationValue = "Language";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_MESSAGE_BOARDS")) {
+			var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_MESSAGE_BOARDS";
+			var permissionNavigationValue = "Message Boards";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_APPLICATIONS_WEB_CONTENT_DISPLAY")) {
+			var permissionNavigationKey = "SITE_ADMIN_APPLICATIONS_WEB_CONTENT_DISPLAY";
+			var permissionNavigationValue = "Web Content Display";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_BUILDER_COLLECTIONS")) {
+			var permissionNavigationKey = "SITE_ADMIN_BUILDER_COLLECTIONS";
+			var permissionNavigationValue = "Collections";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONFIGURATION_REDIRECTION")) {
+			var permissionNavigationKey = "SITE_ADMIN_CONFIGURATION_REDIRECTION";
+			var permissionNavigationValue = "Redirection";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_BLOGS")) {
+			var permissionNavigationKey = "SITE_ADMIN_CONTENT_BLOGS";
+			var permissionNavigationValue = "Blogs";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA")) {
+			var permissionNavigationKey = "SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA";
+			var permissionNavigationValue = "Documents and Media";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_DYNAMIC_DATA_LISTS")) {
+			var permissionNavigationKey = "SITE_ADMIN_CONTENT_DYNAMIC_DATA_LISTS";
+			var permissionNavigationValue = "Dynamic Data Lists";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_MESSAGE_BOARDS")) {
+			var permissionNavigationKey = "SITE_ADMIN_CONTENT_MESSAGE_BOARDS";
+			var permissionNavigationValue = "Message Boards";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_MEMBERS_SITE_MEMBERSHIPS")) {
+			var permissionNavigationKey = "SITE_ADMIN_MEMBERS_SITE_MEMBERSHIPS";
+			var permissionNavigationValue = "Memberships";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_PAGES_SITE_PAGES")) {
+			var permissionNavigationKey = "SITE_ADMIN_PAGES_SITE_PAGES";
+			var permissionNavigationValue = "Pages";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_WEB_CONTENT")) {
+			var permissionNavigationKey = "SITE_ADMIN_CONTENT_WEB_CONTENT";
+			var permissionNavigationValue = "Web Content";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_CONTENT_WIKI")) {
+			var permissionNavigationKey = "SITE_ADMIN_CONTENT_WIKI";
+			var permissionNavigationValue = "Wiki";
+		}
+
+		if ("${permissionNavigationValue}" == "General Permissions") {
+			var permissionNavigationValue = "Portal";
+		}
+		else if (contains("${permissionDefinitionKey}", "SITE_ADMIN_PAGES_SITE_PAGES_RESOURCE_PERMISSIONS_SITE")) {
+			var permissionNavigationValue = "Site";
+		}
+
+		var key_permissionDefinitionValue = "${permissionDefinitionValue}";
+		var key_permissionNavigationValue = "${permissionNavigationValue}";
+
+		if ("${remove}" == "true") {
+			AssertElementNotPresent(locator1 = "RolesPermissionsSummary#PERMISSION_TABLE_PERMISSIONS");
+
+			AssertElementNotPresent(locator1 = "RolesPermissionsSummary#PERMISSION_TABLE_REMOVE");
+		}
+		else {
+			while (IsElementNotPresent(locator1 = "Roles#PERMISSION_TABLE_PERMISSIONS")) {
+				Click(locator1 = "Pagination#NEXT_LINK");
+			}
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "RolesPermissionsSummary#PERMISSION_TABLE_PERMISSIONS",
+				value1 = "${permissionNavigationValue}");
+
+			AssertTextEquals(
+				locator1 = "RolesPermissionsSummary#PERMISSION_TABLE_REMOVE",
+				value1 = "Remove");
+
+			if (isSet(siteNameScope)) {
+				AssertTextEquals(
+					key_siteNameScope = "${siteNameScope}",
+					locator1 = "RolesPermissionsSummary#PERMISSION_TABLE_SCOPE",
+					value1 = "${siteNameScope}");
+			}
+		}
+	}
+
+	macro viewPermissionPG {
+		var key_roleTitle = StringUtil.replace("${roleTitle}", " ", "-");
+		var key_roleTitle = StringUtil.lowerCase("${key_roleTitle}");
+
+		if ("${permissionFlagged}" == "true") {
+			AssertChecked(locator1 = "Permissions#${permissionDefinitionKey}");
+		}
+		else if ("${permissionFlagged}" == "false") {
+			AssertNotChecked(locator1 = "Permissions#${permissionDefinitionKey}");
+		}
+	}
+
+	macro viewPermissionSubdirectory {
+		var key_navItem = "${navItem}";
+
+		if (IsElementPresent(locator1 = "RolesPermissionsNavigation#PERMISSIONS_NAVITEM_COLLAPSED")) {
+			Click.clickAt(locator1 = "RolesPermissionsNavigation#PERMISSIONS_NAVITEM_COLLAPSED");
+
+			AssertElementNotPresent(locator1 = "RolesPermissionsNavigation#PERMISSIONS_NAVITEM_COLLAPSED");
+		}
+
+		for (var subItem : list "${subItemList}") {
+			var key_subItem = "${subItem}";
+
+			AssertElementPresent(locator1 = "RolesPermissionsNavigation#PERMISSIONS_NAVITEM_SUBITEM");
+
+			if (IsElementPresent(locator1 = "RolesPermissionsNavigation#PERMISSIONS_NAVITEM_SUBITEM_COLLAPSED")) {
+				Click.clickAt(locator1 = "RolesPermissionsNavigation#PERMISSIONS_NAVITEM_SUBITEM_COLLAPSED");
+
+				AssertElementNotPresent(locator1 = "RolesPermissionsNavigation#PERMISSIONS_NAVITEM_SUBITEM_COLLAPSED");
+			}
+		}
+	}
+
+}

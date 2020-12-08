@@ -1,0 +1,40 @@
+$c: '.sidebar-container';
+
+#{$c} {
+	bottom: 0;
+	position: fixed;
+	right: 0;
+	top: 168px;
+	transform: translateX(100%);
+	transition: transform 0.3s ease-in-out;
+	width: 422px;
+	z-index: 52;
+
+	.ddm-empty {
+		display: none;
+	}
+
+	.list-group-item:hover {
+		background-color: #f0f5ff;
+	}
+
+	.navbar-collapse {
+		padding-left: 16px;
+	}
+
+	&.open {
+		transform: translateX(0%);
+	}
+
+	.sidebar-body {
+		overflow: visible;
+
+		.ddm-form-tabs {
+			display: none;
+		}
+	}
+
+	.sidebar-light {
+		background-color: #fff;
+	}
+}

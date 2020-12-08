@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>KaleoFormsAdminEditProcessForm</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">KaleoFormsAdminEditProcessForm</td></tr>
+</thead>
+<tbody>
+<!--FORM_TABLE-->
+<tr>
+	<td>FORM_TABLE_NAME</td>
+	<td>//tr[contains(.,'${key_kfFormName}')]/td[contains(.,'${key_kfFormName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FORM_TABLE_NAME_2</td>
+	<td>xpath=(//div[contains(@id,'kaleoformsportlet_ddmTemplates')]//tr[contains(.,'${key_kfFormName}')]/td[1])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FORM_TABLE_NAME_LINK</td>
+	<td>//table[contains(@data-searchcontainerid,'ddmTemplatesSearchContainer')]//a[@data-name='${key_kfFormName}']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,88 @@
+definition {
+
+	macro gotoAlertsAndAnnouncementsDelivery {
+		UserNavigator.gotoPreferences();
+
+		Navigator.gotoNavNested(navNested = "Alerts and Announcements Delivery");
+	}
+
+	macro gotoContact {
+		Navigator.gotoNavUnderline(navUnderline = "Contact");
+	}
+
+	macro gotoDisplaySettings {
+		UserNavigator.gotoPreferences();
+
+		Navigator.gotoNavNested(navNested = "Display Settings");
+	}
+
+	macro gotoEdit {
+		Click.waitForMenuToggleJSClick(
+			key_rowEntry = "${rowEntry}",
+			locator1 = "Icon#TABLE_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Edit");
+	}
+
+	macro gotoGeneral {
+		var key_navUnderline = "General";
+
+		if (IsElementNotPresent(locator1 = "NavUnderline#ACTIVE_NAV_UNDERLINE_LINK")) {
+			Navigator.gotoNavUnderline(navUnderline = "General");
+		}
+	}
+
+	macro gotoMemberships {
+		UserNavigator.gotoGeneral();
+
+		Navigator.gotoNavNested(navNested = "Memberships");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro gotoOrganizations {
+		UserNavigator.gotoGeneral();
+
+		Navigator.gotoNavNested(navNested = "Organizations");
+	}
+
+	macro gotoPassword {
+		UserNavigator.gotoGeneral();
+
+		Navigator.gotoNavNested(navNested = "Password");
+	}
+
+	macro gotoPermissions {
+		Click.waitForMenuToggleJSClick(
+			key_rowEntry = "${rowEntry}",
+			locator1 = "Icon#TABLE_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Permissions");
+	}
+
+	macro gotoPreferences {
+		Navigator.gotoNavUnderline(navUnderline = "Preferences");
+	}
+
+	macro gotoProfileAndDashboard {
+		UserNavigator.gotoGeneral();
+
+		Navigator.gotoNavNested(navNested = "Profile and Dashboard");
+	}
+
+	macro gotoRoles {
+		UserNavigator.gotoGeneral();
+
+		Navigator.gotoNavNested(navNested = "Roles");
+	}
+
+	macro gotoUser {
+		AssertClick(
+			key_userScreenName = "${userScreenName}",
+			locator1 = "UsersAndOrganizations#USER_TABLE_SCREEN_NAME",
+			value1 = "${userScreenName}");
+
+		Pause(locator1 = "1000");
+	}
+
+}

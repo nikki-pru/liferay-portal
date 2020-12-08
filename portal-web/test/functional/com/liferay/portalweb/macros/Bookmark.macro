@@ -1,0 +1,594 @@
+definition {
+
+	var assetType = "Bookmarks Entry";
+
+	macro addBookmarkViaAP {
+		AssetPublisherPortlet.addAsset(assetType = "Bookmarks Entry");
+
+		if (isSet(bookmarkFolderName)) {
+			AssertClick.pauseAssertTextClickAt(
+				locator1 = "Button#SELECT",
+				value1 = "Select");
+
+			SelectFrameTop();
+
+			SelectFrame(locator1 = "IFrame#SELECT_FOLDER");
+
+			var key_folderName = "${bookmarkFolderName}";
+
+			AssertClick(
+				locator1 = "Bookmarks#FOLDER_TABLE_CHOOSE",
+				value1 = "Choose");
+		}
+
+		SelectFrameTop();
+
+		PortletEntry.inputName(name = "${bookmarkName}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURL}");
+
+		PortletEntry.inputDescription(description = "${bookmarkDescription}");
+
+		AssertClick.pauseAssertTextClickAt(
+			locator1 = "Button#SAVE",
+			value1 = "Save");
+	}
+
+	macro addCategoryCP {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "${bookmarkName}");
+
+		Panel.expandPanel(panel = "Categorization");
+
+		AssetCategorization.addCategory(
+			categoryName = "${categoryName}",
+			vocabularyName = "${vocabularyName}");
+
+		PortletEntry.save();
+	}
+
+	macro addCP {
+		var bookmarkName = "${bookmarkName}";
+		var bookmarkURL = "${bookmarkURL}";
+
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "Bookmark");
+
+		if (isSet(bookmarkName)) {
+			PortletEntry.inputName(name = "${bookmarkName}");
+		}
+		else {
+			var bookmarkName = "${bookmarkURL}";
+		}
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURL}");
+
+		if (isSet(bookmarkDescription)) {
+			PortletEntry.inputDescription(description = "${bookmarkDescription}");
+		}
+
+		PortletEntry.save();
+
+		Bookmark.viewBookmark(
+			bookmarkName = "${bookmarkName}",
+			bookmarkURL = "${bookmarkURL}",
+			key_assetName = "${bookmarkName}");
+	}
+
+	macro addIncorrectURLCP {
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "Bookmark");
+
+		PortletEntry.inputName(name = "${bookmarkName}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURLInvalid}");
+
+		PortletEntry.inputDescription(description = "${bookmarkDescription}");
+
+		Button.clickSave();
+
+		AssertTextEquals(
+			locator1 = "TextInput#URL_REQUIRED",
+			value1 = "Please enter a valid URL.");
+	}
+
+	macro addInvalidURLPG {
+		Portlet.clickPortletPlusIconPG(portletName = "Bookmarks");
+
+		MenuItem.click(menuItem = "Bookmark");
+
+		PortletEntry.inputName(name = "${bookmarkName}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURLInvalid}");
+
+		PortletEntry.inputDescription(description = "${bookmarkDescription}");
+
+		Button.clickSave();
+
+		Alert.viewRequestFailedToComplete();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#ERROR_ENTER_A_VALID_URL",
+			value1 = "Please enter a valid URL.");
+	}
+
+	macro addNullCP {
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "Bookmark");
+
+		if (isSet(bookmarkName)) {
+			PortletEntry.inputName(name = "${bookmarkName}");
+		}
+
+		if (isSet(bookmarkDescription)) {
+			PortletEntry.inputDescription(description = "${bookmarkDescription}");
+		}
+
+		Button.clickSave();
+
+		AssertTextEquals(
+			locator1 = "TextInput#URL_REQUIRED",
+			value1 = "This field is required.");
+	}
+
+	macro addPG {
+		var bookmarkName = "${bookmarkName}";
+		var bookmarkURL = "${bookmarkURL}";
+
+		Portlet.clickPortletPlusIconPG(portletName = "Bookmarks");
+
+		MenuItem.click(menuItem = "Bookmark");
+
+		if (isSet(bookmarkName)) {
+			PortletEntry.inputName(name = "${bookmarkName}");
+		}
+		else {
+			var bookmarkName = "${bookmarkURL}";
+		}
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURL}");
+
+		if (isSet(bookmarkDescription)) {
+			PortletEntry.inputDescription(description = "${bookmarkDescription}");
+		}
+
+		if (isSet(bookmarkViewableBy)) {
+			Panel.expandPanel(panel = "Permissions");
+
+			Select(
+				locator1 = "AssetPermissions#VIEWABLE_AS_SELECT",
+				value1 = "${bookmarkViewableBy}");
+		}
+
+		PortletEntry.save();
+
+		Bookmark.viewBookmark(
+			bookmarkName = "${bookmarkName}",
+			bookmarkURL = "${bookmarkURL}",
+			key_assetName = "${bookmarkName}");
+	}
+
+	macro addRelatedAssetBookmarksEntryPG {
+		SelectFrame(locator1 = "AssetRelatedAssets#SELECT_ASSET_IFRAME");
+
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "${bookmarkName}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURL}");
+
+		Button.clickSave();
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro addToSubfolderCP {
+		var bookmarkName = "${bookmarkName}";
+		var bookmarkURL = "${bookmarkURL}";
+		var key_assetName = "${folderName}";
+
+		AssertClick(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${folderName}");
+
+		var key_assetName = "${subfolderName}";
+
+		AssertClick(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${subfolderName}");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "${subfolderName}");
+
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "Bookmark");
+
+		PortletEntry.inputName(name = "${bookmarkName}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURL}");
+
+		PortletEntry.inputDescription(description = "${bookmarkDescription}");
+
+		PortletEntry.save();
+
+		Bookmark.viewBookmark(
+			bookmarkName = "${bookmarkName}",
+			bookmarkURL = "${bookmarkURL}",
+			key_bookmarkName = "${bookmarkName}");
+	}
+
+	macro addWithTagCP {
+		var bookmarkName = "${bookmarkName}";
+		var bookmarkURL = "${bookmarkURL}";
+		var tagNameList = "${tagNameList}";
+
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "Bookmark");
+
+		if (isSet(bookmarkName)) {
+			PortletEntry.inputName(name = "${bookmarkName}");
+		}
+		else {
+			var bookmarkName = "${bookmarkURL}";
+		}
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURL}");
+
+		if (isSet(bookmarkDescription)) {
+			PortletEntry.inputDescription(description = "${bookmarkDescription}");
+		}
+
+		Panel.expandPanel(panel = "Categorization");
+
+		for (var tagName : list "${tagNameList}") {
+			AssetCategorization.addTag(tagName = "${tagName}");
+		}
+
+		PortletEntry.save();
+
+		if (!(isSet(skipViewBookmark))) {
+			Bookmark.viewBookmark(
+				bookmarkName = "${bookmarkName}",
+				bookmarkURL = "${bookmarkURL}",
+				key_assetName = "${bookmarkName}");
+		}
+	}
+
+	macro deletePG {
+		var key_assetName = "${bookmarkName}";
+
+		AssertTextEquals(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${bookmarkName}");
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Move to Recycle Bin",
+			rowEntry = "${bookmarkName}");
+
+		VerifyElementPresent(locator1 = "Message#SUCCESS");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Recycle Bin",
+			portlet = "Recycle Bin");
+
+		RecycleBin.emptyCP();
+	}
+
+	macro editCP {
+		var bookmarkName = "${bookmarkName}";
+		var bookmarkURL = "${bookmarkURL}";
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "${bookmarkName}");
+
+		PortletEntry.inputName(name = "${editBookmarkName}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${editBookmarkURL}");
+
+		if (isSet(bookmarkDescription)) {
+			PortletEntry.inputDescription(description = "${editBookmarkDescription}");
+		}
+
+		PortletEntry.save();
+
+		Bookmark.viewBookmark(
+			bookmarkName = "${editBookmarkName}",
+			bookmarkURL = "${editBookmarkURL}",
+			key_assetName = "${editBookmarkName}");
+	}
+
+	macro editPG {
+		var bookmarkName = "${bookmarkName}";
+		var bookmarkURL = "${bookmarkURL}";
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "${bookmarkName}");
+
+		PortletEntry.inputName(name = "${bookmarkNameEdit}");
+
+		Type(
+			locator1 = "TextInput#URL",
+			value1 = "${bookmarkURLEdit}");
+
+		PortletEntry.save();
+
+		Bookmark.viewBookmark(
+			bookmarkName = "${bookmarkNameEdit}",
+			bookmarkURL = "${bookmarkURLEdit}",
+			key_assetName = "${bookmarkNameEdit}");
+	}
+
+	macro gotoPG {
+		var key_assetName = "${bookmarkName}";
+
+		AssertTextEquals(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${bookmarkName}");
+	}
+
+	macro moveToFolderPG {
+		if (isSet(folderName)) {
+			BookmarksFolder.gotoPG(folderName = "${folderName}");
+		}
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Move",
+			rowEntry = "${bookmarkName}");
+
+		AssertClick(
+			locator1 = "Button#SELECT",
+			value1 = "Select");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		var key_folderName = "${folderName2}";
+
+		AssertClick(
+			locator1 = "Bookmarks#FOLDER_TABLE_CHOOSE",
+			value1 = "Choose");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertClick(
+			locator1 = "Button#MOVE",
+			value1 = "Move");
+
+		Alert.viewSuccessMessage();
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no bookmarks in this folder.");
+	}
+
+	macro moveToHomeCP {
+		var key_assetName = "${folderName}";
+
+		AssertClick(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${folderName}");
+
+		if (isSet(subfolderName)) {
+			var key_assetName = "${subfolderName}";
+
+			AssertClick(
+				locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+				value1 = "${subfolderName}");
+
+			AssertTextEquals(
+				locator1 = "Portlet#HEADER",
+				value1 = "${subfolderName}");
+		}
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Move",
+			rowEntry = "${bookmarkName}");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Move Entries");
+
+		AssertClick(
+			locator1 = "Button#SELECT",
+			value1 = "Select");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		AssertClick(
+			locator1 = "Button#CHOOSE_THIS_FOLDER",
+			value1 = "Choose This Folder");
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Move Entries");
+
+		AssertClick(
+			locator1 = "Button#MOVE",
+			value1 = "Move");
+
+		Alert.viewSuccessMessage();
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no bookmarks in this folder.");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Bookmarks");
+
+		var key_assetName = "${bookmarkName}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${bookmarkName}");
+	}
+
+	macro moveToRecycleBinCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Bookmarks");
+
+		var key_assetName = "${bookmarkName}";
+
+		AssertTextEquals(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${bookmarkName}");
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Move to Recycle Bin",
+			rowEntry = "${bookmarkName}");
+
+		VerifyElementPresent(locator1 = "Message#SUCCESS");
+
+		AssertTextNotPresent(
+			locator1 = "Bookmarks#BOOKMARKS_TABLE_URL",
+			value1 = "${bookmarkURL}");
+	}
+
+	macro moveToRecycleBinPG {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Move to Recycle Bin",
+			rowEntry = "${bookmarkName}");
+
+		VerifyElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+	macro searchNullCP {
+		Search.searchCP(searchTerm = "${nullBookmarkName}");
+
+		var key_bookmarkName = "${nullBookmarkName}";
+
+		AssertTextNotPresent(
+			locator1 = "Bookmarks#SEARCH_TABLE_ENTRY_NAME",
+			value1 = "${bookmarkName}");
+
+		AssertTextNotPresent(
+			locator1 = "Bookmarks#SEARCH_TABLE_ENTRY_NAME",
+			value1 = "${bookmar2Name}");
+	}
+
+	macro tearDownCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Bookmarks");
+
+		if (IsElementNotPresent(locator1 = "Message#EMPTY_INFO")) {
+			PortletEntry.selectAll();
+
+			Click(locator1 = "Icon#MOVE_TO_RECYCLE_BIN");
+
+			VerifyElementPresent(locator1 = "Message#SUCCESS");
+
+			AssertElementPresent(locator1 = "Message#EMPTY_INFO");
+		}
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Recycle Bin",
+			portlet = "Recycle Bin");
+
+		RecycleBin.emptyCP();
+	}
+
+	macro viewBookmark {
+		var key_assetName = "${bookmarkName}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${bookmarkName}");
+
+		AssertClick.assertTextClickAtNoJavaScript(
+			locator1 = "Bookmarks#DESCRIPTIVE_ENTRY_TITLE",
+			value1 = "${bookmarkName}");
+
+		AssertLocation(value1 = "${bookmarkURL}/");
+	}
+
+	macro viewBookmarkViaAP {
+		var key_assetTitle = "${bookmarkName}";
+		var key_bookmarkName = "${bookmarkName}";
+
+		AssetPublisherPortlet.clickAssetTitle(assetTitle = "${bookmarkName}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "AP#ASSET_ABSTRACT_TITLE",
+			value1 = "${bookmarkName}");
+
+		Click(locator1 = "AP#ASSET_ABSTRACT_BOOKMARK_DETAIL_LINK");
+
+		SelectWindow(locator1 = "title=Digital Experience Software Tailored to Your Needs | Liferay");
+
+		AssertElementPresent.assertElementPresent(locator1 = "AP#ASSET_ABSTRACT_BOOKMARK_LIFERAY_LOGO");
+
+		Close(locator1 = "title=Digital Experience Software Tailored to Your Needs | Liferay");
+	}
+
+	macro viewEntry {
+		LexiconEntry.changeDisplayStyle(displayStyle = "table");
+
+		var key_bookmarkName = "${bookmarkName}";
+		var key_bookmarkURL = "${bookmarkURL}";
+
+		AssertTextEquals(
+			locator1 = "Bookmarks#BOOKMARKS_TABLE_NAME",
+			value1 = "${bookmarkName}");
+
+		AssertTextEquals(
+			locator1 = "Bookmarks#BOOKMARKS_TABLE_URL",
+			value1 = "${bookmarkURL}");
+	}
+
+	macro viewNoCategoryCP {
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "Bookmark");
+
+		Panel.expandPanel(panel = "Categorization");
+
+		AssertElementNotPresent(locator1 = "AssetCategorization#VOCABULARY");
+	}
+
+	macro viewNoPG {
+		AssertTextNotPresent(value1 = "${bookmarkName}");
+
+		AssertTextNotPresent(value1 = "${bookmarkURL}");
+	}
+
+}

@@ -1,0 +1,14 @@
+@default = "assertConsoleTextPresent"
+definition {
+
+	function assertConsoleTextPresent {
+		WaitForSPARefresh();
+
+		selenium.assertConsoleTextPresent();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

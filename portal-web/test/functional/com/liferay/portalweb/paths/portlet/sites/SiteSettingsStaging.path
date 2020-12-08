@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>SiteSettingsStaging</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SiteSettingsStaging</td></tr>
+</thead>
+<tbody>
+<!--STAGING-->
+<tr>
+	<td>NONE_RADIO</td>
+	<td>//span[contains(.,'None')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>STAGING_LOCAL_LIVE</td>
+	<td>//span[contains(.,'Local Live')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>STAGING_REMOTE_LIVE</td>
+	<td>//span[contains(.,'Remote Live')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENABLED_ON_PUBLIC_PAGES_CHECKBOX</td>
+	<td>//span[contains(.,'Public Pages')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_CHECKBOX</td>
+	<td>//div[contains(@id,'stagingConfigurationControls')]//span[contains(.,'${key_contentName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_SELECT_ALL_CHECKBOX</td>
+	<td>//span[contains(.,'Select All')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--REMOTE_STAGING-->
+<tr>
+	<td>REMOTE_STAGING_IP</td>
+	<td>//input[contains(@id,'remoteAddress')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REMOTE_STAGING_PORT</td>
+	<td>//input[contains(@id,'remotePort')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REMOTE_STAGING_SITE_ID</td>
+	<td>//input[contains(@id,'remoteGroupId')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

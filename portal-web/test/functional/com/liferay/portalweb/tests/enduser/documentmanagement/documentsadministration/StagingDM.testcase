@@ -1,0 +1,432 @@
+@component-name = "portal-collaboration"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Documents Management";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONGroup.addGroup(groupName = "Site Name");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Staging DM Page");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Publishing",
+			portlet = "Staging");
+
+		Staging.activateStagingCP(siteName = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+	}
+
+	@description = "This is a use case for LPS-74621."
+	@priority = "3"
+	test CommentDMDocumentOnLiveSite {
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Documents and Media");
+
+		DMDocument.enableActionsMenuOnPortlet();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		DMDocument.addPG(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentFile = "Document_1.doc",
+			dmDocumentTitle = "DM Document Title");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		DMDocument.viewPG(dmDocumentTitle = "DM Document Title");
+
+		Comments.addPG(entryComment = "DM Document Comment");
+
+		Navigator.gotoSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		DMDocument.viewPG(dmDocumentTitle = "DM Document Title");
+
+		Comments.viewPG(
+			commentCount = "1",
+			entryComment = "DM Document Comment",
+			userFullName = "Test Test (You)");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		DMDocument.viewPG(dmDocumentTitle = "DM Document Title");
+
+		Comments.viewCommentReadOnly();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Publishing",
+			portlet = "Staging");
+
+		Staging.deactivateStagingCP(siteName = "Site Name");
+
+		Navigator.gotoSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		LAR.exportPortlet(larFileName = "DM.portlet.lar");
+
+		JSONGroup.addGroup(groupName = "Second Site");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Second Site",
+			layoutName = "DM Page");
+
+		Navigator.openSiteURL(siteName = "Second Site");
+
+		Portlet.addPG(portletName = "Documents and Media");
+
+		Navigator.openSiteURL(siteName = "Second Site");
+
+		LAR.importPortlet(larFileName = "DM.portlet.lar");
+
+		Navigator.openSiteURL(siteName = "Second Site");
+
+		DMDocument.viewPG(dmDocumentTitle = "DM Document Title");
+
+		Comments.viewPG(
+			commentCount = "1",
+			entryComment = "DM Document Comment",
+			userFullName = "Test Test (You)");
+	}
+
+	@description = "This is a use case for LPS-79925."
+	@priority = "5"
+	test PublishDocumentFromRestrictedFolder {
+		DMNavigator.gotoDocumentType();
+
+		DMDocumentType.add(
+			dmDocumentTypeDescription = "DM Document Type Description",
+			dmDocumentTypeFieldNames = "Text",
+			dmDocumentTypeName = "DM Document Type Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		Refresh();
+
+		DMFolder.addCP(
+			dmFolderDescription = "DM Folder Description",
+			dmFolderName = "DM Folder Name");
+
+		DMFolder.configureWorkflowCP(
+			dmDocumentTypeName = "DM Document Type Name",
+			dmFolderName = "DM Folder Name",
+			workflowDefinition = "No Workflow",
+			workflowRestriction = "Specific Restrictions");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		DMNavigator.gotoFolder(dmFolderName = "DM Folder Name");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = "DM Document Title",
+			dmDocumentTypeName = "DM Document Type Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		DMNavigator.gotoDocumentType();
+
+		DMDocumentType.edit(
+			dmDocumentTypeFieldRequiredEdit = "Text",
+			dmDocumentTypeName = "DM Document Type Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		AssertConsoleTextNotPresent(value1 = "DDMFormValuesValidationException");
+
+		AssertConsoleTextNotPresent(value1 = "No value defined for field name");
+	}
+
+	@description = "This test covers LPS-119234. It ensures that a document type can be published to live via SAP."
+	@priority = "4"
+	test PublishDocumentTypeViaSAP {
+		DMNavigator.gotoDocumentType();
+
+		DMDocumentType.add(
+			dmDocumentTypeDescription = "DM Document Type Description",
+			dmDocumentTypeFieldNames = "Text",
+			dmDocumentTypeName = "DM Document Type Name");
+
+		Staging.publishViaSAP(
+			confirmMessage = "Are you sure you want to publish to live?",
+			entry = "DM Document Type Name");
+
+		ProductMenu.gotoLiveSite(site = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		DMNavigator.gotoMetadataSets();
+
+		AssertElementNotPresent(
+			key_tableEntry = "DM Document Type Name",
+			locator1 = "LexiconTable#TABLE_ENTRY_TITLE_LINK");
+
+		DMNavigator.gotoDocumentType();
+
+		DMDocumentType.viewCP(dmDocumentTypeName = "DM Document Type Name");
+	}
+
+	@description = "This test covers LPS-82539."
+	@priority = "5"
+	test PublishFolderWithWorkflow {
+		DMFolder.addCP(
+			dmFolderDescription = "DM Folder Description",
+			dmFolderName = "DM Folder 1");
+
+		DMFolder.configureWorkflowCP(
+			dmFolderName = "DM Folder 1",
+			workflowDefinition = "Single Approver",
+			workflowRestriction = "Default Workflow");
+
+		DMFolder.viewCP(dmFolderName = "DM Folder 1");
+
+		DMDocument.addWithWorkflowCP(
+			dmDocumentDescription = "DM Document in Folder 1",
+			dmDocumentFile = "Document_1.txt",
+			dmDocumentTitle = "DM Document in Folder 1");
+
+		AssertTextEquals(
+			key_dmDocumentTitle = "DM Document in Folder 1",
+			locator1 = "DocumentsAndMedia#ICON_DOCUMENT_WORKFLOW_STATUS",
+			value1 = "Pending");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		Staging.publishViaSAP(
+			confirmMessage = "Are you sure you want to publish the selected folder?",
+			entry = "DM Folder 1");
+
+		ProductMenu.gotoLiveSite(site = "Guest");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		AssertTextEquals(
+			key_dmFolderName = "DM Folder 1",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_FOLDER_TITLE",
+			value1 = "DM Folder 1");
+
+		DMFolder.viewCP(dmFolderName = "DM Folder 1");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no documents or media files in this folder.");
+	}
+
+	@description = "This test covers LPS-82532. It ensures documents inside the subfolder that's being published to live are also published."
+	@priority = "5"
+	test PublishSubfolderWithDocumentsViaSAP {
+		property test.name.skip.portal.instance = "StagingDM#PublishSubfolderWithDocumentsViaSAP";
+
+		DMFolder.addCP(
+			dmFolderDescription = "DM Folder Description",
+			dmFolderName = "DM Folder 1");
+
+		DMFolder.viewCP(dmFolderName = "DM Folder 1");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "DM Document in Folder 1",
+			dmDocumentFile = "Document_1.txt",
+			dmDocumentTitle = "DM Document in Folder 1");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		DMFolder.viewCP(
+			dmFolderName = "DM Folder 1",
+			specificNameFolder = "true");
+
+		DMFolder.addCP(dmFolderName = "DM Folder 2");
+
+		DMFolder.viewCP(
+			dmFolderName = "DM Folder 2",
+			specificNameFolder = "true");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "DM Document in Folder 2",
+			dmDocumentFile = "Document_2.txt",
+			dmDocumentTitle = "DM Document in Folder 2");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		DMFolder.viewCP(dmFolderName = "DM Folder 1");
+
+		DMFolder.viewCP(
+			dmFolderName = "DM Folder 2",
+			specificNameFolder = "true");
+
+		DMFolder.addCP(dmFolderName = "DM Folder 3");
+
+		DMFolder.viewCP(
+			dmFolderName = "DM Folder 3",
+			specificNameFolder = "true");
+
+		DMDocument.addCP(
+			dmDocumentDescription = "DM Document in Folder 3",
+			dmDocumentFile = "Document_3.txt",
+			dmDocumentTitle = "DM Document in Folder 3");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		Staging.publishViaSAP(
+			confirmMessage = "Are you sure you want to publish the selected folder?",
+			entry = "DM Folder 1");
+
+		ProductMenu.gotoLiveSite(site = "Guest");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		for (var folderCount : list "1,2,3") {
+			DMFolder.viewCP(dmFolderName = "DM Folder ${folderCount}");
+
+			DMNavigator.gotoDocumentCP(dmDocumentTitle = "DM Document in Folder ${folderCount}");
+
+			DMDocument.viewCP(dmDocumentTitle = "DM Document in Folder ${folderCount}");
+
+			Navigator.gotoBack();
+		}
+	}
+
+	@description = "This test covers LPS-99265. It ensures that a staged document file cannot be shared unless it is first published to Live."
+	@priority = "4"
+	test ShareDMDocumentOnLiveSite {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
+		JSONUser.addUser(
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Documents and Media");
+
+		DMDocument.enableActionsMenuOnPortlet();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		DMDocumentSharing.addDocumentWithOnlyOwnerPermissions(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentFile = "Document_1.doc",
+			dmDocumentTitle = "DM Document Title");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		AssertClick(
+			key_dmDocumentTitle = "DM Document Title",
+			locator1 = "DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_TITLE",
+			value1 = "DM Document Title");
+
+		AssertElementNotPresent(locator1 = "Button#SHARE_SIDENAV");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging DM Page",
+			siteName = "Site Name");
+
+		DMNavigator.gotoShare(dmDocumentTitle = "DM Document Title");
+
+		DMDocument.sharePG(
+			shareable = "true",
+			userEmailAddress = "userea@liferay.com",
+			userName = "userfn userln");
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "userea@liferay.com");
+
+		Notifications.viewBadgeCount(notificationCount = "1");
+
+		Notifications.gotoNotifications();
+
+		Notifications.viewNewSharedContent(
+			contentSharingPermission = "viewing",
+			contentTitle = "DM Document Title",
+			ownerName = "Test Test");
+	}
+
+}

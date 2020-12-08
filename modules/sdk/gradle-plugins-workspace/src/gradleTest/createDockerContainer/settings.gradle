@@ -1,0 +1,22 @@
+import com.bmuschko.gradle.docker.tasks.container.DockerCopyFileFromContainer
+
+buildscript {
+	dependencies {
+		classpath fileTree(dir: pluginClasspathDir, include: "*.jar")
+	}
+}
+
+apply plugin: "com.liferay.workspace"
+
+gradle.projectsEvaluated {
+	Project rootProject = gradle.rootProject
+
+	rootProject.tasks.register("copyOverrideTestScript", DockerCopyFileFromContainer) {
+		dependsOn "createDockerContainer"
+
+		compressed = true
+		containerId = gradle.liferayWorkspace.dockerContainerId
+		hostPath = rootProject.buildDir.path
+		remotePath = "/home/liferay/configs/local/scripts/override_test.sh"
+	}
+}

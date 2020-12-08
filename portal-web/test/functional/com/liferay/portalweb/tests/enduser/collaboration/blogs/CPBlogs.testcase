@@ -1,0 +1,622 @@
+@component-name = "portal-collaboration"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Blogs";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			BlogsEntry.tearDownCP();
+		}
+	}
+
+	@description = "Ensure that a user can add multiple Blogs Entries."
+	@priority = "4"
+	test AddBlogsEntries {
+		property testray.component.names = "Blogs";
+		property testray.main.component.name = "Blogs";
+
+		task ("Add a blogs entry called 'Blogs Entry1 Title' with content 'Blogs Entry1 Content'") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			Blogs.addEntry(
+				entryContent = "Blogs Entry1 Content",
+				entryTitle = "Blogs Entry1 Title");
+		}
+
+		task ("Add a blogs entry called 'Blogs Entry2 Title' with content 'Blogs Entry2 Content'") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			Blogs.addEntry(
+				entryContent = "Blogs Entry2 Content",
+				entryTitle = "Blogs Entry2 Title");
+		}
+
+		task ("Add a blogs entry called 'Blogs Entry3 Title' with content 'Blogs Entry3 Content'") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			Blogs.addEntry(
+				entryContent = "Blogs Entry3 Content",
+				entryTitle = "Blogs Entry3 Title");
+		}
+
+		task ("Ensure blogs entry 'Blogs Entry1 Title' with content 'Blogs Entry1 Content' can be found") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry1 Title");
+
+			BlogsEntry.viewEntryCP(
+				entryContent = "Blogs Entry1 Content",
+				entryTitle = "Blogs Entry1 Title");
+		}
+
+		task ("Ensure blogs entry 'Blogs Entry2 Title' with content 'Blogs Entry2 Content' can be found") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry2 Title");
+
+			BlogsEntry.viewEntryCP(
+				entryContent = "Blogs Entry2 Content",
+				entryTitle = "Blogs Entry2 Title");
+		}
+
+		task ("Ensure blogs entry 'Blogs Entry3 Title' with content 'Blogs Entry3 Content' can be found") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry3 Title");
+
+			BlogsEntry.viewEntryCP(
+				entryContent = "Blogs Entry3 Content",
+				entryTitle = "Blogs Entry3 Title");
+		}
+	}
+
+	@priority = "5"
+	test AddBlogsEntry {
+		property app.server.types = "jboss,tcserver,tomcat,weblogic,websphere,wildfly";
+		property database.types = "db2,hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+		property environment.acceptance = "true";
+		property testray.component.names = "WYSIWYG";
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "4"
+	test AddBlogsEntryContentNull {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addWithInvalidContent(
+			entryInvalidContent = "",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsEntry.viewDefaultCP(entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "4"
+	test AddBlogsEntryTitleEscapeCharacters {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry Content",
+			entryTitle = '''& < > " Escape Characters Entry''');
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = '''& < > " Escape Characters Entry''');
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entryTitle = '''& < > " Escape Characters Entry''');
+	}
+
+	@priority = "4"
+	test AddBlogsEntryTitleNull {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addWithInvalidTitle(
+			entryContent = "Blogs Entry Content",
+			entryInvalidTitle = "");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsEntry.viewDefaultCP(entryTitle = "");
+	}
+
+	@description = "This is a use case for LPS-70143."
+	@priority = "4"
+	test AddBlogsEntryWithDMLink {
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentTitle = "Document_1.jpg",
+			groupName = "Guest",
+			mimeType = "image/jpeg",
+			sourceFileName = "Document_1.jpg");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		var dmDocument1URL = DMDocument.getDMLatestVersionURL(
+			dmDocumentTitle = "Document_1.jpg",
+			site = "Guest");
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentTitle = "Document_2.jpg",
+			groupName = "Guest",
+			mimeType = "image/jpeg",
+			sourceFileName = "Document_2.jpg");
+
+		var dmDocument2URL = DMDocument.getDMLatestVersionURL(
+			dmDocumentTitle = "Document_2.jpg",
+			site = "Guest");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoAddEntry();
+
+		BlogsEntry.addEntryContent(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.addEntryExternalLinkViaBrowseButton(
+			imageFileName = "Document_1.jpg",
+			navTab = "Documents and Media");
+
+		BlogsEntry.viewEntryExternalURL(
+			entryContent = "Blogs Entry Content",
+			entryExternalURL = "${dmDocument1URL}",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.addEntryExternalLinkViaBrowseButton(
+			entryContent = "Blogs Entry Content",
+			imageFileName = "Document_2.jpg",
+			navTab = "Documents and Media");
+
+		BlogsEntry.viewEntryExternalURL(
+			entryContent = "Blogs Entry Content",
+			entryExternalURL = "${dmDocument2URL}",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "4"
+	test AddBlogsEntryWithSubtitle {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "5"
+	test AddBlogWithFormatting {
+		property testray.component.names = "Training,WYSIWYG";
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		LexiconEntry.gotoAdd();
+
+		BlogsNavigator.gotoSelectFile();
+
+		ItemSelector.uploadFile(
+			navTab = "Blog Images",
+			uploadFileName = "Document_1.jpg");
+
+		BlogsEntry.addEntryContent(
+			entryContent = '''A World-Renowned Professor<br />It's no secret that Agricultural Science Department professor Dr. Wolfgang von Richter has built his entire career on solving the problem of sustainable living on other planets. For Dr. von Richter, the humble lima bean, which comes from the aptly-named phaseolus lunatus plant of the legume family, is the solution. For years, Dr. von Richter has cultivated variety after variety of lima bean. He's turned lima beans cobalt blue by adding the hardiness of a violet gene; he's grown lima beans the size of fists with his nutrient-rich, hyper-growth soil. But how realistic is his dream of getting lima beans to grow in the harsh, unpredictable, and, frankly, otherworldly conditions of different planets?''',
+			entrySubtitle = "A conversation with Dr. Von Richter",
+			entryTitle = "Is the Lima Bean Really the Answer to Our Life on Other Planets?");
+
+		BlogsEntry.selectFormattingStyle(styleFormat = "Heading 2");
+
+		Button.clickPublish();
+	}
+
+	@priority = "5"
+	test DeleteBlogsEntries {
+		property portal.acceptance = "true";
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry1 Content",
+			entryTitle = "Blogs Entry1 Title");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry2 Content",
+			entryTitle = "Blogs Entry2 Title");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry3 Content",
+			entryTitle = "Blogs Entry3 Title");
+
+		for (var entryCount : list "1,2,3") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			BlogsNavigator.gotoEntryCP(
+				entryContent = "Blogs Entry${entryCount} Content",
+				entryTitle = "Blogs Entry${entryCount} Title");
+
+			BlogsEntry.viewEntryCP(
+				entryContent = "Blogs Entry${entryCount} Content",
+				entryTitle = "Blogs Entry${entryCount} Title");
+		}
+
+		for (var entryCount : list "1,2,3") {
+			BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+			BlogsNavigator.moveToRecycleBinCP(
+				assetType = "Blogs Entry",
+				entryTitle = "Blogs Entry${entryCount} Title");
+		}
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		for (var entryCount : list "1,2,3") {
+			BlogsEntry.viewNoCP(entryTitle = "Blogs Entry${entryCount} Title");
+		}
+	}
+
+	@description = "This test covers LPS-121443. It ensures that a blog entry can be published normally after saving automatically."
+	@priority = "4"
+	test PublishBlogsEntryAutoDraft {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addDraftViaAutoSave(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+
+		PortletEntry.publish();
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		AssertElementNotPresent(
+			key_entryStatus = "draft",
+			key_entryTitle = "Blogs Entry Title",
+			locator1 = "Blogs#ICON_VIEW_ENTRY_TITLE_2");
+
+		AssertVisible(
+			key_entryStatus = "approved",
+			key_entryTitle = "Blogs Entry Title",
+			locator1 = "Blogs#ICON_VIEW_ENTRY_TITLE_2");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "4"
+	test PublishBlogsEntryDraft {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addDraft(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.publishDraftCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "4"
+	test SaveBlogsEntryDraft {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addDraft(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoEntryCP(
+			entryStatus = "Draft",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "4"
+	test SaveBlogsEntryDraftAuto {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addDraftViaAutoSave(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoEntryCP(
+			entryStatus = "Draft",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "4"
+	test SearchBlogsEntryContent {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Blogs",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Entry",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Content",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.searchNoCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Blogs1 Entry1 Content1",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "4"
+	test SearchBlogsEntryTitle {
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Blogs Entry Title",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Blogs",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Entry",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.searchCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Title",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.searchNoCP(
+			entryContent = "Blogs Entry Content",
+			entrySearchTerm = "Blogs1 Entry1 Title1",
+			entryTitle = "Blogs Entry Title");
+	}
+
+	@priority = "3"
+	test SearchBlogsImagesViaItemSelector {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntryWithUploadedCoverImage(
+			coverImageName = "Document_1",
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			navTab = "Blog Images",
+			uploadFileName = "Document_1.jpg");
+
+		Button.clickPublish();
+
+		Pause(locator1 = "30000");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			uploadFileName = "Document_1");
+
+		BlogsNavigator.gotoBrowseImage();
+
+		ItemSelector.searchBlogImages(imageFileName = "Document_1.jpg");
+	}
+
+	@priority = "3"
+	test SearchDMImagesViaItemSelector {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntryWithUploadedCoverImage(
+			coverImageName = "Document_1",
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			navTab = "Documents and Media",
+			uploadFileName = "Document_1.jpg");
+
+		Button.clickPublish();
+
+		Pause(locator1 = "30000");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			uploadFileName = "Document_1");
+
+		BlogsNavigator.gotoBrowseImage();
+
+		ItemSelector.searchDMImages(imageFileName = "Document_1.jpg");
+	}
+
+	@priority = "3"
+	test ViewBlogsEntryDraftWithCoverImage {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntryWithUploadedCoverImage(
+			coverImageName = "Document_1",
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			navTab = "Blog Images",
+			uploadFileName = "Document_1.jpg");
+
+		Pause(locator1 = "1000");
+
+		BlogsEntry.saveAsDraft();
+
+		Click(locator1 = "Icon#BACK");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		var key_entryTitle = "Blogs Entry Title";
+
+		Blogs.viewEntryTitle(entryTitle = "Blogs Entry Title");
+
+		AssertTextEquals(
+			locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_STATUS",
+			value1 = "Draft");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			uploadFileName = "Document_1");
+	}
+
+	@priority = "3"
+	test ViewCoverImageDetails {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		Blogs.addEntryWithUploadedCoverImage(
+			coverImageName = "Document_1",
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			navTab = "Blog Images",
+			uploadFileName = "Document_1.jpg");
+
+		Button.clickPublish();
+
+		Pause(locator1 = "30000");
+
+		BlogsNavigator.gotoEntryCP(entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewEntryCP(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			uploadFileName = "Document_1");
+
+		BlogsNavigator.gotoBrowseImage();
+
+		ItemSelector.viewBlogImageDetails(
+			imageFileName = "Document_1.jpg",
+			imageFormat = "jpg",
+			imageSize = "13 KB",
+			imageStatus = "approved",
+			lastModifiedBy = "Test Test",
+			uploadFileName = "Document_1.jpg",
+			versionNumber = "1.0");
+	}
+
+	@priority = "4"
+	test ViewErrorMessageForNullCustomAbstract {
+		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
+
+		BlogsNavigator.gotoAddEntry();
+
+		Panel.expandPanel(panel = "Configuration");
+
+		Click(locator1 = "Radio#CUSTOM_ABSTRACT");
+
+		AssertClick.assertTextClickAt(
+			locator1 = "Button#PUBLISH",
+			value1 = "Publish");
+
+		AssertTextEquals(
+			locator1 = "BlogsEntry#TITLE_FIELD_HELPER",
+			value1 = "This field is required.");
+
+		BlogsEntry.addTitle(entryTitle = "Blogs Title");
+
+		AssertClick.assertTextClickAt(
+			locator1 = "Button#PUBLISH",
+			value1 = "Publish");
+
+		Alert.viewRequiredField();
+	}
+
+}

@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>AssetWorkflow</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AssetWorkflow</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ALL_STRUCTURES_WORKFLOW_SELECT</td>
+	<td>//select[contains(@id,'workflowDefinition')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_PREVIEW_VIEW</td>
+	<td>//div[@class='lfr-ddm-container']//div[contains(.,'${key_fieldLabel}') and contains(.,'${key_fieldValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_FIELD_PREVIEW_VIEW</td>
+	<td>//div[@class='lfr-ddm-container']//div[contains(.,'${key_fieldLabel}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_STATUS</td>
+	<td>//span[contains(@class,'text-uppercase')] | //span[contains(@class,'workflow-value') and contains(@class,'status')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DUE_DATE</td>
+	<td>//span[contains(@class,'control-label') and contains(text(),'Due Date')]/parent::div//div[contains(text(),'${key_date}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DETAILS_WORKFLOW-->
+<tr>
+	<td>DETAILS_WORKFLOW_CREATED_BY</td>
+	<td>//div[@class='sidebar-body']//p</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_WORKFLOW_STATUS</td>
+	<td>//span[contains(@class,'workflow-status')]//strong</td>
+	<td></td>
+</tr>
+<!--TRANSLATIONS_PREVIEW-->
+<tr>
+	<td>TRANSLATIONS_PREVIEW_EDITOR</td>
+	<td>//div[contains(@class,'translation-editor-preview') and contains(.,'${key_fieldValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TRANSLATIONS_PREVIEW_LOCALIZATION</td>
+	<td>//*[*[name()='svg'][contains(@class,'lexicon-icon-${key_localizationName}')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TRANSLATIONS_PREVIEW_TITLE</td>
+	<td>//div[contains(@class,'form-group')]//input[contains(@id,'MyWorkflowTaskPortlet_Title') and contains(@value,'${key_titleValue}') and @readonly='true'] </td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>DDMSelectTemplate</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">DDMSelectTemplate</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>COPY_FORM_TEMPLATES_CHECKBOX</td>
+	<td>//input[contains(@id,'copyFormTemplates')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COPY_DISPLAY_TEMPLATES_CHECKBOX</td>
+	<td>//input[contains(@id,'copyDisplayTemplates')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--TEMPLATE_CARDS-->
+<tr>
+	<td>TEMPLATE_CARDS_NAME</td>
+	<td>//div[contains(@class,'autofit-col')]/a[contains(., '${key_ddlTemplateName}')] | //div[contains(@class,'autofit-col')]/div[contains(., '${key_ddlTemplateName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_CARDS_SMALL_IMAGE</td>
+	<td>//div[contains(@class,'aspect-ratio')]/div/label//img</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--TEMPLATE_TABLE-->
+<tr>
+	<td>TEMPLATE_TABLE_ALL_CHECKBOX</td>
+	<td>//div[contains(@id,'DDMPortlet_managementBarContainerId')]//input[contains(@name,'allRowIds')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_NAME</td>
+	<td>//div[contains(@id,'ddmTemplatesSearchContainer')]//td[3]/a[contains(.,'${key_ddlTemplateName}')] | //div[contains(@id,'ddmTemplatesSearchContainer')]//tr/td[contains(.,'${key_ddlTemplateName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_NAME_LINK</td>
+	<td>xpath=(//div[contains(@id,'ddmTemplatesSearchContainer')]//tr[contains(.,'${key_ddlTemplateName}')]/td[3]//a)[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_DUPLICATE_TEMPLATE_NAME</td>
+	<td>xpath=(//div[contains(@id,'ddmTemplatesSearchContainer')]//tr[contains(.,'${key_ddlTemplateName}')]/td[3]//a)[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_DESCRIPTION</td>
+	<td>xpath=(//div[contains(@id,'ddmTemplatesSearchContainer')]//td[4])[contains(.,'${key_ddlTemplateDescription}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_DESCRIPTION_SMALL_IMAGE</td>
+	<td>//img[contains(@class,'small-image') and contains(@alt,'${key_ddlTemplateName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_MODE</td>
+	<td>xpath=(//div[contains(@id,'ddmTemplatesSearchContainer')]//td[5])[contains(.,'${key_ddlStructureName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_LANGUAGE</td>
+	<td>//div[contains(@id,'ddmTemplatesSearchContainer')]//td[6]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_ELLIPSIS</td>
+	<td>xpath=(//div[contains(@id,'ddmTemplatesSearchContainer')]//tr[contains(.,'${key_ddlTemplateName}')]/td[9]//div/a)[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TABLE_ELLIPSIS_1</td>
+	<td>xpath=(//div[contains(@id,'ddmTemplatesSearchContainer')]//tr/td[9]//div/a)[1]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

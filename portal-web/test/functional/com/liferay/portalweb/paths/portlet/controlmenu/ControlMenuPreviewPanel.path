@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>ControlMenuPreviewPanel</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ControlMenuPreviewPanel</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>PREVIEW_DATA_DEVICE_BUTTON</td>
+	<td>//div[contains(@class,'devices')]//button[@data-device='${key_deviceType}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_CUSTOM_WIDTH_FIELD</td>
+	<td>//input[contains(@id,'_width')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_CUSTOM_HEIGHT_FIELD</td>
+	<td>//input[contains(@id,'_height')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_DEVICE_IFRAME</td>
+	<td>//div[contains(@class,'${key_deviceType}')]//iframe[@id='simulationDeviceIframe']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_DEVICE_GENERAL_IFRAME</td>
+	<td>//iframe[@id='simulationDeviceIframe']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

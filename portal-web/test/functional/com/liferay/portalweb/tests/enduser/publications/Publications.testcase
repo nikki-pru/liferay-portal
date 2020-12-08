@@ -1,0 +1,714 @@
+@component-name = "portal-publications"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Publications";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Publications",
+			panel = "Applications",
+			portlet = "Settings");
+
+		Publications.enablePublications();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			ApplicationsMenu.gotoPortlet(
+				category = "Publications",
+				panel = "Applications",
+				portlet = "Settings");
+
+			Publications.disablePublications();
+		}
+	}
+
+	@priority = "5"
+	test ConflictingPublicationsAutomaticallyResolved {
+		property test.name.skip.portal.instance = "Publications#ConflictingPublicationsAutomaticallyResolved";
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "WC WebContent Title");
+
+		PortletEntry.publish();
+
+		Publications.createNewPublication(publicationsName = "Publication Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
+
+		WebContent.editCP(
+			webContentContentEdit = "WC WebContent Content 1 Edit",
+			webContentTitle = "WC WebContent Title",
+			webContentTitleEdit = "WC WebContent Title");
+
+		Publications.createNewPublication(publicationsName = "Publication 2 Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
+
+		WebContent.editCP(
+			webContentContentEdit = "WC WebContent Content 2 Edit",
+			webContentTitle = "WC WebContent Title",
+			webContentTitleEdit = "WC WebContent Title");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Publications",
+			panel = "Applications",
+			portlet = "Publications");
+
+		Navigator.gotoNavTab(navTab = "Ongoing");
+
+		Publications.assertDiscardIsUnavailableForInactivePublication(
+			publicationsCategory = "Web Content Article",
+			publicationsName = "Publication Name",
+			publicationsTitle = "WC WebContent Title");
+
+		Publications.gotoPublish(publicationsName = "Publication 2 Name");
+
+		Publications.publishPublication(publicationsName = "Publication 2 Name");
+
+		Publications.selectPublication(publicationsName = "Publication Name");
+
+		Publications.gotoPublish(
+			gotoManagePublications = "true",
+			publicationsName = "Publication Name");
+
+		Publications.viewAutomaticallyResolved(
+			entryTitle = "Test Test added a Web Content Article",
+			successMessage = "The article version was updated to latest.");
+
+		Publications.viewAutomaticallyResolved(
+			entryTitle = "Test Test modified a Asset",
+			successMessage = "The conflict was automatically resolved.");
+
+		AssertElementNotPresent(locator1 = "Publications#NEEDS_MANUAL_RESOLUTION_TABLE");
+
+		AssertElementNotPresent(
+			key_warningMessage = "The conflict cannot be automatically resolved.",
+			locator1 = "Message#WARNING_SPECIFIC");
+
+		Publications.publishPublication(publicationsName = "Publication Name");
+	}
+
+	@priority = "4"
+	test ConflictingPublicationsNeedManualResolution {
+		property test.name.skip.portal.instance = "Publications#ConflictingPublicationsNeedManualResolution";
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "WC WebContent Title");
+
+		PortletEntry.publish();
+
+		Publications.createNewPublication(publicationsName = "Publication Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContent.deleteCP(
+			siteURLKey = "Guest",
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "WC WebContent Title");
+
+		Publications.createNewPublication(publicationsName = "Publication 2 Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
+
+		WebContent.editCP(
+			webContentContentEdit = "WC WebContent Content 2 Edit",
+			webContentTitle = "WC WebContent Title",
+			webContentTitleEdit = "WC WebContent Title 2 Edit");
+
+		Publications.selectPublication(publicationsName = "Publication Name");
+
+		Publications.gotoReviewPublications();
+
+		PublicationsChanges.viewPublicationsViaChangesStyle(
+			publicationsCategory = "Web Content Article",
+			publicationsSite = "Guest",
+			publicationsTitle = "WC WebContent Title",
+			publicationsType = "Deleted",
+			publicationsUser = "Test Test");
+
+		PublicationsChanges.viewPublicationsViaContextStyle(
+			publicationsCategory = "Web Content Article",
+			publicationsDescription = "Test Test deleted a Web Content Article in Guest",
+			publicationsTitle = "WC WebContent Title");
+
+		Publications.gotoPublish(publicationsName = "Publication Name");
+
+		Publications.publishPublication(publicationsName = "Publication Name");
+
+		Publications.selectPublication(publicationsName = "Publication 2 Name");
+
+		Navigator.gotoNavTab(navTab = "History");
+
+		PublicationsChanges.viewPublicationsViaChangesStyle(
+			publicationsCategory = "Web Content Article",
+			publicationsSite = "Guest",
+			publicationsTitle = "WC WebContent Title",
+			publicationsType = "Deleted",
+			publicationsUser = "Test Test",
+			publishedPublication = "true");
+
+		Publications.gotoReviewPublications();
+
+		PublicationsChanges.viewPublicationsViaChangesStyle(
+			publicationsCategory = "Web Content Article",
+			publicationsSite = "Guest",
+			publicationsTitle = "WC WebContent Title 2 Edit",
+			publicationsType = "Added",
+			publicationsUser = "Test Test");
+
+		PublicationsChanges.viewPublicationsViaContextStyle(
+			publicationsCategory = "Web Content Article",
+			publicationsDescription = "Test Test added a Web Content Article in Guest",
+			publicationsTitle = "WC WebContent Title 2 Edit");
+
+		Publications.gotoPublish(publicationsName = "Publication 2 Name");
+
+		Publications.viewNeedsManualResolution(
+			entryTitle = "WC WebContent Title 2 Edit",
+			warningMessage = "Modification conflicts with a deletion.");
+
+		Publications.gotoViewDiffInConflictingPublications(entryTitle = "WC WebContent Title 2 Edit");
+
+		Publications.viewPublicationsDiff(
+			columnName = "Title",
+			columnValueInPublication = "WC WebContent Title 2 Edit",
+			entryTitle = "WC WebContent Title 2 Edit",
+			publicationsName = "Publication 2 Name");
+
+		Publications.viewPublicationsDiff(
+			columnName = "ct-collection-id",
+			columnValueInPublication = "2",
+			entryTitle = "WC WebContent Title 2 Edit",
+			publicationsName = "Publication 2 Name");
+
+		IFrame.closeFrame();
+
+		Pause(locator1 = "3000");
+
+		Publications.discardPublications(
+			conflictingPublications = "true",
+			entryTitle = "WC WebContent Title 2 Edit",
+			publicationsCategory = "Asset",
+			publicationsTitle = "WC WebContent Title 2 Edit");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContent.viewNotPresentCP(webContentTitle = "WC WebContent Title 2 Edit");
+
+		WebContent.viewNotPresentCP(webContentTitle = "WC WebContent Title");
+
+		Publications.gotoPublish(publicationsName = "Publication 2 Name");
+
+		Publications.publishPublication(publicationsName = "Publication 2 Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No web content was found.");
+	}
+
+	@priority = "4"
+	test DiscardSubsetsofChangesInPublication {
+		property test.name.skip.portal.instance = "Publications#DiscardSubsetsofChangesInPublication";
+
+		Publications.createNewPublication(publicationsName = "Publication Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "WC WebContent Title");
+
+		PortletEntry.publish();
+
+		NavItem.gotoStructures();
+
+		WebContentStructures.addCP(
+			structureDescription = "WC Structure Description",
+			structureName = "WC Structure Name");
+
+		DataEngine.addField(
+			fieldFieldLabel = "Text",
+			fieldName = "Text");
+
+		WebContentStructures.saveCP(structureName = "WC Structure Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		NavItem.gotoTemplates();
+
+		WebContentTemplates.addCP(
+			structureName = "WC Structure Name",
+			templateDescription = "WC Template Description",
+			templateFieldNames = "Text",
+			templateName = "WC Template Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddWithStructureCP(structureName = "WC Structure Name");
+
+		WebContent.addWithStructureCP(
+			structureName = "WC Structure Name",
+			templateName = "WC Template Name",
+			webContentText = "WC WebContent Text",
+			webContentTitle = "WC WebContent Title 1");
+
+		PortletEntry.publish();
+
+		Publications.gotoReviewPublications();
+
+		Publications.discardPublications(
+			publicationsCategory = "Dynamic Data Mapping Structure",
+			publicationsTitle = "WC Structure Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContent.viewNotPresentCP(webContentTitle = "WC WebContent Title 2 Edit");
+
+		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+
+		NavItem.gotoStructures();
+
+		AssertElementNotPresent(
+			key_ddlDataDefinitionName = "WC Structure Name",
+			locator1 = "DDMSelectStructure#DDM_STRUCTURE_TABLE_NAME");
+
+		NavItem.gotoTemplates();
+
+		AssertElementNotPresent(
+			key_ddlTemplateName = "WC Template Name",
+			locator1 = "DDMSelectTemplate#TEMPLATE_TABLE_NAME");
+
+		Publications.gotoPublish(publicationsName = "Publication Name");
+
+		Publications.publishPublication(publicationsName = "Publication Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContent.viewNotPresentCP(webContentTitle = "WC WebContent Title 2 Edit");
+
+		WebContent.viewTitle(webContentTitle = "WC WebContent Title");
+
+		NavItem.gotoStructures();
+
+		AssertElementNotPresent(
+			key_ddlDataDefinitionName = "WC Structure Name",
+			locator1 = "DDMSelectStructure#DDM_STRUCTURE_TABLE_NAME");
+
+		NavItem.gotoTemplates();
+
+		AssertElementNotPresent(
+			key_ddlTemplateName = "WC Template Name",
+			locator1 = "DDMSelectTemplate#TEMPLATE_TABLE_NAME");
+	}
+
+	@priority = "5"
+	test PublishParallelPublications {
+		property test.name.skip.portal.instance = "Publications#PublishParallelPublications";
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentFolder.addCP(
+			folderDescription = "WC Folder Description",
+			folderName = "WC Folder Name");
+
+		Publications.createNewPublication(publicationsName = "Publication Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentFolder.gotoCP(
+			folderName = "WC Folder Name",
+			webContentTitle = "WC Folder Name");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent 1 Content",
+			webContentTitle = "WC WebContent 1 Title");
+
+		PortletEntry.publish();
+
+		Publications.createNewPublication(publicationsName = "Publication 2 Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentFolder.gotoCP(
+			folderName = "WC Folder Name",
+			webContentTitle = "WC Folder Name");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent 2 Content",
+			webContentTitle = "WC WebContent 2 Title");
+
+		PortletEntry.publish();
+
+		Publications.gotoPublish(publicationsName = "Publication 2 Name");
+
+		Publications.publishPublication(publicationsName = "Publication 2 Name");
+
+		Publications.selectPublication(publicationsName = "Publication Name");
+
+		Publications.gotoPublish(publicationsName = "Publication Name");
+
+		Publications.publishPublication(publicationsName = "Publication Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentFolder.gotoCP(
+			folderName = "WC Folder Name",
+			webContentTitle = "WC Folder Name");
+
+		AssertElementPresent(
+			key_webContentTitle = "WC WebContent 1 Title",
+			locator1 = "WC#ENTRY_LIST_TITLE");
+
+		AssertElementPresent(
+			key_webContentTitle = "WC WebContent 2 Title",
+			locator1 = "WC#ENTRY_LIST_TITLE");
+	}
+
+	@priority = "5"
+	test RescheduleAndCancelScheduledPublication {
+		property test.name.skip.portal.instance = "Publications#RescheduleAndCancelScheduledPublication";
+
+		Publications.createNewPublication(publicationsName = "Publication Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "WC WebContent Title");
+
+		PortletEntry.publish();
+
+		Publications.schedulePublication(publicationsName = "Publication Name");
+
+		Publications.schedulePublication(
+			publicationsName = "Publication Name",
+			reschedule = "true");
+
+		Publications.unschedulePublication(publicationsName = "Publication Name");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No publication has been scheduled yet.");
+	}
+
+	@priority = "5"
+	test RevertPublicationAndPublishNow {
+		property test.name.skip.portal.instance = "Publications#RevertPublicationAndPublishNow";
+
+		Publications.createNewPublication(publicationsName = "Publication Name");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = "Web Content Title");
+
+		PortletEntry.publish();
+
+		Publications.gotoPublish(publicationsName = "Publication Name");
+
+		Publications.publishPublication(publicationsName = "Publication Name");
+
+		Publications.viewPublishedPublicationDetails(
+			publicationPublishedBy = "Test Test",
+			publicationsName = "Publication Name");
+
+		AssertTextPresent(
+			key_publicationsName = "Production",
+			locator1 = "Publications#PUBLICATIONS_INDICATOR_TITLE",
+			value1 = "Production");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		AssertElementPresent(
+			key_webContentTitle = "Web Content Title",
+			locator1 = "WC#ENTRY_LIST_TITLE");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Publications",
+			panel = "Applications",
+			portlet = "Publications");
+
+		Navigator.gotoNavTab(navTab = "History");
+
+		Publications.revertPublication(
+			publicationsName = "Publication Name",
+			publishNow = "true");
+
+		Publications.publishPublication(publicationsName = "Revert &quot;Publication Name&quot;");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No web content was found.");
+	}
+
+	@priority = "5"
+	test SchedulePublication {
+		property test.name.skip.portal.instance = "Publications#SchedulePublication";
+
+		Publications.createNewPublication(publicationsName = "Publication Name 1");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent 1 Content",
+			webContentTitle = "WC WebContent 1 Title");
+
+		PortletEntry.publish();
+
+		Publications.schedulePublication(publicationsName = "Publication Name 1");
+
+		Pause(locator1 = "120000");
+
+		Publications.assertScheduledPublicationPublished(publicationsName = "Publication Name 1");
+
+		Publications.createNewPublication(publicationsName = "Publication Name 2");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent 2 Content",
+			webContentTitle = "WC WebContent 2 Title");
+
+		PortletEntry.publish();
+
+		Publications.schedulePublication(
+			gotoManagePublications = "true",
+			publicationsName = "Publication Name 2");
+
+		Pause(locator1 = "120000");
+
+		Publications.assertScheduledPublicationPublished(publicationsName = "Publication Name 2");
+
+		Publications.createNewPublication(publicationsName = "Publication Name 3");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent 3 Content",
+			webContentTitle = "WC WebContent 3 Title");
+
+		PortletEntry.publish();
+
+		Publications.schedulePublication(
+			gotoReviewPublications = "true",
+			publicationsName = "Publication Name 3");
+
+		Pause(locator1 = "120000");
+
+		Publications.assertScheduledPublicationPublished(publicationsName = "Publication Name 3");
+	}
+
+	@priority = "5"
+	test SearchPublishedPublications {
+		property test.name.skip.portal.instance = "Publications#SearchPublishedPublications";
+
+		Publications.createNewPublication(publicationsName = "Apple");
+
+		Publications.createNewPublication(publicationsName = "Banana");
+
+		Publications.createNewPublication(publicationsName = "Cherry");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Publications",
+			panel = "Applications",
+			portlet = "Publications");
+
+		Navigator.gotoNavTab(navTab = "Ongoing");
+
+		for (var publicationsName : list "Apple,Banana,Cherry") {
+			Publications.search(publicationsName = "${publicationsName}");
+		}
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Cherry");
+
+		Publications.gotoPublish(publicationsName = "Cherry");
+
+		Publications.publishPublication(publicationsName = "Cherry");
+
+		Publications.selectPublication(publicationsName = "Banana");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Banana");
+
+		Publications.gotoPublish(publicationsName = "Banana");
+
+		Publications.publishPublication(publicationsName = "Banana");
+
+		Publications.selectPublication(publicationsName = "Apple");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Apple");
+
+		Publications.gotoPublish(publicationsName = "Apple");
+
+		Publications.publishPublication(publicationsName = "Apple");
+
+		Navigator.gotoNavTab(navTab = "History");
+
+		for (var publicationsName : list "Apple,Banana,Cherry") {
+			Publications.search(publicationsName = "${publicationsName}");
+		}
+	}
+
+}

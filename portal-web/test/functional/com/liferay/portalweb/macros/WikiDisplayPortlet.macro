@@ -1,0 +1,35 @@
+definition {
+
+	macro configureSetupPG {
+		Portlet.gotoPortletOptions(
+			portletName = "Wiki Display",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		Select(
+			locator1 = "WikiConfiguration#COMMUNICATION_SELECT_NODE_ID",
+			value1 = "${wikiNodeName}");
+
+		PortletEntry.save();
+
+		AssertSelectedLabel(
+			locator1 = "WikiConfiguration#COMMUNICATION_SELECT_NODE_ID",
+			value1 = "${wikiNodeName}");
+
+		Select(
+			locator1 = "WikiConfiguration#COMMUNICATION_SELECT_TITLE",
+			value1 = "${wikiPageName}");
+
+		Button.clickSave();
+
+		AssertSelectedLabel(
+			locator1 = "WikiConfiguration#COMMUNICATION_SELECT_TITLE",
+			value1 = "${wikiPageName}");
+
+		Alert.viewSuccessMessage();
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+}

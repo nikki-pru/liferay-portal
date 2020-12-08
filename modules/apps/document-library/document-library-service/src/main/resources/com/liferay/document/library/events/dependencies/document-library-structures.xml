@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<root>
+	<structure>
+		<name><![CDATA[image-gallery-image]]></name>
+		<dynamic-structure>true</dynamic-structure>
+		<root available-locales="en_US" default-locale="en_US" />
+	</structure>
+</root>

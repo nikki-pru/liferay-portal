@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project>
+	<path id="rest.builder.classpath">
+		<fileset
+			dir="../../../../tools/sdk/dependencies/com.liferay.portal.tools.rest.builder/lib"
+			includes="*.jar"
+		/>
+		<fileset
+			dir="../../../../tools/sdk/dist"
+			includes="com.liferay.portal.tools.rest.builder-*.jar"
+		/>
+	</path>
+
+	<taskdef
+		classpathref="rest.builder.classpath"
+		resource="com/liferay/portal/tools/rest/builder/ant/taskdefs.properties"
+	/>
+
+	<target name="build-rest">
+		<build-rest />
+	</target>
+</project>

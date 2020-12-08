@@ -1,0 +1,12 @@
+Bundle-Name: Liferay Commerce Payment Api
+Bundle-SymbolicName: com.liferay.commerce.payment.api
+Bundle-Version: 6.0.0
+Export-Package:\
+	com.liferay.commerce.payment.constants,\
+	com.liferay.commerce.payment.exception,\
+	com.liferay.commerce.payment.model,\
+	com.liferay.commerce.payment.service,\
+	com.liferay.commerce.payment.service.persistence,\
+	com.liferay.commerce.payment.util,\
+	com.liferay.commerce.payment.util.comparator
+Liferay-Enterprise-App: product.id=9a473157-06a6-44b6-b017-a360ffaf5f38

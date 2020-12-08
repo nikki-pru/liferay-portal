@@ -1,0 +1,16 @@
+@default = "sikuliMouseMove"
+definition {
+
+	function sikuliMouseMove {
+		WaitForSPARefresh();
+
+		selenium.sikuliMouseMove();
+
+		selenium.pause("1000");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

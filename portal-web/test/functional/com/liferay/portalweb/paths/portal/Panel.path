@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>Panel</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Panel</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>PANEL_TITLE</td>
+	<td>//div[contains(@class,'panel-page-category')]//span[contains(.,'${key_componentName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PANEL_PAGE_TITLE</td>
+	<td>//div[contains(@class,'panel-page-body')]/h2[contains(.,'${key_pageName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PANEL_PAGE_DEFAULT_INFORMATION</td>
+	<td>//div[contains(@class,'panel-page-body')]//div[@class='alert alert-info']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PANEL</td>
+	<td>//div[@class='panel-heading']//a[normalize-space(text())='${key_panel}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PANEL_COLLAPSED</td>
+	<td>//div[@class='panel-heading']//a[normalize-space(text())='${key_panel}'][@aria-expanded='false' or contains(@class,'collapsed')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PANEL_EXPANDED</td>
+	<td>//div[@class='panel-heading']//a[normalize-space(text())='${key_panel}'][@aria-expanded='true' and not(contains(@class,'collapsed'))]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--MENU-->
+<tr>
+	<td>MENU_ITEM</td>
+	<td>//div[contains(@class,'toggler-content-expanded')]//a[contains(.,'${key_portletName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ENTRY-->
+<tr>
+	<td>ENTRY_ATTACHMENTS</td>
+	<td>//div[contains(@id,'attachmentsHeader')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_REPORT_PARAMETERS</td>
+	<td>//div[contains(@id,'report-parametersHeader')]//a</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

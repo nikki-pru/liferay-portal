@@ -1,0 +1,201 @@
+@component-name = "portal-file-install"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "File Install";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@priority = "3"
+	test CustomizeFileFilter {
+		property custom.properties = "module.framework.properties.file.install.filter=^(?!test-theme).*\\..*";
+		property test.name.skip.portal.instance = "FileInstall#CustomizeFileFilter";
+
+		GogoShell.openGogoShellAdmin();
+
+		AssertConsoleTextNotPresent(value1 = "STARTED test-theme_");
+
+		GogoShell.executeCommand(commandName = "lb | grep test-theme");
+
+		GogoShell.viewOutput(outputContent = "false");
+
+		GogoShell.viewNoOutput(outputContent = "test-theme");
+
+		GogoShell.viewNoOutput(outputContent = "Active");
+	}
+
+	@priority = "3"
+	test CustomizeNewWatchedDirectory {
+		property custom.properties = "module.framework.properties.file.install.dir=${liferay.home}/daploy,${liferay.home}/osgi/modules,${liferay.home}/osgi/war,${liferay.home}/osgi/configs,${liferay.home}/osgi/marketplace";
+		property test.name.skip.portal.instance = "FileInstall#CustomizeNewWatchedDirectory";
+
+		var liferayHome = PropsUtil.get("liferay.home.dir.name");
+		var deployDir = "${liferayHome}/daploy";
+		var testBaseDirName = PropsUtil.get("test.base.dir.name");
+		var testDependenciesDirName = PropsUtil.get("test.dependencies.dir.name");
+
+		ArchiveUtil.archive("${testBaseDirName}/${testDependenciesDirName}/com.liferay.cluster.test.module.jar", "${deployDir}/com.liferay.cluster.test.module.jar");
+
+		Pause(locator1 = "10000");
+
+		GogoShell.openGogoShellAdmin();
+
+		GogoShell.executeCommand(commandName = "lb | grep 'Test Module'");
+
+		GogoShell.viewOutput(outputContent = "Liferay Cluster Test Module");
+
+		GogoShell.viewOutput(outputContent = "Active");
+	}
+
+	@priority = "3"
+	test CustomizeRecursiveSubdirectoryMode {
+		property custom.properties = "module.framework.properties.file.install.subdir.mode=recurse";
+		property test.name.skip.portal.instance = "FileInstall#CustomizeRecursiveSubdirectoryMode";
+
+		var liferayHome = PropsUtil.get("liferay.home.dir.name");
+		var deployDir = "${liferayHome}/osgi/modules/recurse";
+		var testBaseDirName = PropsUtil.get("test.base.dir.name");
+		var testDependenciesDirName = PropsUtil.get("test.dependencies.dir.name");
+
+		ArchiveUtil.archive("${testBaseDirName}/${testDependenciesDirName}/com.liferay.cluster.test.module.jar", "${deployDir}/com.liferay.cluster.test.module.jar");
+
+		Pause(locator1 = "10000");
+
+		AssertConsoleTextPresent(value1 = "STARTED com.liferay.cluster.test.module_");
+
+		GogoShell.openGogoShellAdmin();
+
+		GogoShell.executeCommand(commandName = "lb | grep 'Test Module'");
+
+		GogoShell.viewOutput(outputContent = "Liferay Cluster Test Module");
+
+		GogoShell.viewOutput(outputContent = "Active");
+	}
+
+	@priority = "3"
+	test CustomizeSkipSubdirectoryMode {
+		property custom.properties = "module.framework.properties.file.install.subdir.mode=skip";
+		property test.name.skip.portal.instance = "FileInstall#CustomizeSkipSubdirectoryMode";
+
+		var liferayHome = PropsUtil.get("liferay.home.dir.name");
+		var deployDir = "${liferayHome}/deploy/recurse";
+		var testBaseDirName = PropsUtil.get("test.base.dir.name");
+		var testDependenciesDirName = PropsUtil.get("test.dependencies.dir.name");
+
+		ArchiveUtil.archive("${testBaseDirName}/${testDependenciesDirName}/com.liferay.cluster.test.module.jar", "${deployDir}/com.liferay.cluster.test.module.jar");
+
+		Pause(locator1 = "10000");
+
+		GogoShell.openGogoShellAdmin();
+
+		AssertConsoleTextNotPresent(value1 = "STARTED com.liferay.cluster.test.module_");
+
+		GogoShell.executeCommand(commandName = "lb | grep 'Test Module'");
+
+		GogoShell.viewOutput(outputContent = "false");
+
+		GogoShell.viewNoOutput(outputContent = "Liferay Cluster Test Module");
+
+		GogoShell.viewNoOutput(outputContent = "Active");
+	}
+
+	@priority = "4"
+	test InstallOSGiConfigWithHiddenFile {
+		property create.osgi.hidden.file = "true";
+		property test.assert.warning.exceptions = "true";
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Web Content",
+			configurationName = "File Uploads",
+			configurationScope = "System Scope");
+	}
+
+	@priority = "4"
+	test UninstallJarOffline {
+		property test.name.skip.portal.instance = "FileInstall#UninstallJarOffline";
+
+		FileInstall.deployFileOnServer(liferayDependencyJars = "com.liferay.cluster.test.module.jar");
+
+		GogoShell.openGogoShellAdmin();
+
+		AssertConsoleTextPresent(value1 = "STARTED com.liferay.cluster.test.module_");
+
+		GogoShell.executeCommand(commandName = "lb | grep 'Test Module'");
+
+		GogoShell.viewOutput(outputContent = "Liferay Cluster Test Module");
+
+		GogoShell.viewOutput(outputContent = "Active");
+
+		Portlet.shutdownServer();
+
+		FileInstall.deleteJarOffline(liferayDependencyJars = "com.liferay.cluster.test.module.jar");
+
+		Portlet.startServer(keepOSGiState = "true");
+
+		GogoShell.openGogoShellAdmin();
+
+		AssertConsoleTextNotPresent(value1 = "STARTED com.liferay.cluster.test.module_");
+
+		GogoShell.executeCommand(commandName = "lb | grep 'Test Module'");
+
+		GogoShell.viewOutput(outputContent = "false");
+
+		GogoShell.viewNoOutput(outputContent = "Liferay Cluster Test Module");
+
+		GogoShell.viewNoOutput(outputContent = "Active");
+	}
+
+	@priority = "4"
+	test UninstallWarOffline {
+		property test.name.skip.portal.instance = "FileInstall#UninstallWarOffline";
+
+		FileInstall.deployFileOnServer(liferayDependencyJars = "test-theme.war");
+
+		GogoShell.openGogoShellAdmin();
+
+		WaitForConsoleTextPresent(value1 = "STARTED test-theme_");
+
+		GogoShell.executeCommand(commandName = "lb | grep test-theme");
+
+		GogoShell.viewOutput(outputContent = "test-theme");
+
+		GogoShell.viewOutput(outputContent = "Active");
+
+		Portlet.shutdownServer();
+
+		FileInstall.deleteWarOffline(liferayDependencyWars = "test-theme.war");
+
+		Portlet.startServer(keepOSGiState = "true");
+
+		GogoShell.openGogoShellAdmin();
+
+		AssertConsoleTextNotPresent(value1 = "STARTED test-theme_");
+
+		GogoShell.executeCommand(commandName = "lb | grep test-theme");
+
+		GogoShell.viewOutput(outputContent = "false");
+
+		GogoShell.viewNoOutput(outputContent = "test-theme");
+
+		GogoShell.viewNoOutput(outputContent = "Active");
+	}
+
+}

@@ -1,0 +1,141 @@
+@component-name = "portal-collaboration"
+definition {
+
+	property custom.properties = "default.layout.template.id=1_column${line.separator}jsonws.web.service.paths.excludes=";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Mentions";
+	property testray.main.component.name = "Mentions";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(
+			pageName = "Wiki Page",
+			sitePageType = "Widget Page");
+
+		Navigator.gotoPage(pageName = "Wiki Page");
+
+		Portlet.addPG(portletName = "Wiki");
+
+		Navigator.gotoPage(pageName = "Wiki Page");
+
+		JSONUser.addUser(
+			userEmailAddress = PropsUtil.get("email.address.4"),
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = PropsUtil.get("email.address.4"));
+
+		User.logoutPG();
+
+		User.loginPG(
+			password = "test",
+			userEmailAddress = PropsUtil.get("email.address.4"));
+
+		User.logoutPG();
+
+		User.loginPG();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.assignRegularRoleCP(
+			roleTitle = "Administrator",
+			userScreenName = "usersn");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "Server Administration");
+
+		ServerAdministration.configureMailServerSettings(
+			userName = PropsUtil.get("email.address.1"),
+			userPassword = PropsUtil.get("email.password.1"));
+
+		Navigator.gotoPage(pageName = "Wiki Page");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "Virtual Instances");
+
+		PortalInstances.editCP(
+			mailDomain = "gmail.com",
+			virtualHost = "localhost");
+
+		Navigator.gotoPage(pageName = "Wiki Page");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			WikiPage.tearDownCP();
+
+			JSONUser.tearDownNonAdminUsers();
+
+			Page.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test ViewWikiCommentMentionedUser {
+		property test.name.skip.portal.instance = "MentionsWiki#ViewWikiCommentMentionedUser";
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Wiki");
+
+		WikiNavigator.gotoNode(wikiNodeName = "Main");
+
+		WikiNavigator.gotoAllPagesCP();
+
+		LexiconEntry.gotoAdd();
+
+		WikiEntry.addPageTitle(wikiPageTitle = "Wiki Page Title");
+
+		WikiEntry.addPageContent(wikiPageContent = "Wiki Page Content");
+
+		SelectFrame(value1 = "relative=top");
+
+		PortletEntry.publish();
+
+		Navigator.openURL();
+
+		Navigator.gotoPage(pageName = "Wiki Page");
+
+		WikiNavigator.gotoAllPagesPG();
+
+		WikiNavigator.gotoEntryViaPGTable(wikiPageTitle = "Wiki Page Title");
+
+		Pause(locator1 = "30000");
+
+		Mentions.addMentionViaComments(
+			entryComment = "Comment mentioning",
+			mentionsUserFullName = "userfn userln",
+			mentionsUserScreenName = "usersn");
+
+		Mentions.viewCommentMentionTagLink(
+			mentionsUserFullName = "userfn userln",
+			mentionsUserScreenName = "usersn");
+	}
+
+}

@@ -1,0 +1,29 @@
+Bundle-Name: Liferay Commerce Product API
+Bundle-SymbolicName: com.liferay.commerce.product.api
+Bundle-Version: 30.0.0
+Export-Package:\
+	com.liferay.commerce.product.catalog,\
+	com.liferay.commerce.product.channel,\
+	com.liferay.commerce.product.configuration,\
+	com.liferay.commerce.product.constants,\
+	com.liferay.commerce.product.data.source,\
+	com.liferay.commerce.product.display.context,\
+	com.liferay.commerce.product.display.context.util,\
+	com.liferay.commerce.product.exception,\
+	com.liferay.commerce.product.importer,\
+	com.liferay.commerce.product.links,\
+	com.liferay.commerce.product.model,\
+	com.liferay.commerce.product.option,\
+	com.liferay.commerce.product.permission,\
+	com.liferay.commerce.product.portlet.action,\
+	com.liferay.commerce.product.service,\
+	com.liferay.commerce.product.service.persistence,\
+	com.liferay.commerce.product.servlet.taglib.ui,\
+	com.liferay.commerce.product.type,\
+	com.liferay.commerce.product.util,\
+	com.liferay.commerce.product.util.comparator
+Liferay-Enterprise-App: product.id=9a473157-06a6-44b6-b017-a360ffaf5f38
+Provide-Capability:\
+	liferay.resource.bundle;\
+		resource.bundle.aggregate:String="(bundle.symbolic.name=com.liferay.commerce.lang)";\
+		resource.bundle.base.name="content.Language"

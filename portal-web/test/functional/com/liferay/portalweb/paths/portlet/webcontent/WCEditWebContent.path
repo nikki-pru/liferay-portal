@@ -1,0 +1,239 @@
+<html>
+<head>
+<title>WCEditWebContent</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">WCEditWebContent</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ANY_TEXT_INPUT</td>
+	<td>xpath=(//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::input)[${index}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ARTICLE_ID</td>
+	<td>//table[contains(@data-searchcontainerid,'articleVersions')]//td[contains(@class,'lfr-id-column')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUDIO_BUTTON</td>
+	<td>//a[contains(@title,'Audio')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUTOGENERATEID</td>
+	<td>//input[contains(@id,'autoArticleId')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COLOR_PICKER</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']/following-sibling::div[contains(@class,'color-picker')]//button[contains(@class,'clay-color-btn')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_CONTAINER</td>
+	<td>//div[contains(@class,'container-view')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_INPUT</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::div[contains(@class,'date-picker')]//input[@type='text']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_AUTHOR</td>
+	<td>//li[contains(.,'${key_entryTitle}')]//span[contains(.,'${key_entryAuthor}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>IMAGE_PICKER_PREVIEW</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::div[contains(@class,'image-picker-preview')]//img[contains(@src,'${key_image}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SIDEBAR</td>
+	<td>//div[contains(@class,'contextual-sidebar-visible')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EDIT_TEMPLATE</td>
+	<td>//a[contains(@id,'editDDMTemplate')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_TEMPLATE</td>
+	<td>//button[contains(@id,'previewWithTemplate')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FEATURED_IMAGE_URL_INPUT</td>
+	<td>//div[contains(@class,'input-String-wrapper')]/input[contains(@id,'URL')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>IMAGE_DESCRPTION</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']/following-sibling::div[contains(@class,'form-group')]//input[contains(@name,'description')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_BUTTON</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::div[contains(@class,'form')]//button[normalize-space()='Select']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FEATURED_IMAGE_TYPE</td>
+	<td>//div[contains(@class,'input-select-wrapper')]/select[contains(@id,'smallImageSource')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FIELD_TRIGGER</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::div[contains(@class,'select-field')]//div[contains(@class,'select-field-trigger')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_STRUCTURE</td>
+	<td>//button[contains(.,'Select')]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_TEMPLATE</td>
+	<td>//button[contains(@id,'selectDDMTemplate')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECTED_IMAGE</td>
+	<td>//input[contains(@id,'JournalPortlet_Image')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECTED_STRUCTURE</td>
+	<td>//p[@class='article-structure']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECTED_TEMPLATE</td>
+	<td>//input[contains(@id,'TemplateName')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECTION_OPTION</td>
+	<td>//legend[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::div//input//following-sibling::span[normalize-space()='${key_optionValue}']//preceding-sibling::input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SOURCE_BUTTON</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::div//a[contains(@class,'cke_button') and contains(@class,'source')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_INPUT</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>USER_SEGMENT_DETAIL_TITLE</td>
+	<td>//label[contains(.,'${key_userSegmentDetailTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VERSION</td>
+	<td>//p[contains(@class,'article-version')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIDEO_BUTTON</td>
+	<td>//a[contains(@class,'videoselector')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WEB_CONTENT_ID</td>
+	<td>//input[contains(@id,'JournalPortlet_newArticleId')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_STATUS</td>
+	<td>//*[contains(@class,'status')]/span[contains(.,'${key_status}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--VIEW_HISTORY-->
+<tr>
+	<td>VIEW_HISTORY_VERSION_CHECKBOX</td>
+	<td>//tr[contains(.,'${key_webContentTitle}')]/td//input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIEW_HISTORY_VERSION_TITLE</td>
+	<td>//tr[contains(.,'${key_webContentTitle}')]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VIEW_HISTORY_VERSION_STATUS</td>
+	<td>//tr[contains(.,'${key_webContentTitle}')]/td[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DISPLAY_PAGE-->
+<tr>
+	<td>DISPLAY_PAGE_SELECT</td>
+	<td>//select[contains(@id,'displayPageType')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DISPLAY_PAGE_DEFAULT_SELECTION</td>
+	<td>//input[contains(@id,'defaultDisplayPageNameInput')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DISPLAY_PAGE_SPECIFIC_SELECTION</td>
+	<td>//input[contains(@id,'specificDisplayPageNameInput')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DISPLAY_PAGE_CHOOSE_BUTTON</td>
+	<td>//button[contains(@id,'chooseSpecificDisplayPage')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DISPLAY_PAGE_SELECT_PAGE_IFRAME</td>
+	<td>//iframe[contains(@id,'selectDisplayPage')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--IMAGE_FIELD-->
+<tr>
+	<td>IMAGE_FIELD_SELECT</td>
+	<td>//label[contains(.,'Image')]/..//button[contains(.,'Select')]</td>
+	<td></td>
+</tr>
+<!--LINK TO PAGE_FIELD-->
+<tr>
+	<td>LINK_TO_PAGE_SELECT</td>
+	<td>//label[contains(.,'Link to Page')]/..//button[contains(.,'Select')]</td>
+	<td></td>
+</tr>
+<!--WC_FIELD-->
+<tr>
+	<td>WC_FIELD_SELECT</td>
+	<td>//label[contains(.,'Web Content')]/..//button[contains(.,'Select')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

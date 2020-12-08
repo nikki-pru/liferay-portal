@@ -1,0 +1,168 @@
+@component-name = "portal-deployment-hypersonic"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property test.prepare.bundle.properties = "false";
+	property testray.main.component.name = "Setup Wizard";
+
+	@priority = "4"
+	test BasicConfigurationVisualLook {
+		property database.types = "mysql";
+		property test.name.skip.portal.instance = "SetupWizard#BasicConfigurationVisualLook";
+
+		SetupWizard.viewDefaultPortalNamePG();
+
+		WaitForElementPresent(locator1 = "SetupWizard#BASIC_CONFIGURATION");
+
+		SikuliAssertElementPresent(locator1 = "SetupWizard#SETUP_WIZARD_BASIC_CONFIGURATION_PNG");
+
+		takeScreenshot();
+	}
+
+	@priority = "4"
+	test HypersonicToMySQL {
+		property database.types = "mysql";
+		property test.name.skip.portal.instance = "SetupWizard#HypersonicToMySQL";
+
+		SetupWizard.configurePG(
+			administratorEmail = "test@liferay.com",
+			administratorFirstName = "Test",
+			administratorLastName = "Test",
+			databasePassword = PropsUtil.get("database.mysql.password"),
+			databaseType = "MySQL",
+			databaseUserName = PropsUtil.get("database.mysql.username"),
+			jdbcDriverClassName = PropsUtil.get("database.mysql.driver"),
+			jdbcURL = PropsUtil.get("database.mysql.url"));
+
+		Smoke.viewWelcomePage();
+
+		Smoke.runSmoke();
+	}
+
+	@priority = "3"
+	test HypersonicWithSpecialContent {
+		property database.types = "hypersonic";
+		property test.name.skip.portal.instance = "SetupWizard#HypersonicWithSpecialContent";
+
+		SetupWizard.configurePortalNamePG(portalName = "");
+
+		SetupWizard.configureAdministratorUserPG(
+			administratorEmail = "",
+			administratorFirstName = "",
+			administratorLastName = "");
+
+		Click(locator1 = "TextInput#PORTAL_NAME");
+
+		SetupWizard.configureDatabasePG(
+			databasePassword = "",
+			databaseType = "Hypersonic",
+			databaseUserName = "",
+			jdbcDriverClassName = "",
+			jdbcURL = "");
+
+		SetupWizard.finishConfigurationPG();
+
+		for (var fieldName : list "Portal Name,First Name,Last Name,Email,JDBC URL,JDBC Driver Class Name") {
+			var key_fieldName = "${fieldName}";
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "TextInput#REQUIRED_ALERT",
+				value1 = "This field is required.");
+		}
+
+		AssertTextEquals(
+			locator1 = "SetupWizard#DATABASE_CHANGE_USER_NAME_FIELD",
+			value1 = "");
+
+		AssertTextEquals(
+			locator1 = "SetupWizard#DATABASE_CHANGE_PASSWORD_FIELD",
+			value1 = "");
+
+		Refresh();
+
+		SetupWizard.configurePortalNamePG(portalName = "1234567890!@#$%^&amp;*()~`");
+
+		SetupWizard.configureAdministratorUserPG(
+			administratorEmail = "1234567890!@#$%^&amp;*()~`",
+			administratorFirstName = "1234567890!@#$%^&amp;*()~`",
+			administratorLastName = "1234567890!@#$%^&amp;*()~`");
+
+		Click(locator1 = "TextInput#PORTAL_NAME");
+
+		AssertTextEquals.assertValue(
+			locator1 = "TextInput#FIRST_NAME",
+			value1 = "1234567890!@#$%^&*()~`");
+
+		AssertTextEquals.assertValue(
+			locator1 = "TextInput#LAST_NAME",
+			value1 = "1234567890!@#$%^&*()~`");
+
+		AssertTextEquals.assertValue(
+			locator1 = "TextInput#PORTAL_NAME",
+			value1 = "1234567890!@#$%^&*()~`");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#ERROR_ENTER_A_VALID_EMAIL_ADDRESS",
+			value1 = "Please enter a valid email address.");
+	}
+
+	@priority = "5"
+	test ViewConfiguredSetupWizardValue {
+		property database.types = "mysql";
+		property test.name.skip.portal.instance = "SetupWizard#ViewConfiguredSetupWizardValue";
+
+		SetupWizard.viewDefaultPortalNamePG();
+
+		SetupWizard.configureAdministratorUserPG(
+			administratorEmail = "user@liferay.com",
+			administratorFirstName = "User",
+			administratorLastName = "User");
+
+		SetupWizard.configurePortalNamePG(portalName = "Custom");
+
+		SetupWizard.configureDefaultLanguagePG(defaultLanguage = "español (España)");
+
+		SetupWizard.configureDatabasePG(
+			databasePassword = PropsUtil.get("database.mysql.password"),
+			databaseType = "MySQL",
+			databaseUserName = PropsUtil.get("database.mysql.username"),
+			jdbcDriverClassName = PropsUtil.get("database.mysql.driver"),
+			jdbcURL = PropsUtil.get("database.mysql.url"));
+
+		SetupWizard.finishConfigurationPG();
+
+		SetupWizard.viewConfigurationSavedPG(localization = "ES");
+
+		Portlet.shutdownServer();
+
+		Portlet.startServer(
+			base_branch = "${base_branch}",
+			deleteLiferayHome = "false");
+
+		SetupWizard.viewConfiguredDatabaseInConsole(databaseType = "${databaseType}");
+
+		User.firstLoginPG(
+			localization = "ES",
+			localizedAgree = "Acepto",
+			localizedAnswer = "Respuesta",
+			localizedSaveButton = "Guardar",
+			password = "test",
+			userEmailAddress = "user@liferay.com");
+
+		AssertTextEquals(
+			locator1 = "Home#SITE_NAME",
+			value1 = "Custom");
+
+		var liferayHome = PropsUtil.get("liferay.home.dir.name");
+		var fileContent = FileUtil.read("${liferayHome}/portal-setup-wizard.properties");
+
+		if ((contains("${fileContent}", "admin.email.from.address=user@liferay.com")) && (contains("${fileContent}", "admin.email.from.name=User User")) && (contains("${fileContent}", "default.admin.email.address.prefix=user")) && (contains("${fileContent}", "default.admin.first.name=User")) && (contains("${fileContent}", "default.admin.last.name=User")) && (contains("${fileContent}", "company.default.locale=es_ES")) && (contains("${fileContent}", "company.default.name=Custom"))) {
+			echo("The configuration was saved successfully in portal-setup-wizard.properties!");
+		}
+		else {
+			fail("Fail to save the configuration in portal file portal-setup-wizard.properties.");
+		}
+	}
+
+}

@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>CTSimulator</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CTSimulator</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>USER_SEGMENT_MATCHED</td>
+	<td>//div[contains(.,'${key_userSegmentMatched}')]//div[contains(@class,'center matched')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>USER_SEGMENT_NOT_MATCHED</td>
+	<td>//div[contains(@class,'not-matched')]//div[contains(.,'${key_userSegmentNotMatched}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,33 @@
+definition {
+
+	macro click {
+		Click(
+			key_menuItem = "${menuItem}",
+			locator1 = "MenuItem#ANY_MENU_ITEM");
+	}
+
+	macro clickNoError {
+		ClickNoError(
+			key_menuItem = "${menuItem}",
+			locator1 = "MenuItem#ANY_MENU_ITEM");
+	}
+
+	macro viewNotPresent {
+		AssertElementNotPresent(
+			key_menuItem = "${menuItem}",
+			locator1 = "MenuItem#ANY_MENU_ITEM");
+	}
+
+	macro viewPresent {
+		AssertElementPresent(
+			key_menuItem = "${menuItem}",
+			locator1 = "MenuItem#ANY_MENU_ITEM");
+	}
+
+	macro viewVisible {
+		AssertVisible(
+			key_menuItem = "${menuItem}",
+			locator1 = "MenuItem#ANY_MENU_ITEM");
+	}
+
+}

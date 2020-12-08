@@ -1,0 +1,109 @@
+@component-name = "portal-upgrades"
+definition {
+
+	property portal.upstream = "true";
+	property testray.main.component.name = "Upgrades WEM";
+
+	setUp {
+		SignIn.signIn();
+
+		Smoke.viewWelcomePage();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	@description = "This is a basic test for modern site building components such as Content Pages, Page Templates, Fragments, Display Page Templates, and Navigation Menus. After the upgrade is complete, all of those elements should still be present, and a user should still be able to perform basic modern site building functions."
+	@priority = "5"
+	test ConfigurePageEditorAfterUpgrade721 {
+		property data.archive.type = "data-archive-page-editor";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.2.1";
+
+		Upgrade.viewDefaultPage();
+
+		Upgrade.configurePageEditor();
+	}
+
+	@priority = "5"
+	test ConfigurePageEditorAfterUpgrade72101 {
+		property data.archive.type = "data-archive-page-editor";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql";
+		property portal.version = "7.2.10.1";
+
+		Upgrade.viewDefaultPage();
+
+		Upgrade.configurePageEditor();
+	}
+
+	@priority = "5"
+	test ViewContributedFragmentStyleAfterUpgrade721 {
+		property data.archive.type = "data-archive-contributed-fragments";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.2.1";
+
+		Upgrade.viewContributedFragmentStyle();
+	}
+
+	@priority = "5"
+	test ViewContributedFragmentStyleAfterUpgrade72101 {
+		property data.archive.type = "data-archive-contributed-fragments";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+		property portal.version = "7.2.10.1";
+
+		Upgrade.viewContributedFragmentStyle();
+	}
+
+	@description = "This is a use case for LPS-123098."
+	@priority = "4"
+	test ViewEditableFieldValueAfterUpgrade721 {
+		property data.archive.type = "data-archive-modify-editable-field-value";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.2.1";
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page Name",
+			siteName = "Guest");
+
+		AssertTextEquals(
+			locator1 = "//div[contains(@class,'banner')]//h1",
+			value1 = "Edited Banner Title");
+
+		ContentPages.clickPencil();
+
+		PageEditor.viewFragmentEditableText(
+			contributed = "false",
+			editableText = "Edited Banner Title",
+			fragmentName = "Banner Center",
+			id = "01-title");
+	}
+
+	@description = "This is a use case for LPS-123098."
+	@priority = "4"
+	test ViewEditableFieldValueAfterUpgrade72101 {
+		property data.archive.type = "data-archive-modify-editable-field-value";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+		property portal.version = "7.2.10.1";
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page Name",
+			siteName = "Guest");
+
+		AssertTextEquals(
+			locator1 = "//div[contains(@class,'banner')]//h1",
+			value1 = "Edited Banner Title");
+
+		ContentPages.clickPencil();
+
+		PageEditor.viewFragmentEditableText(
+			contributed = "false",
+			editableText = "Edited Banner Title",
+			fragmentName = "Banner Center",
+			id = "01-title");
+	}
+
+}

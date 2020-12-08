@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>DynamicUploader</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">DynamicUploader</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>SELECT_ALL_CHECKBOX</td>
+	<td>//input[@class='select-all-files']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ALL_FILES_READY_TO_BE_SAVED_DOCUMENT_TITLE</td>
+	<td>//span[contains(@title,'${key_documentName}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

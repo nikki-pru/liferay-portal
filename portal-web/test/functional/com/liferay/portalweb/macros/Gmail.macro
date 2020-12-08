@@ -1,0 +1,228 @@
+definition {
+
+	macro deleteSpecificMail {
+		for (var gmailMessageTitle : list "${gmailMessageTitleList}") {
+			var key_gmailMessageTitle = "${gmailMessageTitle}";
+
+			if (IsElementPresent(locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_SPECIFIC_MESSAGE_TITLE_CHECKBOX")) {
+				Check(locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_SPECIFIC_MESSAGE_TITLE_CHECKBOX");
+
+				Click(locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_DELETE_BUTTON");
+
+				Pause(locator1 = "3000");
+			}
+		}
+	}
+
+	macro gotoHtmlMode {
+		Navigator.openSpecificURL(url = "https://mail.google.com/mail/?ui=html&amp;zy=h");
+
+		if (IsElementPresent(locator1 = "Gmail#GMAIL_HTML_MODE_CONFIRMATION")) {
+			Click(locator1 = "Gmail#GMAIL_HTML_MODE_CONFIRMATION");
+		}
+
+		Pause(locator1 = "5000");
+	}
+
+	macro gotoMail {
+		var key_gmailAssetType = "${gmailAssetType}";
+
+		if (IsElementNotPresent(locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_USER_NAME")) {
+			Click(
+				locator1 = "Gmail#GMAIL_HTML_MODE_REFRESH",
+				value1 = "Refresh");
+		}
+
+		while (!IsTextEqual.isPartialText(locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_USER_NAME", value1 = "${emailFromUserName}")) {
+			Pause(locator1 = "5000");
+		}
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_USER_NAME",
+			value1 = "${emailFromUserName}");
+
+		AssertClick.assertPartialTextClickAt(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MAIL_TABLE_MESSAGE_TITLE",
+			value1 = "${gmailMessageTitle}");
+
+		Pause(locator1 = "5000");
+	}
+
+	macro login {
+		Navigator.openSpecificURL(url = "http://www.gmail.com");
+
+		Pause(locator1 = "5000");
+
+		var key_userEmailAddress = "${userEmailAddress}";
+
+		if ((IsElementNotPresent(locator1 = "Gmail#GMAIL_NORMAL_MODE_USER_SCREENNAME")) && (IsElementNotPresent(locator1 = "Gmail#GMAIL_HTML_MODE_USER_SCREENNAME"))) {
+			if (IsElementPresent(locator1 = "Gmail#LOGIN_EMAIL_FIELD")) {
+				Type(
+					locator1 = "Gmail#LOGIN_EMAIL_FIELD",
+					value1 = "${userEmailAddress}");
+
+				Click(locator1 = "Gmail#LOGIN_NEXT_BUTTON");
+			}
+
+			Type(
+				locator1 = "Gmail#LOGIN_PASSWORD_FIELD",
+				value1 = "${userPassword}");
+
+			if (IsElementPresent(locator1 = "Gmail#LOGIN_SIGN_IN_BUTTON")) {
+				Check(locator1 = "Gmail#LOGIN_STAY_SIGNED_IN_CHECKBOX");
+
+				Click(locator1 = "Gmail#LOGIN_SIGN_IN_BUTTON");
+			}
+			else {
+				Click(locator1 = "Gmail#LOGIN_NEXT_BUTTON");
+			}
+
+			if (IsElementPresent(locator1 = "Gmail#MAIL_NAVIGATION")) {
+				Click(locator1 = "Gmail#MAIL_NAVIGATION");
+			}
+
+			Pause(locator1 = "5000");
+		}
+		else if (IsElementPresent(locator1 = "Gmail#GMAIL_HTML_MODE_USER_SCREENNAME")) {
+			AssertElementPresent(locator1 = "Gmail#GMAIL_HTML_MODE_USER_SCREENNAME");
+		}
+		else {
+			AssertElementPresent(locator1 = "Gmail#GMAIL_NORMAL_MODE_USER_SCREENNAME");
+		}
+	}
+
+	macro logoutAndLogin {
+		Navigator.openSpecificURL(url = "http://www.gmail.com");
+
+		Pause(locator1 = "3000");
+
+		Gmail.gotoHtmlMode();
+
+		Click(locator1 = "Gmail#GMAIL_HTML_MODE_SIGN_OUT");
+
+		if (IsElementPresent(locator1 = "Gmail#SIGN_IN_WITH_DIFFERENT_ACCOUNT")) {
+			Click(locator1 = "Gmail#SIGN_IN_WITH_DIFFERENT_ACCOUNT");
+
+			Click(locator1 = "Gmail#USE_ANOTHER_ACCOUNT");
+		}
+		else if (IsElementPresent(locator1 = "Gmail#USE_ANOTHER_ACCOUNT")) {
+			Click(locator1 = "Gmail#USE_ANOTHER_ACCOUNT");
+		}
+
+		Type(
+			locator1 = "Gmail#LOGIN_EMAIL_FIELD",
+			value1 = "${userEmailAddress}");
+
+		Click(locator1 = "Gmail#LOGIN_NEXT_BUTTON");
+
+		Type(
+			locator1 = "Gmail#LOGIN_PASSWORD_FIELD",
+			value1 = "${userPassword}");
+
+		if (IsElementPresent(locator1 = "Gmail#LOGIN_SIGN_IN_BUTTON")) {
+			Check(locator1 = "Gmail#LOGIN_STAY_SIGNED_IN_CHECKBOX");
+
+			Click(locator1 = "Gmail#LOGIN_SIGN_IN_BUTTON");
+		}
+		else {
+			Click(locator1 = "Gmail#LOGIN_NEXT_BUTTON");
+		}
+
+		if (IsElementPresent(locator1 = "Gmail#MAIL_NAVIGATION")) {
+			Click(locator1 = "Gmail#MAIL_NAVIGATION");
+		}
+
+		Pause(locator1 = "5000");
+	}
+
+	macro openMessageContinueReadingButton {
+		var pageNameURL = StringUtil.replace("${pageName}", " ", "-");
+		var pageNameURL = StringUtil.lowerCase("/${pageNameURL}");
+
+		AssertClick(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_BODY_CONTINUE_READING_BUTTON",
+			value1 = "CONTINUE READING");
+
+		if (isSet(contentTitle)) {
+			SelectWindow(locator1 = "title=- ${contentTitle} - ${siteName}");
+		}
+		else {
+			SelectWindow(locator1 = "title=${pageName} - ${siteName}");
+		}
+	}
+
+	macro openMessageLink {
+		var key_gmailAssetType = "${gmailAssetType}";
+		var pageNameURL = StringUtil.replace("${pageName}", " ", "-");
+		var pageNameURL = StringUtil.lowerCase("/${pageNameURL}");
+		var key_pageNameURL = "${pageNameURL}";
+
+		AssertClick.assertPartialTextClickAt(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_BODY_LINK",
+			value1 = "${pageNameURL}");
+
+		if (isSet(contentTitle)) {
+			SelectWindow(locator1 = "title=${contentTitle} - ${pageName} - ${siteName}");
+		}
+		else if ("${pageName}" == "update_password") {
+			var pageName = "New Password";
+
+			SelectWindow(locator1 = "title=${pageName} - ${siteName}");
+		}
+		else {
+			SelectWindow(locator1 = "title=${pageName} - ${siteName}");
+		}
+	}
+
+	macro replyMail {
+		Type(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_QUICK_REPLY_FIELD",
+			value1 = "${gmailReplyMessage}");
+
+		AssertClick(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_QUICK_REPLY_SEND_BUTTON",
+			value1 = "Send");
+
+		AssertTextEquals(
+			locator1 = "Gmail#SUCCESS_MESSAGE",
+			value1 = "Your message has been sent.");
+	}
+
+	macro viewMail {
+		Gmail.gotoMail(
+			emailFromUserName = "${emailFromUserName}",
+			gmailAssetType = "${gmailAssetType}",
+			gmailMessageTitle = "${gmailMessageTitle}");
+
+		var key_gmailAssetType = "${gmailAssetType}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_TITLE",
+			value1 = "${gmailMessageTitle}");
+
+		if (IsElementPresent(locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_SHOW_QUOTED_TEXT_LINK")) {
+			Click(locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_SHOW_QUOTED_TEXT_LINK");
+		}
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_BODY_GREETING",
+			value1 = "${gmailMessageBody}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_BODY",
+			value1 = "${gmailMessageBody}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_BODY_CLOSING",
+			value1 = "${gmailMessageBody}");
+
+		if (isSet(gmailMessageAttachment)) {
+			var key_gmailMessageAttachment = "${gmailMessageAttachment}";
+
+			AssertTextEquals(
+				locator1 = "Gmail#GMAIL_HTML_MODE_MESSAGE_BODY_ATTACHMENT",
+				value1 = "${gmailMessageAttachment}");
+		}
+	}
+
+}

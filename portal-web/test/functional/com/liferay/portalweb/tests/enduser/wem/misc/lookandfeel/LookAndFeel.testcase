@@ -1,0 +1,101 @@
+@component-name = "portal-wcm"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Look And Feel";
+	property testray.main.component.name = "Look And Feel";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test ConfigureCustomStylesViaLookAndFeelPG {
+		property portal.acceptance = "true";
+		property testray.component.names = "Training";
+
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "Test Page Name");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Guest",
+			layoutName = "Test Page Name",
+			widgetName = "Sign In");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Guest",
+			layoutName = "Test Page Name",
+			widgetName = "Web Content Display");
+
+		Navigator.gotoPage(pageName = "Test Page Name");
+
+		Portlet.gotoPortletOptions(
+			portletName = "Sign In",
+			portletOption = "Look and Feel Configuration");
+
+		IFrame.selectConfigurationFrame();
+
+		Portlet.configureCustomStylesViaLookandfeelPG();
+
+		PortletEntry.save();
+
+		Navigator.gotoPage(pageName = "Test Page Name");
+
+		Portlet.viewCustomStylesViaLookandfeelPG();
+
+		Portlet.gotoPortletOptions(
+			portletName = "Web Content Display",
+			portletOption = "Look and Feel Configuration");
+
+		IFrame.selectConfigurationFrame();
+
+		Portlet.configureApplicationDecoratorViaLookandfeelPG(applicationDecorator = "Decorate");
+
+		Button.clickCancel();
+
+		Navigator.gotoPage(pageName = "Test Page Name");
+
+		Portlet.viewApplicationDecorator(decorator = "Borderless");
+
+		Portlet.gotoPortletOptions(
+			portletName = "Web Content Display",
+			portletOption = "Look and Feel Configuration");
+
+		IFrame.selectConfigurationFrame();
+
+		Portlet.selectApplicationDecorator(decorator = "Decorate");
+
+		PortletEntry.save();
+
+		Navigator.gotoPage(pageName = "Test Page Name");
+
+		Portlet.viewApplicationDecorator(decorator = "Decorate");
+
+		Portlet.gotoPortletOptions(
+			portletName = "Web Content Display",
+			portletOption = "Look and Feel Configuration");
+
+		IFrame.selectConfigurationFrame();
+
+		Portlet.selectApplicationDecorator(decorator = "Barebone");
+
+		PortletEntry.save();
+
+		Navigator.gotoPage(pageName = "Test Page Name");
+
+		Portlet.viewApplicationDecorator(decorator = "Barebone");
+	}
+
+}

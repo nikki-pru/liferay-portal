@@ -1,0 +1,106 @@
+<html>
+<head>
+<title>AlloyEditor</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AlloyEditor</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>EDITOR</td>
+	<td>//div[contains(@class,'cke_editable_inline') and contains(@id,'_${key_editor}')] | //div[contains(@class,'form-group')]//textarea[contains(@id,'_${key_editor}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_FIELD_BOLD</td>
+	<td>//div[contains(@class,'alloy-editor-placeholder') and contains(@data-placeholder,'Write your content here...')]/p/strong[contains(.,'${key_boldContent}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_ADD_BUTTON</td>
+	<td>//button[contains(@class,'ae-button') and contains(@class,'add')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_FIELD_ITALIC</td>
+	<td>//div[contains(@class,'alloy-editor-container')]//div[(contains(@data-placeholder,'Write your content here...') or contains(@data-placeholder,'Content')) and contains(@title,'Rich Text Editor')]//em[contains(.,'${key_italicContent}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_FIELD_UNDERLINE</td>
+	<td>//div[contains(@class,'alloy-editor-container')]//div[(contains(@data-placeholder,'Write your content here...') or contains(@data-placeholder,'Content')) and contains(@title,'Rich Text Editor')]//u[contains(.,'${key_underlineContent}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CONTENT_ADD_MENUBAR-->
+<tr>
+	<td>CONTENT_ADD_MENUBAR_IMAGE</td>
+	<td>//button[contains(@data-type,'image')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_ADD_MENUBAR_VIDEO</td>
+	<td>//button[contains(@data-type,'video')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--TEXT_FORMATTING-->
+<tr>
+	<td>TEXT_FORMATTING_STYLE</td>
+	<td>//button[contains(@class,'ae-toolbar-element')]//span[contains(@class,'selected-item')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FORMATTING_STYLE_DROPDOWN</td>
+	<td>//button[contains(@class,'ae-toolbar-element') and contains(.,'${key_styleFormat}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FORMATTING_BOLD</td>
+	<td>//button[contains(@data-type,'button-bold')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FORMATTING_ITALIC</td>
+	<td>//button[contains(@data-type,'button-italic')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FORMATTING_UNDERLINE</td>
+	<td>//button[contains(@data-type,'button-underline')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FORMATTING_LINK</td>
+	<td>//button[contains(@data-type,'button-link')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FORMATTING_LINK_BROWSE_BUTTON</td>
+	<td>//button[contains(@aria-label,'Browse')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FORMATTING_LINK_INPUT</td>
+	<td>//div[contains(@class,'ae-container-input')]//input[contains(@class,'ae-input')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FORMATTING_LINK_INPUT_CONFIRM</td>
+	<td>//button[contains(@aria-label,'Confirm')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

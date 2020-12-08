@@ -1,0 +1,898 @@
+@component-name = "portal-staging"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Staging";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONGroup.addGroup(groupName = "Site Name");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Staging Test Page");
+
+		Staging.openStagingAdmin(siteURLKey = "site-name");
+
+		Staging.activateStagingCP(
+			pageVersioningEnabled = "true",
+			siteName = "Site Name");
+
+		Navigator.openStagingSiteURL(siteName = "Site Name");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			JSONGroup.deleteGroupByName(groupName = "Site Name");
+		}
+	}
+
+	@description = "This is a use case for LPS-113740."
+	@priority = "4"
+	test ChangeSitePageVariationInPagesAdmin {
+		Staging.addSitePagesVariationPG(
+			copySitePagesVariationName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		Staging.viewSitePagesVariationActiveCP(sitePagesVariationName = "Summer");
+
+		SitePages.addPublicPageUnderSitePagesVariation(pageName = "Test Page Name");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		Staging.changeSitePageVariationCP(sitePagesVariationName = "Main Variation");
+
+		Refresh();
+
+		AssertElementNotPresent(
+			key_itemName = "Test Page Name",
+			locator1 = "SitePages#LIST_GROUP_ITEM");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Summer");
+
+		Staging.changeSitePageVariationPG(
+			sitePagesVariationMenulistName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Test Page Name",
+			siteName = "Site Name");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#STAGING_BAR_PAGE_VARIATIONS_ALERT",
+			value1 = "The page Test Page Name is not enabled in Main Variation, but is available for other pages variations.");
+	}
+
+	@priority = "4"
+	test DeleteChildPageFromVariationWhereNotEnabled {
+		Staging.addSitePagesVariationPG(
+			copySitePagesVariationName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicChildPage(
+			childPageName = "Page 1",
+			parentPageName = "Staging Test Page");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Page 1",
+			siteName = "Site Name");
+
+		Staging.changeSitePageVariationPG(
+			sitePagesVariationMenulistName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		Page.viewNoPage(
+			pageName = "Page 1",
+			privacy = "Public Pages");
+	}
+
+	@priority = "3"
+	test DeleteHistory {
+		Portlet.addPG(portletName = "Sites Directory");
+
+		Staging.deleteHistory();
+
+		Portlet.viewNoSpecificPG(portletName = "Sites Directory");
+	}
+
+	@priority = "4"
+	test EnableAndDeleteSitePageVariationPage {
+		Staging.addSitePagesVariationPG(
+			copySitePagesVariationName = "Main Variation",
+			sitePagesVariationName = "Test Site Pages Variation");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicPage(pageName = "Test Page Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Test Page Name",
+			siteName = "Site Name");
+
+		Staging.markAsReadyForPublication();
+
+		Staging.changeSitePageVariationPG(
+			sitePagesVariationMenulistName = "Main Variation",
+			sitePagesVariationName = "Test Site Pages Variation");
+
+		Staging.enablePageInSitePagesVariation(
+			pageName = "Test Page Name",
+			privacy = "Public Pages",
+			sitePagesVariationName = "Main Variation");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.deletePage(pageName = "Test Page Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		Page.viewNoPage(
+			pageName = "Test Page Name",
+			privacy = "Public Pages");
+	}
+
+	@description = "This is a use case for LPS-78292."
+	@priority = "4"
+	test PublicationWithoutReadyForPublication {
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicPage(pageName = "Staging Test Page 2");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page 2",
+			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Hello World");
+
+		Staging.gotoPublishToLive(pleaseDoNotMarkAsReady = "true");
+
+		Staging.publishToLive();
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Page.viewNoPage(
+			pageName = "Staging Test Page 2",
+			privacy = "Public Pages");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page 2",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		Staging.addPageVariationPG(pageVariationName = "Page Variation Name");
+
+		Portlet.gotoPortletOptions(
+			portletName = "Hello World",
+			portletOption = "Look and Feel Configuration");
+
+		IFrame.selectConfigurationFrame();
+
+		Portlet.configureCustomTitleViaLookandfeelPG(portletName = "Hello World");
+
+		PortletEntry.save();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page 2",
+			siteName = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Hello World Custom");
+
+		Staging.gotoPublishToLive(pleaseDoNotMarkAsReady = "true");
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page 2",
+			siteName = "Site Name");
+
+		Portlet.viewNoSpecificPG(portletName = "Hello World Custom");
+	}
+
+	@priority = "3"
+	test PublishCustomPortletTitle {
+		Staging.addSitePagesVariationPG(sitePagesVariationName = "Site Pages Variation Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Site Pages Variation Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Sites Directory");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Sites Directory");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.gotoPortletOptions(portletOption = "Look and Feel Configuration");
+
+		IFrame.selectConfigurationFrame();
+
+		Portlet.configureCustomTitleViaLookandfeelPG(portletName = "Sites Directory");
+
+		PortletEntry.save();
+
+		Portlet.configureApplicationDecoratorViaLookandfeelPG(applicationDecorator = "Decorate");
+
+		PortletEntry.save();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Sites Directory Custom");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedView();
+
+		Staging.gotoPublishToLive();
+
+		Staging.configurePublishToLive(
+			applicationName = "Sites Directory",
+			markAsReadyForPublication = "true");
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.viewNoSpecificPG(portletName = "Sites Directory");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Sites Directory Custom");
+	}
+
+	@priority = "4"
+	test StagingDeletePageVariation {
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Main Variation");
+
+		Staging.addPageVariationPG(pageVariationName = "Monday");
+
+		Portlet.addPG(portletName = "Web Content Display");
+
+		Staging.markAsReadyForPublication();
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite(site = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.addPageVariationPG(pageVariationName = "Wednesday");
+
+		Portlet.addPG(portletName = "Site Map");
+
+		Staging.deletePageVariationPG(pageVariationName = "Monday");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		IsElementNotPresent(locator1 = "Staging#PAGE_VARIATION");
+
+		Staging.changePageVariationInHistory(
+			pageVariationName = "All Page Variations",
+			pageVariationNameMenulistName = "Wednesday");
+
+		Staging.viewHistoryVersionPG(historyVersionName = "Wednesday");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.markAsReadyForPublication();
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite(site = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Web Content Display");
+
+		Portlet.viewSpecificPG(portletName = "Site Map");
+	}
+
+	@priority = "4"
+	test StagingDeleteSitePagesVariation {
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Main Variation");
+
+		Staging.addSitePagesVariationPG(sitePagesVariationName = "Monday");
+
+		Portlet.addPG(portletName = "Web Content Display");
+
+		Staging.markAsReadyForPublication();
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite(site = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.addSitePagesVariationPG(sitePagesVariationName = "Wednesday");
+
+		Portlet.addPG(portletName = "Site Map");
+
+		Staging.deleteSitePagesVariationPG(sitePagesVariationName = "Monday");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.markAsReadyForPublication();
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite(site = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Web Content Display");
+
+		Portlet.viewSpecificPG(portletName = "Site Map");
+	}
+
+	@priority = "4"
+	test StagingMergeSitePagesVariation1 {
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Main Variation");
+
+		Staging.addSitePagesVariationPG(
+			copySitePagesVariationName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		Staging.changeSitePageVariationPG(
+			sitePagesVariationMenulistName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicPage(pageName = "Page 2");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Page 2",
+			siteName = "Site Name");
+
+		Staging.mergeSitePagesVariation(
+			sitePagesVariationMergeName = "Summer",
+			sitePagesVariationName = "Main Variation");
+
+		Staging.markAsReadyForPublication();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.markAsReadyForPublication();
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite(site = "Site Name");
+
+		Navigator.gotoSitePage(
+			pageName = "Page 2",
+			siteName = "Site Name");
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+	}
+
+	@priority = "4"
+	test StagingMergeSitePagesVariation2 {
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Main Variation");
+
+		Staging.addSitePagesVariationPG(
+			copySitePagesVariationName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		Portlet.addPG(portletName = "Web Content Display");
+
+		Staging.markAsReadyForPublication();
+
+		Staging.changeSitePageVariationPG(
+			sitePagesVariationMenulistName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicPage(pageName = "Page 2");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Page 2",
+			siteName = "Site Name");
+
+		Staging.mergeSitePagesVariation(
+			sitePagesVariationMergeName = "Main Variation",
+			sitePagesVariationName = "Summer");
+
+		Staging.markAsReadyForPublication();
+
+		Staging.changeSitePageVariationPG(
+			sitePagesVariationMenulistName = "Summer",
+			sitePagesVariationName = "Main Variation");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.changePageVariationPG(
+			pageVariationName = "Main Variation (Main Variation)",
+			pageVariationNameMenulistName = "Main Variation");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Page 2",
+			siteName = "Site Name");
+
+		Staging.enablePageInSitePagesVariation(
+			pageName = "Page 2",
+			privacy = "Public Pages",
+			sitePagesVariationName = "Summer");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Page 2",
+			siteName = "Site Name");
+
+		Staging.markAsReadyForPublication();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.changePageVariationPG(
+			pageVariationName = "Main Variation",
+			pageVariationNameMenulistName = "Main Variation (Main Variation)");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		ProductMenu.gotoLiveSite(site = "Site Name");
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		IsElementPresent(
+			locator1 = "Home#PORTLET",
+			portletTypeKey = "Web Content Display");
+
+		Navigator.gotoSitePage(
+			pageName = "Page 2",
+			siteName = "Site Name");
+	}
+
+	@priority = "3"
+	test StagingPageLogo {
+		Page.viewDefaultLogoPG();
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedView();
+
+		Page.changeLayoutLogo(
+			logoFile = "Document_2.png",
+			pageName = "Staging Test Page");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Page.viewLayoutLogoPG(assertLayoutLogoPresent = "true");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedView();
+
+		Staging.gotoPublishToLive();
+
+		Staging.configurePublishToLive(contentDateRange = "All");
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Page.viewDefaultLogoPG();
+
+		Page.viewDefaultLogoPG();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Page.viewLayoutLogoPG(assertLayoutLogoPresent = "true");
+	}
+
+	@priority = "4"
+	test StagingPortletPublishContentCount {
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name-staging");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "Web Content Content",
+			webContentTitle = "Web Content Title");
+
+		PortletEntry.publish();
+
+		WebContent.viewTitle(webContentTitle = "Web Content Title");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name-staging");
+
+		Staging.viewPublishContentCountViaPortletStagingCP(
+			contentCount = "1",
+			contentInformation = "Web Content (1)",
+			stagingDateRange = "From Last Publish Date");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name-staging");
+
+		Staging.publishToLiveNowViaPortletCP();
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name-staging");
+
+		Staging.viewNoPublishContentCountViaPortletStagingCP(stagingDateRange = "From Last Publish Date");
+	}
+
+	@priority = "4"
+	test StagingPublishLast {
+		property app.server.types = "jboss,tcserver,tomcat,weblogic,websphere,wildfly";
+		property database.types = "db2,hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+		property environment.acceptance = "quarantine";
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Main Variation");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name-staging");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "Web Content Content",
+			webContentTitle = "Web Content Title");
+
+		PortletEntry.publish();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.configurePublishToLive(contentDateRange = "Last");
+
+		AssertChecked.assertCheckedNotVisible(
+			checkboxName = "Web Content",
+			locator1 = "Checkbox#ANY_CHECKBOX",
+			value1 = "Web Content");
+
+		Staging.publishToLive();
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "site-name");
+
+		WebContent.viewTitle(
+			onLive = "true",
+			webContentTitle = "Web Content Title");
+	}
+
+	@priority = "3"
+	test StagingSiteLogo {
+		Page.viewDefaultLogoPG();
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedView();
+
+		Site.changeSiteLogo(
+			logoFile = "Document_2.png",
+			pageName = "Public Pages");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Page.viewCustomLogoPG(assertLayoutLogoPresent = "true");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		Navigator.gotoStagedView();
+
+		Staging.gotoPublishToLive();
+
+		Staging.configurePublishToLive(uncheckLogo = "true");
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Page.viewDefaultLogoPG();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+
+		Navigator.gotoSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Page.viewCustomLogoPG();
+	}
+
+	@priority = "5"
+	test StagingSiteVariationIncompletePage {
+		property portal.acceptance = "true";
+
+		Staging.addSitePagesVariationPG(sitePagesVariationName = "Site Pages Variation Name");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicPage(pageName = "Test Page Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Test Page Name",
+			siteName = "Site Name");
+
+		AssertElementPresent(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
+
+		Staging.changeSitePageVariationPG(
+			sitePagesVariationMenulistName = "Main Variation",
+			sitePagesVariationName = "Site Pages Variation Name");
+
+		Staging.enablePageInSitePagesVariation(
+			pageName = "Test Page Name",
+			privacy = "Public Pages",
+			sitePagesVariationName = "Main Variation");
+	}
+
+	@description = "This is a use case for LPS-87030."
+	@priority = "3"
+	test StagingTurnOffPageTemplatePropagation {
+		PageTemplatesAdmin.openPageTemplatesAdmin(siteURLKey = "site-name-staging");
+
+		PageTemplatesAdmin.addCollection(collectionName = "Page Template Collection");
+
+		PageTemplatesAdmin.addPageTemplate(
+			pageTemplateName = "Page Template Name",
+			pageTemplateType = "Widget Page Template");
+
+		PageTemplatesAdmin.configureWidgetPageTemplateLayout(columnName = "1 Column");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicPage(
+			collectionName = "Page Template Collection",
+			inheritChanges = "false",
+			pageName = "Test Page Name",
+			pageTemplateName = "Page Template Name");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.togglePrivacy(privacy = "Public Pages");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Test Page Name");
+
+		Page.viewPageLayoutColumn(columnName = "1 Column");
+	}
+
+	@priority = "4"
+	test StagingVersionHistory {
+		Staging.gotoHistory();
+
+		AssertElementPresent(locator1 = "Staging#HISTORY_VERSION");
+
+		var historyVersion = selenium.getText("Staging#HISTORY_VERSION");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.viewHistoryVersionPG(historyVersion = "${historyVersion}");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.addPG(portletName = "Blogs");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Blogs");
+
+		Staging.viewHistoryVersionPG(
+			historyVersion = "${historyVersion}",
+			modifiedVersion = "true");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.undoStagingPageVersioningPG();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.viewNoSpecificPG(portletName = "Blogs");
+
+		Staging.viewHistoryVersionPG(historyVersion = "${historyVersion}");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Staging.redoStagingPageVersioningPG();
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Staging Test Page",
+			siteName = "Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Blogs");
+
+		Staging.viewHistoryVersionPG(
+			historyVersion = "${historyVersion}",
+			modifiedVersion = "true");
+
+		Staging.gotoPublishToLive();
+
+		Staging.publishToLive();
+	}
+
+	@description = "This is a use case for LPS-84809."
+	@priority = "3"
+	test ViewChildPageNameViaLocalizedPage {
+		property test.name.skip.portal.instance = "StagingUsecaseWithVersioning#ViewChildPageNameViaLocalizedPage";
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicPage(pageName = "Page1");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Page1");
+
+		Page.addPageTranslations(
+			page = "Page1",
+			pageTranslation = "es_ES",
+			pageTranslationName = "Página1");
+
+		SitePages.openPagesAdmin(siteURLKey = "site-name-staging");
+
+		SitePages.addPublicChildPage(
+			childPageName = "Page2",
+			parentPageName = "Page1");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Page2",
+			parentPagesHierarchy = "Page1");
+
+		Page.addPageTranslations(
+			page = "Page2",
+			pageTranslation = "es_ES",
+			pageTranslationName = "Página2");
+
+		Navigator.openStagingSiteURL(siteName = "Site Name");
+
+		var portalURL = PropsUtil.get("portal.url");
+
+		Page.viewTranslationsPG(
+			defaultLanguageLocalizationMessage = "Display the page in English (United States).",
+			pageName = "Página2",
+			preferredLanguageLocalizationMessage = "Establecer español (España) como su idioma preferido.",
+			sitePageURL = "${portalURL}/es/web/site-name-staging/page2",
+			translationLanguageLocalizationMessage = "This page is displayed in Spanish (Spain).");
+	}
+
+}

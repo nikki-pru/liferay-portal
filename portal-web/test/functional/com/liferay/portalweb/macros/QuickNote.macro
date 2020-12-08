@@ -1,0 +1,23 @@
+definition {
+
+	macro addPG {
+		AssertTextEquals(
+			locator1 = "QuickNote#NOTE_CONTENT",
+			value1 = "Click to edit me...");
+
+		MouseOver(locator1 = "QuickNote#NOTE_CONTENT");
+
+		Click(locator1 = "QuickNote#NOTE_CONTENT_EDITABLE");
+
+		Type(
+			locator1 = "TextArea#FIELD_INPUT",
+			value1 = "${noteContent}");
+
+		Click(locator1 = "QuickNote#OK_BUTTON");
+
+		AssertTextEquals(
+			locator1 = "QuickNote#NOTE_CONTENT",
+			value1 = "${noteContent}");
+	}
+
+}

@@ -1,0 +1,45 @@
+definition {
+
+	macro click {
+		var key_menuBar = "${menuBar}";
+
+		if (IsElementNotPresent(locator1 = "MenuBar#ACTIVE_NAV_LINK")) {
+			AssertClick(
+				locator1 = "MenuBar#NAV_LINK",
+				value1 = "${menuBar}");
+		}
+
+		MenuBar.viewActive(menuBar = "${menuBar}");
+	}
+
+	macro gotoAddresses {
+		MenuBar.click(menuBar = "Addresses");
+	}
+
+	macro gotoContactInformation {
+		MenuBar.click(menuBar = "Contact Information");
+	}
+
+	macro gotoInformation {
+		MenuBar.click(menuBar = "Information");
+	}
+
+	macro gotoOpeningHours {
+		MenuBar.click(menuBar = "Opening Hours");
+	}
+
+	macro gotoOrganizationSite {
+		MenuBar.click(menuBar = "Organization Site");
+	}
+
+	macro gotoSecurityQuestions {
+		MenuBar.click(menuBar = "Security Questions");
+	}
+
+	macro viewActive {
+		AssertElementPresent(
+			key_menuBar = "${menuBar}",
+			locator1 = "MenuBar#ACTIVE_NAV_LINK");
+	}
+
+}

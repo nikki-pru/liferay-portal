@@ -1,0 +1,132 @@
+@default = "clickAt"
+definition {
+
+	function checkAll {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		if (selenium.isNotChecked()) {
+			selenium.clickAt();
+		}
+
+		selenium.assertChecked(
+			"xpath=( //div[@class='checkbox']//input[@title='Select All'])[2]"
+		);
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function checkHiddenToggleSwitch {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.mouseOver();
+
+		if (selenium.isNotChecked("xpath=(${locator1})/../../input")) {
+			selenium.clickAt();
+		}
+
+		AssertChecked.assertCheckedHiddenToggleSwitch();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function checkNotVisible {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.mouseOver();
+
+		selenium.clickAt();
+
+		selenium.assertChecked();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function checkToggleSwitch {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.mouseOver();
+
+		if (selenium.isNotChecked()) {
+			selenium.clickAt();
+		}
+
+		AssertChecked.assertCheckedNotVisible();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function checkToggleSwitchAndPause {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.mouseOver();
+
+		if (selenium.isNotChecked()) {
+			selenium.clickAt();
+		}
+
+		selenium.pause("1000");
+
+		AssertChecked.assertCheckedNotVisible();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickAt {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		if (selenium.isNotChecked()) {
+			selenium.clickAt();
+		}
+
+		AssertChecked.assertChecked();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function toggleSwitch {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.mouseOver();
+
+		if (selenium.isNotChecked()) {
+			selenium.clickAt();
+		}
+
+		AssertElementPresent();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

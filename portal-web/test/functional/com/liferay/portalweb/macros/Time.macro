@@ -1,0 +1,65 @@
+definition {
+
+	macro getUTCDay {
+		var javaScript = '''
+		var utcDate = new Date().getUTCDate().toString();
+
+		return utcDate;
+		''';
+
+		var utcDate = selenium.getEval("${javaScript}");
+
+		return "${utcDate}";
+	}
+
+	macro getUTCHours {
+		var javaScript = '''
+		var utcHours = new Date().getUTCHours().toString();
+
+		return utcHours;
+		''';
+
+		var utcHours = selenium.getEval("${javaScript}");
+
+		return "${utcHours}";
+	}
+
+	macro getUTCMinutes {
+		var javaScript = '''
+		var utcMinutes = new Date().getUTCMinutes().toString();
+
+		return utcMinutes;
+		''';
+
+		var utcMinutes = selenium.getEval("${javaScript}");
+
+		return "${utcMinutes}";
+	}
+
+	macro getUTCMonth {
+		var javaScript = '''
+		var utcMonth = new Date().getUTCMonth().toString();
+
+		return utcMonth;
+		''';
+
+		var utcMonth = selenium.getEval("${javaScript}");
+
+		var utcMonth = ${utcMonth} + 1;
+
+		return "${utcMonth}";
+	}
+
+	macro getUTCYear {
+		var javaScript = '''
+		var utcYear = new Date().getUTCFullYear().toString();
+
+		return utcYear;
+		''';
+
+		var utcYear = selenium.getEval("${javaScript}");
+
+		return "${utcYear}";
+	}
+
+}

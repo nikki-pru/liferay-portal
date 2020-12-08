@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>Relatedassets</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Relatedassets</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ASSET_EDIT</td>
+	<td>xpath=(//section[contains(@id,'RelatedAssetsPortlet')]//span[contains(@class,'visible-interaction')]//a)[${rowNumber}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ENTRY_STICKER</td>
+	<td>xpath=(//div[contains(.,'Related Assets')]//li[contains(@class,'list-group-item')]//span[contains(@class,'sticker-overlay')])[${rowNumber}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_ROW_ENTRY_TITLE</td>
+	<td>xPath=(//*[contains(@class,'list-group-title')]//a)[${rowNumber}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_TITLE</td>
+	<td>//section[contains(@id,'RelatedAssetsPortlet')]//a[normalize-space(text())='${key_assetTitle}']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

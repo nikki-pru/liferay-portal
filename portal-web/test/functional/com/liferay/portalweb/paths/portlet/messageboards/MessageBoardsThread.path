@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>MessageBoardsThread</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MessageBoardsThread</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>TITLE_HEADER</td>
+	<td>//div[contains(@class,'message_boards')]//h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--THREAD-->
+<tr>
+	<td>THREAD_BODY</td>
+	<td>//div[contains(@class,'message-content') and contains(.,'${key_threadBody}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_BODY_2</td>
+	<td>xpath=(//div[contains(@class,'message-content') and contains(.,'${key_threadBody}')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_PUBLISH_BUTTON</td>
+	<td>//div[@class='card list-group-card panel']//button[span[contains(.,'Publish')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_REPLY_BUTTON</td>
+	<td>//div[@class='thread-container']/button[contains(.,'Reply')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_REPLY_SUBJECT</td>
+	<td>//div[contains(@class,'autofit-col')]//h4[contains(.,'${key_threadSubject}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_SUBJECT</td>
+	<td>//div[@class='panel-heading' and contains(.,'${key_threadSubject}')]//h4[contains(.,'${key_threadSubject}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_SUBJECT_2</td>
+	<td>xpath=(//div[@class='panel-heading' and contains(.,'${key_threadSubject}')]//h4[contains(.,'${key_threadSubject}')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_USERNAME</td>
+	<td>//div[@class='panel-heading' and contains(.,'${key_threadSubject}')]//h5[contains(.,'${key_userName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_USERNAME_2</td>
+	<td>xpath=(//div[@class='panel-heading' and contains(.,'${key_threadSubject}')]//h5[contains(.,'${key_userName}')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--MESSAGE-->
+<tr>
+	<td>MESSAGE_WORKFLOW_STATUS_1</td>
+	<td>//span[@class='taglib-workflow-status']/span[contains(@class,'workflow-status')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_BODY_1</td>
+	<td>xpath=(//div[@class='thread-body'])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_BODY_STYLE_1</td>
+	<td>//div[@class='thread-body']/span[contains(@style,'${key_fontSize}px')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_USERNAME_2</td>
+	<td>xpath=(//span[@class='user-name'])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_ANSWER_1</td>
+	<td>//h4[contains(.,'Answer')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_REPLY_1</td>
+	<td>//a/span[contains(.,'Reply to Main Thread')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_REPLY_SPECIFIC</td>
+	<td>//td[contains(.,'${key_threadBody}')]//span[.='Reply']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_QUICK_REPLY_1</td>
+	<td>xpath=(//span[.='Quick Reply'])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_REPLY_WITH_QUOTE_1</td>
+	<td>xpath=(//span[.='Reply with Quote'])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_RATING_THUMBS_DOWN</td>
+	<td>//div[contains(@class,'card panel') and contains(.,'${key_threadBody}')]//button[contains(@title,'Rate this as bad.')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_RATING_THUMBS_UP</td>
+	<td>//div[contains(@class,'card panel') and contains(.,'${key_threadBody}')]//button[contains(@title,'Rate this as good.')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_EDIT_1</td>
+	<td>xpath=(//td//ul/li[2]/span/a/span)[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_ATTACHMENT_IMAGE</td>
+	<td>//li[contains(@class,'message-attachment')]//a/span[contains(.,'${key_mbThreadAttachment}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_ATTACHMENT_INVALID_SIZE_ERROR</td>
+	<td>//li[contains(@class,'upload-error')]//span[@class='error-message']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MESSAGE_BODY_ATTACHMENT_1</td>
+	<td>//li[@class='message-attachment']/span/a</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,37 @@
+Bundle-Name: Liferay Portal Tools REST Builder
+Bundle-SymbolicName: com.liferay.portal.tools.rest.builder
+Bundle-Version: 1.0.140
+Import-Package:\
+	!org.apache.maven.plugin.*,\
+	!org.apache.tools.ant.*,\
+	\
+	*
+Main-Class: com.liferay.portal.tools.rest.builder.RESTBuilder
+-includeresource:\
+	@com.liferay.petra.lang-*.jar!/com/liferay/petra/lang/CentralizedThreadLocal.class,\
+	@com.liferay.petra.string-*.jar!/com/liferay/petra/string/CharPool.class,\
+	@com.liferay.petra.string-*.jar!/com/liferay/petra/string/StringBundler.class,\
+	@com.liferay.petra.string-*.jar!/com/liferay/petra/string/StringBundler$UnsafeStringBuilder.class,\
+	@com.liferay.petra.string-*.jar!/com/liferay/petra/string/StringPool.class,\
+	@com.liferay.portal.impl-*.jar!/com/liferay/portal/tools/ArgumentsMap.class,\
+	@com.liferay.portal.impl-*.jar!/com/liferay/portal/tools/ArgumentsUtil.class,\
+	@com.liferay.portal.impl-*.jar!/com/liferay/portal/tools/BaseImportsFormatter.class,\
+	@com.liferay.portal.impl-*.jar!/com/liferay/portal/tools/ImportPackage.class,\
+	@com.liferay.portal.impl-*.jar!/com/liferay/portal/tools/ImportsFormatter.class,\
+	@com.liferay.portal.impl-*.jar!/com/liferay/portal/tools/JavaImportsFormatter.class,\
+	@com.liferay.portal.impl-*.jar!/com/liferay/portal/tools/ToolsUtil.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/exception/NestableRuntimeException.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/exception/SystemException.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/io/unsync/UnsyncBufferedReader.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/io/unsync/UnsyncByteArrayInputStream.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/io/unsync/UnsyncByteArrayOutputStream.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/io/unsync/UnsyncStringReader.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/log/*,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/search/Sort.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/search/filter/Filter.class,\
+	@com.liferay.portal.kernel-*.jar!/com/liferay/portal/kernel/util/*,\
+	@com.liferay.portal.tools.java.parser-*.jar!/com/liferay/portal/tools/java/parser/*.class,\
+	@com.liferay.portal.tools.java.parser-*.jar!/com/liferay/portal/tools/java/parser/util/JavaParserUtil.class,\
+	@commons-io-[0-9.]*.jar!/org/apache/commons/io/FileUtils.class,\
+	@javax.ws.rs-api-[0-9.]*.jar!/javax/ws/rs/core/Response.class,\
+	@javax.ws.rs-api-[0-9.]*.jar!/javax/ws/rs/core/Response$Status$Family.class

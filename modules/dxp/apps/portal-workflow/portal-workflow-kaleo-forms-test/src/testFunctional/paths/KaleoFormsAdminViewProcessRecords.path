@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>KaleoFormsAdminViewProcessRecords</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">KaleoFormsAdminViewProcessRecords</td></tr>
+</thead>
+<tbody>
+<!--RECORD_TABLE-->
+<tr>
+	<td>RECORD_TABLE_RECORD</td>
+	<td>//td[contains(.,'${key_kfProcessFieldData}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RECORD_TABLE_STATUS</td>
+	<td>//td[contains(@class,'status-column') and contains(.,'${key_kfStatus}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RECORD_TABLE_AUTHOR</td>
+	<td>//td[contains(@class,'author-column') and contains(.,'${key_kfAuthor}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--EXPORT_DIALOG_BOX-->
+<tr>
+	<td>EXPORT_DIALOG_BOX_FILE_EXTENSION_SELECT</td>
+	<td>//select[contains(@id,'fileExtension')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EXPORT_DIALOG_BOX_APPROVED_SUBMISSIONS_CHECKBOX</td>
+	<td>//input[contains(@id,'exportOnlyApproved') and @type='checkbox']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EXPORT_DIALOG_BOX_OK_BUTTON</td>
+	<td>//div[contains(@class,'kaleo-process-export-dialog')]//button[contains(.,'OK')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

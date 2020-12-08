@@ -1,0 +1,63 @@
+task checkApi
+task checkPortlet
+task checkService
+task runGradleTest
+
+allprojects {
+	repositories {
+		maven {
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+checkApi {
+	dependsOn ":modules:foo-api:resolve"
+
+	doLast {
+		List<String> runBundles = project(":modules:foo-api").resolve.runBundles
+
+		assert runBundles.size() > 0
+		assert runBundles.contains("com.liferay.foo.api;version='[1.0.0,1.0.1)'")
+		assert !runBundles.contains("com.liferay.foo.portlet;version='[1.0.0,1.0.1)'")
+		assert !runBundles.contains("com.liferay.foo.service;version='[1.0.0,1.0.1)'")
+	}
+}
+
+checkPortlet {
+	dependsOn ":modules:foo-portlet:resolve"
+
+	doLast {
+		List<String> runBundles = project(":modules:foo-portlet").resolve.runBundles
+
+		assert runBundles.size() > 0
+		assert runBundles.contains("com.liferay.foo.api;version='[1.0.0,1.0.1)'")
+		assert runBundles.contains("com.liferay.foo.portlet;version='[1.0.0,1.0.1)'")
+		assert runBundles.contains("com.liferay.foo.service;version='[1.0.0,1.0.1)'")
+	}
+}
+
+checkService {
+	dependsOn ":modules:foo-service:resolve"
+
+	doLast {
+		List<String> runBundles = project(":modules:foo-service").resolve.runBundles
+
+		assert runBundles.size() > 0
+		assert runBundles.contains("com.liferay.foo.api;version='[1.0.0,1.0.1)'")
+		assert !runBundles.contains("com.liferay.foo.portlet;version='[1.0.0,1.0.1)'")
+		assert runBundles.contains("com.liferay.foo.service;version='[1.0.0,1.0.1)'")
+	}
+}
+
+runGradleTest {
+	dependsOn checkApi
+	dependsOn checkPortlet
+	dependsOn checkService
+}
+
+targetPlatform {
+	resolveOnlyIf {
+		it.name != "foo-rule"
+	}
+}

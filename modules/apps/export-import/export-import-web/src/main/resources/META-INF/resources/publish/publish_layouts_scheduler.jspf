@@ -1,0 +1,120 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<ul class="lfr-tree list-unstyled">
+	<li class="tree-item">
+		<liferay-staging:radio
+			checked="<%= true %>"
+			id="publishingEventNow"
+			label="now"
+			name="schedule"
+			value="false"
+		/>
+
+		<liferay-staging:radio
+			id="publishingEventSchedule"
+			label="schedule"
+			name="schedule"
+			value="true"
+		/>
+
+		<liferay-staging:input-scheduler />
+	</li>
+</ul>
+
+<script>
+	<portlet:renderURL var="scheduledEventsURL">
+		<portlet:param name="mvcRenderCommandName" value="/export_import/publish_layouts" />
+		<portlet:param name="closeRedirect" value="<%= closeRedirect %>" />
+		<portlet:param name="groupId" value="<%= String.valueOf(stagingGroupId) %>" />
+		<portlet:param name="layoutSetBranchId" value="<%= String.valueOf(layoutSetBranchId) %>" />
+		<portlet:param name="layoutSetBranchName" value="<%= layoutSetBranchName %>" />
+		<portlet:param name="privateLayout" value="<%= String.valueOf(privateLayout) %>" />
+	</portlet:renderURL>
+
+	function <portlet:namespace />schedulePublishEvent() {
+		var exportImport = Liferay.component(
+			'<portlet:namespace />ExportImportComponent'
+		);
+
+		var dateChecker = exportImport.getDateRangeChecker();
+
+		var rangeEndsLater = false;
+
+		var schedulerEndBy = document.getElementById(
+			'<portlet:namespace />schedulerEndBy'
+		);
+
+		if (schedulerEndBy && schedulerEndBy.checked) {
+			var endDate = Liferay.component(
+				'<portlet:namespace />schedulerEndDateDatePicker'
+			);
+			var endTime = Liferay.component(
+				'<portlet:namespace />schedulerEndTimeTimePicker'
+			);
+			var startDate = Liferay.component(
+				'<portlet:namespace />schedulerStartDateDatePicker'
+			);
+			var startTime = Liferay.component(
+				'<portlet:namespace />schedulerStartTimeTimePicker'
+			);
+
+			if (endDate && endTime && startDate && startTime) {
+				if (
+					endDate.getDate().toISOString() <
+					startDate.getDate().toISOString()
+				) {
+					rangeEndsLater = true;
+				}
+
+				if (
+					endTime.getTime().toISOString() <
+					startTime.getTime().toISOString()
+				) {
+					rangeEndsLater = true;
+				}
+			}
+		}
+
+		if (!rangeEndsLater) {
+			Liferay.Util.postForm(document.<portlet:namespace />publishPagesFm, {
+				data: {
+					<%= Constants.CMD %>: '<%= scheduleCMD %>',
+					redirect: '<%= scheduledEventsURL %>',
+				},
+			});
+		}
+		else {
+			exportImport.showNotification(dateChecker, rangeEndsLater);
+		}
+	}
+
+	function <portlet:namespace />unschedulePublishEvent(jobName) {
+		if (
+			confirm(
+				'<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-delete-the-scheduled-event") %>'
+			)
+		) {
+			Liferay.Util.postForm(document.<portlet:namespace />exportPagesFm, {
+				data: {
+					<%= Constants.CMD %>: '<%= unscheduleCMD %>',
+					jobName: jobName,
+					redirect: '<%= scheduledEventsURL %>',
+				},
+			});
+		}
+	}
+</script>

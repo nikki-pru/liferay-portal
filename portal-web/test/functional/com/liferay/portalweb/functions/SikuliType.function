@@ -1,0 +1,16 @@
+@default = "sikuliType"
+definition {
+
+	function sikuliType {
+		WaitForSPARefresh();
+
+		selenium.sikuliType();
+
+		selenium.pause("2000");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

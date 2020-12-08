@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CriteriaRow renders 1`] = `
+<DocumentFragment>
+  <div
+    class="criterion-row-root"
+  >
+    <div
+      class="edit-container"
+    >
+      <div
+        class="drag-icon"
+      >
+        <svg
+          class="lexicon-icon lexicon-icon-drag"
+          role="presentation"
+        >
+          <use
+            xlink:href="#drag"
+          />
+        </svg>
+      </div>
+      <span
+        class="criterion-string"
+      >
+        <b>
+          Test Property
+        </b>
+      </span>
+      <select
+        class="form-control criterion-input form-control operator-input"
+      />
+      <input
+        class="criterion-input form-control"
+        data-testid="simple-string"
+        type="text"
+        value="test_val"
+      />
+      <button
+        class="btn-outline-borderless btn-sm mr-1 btn btn-monospaced btn-secondary"
+        type="button"
+      >
+        <svg
+          class="lexicon-icon lexicon-icon-paste"
+          role="presentation"
+        >
+          <use
+            xlink:href="#paste"
+          />
+        </svg>
+      </button>
+      <button
+        class="btn-outline-borderless btn-sm btn btn-monospaced btn-secondary"
+        type="button"
+      >
+        <svg
+          class="lexicon-icon lexicon-icon-times-circle"
+          role="presentation"
+        >
+          <use
+            xlink:href="#times-circle"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CriteriaRow renders and inform there is an unknown property 1`] = `
+<DocumentFragment>
+  <div
+    class="criterion-row-root criterion-row-root-error"
+  >
+    <div
+      class="edit-container"
+    >
+      <div
+        class="drag-icon"
+      >
+        <svg
+          class="lexicon-icon lexicon-icon-drag"
+          role="presentation"
+        >
+          <use
+            xlink:href="#drag"
+          />
+        </svg>
+      </div>
+      <span
+        class="criterion-string"
+      >
+        <b>
+          unknown_prop
+        </b>
+      </span>
+      <select
+        class="form-control criterion-input form-control operator-input"
+        disabled=""
+      />
+      <input
+        class="criterion-input form-control"
+        data-testid="simple-string"
+        disabled=""
+        type="text"
+        value="test_val"
+      />
+      <button
+        class="btn-outline-danger btn-sm btn"
+        type="button"
+      >
+        delete
+      </button>
+    </div>
+  </div>
+  <div
+    class="bg-transparent border-0 mt-1 p-1 alert alert-danger"
+    role="alert"
+  >
+    <div
+      class="alert-autofit-row autofit-row"
+    >
+      <div
+        class="autofit-col"
+      >
+        <div
+          class="autofit-section"
+        >
+          <span
+            class="alert-indicator"
+          >
+            <svg
+              class="lexicon-icon lexicon-icon-exclamation-full"
+              role="presentation"
+            >
+              <use
+                xlink:href="#exclamation-full"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div
+        class="autofit-col autofit-col-expand"
+      >
+        <div
+          class="autofit-section"
+        >
+          <strong
+            class="lead"
+          >
+            error
+          </strong>
+          criteria-error-message-edit
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

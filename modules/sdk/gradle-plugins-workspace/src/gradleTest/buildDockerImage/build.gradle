@@ -1,0 +1,69 @@
+task runGradleTest
+
+runGradleTest {
+	dependsOn buildDockerImage
+
+	doLast {
+		File inputDir = new File(buildDir, "docker")
+
+		String[] inputDirFileNames = inputDir.list()
+
+		assert inputDirFileNames.length == 7
+
+		assert inputDirFileNames.contains("100_liferay_image_setup.sh")
+		assert inputDirFileNames.contains("Dockerfile")
+		assert inputDirFileNames.contains("configs")
+		assert inputDirFileNames.contains("deploy")
+		assert inputDirFileNames.contains("patching")
+		assert inputDirFileNames.contains("scripts")
+		assert inputDirFileNames.contains("work")
+
+		File configsDir = new File(inputDir, "configs")
+
+		String[] configsDirFileNames = configsDir.list()
+
+		assert configsDirFileNames.length == 2
+
+		assert configsDirFileNames.contains("local")
+		assert configsDirFileNames.contains("other")
+
+		File localDir = new File(configsDir, "local")
+
+		String[] localDirFileNames = localDir.list()
+
+		assert localDirFileNames.length == 3
+
+		assert localDirFileNames.contains("local_file")
+		assert localDirFileNames.contains("osgi")
+		assert localDirFileNames.contains("portal-ext.properties")
+
+		File deployDir = new File(inputDir, "deploy")
+
+		String[] deployDirFileNames = deployDir.list()
+
+		assert deployDirFileNames.contains(".touch")
+		assert deployDirFileNames.contains("com.liferay.foo.web-1.0.0.jar")
+
+		File scriptsDir = new File(inputDir, "scripts")
+
+		String[] scriptsDirFileNames = scriptsDir.list()
+
+		assert scriptsDirFileNames.contains(".touch")
+
+		File workDir = new File(inputDir, "work")
+
+		String[] workDirFileNames = workDir.list()
+
+		assert workDirFileNames.contains(".touch")
+
+		File overrideFile = new File(inputDir, "configs/local/osgi/marketplace/override/com.liferay.calendar.web.jar");
+
+		assert overrideFile.exists()
+
+		overrideFile = new File(inputDir, "configs/other/osgi/marketplace/override/com.liferay.calendar.web.jar");
+
+		assert overrideFile.exists()
+	}
+
+	finalizedBy cleanDockerImage
+}

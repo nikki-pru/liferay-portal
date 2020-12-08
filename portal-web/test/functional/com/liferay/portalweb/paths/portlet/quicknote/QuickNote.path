@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>QuickNote</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">QuickNote</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>NOTE_CONTENT</td>
+	<td>//div[@class='note-content']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NOTE_CONTENT_EDITABLE</td>
+	<td>//div[@class='note-content editable-hover']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OK_BUTTON</td>
+	<td>//button[contains(@class,'btn-secondary')]/span[@class='icon-ok']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

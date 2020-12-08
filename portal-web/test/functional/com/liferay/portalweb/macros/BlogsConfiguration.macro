@@ -1,0 +1,239 @@
+definition {
+
+	macro enableReadingTime {
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Blogs",
+			configurationName = "Blogs",
+			configurationScope = "Widget Scope");
+
+		if (IsNotChecked.isNotCheckedNotVisible(locator1 = "FormFields#CHECKBOX", key_fieldName = "enableReadingTime")) {
+			Check.checkNotVisible(
+				key_fieldName = "enableReadingTime",
+				locator1 = "FormFields#CHECKBOX");
+		}
+
+		FormFields.viewCheckboxChecked(fieldName = "enableReadingTime");
+
+		Button.clickSave();
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro enableSocialBookmarkSites {
+		for (var socialBookmarkSite : list "${enableSocialBookmarkSites}") {
+			AddSelection(
+				locator1 = "SocialBookmarks#ENABLE_SOCIAL_BOOKMARK_AVAILABLE_SELECT",
+				value1 = "${socialBookmarkSite}");
+
+			Click(locator1 = "Button#MOVE_AVAILABLE_TO_CURRENT");
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "SocialBookmarks#ENABLE_SOCIAL_BOOKMARK_CURRENT_SELECT",
+				value1 = "${socialBookmarkSite}");
+		}
+	}
+
+	macro gotoRSS {
+		AssertClick(
+			locator1 = "Configuration#NAVIGATION_RSS",
+			value1 = "RSS");
+	}
+
+	macro selectConfigurationIFrame {
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+	}
+
+	macro selectDisplayTemplate {
+		Select(
+			locator1 = "Select#DISPLAY_TEMPLATE",
+			value1 = "${displayTemplate}");
+	}
+
+	macro selectMaximumItemstoDisplay {
+		Select(
+			locator1 = "Select#PAGE_DELTA",
+			value1 = "${maximumItemsToDisplay}");
+	}
+
+	macro uncheckComments {
+		Uncheck(locator1 = "Checkbox#ENABLE_COMMENTS");
+	}
+
+	macro uncheckRelatedAssets {
+		Uncheck(locator1 = "Checkbox#SHOW_RELATED_ASSETS");
+	}
+
+	macro uncheckRSSSubscriptionCheckbox {
+		Uncheck.uncheckToggleSwitch(locator1 = "Checkbox#ENABLE_RSS_SUBSCRIPTION");
+	}
+
+	macro viewAsSiteMemberPG {
+		var key_portletName = "Blogs";
+
+		AssertElementPresent(locator1 = "Portlet#TITLE");
+
+		var key_text = "New Entry";
+
+		AssertElementNotPresent(locator1 = "Button#ANY");
+
+		if (IsElementPresent(locator1 = "Portlet#OPTIONS_ICON")) {
+			Click.mouseOverClick(locator1 = "Portlet#OPTIONS_ICON");
+
+			MenuItem.viewNotPresent(menuItem = "Permissions");
+		}
+
+		AssertTextEquals(
+			locator1 = "Blogs#SUBSCRIBE_LINK",
+			value1 = "Subscribe");
+
+		var key_text = "RSS";
+
+		AssertTextEquals(
+			locator1 = "Button#ANY",
+			value1 = "RSS");
+	}
+
+	macro viewDefaultConfiguration {
+		AssertTextEquals.assertValue(
+			locator1 = "Select#PAGE_DELTA",
+			value1 = "20");
+
+		AssertTextEquals.assertValue(
+			locator1 = "Select#DISPLAY_TEMPLATE",
+			value1 = "abstract");
+
+		AssertChecked(locator1 = "Checkbox#ENABLE_REPORT_INAPPROPRIATE_CONTENT");
+
+		AssertChecked(locator1 = "Checkbox#SHOW_RELATED_ASSETS");
+
+		AssertChecked(locator1 = "Checkbox#ENABLE_RATINGS");
+
+		AssertChecked(locator1 = "Checkbox#ENABLE_COMMENTS");
+
+		AssertChecked(locator1 = "Checkbox#ENABLE_COMMENT_RATINGS");
+
+		var key_displayStyle = "Inline";
+
+		AssertChecked(
+			locator1 = "Radio#SOCIAL_BOOKMARKS_DISPLAY_STYLE",
+			value1 = "Inline");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "SocialBookmarks#ENABLE_SOCIAL_BOOKMARK_CURRENT_SELECT",
+			value1 = "Twitter");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "SocialBookmarks#ENABLE_SOCIAL_BOOKMARK_CURRENT_SELECT",
+			value1 = "Facebook");
+	}
+
+	macro viewDefaultConfigurationRSS {
+		Check.checkToggleSwitch(locator1 = "Checkbox#ENABLE_RSS_SUBSCRIPTION");
+
+		AssertTextEquals.assertValue(
+			locator1 = "Configuration#SETUP_RSS_MAXIMUM_ITEMS_TO_DISPLAY_SELECT",
+			value1 = "20");
+
+		AssertTextEquals.assertValue(
+			locator1 = "Configuration#SETUP_RSS_DISPLAY_STYLE_SELECT",
+			value1 = "full-content");
+
+		AssertTextEquals.assertValue(
+			locator1 = "Configuration#SETUP_RSS_FORMAT_SELECT",
+			value1 = "atom_1.0");
+	}
+
+	macro viewNoPermissionCP {
+		var key_portletTitle = "Blogs";
+
+		AssertTextEquals(
+			locator1 = "Home#SITE_ADMINISTRATION_PORTLET_TITLE",
+			value1 = "Blogs");
+
+		AssertElementPresent(locator1 = "NavBar#CONTAINER");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No entries were found.");
+	}
+
+	macro viewNoPermissionPG {
+		var key_text = "New Entry";
+
+		AssertElementNotPresent(locator1 = "Button#ANY");
+
+		AssertElementNotPresent(locator1 = "Blogs#SUBSCRIBE_LINK");
+
+		var key_text = "RSS";
+
+		AssertTextEquals(
+			locator1 = "Button#ANY",
+			value1 = "RSS");
+
+		if (IsElementPresent(locator1 = "Portlet#OPTIONS_ICON")) {
+			Click.mouseOverClick(locator1 = "Portlet#OPTIONS_ICON");
+
+			MenuItem.viewNotPresent(menuItem = "Permissions");
+
+			if (IsElementPresent(locator1 = "MenuItem#ANY_MENU_ITEM", key_menuItem = "Configuration")) {
+				MenuItem.click(menuItem = "Configuration");
+
+				SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+				MenuItem.viewNotPresent(menuItem = "Permissions");
+			}
+		}
+	}
+
+	macro viewNoSubscribePG {
+		AssertElementNotPresent(locator1 = "Blogs#SUBSCRIBE_LINK");
+	}
+
+	macro viewPermissionsPG {
+		Click.mouseOverClick(locator1 = "Portlet#OPTIONS_ICON");
+
+		if (IsElementPresent(locator1 = "Portlet#OPTIONS_MENULIST_PERMISSIONS")) {
+			Click(locator1 = "Portlet#OPTIONS_MENULIST_PERMISSIONS");
+
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+		}
+
+		MenuItem.viewPresent(menuItem = "Permissions");
+	}
+
+	macro viewScopeDefaultNoEntryCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		AssertElementPresent(locator1 = "ProductMenu#PRODUCT_MENU_PANEL_SCOPE");
+
+		AssertTextEquals(
+			locator1 = "ProductMenu#PRODUCT_MENU_PANEL_SCOPE",
+			value1 = "${contentScopeName}");
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No entries were found.");
+	}
+
+	macro viewScopeSelection {
+		AssertSelectedLabel(
+			locator1 = "Select#SCOPE",
+			value1 = "${scopeSelection}");
+	}
+
+	macro viewSubscribePG {
+		AssertTextEquals(
+			locator1 = "Blogs#SUBSCRIBE_LINK",
+			value1 = "Subscribe");
+	}
+
+}

@@ -1,0 +1,153 @@
+definition {
+
+	var userFirstName = "Test";
+	var userLastName = "Test";
+
+	@summary-ignore = "true"
+	macro runSmoke {
+		task ("Ensure that the super admin can add a Blank Site") {
+			ApplicationsMenu.gotoPortlet(
+				category = "Sites",
+				panel = "Control Panel",
+				portlet = "Sites");
+
+			Site.addBlankCP(siteName = "Site Name");
+
+			ApplicationsMenu.gotoPortlet(
+				category = "Sites",
+				panel = "Control Panel",
+				portlet = "Sites");
+
+			Site.viewCP(siteName = "Site Name");
+		}
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages",
+			site = "Site Name");
+
+		SitePages.addPublicPage(pageName = "Test Page1");
+
+		SitePages.addPublicPage(pageName = "Test Page2");
+
+		SitePages.addPublicPage(pageName = "Test Page3");
+
+		var pageName = "Test Page1";
+		var portletBody = "Welcome to Liferay";
+		var portletName = "Hello World";
+		var siteName = "Site Name";
+
+		task ("Add a '${portletName}' portlet to the page named '${pageName}'") {
+			Navigator.gotoSitePage(
+				pageName = "${pageName}",
+				siteName = "${siteName}");
+
+			Portlet.addPG(
+				i = "${i}",
+				portletName = "${portletName}");
+
+			Portlet.viewTitle(portletName = "${portletName}");
+
+			Portlet.viewBody(
+				portletBody = "${portletBody}",
+				portletName = "${portletName}");
+
+			Navigator.gotoSitePage(
+				pageName = "${pageName}",
+				siteName = "${siteName}");
+
+			Portlet.viewTitle(portletName = "${portletName}");
+
+			Portlet.viewBody(
+				portletBody = "${portletBody}",
+				portletName = "${portletName}");
+		}
+
+		var collectionName = "Basic Components";
+		var contentPageName = "Test Content Page";
+		var fragmentId = "Heading";
+		var fragmentName = "Heading";
+
+		task ("Add a '${fragmentName}' fragment to the content page named '${contentPageName}'") {
+			task ("Create a Content Page") {
+				SitePages.openPagesAdmin(siteURLKey = "${siteName}");
+
+				ContentPages.addPage(pageName = "${contentPageName}");
+			}
+
+			task ("Add a basic '${fragmentName}' component") {
+				PageEditor.addFragment(
+					collectionName = "${collectionName}",
+					fragmentName = "${fragmentName}");
+			}
+
+			task ("Publish Content Page") {
+				PageEditor.clickPublish();
+			}
+
+			task ("Navigate to the content page") {
+				Navigator.gotoSitePage(
+					pageName = "${contentPageName}",
+					siteName = "${siteName}");
+			}
+
+			task ("Assert the '${fragmentName}' fragment is present") {
+				AssertElementPresent(locator1 = "//h1[contains(.,'Heading Example')]");
+			}
+		}
+
+		var portlet = "Web Content";
+
+		task ("Navigate to Product Menu > Sites > Content > ${portlet}") {
+			Navigator.openSiteURL(siteName = "Site Name");
+
+			ProductMenu.gotoPortlet(
+				category = "Content &amp; Data",
+				portlet = "${portlet}");
+
+			SiteAdmin.viewPortletTitle(portletTitle = "${portlet}");
+		}
+
+		var webContentContent = "Web Content Content";
+		var webContentTitle = "Web Content Title";
+
+		task ("Add a web content article with '${webContentTitle}' as the title and '${webContentContent}' as the content") {
+			WebContentNavigator.gotoAddCP();
+
+			WebContent.addCP(
+				webContentContent = "${webContentContent}",
+				webContentTitle = "${webContentTitle}");
+
+			PortletEntry.publish();
+
+			WebContent.viewTitle(webContentTitle = "${webContentTitle}");
+		}
+	}
+
+	@summary = "View default welcome content page while signed in as '${userFirstName} ${userLastName}'"
+	macro viewWelcomeContentPage {
+		AssertTextPresent(
+			locator1 = "HelloWorld#PORTLET_TITLE",
+			value1 = "Hello World");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "HelloWorld#PORTLET_CONTENT",
+			value1 = "Welcome to Liferay");
+
+		AssertElementPresent(
+			key_imageName = "welcome_bg.jpg",
+			locator1 = "Fragment#FRAGMENT_SECTION_BACKGROUND_IMAGE");
+	}
+
+	@summary = "View default welcome page while signed in as '${userFirstName} ${userLastName}'"
+	macro viewWelcomePage {
+		AssertTextPresent(
+			locator1 = "HelloWorld#PORTLET_TITLE",
+			value1 = "Hello World");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "HelloWorld#PORTLET_CONTENT",
+			value1 = "Welcome to Liferay");
+	}
+
+}

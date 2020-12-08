@@ -1,0 +1,188 @@
+<html>
+<head>
+<title>ContentDashboard</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ContentDashboard</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>AUDIT_GRAPH_CATEGORY_CHECKBOX</td>
+	<td>//*[contains(@class, 'inline-item-after') and contains(text(),'Stage 1')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUDIT_GRAPH_CONFIGURATION_BUTTON</td>
+	<td>//button[contains(@class, 'btn') and contains(@onclick,'Configuration')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUDIT_GRAPH_CONFIGURATION_STAGE_VOCABULARY</td>
+	<td>//option[contains(text(),'Stage')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUDIT_GRAPH_CONFIGURATION_UP_ARROW_BUTTON</td>
+	<td>//button[contains(@class, 'reorder-up')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUDIT_GRAPH_TITLE</td>
+	<td>//*[contains(@class, 'autofit-col autofit-col-expand') and contains(text(),'${auditGraphTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUTHOR_SELECT_DISPLAY_MODE_BUTTON</td>
+	<td>//button[contains(@class, 'dropdown-toggle') and contains(@class, 'btn-unstyled') and contains(@class, 'nav-link-monospaced') and contains(@class, 'btn nav-link')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUTHOR_CARDS_DISPLAY_OPTION</td>
+	<td>//*[contains(@class, 'dropdown-item') and contains(text(),'Cards')]</td>
+	<td></td>
+</tr>ç<tr>
+	<td>AUTHOR_CARDS_ELEMENT</td>
+	<td>//*[contains(@class, 'card-item-first')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUTHOR_LIST_DISPLAY_OPTION</td>
+	<td>//*[contains(@class, 'dropdown-item') and contains(text(),'List')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUTHOR_ELEMENT_CHECKBOX</td>
+	<td>//*[contains(@title,'Select') and contains(@type,'checkbox')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>AUTHOR_TABLE_DISPLAY_OPTION</td>
+	<td>//*[contains(@class, 'dropdown-item') and contains(text(),'Table')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_NAME_ELEMENT</td>
+	<td>//*[contains(@class, 'text-truncate') and contains(text(),'Category Name')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CLEAR_FILTERS_BUTTON</td>
+	<td>//*[contains(@class, ' component-link tbar-link') and contains(text(),'Clear')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CLOSE_INFO_PANEL_BUTTON</td>
+	<td>//*[contains(@class, 'component-action btn btn-monospaced btn-unstyled')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EDIT_OPTION</td>
+	<td>//*[contains(@class, 'dropdown-item') and contains(text(),'Edit')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FILTER_AND_ORDER_DROPDOWN</td>
+	<td>//*[contains(@class, 'dropdown-toggle btn nav-link btn-unstyled')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FILTER_BY_OPTION</td>
+	<td>//*[contains(@class, 'dropdown-item') and contains(text(),'${filterOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIRST_CHECKBOX_TAGS</td>
+	<td>//*[contains(@title,'Select') and contains(@value,'tag1')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIRST_ELEMENT_LISTED</td>
+	<td>(//*[contains(@class, 'text-truncate')])[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIRST_ELEMENT_LISTED_TAGS</td>
+	<td>//*[contains(@class, 'text-truncate') and contains(text(),'Web Content Title')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FLIP_AXES_BUTTON</td>
+	<td>//button[contains(@class, 'btn-outline-borderless') and contains(@type,'submit')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GLOBAL_SITE_CARD</td>
+	<td>//*[contains(@class, 'card')]//*[contains(@data-groupdescriptivename, 'Global')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>INFO_OPTION</td>
+	<td>//*[contains(@data-action, 'showInfo')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>INFO_PANEL_TITLE</td>
+	<td>//*[contains(@class, 'text-truncate') and contains(text(),'Content Info')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MY_SITES_TAB</td>
+	<td>//*[contains(@class, 'nav-link') and contains(text(),'My Sites')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NO_CATEGORIES_SELECTED_TEXT</td>
+	<td>//*[contains(@class, 'text-truncate') and contains(text(),'There are no categories selected')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REVERSE_SORT_DIRECTION_BUTTON</td>
+	<td>//*[contains(@class, 'lexicon-icon lexicon-icon-order-arrow')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SEARCH_CATEGORY_FIELD</td>
+	<td>//*[contains(@class, 'form-control h-100 input-group-inset input-group-inset-after')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SEARCH_FIELD</td>
+	<td>//*[contains(@class,'form-control input-group-inset input-group-inset-after')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SECOND_CHECKBOX_TAGS</td>
+	<td>//*[contains(@title,'Select') and contains(@value,'tag2')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_AUTHOR_BUTTON</td>
+	<td>//button[contains(@class, 'btn btn-primary') and contains(text(),'Select')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_CATEGORY_BUTTON</td>
+	<td>//button[contains(@id, 'addButton')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_TAGS_BUTTON</td>
+	<td>//*[contains(@class,'btn btn-primary') and contains(text(),'Select')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WEB_CONTENT_MENU_DROPDOWN_BUTTON</td>
+	<td>//button[contains(@class, 'dropdown-toggle') and contains(@class, 'btn-unstyled') and contains(@class, 'btn-monospaced') and contains(@class, 'component-action')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>X_AXIS_VOCABULARY_NAME</td>
+	<td>//button[contains(@class, 'recharts-layer recharts-cartesian-axis-tick') and contains(text(),'${xAxisCategoryName}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

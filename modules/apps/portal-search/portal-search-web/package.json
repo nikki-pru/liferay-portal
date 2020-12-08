@@ -1,0 +1,18 @@
+{
+	"jest": {
+		"setupFilesAfterEnv": [
+			"<rootDir>/test/setup.js"
+		],
+		"testPathIgnorePatterns": [
+			"<rootDir>/test/setup.js"
+		]
+	},
+	"name": "portal-search-web",
+	"scripts": {
+		"build": "liferay-npm-scripts build",
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix",
+		"test": "liferay-npm-scripts test"
+	},
+	"version": "6.0.0"
+}

@@ -1,0 +1,28 @@
+$c: '.ddm-field-types-panel';
+
+#{$c} {
+	.panel-secondary > a {
+		padding-left: 17px;
+
+		&:hover {
+			background-color: #f0f5ff;
+		}
+	}
+
+	.panel-secondary,
+	.ddm-drag-item {
+		border-radius: 0;
+	}
+
+	.ddm-drag-item:last-child {
+		border-bottom: none;
+	}
+}
+
+.ddm-drag-item {
+	&.dragging {
+		cursor: move;
+		cursor: grabbing;
+		z-index: 99999;
+	}
+}

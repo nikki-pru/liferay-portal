@@ -1,0 +1,33 @@
+definition {
+
+	macro deleteEntry {
+		LexiconEntry.changeDisplayStyle(displayStyle = "table");
+
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		Click(
+			locator1 = "WikiTable#ALL_PAGES_VERTICAL_ELLIPSIS",
+			value1 = "${wikiPageTitle}");
+
+		PortletEntry.clickMoveToRecycleBin();
+	}
+
+	macro viewEntry {
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		AssertTextEquals(
+			locator1 = "WikiTable#ALL_PAGES_WIKI_PAGE_TITLE",
+			value1 = "${wikiPageTitle}");
+
+		AssertTextEquals(
+			locator1 = "WikiTable#ALL_PAGES_STATUS",
+			value1 = "${draftStatus}");
+	}
+
+	macro viewNoEntry {
+		var key_wikiPageTitle = "${wikiPageTitle}";
+
+		AssertElementNotPresent(locator1 = "WikiTable#ALL_PAGES_WIKI_PAGE_TITLE");
+	}
+
+}

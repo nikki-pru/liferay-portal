@@ -1,0 +1,516 @@
+@component-name = "portal-content-dashboard"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Content Dashboard";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONGroup.addGroup(groupName = "Test Site Name");
+
+		Navigator.openURL();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@description = "Validate if the user can edit a web content through the Edit option"
+	@priority = "5"
+	test ContentDashboardEditWebContent {
+		property portal.acceptance = "true";
+
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Test Site Name",
+			title = "WC Title");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.editWebContent(webContentTitle = "WC Title Edited");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title Edited");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContent.viewTitle(webContentTitle = "WC Title Edited");
+
+		WebContent.deleteCP(
+			siteURLKey = "test-site-name",
+			webContentTitle = "WC Title Edited");
+	}
+
+	@description = "Validate if the user can filter by Author, using different display types"
+	@priority = "5"
+	test ContentDashboardFilterByAuthor {
+		property portal.acceptance = "true";
+
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Test Site Name",
+			title = "WC Title");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "5000");
+
+		ContentDashboard.filterByAuthorTable(filterOption = "Author");
+
+		Pause(locator1 = "3000");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title");
+
+		ContentDashboard.clearFilters();
+
+		ContentDashboard.filterByAuthorList(filterOption = "Author");
+
+		Pause(locator1 = "3000");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title");
+
+		ContentDashboard.clearFilters();
+
+		ContentDashboard.filterByAuthorCard(filterOption = "Author");
+
+		Pause(locator1 = "3000");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContent.viewTitle(webContentTitle = "WC Title");
+
+		WebContent.deleteCP(
+			siteURLKey = "test-site-name",
+			webContentTitle = "WC Title");
+	}
+
+	@description = "Validate if the user can filter by category"
+	@priority = "5"
+	test ContentDashboardFilterByCategory {
+		property portal.acceptance = "true";
+
+		JSONCategory.addVocabulary(
+			groupName = "Test Site Name",
+			title = "Vocabulary Name");
+
+		var categoryId = JSONCategory.addCategory(
+			groupName = "Test Site Name",
+			title = "Category Name",
+			vocabularyName = "Vocabulary Name");
+
+		JSONWebcontent.addWebContent(
+			assetCategoryIds = "${categoryId}",
+			content = "WC WebContent Content",
+			groupName = "Test Site Name",
+			title = "WC WebContent Title");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "5000");
+
+		ContentDashboard.filterByCategory(filterOption = "Categories");
+
+		Pause(locator1 = "3000");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC WebContent Title");
+
+		JSONWebcontent.deleteWebContent(
+			groupName = "Test Site Name",
+			title = "WC WebContent Title");
+
+		Category.openCategoriesAdmin(siteURLKey = "test-site-name");
+
+		Category.deleteCategoryByMenuCP(
+			categoryName = "Category Name",
+			vocabularyName = "Vocabulary Name");
+	}
+
+	@description = "Validate if the user can filter by Site"
+	@priority = "5"
+	test ContentDashboardFilterBySite {
+		property portal.acceptance = "true";
+
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Global",
+			title = "WC Title Global");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.filterBySiteGlobal(filterOption = "Site or Asset Library");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title Global");
+
+		JSONWebcontent.deleteWebContent(
+			groupName = "Test Site Name",
+			title = "WC Title Global");
+	}
+
+	@description = "Validate if the user can filter by Status: Any"
+	@priority = "5"
+	test ContentDashboardFilterByStatusAny {
+		property portal.acceptance = "true";
+
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Test Site Name",
+			title = "WC Title Approved");
+
+		JSONWebcontent.addWebContent(
+			content = "WC WebContent Content",
+			groupName = "Test Site Name",
+			title = "WC Title Draft",
+			workflowAction = "DRAFT");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.filterByStatusAny(filterOption = "Any");
+
+		ContentDashboard.searchValue(webContentTitle = "WC Title Approved");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title Approved");
+
+		ContentDashboard.searchValue(webContentTitle = "WC Title Draft");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title Draft");
+
+		JSONWebcontent.deleteWebContent(
+			groupName = "Test Site Name",
+			title = "WC Title Approved");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContent.viewTitle(webContentTitle = "WC Title Draft");
+
+		WebContent.deleteCP(
+			siteURLKey = "test-site-name",
+			webContentTitle = "WC Title Draft");
+	}
+
+	@description = "Validate if the user can filter by Status: Approved"
+	@priority = "5"
+	test ContentDashboardFilterByStatusApproved {
+		property portal.acceptance = "true";
+
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Test Site Name",
+			title = "WC Title Approved");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.filterByStatusApproved(filterOption = "Approved");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title Approved");
+
+		JSONWebcontent.deleteWebContent(
+			groupName = "Test Site Name",
+			title = "WC Title Approved");
+	}
+
+	@description = "Validate if the user can filter by Status: Draft"
+	@priority = "5"
+	test ContentDashboardFilterByStatusDraft {
+		property portal.acceptance = "true";
+
+		JSONWebcontent.addWebContent(
+			content = "WC WebContent Content",
+			groupName = "Test Site Name",
+			title = "WC Title Draft",
+			workflowAction = "DRAFT");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.filterByStatusDraft(filterOption = "Draft");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title Draft");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContent.viewTitle(webContentTitle = "WC Title Draft");
+
+		WebContent.deleteCP(
+			siteURLKey = "test-site-name",
+			webContentTitle = "WC Title Draft");
+	}
+
+	@description = "Validate if the user can filter by Status: Scheduled"
+	@priority = "5"
+	test ContentDashboardFilterByStatusScheduled {
+		property portal.acceptance = "true";
+
+		task ("Add a web content article with a future display date") {
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+			WebContentNavigator.gotoAddCP();
+
+			WebContent.addCP(
+				webContentContent = "WC WebContent Content",
+				webContentTitle = "WC Title Scheduled");
+
+			WebContent.editDisplayDate(displayDate = "01/01/2100");
+
+			PortletEntry.publish();
+		}
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.filterByStatusScheduled(filterOption = "Scheduled");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title Scheduled");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContent.viewTitle(webContentTitle = "WC Title Scheduled");
+
+		WebContent.deleteCP(
+			siteURLKey = "test-site-name",
+			webContentTitle = "WC Title Scheduled");
+	}
+
+	@description = "Validate if the user can filter by tag"
+	@priority = "5"
+	test ContentDashboardFilterByTag {
+		property portal.acceptance = "true";
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addWithTagCP(
+			tagNameList = "tag1,tag2",
+			webContentContent = "Web Content With Tag1 and Tag2",
+			webContentTitle = "Web Content Title");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.filterByTag(filterOption = "Tags");
+
+		ContentDashboard.searchValue(webContentTitle = "Web Content Title");
+
+		Pause(locator1 = "3000");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED_TAGS",
+			value1 = "Web Content Title");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContent.viewTitle(webContentTitle = "Web Content Title");
+
+		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+		WebContent.deleteCP(
+			siteURLKey = "test-site-name",
+			webContentTitle = "Web Content Title");
+
+		ProductMenu.gotoPortlet(
+			category = "Categorization",
+			portlet = "Tags");
+
+		Tag.viewCP(tagName = "tag1");
+
+		PortletEntry.deleteViaToolbar(rowEntries = "tag1");
+
+		Alert.viewSuccessMessage();
+
+		Tag.viewCP(tagName = "tag2");
+
+		PortletEntry.deleteViaToolbar(rowEntries = "tag2");
+
+		Alert.viewSuccessMessage();
+
+		Portlet.viewEmptyMessage(message = "There are no tags.");
+	}
+
+	@description = "Validate if the user can order by Modification Date"
+	@priority = "5"
+	test ContentDashboardOrderByModificationDate {
+		for (var count : list "1,2,3,4,5") {
+			JSONWebcontent.addWebContent(
+				content = "WC Content ${count}",
+				groupName = "Test Site Name",
+				title = "WC Title ${count}");
+		}
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.orderByModificationDate(filterOption = "Modified Date");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title 5");
+
+		Click(locator1 = "ContentDashboard#REVERSE_SORT_DIRECTION_BUTTON");
+
+		Pause(locator1 = "3000");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title 1");
+
+		for (var count : list "1,2,3,4,5") {
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+			WebContent.viewTitle(webContentTitle = "WC Title ${count}");
+
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+			WebContent.deleteCP(
+				siteURLKey = "test-site-name",
+				webContentTitle = "WC Title ${count}");
+		}
+	}
+
+	@description = "Validate if the user can order by title"
+	@priority = "5"
+	test ContentDashboardOrderByTitle {
+		for (var count : list "1,2,3,4,5") {
+			JSONWebcontent.addWebContent(
+				content = "WC Content ${count}",
+				groupName = "Test Site Name",
+				title = "WC Title ${count}");
+		}
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.orderByTitle(filterOption = "Title");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title 5");
+
+		Click(locator1 = "ContentDashboard#REVERSE_SORT_DIRECTION_BUTTON");
+
+		Pause(locator1 = "3000");
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#FIRST_ELEMENT_LISTED",
+			value1 = "WC Title 1");
+
+		for (var count : list "1,2,3,4,5") {
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+			WebContent.viewTitle(webContentTitle = "WC Title ${count}");
+
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
+
+			WebContent.deleteCP(
+				siteURLKey = "test-site-name",
+				webContentTitle = "WC Title ${count}");
+		}
+	}
+
+	@description = "Validate if the user can open de Info side panel of a web content"
+	@priority = "5"
+	test ContentDashboardViewInfoPanel {
+		property portal.acceptance = "true";
+
+		JSONWebcontent.addWebContent(
+			content = "WC Content",
+			groupName = "Test Site Name",
+			title = "WC Title");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Content",
+			panel = "Applications",
+			portlet = "Content Dashboard");
+
+		Pause(locator1 = "3000");
+
+		ContentDashboard.openInfoPanelByDropdownMenu();
+
+		AssertTextPresent(
+			locator1 = "ContentDashboard#INFO_PANEL_TITLE",
+			value1 = "Content Info");
+
+		Click(locator1 = "ContentDashboard#CLOSE_INFO_PANEL_BUTTON");
+
+		JSONWebcontent.deleteWebContent(
+			groupName = "Test Site Name",
+			title = "WC Title");
+	}
+
+}

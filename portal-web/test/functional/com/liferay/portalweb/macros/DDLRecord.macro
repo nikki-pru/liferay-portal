@@ -1,0 +1,1086 @@
+definition {
+
+	var ddlDataDefinitionDescription = "Data Definition Description";
+	var ddlDataDefinitionName = "Data Definition Name";
+	var ddlListName = "List Name";
+
+	macro addCP {
+		var key_ddlListName = "${ddlListName}";
+
+		DDLNavigator.gotoListRecords(ddlListName = "${ddlListName}");
+
+		DDLNavigator.gotoAddListRecord(ddlDataDefinitionName = "${ddlDataDefinitionName}");
+	}
+
+	macro addPGViaAP {
+		AssetPublisherPortlet.addAsset(assetType = "${ddlListName}");
+
+		DDLRecord.populateFieldText(
+			ddlRecordFieldData = "${ddlRecordFieldData}",
+			fieldName = "${fieldName}");
+
+		AssertClick(
+			locator1 = "Button#PUBLISH",
+			value1 = "Publish");
+	}
+
+	macro addRepeatableField {
+		var key_fieldName = "${fieldName}";
+
+		Click(locator1 = "DDLEditRecord#FIELD_ADD");
+	}
+
+	macro addViaDDLDisplayPG {
+		var key_ddlDataDefinitionName = "${ddlDataDefinitionName}";
+
+		Click(locator1 = "DDL#TOOLBAR_ADD");
+	}
+
+	macro clearFieldDocumentsAndMedia {
+		var key_fieldName = "${fieldName}";
+
+		AssertClick(
+			locator1 = "DDLEditRecord#DOCUMENTS_AND_MEDIA_CLEAR_BUTTON",
+			value1 = "Clear");
+	}
+
+	macro deleteCP {
+		var key_ddlListName = "${ddlListName}";
+
+		AssertTextEquals(
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		AssertClick(
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+
+		AssertElementPresent.assertVisible(locator1 = "DDL#RECORD_TABLE_ELLIPSIS");
+
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS");
+
+		MenuItem.clickNoError(menuItem = "Delete");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		Alert.viewSuccessMessage();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "no");
+	}
+
+	macro deleteRepeatableField {
+		var key_fieldName = "${fieldName}";
+		var key_fieldNumber = "${fieldNumber}";
+
+		Click(locator1 = "DDLEditRecord#FIELD_DELETE");
+	}
+
+	macro deleteViaDDLDisplayPG {
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.clickNoError(menuItem = "Delete");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		Alert.viewSuccessMessage();
+
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no records.");
+	}
+
+	macro editCP {
+		var key_ddlListName = "${ddlListName}";
+
+		AssertTextEquals(
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		AssertClick(
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		AssertTextEquals(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_RECORD_1",
+			value1 = "${ddlRecordFieldData}");
+
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "Edit");
+	}
+
+	macro editParagraphBody {
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+		Type.clickAtType(
+			locator1 = "CKEditor#BODY",
+			value1 = "${content}");
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro editPG {
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "Edit");
+	}
+
+	macro editViaRecordViewCP {
+		var key_ddlListName = "${ddlListName}";
+
+		AssertTextEquals(
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		AssertClick(
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		AssertElementPresent.assertVisible(locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_RECORD_1");
+
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "View");
+
+		AssertClick(
+			locator1 = "Button#EDIT",
+			value1 = "Edit");
+	}
+
+	macro editViaRecordViewPG {
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "View");
+
+		AssertClick(
+			locator1 = "Button#EDIT",
+			value1 = "Edit");
+	}
+
+	macro expandInfo {
+		AssertElementNotPresent(locator1 = "DDLRecord#INFO_SIDEBAR_EXPANDED");
+
+		Click(locator1 = "Icon#INFO");
+
+		AssertElementPresent(locator1 = "DDLRecord#INFO_SIDEBAR_EXPANDED");
+	}
+
+	macro gotoLinkToPageChildPages {
+		var key_pageName = "${parentPage}";
+
+		Click(locator1 = "DDLEditRecord#LINK_TO_PAGE_PAGE_CARET");
+	}
+
+	macro gotoLinkToPageNavItem {
+		var key_navItem = "${pagePrivacy} Pages";
+
+		AssertClick(
+			locator1 = "DDLEditRecord#LINK_TO_PAGE_NAV_ITEM",
+			value1 = "${pagePrivacy} Pages");
+	}
+
+	macro gotoLinkToPageSelect {
+		var key_fieldName = "${fieldName}";
+
+		AssertClick(
+			locator1 = "Button#SELECT_CONTENT",
+			value1 = "Select");
+	}
+
+	macro gotoRecordPreview {
+		AssertClick(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_PREVIEW_1",
+			value1 = "(Preview)");
+	}
+
+	macro populateFieldBoolean {
+		DDLRecord.viewFieldLabel(
+			fieldFieldLabel = "${fieldFieldLabel}",
+			fieldName = "${fieldName}",
+			fieldShowLabel = "${fieldShowLabel}");
+
+		var key_fieldName = "${fieldName}";
+
+		if ("${ddlRecordFieldData}" == "No") {
+			if ("${fieldShowLabel}" == "No") {
+				Uncheck(locator1 = "TextInput#DDM");
+			}
+			else {
+				Uncheck(locator1 = "TextInput#DDM");
+			}
+		}
+		else if ("${ddlRecordFieldData}" == "Yes") {
+			if ("${fieldShowLabel}" == "No") {
+				Check(locator1 = "TextInput#DDM");
+			}
+			else {
+				Check(locator1 = "TextInput#DDM");
+			}
+		}
+		else {
+			fail("Invalid var recordFieldData. Must be (Yes|No).");
+		}
+	}
+
+	macro populateFieldDate {
+		var key_fieldName = "${fieldName}";
+
+		Type(
+			locator1 = "TextInput#DDM",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldDecimal {
+		var key_fieldName = "${fieldName}";
+
+		Type(
+			locator1 = "TextInput#DDM",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldDocumentsAndMediaChooseFromDocumentLibrary {
+		var key_fieldName = "${fieldName}";
+
+		if (isSet(parentFieldName)) {
+			var key_parentFieldName = "${parentFieldName}";
+
+			AssertClick(
+				locator1 = "DDLEditRecord#DOCUMENTS_AND_MEDIA_CHILD_FIELD_CHOOSE_FROM_DOCUMENT_LIBRARY_BUTTON_",
+				value1 = "Select");
+		}
+		else {
+			AssertClick(
+				locator1 = "Button#SELECT_CONTENT",
+				value1 = "Select");
+		}
+
+		while (IsElementNotPresent(locator1 = "DocumentsAndMediaSelectDocument#SELECT_DOCUMENT_IFRAME")) {
+			Pause(locator1 = "1000");
+		}
+
+		SelectFrame(locator1 = "DocumentsAndMediaSelectDocument#SELECT_DOCUMENT_IFRAME");
+
+		if ("${userRole}" == "Guest") {
+			AssertTextEquals(
+				locator1 = "Button#SIGN_IN",
+				value1 = "Sign In");
+		}
+		else {
+			UploadCommonFile.uploadCommonFileHiddenNoMouseOver(
+				locator1 = "TextInput#FILE",
+				value1 = "${document}");
+
+			AssertClick(
+				locator1 = "ItemSelector#ADD_BUTTON",
+				value1 = "Add");
+
+			SelectFrameTop(value1 = "relative=top");
+		}
+	}
+
+	macro populateFieldGeolocation {
+		var key_fieldName = "${fieldName}";
+
+		AssertClick(
+			locator1 = "DDLEditRecord#FIELD_LABEL",
+			value1 = "${fieldName}");
+
+		Pause(locator1 = "2000");
+
+		AssertElementPresent(locator1 = "DDLEditRecord#GEOLOCATION_GOOGLE_MAP");
+	}
+
+	macro populateFieldHTML {
+		var key_fieldName = "${fieldName}";
+
+		Type.typeEditor(
+			locator1 = "DDLEditRecord#HTML_FIELD",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldInteger {
+		var key_fieldName = "${fieldName}";
+
+		Type(
+			locator1 = "TextInput#DDM",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldLinkToPage {
+		DDLRecord.gotoLinkToPageSelect(fieldName = "${fieldName}");
+
+		DDLRecord.gotoLinkToPageNavItem(pagePrivacy = "${pagePrivacy}");
+
+		DDLRecord.selectLinkToPageRadio(
+			ddlRecordFieldData = "${ddlRecordFieldData}",
+			parentPage = "${parentPage}");
+
+		AssertClick(
+			locator1 = "Button#SELECT",
+			value1 = "Select");
+
+		var key_fieldName = "${fieldName}";
+
+		AssertTextEquals(
+			locator1 = "TextInput#DDM",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldNumber {
+		var key_fieldName = "${fieldName}";
+
+		Type(
+			locator1 = "TextInput#DDM",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldRadio {
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+		var key_fieldName = "${fieldName}";
+
+		AssertTextEquals(
+			locator1 = "DDLEditRecord#RADIO_OPTION_LABEL",
+			value1 = "${ddlRecordFieldData}");
+
+		Click(locator1 = "DDLEditRecord#RADIO_OPTION_RADIO");
+	}
+
+	macro populateFieldSelect {
+		var key_fieldName = "${fieldName}";
+
+		Select(
+			locator1 = "DDMField#SELECT",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldSelectViaSpreadsheetView {
+		var key_ddlRecordRow = "${ddlRecordRow}";
+		var key_fieldName = "${fieldName}";
+
+		DoubleClick(locator1 = "DDLSpreadsheet#RECORD_TABLE_FIELD_ENTRY");
+
+		Select(
+			locator1 = "DDMEditStructure#FORM_FIELD_SELECT",
+			value1 = "${ddlRecordFieldData}");
+
+		Click(
+			locator1 = "Button#SAVE",
+			value1 = "Save");
+
+		AssertTextEquals(
+			locator1 = "DDLSpreadsheet#RECORD_TABLE_FIELD_ENTRY",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldText {
+		var key_fieldName = "${fieldName}";
+
+		Type(
+			locator1 = "TextInput#DDM",
+			value1 = "${ddlRecordFieldData}");
+
+		var i = "1";
+
+		while (IsElementPresent(locator1 = "xpath=(//div[@data-fieldname='${key_fieldName}']/a[contains(@class,'ddm-repeatable-add-button')])[${i}]")) {
+			var i = ${i} + 1;
+
+			if (IsElementPresent(locator1 = "xpath=(//div[@data-fieldname='${key_fieldName}']/a[contains(@class,'ddm-repeatable-add-button')])[${i}]")) {
+				Type(
+					locator1 = "xpath=(//div[@data-fieldname='${key_fieldName}'][${i}]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)",
+					value1 = "${ddlRecordFieldData} ${i}");
+			}
+		}
+	}
+
+	macro populateFieldTextBox {
+		var key_fieldName = "${fieldName}";
+
+		Type(
+			locator1 = "DDLEditRecord#TEXT_BOX_FIELD",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldTextViaSpreadsheetView {
+		DDLRecord.populateFieldTextViaSpreadsheetViewCmd(
+			ddlRecordFieldData = "${ddlRecordFieldData}",
+			ddlRecordRow = "${ddlRecordRow}",
+			fieldName = "${fieldName}");
+	}
+
+	macro populateFieldTextViaSpreadsheetViewCmd {
+		var key_ddlRecordRow = "${ddlRecordRow}";
+		var key_fieldName = "${fieldName}";
+
+		DoubleClick(locator1 = "DDLSpreadsheet#RECORD_TABLE_FIELD_ENTRY");
+
+		Type(
+			locator1 = "DDMEditStructure#FORM_FIELD_FIELD",
+			value1 = "${ddlRecordFieldData}");
+
+		Click(
+			locator1 = "Button#SAVE",
+			value1 = "Save");
+
+		AssertTextEquals(
+			locator1 = "DDLSpreadsheet#RECORD_TABLE_FIELD_ENTRY",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro populateFieldWebContentChooseFromWebContentLibrary {
+		var key_fieldName = "${fieldName}";
+		var key_listEntry = "${webContentTitle}";
+
+		AssertClick(
+			locator1 = "Button#SELECT_CONTENT",
+			value1 = "Select");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		AssertClick.assertPartialTextClickAt(
+			locator1 = "LexiconList#LIST_ENTRY",
+			value1 = "${webContentTitle}");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro populateTranslationFieldText {
+		var key_fieldName = "${fieldName}";
+
+		Type(
+			locator1 = "TextInput#DDM",
+			value1 = "${ddlRecordFieldData}");
+
+		var i = "1";
+
+		while (IsElementPresent(locator1 = "xpath=(//div[@data-fieldname='Text']//input)[${i}]")) {
+			var i = ${i} + 1;
+
+			if (IsElementPresent(locator1 = "xpath=(//div[@data-fieldname='Text']//input)[${i}]")) {
+				Type(
+					locator1 = "xpath=(//div[@data-fieldname='Text']//input)[${i}]",
+					value1 = "${ddlRecordFieldData} ${i}");
+			}
+		}
+	}
+
+	macro saveAsDraftCP {
+		AssertClick(
+			locator1 = "Button#SAVE_AS_DRAFT",
+			value1 = "Save as Draft");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro selectLinkToPageRadio {
+		if (isSet(parentPage)) {
+			DDLRecord.gotoLinkToPageChildPages(parentPage = "${parentPage}");
+		}
+
+		var key_pageName = "${ddlRecordFieldData}";
+
+		RunScript(locator1 = "document.querySelector('.top-ended').scrollTop = 1000");
+
+		Click(locator1 = "DDLEditRecord#LINK_TO_PAGE_PAGE_RADIO");
+	}
+
+	macro submitForPublication {
+		Button.clickSubmitForPublication();
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro viewEditPreview {
+		var key_fieldName = "${fieldName}";
+
+		DDLRecord.viewFieldLabel(
+			fieldFieldLabel = "${fieldFieldLabel}",
+			fieldName = "${fieldName}");
+
+		AssertTextEquals(
+			locator1 = "TextInput#DDM",
+			value1 = "${ddlRecordFieldDataEdit}");
+
+		AssertElementNotPresent(locator1 = "DDL#RECORD_TABLE_ENTRY");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro viewFieldCP {
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+		var key_ddlRecordFieldData_1 = "${ddlRecordFieldData_1}";
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		if ("${ddlRecordFieldData}" == "") {
+			AssertElementPresent(locator1 = "DDL#RECORD_TABLE_ENTRY");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "DDL#RECORD_TABLE_ENTRY",
+				value1 = "${ddlRecordFieldData}");
+		}
+
+		if (isSet(ddlRecordNestedFieldData)) {
+			var key_ddlRecordFieldData = "${ddlRecordNestedFieldData}";
+			var key_fieldFieldLabel = "${nestedFieldFieldLabel}";
+
+			AssertElementNotPresent(locator1 = "DDL#RECORD_TABLE_ENTRY");
+		}
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "View",
+			rowEntry = "${ddlRecordFieldData}");
+
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		if ("${ddlRecordFieldData}" == "") {
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDLRecord#FIELD",
+				value1 = "${fieldFieldLabel}${ddlRecordFieldData}");
+		}
+
+		if ("${field}" == "Date") {
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDLRecord#FIELD_1",
+				value1 = "${fieldFieldLabel} ${ddlRecordFieldData_1}");
+		}
+
+		else {
+			DDLRecord.viewPopulatedField(
+				ddlRecordFieldData = "${ddlRecordFieldData}",
+				fieldFieldLabel = "${fieldFieldLabel}");
+		}
+
+		if (isSet(ddlRecordNestedFieldData)) {
+			var key_ddlRecordFieldData = "${ddlRecordNestedFieldData}";
+			var key_fieldFieldLabel = "${nestedFieldFieldLabel}";
+
+			AssertTextEquals(
+				locator1 = "DDLRecord#FIELD_NESTED",
+				value1 = "${nestedFieldFieldLabel} ${ddlRecordNestedFieldData}");
+
+			AssertCssValue(
+				locator1 = "DDLRecord#FIELD_NESTED",
+				locator2 = "margin-left",
+				value1 = "15px");
+		}
+	}
+
+	macro viewFieldFormTemplateSpecific {
+		if ("${field}" == "Paragraph") {
+			var key_fieldText = "${fieldText}";
+
+			AssertTextEquals(
+				locator1 = "DDLEditRecord#PARAGRAPH_FIELD",
+				value1 = "${fieldText}");
+		}
+
+		if ("${field}" == "Separator") {
+			AssertElementPresent(locator1 = "DDLEditRecord#SEPARATOR_FIELD");
+		}
+	}
+
+	macro viewFieldLabel {
+		var key_fieldName = "${fieldName}";
+
+		if ("${fieldShowLabel}" == "No") {
+			AssertNotVisible(locator1 = "DDLEditRecord#FIELD_LABEL_HIDDEN");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "DDLEditRecord#FIELD_LABEL",
+				value1 = "${fieldFieldLabel}");
+		}
+	}
+
+	macro viewFieldPredefinedValue {
+		var key_fieldName = "${fieldName}";
+
+		if ("${fieldShowLabel}" != "No") {
+			AssertTextEquals(
+				locator1 = "DDLEditRecord#FIELD_LABEL",
+				value1 = "${fieldFieldLabel}");
+		}
+		else {
+			AssertElementNotPresent(locator1 = "DDLEditRecord#FIELD_LABEL");
+		}
+
+		if ("${field}" == "Boolean") {
+			if ("${fieldPredefinedValue}" == "Yes") {
+				AssertChecked(locator1 = "TextInput#DDM");
+			}
+			else if ("${fieldPredefinedValue}" == "No") {
+				AssertNotChecked(locator1 = "TextInput#DDM");
+			}
+		}
+
+		if ("${field}" == "Date") {
+			AssertTextEquals(
+				locator1 = "TextInput#DDM",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Decimal") {
+			AssertTextEquals(
+				locator1 = "TextInput#DDM",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Documents and Media") {
+			AssertTextEquals(
+				locator1 = "TextInput#DDM",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "HTML") {
+			AssertTextEquals(
+				locator1 = "DDLEditRecord#HTML_FIELD",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Integer") {
+			AssertTextEquals(
+				locator1 = "TextInput#DDM",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Link to Page") {
+			AssertTextEquals(
+				locator1 = "TextInput#DDM",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Number") {
+			AssertTextEquals(
+				locator1 = "TextInput#DDM",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Radio") {
+			var key_ddlRecordFieldData = "${fieldPredefinedValue}";
+
+			AssertChecked(locator1 = "DDLEditRecord#RADIO_OPTION_RADIO");
+		}
+
+		if ("${field}" == "Select") {
+			AssertTextEquals(
+				locator1 = "DDMField#SELECT",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Text") {
+			AssertTextEquals(
+				locator1 = "TextInput#DDM",
+				value1 = "${fieldPredefinedValue}");
+		}
+
+		if ("${field}" == "Text Box") {
+			AssertTextEquals(
+				locator1 = "DDLEditRecord#TEXT_BOX_FIELD",
+				value1 = "${fieldPredefinedValue}");
+		}
+	}
+
+	macro viewFieldRepeatedNotPresent {
+		AssertTextEquals(
+			locator1 = "xpath=(//div[@data-fieldname='${fieldName}'][1]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)",
+			value1 = "${ddlRecordFieldData}");
+
+		AssertElementNotPresent(locator1 = "xpath=(//div[@data-fieldname='${fieldName}'][2]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)");
+
+		AssertElementNotPresent(locator1 = "xpath=(//div[@data-fieldname='${fieldName}'][3]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)");
+	}
+
+	macro viewFirstFieldCP {
+		AssertTextEquals(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_NAME",
+			value1 = "${fieldFieldLabel}");
+
+		if (isSet(workflowStatus)) {
+			AssertTextEquals(
+				locator1 = "DDL#RECORD_TABLE_COLUMN_TWO_RECORD_1_WORKFLOW_STATUS",
+				value1 = "PENDING");
+		}
+
+		if ("${field}" == "HTML") {
+			DDLRecord.gotoRecordPreview();
+
+			AssertTextEquals(
+				locator1 = "DDL#RECORD_TABLE_PREVIEW",
+				value1 = "${ddlRecordFieldData}");
+
+			Click(locator1 = "DDL#RECORD_TABLE_PREVIEW_CLOSE");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_RECORD_1",
+				value1 = "${ddlRecordFieldData}");
+		}
+
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "View");
+
+		if (isSet(workflowStatus)) {
+			AssertTextEquals(
+				locator1 = "DDLRecord#WORKFLOW_STATUS",
+				value1 = "Pending (${workflowStatus})");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "DDLRecord#WORKFLOW_STATUS",
+				value1 = "Approved");
+		}
+
+		if ("${field}" == "Boolean") {
+			if ("${ddlRecordFieldData}" == "true") {
+				var ddlRecordFieldData = "Yes";
+			}
+			else if ("${ddlRecordFieldData}" == "false") {
+				var ddlRecordFieldData = "No";
+			}
+		}
+
+		if ("${fieldShowLabel}" == "No") {
+			if ("${field}" == "Date") {
+				AssertTextEquals(
+					locator1 = "DDLRecord#FIELD_1",
+					value1 = "${ddlRecordFieldData_1}");
+			}
+			else {
+				AssertTextEquals(
+					locator1 = "DDLRecord#FIELD_1",
+					value1 = "${ddlRecordFieldData}");
+			}
+		}
+
+		else {
+			if ("${field}" == "Date") {
+				AssertTextEquals(
+					locator1 = "DDLRecord#FIELD_1",
+					value1 = "${fieldFieldLabel} ${ddlRecordFieldData_1}");
+			}
+			else {
+				AssertTextEquals(
+					locator1 = "DDLRecord#FIELD_1",
+					value1 = "${fieldFieldLabel} ${ddlRecordFieldData}");
+			}
+		}
+	}
+
+	macro viewFirstRecordSearchResult {
+		AssertTextEquals(
+			locator1 = "Portlet#H4_COMPONENT_TITLE",
+			value1 = "New Data Definition Name for List: ${ddlListName}");
+
+		AssertTextEquals(
+			locator1 = "DDLRecord#FIELD_1",
+			value1 = "${field} ${ddlRecordFieldData}");
+	}
+
+	macro viewGeolocationRecord {
+		AssertTextEquals(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_NAME",
+			value1 = "${fieldFieldLabel}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_RECORD_1",
+			value1 = "Latitude:");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_RECORD_1",
+			value1 = "Longitude:");
+	}
+
+	macro viewInvalidHTMLfield {
+		AssertElementPresent(locator1 = "DDL#RECORD_TABLE_PREVIEW_INVALID_IMG");
+	}
+
+	macro viewLinkToPageBreadcrumbCount {
+		var key_number = "${count}";
+
+		AssertElementPresent(locator1 = "DDLEditRecord#LINK_TO_PAGE_BREADCRUMB");
+
+		var count = ${count} + 1;
+		var key_number = "${count}";
+
+		AssertElementNotPresent(locator1 = "DDLEditRecord#LINK_TO_PAGE_BREADCRUMB");
+	}
+
+	macro viewLinkToPageLink {
+		var key_pageName = "${ddlRecordFieldData}";
+
+		AssertClick(
+			locator1 = "DDLEditRecord#LINK_TO_PAGE_LINK",
+			value1 = "${ddlRecordFieldData}");
+
+		AssertVisible(
+			locator1 = "Home#PAGE_ACTIVE",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro viewNestedFields {
+		var key_nestedChildFieldFieldName = "${nestedChildFieldFieldName}";
+		var key_nestedParentFieldFieldName = "${nestedParentFieldFieldName}";
+
+		AssertElementPresent(locator1 = "DDLRecord#NESTED_CHILD_FIELD");
+
+		AssertElementPresent(locator1 = "DDLRecord#NESTED_PARENT_FIELD");
+	}
+
+	macro viewNestedFieldsRepeating {
+		var key_nestedChildFieldFieldName = "${nestedChildFieldFieldName}";
+		var key_nestedParentFieldFieldName = "${nestedParentFieldFieldName}";
+
+		AssertElementPresent(locator1 = "DDLRecord#NESTED_CHILD_FIELD");
+
+		AssertElementPresent(locator1 = "DDLRecord#NESTED_PARENT_FIELD");
+
+		AssertElementPresent(locator1 = "DDLRecord#NESTED_CHILD_REPEATING_FIELD");
+
+		AssertElementPresent(locator1 = "DDLRecord#NESTED_PARENT_REPEATING_FIELD");
+	}
+
+	macro viewNoRecords {
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no records.");
+	}
+
+	macro viewPGViaAP {
+		var key_assetContent = "${ddlRecordFieldData}";
+		var key_assetTitle = "${ddlListName}";
+
+		AssertTextEquals(
+			locator1 = "AP#ASSET_ABSTRACT_TITLE",
+			value1 = "${ddlListName}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "AP#ASSET_ABSTRACT_DESCRIPTION",
+			value1 = "${ddlRecordFieldData}");
+	}
+
+	macro viewPopulatedField {
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "DDLRecord#FIELD",
+			value1 = "${fieldFieldLabel} ${ddlRecordFieldData}");
+	}
+
+	macro viewSecondFieldCP {
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		AssertTextEquals(
+			locator1 = "DDL#RECORD_TABLE_ENTRY_2",
+			value1 = "${ddlRecordFieldData}");
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "View",
+			rowEntry = "${ddlRecordFieldData}");
+
+		if ("${ddlRecordFieldData}" == "") {
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDLRecord#FIELD",
+				value1 = "${fieldFieldLabel}${ddlRecordFieldData}");
+		}
+		else {
+			DDLRecord.viewPopulatedField(
+				ddlRecordFieldData = "${ddlRecordFieldData}",
+				fieldFieldLabel = "${fieldFieldLabel}");
+		}
+	}
+
+	macro viewSecondRecordSearchResult {
+		AssertTextEquals(
+			locator1 = "Portlet#H4_COMPONENT_TITLE",
+			value1 = "New Data Definition Name for List: ${ddlListName}");
+
+		AssertTextEquals(
+			locator1 = "DDLRecord#FIELD_2",
+			value1 = "${field} ${ddlRecordFieldData}");
+	}
+
+	macro viewSecondRecordViaDDLDisplayTemplate {
+		AssertTextEquals(
+			locator1 = "Portlet#H2_HEADER",
+			value1 = "${ddlListName}");
+
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		AssertTextEquals(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_NAME",
+			value1 = "${fieldFieldLabel}");
+
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "View");
+
+		AssertTextEquals(
+			locator1 = "DDLRecord#FIELD_2",
+			value1 = "${fieldFieldLabel} ${ddlRecordFieldData}");
+	}
+
+	macro viewSelectedLinkToPage {
+		DDLRecord.gotoLinkToPageSelect(fieldName = "${fieldName}");
+
+		var key_pageName = "${ddlRecordFieldData}";
+
+		AssertChecked(locator1 = "DDLEditRecord#LINK_TO_PAGE_PAGE_RADIO");
+
+		AssertClick(
+			locator1 = "Button#CANCEL",
+			value1 = "Cancel");
+	}
+
+	macro viewStatusViaDDLDisplayTable {
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+		var key_workflowStatus = "${workflowStatus}";
+
+		AssertTextEquals(
+			locator1 = "DDL#RECORD_TABLE_WORKFLOW_STATUS",
+			value1 = "${workflowStatus}");
+	}
+
+	macro viewTextFieldRepeated {
+		AssertTextEquals(
+			locator1 = "xpath=(//div[@data-fieldname='Text'][1]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)",
+			value1 = "${ddlRecordFieldData1}");
+
+		AssertTextEquals(
+			locator1 = "xpath=(//div[@data-fieldname='Text'][2]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)",
+			value1 = "${ddlRecordFieldData2}");
+
+		if (isSet(ddlRecordFieldData3)) {
+			AssertTextEquals(
+				locator1 = "xpath=(//div[@data-fieldname='Text'][3]//a[contains(@class,'ddm-repeatable-add-button')]/../div//input)",
+				value1 = "${ddlRecordFieldData3}");
+		}
+		else {
+			AssertElementNotPresent(locator1 = "xpath=(//div[@data-fieldname='Text'])[3]");
+		}
+	}
+
+	macro viewTranslationNotAvailable {
+		AssertElementNotPresent(
+			key_localizedLanguage = "${localizedLanguage}",
+			locator1 = "Translation#AVAILABLE_TRANSLATION");
+	}
+
+	macro viewViaAnchorLink {
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+
+		AssertClick(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_ONE_RECORD_1",
+			value1 = "${ddlRecordFieldData}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "DDLRecord#FIELD_1",
+			value1 = "${fieldFieldLabel} ${ddlRecordFieldData}");
+	}
+
+	macro viewViaDDLDisplayPG {
+		AssertTextEquals(
+			locator1 = "Portlet#H2_HEADER",
+			value1 = "${ddlListName}");
+
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		AssertTextEquals(
+			locator1 = "DDL#RECORD_TABLE_COLUMN_NAME",
+			value1 = "${fieldFieldLabel}");
+
+		var key_ddlRecordFieldData = "${key_ddlRecordFieldData}";
+		var key_ddlRecordFieldData_1 = "${key_ddlRecordFieldData_1}";
+
+		if (isSet(ddlRecordFieldDataTableDisplay)) {
+			var key_ddlRecordFieldData = "${ddlRecordFieldDataTableDisplay}";
+
+			AssertTextEquals(
+				locator1 = "DDL#RECORD_TABLE_ENTRY",
+				value1 = "${ddlRecordFieldDataTableDisplay}");
+		}
+		else {
+			var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+
+			AssertTextEquals(
+				locator1 = "DDL#RECORD_TABLE_ENTRY",
+				value1 = "${ddlRecordFieldData}");
+		}
+
+		if ("${userRole}" == "Guest") {
+			Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+			MenuItem.click(menuItem = "View");
+		}
+		else {
+			Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS");
+
+			MenuItem.click(menuItem = "View");
+		}
+
+		if ("${field}" == "Boolean") {
+			if ("${ddlRecordFieldData}" == "true") {
+				var ddlRecordFieldData = "Yes";
+			}
+			else if ("${ddlRecordFieldData}" == "false") {
+				var ddlRecordFieldData = "No";
+			}
+		}
+
+		if ("${field}" == "Date") {
+			AssertElementPresent(locator1 = "Portlet#H2_HEADER");
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDLRecord#FIELD_1",
+				value1 = "${fieldFieldLabel}");
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDLRecord#FIELD_1",
+				value1 = "${ddlRecordFieldData_1}");
+		}
+		else {
+			AssertElementPresent(locator1 = "Portlet#H2_HEADER");
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDLRecord#FIELD_1",
+				value1 = "${fieldFieldLabel}");
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "DDLRecord#FIELD_1",
+				value1 = "${ddlRecordFieldData}");
+		}
+
+		if (isSet(ddlRecordNestedFieldData)) {
+			var key_ddlRecordFieldData = "${ddlRecordNestedFieldData}";
+			var key_fieldFieldLabel = "${nestedFieldFieldLabel}";
+
+			AssertTextEquals(
+				locator1 = "DDLRecord#FIELD_NESTED",
+				value1 = "${nestedFieldFieldLabel} ${ddlRecordNestedFieldData}");
+
+			AssertCssValue(
+				locator1 = "DDLRecord#FIELD_NESTED",
+				locator2 = "margin-left",
+				value1 = "15px");
+		}
+	}
+
+	macro viewViaDDLDisplayTable {
+		var key_ddlRecordFieldData = "${ddlRecordFieldData}";
+		var key_fieldFieldLabel = "${fieldFieldLabel}";
+
+		if ("${ddlRecordFieldData}" == "") {
+			AssertElementPresent(locator1 = "DDL#RECORD_TABLE_ENTRY");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "DDL#RECORD_TABLE_ENTRY",
+				value1 = "${ddlRecordFieldData}");
+		}
+	}
+
+}

@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Roles</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Roles</td></tr>
+</thead>
+<tbody>
+<!--ROLE_TABLE-->
+<tr>
+	<td>ROLE_TABLE_TITLE</td>
+	<td>//tr[contains(.,'${key_roleTitle}')]/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PERMISSION_TABLE_PERMISSIONS</td>
+	<td>//tr[contains(.,'${key_permissionNavigationValue}') and contains(.,'${key_permissionDefinitionValue}')]/td</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

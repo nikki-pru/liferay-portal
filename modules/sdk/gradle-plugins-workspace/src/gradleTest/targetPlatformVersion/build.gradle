@@ -1,0 +1,17 @@
+task runGradleTest
+
+allprojects {
+	repositories {
+		maven {
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+runGradleTest {
+	dependsOn ":modules:foo-portlet:resolve"
+
+	doLast {
+		assert project(":modules:foo-portlet").resolve.runBundles.contains("com.liferay.foo.portlet;version='[1.0.0,1.0.1)'")
+	}
+}

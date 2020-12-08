@@ -1,0 +1,79 @@
+<html>
+<head>
+<title>Comments</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Comments</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>PANEL_HEADING</td>
+	<td>//fieldset[contains(@class,'add-comment')]//strong[contains(.,'Comments')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COMMENT_ACTIONS</td>
+	<td>//div[contains(@class,'comment')]/div[contains(.,'${key_entryComment}')]/..//a[span/*[name()='svg'][contains(@class,'icon-ellipsis')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COMMENT_BODY</td>
+	<td>//div[(@class='lfr-discussion-message-body')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COMMENT_BODY_ASSET</td>
+	<td>//div/p[contains(.,'${key_commentBody}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COMMENT_BODY_SPECIFIC</td>
+	<td>//div[(@class='lfr-discussion-message-body') and contains(.,'${key_entryComment}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COMMENT_FIELD</td>
+	<td>//div[contains(@class,'alloy-editor') and contains(@role,'textbox')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COMMENT_FIELD_LAST</td>
+	<td>xpath=(//div[contains(@class,'alloy-editor') and contains(@role,'textbox')])[last()]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COMMENT_INFO</td>
+	<td>//fieldset[contains(@class,'add-comment')]//div[contains(@class,'alert-info')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EDIT_COMMENT_FIELD</td>
+	<td>//div[contains(@name,'editReplyBody')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_COUNT_PANEL</td>
+	<td>//div[contains(@class,'autofit-row')]/span[contains(.,'Comment')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ANY_BUTTON_IN_COMMENT</td>
+	<td>//article[contains(@class,'discussion')]/div[contains(.,'${key_entryComment}')]//*[normalize-space(text())='${key_text}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>USER_NAME</td>
+	<td>//div[contains(.,'${key_entryComment}')]//*[self::a or self::span][contains(@class,'username') and contains(.,'${key_userFullName}')] | //div[contains(.,'${key_entryComment}')]//*[self::a or self::span][contains(@class,'author-link') and contains(.,'${key_userFullName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_STATUS</td>
+	<td>//span[contains(@class,'workflow-status')]/strong</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

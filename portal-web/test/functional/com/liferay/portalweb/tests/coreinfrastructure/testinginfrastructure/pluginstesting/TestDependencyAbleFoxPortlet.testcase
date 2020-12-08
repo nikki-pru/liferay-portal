@@ -1,0 +1,46 @@
+@component-name = "portal-test-plugins"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property portlet.plugins.includes = "test-dependency-able-portlet,test-dependency-baker-portlet,test-dependency-charlie-portlet,test-dependency-dog-portlet";
+	property testray.main.component.name = "Test Plugins";
+
+	setUp {
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		Page.tearDownCP();
+	}
+
+	@priority = "4"
+	test ViewDependencyAbleFox {
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Test Dependency Page");
+
+		Navigator.gotoPage(pageName = "Test Dependency Page");
+
+		Portlet.addPG(portletName = "Test Dependency Able");
+
+		Navigator.gotoPage(pageName = "Test Dependency Page");
+
+		Portlet.addPG(portletName = "Test Dependency Baker");
+
+		Navigator.gotoPage(pageName = "Test Dependency Page");
+
+		Portlet.addPG(portletName = "Test Dependency Charlie");
+
+		Navigator.gotoPage(pageName = "Test Dependency Page");
+
+		Portlet.addPG(portletName = "Test Dependency Dog");
+
+		Navigator.gotoPage(pageName = "Test Dependency Page");
+
+		Portlet.viewCannotAddPG(portletName = "Test Dependency Fox");
+	}
+
+}

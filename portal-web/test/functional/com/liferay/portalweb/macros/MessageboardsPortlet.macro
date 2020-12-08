@@ -1,0 +1,326 @@
+definition {
+
+	macro configureAnonymousPostingCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Configuration");
+
+		Pause(locator1 = "10000");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		if ("${anonymousPostingEnabled}" == "true") {
+			Check(locator1 = "MessageBoardsAdminConfiguration#GENERAL_ALLOW_ANONYMOUS_POSTING_CHECKBOX");
+		}
+		else if ("${anonymousPostingEnabled}" == "false") {
+			Uncheck(locator1 = "MessageBoardsAdminConfiguration#GENERAL_ALLOW_ANONYMOUS_POSTING_CHECKBOX");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro configureGeneralCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Configuration");
+
+		Pause(locator1 = "10000");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		if ("${threadAsQuestionByDefaultEnabled}" == "true") {
+			Check(locator1 = "MessageBoardsAdminConfiguration#GENERAL_THREAD_AS_QUESTION_BY_DEFAULT_CHECKBOX");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro configureMessageAddedEmailCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		AssertClick(
+			locator1 = "MessageBoardsAdminConfiguration#SETUP_NAVIGATION_MESSAGE_ADDED_EMAIL",
+			value1 = "Message Added Email");
+
+		if ("${messageAddedEmailEnabled}" == "false") {
+			Uncheck(locator1 = "MessageBoardsAdminConfiguration#MESSAGE_ADDED_EMAIL_ENABLED_CHECKBOX");
+		}
+		else {
+			AssertChecked(locator1 = "MessageBoardsAdminConfiguration#MESSAGE_ADDED_EMAIL_ENABLED_CHECKBOX");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro configureMessageEmailFromCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		AssertClick(
+			locator1 = "MessageBoardsAdminConfiguration#SETUP_NAVIGATION_EMAIL_FROM",
+			value1 = "Email From");
+
+		if (isSet(emailFromName)) {
+			Type(
+				locator1 = "TextInput#EMAIL_FROM_NAME",
+				value1 = "${emailFromName}");
+		}
+
+		if (isSet(emailFromAddress)) {
+			Type(
+				locator1 = "TextInput#EMAIL_FROM_ADDRESS",
+				value1 = "${emailFromAddress}");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro configureMessageUpdatedEmailCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		AssertClick(
+			locator1 = "MessageBoardsAdminConfiguration#SETUP_NAVIGATION_MESSAGE_UPDATED_EMAIL",
+			value1 = "Message Updated Email");
+
+		if ("${messageUpdatedEmailEnabled}" == "false") {
+			Uncheck(locator1 = "MessageBoardsAdminConfiguration#MESSAGE_UPDATED_EMAIL_ENABLED_CHECKBOX");
+		}
+		else {
+			AssertChecked(locator1 = "MessageBoardsAdminConfiguration#MESSAGE_UPDATED_EMAIL_ENABLED_CHECKBOX");
+		}
+
+		PortletEntry.save();
+	}
+
+	macro gotoInlinePermissionsPG {
+		Click(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Permissions");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+	}
+
+	macro gotoRecentPostsPG {
+		AssertClick(
+			locator1 = "MessageBoards#NAVIGATION_RECENT_POSTS",
+			value1 = "Recent Posts");
+	}
+
+	macro subscribePG {
+		Click(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Subscribe");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro tearDownConfigurationEmailCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		AssertClick(
+			locator1 = "MessageBoardsAdminConfiguration#SETUP_NAVIGATION_MESSAGE_ADDED_EMAIL",
+			value1 = "Message Added Email");
+
+		Check(locator1 = "MessageBoardsAdminConfiguration#MESSAGE_ADDED_EMAIL_ENABLED_CHECKBOX");
+
+		PortletEntry.save();
+
+		AssertClick(
+			locator1 = "MessageBoardsAdminConfiguration#SETUP_NAVIGATION_MESSAGE_UPDATED_EMAIL",
+			value1 = "Message Updated Email");
+
+		Check(locator1 = "MessageBoardsAdminConfiguration#MESSAGE_UPDATED_EMAIL_ENABLED_CHECKBOX");
+
+		PortletEntry.save();
+	}
+
+	macro tearDownConfigurationGeneralCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		Check(locator1 = "MessageBoardsAdminConfiguration#GENERAL_ALLOW_ANONYMOUS_POSTING_CHECKBOX");
+
+		PortletEntry.save();
+	}
+
+	macro viewAnonymousPostingConfigurationCP {
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		if ("${anonymousPostingEnabled}" == "true") {
+			AssertChecked(locator1 = "MessageBoardsAdminConfiguration#GENERAL_ALLOW_ANONYMOUS_POSTING_CHECKBOX");
+		}
+		else if ("${anonymousPostingEnabled}" == "false") {
+			AssertNotChecked(locator1 = "MessageBoardsAdminConfiguration#GENERAL_ALLOW_ANONYMOUS_POSTING_CHECKBOX");
+		}
+	}
+
+	macro viewBannedUserCP {
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards",
+			site = "${site}");
+
+		AssertClick(
+			locator1 = "MessageBoards#NAVIGATION_BANNED_USERS",
+			value1 = "Banned Users");
+
+		var key_userScreenName = "${userScreenName}";
+
+		AssertTextEquals(
+			locator1 = "MessageBoardsBannedUsers#BANNED_USERS_TABLE_BANNED_USER",
+			value1 = "${userScreenName}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "MessageBoardsBannedUsers#BANNED_USERS_TABLE_BANNED_BY",
+			value1 = "Test Test");
+
+		AssertVisible(locator1 = "MessageBoardsBannedUsers#BANNED_USERS_TABLE_UNBAN_DATE");
+
+		LexiconEntry.openEntryMenu(rowEntry = "${userScreenName}");
+
+		MenuItem.viewPresent(menuItem = "Unban This User");
+
+		AssertClick(
+			locator1 = "MessageBoardsBannedUsers#BANNED_USERS_TABLE_BANNED_USER",
+			value1 = "${userScreenName}");
+
+		var key_siteName = "${userScreenName}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "SitePages#SITE_NAME",
+			value1 = "${userScreenName}");
+	}
+
+	macro viewDefaultEmailFromCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Message Boards");
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		AssertClick(
+			locator1 = "MessageBoardsAdminConfiguration#SETUP_NAVIGATION_EMAIL_FROM",
+			value1 = "Email From");
+
+		AssertTextEquals(
+			locator1 = "TextInput#EMAIL_FROM_NAME",
+			value1 = "Joe Bloggs");
+
+		AssertTextEquals(
+			locator1 = "TextInput#EMAIL_FROM_ADDRESS",
+			value1 = "test@liferay.com");
+
+		if (isSet(emailFromAddress)) {
+			Type(
+				locator1 = "TextInput#EMAIL_FROM_ADDRESS",
+				value1 = "${emailFromAddress}");
+
+			PortletEntry.save();
+		}
+	}
+
+	macro viewNoPermissionCP {
+		var key_portletTitle = "Message Boards";
+
+		AssertTextEquals(
+			locator1 = "Home#SITE_ADMINISTRATION_PORTLET_TITLE",
+			value1 = "Message Boards");
+
+		AssertElementPresent(locator1 = "NavBar#CONTAINER");
+
+		AssertTextEquals.assertText(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "There are no threads or categories.");
+	}
+
+	macro viewNoSearchResultSubjectPG {
+		var key_threadSubject = "${threadSubject}";
+
+		AssertElementNotPresent(locator1 = "MessageBoardsSearch#SEARCH_RESULTS_ENTRY_TITLE");
+	}
+
+	macro viewSearchResultPG {
+		var key_threadSubject = "${threadSubject}";
+
+		AssertTextEquals(
+			locator1 = "MessageBoards#THREAD_LIST_THREAD",
+			value1 = "${threadSubject}");
+
+		if (isSet(mbThreadAttachment)) {
+			AssertClick(
+				locator1 = "MessageBoards#THREAD_LIST_THREAD",
+				value1 = "${threadSubject}");
+
+			AssertVisible(locator1 = "Link#MESSAGE_BOARDS_ATTACHMENT");
+		}
+	}
+
+}

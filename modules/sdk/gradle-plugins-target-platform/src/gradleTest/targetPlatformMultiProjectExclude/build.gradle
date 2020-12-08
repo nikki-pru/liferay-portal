@@ -1,0 +1,44 @@
+import org.gradle.api.artifacts.ResolveException
+
+apply plugin: "com.liferay.target.platform"
+
+task runGradleTest
+
+allprojects {
+	repositories {
+		maven {
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+dependencies {
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom", version: "7.2.1"
+}
+
+runGradleTest {
+	doLast {
+		Project subproject1 = project.childProjects["subproject1"]
+
+		Exception expectedException = null
+
+		try {
+			subproject1.configurations.compile.resolvedConfiguration.resolvedArtifacts
+		}
+		catch (ResolveException re) {
+			expectedException = re.cause
+		}
+
+		assert expectedException.message.contains("Could not find com.liferay.portal:com.liferay.portal.kernel:")
+
+		Project subproject2 = project.childProjects["subproject2"]
+
+		assert subproject2.configurations.compile.singleFile.name.equals("com.liferay.portal.kernel-4.35.2.jar")
+	}
+}
+
+targetPlatform {
+	onlyIf {
+		it.name != "subproject1"
+	}
+}

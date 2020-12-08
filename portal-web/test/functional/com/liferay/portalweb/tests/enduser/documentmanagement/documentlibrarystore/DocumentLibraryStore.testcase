@@ -1,0 +1,120 @@
+@component-name = "portal-document-library-store"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property test.assert.warning.exceptions = "true";
+	property testray.main.component.name = "Document Library Stores";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			User.firstLoginPG();
+
+			DMDocument.tearDownCP();
+
+			DMFolder.tearDownCP();
+
+			DMDocumentType.tearDownCP();
+
+			DMMetadataSet.tearDownCP();
+
+			Page.tearDownPG();
+
+			JSONUser.tearDownNonAdminUsers();
+
+			Site.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test AdvancedFileSystemStoreSmoke {
+		property custom.properties = "dl.store.impl=com.liferay.portal.store.file.system.AdvancedFileSystemStore";
+		property osgi.module.configuration.file.names = "com.liferay.portal.store.file.system.configuration.AdvancedFileSystemStoreConfiguration.config";
+		property osgi.module.configurations = "rootDir=&quot;data/document_library1&quot;";
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = "DM Document Title",
+			groupName = "Guest",
+			mimeType = "image/jpeg",
+			sourceFileName = "Document_1.jpg");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Recycle Bin",
+			portlet = "Recycle Bin");
+
+		RecycleBin.emptyCP();
+	}
+
+	@priority = "5"
+	test DBStoreSmoke {
+		property custom.properties = "dl.store.impl=com.liferay.portal.store.db.DBStore";
+
+		Navigator.openURL();
+
+		AssertConsoleTextNotPresent(value1 = "java.lang.IllegalStateException: Store is not available");
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = "DM Document Title",
+			groupName = "Guest",
+			mimeType = "image/jpeg",
+			sourceFileName = "Document_1.jpg");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Recycle Bin",
+			portlet = "Recycle Bin");
+
+		RecycleBin.emptyCP();
+	}
+
+	@priority = "5"
+	test FileSystemStoreSmoke {
+		property custom.properties = "dl.store.impl=com.liferay.portal.store.file.system.FileSystemStore";
+		property osgi.module.configuration.file.names = "com.liferay.portal.store.file.system.configuration.FileSystemStoreConfiguration.config";
+		property osgi.module.configurations = "rootDir=&quot;data/document_library1&quot;";
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = "DM Document Title",
+			groupName = "Guest",
+			mimeType = "image/jpeg",
+			sourceFileName = "Document_1.jpg");
+
+		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
+
+		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Recycle Bin",
+			portlet = "Recycle Bin");
+
+		RecycleBin.emptyCP();
+	}
+
+}

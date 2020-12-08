@@ -1,0 +1,114 @@
+@component-name = "portal-staging"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Users and Organizations,Staging";
+	property testray.main.component.name = "Staging";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			User.logoutAndLoginPG(
+				userLoginEmailAddress = "test@liferay.com",
+				userLoginFullName = "Test Test");
+
+			JSONUser.tearDownNonAdminUsers();
+
+			JSONOrganization.deleteOrganizationByName(organizationName = "Staging Organization Name");
+		}
+	}
+
+	@priority = "5"
+	test StagingOrganizations {
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "StagingUsecaseWithOrganizatiton#StagingOrganizations";
+		property testray.component.names = "Training";
+
+		SiteTemplates.addCP(
+			disableChanges = "true",
+			siteTemplateName = "Site Template Name");
+
+		SiteTemplates.addSitePageViaSiteTemplateCP(
+			pageName = "Site Page Name",
+			siteTemplateName = "Site Template Name");
+
+		User.openUsersAdmin();
+
+		Organization.addCP(
+			orgName = "Staging Organization Name",
+			orgType = "Organization");
+
+		User.openUsersAdmin();
+
+		UsersAndOrganizationsNavigator.gotoOrganizations();
+
+		Organization.addSiteCP(
+			orgName = "Staging Organization Name",
+			siteTemplateName = "Site Template Name");
+
+		JSONUser.addUser(
+			allowManualMembershipManagement = "true",
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		JSONRole.assignRoleToUser(
+			roleTitle = "Administrator",
+			userEmailAddress = "userea@liferay.com");
+
+		JSONOrganization.assignUserToOrganization(
+			organizationName = "Staging Organization Name",
+			userEmailAddress = "userea@liferay.com");
+
+		User.openUsersAdmin();
+
+		User.editPasswordCP(
+			userEmailAddress = "userea@liferay.com",
+			userScreenName = "usersn");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+
+		Staging.openStagingAdmin(siteURLKey = "staging-organization-name");
+
+		Staging.activateStagingCP(
+			pageVersioningEnabled = "true",
+			siteName = "Staging Organization Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Site Page Name",
+			siteName = "Staging Organization Name");
+
+		Staging.addSitePagesVariationPG(
+			copySitePagesVariationName = "All Site Pages Variations",
+			sitePagesVariationName = "Site Pages Variation Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Site Page Name",
+			siteName = "Staging Organization Name");
+
+		Staging.viewSitePagesVariationPG(sitePagesVariationName = "Site Pages Variation Name");
+
+		Staging.addPageVariationPG(pageVariationName = "Page Variation Name");
+
+		Navigator.gotoStagedSitePage(
+			pageName = "Site Page Name",
+			siteName = "Staging Organization Name");
+
+		Staging.viewPageVariationPG(pageVariationName = "Page Variation Name");
+	}
+
+}

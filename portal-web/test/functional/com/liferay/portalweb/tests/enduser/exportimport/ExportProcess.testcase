@@ -1,0 +1,76 @@
+@component-name = "portal-staging"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Export/Import Framework";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@priority = "4"
+	test DeleteCustomExportProcess {
+		LAR.exportSiteCP(
+			larFileName = "CustomExport",
+			siteScopeName = "Guest");
+
+		LAR.deleteCurrentAndPreviousProcess(larFileName = "CustomExport");
+
+		AssertElementNotPresent(locator1 = "SitePagesExport#CURRENT_AND_PREVIOUS_STATUS");
+	}
+
+	@priority = "4"
+	test DeletePortletExportProcess {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Documents and Media");
+
+		LAR.exportPortlet(larFileName = "DMExport");
+
+		Refresh();
+
+		LAR.deleteCurrentAndPreviousProcess(
+			deleteFromPortlet = "true",
+			larFileName = "DMExport");
+
+		AssertElementNotPresent(locator1 = "ExportImport#CURRENT_AND_PREVIOUS_STATUS");
+	}
+
+	@priority = "4"
+	test RelaunchCustomExportProcess {
+		LAR.exportSiteCP(
+			larFileName = "CustomExport",
+			siteScopeName = "Guest");
+
+		LAR.relaunchCurrentAndPreviousProcess(larFileName = "CustomExport");
+	}
+
+	@priority = "3"
+	test ViewExportProcess {
+		LAR.exportSiteCP(
+			larFileName = "CustomExport",
+			siteScopeName = "Guest");
+
+		Refresh();
+
+		LexiconEntry.changeExportDisplayStyle(displayStyle = "table");
+
+		ManagementBar.setFilterAndOrder(filterBy = "Completed");
+
+		ManagementBar.toggleViewOrder(order = "down");
+	}
+
+}

@@ -1,0 +1,48 @@
+@component-name = "portal-upgrades"
+definition {
+
+	property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Notifications";
+	property testray.main.component.name = "Upgrades Collaboration";
+
+	setUp {
+		SignIn.signIn(userEmailAddress = "user@liferay.com");
+
+		Smoke.viewWelcomePage();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	@priority = "5"
+	test ViewNotifications625 {
+		property data.archive.type = "data-archive-notifications";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "6.2.5";
+
+		Upgrade.viewNotifications();
+	}
+
+	@priority = "5"
+	test ViewNotifications621015 {
+		property data.archive.type = "data-archive-notifications";
+		property portal.version = "6.2.10.15";
+
+		Upgrade.viewNotifications();
+	}
+
+	@priority = "5"
+	test ViewNotifications621021 {
+		property data.archive.type = "data-archive-notifications";
+		property portal.version = "6.2.10.21";
+
+		Upgrade.viewNotifications();
+	}
+
+}

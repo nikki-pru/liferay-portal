@@ -1,0 +1,134 @@
+definition {
+
+	macro addCP {
+		LexiconEntry.gotoAddMenuItem(menuItem = "Folder");
+
+		PortletEntry.inputName(name = "${kbFolderName}");
+
+		PortletEntry.inputDescription(description = "${kbFolderDescription}");
+
+		if (isSet(customField)) {
+			Panel.expandPanel(panel = "Custom Fields");
+
+			Type(
+				locator1 = "TextInput#CUSTOM_FIELD",
+				value1 = "${customField}");
+		}
+
+		Button.clickSave();
+
+		if (isSet(kbAddDuplicate)) {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_ENTER_A_UNIQUE_FOLDER",
+				value1 = "Please enter a unique folder name.");
+		}
+		else {
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro deleteCP {
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Delete",
+			rowEntry = "${kbFolderName}");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro editCP {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Edit",
+			rowEntry = "${kbFolderName}");
+
+		PortletEntry.inputName(name = "${kbFolderEditedName}");
+
+		PortletEntry.inputDescription(description = "${kbFolderDescription}");
+
+		PortletEntry.save();
+	}
+
+	macro gotoCP {
+		var key_kbFolderName = "${kbFolderName}";
+
+		AssertClick(
+			locator1 = "KnowledgeBase#FOLDER_DESCRIPTIVE_FOLDER_NAME",
+			value1 = "${kbFolderName}");
+
+		AssertTextEquals(
+			key_breadcrumbName = "${kbFolderName}",
+			locator1 = "Breadcrumb#BREADCRUMB_ENTRY",
+			value1 = "${kbFolderName}");
+	}
+
+	macro gotoViaKBDisplayPG {
+		var key_kbFolderName = "${kbFolderName}";
+
+		Select(
+			locator1 = "KnowledgeBase#FOLDER_SELECT_DROPDOWN",
+			value1 = "${kbFolderName}");
+
+		AssertClick(
+			locator1 = "KnowledgeBase#FOLDER_SELECT_OPTION",
+			value1 = "${kbFolderName}");
+	}
+
+	macro selectParentCP {
+		var key_kbArticleTitle = "${kbFolderName}";
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		if ("${kbFolderName}" == "Home") {
+			Click(locator1 = "KnowledgeBaseSelectParent#BREADCRUMB_HOME");
+
+			AssertClick(
+				locator1 = "Button#CHOOSE_THIS_FOLDER",
+				value1 = "Choose This Folder");
+		}
+		else {
+			Click(
+				locator1 = "KnowledgeBaseSelectParent#SELECT_BUTTON",
+				value1 = "Select");
+		}
+
+		SelectFrame(value1 = "relative=top");
+
+		AssertTextEquals(
+			locator1 = "KnowledgeBase#MOVE_NEW_PARENT_TITLE_FIELD",
+			value1 = "${kbFolderName}");
+
+		Click(locator1 = "Button#MOVE");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro tearDownCP {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Knowledge Base");
+
+		while (IsElementPresent(locator1 = "KnowledgeBase#FOLDER_TABLE_HEADER")) {
+			Check.checkAll(locator1 = "KnowledgeBase#ARTICLE_TABLE_SELECT_ALL_CHECKBOX");
+
+			Click(locator1 = "Icon#DELETE");
+
+			AssertConfirm(value1 = "Are you sure you want to delete the selected entries? They will be deleted immediately.");
+
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro viewFolderNameCP {
+		var key_kbFolderName = "${kbFolderName}";
+
+		AssertTextEquals(
+			locator1 = "KnowledgeBase#FOLDER_DESCRIPTIVE_FOLDER_NAME",
+			value1 = "${kbFolderName}");
+	}
+
+}

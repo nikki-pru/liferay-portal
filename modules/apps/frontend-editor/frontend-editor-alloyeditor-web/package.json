@@ -1,0 +1,12 @@
+{
+	"dependencies": {
+		"alloyeditor": "2.11.15"
+	},
+	"name": "frontend-editor-alloyeditor-web",
+	"scripts": {
+		"build": "liferay-npm-scripts build",
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix"
+	},
+	"version": "5.0.0"
+}

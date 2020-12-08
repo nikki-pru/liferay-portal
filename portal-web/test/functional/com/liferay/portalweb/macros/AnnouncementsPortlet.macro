@@ -1,0 +1,25 @@
+definition {
+
+	macro configureDisplayCountPG {
+		Portlet.gotoPortletOptions(
+			portletName = "Announcements",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		Select(
+			locator1 = "Select#PAGE_DELTA",
+			value1 = "${maxDisplayItems}");
+
+		PortletEntry.save();
+
+		SelectFrameTop();
+	}
+
+	macro configurePaginationCP {
+		Click(locator1 = "Dropdown#ENTRIES");
+
+		MenuItem.click(menuItem = "${itemsPerPage}");
+	}
+
+}

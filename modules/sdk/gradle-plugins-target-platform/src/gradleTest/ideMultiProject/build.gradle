@@ -1,0 +1,29 @@
+apply plugin: "com.liferay.target.platform.ide"
+
+task runGradleTest
+
+dependencies {
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom.compile.only", version: "7.2.1"
+}
+
+repositories {
+	maven {
+		url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+	}
+}
+
+runGradleTest {
+	dependsOn eclipseClasspath
+
+	doLast {
+		assert plugins.hasPlugin("com.liferay.target.platform")
+
+		List eclipseDependencies = eclipse.classpath.resolveDependencies()
+
+		assert eclipseDependencies.size() == 14
+		assert eclipseDependencies[3].path.contains("org.osgi.service.component.annotations")
+		assert eclipseDependencies[4].path.contains("portlet-api")
+
+		assert eclipse.project.natures[0] == "org.eclipse.jdt.core.javanature"
+	}
+}

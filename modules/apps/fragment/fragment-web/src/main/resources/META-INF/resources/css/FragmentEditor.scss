@@ -1,0 +1,39 @@
+@import 'atlas-variables';
+
+@import 'variables';
+
+.fragment-editor {
+	border-left: solid $editorBorderWidth $editorBorderColor;
+	border-top: solid $editorBorderWidth $editorBorderColor;
+	box-sizing: border-box;
+
+	&__toolbar {
+		color: $secondary;
+	}
+
+	@at-root {
+		html body.has-control-menu {
+			padding-bottom: 0;
+		}
+
+		#wrapper #content .portlet-layout,
+		#wrapper #content .portlet {
+			margin-bottom: 0;
+		}
+	}
+}
+
+@include media-breakpoint-up(sm) {
+	$fragmentEditorMargin: $managementBarHeight + $editorBorderWidth +
+		$toolbarBorderWidth * 2;
+
+	.fragment-editor {
+		height: calc(100vh - #{$fragmentEditorMargin});
+	}
+
+	.has-control-menu .fragment-editor {
+		height: calc(
+			100vh - #{$fragmentEditorMargin + $controlMenuDesktopHeight}
+		);
+	}
+}

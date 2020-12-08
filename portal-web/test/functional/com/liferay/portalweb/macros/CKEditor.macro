@@ -1,0 +1,120 @@
+definition {
+
+	macro addContent {
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+
+		if (isSet(kbArticleContentEdit)) {
+			Type(
+				locator1 = "CKEditor#BODY",
+				value1 = "${kbArticleContentEdit}");
+		}
+		else {
+			KeyPress.keyPressCKEditorWaitForCKEditor(
+				locator1 = "CKEditor#BODY",
+				value1 = "${content}");
+		}
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro addContentInWebContent {
+		SelectFrame.selectFrameNoLoading(
+			key_fieldLabel = "${fieldLabel}",
+			locator1 = "CKEditor#BODY_FIELD_IFRAME_WEB_CONTENT_ARTICLE");
+
+		Type(
+			locator1 = "CKEditor#BODY",
+			value1 = "${content}");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+	macro addEntryExternalURL {
+		Click(
+			key_fieldLabel = "${fieldLabel}",
+			locator1 = "CKEditor#TOOLBAR_LINK_BUTTON");
+
+		Type(
+			key_text = "Display Text",
+			locator1 = "TextInput#ANY",
+			value1 = "${displayText}");
+
+		Type(
+			key_text = "URL",
+			locator1 = "TextInput#ANY",
+			value1 = "${entryExternalURL}");
+
+		Click(locator1 = "CKEditor#OK_BUTTON");
+	}
+
+	macro addSourceContent {
+		Click(locator1 = "CKEditor#TOOLBAR_SOURCE_BUTTON");
+
+		Type.typeCodeMirrorEditorNoError(
+			locator1 = "CKEditor#BODY_FIELD_SOURCE_ON",
+			value1 = "${content}");
+	}
+
+	macro addTextWithLink {
+		SelectFrame.selectFrameNoLoading(
+			key_fieldLabel = "${fieldLabel}",
+			locator1 = "CKEditor#BODY_FIELD_IFRAME_WEB_CONTENT_ARTICLE");
+
+		Type(
+			locator1 = "CKEditor#BODY",
+			value1 = "${displayText}");
+
+		SelectFieldText(locator1 = "CKEditor#BODY");
+
+		SelectFrame(value1 = "relative=top");
+
+		Click(
+			key_fieldLabel = "${fieldLabel}",
+			locator1 = "CKEditor#TOOLBAR_LINK_BUTTON");
+
+		Click(
+			key_text = "Browse Server",
+			locator1 = "Link#ANY");
+
+		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
+
+		if (isSet(dmDocumentTitle)) {
+			Navigator.gotoNavItem(navItem = "Documents and Media");
+
+			LexiconCard.clickCard(card = "${dmDocumentTitle}");
+		}
+		else if (isSet(pageName)) {
+			Navigator.gotoNavItem(navItem = "Public Pages");
+
+			Portlet.expandTree();
+
+			AssertClick.assertPartialTextClickAt(
+				key_nodeName = "${pageName}",
+				locator1 = "Treeview#NODE_UNSELECTED",
+				value1 = "${pageName}");
+		}
+
+		Click(locator1 = "CKEditor#OK_BUTTON");
+	}
+
+	macro assertEditorPresent {
+		AssertElementPresent(locator1 = "CKEditor#BODY_FIELD");
+	}
+
+	macro viewEntryContent {
+		AssertTextEquals(
+			locator1 = "CKEditor#BODY",
+			value1 = "${content}");
+	}
+
+	macro viewEntryContentImage {
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+
+		AssertVisible(
+			key_contentImageName = "${contentImageName}",
+			locator1 = "Wiki#CONTENT_IMAGE_NAME");
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+}

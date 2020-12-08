@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>WCViewHistory</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">WCViewHistory</td></tr>
+</thead>
+<tbody>
+<!--VERSIONS_TABLE-->
+<tr>
+	<td>VIEW_COMPARE_VERSIONS_CONTENT</td>
+	<td>//div[contains(@class,'diff-container-column')]//p</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

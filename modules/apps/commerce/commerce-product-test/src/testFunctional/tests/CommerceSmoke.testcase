@@ -1,0 +1,112 @@
+@component-name = "portal-commerce"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "quarantine";
+	property testray.main.component.name = "Commerce";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			Navigator.openURL();
+
+			CommerceNavigator.gotoPortlet(
+				category = "Product Management",
+				portlet = "Products");
+
+			while (IsElementPresent(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS") && (maxIterations = "50")) {
+				CommerceEntry.deleteCommerceEntry();
+			}
+
+			CommerceNavigator.gotoPortlet(
+				category = "Product Management",
+				portlet = "Specifications");
+
+			while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				PortletEntry.deleteViaMenuItem(rowEntry = "");
+			}
+
+			CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
+
+			while (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				PortletEntry.deleteViaMenuItem(rowEntry = "");
+			}
+
+			User.logoutPG();
+		}
+	}
+
+	test CreateNewSpecificationOptions {
+		property environment.acceptance = "quarantine";
+		property portal.acceptance = "quarantine";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Product Management",
+			portlet = "Specifications");
+
+		CommerceEntry.createNewSpecificationLabels(
+			specificationDescription = "Specification-1 Description",
+			specificationTitle = "specification-1");
+
+		CommerceEntry.viewSpecificationLabels(
+			specificationDescription = "Specification-1 Description",
+			specificationTitle = "specification-1");
+
+		CommerceNavigator.gotoPortlet(
+			category = "Product Management",
+			portlet = "Specifications");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Specification Groups");
+
+		CommerceEntry.createNewSpecificationGroups(
+			specificationDescription = "Specification-1 Description",
+			specificationTitle = "specification-1");
+
+		CommerceEntry.viewSpecificationGroups(
+			specificationDescription = "Specification-1 Description",
+			specificationTitle = "specification-1");
+	}
+
+	test PublishSimpleProduct {
+		property environment.acceptance = "quarantine";
+		property portal.acceptance = "quarantine";
+		property test.name.skip.portal.instance = "CommerceSmoke#PublishSimpleProduct";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Product Management",
+			portlet = "Products");
+
+		CPCommerceCatalog.newProductsEntry(
+			productName = "Simple T-Shirt",
+			productType = "Simple");
+
+		CommerceNavigator.gotoPortlet(
+			category = "Product Management",
+			portlet = "Products");
+
+		CommerceNavigator.gotoEntry(entryName = "Simple T-Shirt");
+
+		CommerceEntry.viewProductsEntry(
+			productFullDescription = "Simple T-Shirt Full Description",
+			productName = "Simple T-Shirt",
+			productShortDescription = "Simple T-Shirt Short Description");
+	}
+
+}

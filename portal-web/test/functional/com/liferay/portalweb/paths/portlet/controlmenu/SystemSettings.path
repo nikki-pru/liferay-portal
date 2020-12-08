@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>SystemSettings</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SystemSettings</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>CONFIGURATION_ENTRY</td>
+	<td>//tr[@data-qa-id="row"]//strong[contains(.,'${key_configurationEntry}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DROPDOWN_MENU</td>
+	<td>//*[contains(.,'${key_fieldLabel}')]/parent::div//div[contains(@class,'option-selected')] | //p[contains(.,'${key_fieldLabel}')]/following-sibling::div//button[contains(@class,'dropdown-toggle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DROPDOWN_MENU_OPTION</td>
+	<td>//button[contains(@class,'dropdown-item') and @label='${key_selectOption}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCOPED_CONFIGURATION_NAME</td>
+	<td>//a[contains(.,'${key_configurationScope}')]/following-sibling::div//*[contains(@class,'nav-link') and normalize-space(./text())='${key_configurationName}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SECURITY_CREDENTIAL_FIELD</td>
+	<td>//div[contains(@data-field-name,'securityCredential')]//input[@type='password']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SECURITY_CREDENTIAL_HIDDEN_IMAGE</td>
+	<td>portal/screenshots/foundation/ldap_server_security_credential.png</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SETTING_FIELD_NAME_CHECKBOX</td>
+	<td>//span[contains(@class,'custom-control-label-text') and contains(.,'${key_settingFieldName}')]/../..//input[@type='checkbox']</td>
+	<td></td>
+</tr>
+<!--ASSETS-->
+<tr>
+	<td>ASSETS_DYNAMIC_EXPORT_LIMIT</td>
+	<td>//div[contains(@data-field-name,'dynamicExportLimit')]//input[@type='text']</td>
+	<td></td>
+</tr>
+<!--CORS-->
+<tr>
+	<td>CORS_CONFIGURATION</td>
+	<td>//textarea[contains(@name,'${key_configurationValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CORS_DELETE_RESPONSE_HEADERS</td>
+	<td>//div[@class='position-relative row']//div[2]//div[1]//button[contains(@aria-label,'trash')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,21 @@
+definition {
+
+	macro changePagination {
+		Click(locator1 = "Pagination#ITEMS_PER_PAGE_SELECT");
+
+		var key_itemsPerPage = "${itemsPerPage}";
+
+		MenuItem.click(menuItem = "${itemsPerPage}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Pagination#ITEMS_PER_PAGE_SELECT",
+			value1 = "${itemsPerPage} Entries");
+	}
+
+	macro viewResults {
+		AssertTextEquals(
+			locator1 = "Pagination#RESULTS",
+			value1 = "${results}");
+	}
+
+}

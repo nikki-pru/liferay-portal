@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>RecycleBin</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">RecycleBin</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>SUCCESS_MESSAGE_CONTENT_LINK</td>
+	<td>//div[contains(@class,'alert-success') and contains(.,'${key_assetName}')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EMPTY_RECYCLE_BIN</td>
+	<td>//a[contains(@id,'empty')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RECYCLE_BIN_ASSET_CHECKBOX</td>
+	<td>//tr[contains(.,'${key_assetName}')]//input[@type='checkbox']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--RECYCLE_BIN_WARNING-->
+<tr>
+	<td>RECYCLE_BIN_WARNING_OVERWRITE_RADIO</td>
+	<td>//input[contains(@id,'override')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--RECYCLE_BIN_FOLDER-->
+<tr>
+	<td>RECYCLE_BIN_FOLDER_DOCUMENT_NAME</td>
+	<td>//div[contains(@id,'trashSearchContainer')]//tr[contains(.,'${key_assetName}')]/td[1]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RECYCLE_BIN_FOLDER_WARNING_IFRAME</td>
+	<td>//iframe[contains(@id,'selectContainer_iframe_')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

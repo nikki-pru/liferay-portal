@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>DDMEditTemplate</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">DDMEditTemplate</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>SCRIPT_VARIABLE</td>
+	<td>//div[contains(@class,'palette-section') and contains(@id,'variable')]//ul/li/span[contains(@data-title,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCRIPT_GENERAL_VARIABLE</td>
+	<td>//*[contains(@class,'palette-section') and contains(@id,'variable')]//ul/li/span[contains(@class,'palette-item') and contains(.,'${key_generalVariable}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCRIPT_FIELD</td>
+	<td>//*[contains(@class,'palette-section') and contains(@id,'fields')]//ul/li/span[contains(@class,'palette-item') and contains(.,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCRIPT_UTIL</td>
+	<td>//div[contains(@class,'palette-section') and contains(@id,'util')]//ul/li/span[contains(@data-title,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCRIPT_CONTENT_FIELD</td>
+	<td>//div[contains(@id,'richEditor')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCRIPT_CONTENT_FIELD_TEXT_AREA</td>
+	<td>//div[contains(@id,'richEditor')]/textarea</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCRIPT_FILE_FIELD</td>
+	<td>//div[contains(@class,'input-text-wrapper')]/input[contains(@id,'script')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CACHEABLE_CHECKBOX</td>
+	<td>//input[contains(@id,'JournalPortlet_cacheable')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_TOGGLE</td>
+	<td>//div[@id='templateDetailsSectionPanel']//a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DETAILS-->
+<tr>
+	<td>DETAILS_SELECT_STRUCTURE</td>
+	<td>//button[contains(@id,'selectDDMStructure')]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_SMALL_IMAGE</td>
+	<td>//label[contains(@for,'smallImage')]/input[@type='checkbox']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_SMALL_IMAGE_URL</td>
+	<td>//label[contains(@class,'radio-inline')]/input[@type='radio']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_SMALL_IMAGE_URL_INPUT</td>
+	<td>//div[contains(@class,'input-String-wrapper')]/input[contains(@id,'URL')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_STRUCTURE</td>
+	<td>//input[contains(@id,'structure') and contains(@type,'text')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_LANGUAGE_SELECT</td>
+	<td>//select[contains(@id,'language')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS_LANGUAGE</td>
+	<td>//div[@class='panel-body']/p[@class='article-structure']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DATA_LIST_RECORD_FIELDS-->
+<tr>
+	<td>DATA_LIST_RECORD_FIELDS_TEXT</td>
+	<td>//div[contains(@class,'palette-section') and contains(.,'Data List Record Fields')]/div[2]//span[contains(.,'Text')]</td>
+	<td></td>
+</tr>
+<!--WEB_CONTENT-->
+<tr>
+	<td>CODE_MIRROR_EDITOR</td>
+	<td>//div[contains(@class,'CodeMirrorEditor')]//div[contains(@class,'CodeMirror cm-s-default')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CODE_MIRROR_EDITOR_CONTENT</td>
+	<td>//div[contains(@class,'CodeMirrorEditor')]//div[contains(@class,'CodeMirror-code')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WEB_CONTENT_SCRIPT_FILE_FIELD</td>
+	<td>//div[contains(@class,'input-text-wrapper')]/input[contains(@id,'Script')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WEB_CONTENT_SCRIPT_VARIABLE</td>
+	<td>//div[contains(@class,'ButtonList')][button[span[normalize-space(text())='${key_panelTitle}']]]//button[normalize-space(text())='${key_variableName}']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

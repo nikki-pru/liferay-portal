@@ -1,0 +1,22 @@
+@default = "isNotChecked"
+definition {
+
+	function isNotChecked {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForVisible();
+
+		selenium.isNotChecked();
+	}
+
+	function isNotCheckedNotVisible {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.isNotChecked();
+	}
+
+}

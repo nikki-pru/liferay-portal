@@ -1,0 +1,58 @@
+.segment-edit-page-root {
+	display: flex;
+	flex-direction: column;
+	height: calc(100vh - 56px);
+	margin-bottom: -35px;
+	width: 100%;
+
+	.contributor-conjunction {
+		margin: 0 auto;
+		width: 120px;
+	}
+
+	.form-header {
+		background-color: $white;
+		border-bottom: 1px solid $mainLighten65;
+
+		.edit-icon {
+			color: $mainLighten52;
+		}
+
+		.form-header-container {
+			align-items: center;
+			display: flex;
+			justify-content: space-between;
+			padding: 12px 14px;
+		}
+
+		.form-header-section-left {
+			display: flex;
+			flex: 1;
+			padding-right: 40px;
+		}
+
+		.form-header-section-right {
+			align-items: center;
+			display: flex;
+
+			.toggle-editing {
+				margin-bottom: 0;
+			}
+		}
+
+		.source-icon {
+			margin: 0 8px;
+		}
+	}
+
+	.form-body {
+		flex: 1;
+		height: 100%;
+		min-height: 0;
+		position: relative;
+	}
+
+	.title-editor-root.editing + .source-icon {
+		display: none;
+	}
+}

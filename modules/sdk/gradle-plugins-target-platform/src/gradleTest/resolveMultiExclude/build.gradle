@@ -1,0 +1,66 @@
+buildscript {
+	dependencies {
+		classpath group: "com.liferay", name: "com.liferay.gradle.plugins", version: "13.0.2"
+	}
+
+	repositories {
+		File dir = rootProject.projectDir
+
+		while (dir != null) {
+			File tmpMavenRepositoryDir = new File(dir, ".m2-tmp")
+
+			if (tmpMavenRepositoryDir.exists()) {
+				maven {
+					url tmpMavenRepositoryDir
+				}
+			}
+
+			dir = dir.getParentFile();
+		}
+
+		maven {
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+apply plugin: "com.liferay.target.platform"
+
+task checkRule
+task runGradleTest
+
+allprojects {
+	apply plugin: "com.liferay.plugin"
+
+	repositories {
+		maven {
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+checkRule {
+	doLast {
+		Task resolveTask = project(":modules:foo-rule").tasks.findByPath("resolve")
+
+		assert resolveTask == null
+	}
+}
+
+dependencies {
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom", version: "7.2.1"
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom.compile.only", version: "7.2.1"
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom.third.party", version: "7.2.1"
+
+	targetPlatformDistro group: "com.liferay.portal", name: "release.portal.distro", version: "7.2.1"
+}
+
+runGradleTest {
+	dependsOn checkRule
+}
+
+targetPlatform {
+	resolveOnlyIf {
+		it.name != "foo-rule"
+	}
+}

@@ -1,0 +1,65 @@
+definition {
+
+	macro click {
+		var key_navItem = "${navItem}";
+
+		if (IsElementNotPresent(locator1 = "NavBar#ACTIVE_NAV_ITEM_LINK")) {
+			AssertClick(
+				locator1 = "NavBar#NAV_ITEM_LINK",
+				value1 = "${navItem}");
+		}
+
+		NavItem.viewActive(navItem = "${navItem}");
+	}
+
+	macro gotoAvailableSites {
+		NavItem.click(navItem = "Available Sites");
+	}
+
+	macro gotoConfiguration {
+		NavItem.click(navItem = "Configuration");
+	}
+
+	macro gotoDisplayPages {
+		NavItem.click(navItem = "Display Page Templates");
+	}
+
+	macro gotoFeeds {
+		NavItem.click(navItem = "Feeds");
+	}
+
+	macro gotoOrganizations {
+		NavItem.click(navItem = "Organizations");
+	}
+
+	macro gotoPages {
+		NavItem.click(navItem = "Pages");
+	}
+
+	macro gotoPageTemplates {
+		NavItem.click(navItem = "Page Templates");
+	}
+
+	macro gotoStructures {
+		NavItem.click(navItem = "Structures");
+	}
+
+	macro gotoTemplates {
+		NavItem.click(navItem = "Templates");
+	}
+
+	macro gotoUserGroups {
+		NavItem.click(navItem = "User Groups");
+	}
+
+	macro gotoUsers {
+		NavItem.click(navItem = "Users");
+	}
+
+	macro viewActive {
+		AssertElementPresent(
+			key_navItem = "${navItem}",
+			locator1 = "NavBar#ACTIVE_NAV_ITEM_LINK");
+	}
+
+}

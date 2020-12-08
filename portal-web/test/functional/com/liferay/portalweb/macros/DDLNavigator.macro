@@ -1,0 +1,95 @@
+definition {
+
+	var ddlDataDefinitionName = "Data Definition Name";
+	var ddlListName = "List Name";
+
+	macro gotoAddListRecord {
+		Click.clickNoMouseOver(locator1 = "Button#PLUS");
+
+		SiteAdmin.viewPortletTitle(portletTitle = "New ${ddlDataDefinitionName}");
+	}
+
+	macro gotoDataDefinitionPermissions {
+		DDLNavigator.gotoManageDataDefinitions();
+
+		Search.searchCP(searchTerm = "${ddlDataDefinitionName}");
+
+		Click.waitForMenuToggleJSClick(locator1 = "DDMSelectStructure#DDM_STRUCTURE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "Permissions");
+	}
+
+	macro gotoDDLRecordEditViaWorkflow {
+		Click(locator1 = "WorkflowSubmissionsTask#PREVIEW_EDIT");
+
+		WorkflowAsset.viewDetails(
+			userName = "${userName}",
+			workflowStatus = "${workflowStatus}");
+	}
+
+	macro gotoEdit {
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "Edit");
+	}
+
+	macro gotoListRecords {
+		var key_ddlListName = "${ddlListName}";
+
+		AssertTextEquals(
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		AssertClick(
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		SiteAdmin.viewPortletTitle(portletTitle = "${ddlListName}");
+	}
+
+	macro gotoManageDataDefinitions {
+		Pause(locator1 = "5000");
+
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Manage Data Definitions");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Data Definitions");
+	}
+
+	macro gotoManageTemplates {
+		DDLNavigator.gotoManageDataDefinitions();
+
+		var key_ddlDataDefinitionName = "${ddlDataDefinitionName}";
+
+		Click.waitForMenuToggleJSClick(locator1 = "DDMSelectStructure#DDM_STRUCTURE_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Manage Templates");
+	}
+
+	macro gotoOptionalConfiguration {
+		SelectFrame(locator1 = "DDLConfiguration#CONFIGURATION_IFRAME");
+
+		AssertClick(
+			locator1 = "DDLConfiguration#NAVIGATION_OPTIONAL_CONFIGURATION",
+			value1 = "Optional Configuration");
+	}
+
+	macro gotoSpreadsheetView {
+		AssertTextEquals(
+			key_ddlListName = "${ddlListName}",
+			locator1 = "DDL#LIST_TABLE_NAME",
+			value1 = "${ddlListName}");
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Spreadsheet View",
+			rowEntry = "${ddlListName}");
+	}
+
+	macro gotoView {
+		Click(locator1 = "DDL#RECORD_TABLE_ELLIPSIS_1");
+
+		MenuItem.click(menuItem = "View");
+	}
+
+}

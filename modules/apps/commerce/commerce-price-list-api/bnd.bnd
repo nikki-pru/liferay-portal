@@ -1,0 +1,15 @@
+Bundle-Name: Liferay Commerce Price List API
+Bundle-SymbolicName: com.liferay.commerce.price.list.api
+Bundle-Version: 9.0.0
+Export-Package:\
+	com.liferay.commerce.price.list.constants,\
+	com.liferay.commerce.price.list.discovery,\
+	com.liferay.commerce.price.list.display.context,\
+	com.liferay.commerce.price.list.exception,\
+	com.liferay.commerce.price.list.model,\
+	com.liferay.commerce.price.list.permission,\
+	com.liferay.commerce.price.list.portlet.action,\
+	com.liferay.commerce.price.list.service,\
+	com.liferay.commerce.price.list.service.persistence,\
+	com.liferay.commerce.price.list.util.comparator
+Liferay-Enterprise-App: product.id=9a473157-06a6-44b6-b017-a360ffaf5f38

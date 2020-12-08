@@ -1,0 +1,737 @@
+import com.liferay.gradle.util.FileUtil
+import com.liferay.gradle.util.GradleUtil
+import com.liferay.gradle.util.copy.StripPathSegmentsAction
+
+import java.util.concurrent.ConcurrentSkipListSet
+
+import org.apache.tools.ant.DirectoryScanner
+import org.apache.tools.ant.filters.ReplaceTokens
+import org.apache.tools.ant.types.selectors.SelectorUtils
+
+import org.gradle.plugins.ide.api.XmlFileContentMerger
+import org.gradle.plugins.ide.eclipse.model.Classpath
+import org.gradle.plugins.ide.eclipse.model.ClasspathEntry
+import org.gradle.plugins.ide.eclipse.model.EclipseClasspath
+import org.gradle.plugins.ide.eclipse.model.EclipseModel
+import org.gradle.util.GUtil
+
+buildscript {
+	apply from: rootProject.file("build-buildscript.gradle"), to: buildscript
+}
+
+apply plugin: "com.liferay.yarn.defaults.plugin"
+
+ext {
+	projectTemplateTokens = [
+		"biz.aQute.bnd.version": "4.3.0",
+		"com.liferay.ant.bnd.version": "3.2.6",
+		"com.liferay.css.builder.version": "3.0.2",
+		"com.liferay.gradle.plugins.css.builder.version": "5.0.1",
+		"com.liferay.gradle.plugins.theme.builder.version": "2.0.7",
+		"com.liferay.gradle.plugins.version": "11.0.78",
+		"com.liferay.gradle.plugins.workspace.version": "3.0.16",
+		"com.liferay.portal.tools.bundle.support.version": "3.7.2",
+		"com.liferay.portal.tools.service.builder.version": "1.0.371",
+		"com.liferay.portal.tools.rest.builder.version": "1.0.114",
+		"com.liferay.portal.tools.soy.builder.version": "3.0.4",
+		"com.liferay.portal.tools.theme.builder.version": "1.1.8",
+		"com.liferay.portal.vulcan.api.version": "7.7.1"
+	]
+}
+
+task portalYarnCheckFormat
+task portalYarnFormat
+task portalYarnInstall
+
+if (Boolean.getBoolean("gradle.build.scan.enabled")) {
+	apply plugin: "com.gradle.build-scan"
+
+	buildScan {
+		allowUntrustedServer = true
+		captureTaskInputFiles = true
+		server = System.getProperty("gradle.build.scan.server.url") ?: null
+
+		publishAlwaysIf true
+		tag System.getenv("JENKINS_HOME") ? "CI" : "LOCAL"
+
+		if (System.getProperty("gradle.build.scan.tag")) {
+			tag System.getProperty("gradle.build.scan.tag")
+		}
+
+		if (!System.getProperty("gradle.build.scan.server.url")) {
+			termsOfServiceAgree = "yes"
+			termsOfServiceUrl = "https://gradle.com/terms-of-service"
+		}
+	}
+}
+
+Set<File> bndPrintJarFiles = null
+
+if (Boolean.getBoolean("build.bnd.print.enabled")) {
+	configurations {
+		bnd
+	}
+
+	dependencies {
+		bnd group: "biz.aQute.bnd", name: "biz.aQute.bnd", version: "4.3.0"
+	}
+
+	repositories {
+		maven {
+			url System.properties["repository.url"] ?: "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+
+	bndPrintJarFiles = new ConcurrentSkipListSet<File>()
+}
+
+if (FileUtil.exists(rootProject, "private/yarn.lock")) {
+	gradle.beforeProject {
+		if (it.path.equals(":private")) {
+			configure(it) {
+				apply plugin: "com.liferay.yarn.defaults.plugin"
+			}
+		}
+	}
+
+	portalYarnCheckFormat {
+		dependsOn ":private:packageRunCheckFormat"
+	}
+
+	portalYarnFormat {
+		dependsOn ":private:packageRunFormat"
+	}
+
+	portalYarnInstall {
+		dependsOn ":private:yarnInstall"
+	}
+}
+
+buildDir = new File(rootDir.parentFile, "build")
+
+for (String gradleVersion in ["6.6.1"]) {
+	String gradleDistributionURL = "https://services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+	String suffix = gradleVersion.replace(".", "")
+
+	tasks.create(name: "extractGradleApi${suffix}", type: Copy) {
+		description = "Extracts the Gradle ${gradleVersion} JAR files into a temporary directory."
+
+		eachFile new StripPathSegmentsAction(1)
+
+		from {
+			zipTree(FileUtil.get(project, gradleDistributionURL))
+		}
+
+		include "gradle-${gradleVersion}/lib/**/*.jar"
+
+		includeEmptyDirs = false
+		into new File(buildDir, "gradle-${gradleVersion}")
+	}
+
+	tasks.create(name: "extractGradleSources${suffix}", type: Copy) {
+		description = "Extracts the Gradle ${gradleVersion} sources into a temporary directory."
+
+		eachFile new StripPathSegmentsAction(2)
+
+		from {
+			zipTree(FileUtil.get(project, gradleDistributionURL))
+		}
+
+		include "gradle-${gradleVersion}/src/**"
+
+		includeEmptyDirs = false
+		into new File(buildDir, "gradle-${gradleVersion}-sources")
+	}
+}
+
+portalYarnCheckFormat {
+	dependsOn ":packageRunCheckFormat"
+}
+
+portalYarnFormat {
+	dependsOn ":packageRunFormat"
+}
+
+portalYarnInstall {
+	dependsOn ":yarnInstall"
+}
+
+gradle.beforeProject {
+	Project project ->
+
+	if (!project.parent || project.childProjects) {
+		return
+	}
+
+	configure(project) {
+		apply plugin: "com.liferay.defaults.plugin"
+
+		task printProjectPath
+
+		afterEvaluate {
+			String forcedUpdateFilesVersion = GradleUtil.getProperty(project, "forced.update.files.version", (String)null)
+
+			if (forcedUpdateFilesVersion && tasks.findByName("updateFileVersions")) {
+				updateFileVersions {
+					replacement = forcedUpdateFilesVersion
+				}
+			}
+
+			String forcedUpdateVersion = GradleUtil.getProperty(project, "forced.update.version", (String)null)
+
+			if (forcedUpdateVersion && tasks.findByName("updateVersion")) {
+				updateVersion {
+					replacement = forcedUpdateVersion
+				}
+			}
+
+			pluginManager.withPlugin("eclipse") {
+				if (tasks.eclipse.ext.has("gradleVersion")) {
+					String gradleVersion = tasks.eclipse.ext.get("gradleVersion")
+
+					tasks.eclipse {
+						dependsOn compileJava
+						dependsOn rootProject.tasks.getByName("extractGradleSources" + gradleVersion.replace(".", ""))
+
+						_updateGradleSourcePaths(gradleVersion, project.extensions.getByType(EclipseModel.class))
+					}
+				}
+			}
+
+			pluginManager.withPlugin("idea") {
+				idea {
+					module {
+						iml {
+							withXml {
+								XmlProvider xmlProvider ->
+
+								Node rootNode = xmlProvider.asNode()
+
+								Node component = rootNode.component.find {
+									Node node->
+
+									node.@name == "NewModuleRootManager"
+								}
+
+								Node frontendTaglibNode = component.orderEntry.find {
+									Node node ->
+
+									(node.@type == "module") && (node.@"module-name" == "frontend-taglib-frontend-taglib")
+								}
+
+								if (frontendTaglibNode != null) {
+									frontendTaglibNode.@"module-name" = "frontend-taglib"
+								}
+
+								component.orderEntry.findAll {
+									Node node ->
+
+									node.@type == "module-library"
+								}.each {
+									Node node ->
+
+									String name = node.library.CLASSES.root.@url[0]
+									String scope = node.@scope
+
+									if (name.contains("com.liferay.portal.impl")) {
+										component.appendNode("orderEntry", ["module-name":"portal-impl", "scope":"$scope", "type":"module"])
+										component.remove(node)
+									}
+									else if (name.contains("com.liferay.portal.kernel")) {
+										component.appendNode("orderEntry", ["module-name":"portal-kernel", "scope":"$scope", "type":"module"])
+										component.remove(node)
+									}
+									else if (name.contains("com.liferay.portal.test")) {
+										component.appendNode("orderEntry", ["module-name":"portal-test", "scope":"$scope", "type":"module"])
+										component.remove(node)
+									}
+									else if (name.contains("com.liferay.util.java")) {
+										component.appendNode("orderEntry", ["module-name":"util-java", "scope":"$scope", "type":"module"])
+										component.remove(node)
+									}
+									else if (name.contains("com.liferay.util.taglib")) {
+										component.appendNode("orderEntry", ["module-name":"util-taglib", "scope":"$scope", "type":"module"])
+										component.remove(node)
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+		printProjectPath {
+			doLast {
+				println project.path
+			}
+		}
+
+		if (project.path.startsWith(":sdk:project-templates")) {
+			if (configurations.findByName("portalTest") != null) {
+				configurations.portalTest.exclude group: "com.liferay.portal", module: "com.liferay.portal.test"
+				configurations.portalTest.exclude group: "com.liferay.portal", module: "com.liferay.portal.test.integration"
+			}
+
+			if (configurations.findByName("portalTestSnapshot") != null) {
+				configurations.portalTestSnapshot.exclude group: "com.liferay.portal", module: "com.liferay.portal.impl"
+				configurations.portalTestSnapshot.exclude group: "com.liferay.portal", module: "com.liferay.portal.kernel"
+			}
+		}
+
+		if (project.path.startsWith(":sdk:project-templates:project-templates")) {
+			File mavenWrapperPropertiesFile = project.project(":sdk:project-templates:project-templates").file("src/main/resources/maven-wrapper/.mvn/wrapper/maven-wrapper.properties")
+
+			Properties mavenWrapperProperties = GUtil.loadProperties(mavenWrapperPropertiesFile)
+
+			String mavenDistributionVersion = mavenWrapperProperties["distributionUrl"]
+
+			mavenDistributionVersion = mavenDistributionVersion.find(/\d+\.\d+\.\d+/)
+
+			configurations {
+				mavenDistribution
+			}
+
+			dependencies {
+				mavenDistribution classifier: "bin", ext: "zip", group: "org.apache.maven", name: "apache-maven", version: mavenDistributionVersion
+			}
+
+			test {
+				doFirst {
+					Properties gradleWrapperProperties = new Properties()
+
+					File gradleWrapperPropertiesFile = project.project(":sdk:project-templates:project-templates").file("src/main/resources/gradle-wrapper/gradle/wrapper/gradle-wrapper.properties")
+
+					gradleWrapperPropertiesFile.withInputStream {
+						gradleWrapperProperties.load it
+					}
+
+					String gradleDistributionUrl = gradleWrapperProperties["distributionUrl"]
+
+					File gradleDistributionFile = FileUtil.get(project, gradleDistributionUrl)
+
+					systemProperty "gradle.distribution", uri(gradleDistributionFile)
+					systemProperty "maven.distribution.file.name", configurations.mavenDistribution.singleFile
+				}
+
+				jvmArgs "-XX:MaxMetaspaceSize=256m"
+				maxHeapSize = "1024m"
+
+				systemProperty "http.proxyHost", System.properties["http.proxyHost"]
+				systemProperty "http.proxyPort", System.properties["http.proxyPort"]
+				systemProperty "maven.debug", System.properties["maven.debug"]
+				systemProperty "maven.repo.local", System.properties["maven.repo.local"]
+				systemProperty "nodejs.npm.ci.registry", project.findProperty("nodejs.npm.ci.registry")
+				systemProperty "nodejs.npm.ci.sass.binary.site", project.findProperty("nodejs.npm.ci.sass.binary.site")
+				systemProperty "project.templates.bom.version", project.findProperty("project.templates.bom.version")
+				systemProperty "project.templates.test.builds", project.findProperty("project.templates.test.builds")
+				systemProperty "repository.url", System.properties["repository.url"]
+				systemProperty "test.debug.bundle.diffs", System.properties["test.debug.bundle.diffs"]
+			}
+		}
+
+		if (project.path.startsWith(":sdk:project-templates:project-templates-")) {
+			task generateSampleProject(type:JavaExec)
+
+			buildCSS {
+				enabled = false
+			}
+
+			configurations {
+				projectTemplatesMain
+			}
+
+			dependencies {
+				projectTemplatesMain project.project(":sdk:project-templates:project-templates")
+			}
+
+			eclipse {
+				classpath {
+					file {
+						whenMerged {
+							entries.removeAll {
+								(it.kind == "src") && (it.path == "src/main/resources")
+							}
+						}
+					}
+				}
+			}
+
+			generateSampleProject {
+				args "--archetypes-dirs", jar.archivePath.parent, "--destination", "${buildDir}", "--template", project.name.replaceFirst("project-templates-", ""), "--template-version", version
+				classpath = configurations.projectTemplatesMain
+				dependsOn jar
+				main = "com.liferay.project.templates.ProjectTemplates"
+			}
+
+			jar {
+				doFirst {
+					DirectoryScanner.removeDefaultExclude SelectorUtils.DEEP_TREE_MATCH + "/.gitignore"
+				}
+
+				doLast {
+					DirectoryScanner.resetDefaultExcludes()
+				}
+			}
+
+			processResources {
+				exclude "**/.sass-cache/"
+
+				filesMatching(["**/*.gradle", "**/pom.xml"]) {
+					filter(ReplaceTokens, tokens: projectTemplateTokens)
+				}
+
+				outputs.upToDateWhen {
+					false
+				}
+
+				rename "gitignore", ".gitignore"
+			}
+		}
+
+		if (project.path.startsWith(":third-party:")) {
+			bundle {
+				instruction "-includeresource.thirdparty", "-classes"
+			}
+		}
+
+		pluginManager.withPlugin("com.liferay.ant.plugin") {
+			task buildLang(dependsOn: "build-lang")
+
+			if (FileUtil.exists(project, "docroot/WEB-INF/service.xml")) {
+				task buildService(dependsOn: "build-service")
+				task buildWSDD(dependsOn: "build-wsdd")
+			}
+
+			// See the "compile-jsp" target in tools/sdk/build-common-plugin.xml
+			// for more information.
+
+			if (ant.properties["app.server.type"] == "tomcat") {
+				task compileJSP(dependsOn: "compile-jsp")
+			}
+		}
+
+		pluginManager.withPlugin("com.liferay.baseline") {
+			if (project.path.startsWith(":third-party:")) {
+				baseline {
+					enabled = false
+				}
+			}
+		}
+
+		pluginManager.withPlugin("com.liferay.css.builder") {
+			buildCSS {
+				rtlExcludedPathRegexps = [".+"]
+			}
+		}
+
+		pluginManager.withPlugin("com.liferay.osgi.plugin") {
+			configurations {
+				xmltask
+			}
+
+			dependencies {
+				xmltask rootProject.files("../lib/development/xmltask.jar")
+			}
+
+			testIntegration {
+				doLast {
+					String databaseType = System.properties["database.type"]
+
+					if (!databaseType) {
+						return
+					}
+
+					FileTree fileTree = fileTree(dir: reports.junitXml.destination, exclude: "TEST-*-*.xml", include: "TEST-*.xml")
+
+					ant.taskdef classname: "com.oopsconsultancy.xmltask.ant.XmlTask", classpath: configurations.xmltask.asPath, name: "xmltask"
+
+					fileTree.each {
+						File file ->
+
+						String fileTitle = FileUtil.stripExtension(file.name)
+
+						ant.xmltask(dest: new File(file.parentFile, "${fileTitle}-${databaseType}.xml"), source: file) {
+							replace path: "/testsuite/@name", withText: "${fileTitle}-${databaseType}"
+						}
+
+						delete file
+					}
+				}
+			}
+
+			if (bndPrintJarFiles != null) {
+				jar {
+					doLast {
+						bndPrintJarFiles << archivePath
+					}
+				}
+			}
+
+			if (gradle.hasProperty("testClassGroupIndex")) {
+				configure([test, testIntegration]) {
+					include _getTestClasses(it)
+
+					jvmArgs "-Dtest.class.group.index=" + gradle.testClassGroupIndex
+					jvmArgs "-Dtest.class.groups=" + gradle.testClassGroups
+				}
+			}
+
+			if (System.getenv("JENKINS_HOME")) {
+				buildCSS {
+					jvmArgs "-Xss4m"
+				}
+
+				startTestableTomcat {
+					deleteLiferayHome = false
+				}
+			}
+		}
+
+		pluginManager.withPlugin("com.liferay.portal.tools.rest.builder") {
+			File dir = new File(rootDir.parentFile, "modules/util/portal-tools-rest-builder")
+
+			if (dir.exists() && !GradleUtil.getProperty(project, "com.liferay.portal.tools.rest.builder.ignore.local", true)) {
+				buildREST {
+					dependsOn ":util:portal-tools-rest-builder:deploy"
+				}
+			}
+		}
+
+		pluginManager.withPlugin("com.liferay.portal.tools.service.builder") {
+			File dir = new File(rootDir.parentFile, "modules/util/portal-tools-service-builder")
+
+			if (dir.exists() && !GradleUtil.getProperty(project, "com.liferay.portal.tools.service.builder.ignore.local", true)) {
+				buildService {
+					dependsOn ":util:portal-tools-service-builder:deploy"
+				}
+			}
+		}
+
+		pluginManager.withPlugin("com.liferay.portal.tools.wsdd.builder") {
+			if (bndPrintJarFiles != null) {
+				buildWSDDJar {
+					doLast {
+						bndPrintJarFiles << archivePath
+					}
+				}
+			}
+		}
+
+		pluginManager.withPlugin("eclipse") {
+			tasks.eclipse.dependsOn {
+				Set<ProjectDependency> projectDependencies = configurations.runtime.allDependencies.withType(ProjectDependency)
+
+				projectDependencies.collect {
+					ProjectDependency projectDependency ->
+
+					"${projectDependency.dependencyProject.path}:eclipse"
+				}
+			}
+		}
+
+		pluginManager.withPlugin("java") {
+			compileJava {
+				outputs.cacheIf {
+					false
+				}
+			}
+		}
+
+		pluginManager.withPlugin("org.ysb33r.gradletest") {
+			task prepareGradleTestInputs
+
+			gradleTest {
+				dependsOn prepareGradleTestInputs
+			}
+
+			prepareGradleTestInputs {
+				doLast {
+					File dir = file("build/classes/test")
+
+					dir.mkdirs()
+
+					File tmpFile = new File(dir, "tmp")
+
+					tmpFile.createNewFile()
+				}
+			}
+		}
+	}
+}
+
+if (bndPrintJarFiles != null) {
+	gradle.buildFinished {
+		bndPrintJarFiles.each {
+			File jarFile ->
+
+			javaexec {
+				args "print", jarFile
+				classpath = configurations.bnd
+				main = "aQute.bnd.main.bnd"
+			}
+		}
+	}
+}
+
+gradle.taskGraph.useFilter {
+	Task task ->
+
+	boolean skipReadOnly = Boolean.parseBoolean(GradleUtil.getTaskPrefixedProperty(task, "skipReadOnly"))
+
+	if (skipReadOnly) {
+		boolean publicBranch = GradleUtil.getProperty(task.project, "liferay.releng.public", false)
+
+		if (publicBranch && task.project.path.startsWith(":private:")) {
+			return false
+		}
+
+		File gitRepoDir = _getRootDir(task.project.projectDir, ".gitrepo")
+
+		if (gitRepoDir != null) {
+			File gitRepoFile = new File(gitRepoDir, ".gitrepo")
+
+			if (gitRepoFile.text.contains("mode = pull")) {
+				return false
+			}
+		}
+	}
+
+	if (task.name == "compileJSP") {
+		FileTree jspFileTree = fileTree(dir: task.project.projectDir, excludes: ["**/custom_jsps/**/*", "**/dependencies/**/*"], includes: ["docroot/**/*.jsp", "src/main/resources/META-INF/resources/**/*.jsp"])
+
+		if (jspFileTree.empty) {
+			return false
+		}
+	}
+	else if (task.name == "deploy") {
+		String buildProfile = System.getProperty("build.profile")
+
+		if ((buildProfile != null) && FileUtil.exists(task.project, ".lfrbuild-portal-skip-deploy")) {
+			return false
+		}
+
+		String deployOnlyProfile = System.properties["deploy.only.profile"]
+
+		if (deployOnlyProfile && !FileUtil.exists(task.project, ".lfrbuild-${deployOnlyProfile}")) {
+			return false
+		}
+	}
+	else if (task.name == "test") {
+		if (!_hasTestClasses(task, "src/test/java")) {
+			return false
+		}
+	}
+	else if (task.name == "testIntegration") {
+		if (!_hasTestClasses(task, "src/testIntegration/java")) {
+			return false
+		}
+	}
+
+	return true
+}
+
+private File _getRootDir(File dir, String markerFileName) {
+	while (true) {
+		File markerFile = new File(dir, markerFileName);
+
+		if (markerFile.exists()) {
+			return dir;
+		}
+
+		dir = dir.getParentFile();
+
+		if (dir == null) {
+			return null;
+		}
+	}
+}
+
+private List<String> _getTestClasses(Task task) {
+	return task.project.gradle.testClasses.collect {
+		String testClass ->
+
+		if (testClass.startsWith("/modules/")) {
+			String projectPath = task.project.path.replace(':' as char, '/' as char)
+
+			String javaPath = "/modules" + projectPath + "/src/" + task.name + "/java/"
+
+			if (testClass.startsWith(javaPath)) {
+				testClass = testClass.replace(javaPath, "")
+			}
+		}
+
+		return testClass
+	}
+}
+
+private boolean _hasTestClasses(Task task, String testClassesDirName) {
+	Project project = task.project
+
+	File testClassesDir = project.file(testClassesDirName)
+
+	if (!testClassesDir.exists()) {
+		return false
+	}
+
+	if (project.gradle.hasProperty("testClassGroupIndex")) {
+		List<String> testJavaClasses = _getTestClasses(task).collect {
+			String testClass ->
+
+			return testClass.replace(".class", ".java")
+		}
+
+		FileTree testJavaClassesFileTree = project.fileTree(dir: testClassesDir, includes: testJavaClasses)
+
+		if (testJavaClassesFileTree.empty) {
+			return false
+		}
+	}
+
+	return true
+}
+
+private void _updateGradleSourcePaths(String gradleVersion, EclipseModel eclipseModel) {
+	EclipseClasspath eclipseClasspath = eclipseModel.getClasspath()
+
+	XmlFileContentMerger xmlFileContentMerger = eclipseClasspath.getFile()
+
+	xmlFileContentMerger.whenMerged(
+		{
+			Classpath classpath ->
+
+			for (ClasspathEntry classpathEntry : classpath.getEntries()) {
+				if (classpathEntry.hasProperty("sourcepath")) {
+					continue
+				}
+
+				String kind = classpathEntry.getKind()
+
+				if (!kind.equals("lib")) {
+					continue
+				}
+
+				String path = classpathEntry.getPath()
+
+				if (!path.contains("/gradle-" + gradleVersion + "/lib/")) {
+					continue
+				}
+
+				String fileName = path.substring(path.lastIndexOf("/") + 1)
+
+				if (!fileName.startsWith("gradle-") || !fileName.contains("-" + gradleVersion)) {
+					continue
+				}
+
+				String dirName = fileName.substring(7, fileName.lastIndexOf("-" + gradleVersion))
+
+				File sourcesDir = new File(rootProject.buildDir, "gradle-" + gradleVersion + "-sources/" + dirName)
+
+				if (sourcesDir.exists()) {
+					classpathEntry.putAt("sourcePath", fileReference(sourcesDir))
+
+					logger.info "Added sourcePath {}", sourcesDir
+				}
+			}
+		})
+}

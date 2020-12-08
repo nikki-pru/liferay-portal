@@ -1,0 +1,18 @@
+Bundle-Name: Liferay Sharing API
+Bundle-SymbolicName: com.liferay.sharing.api
+Bundle-Version: 3.0.0
+Export-Package:\
+	com.liferay.sharing.configuration,\
+	com.liferay.sharing.constants,\
+	com.liferay.sharing.display.context.util,\
+	com.liferay.sharing.exception,\
+	com.liferay.sharing.filter,\
+	com.liferay.sharing.interpreter,\
+	com.liferay.sharing.model,\
+	com.liferay.sharing.renderer,\
+	com.liferay.sharing.security.permission,\
+	com.liferay.sharing.security.permission.resource,\
+	com.liferay.sharing.service,\
+	com.liferay.sharing.service.persistence,\
+	com.liferay.sharing.servlet.taglib.ui,\
+	com.liferay.sharing.util.comparator

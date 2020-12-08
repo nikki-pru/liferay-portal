@@ -1,0 +1,8 @@
+{
+	"cacheable": true,
+	"fragmentEntryKey": "card",
+	"icon": "blogs",
+	"name": "card",
+	"thumbnail": "card.png",
+	"type": "component"
+}

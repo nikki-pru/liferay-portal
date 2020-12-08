@@ -1,0 +1,91 @@
+.ddl-record-set-export-modal.modal-content {
+	max-height: fit-content;
+
+	.modal-body {
+		height: auto !important;
+	}
+}
+
+.portal-popup .portlet-dynamic-data-lists .lfr-form-content {
+	position: relative;
+}
+
+.document-library-file-entry-cell-editor-hidden,
+.link-to-page-cell-editor-hidden {
+	display: none;
+}
+
+.lfr-ddl-content {
+	padding: 15px;
+
+	.sheet {
+		padding-bottom: 1.5em;
+
+		.taglib-page-iterator .lfr-pagination-buttons {
+			margin-top: 0.5em;
+		}
+	}
+}
+
+.lfr-search-container-wrapper .list-group .list-group-item h2.h5 {
+	font-weight: 600;
+}
+
+.lfr-spreadsheet-add-rows-buttons {
+	.form-group.form-group-inline.input-select-wrapper {
+		margin-bottom: 0;
+	}
+}
+
+.portlet-dynamic-data-lists,
+.portlet-dynamic-data-lists-display {
+	.form-group.geolocation-field .button-holder .btn {
+		margin-top: 0;
+	}
+
+	.lfr-spreadsheet-container .table {
+		overflow: auto;
+
+		&.yui3-datatable td:after {
+			content: '\0000a0';
+		}
+	}
+
+	.asset-icon .lexicon-icon {
+		height: 32px;
+		width: 32px;
+	}
+
+	.record-set-id,
+	.record-set-modified-date {
+		margin-right: 20px;
+	}
+
+	.lfr-ddm-container {
+		background-color: #fff;
+	}
+}
+
+.portlet-dynamic-data-lists {
+	.sidebar {
+		.taglib-workflow-status {
+			display: block;
+			margin-bottom: 12px;
+
+			.workflow-status {
+				color: inherit;
+			}
+
+			.workflow-label {
+				display: block;
+				margin-bottom: 4px;
+			}
+		}
+	}
+}
+
+.portlet-dynamic-data-lists-display {
+	.view-records-container {
+		overflow: auto;
+	}
+}

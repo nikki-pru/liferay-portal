@@ -1,0 +1,14 @@
+@default = "sikuliUploadTCatFile"
+definition {
+
+	function sikuliUploadTCatFile {
+		WaitForSPARefresh();
+
+		selenium.sikuliUploadTCatFile();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

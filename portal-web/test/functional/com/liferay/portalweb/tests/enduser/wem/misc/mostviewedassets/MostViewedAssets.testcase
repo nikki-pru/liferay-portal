@@ -1,0 +1,118 @@
+@component-name = "portal-wcm"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Asset Publisher,Most Viewed Assets";
+	property testray.main.component.name = "Most Viewed Assets";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+	}
+
+	@priority = "4"
+	test AssertMostViewedAsset {
+		JSONGroup.addGroup(groupName = "Site Name");
+
+		for (var n : list "1,2") {
+			JSONLayout.addPublicLayout(
+				groupName = "Site Name",
+				layoutName = "Test Page ${n}");
+		}
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Test Page 1",
+			widgetName = "Most Viewed Assets");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Test Page 2",
+			widgetName = "Asset Publisher");
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page 1",
+			siteName = "Site Name");
+
+		AssetPublisherPortlet.configureShowMetadataFieldsPG(
+			addMetadata = "true",
+			metadataFieldList = "View Count",
+			portletName = "Most Viewed Assets");
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page 2",
+			siteName = "Site Name");
+
+		AssetPublisherPortlet.configureDisplaySettings(displaySettings = "View Count Increment");
+
+		for (var n : list "1,2") {
+			JSONWebcontent.addWebContent(
+				content = "Web Content Content",
+				groupName = "Site Name",
+				title = "Web Content Title ${n}");
+		}
+
+		var count = "0";
+
+		while ("${count}" != "3") {
+			Navigator.gotoSitePage(
+				pageName = "Test Page 2",
+				siteName = "Site Name");
+
+			AssetPublisherPortlet.viewAssetDetailsPG(
+				assetContent = "Web Content Content",
+				assetTitle = "Web Content Title 1");
+
+			var count = ${count} + 1;
+		}
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page 1",
+			siteName = "Site Name");
+
+		AssetPublisherPortlet.viewAssetViewCount(
+			assetTitle = "Web Content Title 1",
+			viewCount = "3 View");
+
+		AssetPublisherPortlet.viewAssetViewCount(
+			assetTitle = "Web Content Title 2",
+			viewCount = "0 View");
+
+		var count = "0";
+
+		while ("${count}" != "5") {
+			Navigator.gotoSitePage(
+				pageName = "Test Page 2",
+				siteName = "Site Name");
+
+			AssetPublisherPortlet.viewAssetDetailsPG(
+				assetContent = "Web Content Content",
+				assetTitle = "Web Content Title 2");
+
+			var count = ${count} + 1;
+		}
+
+		Navigator.gotoSitePage(
+			pageName = "Test Page 1",
+			siteName = "Site Name");
+
+		AssetPublisherPortlet.viewAssetViewCount(
+			assetTitle = "Web Content Title 2",
+			viewCount = "5 View");
+
+		AssetPublisherPortlet.viewAssetViewCount(
+			assetTitle = "Web Content Title 1",
+			viewCount = "3 View");
+	}
+
+}

@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>WCPreview</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">WCPreview</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>PREVIEW_TITLE</td>
+	<td>//div[contains(@class,'modal-header')]/div[contains(@class,'modal-title')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREVIEW_IMAGE</td>
+	<td>//img[contains(@src,'${key_imageTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BODY_FIELD</td>
+	<td>//div[@class='portlet-body']/div[contains(@class,'m-4')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

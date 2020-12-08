@@ -1,0 +1,44 @@
+.portlet-expando {
+	.card-body {
+		.custom-aspect-ratio-geolocation {
+			padding-bottom: 35%;
+		}
+
+		.custom-checkbox,
+		.custom-radio {
+			margin-bottom: 0 !important;
+		}
+	}
+
+	.custom-attribute-icon {
+		float: left;
+		margin-right: 5px;
+	}
+
+	.custom-card-body-boolean {
+		height: 60px;
+	}
+
+	.custom-precision-type-field-wrapper .form-group {
+		margin-bottom: 0;
+	}
+
+	.date-input-wrapper,
+	.localized-input-wrapper {
+		margin-bottom: 1.5rem;
+
+		.control-label {
+			color: #272833;
+			display: inline-block;
+			font-size: 0.875rem;
+			font-weight: 600;
+			margin-bottom: 0.25rem;
+			max-width: 100%;
+			word-wrap: break-word;
+		}
+	}
+
+	.short-input-text input {
+		width: 25px;
+	}
+}

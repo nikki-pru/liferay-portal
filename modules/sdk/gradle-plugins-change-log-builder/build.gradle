@@ -1,0 +1,18 @@
+apply plugin: "com.gradle.plugin-publish"
+
+String gradleVersion = "6.6.1"
+
+tasks.eclipse {
+	ext.gradleVersion = gradleVersion
+}
+
+dependencies {
+	compile group: "com.liferay", name: "com.liferay.gradle.util", version: "1.0.44"
+	compile group: "org.eclipse.jgit", name: "org.eclipse.jgit", version: "4.1.1.201511131810-r"
+
+	compileOnly fileTree(builtBy: [rootProject.tasks.getByName("extractGradleApi" + gradleVersion.replace(".", ""))], dir: new File(rootProject.buildDir, "gradle-${gradleVersion}"))
+}
+
+pluginBundle {
+	tags = ["changelog", "docs", "documentation", "git"]
+}

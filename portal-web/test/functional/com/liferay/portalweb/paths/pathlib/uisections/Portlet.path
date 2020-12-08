@@ -1,0 +1,169 @@
+<html>
+<head>
+<title>Portlet</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Portlet</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>APPLICATION_DECORATOR_SELECT</td>
+	<td>//select[contains(@id,'portletDecorator')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BODY</td>
+	<td>//div[@id='main-content']//section[contains(.,'${key_portletName}')]//div[@class='portlet-body']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BORDER_WIDTH_TOP_INPUT</td>
+	<td>//div[contains(@class,'form-group') and contains(.,'Top')]//input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONFIGURATION_CHECKBOX</td>
+	<td>//label[contains(.,'${key_fieldName}')]/input[contains(@id,'PortletConfiguration')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ERROR</td>
+	<td>//div[contains(@class,'alert-error') or contains(@class,'alert-danger')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>H1_HEADER</td>
+	<td>//h1[@class='header-title']/span | //h1[@class='header-title']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>H2_HEADER</td>
+	<td>//div[contains(@class,'portlet-header')]//h2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>H2_HEADER_2</td>
+	<td>xpath=(//div[contains(@class,'portlet-header')]//h2)[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>H3_HEADER</td>
+	<td>//h3[@class='header-title']/span | //span[contains(@class,'title')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>H3_HEADER_2</td>
+	<td>xpath=(//h3[@class='header-title']/span)[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>H4_COMPONENT_TITLE</td>
+	<td>//h4[@class='component-title']/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HEADER</td>
+	<td>//*[@data-qa-id='headerTitle']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HEADER_DUPLICATE</td>
+	<td>//*[@data-qa-id='headerTitle'][2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ICON_PLUS_SIGN</td>
+	<td>//header[div/span[.='${key_portletName}']]//*[@data-qa-id='addButton']//a/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LOADED</td>
+	<td>//div[@data-qa-id='app-loaded']//span[contains(.,'${key_portletName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MODAL_TITLE</td>
+	<td>//div[contains(@class,'modal-content')]//*[@class='modal-title']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPTIONS_ICON</td>
+	<td>//div[@id='main-content']//div[contains(@class,'portlet-options')]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPTIONS_MENULIST_PERMISSIONS</td>
+	<td>//a[contains(@id,'_menu_permissions')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PORTLET_BORDER_DECORATOR</td>
+	<td>//div[@id='main-content']//div[contains(@class,'portlet-${key_decorator}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PORTLET_CONTENT</td>
+	<td>//section[@id='content']//div[contains(@class,'portlet-content')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PORTLET_TOPPER</td>
+	<td>//header[@class='portlet-topper'][contains(.,'${key_portletName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SEARCH_FIELD</td>
+	<td>//div[*[normalize-space()='${key_portletName}']]//input[contains(@name,'keywords')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SIGN_IN_CUSTOM_LOOK_AND_FEEL</td>
+	<td>portal/screenshots/home/sign_in_custom_look_and_feel.png</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPECIFIC_BORDERLESS_BAR</td>
+	<td>//div[contains(@class,'portlet-title-default')]/span[contains(.,'${key_portletName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPECIFIC_BORDERLESS_ELLIPSIS_ICON</td>
+	<td>//header[@class='portlet-topper' and contains(.,'${key_portletName}')]//div[contains(@class,'portlet-options')]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPECIFIC_ELLIPSIS_ICON</td>
+	<td>//div[@id='main-content']//header[contains(.,'${key_portletName}')]//menu/div[contains(@class,'portlet-options')]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPECIFIC_PORTLET_BORDER_DECORATOR</td>
+	<td>//div[@id='main-content']//div[contains(@class,'portlet-${key_decorator}')]//h2[contains(@class,'portlet-title') and (.='${key_portletTitleName}')] | //div[@id='main-content']//div[contains(@class,'portlet-${key_decorator}')]//section[contains(@id,'${key_portletTitleName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SPECIFIC_TITLE</td>
+	<td>//div[@id='main-content']//h2[contains(@class,'portlet-title') and (.='${key_portletTitleName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FONT_SELECT</td>
+	<td>//div[contains(@class,'form-group') and contains(.,'Font')]//select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FONT_SIZE_SELECT</td>
+	<td>//div[contains(@class,'form-group') and contains(.,'Size')]//select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TITLE</td>
+	<td>//h2[contains(@class,'portlet-title') and contains(.,'${key_portletName}')] | //h1[contains(text(), '${key_portletName}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

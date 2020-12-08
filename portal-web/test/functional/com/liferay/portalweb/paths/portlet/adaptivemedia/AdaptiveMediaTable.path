@@ -1,0 +1,70 @@
+<html>
+<head>
+<title>AdaptiveMediaTable</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AdaptiveMediaTable</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>IMAGE_RESOLUTION_OPTIONS</td>
+	<td>//a[contains(.,'${key_imageName}')]/../..//td//a[span/*[name()='svg'][contains(@class,'icon-ellipsis-v')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>INFO_ICON</td>
+	<td>//nav[contains(@class,'management-bar')]//div[contains(@class,'container-fluid')]//button[contains(@class,'nav-link')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAME</td>
+	<td>//td[contains(@class,'name-column')]/a[contains(.,'${key_imageName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MAX_WIDTH</td>
+	<td>//a[contains(.,'${key_imageName}')]/../..//td[contains(@class,'max-width')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MAX_HEIGHT</td>
+	<td>//a[contains(.,'${key_imageName}')]/../..//td[contains(@class,'max-height')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PROGRESS</td>
+	<td>//tr/td[contains(.,'${key_imageName}')]//following-sibling::td[2]//div[contains(@class,'progress-group-')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PROGRESS_DISABLED</td>
+	<td>//tr/td[contains(.,'${key_imageName}')]//following-sibling::td[2]//div[contains(@class,'disabled')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PROGRESS_SUCCESS</td>
+	<td>//tr/td[contains(.,'${key_imageName}')]//following-sibling::td[2]//div[contains(@class,'progress-success')]//div[(@class='progress-group-feedback')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>STATE</td>
+	<td>//a[contains(.,'${key_imageName}')]/../..//td[contains(@class,'lfr-state-column') and contains(.,'${key_imageState}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--IMAGE_INFO_DETAILS-->
+<tr>
+	<td>IMAGE_INFO_DETAILS_ADAPTED_IMAGES</td>
+	<td>//dl[contains(@class,'sidebar-section')]/dt[contains(.,'Adapted Images')]/following-sibling::dd[contains(.,'${key_numberOfAdaptedImages}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

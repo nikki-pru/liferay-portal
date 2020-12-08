@@ -1,0 +1,61 @@
+definition {
+
+	macro clickEllipsisItem {
+		Click.waitForMenuToggleJSClick(
+			key_tableEntry = "${tableEntry}",
+			locator1 = "LexiconTable#TABLE_ENTRY_ELLIPSIS");
+
+		MenuItem.clickNoError(menuItem = "${item}");
+	}
+
+	macro clickTableEntryTitle {
+		Click(
+			key_tableEntry = "${tableEntry}",
+			locator1 = "LexiconTable#TABLE_ENTRY_TITLE_LINK");
+	}
+
+	macro delete {
+		LexiconTable.clickEllipsisItem(
+			item = "Delete",
+			tableEntry = "${tableEntry}");
+
+		Confirm();
+	}
+
+	macro viewTableEntryNotPresent {
+		AssertElementNotPresent(
+			key_tableEntry = "${tableEntry}",
+			locator1 = "LexiconTable#TABLE_ENTRY");
+	}
+
+	macro viewTableEntryPartialText {
+		AssertTextEquals.assertPartialText(
+			key_tableEntry = "${tableEntry}",
+			key_tableEntryPartialText = "${tableEntryPartialText}",
+			locator1 = "LexiconTable#TABLE_ENTRY_PARTIAL_TEXT",
+			value1 = "${tableEntryPartialText}");
+	}
+
+	macro viewTableEntryText {
+		AssertTextEquals(
+			key_tableEntry = "${tableEntry}",
+			key_tableEntryText = "${tableEntryText}",
+			locator1 = "LexiconTable#TABLE_ENTRY_TEXT",
+			value1 = "${tableEntryText}");
+	}
+
+	macro viewTableEntryTitle {
+		AssertTextEquals(
+			key_tableEntry = "${tableEntry}",
+			locator1 = "LexiconTable#TABLE_ENTRY_TITLE",
+			value1 = "${tableEntry}");
+	}
+
+	macro viewTableEntryTitleLink {
+		AssertTextEquals(
+			key_tableEntry = "${tableEntry}",
+			locator1 = "LexiconTable#TABLE_ENTRY_TITLE_LINK",
+			value1 = "${tableEntry}");
+	}
+
+}

@@ -1,0 +1,54 @@
+@component-name = "portal-wcm"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Sitemap";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+
+		JSONGroup.addGroup(groupName = "Test Site Name");
+
+		JSONLayout.addPrivateLayout(
+			groupName = "Test Site Name",
+			layoutName = "Site Page Name");
+
+		JSONLayout.addPrivateLayout(
+			groupName = "Test Site Name",
+			layoutName = "Child Page Name",
+			parentLayoutName = "Site Page Name");
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			JSONGroup.deleteGroupByName(groupName = "Test Site Name");
+		}
+	}
+
+	@priority = "4"
+	test DisplayPrivatePageWithChildPage {
+		JSONLayout.addWidgetToPrivateLayout(
+			groupName = "Test Site Name",
+			layoutName = "Child Page Name",
+			widgetName = "Site Map");
+
+		Navigator.openPrivateSitePageURL(
+			pageName = "Child Page Name",
+			siteName = "Test Site Name");
+
+		Portlet.viewSpecificPG(portletName = "Site Map");
+
+		SiteMapPortlet.viewDefaultPG(
+			listChildPageName = "Child Page Name",
+			listPageName = "Site Page Name");
+	}
+
+}

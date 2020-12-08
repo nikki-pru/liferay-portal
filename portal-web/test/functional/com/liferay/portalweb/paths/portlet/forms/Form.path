@@ -1,0 +1,429 @@
+<html>
+<head>
+<title>Form</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Form</td></tr>
+</thead>
+<tbody>
+<tr>
+    <td>SAVE_NOTIFICATION</td>
+    <td>//div[contains(@class,'autosave-bar')]//span</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SAVE_ELEMENT_SET_BUTTON</td>
+    <td>//button[contains(.,'Save') and not (contains(@class,'disabled'))]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SAVE_FORM_BUTTON</td>
+    <td>//button[contains(.,'Save') and not (contains(@class,'disabled'))]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SAVE_FORM_BUTTON_LOCALE</td>
+    <td>//button[contains(.,'${key_localeSaveForm}') and not (contains(@class,'disabled'))]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SAVE_FORM_BUTTON_LOCALIZED</td>
+    <td>//button[contains(.,'${key_saveButton}') and not (contains(@class,'disabled'))]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>NAME_FIELD</td>
+    <td>//div[contains(@id,'nameEditorContainer')]/div</td>
+    <td></td>
+</tr>
+<tr>
+    <td>DESCRIPTION_FIELD</td>
+    <td>//div[contains(@id,'descriptionEditorContainer')]/div</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PAGE_TITLE_FIELD</td>
+    <td>xpath=(//input[contains(@class,'form-builder-page-header-title')])[${key_titleNumber}]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PREVIEW_FORM_BUTTON</td>
+    <td>//button[contains(.,'Preview') and not (contains(@class,'disabled'))]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PUBLISH_FORM_BUTTON</td>
+    <td>//button[contains(.,'Publish') and not (contains(@class,'disabled'))]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>UNPUBLISH_FORM_BUTTON</td>
+    <td>//button[contains(.,'Unpublish') and not (contains(@class,'disabled'))]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>FORM_PAGE</td>
+    <td>//ol[contains(@class,'multi-step-nav')]//li/div[contains(.,'${key_formPageName}')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--ALT_PAGINATION-->
+<tr>
+    <td>ALT_PAGINATION_PAGE</td>
+    <td>//*[contains(@class,'ddm-pagination')]//*[contains(@class,'page-item')]//*[contains(text(),'${key_page}')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>ALT_PAGINATION_SUCCESS_PAGE</td>
+    <td>//*[contains(@class,'ddm-pagination')]//*[contains(text(),'Success Page')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--PAGE_CONTROLS-->
+<tr>
+    <td>PAGE_CONTROLS_ELLIPSIS_ICON</td>
+    <td>xpath=(//div[@class='form-builder-controls-trigger'] | //div[contains(@class,'dropdown-action')])[${key_formPageNumber}]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PAGE_CONTROLS_ADD_NEW_PAGE</td>
+    <td>xpath=(//div[contains(@class,'add-page-button-container')]//button[contains(text(),'New Page')])[${key_formAddNewPageNumber}]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PAGE_CONTROLS_ADD_SUCCESS_PAGE</td>
+    <td>//li[contains(@class,'dropdown-item')]//a[text()='Add Success Page'] | //button[contains(@class,'dropdown-item') and contains(text(),'Add Success Page')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PAGE_CONTROLS_DELETE_CURRENT_PAGE</td>
+    <td>//button[contains(@class,'dropdown-item') and contains(text(),'Remove Page')][${key_formDropDownNumber}]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PAGE_CONTROLS_DELETE_SUCCESS_PAGE</td>
+    <td>//li[contains(@class,'dropdown-item')]//a[text()='Remove Success Page'] | //button[contains(@class,'dropdown-item') and contains(text(),'Remove Success Page')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PAGE_CONTROLS_SWITCH_PAGINATION_MODE</td>
+    <td>//li[contains(@class,'dropdown-item')]//a[text()='Switch Pagination Mode'] | //button[contains(@class,'dropdown-item') and contains(text(),'Switch Pagination Mode')] | //button[contains(@class,'dropdown-item') and contains(text(),'Switch Pagination to')]</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td>PAGE_CONTROLS_SWITCH_PAGINATION_MODE_TO_BOTTOM</td>
+    <td>//button[contains(@class,'dropdown-item') and contains(text(),'Switch Pagination to Bottom')]</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td>PAGE_CONTROLS_SWITCH_PAGINATION_MODE_TO_TOP</td>
+    <td>//button[contains(@class,'dropdown-item') and contains(text(),'Switch Pagination to Top')]</td>
+    <td></td>
+</tr>
+
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--ADD_FIELD-->
+<tr>
+    <td>ADD_FIELD</td>
+    <td>//button[contains(@class,'add-button-large')]/span | //div[contains(@class,'portlet-forms')]//button[contains(@class,'ddm-add-field')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>ADD_FIELD_TYPE</td>
+    <td>//div[contains(@class,'field-type')]//span[contains(text(),'${key_fieldType}')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>ADD_FIELD_POSITION</td>
+    <td>xpath=(//div[contains(@class,'yui3-dd-drop') and contains(@class,'col-empty')] | //div[contains(@class,'col-empty')])[${key_fieldLocation}]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>ADD_IMAGE_DESCRIPTION</td>
+    <td>xpath=(//div[contains(@class,'form-group') ]//input[@placeholder='Add image description.'])[${descriptionPosition}]</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--SUCCESS_PAGE-->
+<tr>
+    <td>SUCCESS_PAGE_TITLE_FIELD</td>
+    <td>//div[contains(@class,'form-builder-success-page')]//input[contains(@class,'form-builder-page-header-title')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SUCCESS_PAGE_DESCRIPTION_FIELD</td>
+    <td>//div[contains(@class,'form-builder-success-page')]//input[contains(@class,'form-builder-page-header-description')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--PUBLISH-->
+<tr>
+    <td>PUBLISH_FORM_NAME_FIELD</td>
+    <td>//h1[contains(@class,'form-name') and contains(.,'${key_formName}')]</td>
+    <td></td>
+</tr>
+<tr>
+	<td>PUBLISH_FORM_PUBLIC_URL</td>
+	<td>//div[contains(@class,'share-form-modal-item-link')]//input[@class='form-control' and @type='text']</td>
+	<td></td>
+</tr>
+<tr>
+    <td>PUBLISH_URL_FORM_PAGE</td>
+    <td>//div[contains(@class,'ddm-form-basic-info')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PUBLISH_ICON</td>
+    <td>//button[contains(@id,'publishIcon')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>PUBLISH_UNPUBLISH_ICON_CLOSE</td>
+    <td>//div[contains(@class,'alert-dismissable')]//div[contains(.,'${key_alertMessage}')]/preceding-sibling::button[@class='close']</td>
+    <td></td>
+</tr>
+<tr>
+	<td>PUBLISH_URL_ICON</td>
+	<td>//button[contains(@class,'share-form-icon')]</td>
+	<td></td>
+</tr>
+
+
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--SETTINGS_TAB-->
+<tr>
+    <td>SETTINGS_TAB_EMAIL_NOTIFICATIONS</td>
+    <td>//a[contains(@class,'tab-content') and contains(.,'Email Notifications')] | //span[contains(text(),'Email Notifications')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SETTINGS_TAB_WORKFLOW_CONFIGURATION_FIELD</td>
+    <td>//div[contains(@data-field-name,'workflowDefinition')]//div[contains(@class,form-builder-select-field)]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SETTINGS_TAB_WORKFLOW_CONFIGURATION</td>
+    <td>//div[contains(@class,'dropdown-menu')]//li/button[contains(@class,'dropdown-item') and contains(.,'${key_workflowDefinition}')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--FIELD-->
+<tr>
+    <td>FIELD_BODY</td>
+    <td>//div[contains(@class,'form-group')]//label[contains(text(),'${key_fieldName}')] | //div[contains(@class,'form-group')]//legend[contains(text(),'${key_fieldName}')] |//div[contains(@data-field-name,'${key_fieldName}')] | //div[contains(@class,'form-group')]//input[contains(@name,'${key_fieldName}')]/parent::div/parent::div</td>
+    <td></td>
+</tr>
+<tr>
+    <td>FIELD_BODY_IN_SPECIFIC_POSITION</td>
+    <td>xpath=(//div[contains(@class,'form-group')]//label[contains(text(),'${key_fieldName}')])[${key_fieldPositionNumber}]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>FIELD_LABEL</td>
+    <td>//div[@data-field-name='${key_fieldName}' and contains(@class,'ddm-field')]//label[contains(@class,'ddm-label')] | //div[contains(@class,'ddm-field-container')]//label[text()='${key_fieldName}'] | //div[@data-field-name='${key_fieldName}' and contains(@class,'ddm-field')]//legend[contains(@class,'lfr-ddm-legend')] | //div[contains(@class,'ddm-field-container')]//legend[text()='${key_fieldName}']</td>
+    <td></td>
+</tr>
+<tr>
+    <td>FIELD_REFERENCE</td>
+    <td>//input[contains(@name,'fieldReference')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--SIDEBAR -->
+<tr>
+    <td>SIDEBAR_AUTOCOMPLETE_TAB</td>
+    <td>//a[contains(@class,'tab') and .='Autocomplete'] | //a[contains(@aria-controls,'sidebarLightDetails')]//*[contains(text(),'Autocomplete')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_ADVANCED_TAB</td>
+    <td>//a[contains(@class,'tab') and .='Advanced'] | //a[contains(@aria-controls,'sidebarLightDetails')]//*[contains(text(),'Advanced')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_ADVANCED_TAB_LOCALE</td>
+    <td>//a[contains(@class,'tab') and .='${key_localeAdvanced}'] | //a[contains(@aria-controls,'sidebarLightDetails')]//*[contains(text(),'${key_localeAdvanced}')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_PROPERTIES_TAB</td>
+    <td>//a[contains(@class,'tab') and .='Properties'] | //a[contains(@aria-controls,'sidebarLightDetails')]//*[contains(text(),'Properties')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_BACK</td>
+    <td>//div[contains(@class,'open') and contains(@class,'form-builder-sidebar')]//a[contains(@class,'back')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_BASIC_TAB</td>
+    <td>//a[contains(@class,'tab') and .='Basic'] | //a[contains(@aria-controls,'sidebarLightDetails')]//*[contains(text(),'Basic')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_BASIC_TAB_LOCALE</td>
+    <td>//a[contains(@class,'tab') and .='${key_localeBasic}'] | //a[contains(@aria-controls,'sidebarLightDetails')]//*[contains(text(),'${key_localeBasic}')]</td>
+    <td></td>
+</tr>
+<tr>
+	<td>SIDEBAR_CHANGE_FIELD_TYPE_MODAL_BUTTON</td>
+	<td>//div[contains(@id,'ddm-change-field-type-with-rule-modal')]//button[contains(@class,'btn btn-danger')][contains(text(),'Change Field Type')]</td>
+	<td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_ELEMENTS_TAB</td>
+    <td>//a[contains(@class,'tab') and .='Elements'] | //a[contains(@class,'nav-link active') and .='Elements']</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_ELEMENTS_TAB_LOCALE</td>
+    <td>//a[contains(@class,'tab') and .='${key_localeElements}'] | //a[contains(@class,'nav-link active') and .='${key_localeElements}']</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_ELEMENT_SETS_TAB</td>
+    <td>//*[contains(@class,'nav-link') and .='Element Sets']</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_ELLIPSIS</td>
+    <td>//div[contains(@class,'sidebar')]//a[*[contains(@class,'lexicon-icon-ellipsis-v')]] | //div[contains(@class,'sidebar')]//button[*[contains(@class,'lexicon-icon-ellipsis-v')]]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_MENUITEM_REMOVE_FIELD</td>
+    <td>//a[@title='Remove Field'] | //button[text()='Remove Field']</td>
+    <td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_MENUITEM_DUPLICATE_FIELD</td>
+    <td>//a[@title='Duplicate Field'] | //button[text()='Duplicate Field']</td>
+    <td></td>
+</tr>
+<tr>
+	<td>SIDEBAR_DELETE_FIELD_MODAL_DELETE_BUTTON</td>
+	<td>//div[contains(@id,'ddm-delete-field-with-rule-modal')]//button[contains(@class,'btn btn-danger')][contains(text(),'Confirm')]</td>
+	<td></td>
+</tr>
+<tr>
+    <td>SIDEBAR_CLOSE</td>
+    <td>//div[contains(@class,'open') and contains(@class,'sidebar-container')]//a[contains(@class,'sidebar-close')]</td>
+    <td></td>
+</tr>
+<tr>
+	<td>VALIDATE_CHANGE_FIELD_TYPE_MODAL_MESSAGE</td>
+	<td>//div[@class='liferay-modal-body'][contains(text(),'A rule is applied to this field. By changing its type, it will also affect the rule that is using it.')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VALIDATE_DELETE_FIELD_MODAL_DELETE_MESSAGE</td>
+	<td>//div[@class='liferay-modal-body'][contains(text(),'A rule is applied to this field. By deleting it, it will also break the rule that is using it.')]</td>
+	<td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--DATA_PROVIDER_OUTPUT_PARAMETER-->
+<tr>
+    <td>DATA_PROVIDER_OUTPUT_PARAMETER_PATH_FIELD</td>
+    <td>//div[contains(@data-field-name,'outputParameters')]//input[@type='text' and contains(@name,'outputParameters') and contains(@placeholder,'path')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>DATA_PROVIDER_OUTPUT_PARAMETER_PATH_FIELD_2</td>
+    <td>//div[contains(@data-field-name,'outputParameters')]/following-sibling::div/div//input[@type='text' and contains(@name,'outputParameters') and contains(@placeholder,'path')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>DATA_PROVIDER_OUTPUT_PARAMETER_LABEL_FIELD</td>
+    <td>//div[contains(@data-field-name,'outputParameters')]//input[@type='text' and contains(@name,'outputParameters') and contains(@placeholder,'label')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>DATA_PROVIDER_OUTPUT_PARAMETER_LABEL_FIELD_2</td>
+    <td>//div[contains(@data-field-name,'outputParameters')]/following-sibling::div/div//input[@type='text' and contains(@name,'outputParameters') and contains(@placeholder,'label')]</td>
+    <td></td>
+</tr>
+<tr>
+	<td>DATA_PROVIDER_OUTPUT_PARAMETER_TYPE_FIELD</td>
+	<td>//div[contains(@data-field-name,'outputParameters')]//div[contains(@data-field-name,'outputParameterType')]//div[contains(@class,'form-builder-select-field')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATA_PROVIDER_OUTPUT_PARAMETER_TYPE_FIELD_2</td>
+	<td>//div[contains(@data-field-name,'outputParameters')]/following-sibling::div//div[contains(@data-field-name,'outputParameterType')]//div[contains(@class,'form-builder-select-field')]</td>
+	<td></td>
+</tr>
+<tr>
+    <td>DATA_PROVIDER_OUTPUT_PARAMETER_TYPE_FIELD_OPTIONS_LIST</td>
+    <td>//div[contains(@class,'dropdown-menu') and contains(@class,'show')]//li[contains(.,'${key_outputParameterType}')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>DATA_PROVIDER_OUTPUT_PARAMETER_TYPE_FIELD_OPTIONS_LIST_2</td>
+    <td>//div[contains(@class,'dropdown-menu') and contains(@class,'show')]//li[contains(.,'${key_outputParameterType}')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>DATA_PROVIDER_OUTPUT_PARAMETER_REPEAT_ICON</td>
+    <td>//div[contains(@data-field-name,'outputParameters')]//div[contains(@class,'field-repeatable')]//button[contains(@class,'add-button')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+<!--DATA_PROVIDER_PERMISSIONS_PARAMETER-->
+<tr>
+    <td>DATA_PROVIDER_PERMISSIONS_PARAMETER_PANEL</td>
+    <td>//div[contains(@id,'permissionsTitle')]//a[contains(@class,'collapse-icon')]</td>
+    <td></td>
+</tr>
+<tr>
+    <td>DATA_PROVIDER_PERMISSIONS_VIEWABLE_BY_SELECT</td>
+    <td>//div[contains(@id,'permissionsContent')]//select[contains(@id,'inputPermissionsViewRole')]</td>
+    <td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

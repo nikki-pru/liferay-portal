@@ -1,0 +1,40 @@
+$header-height: 65px;
+
+.side-panel-iframe {
+	.page-header {
+		position: sticky;
+		top: $header-height;
+		z-index: 10;
+	}
+
+	.side-panel-iframe-content {
+		padding: map-get($spacers, 4) map-get($spacers, 3);
+	}
+
+	.side-panel-iframe-header {
+		align-items: center;
+		background: #f7f7f7;
+		border-bottom: 1px solid $border-color;
+		display: flex;
+		height: $header-height;
+		justify-content: space-between;
+		padding: map-get($spacers, 1) map-get($spacers, 3);
+		position: sticky;
+		top: 0;
+		z-index: 10;
+	}
+
+	.side-panel-iframe-title {
+		font-weight: 600;
+	}
+
+	.side-panel-iframe-menu-wrapper {
+		border-bottom: 1px solid #e7e7ed;
+		position: sticky;
+		top: 0;
+	}
+
+	.side-panel-iframe-wrapper {
+		padding: map-get($spacers, 4) map-get($spacers, 3);
+	}
+}

@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>MessageBoardsStatistics</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MessageBoardsStatistics</td></tr>
+</thead>
+<tbody>
+<!--GENERAL-->
+<tr>
+	<td>GENERAL_DROPDOWN</td>
+	<td>//div[@id='messageBoardsGeneralStatisticsPanel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GENERAL_DROPDOWN_COLLAPSED</td>
+	<td>//div[contains(@class,'header-collapsed') and @data-persist-id='messageBoardsGeneralStatisticsPanel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GENERAL_NUMBER_OF_CATEGORIES</td>
+	<td>//div[@class='statistics-panel']//div[contains(@class,'overview-container') and contains(.,'Categories')]/p</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GENERAL_NUMBER_OF_POSTS</td>
+	<td>//div[@class='statistics-panel']//div[contains(@class,'overview-container') and contains(.,'Posts')]/p</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GENERAL_NUMBER_OF_PARTICIPANTS</td>
+	<td>//div[@class='statistics-panel']//div[contains(@class,'overview-container') and contains(.,'Participants')]/p</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--TOP_POSTERS-->
+<tr>
+	<td>TOP_POSTERS_DROPDOWN</td>
+	<td>//div[@id='messageBoardsTopPostersPanel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TOP_POSTERS_DROPDOWN_COLLAPSED</td>
+	<td>//div[contains(@class,'header-collapsed') and @data-persist-id='messageBoardsTopPostersPanel']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TOP_POSTERS_AUTHOR_ICON</td>
+	<td>//*[@data-qa-id='rowItemContent']//h4[contains(@title,'${key_userName}')]/../../div/div[contains(@class,'user-icon')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TOP_POSTERS_AUTHOR_NAME</td>
+	<td>//*[@data-qa-id='rowItemContent']/p[@class='list-group-title' and contains(.,'${key_userName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TOP_POSTERS_AUTHOR_RANK</td>
+	<td>//*[@data-qa-id='rowItemContent']/p[@class='list-group-subtitle' and contains(.,'Rank: Youngling')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TOP_POSTERS_AUTHOR_POSTS</td>
+	<td>//*[@data-qa-id='rowItemContent']/p[@class='list-group-subtitle' and contains(.,'${key_userPostNumber}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TOP_POSTERS_AUTHOR_JOIN_DATE</td>
+	<td>//*[@data-qa-id='rowItemContent']/p[@class='list-group-subtitle' and contains(.,'Join Date')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TOP_POSTERS_AUTHOR_LAST_POST_DATE</td>
+	<td>//*[@data-qa-id='rowItemContent']/p[@class='list-group-subtitle' and contains(.,'Last Post Date')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

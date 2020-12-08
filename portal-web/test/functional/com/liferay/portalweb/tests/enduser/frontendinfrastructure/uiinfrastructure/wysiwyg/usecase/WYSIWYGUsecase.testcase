@@ -1,0 +1,439 @@
+@component-name = "portal-frontend-infrastructure"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "WYSIWYG";
+	property testray.main.component.name = "User Interface";
+
+	var pageName = "CKEditor Page";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			Page.tearDownCP();
+		}
+	}
+
+	@priority = "4"
+	test AddBlogsEntryWithImageViaBlogsImages {
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "${pageName}");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		Portlet.addPG(portletName = "Blogs");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		Blogs.addEntryWithUploadedCoverImage(
+			coverImageName = "Document_1",
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Blogs Entry Subtitle",
+			entryTitle = "Blogs Entry Title",
+			navTab = "Blog Images",
+			uploadFileName = "Document_1.jpg");
+
+		Pause(locator1 = "1000");
+
+		BlogsEntry.saveAsDraft();
+
+		Click(locator1 = "Icon#DELETE");
+
+		Click.pauseClickAt(
+			key_editor = "content",
+			locator1 = "AlloyEditor#EDITOR");
+
+		Click(locator1 = "AlloyEditor#CONTENT_ADD_BUTTON");
+
+		Click.clickNoMouseOver(locator1 = "AlloyEditor#CONTENT_ADD_MENUBAR_IMAGE");
+
+		ItemSelector.selectBlogImage(
+			imageFileName = "Document_1.jpg",
+			navTab = "Blog Images");
+
+		PortletEntry.publish();
+
+		BlogsNavigator.gotoEntryPG(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		BlogsEntry.viewInlineImage(uploadFileName = "Document_1");
+	}
+
+	@priority = "4"
+	test AddMBThreadWithLinkToDocument {
+		property portal.acceptance = "true";
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = "Document_1.jpg",
+			groupName = "Guest",
+			mimeType = "image/jpeg",
+			sourceFileName = "Document_1.jpg");
+
+		MessageBoardsAdmin.openMessageBoardsAdmin(siteURLKey = "guest");
+
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "Thread");
+
+		Type(
+			locator1 = "TextInput#SUBJECT",
+			value1 = "MB Thread Message Subject");
+
+		CKEditor.addTextWithLink(
+			displayText = "Link to Document",
+			dmDocumentTitle = "Document_1.jpg",
+			fieldLabel = "Body");
+
+		PortletEntry.publish();
+
+		MessageBoardsAdmin.openMessageBoardsAdmin(siteURLKey = "guest");
+
+		LexiconEntry.gotoEntry(rowEntry = "MB Thread Message Subject");
+
+		Click(
+			key_text = "Link to Document",
+			locator1 = "Link#ANY");
+
+		AssertElementPresent(locator1 = "//img[contains(@src,'Document_1.jpg')]");
+	}
+
+	@priority = "4"
+	test AddMBThreadWithLinkToPage {
+		property portal.acceptance = "true";
+
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "${pageName}");
+
+		MessageBoardsAdmin.openMessageBoardsAdmin(siteURLKey = "guest");
+
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "Thread");
+
+		Type(
+			locator1 = "TextInput#SUBJECT",
+			value1 = "MB Thread Message Subject");
+
+		CKEditor.addTextWithLink(
+			displayText = "Link to Page",
+			fieldLabel = "Body",
+			pageName = "${pageName}");
+
+		PortletEntry.publish();
+
+		MessageBoardsAdmin.openMessageBoardsAdmin(siteURLKey = "guest");
+
+		LexiconEntry.gotoEntry(rowEntry = "MB Thread Message Subject");
+
+		Click(
+			key_text = "Link to Page",
+			locator1 = "Link#ANY");
+
+		AssertVisible(
+			key_pageName = "${pageName}",
+			locator1 = "Home#PAGE_ACTIVE");
+	}
+
+	@priority = "4"
+	test AddWebContentArticleCopyPasteContent {
+		property app.server.types = "jboss,tcserver,tomcat,weblogic,websphere,wildfly";
+		property database.types = "db2,hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+		property environment.acceptance = "true";
+
+		Open(locator1 = "http://www.standards-schmandards.com/exhibits/wysiwyg/sampledoc.htm");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			KeyPress.keyDown(
+				locator1 = "//body",
+				value1 = "\COMMAND");
+
+			KeyPress(
+				locator1 = "//body",
+				value1 = "a");
+
+			Pause(locator1 = "1000");
+
+			KeyPress(
+				locator1 = "//body",
+				value1 = "c");
+
+			KeyPress.keyUp(
+				locator1 = "//body",
+				value1 = "\COMMAND");
+		}
+
+		else {
+			SelectFieldText(locator1 = "//body");
+
+			RobotType.robotTypeShortcut(locator1 = "Ctrl + c");
+		}
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		PortletEntry.inputTitle(title = "Web Content Title");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME_2");
+
+		Click(locator1 = "CKEditor#BODY");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			KeyPress.keyDown(
+				key_editor = "content",
+				locator1 = "AlloyEditor#EDITOR",
+				value1 = "\COMMAND");
+
+			KeyPress(
+				key_editor = "content",
+				locator1 = "AlloyEditor#EDITOR",
+				value1 = "v");
+
+			KeyPress.keyUp(
+				key_editor = "content",
+				locator1 = "AlloyEditor#EDITOR",
+				value1 = "\COMMAND");
+		}
+
+		else {
+			RobotType.robotTypeShortcut(locator1 = "Ctrl + v");
+		}
+
+		Pause(locator1 = "5000");
+
+		takeScreenshot();
+
+		SelectFrame(value1 = "relative=top");
+
+		PortletEntry.publish();
+
+		WebContentNavigator.gotoPreviewEntryCP(webContentTitle = "Web Content Title");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "//div[@class='portlet-body']/div[contains(@class,'mt-2')]",
+			value1 = "Sample document for editor area test");
+
+		AssertElementPresent(locator1 = "//img[contains(@src,'redhead.JPG')]");
+
+		takeScreenshot();
+	}
+
+	@priority = "4"
+	test AddWebContentArticleWithImageViaURL {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		PortletEntry.inputTitle(title = "Web Content Title");
+
+		ItemSelector.gotoItemSelectorViaCKEditor();
+
+		ItemSelector.addFromURL(
+			imageSourceURL = "https://raw.githubusercontent.com/liferay/liferay-portal/master/portal-web/test/functional/com/liferay/portalweb/dependencies/Document_1.jpg",
+			navTab = "URL");
+
+		PortletEntry.publish();
+
+		WebContentNavigator.gotoPreviewEntryCP(webContentTitle = "Web Content Title");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		AssertElementPresent(locator1 = "//img[contains(@src,'Document_1.jpg')]");
+	}
+
+	@priority = "4"
+	test PreviewSourceContent {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		PortletEntry.inputTitle(title = "Web Content Title");
+
+		Click(locator1 = "CKEditor#TOOLBAR_SOURCE_BUTTON");
+
+		Click(locator1 = "CKEditor#TOOLBAR_PREVIEW_BUTTON");
+
+		Type.typeCodeMirrorEditorNoError(
+			locator1 = "CKEditor#SOURCE_CODE_DIALOG",
+			value1 = "<h1>Sample Header 1</h1><p>sample text</p>");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "CKEditor#SOURCE_CODE_DIALOG",
+			value1 = "<h1>Sample Header 1</h1>");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "CKEditor#SOURCE_CODE_DIALOG",
+			value1 = "<p>sample text</p>");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#CODE_PREVIEW_IFRAME");
+
+		AssertElementPresent(locator1 = "//h1[normalize-space(text())='Sample Header 1']");
+
+		AssertElementPresent(locator1 = "//p[normalize-space(text())='sample text']");
+	}
+
+	@priority = "4"
+	test PreviewSourceContentEditContent {
+		Open(locator1 = "http://www.standards-schmandards.com/exhibits/wysiwyg/sampledoc.htm");
+
+		SelectFieldText(locator1 = "//body");
+
+		RobotType.robotTypeShortcut(locator1 = "Ctrl + c");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		PortletEntry.inputTitle(title = "Web Content Title");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME_2");
+
+		Click(locator1 = "CKEditor#BODY");
+
+		RobotType.robotTypeShortcut(locator1 = "Ctrl + v");
+
+		SelectFrame(value1 = "relative=top");
+
+		Click(locator1 = "CKEditor#TOOLBAR_SOURCE_BUTTON");
+
+		Click(locator1 = "CKEditor#TOOLBAR_PREVIEW_BUTTON");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "CKEditor#SOURCE_CODE_DIALOG",
+			value1 = "<h1>Sample document for editor area test</h1>");
+
+		Type.typeCodeMirrorEditorNoError(
+			locator1 = "CKEditor#SOURCE_CODE_DIALOG",
+			value1 = "<h1>Sample document for editor area test edit</h1>");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#CODE_PREVIEW_IFRAME");
+
+		AssertElementPresent(locator1 = "//h1[normalize-space(text())='Sample document for editor area test edit']");
+	}
+
+	@priority = "4"
+	test ViewSourceCodeFormattedInTextView {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		PortletEntry.inputTitle(title = "Web Content Title");
+
+		Click(locator1 = "CKEditor#TOOLBAR_SOURCE_BUTTON");
+
+		Type.typeCodeMirrorEditorNoError(
+			locator1 = "CKEditor#BODY_FIELD_SOURCE_ON",
+			value1 = "<h1>Sample Header 1</h1><p>sample text</p>");
+
+		Click(locator1 = "CKEditor#TOOLBAR_SOURCE_BUTTON");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME_2");
+
+		AssertElementPresent(locator1 = "//h1[normalize-space(text())='Sample Header 1']");
+
+		AssertElementPresent(locator1 = "//p[normalize-space(text())='sample text']");
+	}
+
+	@priority = "4"
+	test ViewWikiFrontPageLeftToRight {
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "${pageName}");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		Portlet.addPG(portletName = "Wiki");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		WikiPage.addLocalizedFrontPagePG(
+			emptyPageMessage = "This page is empty. Edit it to add some text.",
+			successMessage = "Your request completed successfully.",
+			wikiPageContent = "Wiki Left to Right Content");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		WikiPage.viewLocalizedFrontPagePG(wikiPageContent = "Wiki Left to Right Content");
+	}
+
+	@priority = "4"
+	test ViewWikiFrontPageRightToLeft {
+		property test.name.skip.portal.instance = "WYSIWIGUsecase#ViewWikiFrontPageRightToLeft";
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "${pageName}");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		Portlet.addPG(portletName = "Language Selector");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		Portlet.addPG(portletName = "Wiki");
+
+		LanguagePortlet.selectLanguagePG(
+			locale = "ar_SA",
+			textIcon = "العربية-السعودية");
+
+		WikiPage.addLocalizedFrontPagePG(
+			emptyPageMessage = "هذه الصفحة فارغة. قم بتحريرها لإضافة نص.",
+			rtl = "true",
+			successMessage = "نجاح:تم تنفيذ طلبك بنجاح",
+			wikiPageContent = "Wiki Right to Left يحتوى");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		WikiPage.viewLocalizedFrontPagePG(
+			rightToLeft = "true",
+			wikiPageContent = "Wiki Right to Left يحتوى");
+
+		LanguagePortlet.selectLanguagePG(
+			locale = "en_US",
+			textIcon = "english-United States");
+	}
+
+}

@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+
+<project basedir="." default="war" name="portal-web" xmlns:antelope="antlib:ise.antelope.tasks" xmlns:if="ant:if">
+	<import file="../build-common-web.xml" />
+
+	<property name="artifact.version" value="5.0.0" />
+	<property name="war.file" value="${ant.project.name}" />
+
+	<path id="jspc.common.classpath">
+		<path refid="lib.pre.classpath" />
+		<pathelement path="docroot/WEB-INF/classes" />
+		<pathelement location="${project.dir}/modules/core/registry-api/classes" />
+		<pathelement location="${project.dir}/portal-impl/portal-impl.jar" />
+		<pathelement location="${project.dir}/portal-kernel/portal-kernel.jar" />
+		<pathelement location="${project.dir}/util-bridges/util-bridges.jar" />
+		<pathelement location="${project.dir}/util-java/util-java.jar" />
+		<pathelement location="${project.dir}/util-taglib/util-taglib.jar" />
+		<pathelement location="${project.dir}/lib/development/activation.jar" />
+		<pathelement location="${project.dir}/lib/development/mail.jar" />
+		<pathelement location="${project.dir}/lib/development/velocity.jar" />
+		<pathelement location="${project.dir}/lib/global/portal-settings-shared.jar" />
+		<pathelement location="${project.dir}/lib/global/portlet.jar" />
+		<pathelement location="${project.dir}/lib/portal/ant.jar" />
+		<pathelement location="${project.dir}/lib/portal/commons-collections.jar" />
+		<pathelement location="${project.dir}/lib/portal/commons-fileupload.jar" />
+		<pathelement location="${project.dir}/lib/portal/commons-lang.jar" />
+		<pathelement location="${project.dir}/lib/portal/commons-logging.jar" />
+		<pathelement location="${project.dir}/lib/portal/commons-math.jar" />
+		<pathelement location="${project.dir}/lib/portal/displaytag.jar" />
+		<pathelement location="${project.dir}/lib/portal/dom4j.jar" />
+		<pathelement location="${project.dir}/lib/portal/jabsorb.jar" />
+		<pathelement location="${project.dir}/lib/portal/jcifs.jar" />
+		<pathelement location="${project.dir}/lib/portal/jcommon.jar" />
+		<pathelement location="${project.dir}/lib/portal/jdom.jar" />
+		<pathelement location="${project.dir}/lib/portal/jfreechart.jar" />
+		<pathelement location="${project.dir}/lib/portal/jstl-api.jar" />
+		<pathelement location="${project.dir}/lib/portal/jstl-impl.jar" />
+		<pathelement location="${project.dir}/lib/portal/liferay-icu4j.jar" />
+		<pathelement location="${project.dir}/lib/portal/log4j.jar" />
+		<pathelement location="${project.dir}/lib/portal/openid4java.jar" />
+		<pathelement location="${project.dir}/lib/portal/rome.jar" />
+	</path>
+
+	<target name="build-dtd">
+		<copy
+			todir="docroot/dtd"
+		>
+			<fileset
+				dir="${project.dir}/definitions"
+			/>
+		</copy>
+	</target>
+
+	<target depends="build-common-web.clean,clean-tlds" name="clean">
+		<delete dir="classes" />
+		<delete dir="docroot/dtd" />
+		<delete dir="docroot/html/portal/aui" />
+		<delete dir="docroot/WEB-INF/classes" />
+		<delete dir="docroot/WEB-INF/lib" />
+		<delete dir="test-classes" />
+		<delete dir="test-results" />
+	</target>
+
+	<target name="clean-tlds">
+		<delete includeemptydirs="true">
+			<fileset
+				dir="docroot/WEB-INF/tld"
+				includes="liferay*.tld"
+			/>
+		</delete>
+	</target>
+
+	<target name="compile-common-jsp">
+		<delete dir="${jspc.classes.dir}" quiet="true" />
+
+		<if>
+			<and>
+				<equals arg1="${app.server.type}" arg2="tomcat" />
+				<equals arg1="${ant.java.version}" arg2="1.5" />
+			</and>
+			<then>
+				<var name="jspc.java.home" value="${jdk.windows.home}" />
+			</then>
+			<else>
+				<var name="jspc.java.home" value="${env.JAVA_HOME}" />
+			</else>
+		</if>
+
+		<if>
+			<available file="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp" />
+			<then>
+				<move
+					failonerror="false"
+					file="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp"
+					tofile="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp.tmp"
+				/>
+			</then>
+		</if>
+
+		<java
+			classname="org.apache.jasper.JspC"
+			classpathref="jspc.classpath"
+			fork="${fork.mode}"
+			jvm="${jspc.java.home}/bin/java"
+			newenvironment="true"
+			outputproperty="jspc.output"
+		>
+			<jvmarg if:true="${jvm.debug}" line="${jpda.settings}" />
+			<arg line="${arg.line}" />
+		</java>
+
+		<if>
+			<available file="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp.tmp" />
+			<then>
+				<move
+					failonerror="false"
+					file="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp.tmp"
+					tofile="${app.server.portal.dir}/WEB-INF/classes/com/liferay/portal/deploy/dependencies/touch.jsp"
+				/>
+			</then>
+		</if>
+
+		<echo>${jspc.output}</echo>
+
+		<if>
+			<contains string="${jspc.output}" substring="JasperException" />
+			<then>
+				<fail>JSPs failed to compile.</fail>
+			</then>
+		</if>
+
+		<if>
+			<equals arg1="${app.server.type}" arg2="tomcat" />
+			<then>
+				<fileset
+					dir="${jspc.classes.dir}"
+					id="oversize.files"
+				>
+					<include name="**/*.java" />
+					<size units="K" value="700" when="more" />
+				</fileset>
+
+				<pathconvert dirsep="/" pathsep="${line.separator}" property="oversize.files.java" refid="oversize.files" />
+
+				<if>
+					<not>
+						<equals arg1="${oversize.files.java}" arg2="" />
+					</not>
+					<then>
+						<antelope:stringutil property="oversize.files.jsp" string="${oversize.files.java}">
+							<replace
+								regex="\.java"
+								replacement=""
+							/>
+							<replace
+								regex="${jspc.classes.dir}/org/apache/jsp"
+								replacement="docroot"
+							/>
+							<replace
+								regex="_jsp"
+								replacement=".jsp"
+							/>
+							<replace
+								regex="_002d"
+								replacement="-"
+							/>
+							<replace
+								regex="_005f"
+								replacement="_"
+							/>
+						</antelope:stringutil>
+
+						<fail>
+The following JSPs may be too large for some application servers. See LPS-27841
+for more information.
+
+${oversize.files.jsp}</fail>
+					</then>
+				</if>
+			</then>
+		</if>
+
+		<javac
+			classpathref="jspc.classpath"
+			compiler="${javac.compiler}"
+			debug="${javac.debug}"
+			deprecation="${javac.deprecation}"
+			destdir="${jspc.classes.dir}"
+			encoding="${javac.encoding}"
+			includeAntRuntime="false"
+			nowarn="on"
+			srcdir="${jspc.classes.dir}"
+		/>
+
+		<java
+			classname="com.liferay.portal.tools.jspc.common.TimestampUpdater"
+			classpathref="project.classpath"
+			fork="true"
+			newenvironment="true"
+		>
+			<arg line="${jspc.classes.dir}" />
+		</java>
+	</target>
+
+	<target name="compile-tomcat">
+		<property name="jspc.classes.dir" value="classes/${app.server.type}" />
+
+		<if>
+			<and>
+				<equals arg1="${app.server.type}" arg2="tomcat" />
+				<equals arg1="${ant.java.version}" arg2="1.5" />
+			</and>
+			<then>
+				<var name="jspc.java.home" value="${jdk.windows.home}" />
+			</then>
+			<else>
+				<var name="jspc.java.home" value="${env.JAVA_HOME}" />
+			</else>
+		</if>
+
+		<path id="jspc.classpath">
+			<pathelement location="${jspc.java.home}/jre/lib/rt.jar" />
+			<path refid="jspc.common.classpath" />
+			<pathelement location="${app.server.dir}/lib/el-api.jar" />
+			<pathelement location="${app.server.dir}/lib/jasper.jar" />
+			<pathelement location="${app.server.dir}/lib/jasper-el.jar" />
+			<pathelement location="${app.server.dir}/lib/jasper-jdt.jar" />
+			<pathelement location="${app.server.dir}/lib/jsp-api.jar" />
+			<pathelement location="${app.server.dir}/lib/servlet-api.jar" />
+			<pathelement location="${app.server.dir}/lib/tomcat-api.jar" />
+			<pathelement location="${app.server.dir}/lib/tomcat-util.jar" />
+			<pathelement location="${app.server.dir}/lib/tomcat-util-scan.jar" />
+			<pathelement location="${app.server.bin.dir}/tomcat-juli.jar" />
+		</path>
+
+		<antcall inheritrefs="true" target="compile-common-jsp">
+			<param name="arg.line" value="-d ${basedir}/${jspc.classes.dir} -webapp ${basedir}/${jsp.precompile.dir}" />
+		</antcall>
+	</target>
+
+	<target depends="build-dtd" name="deploy">
+		<manifest-macro />
+
+		<antcall target="build-common-web.deploy" />
+
+		<if>
+			<and>
+				<equals arg1="${jsp.precompile}" arg2="on" />
+				<equals arg1="${app.server.type}" arg2="tomcat" />
+			</and>
+			<then>
+				<antcall target="compile-tomcat" />
+
+				<copy
+					preservelastmodified="true"
+					todir="${app.server.dir}/work/Catalina/localhost/ROOT"
+				>
+					<fileset
+						dir="classes/${app.server.type}"
+					>
+						<exclude name="**/*.jspc_error" />
+					</fileset>
+				</copy>
+			</then>
+		</if>
+	</target>
+
+	<target name="update-gradle-cache">
+		<gradle-execute forcedcacheenabled="false" setupbinariescache="false" task="updateGradleCache">
+			<arg value="--build-file=build-test.gradle" />
+			<arg value="-Dmaven.local.ignore=true" />
+		</gradle-execute>
+	</target>
+
+	<target depends="build-dtd" name="war">
+		<manifest-macro />
+
+		<if>
+			<istrue value="${build.portal.artifacts.enabled}" />
+			<then>
+				<war
+					destfile="${war.file}.war"
+					webxml="docroot/WEB-INF/web.xml"
+				>
+					<fileset
+						dir="docroot"
+					/>
+					<metainf dir="${project.dir}/oss-licenses">
+						<exclude name="**/development/**" />
+					</metainf>
+				</war>
+			</then>
+			<else>
+				<download-latest-artifact destfile="${war.file}.war" />
+			</else>
+		</if>
+	</target>
+</project>

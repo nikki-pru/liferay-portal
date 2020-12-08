@@ -1,0 +1,21 @@
+Bundle-Name: Liferay Portal OSGi Web WAB Generator Implementation
+Bundle-SymbolicName: com.liferay.portal.osgi.web.wab.generator.impl
+Bundle-Version: 4.0.0
+Import-Package:\
+	!com.liferay.util.xml,\
+	\
+	*
+-conditionalpackage:\
+	aQute.bnd.*,\
+	\
+	aQute.lib.*,\
+	\
+	aQute.libg.*,\
+	\
+	aQute.service.reporter,\
+	\
+	com.liferay.ant.bnd.jsp,\
+	com.liferay.whip.util,\
+	\
+	org.osgi.service.repository
+-includeresource: @com.liferay.util.java-*.jar!/com/liferay/util/JS.class

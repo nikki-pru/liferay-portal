@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Experience</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Experience</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>BANNER_CENTER_TITLE_EXAMPLE_PORTLET</td>
+	<td>//*[contains(@class, 'text-center')]//*[contains(text(),'Banner Title Example')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FRAGMENT_HEADING</td>
+	<td>//*[contains(@class, 'component-heading') and contains(@class, 'text-break')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

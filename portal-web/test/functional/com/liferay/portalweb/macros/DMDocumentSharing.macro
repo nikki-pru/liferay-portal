@@ -1,0 +1,130 @@
+definition {
+
+	macro _manageCollaborators {
+		DMDocument.expandInfo();
+
+		var key_text = "Manage Collaborators";
+
+		AssertClick(
+			locator1 = "Button#ANY",
+			value1 = "Manage Collaborators");
+	}
+
+	macro addDocumentWithOnlyOwnerPermissions {
+		DMDocument.addPG(
+			dmDocumentDescription = "${dmDocumentDescription}",
+			dmDocumentFile = "${dmDocumentFile}",
+			dmDocumentTitle = "${dmDocumentTitle}",
+			viewableBy = "Owner");
+
+		DMNavigator.gotoDocumentPermissionsCP(dmDocumentTitle = "${dmDocumentTitle}");
+
+		Role.removePermissionPG(
+			permissionDefinitionKey = "INLINE_PERMISSIONS_ADD_DISCUSSION_CHECKBOX",
+			roleTitle = "Guest");
+
+		IFrame.closeFrame();
+
+		Pause(locator1 = "5000");
+	}
+
+	macro changePermission {
+		if (isSet(depotName)) {
+			DMDocument.viewCP(dmDocumentTitle = "${dmDocumentTitle}");
+		}
+		else {
+			DMDocument.viewPG(
+				dmDocumentDescription = "${dmDocumentDescription}",
+				dmDocumentTitle = "${dmDocumentTitle}");
+		}
+
+		DMDocumentSharing._manageCollaborators();
+
+		SelectFrame(locator1 = "IFrame#MODAL_IFRAME");
+
+		var key_userName = "${userName}";
+
+		AssertTextEquals(
+			locator1 = "Sharing#MANAGE_COLLABORATORS_NAME",
+			value1 = "${userName}");
+
+		Select(
+			locator1 = "Sharing#MANAGE_COLLABORATORS_ACCESS_DROPDOWN",
+			value1 = "${selectPermission}");
+
+		AssertSelectedLabel(
+			locator1 = "Sharing#MANAGE_COLLABORATORS_ACCESS_DROPDOWN",
+			value1 = "${selectPermission}");
+
+		Button.clickSave();
+
+		SelectFrame(value1 = "relative=top");
+
+		Alert.viewSuccessMessageText(successMessage = "Permissions Changed");
+	}
+
+	macro removeCollaborator {
+		DMDocumentSharing._manageCollaborators();
+
+		SelectFrame(locator1 = "IFrame#MODAL_IFRAME");
+
+		for (var collaborator : list "${collaboratorList}") {
+			var key_userName = "${collaborator}";
+
+			Click(locator1 = "Sharing#MANAGE_COLLABORATORS_REMOVE_BUTTON");
+		}
+
+		if (isSet(emptyStateMessage)) {
+			AssertElementPresent(locator1 = "Sharing#MANAGE_COLLABORATORS_EMPTY_STATE_MESSAGE");
+		}
+
+		Button.clickSave();
+
+		SelectFrame(value1 = "relative=top");
+
+		Alert.viewSuccessMessageText(successMessage = "Permissions Changed");
+	}
+
+	macro viewCollaborators {
+		DMDocument.expandInfo();
+
+		for (var collaborator : list "${collaboratorList}") {
+			var key_collaborator = "${collaborator}";
+
+			AssertElementPresent(
+				locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_COLLABORATOR_TOOLTIP",
+				value1 = "${collaborator}");
+		}
+	}
+
+	macro viewDocumentViaSharedContent {
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "Shared Content");
+
+		if ("${contentSharingPermission}" == "View") {
+			AssertElementNotPresent(locator1 = "Comments#COMMENT_FIELD");
+		}
+
+		else {
+			AssertElementPresent(locator1 = "Comments#COMMENT_FIELD");
+		}
+
+		var key_dmDocumentTitle = "${dmDocumentTitle}";
+
+		AssertTextEquals(
+			locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_TITLE",
+			value1 = "${dmDocumentTitle}");
+	}
+
+	macro viewSharedFlag {
+		if (isSet(detailsView)) {
+			AssertVisible(locator1 = "DocumentsAndMedia#ICON_DOCUMENT_SHARED");
+		}
+
+		else {
+			AssertElementNotPresent(locator1 = "DocumentsAndMedia#ICON_DOCUMENT_SHARED");
+		}
+	}
+
+}

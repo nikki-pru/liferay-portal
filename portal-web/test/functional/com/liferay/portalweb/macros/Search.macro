@@ -1,0 +1,65 @@
+definition {
+
+	macro clearSearchResult {
+		Click(locator1 = "Link#CLEAR");
+
+		AssertElementNotPresent(locator1 = "Search#SEARCH_INFO");
+	}
+
+	macro gotoResultAssetViaTitle {
+		AssertClick(
+			key_searchAssetTitle = "${searchAssetTitle}",
+			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE",
+			value1 = "${searchAssetTitle}");
+	}
+
+	macro openSearchAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_portal_search_admin_web_portlet_SearchAdminPortlet");
+	}
+
+	macro searchCP {
+		AssertElementPresent(locator1 = "TextInput#SEARCH");
+
+		AssertElementPresent(locator1 = "Icon#BASIC_SEARCH");
+
+		Type(
+			locator1 = "TextInput#SEARCH",
+			value1 = "${searchTerm}");
+
+		KeyPress(
+			locator1 = "TextInput#SEARCH",
+			value1 = "\RETURN");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro searchPG {
+		var key_portletName = "${portletName}";
+
+		AssertElementPresent(locator1 = "Portlet#SEARCH_FIELD");
+
+		Type(
+			locator1 = "Portlet#SEARCH_FIELD",
+			value1 = "${searchTerm}");
+
+		KeyPress(
+			locator1 = "Portlet#SEARCH_FIELD",
+			value1 = "\RETURN");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro viewNoResultAssetTitle {
+		AssertElementNotPresent(
+			key_searchAssetTitle = "${searchAssetTitle}",
+			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE");
+	}
+
+	macro viewResultAssetTitle {
+		AssertTextEquals(
+			key_searchAssetTitle = "${searchAssetTitle}",
+			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE",
+			value1 = "${searchAssetTitle}");
+	}
+
+}

@@ -1,0 +1,23 @@
+clean {
+	ext {
+		cleanDeployed = false
+	}
+}
+
+dependencies {
+	compile group: "biz.aQute.bnd", name: "biz.aQute.bnd", version: "4.3.0"
+
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
+	compileOnly group: "org.apache.ant", name: "ant", transitive: false, version: "1.9.15"
+
+	testCompile project(":core:petra:petra-io")
+	testCompile project(":core:petra:petra-string")
+}
+
+liferay {
+	deployDir = file("../../../lib/development")
+}
+
+updateFileVersions {
+	match(/com\.liferay\.ant\.bnd=com\.liferay:com\.liferay\.ant\.bnd:(\d.+)/, "../../../lib/development/dependencies.properties")
+}

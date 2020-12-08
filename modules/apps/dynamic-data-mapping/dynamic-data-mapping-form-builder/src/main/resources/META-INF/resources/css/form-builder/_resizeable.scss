@@ -1,0 +1,74 @@
+$c: '.ddm-form-builder';
+
+#{$c} {
+	.ddm-resize-handle {
+		top: calc(50% - 4px);
+		z-index: 1;
+	}
+
+	.ddm-field-container {
+		margin: 0 1px;
+
+		.ddm-resize-handle-left {
+			left: -5px !important;
+		}
+
+		.ddm-resize-handle-right {
+			left: inherit !important;
+			right: -5px !important;
+		}
+
+		.ddm-resize-handle-left,
+		.ddm-resize-handle-right {
+			background-color: #ccc;
+			cursor: inherit;
+			opacity: 0;
+		}
+
+		&:active,
+		&.hovered {
+			> .ddm-resize-handle-left,
+			> .ddm-resize-handle-right {
+				opacity: 0.5;
+			}
+		}
+	}
+
+	.resizeable .ddm-field-container {
+		&.dragging,
+		&.expanded,
+		&.hovered,
+		&.selected {
+			> .ddm-resize-handle-left,
+			> .ddm-resize-handle-right {
+				background-color: #1c67fb;
+				cursor: col-resize;
+				opacity: 1;
+			}
+		}
+	}
+
+	.resizeable .ddm-field-container {
+		&.ddm-fieldset {
+			&.hovered,
+			&.selected {
+				> .ddm-resize-handle-left,
+				> .ddm-resize-handle-right {
+					background-color: #5aca75;
+				}
+			}
+		}
+	}
+}
+
+.ddm-resize-handle {
+	border: none !important;
+	border-radius: unset !important;
+	height: 8px;
+	position: absolute;
+	width: 8px;
+}
+
+.shim {
+	cursor: grabbing;
+}

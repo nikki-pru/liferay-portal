@@ -1,0 +1,609 @@
+@component-name = "portal-user-management-and-portal-configuration"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "User Groups";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			JSONUser.tearDownNonAdminUsers();
+
+			UserGroup.tearDownCP();
+
+			Role.tearDownCP();
+
+			Site.tearDownCP();
+
+			Organization.tearDownCP();
+		}
+	}
+
+	@priority = "3"
+	test ExportUserGroupMembers {
+		JSONUser.addUser(
+			userEmailAddress = "userea1@liferay.com",
+			userFirstName = "userfn1",
+			userLastName = "userln1",
+			userScreenName = "usersn1");
+
+		JSONUser.addUser(
+			userEmailAddress = "userea2@liferay.com",
+			userFirstName = "userfn2",
+			userLastName = "userln2",
+			userScreenName = "usersn2");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.addCP(userGroupName = "UG UserGroup Name");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.assignMemberCP(
+			userGroupName = "UG UserGroup Name",
+			userScreenName = "usersn1");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.assignMemberCP(
+			userGroupName = "UG UserGroup Name",
+			userScreenName = "usersn2");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		LAR.exportUserGroups(larFileName = "User_Group_Members.lar");
+	}
+
+	@priority = "4"
+	test UserGroupRegularRolePermissions {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_CONTROL_PANEL",
+			resourceName = "90",
+			roleTitle = "User");
+
+		for (var userNumber : list "1,2") {
+			JSONUser.addUser(
+				userEmailAddress = "userea${userNumber}@liferay.com",
+				userFirstName = "userfn${userNumber}",
+				userLastName = "userln${userNumber}",
+				userScreenName = "usersn${userNumber}");
+
+			JSONUser.setFirstPassword(
+				agreeToTermsAndAnswerReminderQuery = "true",
+				requireReset = "false",
+				userEmailAddress = "userea${userNumber}@liferay.com");
+		}
+
+		JSONUserGroup.addUserGroup(
+			userGroupDescription = "UG UserGroup Name Description",
+			userGroupName = "UG UserGroup Name");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.assignAllMembersCP(userGroupName = "UG UserGroup Name");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.removeMemberCP(
+			userGroupName = "UG UserGroup Name",
+			userScreenName = "test");
+
+		JSONRole.addRegularRole(
+			roleKey = "Test UserGroup Role",
+			roleTitle = "Test UserGroup Role");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_blogs_web_portlet_BlogsAdminPortlet",
+			roleTitle = "Test UserGroup Role");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.blogs.model.BlogsEntry",
+			roleTitle = "Test UserGroup Role");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_SITE_ADMINISTRATION",
+			resourceName = "com.liferay.portal.kernel.model.Group",
+			roleTitle = "Test UserGroup Role");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		RoleNavigator.gotoAssignees(roleTitle = "Test UserGroup Role");
+
+		RoleNavigator.gotoAssigneeType(assigneeType = "User Groups");
+
+		Role.addAssignees(assigneeName = "UG UserGroup Name");
+
+		JSONBlog.addEntry(
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "userea1@liferay.com");
+
+		ApplicationsMenuHelper.assertNoApplicationsMenu();
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			panel = "Site Administration",
+			portlet = "Blogs");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "cards");
+
+		AssertElementPresent(
+			key_entryTitle = "Blogs Entry Title",
+			locator1 = "Blogs#ICON_VIEW_ENTRY_TITLE");
+
+		User.logoutUserPG();
+
+		User.loginPG(
+			password = "test",
+			userEmailAddress = "test@liferay.com");
+	}
+
+	@priority = "4"
+	test UserGroupSiteOwnerPermissions {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+		property test.name.skip.portal.instance = "UsergroupsUsecase#UserGroupSiteOwnerPermissions";
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_CONTROL_PANEL",
+			resourceName = "90",
+			roleTitle = "User");
+
+		for (var userNumber : list "1,2,3,4,5") {
+			JSONUser.addUser(
+				userEmailAddress = "userea${userNumber}@liferay.com",
+				userFirstName = "userfn${userNumber}",
+				userLastName = "userln${userNumber}",
+				userScreenName = "usersn${userNumber}");
+
+			JSONUser.setFirstPassword(
+				agreeToTermsAndAnswerReminderQuery = "true",
+				requireReset = "false",
+				userEmailAddress = "userea${userNumber}@liferay.com");
+		}
+
+		JSONUserGroup.addUserGroup(
+			userGroupDescription = "UG UserGroup Name Description",
+			userGroupName = "UG UserGroup Name");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.assignAllMembersCP(userGroupName = "UG UserGroup Name");
+
+		JSONGroup.addGroup(groupName = "Site Name");
+
+		JSONLayout.addPublicLayout(
+			groupName = "Site Name",
+			layoutName = "Site Page Name");
+
+		JSONGroup.assignUserGroupToGroup(
+			groupName = "Site Name",
+			userGroupName = "UG UserGroup Name");
+
+		JSONUserGroup.assignGroupRoleToUserGroup(
+			groupName = "Site Name",
+			roleTitle = "Site Owner",
+			userGroupName = "UG UserGroup Name");
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "userea3@liferay.com");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "People",
+			portlet = "Memberships");
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "table");
+
+		AssertTextEquals.assertPartialText(
+			key_userScreenName = "usersn3",
+			locator1 = "SiteMemberships#USER_TABLE_NAME",
+			value1 = "userfn3 userln3");
+
+		AssertTextEquals(
+			key_userScreenName = "usersn3",
+			locator1 = "SiteMemberships#USER_TABLE_SCREEN_NAME",
+			value1 = "usersn3");
+
+		LexiconEntry.openEntryMenu(rowEntry = "userfn3 userln3");
+
+		MenuItem.viewPresent(menuItem = "Assign Roles");
+
+		User.logoutUserPG();
+
+		User.loginPG(
+			password = "test",
+			userEmailAddress = "test@liferay.com");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ProductMenu.gotoPortlet(
+			category = "People",
+			portlet = "Memberships");
+
+		Site.unassignSiteRoleToUserGroup(
+			roleName = "Site Owner",
+			userGroupName = "UG UserGroup Name");
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "userea5@liferay.com");
+
+		Navigator.openSiteURL(siteName = "Site Name");
+
+		ApplicationsMenuHelper.assertNoApplicationsMenu();
+
+		User.logoutUserPG();
+
+		User.loginPG(
+			password = "test",
+			userEmailAddress = "test@liferay.com");
+	}
+
+	@priority = "4"
+	test UserGroupSiteTemplates {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+		property test.name.skip.portal.instance = "UsergroupsUsecase#UserGroupSiteTemplates";
+
+		SiteTemplates.addCP(
+			disableChanges = "true",
+			siteTemplateName = "Site Template Name");
+
+		SiteTemplates.addSitePageViaSiteTemplateCP(
+			pageName = "Wiki Page Name",
+			siteTemplateName = "Site Template Name");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
+		JSONUser.addUser(
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea@liferay.com");
+
+		JSONUserGroup.addUserGroup(
+			userGroupDescription = "UG UserGroup Name Description",
+			userGroupName = "UG UserGroup Name");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.assignMemberCP(
+			userGroupName = "UG UserGroup Name",
+			userScreenName = "test");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.editCP(
+			userGroupName = "UG UserGroup Name",
+			userGroupSite = "Site Template Name");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Profile");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_1",
+			value1 = "My Profile");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_2",
+			value1 = "Home");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_3",
+			value1 = "Wiki Page Name");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Dashboard");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_1",
+			value1 = "My Dashboard");
+
+		if (IsElementPresent(locator1 = "Home#PAGE_2")) {
+			AssertTextNotEquals(
+				locator1 = "Home#PAGE_2",
+				value1 = "Home");
+		}
+
+		if (IsElementPresent(locator1 = "Home#PAGE_3")) {
+			AssertTextNotEquals(
+				locator1 = "Home#PAGE_3",
+				value1 = "Wiki Page Name");
+		}
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "userea@liferay.com");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Profile");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_1",
+			value1 = "My Profile");
+
+		if (IsElementPresent(locator1 = "Home#PAGE_2")) {
+			AssertTextNotEquals(
+				locator1 = "Home#PAGE_2",
+				value1 = "Home");
+		}
+
+		if (IsElementPresent(locator1 = "Home#PAGE_3")) {
+			AssertTextNotEquals(
+				locator1 = "Home#PAGE_3",
+				value1 = "Wiki Page Name");
+		}
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Dashboard");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_1",
+			value1 = "My Dashboard");
+
+		if (IsElementPresent(locator1 = "Home#PAGE_2")) {
+			AssertTextNotEquals(
+				locator1 = "Home#PAGE_2",
+				value1 = "Home");
+		}
+
+		if (IsElementPresent(locator1 = "Home#PAGE_3")) {
+			AssertTextNotEquals(
+				locator1 = "Home#PAGE_3",
+				value1 = "Wiki Page Name");
+		}
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "test@liferay.com");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.assignMemberCP(
+			userGroupName = "UG UserGroup Name",
+			userScreenName = "usersn");
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "userea@liferay.com");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Profile");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_1",
+			value1 = "My Profile");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_2",
+			value1 = "Home");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_3",
+			value1 = "Wiki Page Name");
+
+		UserBar.gotoDropdownItem(dropdownItem = "My Dashboard");
+
+		AssertTextPresent(
+			locator1 = "Home#PAGE_1",
+			value1 = "My Dashboard");
+
+		if (IsElementPresent(locator1 = "Home#PAGE_2")) {
+			AssertTextNotEquals(
+				locator1 = "Home#PAGE_2",
+				value1 = "Home");
+		}
+
+		if (IsElementPresent(locator1 = "Home#PAGE_3")) {
+			AssertTextNotEquals(
+				locator1 = "Home#PAGE_3",
+				value1 = "Wiki Page Name");
+		}
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "test@liferay.com");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.removeMemberCP(
+			userGroupName = "UG UserGroup Name",
+			userScreenName = "test");
+	}
+
+	@description = "This is a use case for LPS-40580."
+	@priority = "4"
+	test ViewUserGroupPermissionsNoAsUser {
+		property custom.properties = "jsonws.web.service.paths.excludes=";
+
+		JSONRole.addRegularRole(
+			roleKey = "Roles Regrole Name",
+			roleTitle = "Roles Regrole Name");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW_CONTROL_PANEL",
+			resourceName = "90",
+			roleTitle = "Roles Regrole Name");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "VIEW",
+			resourceName = "com.liferay.portal.kernel.model.UserGroup",
+			roleTitle = "Roles Regrole Name");
+
+		Permissions.definePermissionViaJSONAPI(
+			resourceAction = "ACCESS_IN_CONTROL_PANEL",
+			resourceName = "com_liferay_user_groups_admin_web_portlet_UserGroupsAdminPortlet",
+			roleTitle = "Roles Regrole Name");
+
+		JSONUser.addUser(
+			userEmailAddress = "userea1@liferay.com",
+			userFirstName = "userfn1",
+			userLastName = "userln1",
+			userScreenName = "usersn1");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "userea1@liferay.com");
+
+		JSONRole.assignRoleToUser(
+			roleTitle = "Roles Regrole Name",
+			userEmailAddress = "userea1@liferay.com");
+
+		JSONUserGroup.addUserGroup(
+			userGroupDescription = "UG UserGroup Name Description",
+			userGroupName = "UG UserGroup Name");
+
+		User.logoutPG();
+
+		User.loginUserPG(
+			password = "test",
+			userEmailAddress = "userea1@liferay.com");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		AssertTextEquals(
+			key_userGroupName = "UG UserGroup Name",
+			locator1 = "UserGroups#USER_GROUP_TABLE_NAME",
+			value1 = "UG UserGroup Name");
+
+		AssertElementNotPresent(
+			key_userGroupName = "UG UserGroup Name",
+			locator1 = "UserGroups#USER_GROUP_TABLE_ACTIONS");
+
+		AssertElementNotPresent(
+			key_userGroupName = "UG UserGroup Name",
+			locator1 = "UserGroups#USER_GROUP_TABLE_NAME_LINK");
+
+		User.logoutUserPG();
+
+		User.loginPG(
+			password = "test",
+			userEmailAddress = "test@liferay.com");
+	}
+
+	@priority = "4"
+	test ViewUserGroupSiteRoleInline {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		RoleNavigator.gotoRoleType(roleType = "Site");
+
+		Role.add(roleTitle = "Roles Siterole Name");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "User Groups");
+
+		UserGroup.addCP(userGroupName = "UG UserGroup Name");
+
+		PermissionsInline.gotoUserGroupSitePermissionsCP(userGroupName = "UG UserGroup Name");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		AssertTextEquals.assertPartialText(
+			key_roleTitle = "Roles Siterole Name",
+			locator1 = "Permissions#CONTENT_PERMISSIONS_ROLE_NAME",
+			value1 = "Roles Siterole Name");
+	}
+
+}

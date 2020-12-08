@@ -1,0 +1,8 @@
+{
+	"cacheable": true,
+	"fragmentEntryKey": "paragraph",
+	"icon": "paragraph",
+	"name": "paragraph",
+	"thumbnail": "paragraph.png",
+	"type": "component"
+}

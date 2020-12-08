@@ -1,0 +1,16 @@
+@default = "sikuliLeftMouseDown"
+definition {
+
+	function sikuliLeftMouseDown {
+		WaitForSPARefresh();
+
+		selenium.sikuliLeftMouseDown();
+
+		selenium.pause("1000");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

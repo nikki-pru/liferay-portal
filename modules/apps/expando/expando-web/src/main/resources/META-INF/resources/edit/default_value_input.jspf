@@ -1,0 +1,349 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<c:choose>
+	<c:when test="<%= propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_BOOLEAN) %>">
+
+		<%
+		boolean curValue = true;
+
+		if (defaultValue != null) {
+			Boolean defaultValueBoolean = (Boolean)defaultValue;
+
+			curValue = defaultValueBoolean.booleanValue();
+		}
+		%>
+
+		<aui:select name="defaultValue">
+			<aui:option label="<%= true %>" selected="<%= curValue %>" value="<%= true %>" />
+			<aui:option label="<%= false %>" selected="<%= !curValue %>" value="<%= false %>" />
+		</aui:select>
+	</c:when>
+	<c:when test="<%= propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_CHECKBOX) || propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_RADIO) || propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_SELECTION_LIST) %>">
+		<aui:select disabled="<%= expandoColumn != null %>" label="data-type" name="dataType" onChange="setDataType(true)" value="<%= ExpandoColumnConstants.getDataType(type) %>">
+			<aui:option label="<%= ExpandoColumnConstants.DATA_TYPE_TEXT %>" />
+			<aui:option label="<%= ExpandoColumnConstants.DATA_TYPE_DECIMAL %>" />
+			<aui:option label="<%= ExpandoColumnConstants.DATA_TYPE_INTEGER %>" />
+		</aui:select>
+
+		<%
+		String values = StringPool.BLANK;
+
+		if (type == ExpandoColumnConstants.DOUBLE_ARRAY) {
+			values = StringUtil.merge((double[])defaultValue, StringPool.NEW_LINE);
+		}
+		else if (type == ExpandoColumnConstants.FLOAT_ARRAY) {
+			values = StringUtil.merge((float[])defaultValue, StringPool.NEW_LINE);
+		}
+		else if (type == ExpandoColumnConstants.INTEGER_ARRAY) {
+			values = StringUtil.merge((int[])defaultValue, StringPool.NEW_LINE);
+		}
+		else if (type == ExpandoColumnConstants.LONG_ARRAY) {
+			values = StringUtil.merge((long[])defaultValue, StringPool.NEW_LINE);
+		}
+		else if (type == ExpandoColumnConstants.SHORT_ARRAY) {
+			values = StringUtil.merge((short[])defaultValue, StringPool.NEW_LINE);
+		}
+		else if (type == ExpandoColumnConstants.STRING_ARRAY) {
+			values = StringUtil.merge((String[])defaultValue, StringPool.NEW_LINE);
+		}
+		%>
+
+		<aui:input cssClass="lfr-textarea-container" helpMessage="enter-one-value-per-line" label="values" name="defaultValue" required="<%= true %>" type="textarea" value="<%= values %>" />
+	</c:when>
+	<c:when test="<%= propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_DATE) %>">
+
+		<%
+		Calendar defaultValueDate = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+		if (defaultValue != null) {
+			defaultValueDate.setTime((Date)defaultValue);
+		}
+		%>
+
+		<aui:field-wrapper cssClass="date-input-wrapper" label="default-value">
+			<div class="form-group-autofit">
+				<liferay-ui:input-date
+					cssClass="form-group-item"
+					dayParam="defaultValueDay"
+					dayValue="<%= defaultValueDate.get(Calendar.DATE) %>"
+					disabled="<%= false %>"
+					firstDayOfWeek="<%= defaultValueDate.getFirstDayOfWeek() - 1 %>"
+					monthParam="defaultValueMonth"
+					monthValue="<%= defaultValueDate.get(Calendar.MONTH) %>"
+					yearParam="defaultValueYear"
+					yearValue="<%= defaultValueDate.get(Calendar.YEAR) %>"
+				/>
+
+				<liferay-ui:input-time
+					amPmParam="defaultValueAmPm"
+					amPmValue="<%= defaultValueDate.get(Calendar.AM_PM) %>"
+					cssClass="form-group-item"
+					disabled="<%= false %>"
+					hourParam="defaultValueHour"
+					hourValue="<%= defaultValueDate.get(Calendar.HOUR) %>"
+					minuteParam="defaultValueMinute"
+					minuteValue="<%= defaultValueDate.get(Calendar.MINUTE) %>"
+				/>
+			</div>
+		</aui:field-wrapper>
+	</c:when>
+	<c:when test="<%= propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_GEOLOCATION) %>">
+
+		<%
+		String name = "defaultValue";
+
+		Serializable value = "{\"latitude\": 0, \"longitude\": 0}";
+
+		if (defaultValue != null) {
+			value = defaultValue;
+		}
+		%>
+
+		<div id="<portlet:namespace />CoordinatesContainer">
+			<div class="glyphicon glyphicon-map-marker" id="<portlet:namespace /><%= name %>Location">
+			</div>
+
+			<%
+			JSONObject geolocationJSONObject = JSONFactoryUtil.createJSONObject(value.toString());
+			%>
+
+			<liferay-map:map-display
+				geolocation="<%= true %>"
+				latitude='<%= geolocationJSONObject.getDouble("latitude", 0) %>'
+				longitude='<%= geolocationJSONObject.getDouble("longitude", 0) %>'
+				name="<%= name %>"
+			/>
+		</div>
+
+		<aui:script require="map-common/js/MapBase.es as MapBase">
+			var geolocationField = {
+				init: function () {
+					Liferay.MapBase.get('<portlet:namespace /><%= name %>', function (map) {
+						map.on(
+							'positionChange',
+							geolocationField.onPositionChange,
+							geolocationField
+						);
+					});
+				},
+				onPositionChange: function (event) {
+					var inputName = '<portlet:namespace /><%= name %>';
+					var inputNode = document.querySelector('[name="' + inputName + '"]');
+
+					var location = event.newVal.location;
+
+					if (inputNode) {
+						inputNode.setAttribute(
+							'value',
+							JSON.stringify({
+								latitude: location.lat,
+								longitude: location.lng,
+							})
+						);
+					}
+
+					var locationNode = document.getElementById(inputName + 'Location');
+
+					if (locationNode) {
+						locationNode.innerHTML = event.newVal.address;
+					}
+				},
+			};
+
+			geolocationField.init();
+		</aui:script>
+
+		<aui:input name="<%= name %>" type="hidden" value="<%= value.toString() %>" />
+	</c:when>
+	<c:otherwise>
+		<c:if test="<%= propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_INPUT_FIELD) %>">
+			<aui:select disabled="<%= expandoColumn != null %>" label="data-type" name="dataType" onChange="setDataType(false)" value="<%= ExpandoColumnConstants.getDataType(type) %>">
+				<aui:option label="<%= ExpandoColumnConstants.DATA_TYPE_TEXT %>" />
+				<aui:option label="<%= ExpandoColumnConstants.DATA_TYPE_DECIMAL %>" />
+				<aui:option label="<%= ExpandoColumnConstants.DATA_TYPE_INTEGER %>" />
+			</aui:select>
+		</c:if>
+
+		<%
+		String xml = StringPool.BLANK;
+
+		if ((type == ExpandoColumnConstants.STRING_LOCALIZED) && (defaultValue != null)) {
+			xml = LocalizationUtil.updateLocalization((Map<Locale, String>)defaultValue, StringPool.BLANK, "Data", LocaleUtil.toLanguageId(locale));
+		}
+		%>
+
+		<div class="<%= (type == ExpandoColumnConstants.STRING_LOCALIZED) ? "" : "hide" %>" id="<portlet:namespace />textLocalizedField">
+			<aui:field-wrapper cssClass="localized-input-wrapper" label="starting-value">
+				<liferay-ui:input-localized
+					name="defaultValueLocalized"
+					type='<%= propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_TEXT_BOX) ? "textarea" : "input" %>'
+					xml="<%= xml %>"
+				/>
+			</aui:field-wrapper>
+		</div>
+
+		<div class="<%= (type != ExpandoColumnConstants.STRING_LOCALIZED) ? "" : "hide" %>" id="<portlet:namespace />textField">
+			<aui:input label="starting-value" name="defaultValue" type='<%= propertyDisplayType.equals(ExpandoColumnConstants.PROPERTY_DISPLAY_TYPE_TEXT_BOX) ? "textarea" : "text" %>' value="<%= (defaultValue != null) ? String.valueOf(defaultValue) : StringPool.BLANK %>" />
+		</div>
+
+		<c:if test="<%= ((type == ExpandoColumnConstants.STRING) || (type == ExpandoColumnConstants.STRING_LOCALIZED)) && (expandoColumn == null) %>">
+			<div id="<portlet:namespace />textFieldLocalizedCheckbox">
+				<aui:input label="make-field-localizable" name="Property--localize-field--" onChange='<%= liferayPortletResponse.getNamespace() + "onLocalizeFieldChange(event);" %>' type="checkbox" value="<%= type == ExpandoColumnConstants.STRING_LOCALIZED %>" />
+
+				<aui:script>
+					Liferay.Util.toggleBoxes(
+						'<portlet:namespace />localize-field',
+						'<portlet:namespace />textField',
+						true
+					);
+					Liferay.Util.toggleBoxes(
+						'<portlet:namespace />localize-field',
+						'<portlet:namespace />textLocalizedField'
+					);
+				</aui:script>
+			</div>
+		</c:if>
+	</c:otherwise>
+</c:choose>
+
+<aui:script>
+	function <portlet:namespace />onLocalizeFieldChange(event) {
+		var form = document.querySelector('#<portlet:namespace />fm');
+
+		if (form) {
+			var checked = event.target.checked;
+
+			form.querySelector('#<portlet:namespace />type').value = checked
+				? '<%= ExpandoColumnConstants.STRING_LOCALIZED %>'
+				: '<%= ExpandoColumnConstants.STRING %>';
+		}
+	}
+</aui:script>
+
+<script>
+	function setDataType(selectionType) {
+		var dataTypeElement = document.getElementById(
+			'<portlet:namespace />dataType'
+		);
+
+		var currentSelectedDataType = dataTypeElement.value;
+
+		if (currentSelectedDataType) {
+			if (
+				currentSelectedDataType ==
+				'<%= ExpandoColumnConstants.DATA_TYPE_TEXT %>'
+			) {
+				updateElement(
+					[
+						'indexTypeSearchableAsKeyword',
+						'indexTypeSearchableAsKeywordToggleSwitch',
+						'precisionTypeSelect',
+					],
+					'disable'
+				);
+
+				updateElement(
+					[
+						'indexTypeKeyword',
+						'indexTypeText',
+						'searchableKeyWordOrText',
+					],
+					'enable'
+				);
+
+				updateElement(['searchableAsKeywordOrText'], 'unhide');
+
+				if (!selectionType) {
+					updateElement(
+						['textFieldLocalizedCheckbox', 'widthAdvancedSetting'],
+						'unhide'
+					);
+				}
+
+				updateElement(
+					['precisionTypeAdvanced', 'searchableAsKeyword'],
+					'hide'
+				);
+			}
+			else if (
+				currentSelectedDataType ==
+					'<%= ExpandoColumnConstants.DATA_TYPE_DECIMAL %>' ||
+				currentSelectedDataType ==
+					'<%= ExpandoColumnConstants.DATA_TYPE_INTEGER %>'
+			) {
+				updateElement(
+					[
+						'indexTypeKeyword',
+						'indexTypeText',
+						'searchableKeyWordOrText',
+					],
+					'disable'
+				);
+
+				updateElement(
+					[
+						'indexTypeSearchableAsKeyword',
+						'indexTypeSearchableAsKeywordToggleSwitch',
+						'precisionTypeSelect',
+					],
+					'enable'
+				);
+
+				updateElement(
+					['precisionTypeAdvanced', 'searchableAsKeyword'],
+					'unhide'
+				);
+
+				updateElement(['searchableAsKeywordOrText'], 'hide');
+
+				if (!selectionType) {
+					updateElement(
+						['textFieldLocalizedCheckbox', 'widthAdvancedSetting'],
+						'hide'
+					);
+				}
+
+				setPrecisionType(currentSelectedDataType);
+			}
+		}
+	}
+
+	function updateElement(formElementIds, action) {
+		formElementIds.forEach(function (formElementId) {
+			var formElement = document.getElementById(
+				'<portlet:namespace />' + formElementId
+			);
+
+			if (formElement) {
+				if (action == 'enable') {
+					formElement.removeAttribute('disabled');
+
+					formElement.classList.remove('disabled');
+				}
+				else if (action == 'disable') {
+					formElement.setAttribute('disabled', 'true');
+				}
+				else if (action == 'hide') {
+					formElement.classList.add('hide');
+				}
+				else if (action == 'unhide') {
+					formElement.classList.remove('hide');
+				}
+			}
+		});
+	}
+</script>

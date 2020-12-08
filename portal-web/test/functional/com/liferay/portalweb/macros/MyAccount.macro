@@ -1,0 +1,120 @@
+definition {
+
+	macro addOrganization {
+		LexiconEntry.gotoAdd();
+
+		PortletEntry.inputName(name = "${organizationName}");
+
+		PortletEntry.save();
+	}
+
+	macro changeUserLanguage {
+		Select(
+			locator1 = "MyAccount#LANGUAGE_SELECT",
+			value1 = "${languageName}");
+
+		var key_saveButton = "${saveButton}";
+
+		ScrollWebElementIntoView(locator1 = "Button#SAVE_LOCALIZED");
+
+		Pause(locator1 = "2000");
+
+		AssertClick(
+			locator1 = "Button#SAVE_LOCALIZED",
+			value1 = "${saveButton}");
+
+		VerifyElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+	macro configureDisplaySettingsLanguage {
+		Navigator.openURL();
+
+		Navigator.gotoAccountSettings();
+
+		Select(
+			locator1 = "MyAccount#LANGUAGE_SELECT",
+			value1 = "${languageName}");
+
+		AssertClick(
+			locator1 = "Button#SAVE",
+			value1 = "Save");
+
+		VerifyElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+	macro configureDisplaySettingsLanguageLocalized {
+		ProductMenu.gotoPortlet(
+			category = "${category}",
+			panel = "User",
+			portlet = "${portlet}");
+
+		Select(
+			locator1 = "MyAccount#LANGUAGE_SELECT",
+			value1 = "${languageName}");
+
+		var key_saveButton = "${saveButton}";
+
+		AssertClick(
+			locator1 = "Button#SAVE_LOCALIZED",
+			value1 = "${saveButton}");
+
+		VerifyElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+	macro editPasswordInvalidCP {
+		UserNavigator.gotoPassword();
+
+		if (isSet(currentPassword)) {
+			Type(
+				locator1 = "TextInput#CURRENT_PASSWORD",
+				value1 = "${currentPassword}");
+		}
+		else {
+			Type(
+				locator1 = "TextInput#CURRENT_PASSWORD",
+				value1 = "test");
+		}
+
+		Type(
+			locator1 = "TextInput#NEW_PASSWORD",
+			value1 = "${newPassword}");
+
+		Type(
+			locator1 = "TextInput#ENTER_AGAIN",
+			value1 = "${newPassword}");
+
+		Button.clickSave();
+
+		if ("${changeable}" == "false") {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_1",
+				value1 = "Passwords may not be changed under the current password policy.");
+		}
+		else {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR_1",
+				value1 = "That password is invalid. Please enter in a different password.");
+		}
+	}
+
+	macro openMyAccountAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_my_account_web_portlet_MyAccountPortlet");
+	}
+
+	macro view {
+		AssertElementPresent(locator1 = "UsersAndOrganizationsEditUser#CATEGORIZATION_LABEL");
+
+		UserNavigator.gotoOrganizations();
+
+		UserNavigator.gotoMemberships();
+
+		UserNavigator.gotoRoles();
+
+		UserNavigator.gotoPassword();
+	}
+
+}

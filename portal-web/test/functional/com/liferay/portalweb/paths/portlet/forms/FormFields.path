@@ -1,0 +1,497 @@
+<html>
+<head>
+<title>FormFields</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">FormFields</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>FIELD_ADD</td>
+	<td>//div[contains(@class,'form-field-repeatable-toolbar')]//a[contains(@class,'add-button')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_ADD_DUPLICATE</td>
+	<td>//div[contains(@class,'ddm-field')]//button[contains(@class,'ddm-form-field-repeatable-add-button')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_ADD_SPECIFIC</td>
+	<td>//div[contains(@class,'lfr-ddm-form-container')]//div[contains(@data-field-name,'${key_fieldName}')][${key_repeatableFieldNumber}]//div[contains(@class,'lfr-ddm-form-field-repeatable-toolbar')]//button[contains(@class,'btn') and contains(@title,'Duplicate')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_NAME_EDIT</td>
+	<td>//input[contains(@name,'name') and contains(@class,'ddm-field-text')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FIELD_HELPER_EDIT</td>
+	<td>xpath=(//input[contains(@class,'ddm-field-text')])[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PROPERTIES</td>
+	<td>//div[contains(@class,'nav-item')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LABEL</td>
+	<td>//p[contains(text(),'${key_fieldLabel}')] | //label[contains(text(),'${key_fieldLabel}')] | //legend[contains(text(),'${key_fieldLabel}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPEN_GRAPH_LABEL</td>
+	<td>//div[contains(@class,'form-group')]/label[normalize-space(text())='${key_fieldLabel}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CHECKBOX-->
+<tr>
+	<td>CHECKBOX</td>
+	<td>//input[@type='checkbox' and contains(@id,'${key_fieldName}') or contains (@name,'${key_fieldName}')] | //li[contains(.,'${key_fieldName}')]//input[@type='checkbox'] | //label[contains(@class,'toggle-switch')]//input[contains(@type,'checkbox')]/following-sibling::span[contains(@class,'toggle-switch-bar')]//span[contains(text(),'${key_fieldName}')]/..//preceding-sibling::input[contains(@type,'checkbox')] | //input[contains(@type,'checkbox')]//following-sibling::span[contains(.,'${key_fieldName}')]/..//preceding-sibling::input[contains(@type,'checkbox')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKBOX_LABEL</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//label | //div[contains(@data-field-name,'${key_fieldName}')]//legend | //div[contains(@class,'custom-control-input')]//div[contains(@data-field-name,'${key_fieldName}')]//label | //li[contains(.,'${key_fieldName}')]//label | //label[.//input[@type='checkbox' and contains(@id,'${key_fieldName}') or contains(@name,'${key_fieldName}')]] | //input[contains(@type,'checkbox')]//following-sibling::span[contains(.,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKBOX_ENTRY</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//input[@checked='' or @checked='checked']/following-sibling::span[contains(@class,'label')] | //div[contains(@data-field-name,'${key_fieldName}')]//input[@checked='' or @checked='checked']/following-sibling::span[contains(.,'${value1}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHECKBOX_OPTION_LABEL</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//label[contains(.,'${key_checkboxOption}')]/input[@type='checkbox' and contains(@name,'${key_fieldName}')]/../span</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DATE-->
+<tr>
+	<td>DATE_FIELD</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//input[@type='text']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPEATABLE_HELP_TEXT</td>
+	<td>//div[contains(@class,'form-container')]//div[contains(@data-field-name,'${key_fieldName}')][${key_repeatableFieldNumber}]//p[@class='liferay-ddm-form-field-tip'] | //div[contains(@class,'form-container')]//div[contains(@data-field-name,'${key_fieldName}')][${key_repeatableFieldNumber}]//span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_ACTIVE_DATE</td>
+	<td>//div[contains(@class,'day active')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--HELP TEXT-->
+<tr>
+	<td>HELP_TEXT</td>
+	<td>//div[contains(@class,'form-group')]//span[contains(@class,'form-text') and contains(text(),'${value1}')] | //div[contains(@data-field-name,'${key_fieldName}')]//p[@class='liferay-ddm-form-field-tip'] | //div[contains(@data-field-name,'${key_fieldName}')]//span[contains(@class, 'form-text')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--OPTIONS-->
+<tr>
+	<td>OPTIONS_DELETE_ROW_BUTTON</td>
+	<td>//div[contains(@class,'ddm-field-options-container')]//div[contains(@class,'ddm-field-options')][${key_rowNumber}]//button[contains(@class,'close-modal')] | //div[@class='options']//div[contains(@class,'form-field-container')][${key_rowNumber}]//button[contains(@class,'close-modal')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPTIONS_DRAG_ICON_1</td>
+	<td>//div[contains(@class,'form-group')]/..//div[@class='ddm-field-options'][${key_rowNumber1}]/span | //div[contains(@class,'ddm-field-options')][${key_rowNumber1}]//svg[contains(@class,'lexicon-icon-drag')] | //div[@class='options']//div[contains(@class,'form-field-container')][${key_rowNumber1}]//div[contains(@class,'drag-handle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPTIONS_DRAG_ICON_2</td>
+	<td>//div[contains(@class,'form-group')]/..//div[@class='ddm-options-target'][${key_rowNumber2}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPTIONS_OPTION_VALUE_FIELD</td>
+	<td>//div[contains(@class,'ddm-field-options-container')]//div[contains(@class,'ddm-field-options')][${key_rowNumber}]//input | //div[@class='options']//div[contains(@class,'form-field-container')][${key_rowNumber}]//input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPTIONS_OPTION_VALUE_FIELD_VISIBLE</td>
+	<td>//div[@class='options']//div[@hidden='hidden']/following-sibling::div[contains(@class,'form-field-container')][${key_rowNumber}]//input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPTIONS_OPTION_NAME_FIELD</td>
+	<td>//div[contains(@class,'ddm-field-options-container')]//div[contains(@class,'ddm-field-options')][${key_rowNumber}]//div[contains(@class, 'key-value-editor')] | //div[@class='options']//div[contains(@class,'form-field-container')][${key_rowNumber}]//div[contains(@class, 'key-value-editor')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>OPTIONS_OPTION_NAME_FIELD_EDIT</td>
+	<td>//div[contains(@class,'ddm-field-options-container')]//div[contains(@class,'ddm-field-options')][${key_rowNumber}]//input[contains(@class,'key-value-input')] | //div[@class='options']//div[contains(@class,'form-field-container')][${key_rowNumber}]//div[contains(@class,'key-value-editor')]/input[contains(@class, 'input')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--GRID-->
+<tr>
+	<td>GRID_OPTIONS_OPTION_DELETE_ROW_BUTTON</td>
+	<td>//div[contains(@data-field-name,'${key_gridField}sOption')]/../../div[${key_rowNumber}]//button[contains(@class,'close-modal')] | //div[contains(@class,'form-group') and contains(.//label, '${key_gridField}')]//div[@class='ddm-field-options'][${key_rowNumber}]//button[contains(@class,'close')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GRID_OPTIONS_OPTION_VALUE_FIELD</td>
+	<td>//div[contains(@data-field-name,'${key_gridField}sOption')]/../../div[${key_rowNumber}]//input | //div[contains(@class,'form-group') and contains(.//label, '${key_gridField}')]//div[@class='ddm-field-options'][${key_rowNumber}]//input[contains(@class,'ddm-field-text')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GRID_OPTIONS_OPTION_NAME_FIELD</td>
+	<td>//div[contains(@data-field-name,'${key_gridField}sOption')]/../../div[${key_rowNumber}]//div[contains(@class, 'key-value-editor')] | //div[contains(@class,'form-group') and contains(.//label, '${key_gridField}')]//div[@class='ddm-field-options'][${key_rowNumber}]//input[contains(@class,'key-value-input')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GRID_OPTIONS_OPTION_REFERENCE_FIELD</td>
+	<td>//div[contains(@data-field-name,'${key_gridField}sOption')]/../../div[${key_rowNumber}]//div[contains(@class, 'key-value-editor')] | //div[contains(@class,'form-group') and contains(.//label, '${key_gridField}')]//div[@class='ddm-field-options'][${key_rowNumber}]//input[contains(@class,'key-value-reference-input')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GRID_RADIO_OPTIONS</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//input[contains(@aria-label, '${key_optionNumber}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GRID_OPTIONS_DRAG_ICON_1</td>
+	<td>//div[contains(@class,'form-group') and contains(.//label, '${key_gridField}')]//div[@class='ddm-field-options'][${key_rowNumber1}]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GRID_OPTIONS_DRAG_ICON_2</td>
+	<td>//div[contains(@class,'form-group') and contains(.//label, '${key_gridField}')]//div[@class='ddm-options-target'][${key_rowNumber2}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--RADIO-->
+<tr>
+	<td>RADIO_OPTION_LABEL</td>
+	<td>//label[contains(.,'${key_radioOption}')]/input[@type='radio' and contains(@name,'${key_fieldName}')]/../span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RADIO_OPTION_CHECKED</td>
+	<td>//label[contains(@*,'${key_radioOption}') or contains(.,'${key_radioOption}')]/input[@type='radio' and @checked="checked" and contains(@name,'${key_fieldName}')] | //label[contains(@*,'${key_radioOption}') or contains(.,'${key_radioOption}')]/input[@type='radio' and @checked="" and contains(@name,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--NUMBER-->
+<tr>
+	<td>NUMBER_FIELD</td>
+	<td>//div[contains(@class,'form-group') and contains(.,'${key_fieldLabel}')]/input[@type='number']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--TEXT-->
+<tr>
+	<td>REPEATABLE_TEXT_MULTILINE_FIELD</td>
+	<td>//div[contains(@class,'form-group')][${key_repeatableFieldNumber}]//textarea[contains(@id,'${key_fieldName}') or contains(@name,'${key_fieldName}')] | //div[contains(@class,'form-container')]//div[contains(@data-field-name,'${key_fieldName}')][${key_repeatableFieldNumber}]//textarea[contains(@id,'${key_fieldName}') or contains(@name,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPEATABLE_TEXT_MULTILINE_LABEL</td>
+	<td>//div[contains(@class,'form-container')]//div[contains(@data-field-name,'${key_fieldName}')][${key_repeatableFieldNumber}]//label[contains(.,'${key_fieldLabel}')] | //div[contains(@class,'form-container')]//div[contains(@data-field-name,'${key_fieldName}')][${key_repeatableFieldNumber}]//p[contains(.,'${key_fieldLabel}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FIELD</td>
+	<td>//input[@type='text' and contains(@id,'${key_fieldName}')] | //input[@type='text' and contains(@name,'${key_fieldName}')] | //div[contains(@class,'form-group')]//p[text()='${key_fieldLabel}'] | //div[contains(@data-field-name,'${key_fieldName}')]//div[contains(@class,'form-group')]//input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FIELD_ALT</td>
+	<td>//input[@type='text' and contains(@id,'${key_fieldName}') and contains(@id,'Alt')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_FIELD_2</td>
+	<td>//div[contains(@class,'lfr-ddm-form-container')]//div[contains(@data-field-name,'${key_fieldName}')][2]//input[@type='text' and contains(@name,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_LABEL_2</td>
+	<td>//div[contains(@class,'lfr-ddm-form-container')]//div[contains(@data-field-name,'${key_fieldName}')][2]//label[contains(.,'${key_fieldLabel}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEXT_MULTILINE_FIELD</td>
+	<td>//textarea[contains(@name,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--PARAGRAPH-->
+<tr>
+	<td>PARAGRAPH_BODY_TEXT_CONTENT</td>
+	<td>//div[(@class='form-group') and contains(@data-field-name,'${key_fieldName}')]//div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAGRAPH_BODY_TEXT_FIELD</td>
+	<td>//div[contains(@id,'text') and contains(@aria-label,'Rich Text Editor')]//p | //div[contains(@id,'text') and contains(@aria-label,'Rich Text Editor')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PARAGRAPH_TITLE</td>
+	<td>//div[(@class='form-group') and contains(@data-field-name,'${key_fieldName}')]//legend</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--PASSWORD-->
+<tr>
+	<td>PASSWORD_FIELD</td>
+	<td>//input[@type='password' and contains(@id,'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--SELECT-->
+<tr>
+	<td>SELECT_FIELD</td>
+	<td>//label[contains(text(),'${key_fieldName}') or contains(@for,'${key_fieldName}')]/following-sibling::div[contains(@class,'ddm-select-dropdown') or contains(@class,'input-group-container')] | //div[contains(@data-field-name,'${key_fieldName}') or contains(@for,'${key_fieldName}')]//following-sibling::div[contains(@class,'ddm-select-dropdown') or contains(@class,'input-group-container')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FIELD_DATA_PROVIDER_LIST</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//div[contains(@class,'form-builder-select-field')]//li[contains(.,'${key_selectOption}')] | //div[contains(@class,'dropdown-menu')]//li[contains(.,'${key_selectOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FIELD_OPTIONS_LIST</td>
+	<td>//div[contains(@class, 'dropdown-menu') and contains(@class, 'show')]//li[contains(.,'${key_selectOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FIELD_MULTIPLE_OPTION</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//span[contains(.,'${key_selectOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FIELD_MULTIPLE_OPTION_REMOVE</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//span[contains(.,'${key_selectOption}')]//button[contains(@class,'close')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_OPTIONS_OPTION_VALUE_FIELD_VISIBLE</td>
+	<td>//div[contains(@class,'ddm-field-options-container')]//div[contains(@class,'ddm-field-options')][${key_rowNumber}]//input | //div[@class='options']/div[${key_rowNumber}]//input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECTOR</td>
+	<td>//div[contains(@class,'dropdown-menu') and contains(@class,'show')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--SWITCHER-->
+<tr>
+	<td>SWITCHER</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//span[@class='toggle-switch-bar'] | //span[contains(text(),'${key_fieldName}')]/preceding-sibling::span[@class='toggle-switch-handle'] | //span[contains(text(),'${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SWITCHER_OPTION</td>
+	<td>//input[contains(@value,'${key_switcherOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SWITCHER_TEXTFIELD</td>
+	<td>//span[contains(text(),'Autocomplete')]/preceding-sibling::span[@class='toggle-switch-handle']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--VALIDATION-->
+<tr>
+	<td>VALIDATION_ARGUMENT</td>
+	<td>//div[contains(@data-field-name,'selectedValidation')]//div[contains(@class,'select-field-trigger')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VALIDATION_ARGUMENT_OPTION</td>
+	<td>//div[contains(@data-field-name,'validation')]//ul[contains(@class,'results-chosen')]//li[contains(.,'${key_validationArgument}')] | //div[contains(@class,'dropdown-menu') and contains(@class,'show')]//ul[contains(@class,'list-unstyled')]//button[contains(text(),'${key_validationArgument}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VALIDATION_INPUT</td>
+	<td>//div[contains(@class,'validation-input')]//input | //input[contains(@name,'parameter')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VALIDATION_ERROR_MESSAGE</td>
+	<td>//input[contains(@class,'message-input')] | //input[contains(@name,'errorMessage')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CAPTCHA-->
+<tr>
+	<td>CAPTCHA_FIELD</td>
+	<td>//div[@class='taglib-captcha']/img[contains(@id, 'captcha')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CAPTCHA_FIELD_REFRESH</td>
+	<td>//div[@class='taglib-captcha']//a[contains(@id, 'refreshCaptcha')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CAPTCHA_LABEL</td>
+	<td>//div[@class='taglib-captcha']//label[@class='control-label']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CAPTCHA_TEXT_VERIFICATION</td>
+	<td>//div[@class='taglib-captcha']//input[@type='text' and contains(@id, 'captchaText')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--AUTOCOMPLETE-->
+<tr>
+	<td>AUTOCOMPLETE_OPTION</td>
+	<td>//li[contains(.,'${key_autocompleteOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--UPLOAD-->
+<tr>
+	<td>SELECT_UPLOAD_FIELD</td>
+	<td>//span[@class='lfr-btn-label']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>UPLOAD_FIELD</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//input[contains(@id,'inputFile')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>UPLOAD_FIELD_GUEST</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//input[@type='file']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>UPLOAD_PREDEFINED_VALUE</td>
+	<td>//div[@class='col-md-12']//button[contains(text(),'Select')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>UPLOAD_ON_WIDGET</td>
+	<td>//div[@class='ddm-field'][1]//button[contains(text(),'Select')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>UPLOAD_ON_DUPLICATE_FIELD</td>
+	<td>//div[@class='ddm-field'][2]//button[contains(text(),'Select')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>UPLOAD_FILE_NAME</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//h4[contains(.,'${key_uploadFileName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>UPLOAD_DOWNLOAD_ICON</td>
+	<td>//div[contains(@data-field-name,'${key_fieldName}')]//a[@download='${key_uploadFileName}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CHANGE FIELD TYPE-->
+<tr>
+	<td>CHANGE_FIELD_TYPE_BUTTON</td>
+	<td>//li[contains(@class,'ddm-fieldtypes-dropdown')]//div[contains(@class,'dropdown')] | //button[contains(@id,'field-type-menu-content')] | //li[contains(@class,'ddm-fieldtypes-dropdown')]//button[contains(@class,'dropdown-toggle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHANGE_FIELD_TYPE_BUTTON_DROPDOWN</td>
+	<td>//li[contains(@class,'ddm-fieldtypes-dropdown')]//div[contains(@class,'dropdown show')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--FRONTEND SPA INFRASTRUCTURE-->
+<tr>
+	<td>USER_NOTIFICATION_TIMEOUT</td>
+	<td>//input[contains(@name,'userNotificationTimeout')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>IMAGE_TABLE_ENTRY</td>
+	<td>//td[contains(@class,'lfr-image-column')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>CategoriesEditVocabulary</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CategoriesEditVocabulary</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ALLOW_MULTIPLE_CATEGORIES_TOGGLE_SWITCH</td>
+	<td>//input[contains(@id,'multiValued')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ASSOCIATED_ASSET_TYPES-->
+<tr>
+	<td>ASSOCIATED_ASSET_TYPES_SELECT</td>
+	<td>//select[contains(@id,'AssetCategories')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSOCIATED_ASSET_TYPES_SELECT_N</td>
+	<td>xpath=(//div[contains(@class,'form-row')])[${key_rowNumber}]//select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSOCIATED_ASSET_TYPES_DELETE_BUTTON_2</td>
+	<td>xpath=(//button[contains(@class,'delete-row')])[2]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<html>
+<head>
+<title>MessageBoards</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MessageBoards</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ADD_CATEGORY_BUTTON</td>
+	<td>//div[@class='category-buttons']/a[contains(.,'Add Category')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGER_TITLE</td>
+	<td>//div[contains(@class,'list-group-header-title') and contains(.,'${key_titleName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VERTICAL_ELLIPSIS</td>
+	<td>//li[contains(.,'${key_threadSubject}')]//a[span/*[name()='svg'][contains(@class,'icon-ellipsis')]] | //div[contains(@class,'heading')]//div[contains(@class,'dropdown')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>VERTICAL_ELLIPSIS_REPLY_CARD</td>
+	<td>//div[contains(@class,'message-container')]/div[contains(@class,'message-container')]/div[contains(@class,'card panel')]//a[span/*[name()='svg'][contains(@class,'icon-ellipsis')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CATEGORIES-->
+<tr>
+	<td>CATEGORIES_NAME_HEADER</td>
+	<td>//div[contains(@class,'content-body')]//h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--NAVIGATION-->
+<tr>
+	<td>NAVIGATION_RECENT_POSTS</td>
+	<td>//div[contains(@class,'navbar')]//ul/li/a[contains(.,'Recent Posts')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_MY_POSTS</td>
+	<td>//div[contains(@class,'navbar')]//ul/li/a[contains(.,'My Posts')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_MY_SUBSCRIPTIONS</td>
+	<td>//div[contains(@class,'navbar')]//ul/li/a[contains(.,'My Subscriptions')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_STATISTICS</td>
+	<td>//div[contains(@class,'navbar')]//ul/li/a[contains(.,'Statistics')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAVIGATION_BANNED_USERS</td>
+	<td>//div[contains(@class,'navbar')]//ul/li/a[contains(.,'Banned Users')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CATEGORY_TABLE-->
+<tr>
+	<td>CATEGORY_TABLE_PANEL</td>
+	<td>//div[@id=&quot;messageBoardsCategoriesPanel&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_TABLE_CATEGORY_GENERIC</td>
+	<td>//div[contains(@id,'mbCategoriesSearchContainer')]//tr[1]/td[1]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_TABLE_CATEGORIES</td>
+	<td>//div[contains(@id,'mbCategoriesSearchContainer')]//tr[contains(.,'${key_categoryName}')]/td[2]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_TABLE_THREADS</td>
+	<td>//div[contains(@id,'mbCategoriesSearchContainer')]//tr[contains(.,'${key_categoryName}')]/td[3]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_TABLE_POSTS</td>
+	<td>//div[contains(@id,'mbCategoriesSearchContainer')]//tr[contains(.,'${key_categoryName}')]/td[4]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_TABLE_ACTIONS</td>
+	<td>//div[contains(@id,'mbCategoriesSearchContainer')]//tr[contains(.,'${key_categoryName}')]/td//div/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CATEGORY_LIST-->
+<tr>
+	<td>CATEGORY_LIST_ACTIONS</td>
+	<td>//li[contains(.,'${key_categoryName}')]//a[span/*[name()='svg'][contains(@class,'icon-ellipsis')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_LIST_CATEGORY</td>
+	<td>//*[@data-qa-id='rowItemContent']//a[contains(.,'${key_categoryName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_LIST_CATEGORY_COUNT</td>
+	<td>//div[@data-qa-id='rowItemContent'][contains(.,'${key_categoryName}')]//div[2][contains(.,'${key_categoryCount}')] | //div[@data-qa-id='rowItemContent'][contains(.,'${key_categoryName}')]//span[1][contains(.,'${key_categoryCount}')] </td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_LIST_CATEGORY_DESCRIPTION</td>
+	<td>//*[@data-qa-id='rowItemContent']/h4/a[contains(.,'${key_categoryName}')]/../..//h5[contains(.,'${key_categoryDescription}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_LIST_CHECKBOX</td>
+	<td>//li[contains(.,'${key_categoryName}')]//div[contains(@class,'checkbox')]/label/input[contains(@type,'checkbox')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CATEGORY_LIST_THREAD_COUNT</td>
+	<td>//div[@data-qa-id='rowItemContent'][contains(.,'${key_categoryName}')]//div[3][contains(.,'${key_threadCount}')] | //div[@data-qa-id='rowItemContent'][contains(.,'${key_categoryName}')]//span[2][contains(.,'${key_threadCount}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--QUESTION_CATEGORY_THREAD_TABLE-->
+<tr>
+	<td>QUESTION_CATEGORY_THREAD_TABLE_QUESTION</td>
+	<td>//div[contains(@id,'mbThreadsSearchContainer')]//tr[contains(.,'${key_threadSubject}')]/td[2]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--THREAD_LIST-->
+<tr>
+	<td>THREAD_LIST_ACTIONS</td>
+	<td>//li[contains(.,'${key_threadSubject}')]//a[span/*[name()='svg'][contains(@class,'icon-ellipsis')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_ANSWER</td>
+	<td>//div[@data-qa-id='rowItemContent'][contains(.,'${key_threadSubject}')]//div[2][contains(.,'${key_answerCount}')] | /div[@data-qa-id='rowItemContent'][contains(.,'${key_threadSubject}')]//div[5][contains(.,'${key_answerCount}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_CHECKBOX</td>
+	<td>//li[contains(.,'${key_threadSubject}')]/div/label/input[contains(@type,'checkbox')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_REPLIES</td>
+	<td>//div[@data-qa-id='rowItemContent'][contains(.,'${key_threadSubject}')]//div[2][contains(.,'${key_repliesCount}')] | //div[@data-qa-id='rowItemContent'][contains(.,'${key_threadSubject}')]//span[contains(.,'${key_repliesCount}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_LAST_POST</td>
+	<td>//div[contains(.,'${key_threadSubject}')]//div[contains(@data-qa-id,'rowItemContent') and contains(.,'${key_userName}')] | //li[contains(.,'${key_threadSubject}')]//div[contains(@data-qa-id,'rowItemContent') and contains(.,'${key_userName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_QUESTION_MARK_ICON</td>
+	<td>//div[@data-qa-id='rowItemContent'][contains(.,'${key_threadSubject}')]//span/*[name()='svg'][contains(@class,'icon-question-circle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_STATUS</td>
+	<td>//div[@data-qa-id='rowItemContent'][contains(.,'${key_threadSubject}')]//div[contains(.,'${key_threadStatus}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_THREAD</td>
+	<td>//*[@data-qa-id='rowItemContent']//a[contains(.,'${key_threadSubject}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_THREAD_UNREAD</td>
+	<td>//*[@data-qa-id='rowItemContent']/h2/a/strong[contains(.,'${key_threadSubject}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_VIEWS</td>
+	<td>//div[@data-qa-id='rowItemContent'][contains(.,'${key_threadSubject}')]//div[contains(.,'View')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_LIST_WORKFLOW_STATUS</td>
+	<td>//div[@data-qa-id='rowItemContent'][contains(.,'${key_threadSubject}')]//span[contains(.,'${key_threadStatus}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--THREAD_REPLY-->
+<tr>
+	<td>THREAD_REPLY_ACTIONS</td>
+	<td>//div[contains(@class,'message-content') and contains(.,'${key_threadReplyBody}')]/../..//a[span/*[name()='svg'][contains(@class,'icon-ellipsis')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--THREAD_TABLE-->
+<tr>
+	<td>THREAD_TABLE_ALL_CHECKBOX</td>
+	<td>//div[contains(@id,'mbThreadsSearchContainer')]//input[contains(@name,'allRowIds')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_TABLE_REPLIES</td>
+	<td>//span[contains(@title,'${key_replyCount} Replies')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>THREAD_TABLE_STARTED_BY</td>
+	<td>//div[contains(@id,'mbThreadsSearchContainer')]//tr[contains(.,'${key_threadSubject}')]/td[3]//a</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

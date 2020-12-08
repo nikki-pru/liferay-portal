@@ -1,0 +1,202 @@
+definition {
+
+	macro gotoAddEntry {
+		if (IsElementPresent(locator1 = "Blogs#ADD_BLOGS_ENTRY")) {
+			Click(locator1 = "Blogs#ADD_BLOGS_ENTRY");
+		}
+		else {
+			var key_text = "New Entry";
+
+			AssertClick(
+				locator1 = "Button#ANY",
+				value1 = "New Entry");
+		}
+
+		AssertVisible(locator1 = "BlogsEntry#ENTRY_COVER_IMAGE_SELECT_FILE");
+	}
+
+	macro gotoBlogsEntriesPermissionsCP {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Entries Permissions");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+	}
+
+	macro gotoBlogsEntryPermissionsCP {
+		Pause(locator = "1000");
+
+		LexiconCard.clickEllipsisItem(
+			card = "${entryTitle}",
+			item = "Permissions");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+	}
+
+	macro gotoBlogsEntryPermissionsPG {
+		Portlet.mouseOverPortletTitle(portletTitleName = "Blogs");
+
+		Blogs.clickEllipsisItemPG(
+			entryTitle = "${entryTitle}",
+			item = "Permissions");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+	}
+
+	macro gotoBrowseImage {
+		Click(locator1 = "Button#BROWSE_IMAGE");
+	}
+
+	macro gotoConfigurationScopePG {
+		Navigator.gotoNavItem(navItem = "Scope");
+	}
+
+	macro gotoConfigurationSetupPG {
+		Portlet.gotoPortletOptions(portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+	}
+
+	macro gotoEditCP {
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		var key_entryTitle = "${entryTitle}";
+
+		Blogs.viewEntryTitle(entryTitle = "${entryTitle}");
+
+		Click(
+			key_listEntry = "${entryTitle}",
+			locator1 = "LexiconList#LIST_ENTRY_ELLIPSIS");
+
+		MenuItem.click(menuItem = "Edit");
+
+		AssertElementPresent(locator1 = "Icon#BACK");
+
+		AssertVisible(
+			key_text = "Title",
+			locator1 = "TextArea#ANY");
+	}
+
+	macro gotoEditPG {
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextEquals(
+			locator1 = "BlogsEntry#TITLE",
+			value1 = "${entryTitle}");
+
+		if (IsElementPresent(locator1 = "Button#EDIT_PENCIL")) {
+			Click(locator1 = "Button#EDIT_PENCIL");
+		}
+		else {
+			Portlet.mouseOverPortletTitle(portletTitleName = "Blogs");
+
+			Blogs.clickEllipsisItemPG(
+				entryTitle = "${entryTitle}",
+				item = "Edit");
+		}
+
+		AssertVisible(locator1 = "BlogsEntry#ENTRY_COVER_IMAGE_SELECT_FILE");
+	}
+
+	macro gotoEntryCP {
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		var key_entryTitle = "${entryTitle}";
+
+		if (isSet(entryStatus)) {
+			AssertTextEquals(
+				locator1 = "Blogs#DESCRIPTIVE_VIEW_ENTRY_STATUS",
+				value1 = "${entryStatus}");
+		}
+
+		LexiconList.clickListEntryTitle(listEntry = "${entryTitle}");
+	}
+
+	macro gotoEntryPG {
+		var key_entryContent = "${entryContent}";
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextEquals(
+			locator1 = "BlogsEntry#TITLE",
+			value1 = "${entryTitle}");
+
+		AssertTextEquals(
+			locator1 = "BlogsEntry#CONTENT",
+			value1 = "${entryContent}");
+
+		AssertClick.assertTextClickAt(
+			locator1 = "BlogsEntry#TITLE_LINK",
+			value1 = "${entryTitle}");
+	}
+
+	macro gotoEntryWithAbstractPG {
+		var key_entryAbstractDescription = "${entryAbstractDescription}";
+		var key_entryTitle = "${entryTitle}";
+
+		AssertTextEquals(
+			locator1 = "BlogsEntry#TITLE",
+			value1 = "${entryTitle}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "BlogsEntry#CONTENT_ABSTRACT",
+			value1 = "${entryAbstractDescription}");
+
+		AssertClick(
+			locator1 = "BlogsEntry#TITLE_LINK",
+			value1 = "${entryTitle}");
+	}
+
+	macro gotoPG {
+		var key_entryTitle = "${entryTitle}";
+
+		if (isSet(blogEntryURL)) {
+			AssertLocation(value1 = "${blogEntryURL}");
+		}
+		else {
+			Click(
+				locator1 = "BlogsEntry#TITLE_LINK",
+				value1 = "${entryTitle}");
+		}
+
+		AssertTextEquals(
+			locator1 = "BlogsEntry#TITLE",
+			value1 = "${entryTitle}");
+	}
+
+	macro gotoSelectFile {
+		Pause(locator1 = "5000");
+
+		AssertClick(
+			locator1 = "BlogsEntry#ENTRY_COVER_IMAGE_SELECT_FILE",
+			value1 = "Select File");
+	}
+
+	macro gotoShare {
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Share",
+			rowEntry = "${entryTitle}");
+	}
+
+	macro moveToRecycleBinCP {
+		LexiconEntry.changeDisplayStyle(displayStyle = "list");
+
+		var key_entryTitle = "${entryTitle}";
+
+		Blogs.viewEntryTitle(entryTitle = "${entryTitle}");
+
+		Click(
+			key_listEntry = "${entryTitle}",
+			locator1 = "LexiconList#LIST_ENTRY_ELLIPSIS");
+
+		ClickNoError(
+			key_menuItem = "Move to Recycle Bin",
+			locator1 = "MenuItem#DROPDOWN_MENU_ITEM");
+
+		VerifyElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+	macro openBlogsAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_blogs_web_portlet_BlogsAdminPortlet");
+	}
+
+}

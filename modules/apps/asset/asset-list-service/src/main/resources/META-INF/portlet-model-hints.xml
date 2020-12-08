@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.asset.list.model.AssetListEntry">
+		<field name="mvccVersion" type="long" />
+		<field name="ctCollectionId" type="long" />
+		<field name="uuid" type="String" />
+		<field name="assetListEntryId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="assetListEntryKey" type="String" />
+		<field name="title" type="String" />
+		<field name="type" type="int" />
+		<field name="assetEntrySubtype" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="assetEntryType" type="String">
+			<hint name="max-length">255</hint>
+		</field>
+		<field name="lastPublishDate" type="Date" />
+	</model>
+	<model name="com.liferay.asset.list.model.AssetListEntryAssetEntryRel">
+		<field name="mvccVersion" type="long" />
+		<field name="ctCollectionId" type="long" />
+		<field name="uuid" type="String" />
+		<field name="assetListEntryAssetEntryRelId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="assetListEntryId" type="long" />
+		<field name="assetEntryId" type="long" />
+		<field name="segmentsEntryId" type="long" />
+		<field name="position" type="int" />
+		<field name="lastPublishDate" type="Date" />
+	</model>
+	<model name="com.liferay.asset.list.model.AssetListEntrySegmentsEntryRel">
+		<field name="mvccVersion" type="long" />
+		<field name="ctCollectionId" type="long" />
+		<field name="uuid" type="String" />
+		<field name="assetListEntrySegmentsEntryRelId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="assetListEntryId" type="long" />
+		<field name="segmentsEntryId" type="long" />
+		<field name="typeSettings" type="String">
+			<hint-collection name="CLOB" />
+		</field>
+		<field name="lastPublishDate" type="Date" />
+	</model>
+	<model name="com.liferay.asset.list.model.AssetListEntryUsage">
+		<field name="mvccVersion" type="long" />
+		<field name="ctCollectionId" type="long" />
+		<field name="uuid" type="String" />
+		<field name="assetListEntryUsageId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="assetListEntryId" type="long" />
+		<field name="classNameId" type="long" />
+		<field name="classPK" type="long" />
+		<field name="portletId" type="String">
+			<hint name="max-length">200</hint>
+		</field>
+		<field name="lastPublishDate" type="Date" />
+	</model>
+</model-hints>

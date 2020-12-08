@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>WC</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">WC</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ADD_TO_FAVORITES</td>
+	<td>//table[contains(@class,'table-autofit')]//th[contains(@id,'add-to-favorites') and contains(.,'Add to Favorites')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ICON_DOCUMENT_TITLE</td>
+	<td>//div[contains(@data-title,'${key_dmDocumentTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_NEXT_PAGE</td>
+	<td>//a[contains(@class,'collapse-icon')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_SELECT_PAGE_BUTTON</td>
+	<td>//button[contains(@id,'SelectButton')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_SELECT_PAGE_RADIO</td>
+	<td>//li[contains(.,'${key_pageName}')]/input[@type='radio']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LINK_TO_PAGE_SPECIFIC_PAGE_LINK</td>
+	<td>//a[contains(@class,'collapse-icon')][normalize-space(text())='${key_pageName}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LOCALIZED_BUTTON</td>
+	<td>//button[contains(@class,'localized-trigger')][contains(@id,'JournalPortlet_${key_fieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PRIORITY</td>
+	<td>//input[contains(@id,'assetPriority')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SOURCE_GARBAGE_DATA</td>
+	<td>//pre[contains(.,'data')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ENTRY_CARDS-->
+<tr>
+	<td>ENTRY_CARDS_THUMBNAIL</td>
+	<td>//li[contains(@data-title,'${key_webContentTitle}')]//div[contains(@class,'card')]//a[contains(.,'${key_webContentTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ENTRY_LIST-->
+<tr>
+	<td>ENTRY_LIST_THUMBNAIL</td>
+	<td>//li[contains(@data-title,'${key_webContentTitle}')]//*[@data-qa-id='rowItemContent']/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_THUMBNAIL_GENERIC</td>
+	<td>//*[@data-qa-id='rowItemContent']/div</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_MENULIST_ICON</td>
+	<td>//li[contains(@data-title,'${key_webContentTitle}')]//*[contains(@class,'dropdown-toggle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_CHECKBOX</td>
+	<td>//li[contains(@data-title,'${key_webContentTitle}')]//input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_TITLE</td>
+	<td>//li[contains(@data-title,'${key_webContentTitle}')]//*[@data-qa-id='rowItemContent']//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_TITLE_ON_LIVE</td>
+	<td>//li[contains(@data-title,'${key_webContentTitle}')]//*[@data-qa-id='rowItemContent']//p</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_LAST_MODIFIED</td>
+	<td>//*[@data-qa-id='row' and contains(.,'${key_webContentTitle}')]//span[contains(.,'Modified')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_WORKFLOW_STATUS</td>
+	<td>//li[contains(@data-title,'${key_webContentTitle}')]//span[contains(@class,'label')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_LIST_WORKFLOW_TRANSLATIONE_STATUS</td>
+	<td>//li[contains(@data-title,'${key_webContentTitle}')]//span[contains(@class,'label-info')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ENTRY_TABLE-->
+<tr>
+	<td>ENTRY_TABLE_ID</td>
+	<td>//tr[contains(@data-title,'${key_webContentTitle}')]/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_TABLE_TITLE</td>
+	<td>//tr[contains(.,'${key_webContentTitle}')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_TABLE_WORKFLOW_STATUS</td>
+	<td>//tr[contains(.,'${key_webContentTitle}')]//span[contains(@class,'label')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MOVE_WEB_CONTENT_ARTICLE</td>
+	<td>//li[contains(@class,'move-article') and contains(.,'${key_webContentTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--SIDEBAR -->
+<tr>
+	<td>SIDEBAR_BODY</td>
+	<td>//div[@class='sidebar-body']//div[contains(@id,'TabsSection')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SIDEBAR_BUTTON</td>
+	<td>//button[contains(@class,'btn-borderless') and contains(@id,'SidebarButton')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SIDEBAR_TAG</td>
+	<td>//span//span[contains(.,'${key_tagName}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

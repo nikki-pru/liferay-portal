@@ -1,0 +1,31 @@
+@default = "click"
+@summary = "Click on '${locator1}'"
+definition {
+
+	function click {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.click();
+	}
+
+	function clickNoMouseOver {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.click();
+	}
+
+	function mouseDownMouseUp {
+		WaitForSPARefresh();
+
+		selenium.mouseDown();
+
+		selenium.mouseUp();
+	}
+
+}

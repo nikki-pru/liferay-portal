@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>DocumentsAndMediaSelectDocument</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">DocumentsAndMediaSelectDocument</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>SELECT_DOCUMENT_IFRAME</td>
+	<td>//iframe[contains(@id,'_selectDocumentLibrary_iframe_')]|//iframe[contains(@id,'fileEntryTypeSelector')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SELECT_FILE_BUTTON</td>
+	<td>//input[contains(@id,'InputFile')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--FOLDER_TABLE-->
+<tr>
+	<td>FOLDER_TABLE_FOLDER</td>
+	<td>//tr[contains(.,'${key_dmFolderName}')]/td[1]//span/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FOLDER_TABLE_FOLDER_SELECT</td>
+	<td>//tr[contains(.,'${key_dmFolderName}')]/td[4]//button[contains(.,'Select')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DOCUMENTS_TABLE-->
+<tr>
+	<td>DOCUMENTS_TABLE_CHOOSE</td>
+	<td>//button[@data-entityname='${key_dmDocumentTypeName}']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

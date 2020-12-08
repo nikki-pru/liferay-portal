@@ -1,0 +1,404 @@
+<?xml version="1.0"?>
+
+<project xmlns="http://www.netbeans.org/ns/project/1">
+	<type>org.netbeans.modules.ant.freeform</type>
+	<configuration>
+		<general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
+			<name>Liferay Portal</name>
+		</general-data>
+		<general-data xmlns="http://www.netbeans.org/ns/freeform-project/2">
+
+			<!-- Do not use Project Properties customizer when editing this file manually. -->
+
+			<name>Liferay Portal</name>
+			<properties>
+				<property-file>nbproject/project.properties</property-file>
+			</properties>
+			<folders>
+				<source-folder>
+					<label>Liferay Portal</label>
+					<location>.</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\apps\petra\petra-content\src\main\java</label>
+					<type>java</type>
+					<location>modules/apps/petra/petra-content/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\apps\petra\petra-encryptor\src\main\java</label>
+					<type>java</type>
+					<location>modules/apps/petra/petra-encryptor/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\apps\petra\petra-log4j\src\main\java</label>
+					<type>java</type>
+					<location>modules/apps/petra/petra-log4j/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\apps\petra\petra-mail\src\main\java</label>
+					<type>java</type>
+					<location>modules/apps/petra/petra-mail/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\apps\petra\petra-xml\src\main\java</label>
+					<type>java</type>
+					<location>modules/apps/petra/petra-xml/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-concurrent\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-concurrent/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-executor\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-executor/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-function\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-function/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-io\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-io/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-lang\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-lang/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-memory\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-memory/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-nio\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-nio/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-process\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-process/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-reflect\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-reflect/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-sql-dsl-api\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-sql-dsl-api/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-sql-dsl-spi\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-sql-dsl-spi/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-string\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-string/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\petra\petra-url-pattern-mapper\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/petra/petra-url-pattern-mapper/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>modules\core\registry-api\src\main\java</label>
+					<type>java</type>
+					<location>modules/core/registry-api/src/main/java</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>portal-impl\src</label>
+					<type>java</type>
+					<location>portal-impl/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>portal-impl\test\unit</label>
+					<type>java</type>
+					<location>portal-impl/test/unit</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>portal-kernel\src</label>
+					<type>java</type>
+					<location>portal-kernel/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>portal-kernel\test\unit</label>
+					<type>java</type>
+					<location>portal-kernel/test/unit</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>portal-test\src</label>
+					<type>java</type>
+					<location>portal-test/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>portal-web\test\functional</label>
+					<type>java</type>
+					<location>portal-web/test/functional</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>support-tomcat\src</label>
+					<type>java</type>
+					<location>support-tomcat/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>util-bridges\src</label>
+					<type>java</type>
+					<location>util-bridges/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>util-java\src</label>
+					<type>java</type>
+					<location>util-java/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>util-java\test\unit</label>
+					<type>java</type>
+					<location>util-java/test/unit</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>util-slf4j\src</label>
+					<type>slf4j</type>
+					<location>util-slf4j/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+				<source-folder>
+					<label>util-taglib\src</label>
+					<type>java</type>
+					<location>util-taglib/src</location>
+					<encoding>UTF-8</encoding>
+				</source-folder>
+			</folders>
+			<ide-actions>
+				<action name="All">
+					<target>all</target>
+				</action>
+				<action name="Build">
+					<target>start</target>
+				</action>
+				<action name="Clean">
+					<target>clean</target>
+				</action>
+				<action name="Compile">
+					<target>compile</target>
+				</action>
+				<action name="Deploy">
+					<target>deploy</target>
+				</action>
+				<action name="Javadoc">
+					<target>javadoc</target>
+				</action>
+				<action name="Rebuild">
+					<target>clean</target>
+					<target>start</target>
+				</action>
+				<action name="Test">
+					<target>test</target>
+				</action>
+			</ide-actions>
+			<view>
+				<items>
+					<source-folder style="packages">
+						<label>modules\apps\petra\petra-content\src</label>
+						<location>modules/apps/petra/petra-content/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\apps\petra\petra-encryptor\src</label>
+						<location>modules/apps/petra/petra-encryptor/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\apps\petra\petra-log4j\src</label>
+						<location>modules/apps/petra/petra-log4j/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\apps\petra\petra-mail\src</label>
+						<location>modules/apps/petra/petra-mail/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\apps\petra\petra-xml\src</label>
+						<location>modules/apps/petra/petra-xml/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-concurrent\src</label>
+						<location>modules/core/petra/petra-concurrent/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-executor\src</label>
+						<location>modules/core/petra/petra-executor/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-function\src</label>
+						<location>modules/core/petra/petra-function/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-io\src</label>
+						<location>modules/core/petra/petra-io/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-lang\src</label>
+						<location>modules/core/petra/petra-lang/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-memory\src</label>
+						<location>modules/core/petra/petra-memory/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-nio\src</label>
+						<location>modules/core/petra/petra-nio/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-process\src</label>
+						<location>modules/core/petra/petra-process/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-reflect\src</label>
+						<location>modules/core/petra/petra-reflect/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\petra\petra-string\src</label>
+						<location>modules/core/petra/petra-string/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>modules\core\registry\registry-api\src</label>
+						<location>modules/core/registry/registry-api/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>portal-impl\src</label>
+						<location>portal-impl/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>portal-impl\test\unit</label>
+						<location>portal-impl/test/unit</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>portal-kernel\src</label>
+						<location>portal-kernel/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>portal-kernel\test\unit</label>
+						<location>portal-kernel/test/unit</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>portal-test\src</label>
+						<location>portal-test/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>portal-web\test\functional</label>
+						<location>portal-web/test/functional</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>support-tomcat\src</label>
+						<location>support-tomcat/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>util-bridges\src</label>
+						<location>util-bridges/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>util-java\src</label>
+						<location>util-java/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>util-java\test\unit</label>
+						<location>util-java/test/unit</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>util-slf4j\src</label>
+						<location>util-slf4j/src</location>
+					</source-folder>
+					<source-folder style="packages">
+						<label>util-taglib\src</label>
+						<location>util-taglib/src</location>
+					</source-folder>
+					<source-file>
+						<location>build.xml</location>
+					</source-file>
+				</items>
+				<context-menu>
+					<ide-action name="All" />
+					<ide-action name="Build" />
+					<ide-action name="Clean" />
+					<ide-action name="Compile" />
+					<ide-action name="Deploy" />
+					<ide-action name="Javadoc" />
+					<ide-action name="Rebuild" />
+					<ide-action name="Test" />
+				</context-menu>
+			</view>
+			<subprojects/>
+		</general-data>
+		<java-data xmlns="http://www.netbeans.org/ns/freeform-project-java/4">
+			<compilation-unit>
+				<package-root>modules/apps/petra/petra-content/src/main/java</package-root>
+				<package-root>modules/apps/petra/petra-encryptor/src/main/java</package-root>
+				<package-root>modules/apps/petra/petra-log4j/src/main/java</package-root>
+				<package-root>modules/apps/petra/petra-mail/src/main/java</package-root>
+				<package-root>modules/apps/petra/petra-xml/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-concurrent/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-executor/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-function/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-io/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-lang/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-memory/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-nio/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-process/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-reflect/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-sql-dsl-api/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-sql-dsl-spi/src/main/java</package-root>
+				<package-root>modules/core/petra/petra-string/src/main/java</package-root>
+				<package-root>modules/core/registry-api/src/main/java</package-root>
+				<package-root>portal-impl/src</package-root>
+				<package-root>portal-impl/test/unit</package-root>
+				<package-root>portal-kernel/src</package-root>
+				<package-root>portal-kernel/test/unit</package-root>
+				<package-root>portal-test/src</package-root>
+				<package-root>portal-web/test/functional</package-root>
+				<package-root>support-tomcat/src</package-root>
+				<package-root>util-bridges/src</package-root>
+				<package-root>util-java/src</package-root>
+				<package-root>util-java/test/unit</package-root>
+				<package-root>util-taglib/src</package-root>
+				<classpath mode="compile">${javac.classpath}</classpath>
+				<source-level>1.8</source-level>
+			</compilation-unit>
+		</java-data>
+	</configuration>
+</project>

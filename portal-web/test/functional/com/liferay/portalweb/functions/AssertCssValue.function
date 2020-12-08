@@ -1,0 +1,16 @@
+@default = "assertCssValue"
+definition {
+
+	function assertCssValue {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.assertCssValue("${locator1}", "${locator2}");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

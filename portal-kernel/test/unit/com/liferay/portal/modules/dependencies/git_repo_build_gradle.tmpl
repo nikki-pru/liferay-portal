@@ -1,0 +1,15 @@
+buildscript {
+	dependencies {
+[$BUILDSCRIPT_DEPENDENCIES$]
+	}
+
+	repositories {
+		mavenLocal()
+
+		maven {
+			url "[$REPOSITORY_URL$]"
+		}
+	}
+}
+
+apply plugin: "com.liferay.root.defaults.plugin"

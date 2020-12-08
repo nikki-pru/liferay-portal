@@ -1,0 +1,89 @@
+<html>
+<head>
+<title>JSFSignInAndPrimeFacesUsers</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">JSFSignInAndPrimeFacesUsers</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>CHOOSE_BUTTON</td>
+	<td>//span[contains(.,'Choose')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COLUMN_FILTER</td>
+	<td>//input[contains(@id,'users:${key_name}:filter')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAIL_PAGE_INPUT_FIELD</td>
+	<td>//input[contains(@id,':${key_name}')][not(contains(@id,':filter'))]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ERROR_MESSAGE</td>
+	<td>//div[contains(@id,':${key_name}')]//span[@class='portlet-msg-error']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGE_BUTTON_ACTIVE</td>
+	<td>//a[contains(@class,'active') and contains(.,'${key_pageNum}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGE_BUTTON_DISABLE</td>
+	<td>//a[not (contains(@class,'active')) and contains(@aria-label,'${key_buttonLabel}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGINATOR_BUTTON</td>
+	<td>//div[contains(@class,'ui-paginator')]//*[contains(@aria-label,'${key_buttonLabel}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PORTRAINT</td>
+	<td>so/screenshots/liferayfaces/portrait.png</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PREFERENCE_LINK</td>
+	<td>//a[contains(@id,':preferences')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ROWS_PER_PAGE_INPUT</td>
+	<td>//input[contains(@id,':rowsPerPage')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCREEN_NAME</td>
+	<td>xpath=(//tbody[contains(@id,'users_data')]//tr)[${key_row}]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SORT_BUTTON</td>
+	<td>//th[contains(@id,'users:${key_name}')]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SORTED_ASCENDING_ICON</td>
+	<td>//span[contains(@class,'ui-icon-triangle-1-n')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SORTED_DESCENDING_ICON_</td>
+	<td>//span[contains(@class,'ui-icon-triangle-1-s')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>USER_CELL_NAME</td>
+	<td>//tbody//*[contains(@id,'${key_cellName}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>PagesConfiguration</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">PagesConfiguration</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>PAGES_SPECIFIC_PAGE_NAME</td>
+	<td>//li/div[contains(.,'${key_pageName}')]//span[contains(@class,'icon-check')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_SPECIFIC_PAGE_CHECKED</td>
+	<td>//li/div[contains(@class,'checked') and contains(.,'${key_pageName}')]//span[contains(@class,'icon-check')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_DELETE_MISSING_PAGES_CHECKBOX</td>
+	<td>//input[contains(@id,'DELETE_MISSING_LAYOUTS')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_LOGO_CHECKBOX</td>
+	<td>//input[contains(@id,'LOGO')]//following-sibling::span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHANGE_TO_PRIVATE_PAGES</td>
+	<td>//button[contains(@id,'changeToPrivateLayoutsButton')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CHANGE_TO_PUBLIC_PAGES</td>
+	<td>//div/button[contains(@id,'changeToPublicLayoutsButton')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_CHOOSE_CONTENT_CONTENT_CHECKBOX</td>
+	<td>//label[contains(.,'${key_contentName}')]//following-sibling::span | //label[contains(.,'${key_contentName}')]//following-sibling::span/../input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_CHOOSE_CONTENT_CHECKBOX_LABEL</td>
+	<td>//label[contains(.,'${key_contentName}')]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_ALL_PUBLIC_PAGES_CHECKBOX</td>
+	<td>xpath=(//div[contains(.,'Public Pages')]//span[contains(@class,'icon-check')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_ALL_PRIVATE_PAGES_CHECKBOX</td>
+	<td>xpath=(//div[contains(.,'Private Pages')]//span[contains(@class,'icon-check')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_SITE_PAGES_SETTINGS_CHECKBOX</td>
+	<td>//input[contains(@id,'LAYOUT_SET_SETTINGS')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_SITE_TEMPLATE_SETTINGS_CHECKBOX</td>
+	<td>//input[contains(@id,'LAYOUT_SET_PROTOTYPE_SETTINGS')]//following-sibling::span</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

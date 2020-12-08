@@ -1,0 +1,48 @@
+@default = "close"
+definition {
+
+	function close {
+		WaitForSPARefresh();
+
+		selenium.selectWindow("null");
+
+		selenium.selectFrame("relative=top");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function closeAndSelectWindow {
+		WaitForSPARefresh();
+
+		selenium.pause("1000");
+
+		selenium.close();
+
+		selenium.pause("5000");
+
+		selenium.selectWindow();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function closeWindow {
+		WaitForSPARefresh();
+
+		selenium.pause("1000");
+
+		selenium.close();
+
+		selenium.selectWindow("null");
+
+		selenium.selectFrame("relative=top");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

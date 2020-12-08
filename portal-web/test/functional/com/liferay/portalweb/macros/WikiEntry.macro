@@ -1,0 +1,64 @@
+definition {
+
+	macro addPageContent {
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+
+		Type(
+			locator1 = "CKEditor#BODY",
+			value1 = "${wikiPageContent}");
+	}
+
+	macro addPageTitle {
+		if (isSet(wikiPageTitle)) {
+			var title = "${wikiPageTitle}";
+		}
+
+		else if (isSet(wikiChildPageTitle)) {
+			var title = "${wikiChildPageTitle}";
+		}
+
+		Type(
+			locator1 = "Wiki#ENTRY_TITLE",
+			value1 = "${title}");
+	}
+
+	macro cancel {
+		AssertClick(
+			locator1 = "Button#CANCEL",
+			value1 = "Cancel");
+	}
+
+	macro confirmHTML {
+		AssertConfirm(value1 = "You may lose some formatting when switching from Creole to HTML. Do you want to continue?");
+	}
+
+	macro saveAsDraft {
+		AssertClick(
+			locator1 = "Button#SAVE",
+			value1 = "Save as Draft");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro selectPageFormat {
+		if (IsNotVisible(locator1 = "Wiki#ADD_PAGE_FORMAT_DROPDOWN")) {
+			Panel.expandPanel(panel = "Configuration");
+
+			SelectNoError(
+				locator1 = "Wiki#ADD_PAGE_FORMAT_DROPDOWN",
+				value1 = "${pageFormat}");
+		}
+		else if (IsVisible(locator1 = "Wiki#ADD_PAGE_FORMAT_DROPDOWN")) {
+			SelectNoError(
+				locator1 = "Wiki#ADD_PAGE_FORMAT_DROPDOWN",
+				value1 = "${pageFormat}");
+		}
+	}
+
+	macro viewPageContentBody {
+		AssertTextEquals(
+			locator1 = "WikiEntry#BODY",
+			value1 = "${wikiPageContent}");
+	}
+
+}

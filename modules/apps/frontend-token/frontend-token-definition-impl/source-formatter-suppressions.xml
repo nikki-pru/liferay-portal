@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<suppressions>
+	<source-check>
+		<suppress checks="ResourceBundleCheck" files="src/test/java/com/liferay/frontend/token/definition/internal/FrontendTokenDefinitionImplTest\.java" />
+		<suppress checks="ResourceBundleCheck" files="src/test/java/com/liferay/frontend/token/definition/internal/json/JSONLocalizerTest\.java" />
+	</source-check>
+</suppressions>

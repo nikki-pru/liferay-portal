@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>Breadcrumb</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Breadcrumb</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>BREADCRUMB_ENTRY</td>
+	<td>//ol[contains(@class,'breadcrumb')]//li//span[contains(.,'${key_breadcrumbName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB_ENTRY_ACTIVE_ENTRY</td>
+	<td>//ol[contains(@class,'breadcrumb')]//li[contains(@class,'active')] | //ol[contains(@class,'breadcrumb')]//span[contains(@class,'active')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB_ENTRY_EXACT_MATCH</td>
+	<td>//ol[contains(@class,'breadcrumb')]//*[text()='${key_breadcrumbName}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB_ENTRY_LINK</td>
+	<td>//ol[contains(@class,'breadcrumb')]//li/a[contains(.,'${key_breadcrumbName}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

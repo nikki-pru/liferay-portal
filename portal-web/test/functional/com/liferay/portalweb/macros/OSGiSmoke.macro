@@ -1,0 +1,33 @@
+definition {
+
+	macro Smoke {
+		ApplicationsMenu.gotoPortlet(
+			category = "System",
+			panel = "Control Panel",
+			portlet = "App Manager");
+
+		AssertElementNotPresent(
+			key_breadCrumb = "Independent Modules",
+			locator1 = "AppManager#BREADCRUMB_2_LINK");
+
+		AssertClick(
+			key_text = "Independent Modules",
+			locator1 = "Link#ANY",
+			value1 = "Independent Modules");
+
+		Breadcrumb.viewActiveEntry(breadcrumbName = "Independent Modules");
+
+		var key_appName = "${appName}";
+
+		while (!(IsElementPresent.isElementPresentAfterWait(locator1 = "AppManager#APP_NAME"))) {
+			Click(locator1 = "Pagination#NEXT_LINK");
+		}
+
+		AssertTextPresent.assertTextPresent(value1 = "${appName}");
+
+		AntCommand.antCommand(
+			locator1 = "build-test.xml",
+			value1 = "remove-plugin -Dplugin.name=${portletName}");
+	}
+
+}

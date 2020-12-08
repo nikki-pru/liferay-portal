@@ -1,0 +1,50 @@
+buildscript {
+	dependencies {
+		classpath(group: "com.liferay", name: "com.liferay.gradle.plugins.workspace", version: "3.3.2") {
+			exclude group: "com.liferay", module: "com.liferay.gradle.util"
+		}
+	}
+
+	repositories {
+		File dir = rootProject.projectDir
+
+		while (dir != null) {
+			File tmpMavenRepositoryDir = new File(dir, ".m2-tmp")
+
+			if (tmpMavenRepositoryDir.exists()) {
+				maven {
+					url tmpMavenRepositoryDir
+				}
+			}
+
+			dir = dir.getParentFile();
+		}
+
+		maven {
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+apply plugin: "com.liferay.osgi.ext.plugin"
+apply plugin: "com.liferay.target.platform"
+
+task runGradleTest
+
+dependencies {
+	originalModule group: "com.liferay", name: "com.liferay.login.web"
+
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom", version: "7.2.1"
+}
+
+repositories {
+	maven {
+		url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+	}
+}
+
+runGradleTest {
+	doLast {
+		assert configurations.originalModule.singleFile.name.equals("com.liferay.login.web-4.0.20.jar")
+	}
+}

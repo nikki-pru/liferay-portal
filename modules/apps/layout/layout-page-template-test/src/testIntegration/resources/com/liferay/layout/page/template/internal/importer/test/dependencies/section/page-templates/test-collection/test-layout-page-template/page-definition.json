@@ -1,0 +1,52 @@
+{
+	"pageElement": {
+		"pageElements": [
+			{
+				"definition": {
+					"fragmentStyle": {
+						"backgroundFragmentImage": {
+							"title": {
+								"value": "test.jpg"
+							},
+							"url": {
+								"value": "test-image.jpg"
+							}
+						},
+						"borderRadius": "rounded-0",
+						"borderWidth": "0",
+						"fontFamily": "sans-serif",
+						"fontSize": "medium",
+						"fontWeight": "font-weight-normal",
+						"height": "h-auto",
+						"marginBottom": "",
+						"marginLeft": "",
+						"marginRight": "",
+						"marginTop": "",
+						"maxHeight": "none",
+						"maxWidth": "none",
+						"minHeight": "auto",
+						"minWidth": "auto",
+						"opacity": "1",
+						"overflow": "",
+						"paddingBottom": "5",
+						"paddingLeft": "5",
+						"paddingRight": "",
+						"paddingTop": "5",
+						"shadow": "shadow-none",
+						"textAlign": "",
+						"width": "w-auto"
+					},
+					"layout": {
+						"containerType": "Fluid"
+					}
+				},
+				"type": "Section"
+			}
+		],
+		"type": "Root"
+	},
+	"settings": {
+		"colorSchemeName": "01",
+		"themeName": "Classic"
+	}
+}

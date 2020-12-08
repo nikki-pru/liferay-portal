@@ -1,0 +1,164 @@
+definition {
+
+	macro addToContentPage {
+		Pause(locator1 = "10000");
+
+		PageEditor.gotoTab(tabName = "Fragments and Widgets");
+
+		Navigator.gotoNavTab(navTab = "Widgets");
+
+		Type.sendKeysApplicationSearch(
+			locator1 = "PageEditor#WIDGETS_APPLICATION_SEARCH_FIELD",
+			value1 = "${portletName}");
+
+		var key_portletName = "${portletName}";
+
+		DragAndDrop.javaScriptDragAndDropToBottom(
+			key_targetFragmentName = "${targetFragmentName}",
+			locator1 = "//*[contains(@class,'sheet-subtitle')][normalize-space()='Search']//following-sibling::div//div[text()='${key_portletName}']",
+			locator2 = "PageEditor#ANY_FRAGMENT_DROP_TARGET",
+			value1 = "${portletName}");
+
+		AssertElementPresent(
+			key_fragmentName = "${portletName}",
+			locator1 = "Fragment#FRAGMENT_HEADER");
+
+		PageEditor.gotoTab(tabName = "Contents");
+
+		PageEditor.gotoTab(tabName = "Fragments and Widgets");
+
+		PageEditor.closeSidebar(tabName = "Fragments and Widgets");
+	}
+
+	macro configureSearchResults {
+		Portlet.gotoPortletOptions(
+			portletName = "Search Results",
+			portletOption = "Configuration");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		if (isSet(federatedSearchKey)) {
+			Type(
+				key_fieldLabel = "Federated Search Key",
+				locator1 = "TextInput#GENERIC_TEXT_INPUT",
+				value1 = "${federatedSearchKey}");
+		}
+
+		if (isSet(fieldsToDisplay)) {
+			Type(
+				key_fieldLabel = "Fields to Display",
+				locator1 = "TextInput#GENERIC_TEXT_INPUT",
+				value1 = "${fieldsToDisplay}");
+		}
+
+		PortletEntry.save();
+
+		IFrame.closeFrame();
+	}
+
+	macro paginateAndViewSearchResults {
+		var key_searchAssetTitle = "${searchAssetTitle}";
+		var key_searchAssetType = "${searchAssetType}";
+		var searchAssetTitle = "${searchAssetTitle}";
+		var searchAssetType = "${searchAssetType}";
+		var searchTerm = "${searchTerm}";
+
+		while (IsElementNotPresent(locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE_SPECIFIC")) {
+			Click(locator1 = "Pagination#NEXT_LINK");
+		}
+
+		SearchResultPortlet.viewSearchResults(
+			searchAssetTitle = "${searchAssetTitle}",
+			searchAssetType = "${searchAssetType}",
+			searchTerm = "${searchTerm}");
+	}
+
+	macro viewMultipleSearchResults {
+		if (!(contains("${resultsList}", "/"))) {
+			fail("You must pass in a list with title and type separated by '/'.");
+		}
+
+		for (var titleAndType : list "${resultsList}") {
+			var searchAssetTitle = StringUtil.extractFirst("${titleAndType}", "/");
+			var searchAssetType = StringUtil.extractLast("${titleAndType}", "/");
+
+			SearchResultPortlet.viewSearchResults(
+				searchAssetTitle = "${searchAssetTitle}",
+				searchAssetType = "${searchAssetType}",
+				searchTerm = "${searchTerm}");
+		}
+	}
+
+	macro viewMultipleSearchResultsNotPresent {
+		if (!(contains("${noResultsList}", "/"))) {
+			fail("You must pass in a list with title and type separated by '/'.");
+		}
+
+		for (var titleAndType : list "${noResultsList}") {
+			var searchAssetTitle = StringUtil.extractFirst("${titleAndType}", "/");
+			var searchAssetType = StringUtil.extractLast("${titleAndType}", "/");
+
+			SearchResultPortlet.viewSearchResultNotPresent(
+				searchAssetTitle = "${searchAssetTitle}",
+				searchAssetType = "${searchAssetType}");
+		}
+	}
+
+	macro viewNoSearchResults {
+		AssertTextEquals(
+			locator1 = "Message#EMPTY_INFO",
+			value1 = "No results were found that matched the keywords: ${searchTerm}.");
+	}
+
+	macro viewSearchResultNotPresent {
+		AssertElementNotPresent(
+			key_searchAssetTitle = "${searchAssetTitle}",
+			key_searchAssetType = "${searchAssetType}",
+			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TYPE_SPECIFIC");
+	}
+
+	macro viewSearchResults {
+		var key_searchAssetTitle = "${searchAssetTitle}";
+		var key_searchAssetType = "${searchAssetType}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE_SPECIFIC",
+			value1 = "${searchAssetTitle}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "SearchResults#ASSET_ENTRY_TABLE_TYPE_SPECIFIC",
+			value1 = "${searchAssetType}");
+
+		if (isSet(entryDate)) {
+			AssertTextEquals.assertPartialText(
+				locator1 = "SearchResults#ASSET_ENTRY_TABLE_TYPE_SPECIFIC_DATE",
+				value1 = "${entryDate}");
+		}
+
+		if (isSet(searchAssetSummary)) {
+			AssertTextEquals.assertPartialText(
+				locator1 = "SearchResults#ASSET_ENTRY_TABLE_SUMMARY_SPECIFIC",
+				value1 = "${searchAssetSummary}");
+		}
+
+		if (isSet(searchTerm)) {
+			AssertTextEquals.assertPartialText(
+				locator1 = "SearchResults#RESULTS_PORTLET_SEARCH_QUERY",
+				value1 = "${searchTerm}");
+		}
+	}
+
+	macro viewSearchResultsSpecificOrder {
+		var resultOrder = "0";
+
+		for (var searchAssetTitle : list "${resultsList}") {
+			var resultOrder = ${resultOrder} + 1;
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "SearchResults#ASSET_ENTRY_TABLE_TITLE_SPECIFIC_ORDER",
+				resultOrder = "${resultOrder}",
+				value1 = "${searchAssetTitle}");
+		}
+	}
+
+}

@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="versions.xsl" type="text/xsl"?>
+
+<versions>
+	<version>
+		<libraries>
+			<library>
+				<file-name>lib/development/ant-contrib.jar</file-name>
+				<version>1.0 B3</version>
+				<project-name>Ant-Contrib Tasks</project-name>
+				<project-url>http://ant-contrib.sourceforge.net</project-url>
+				<licenses>
+					<license>
+						<license-name>Apache License 1.1</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-1.1</license-url>
+						<copyright-notice>Copyright (c) 2001-2003 Ant-Contrib project. All rights reserved.</copyright-notice>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>lib/development/antelope.jar</file-name>
+				<version>3.4.0</version>
+				<project-name>Antelope</project-name>
+				<project-url>http://antelope.tigris.org</project-url>
+				<licenses>
+					<license>
+						<license-name>Apache License 1.1</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-1.1</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>lib/development/bsh.jar</file-name>
+				<version>2.0 B4</version>
+				<project-name>BeanShell</project-name>
+				<project-url>http://www.beanshell.org</project-url>
+				<licenses>
+					<license>
+						<license-name>LGPL 2.1</license-name>
+						<license-url>http://www.gnu.org/licenses/lgpl-2.1.html</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
+				<file-name>lib/development/xmltask.jar</file-name>
+				<version>1.16</version>
+				<project-name>XMLTask</project-name>
+				<project-url>http://www.oopsconsultancy.com/software/xmltask</project-url>
+				<licenses>
+					<license>
+						<license-name>Apache License 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0</license-url>
+					</license>
+				</licenses>
+				<comments>
+					This was recompiled for compatibility with JDK 5.
+				</comments>
+			</library>
+		</libraries>
+	</version>
+</versions>

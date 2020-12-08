@@ -1,0 +1,697 @@
+[
+	{
+		"ddmFormSettings": {
+			"availableLanguageIds": [
+				"[$LOCALE$]"
+			],
+			"defaultLanguageId": "[$LOCALE$]",
+			"fieldValues": [
+				{
+					"fieldReference": "requireAuthentication",
+					"instanceId": "",
+					"name": "requireAuthentication",
+					"value": "false"
+				},
+				{
+					"fieldReference": "requireCaptcha",
+					"instanceId": "",
+					"name": "requireCaptcha",
+					"value": "false"
+				},
+				{
+					"fieldReference": "autosaveEnabled",
+					"instanceId": "",
+					"name": "autosaveEnabled",
+					"value": "true"
+				},
+				{
+					"fieldReference": "redirectURL",
+					"instanceId": "",
+					"name": "redirectURL",
+					"value": ""
+				},
+				{
+					"fieldReference": "storageType",
+					"instanceId": "",
+					"name": "storageType",
+					"value": "[\"json\"]"
+				},
+				{
+					"fieldReference": "workflowDefinition",
+					"instanceId": "",
+					"name": "workflowDefinition",
+					"value": "[\"no-workflow\"]"
+				},
+				{
+					"fieldReference": "sendEmailNotification",
+					"instanceId": "",
+					"name": "sendEmailNotification",
+					"value": "false"
+				},
+				{
+					"fieldReference": "emailFromName",
+					"instanceId": "",
+					"name": "emailFromName",
+					"value": ""
+				},
+				{
+					"fieldReference": "emailFromAddress",
+					"instanceId": "",
+					"name": "emailFromAddress",
+					"value": ""
+				},
+				{
+					"fieldReference": "emailToAddress",
+					"instanceId": "",
+					"name": "emailToAddress",
+					"value": ""
+				},
+				{
+					"fieldReference": "emailSubject",
+					"instanceId": "",
+					"name": "emailSubject",
+					"value": ""
+				},
+				{
+					"fieldReference": "published",
+					"instanceId": "",
+					"name": "published",
+					"value": "true"
+				}
+			]
+		},
+		"ddmStructure": {
+			"availableLanguageIds": [
+				"[$LOCALE$]"
+			],
+			"defaultLanguageId": "[$LOCALE$]",
+			"fields": [
+				{
+					"autocomplete": false,
+					"dataSourceType": "",
+					"dataType": "string",
+					"ddmDataProviderInstanceId": "[]",
+					"ddmDataProviderInstanceOutput": "[]",
+					"displayStyle": "singleline",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Name"
+					},
+					"localizable": true,
+					"name": "Name",
+					"options": [
+						{
+							"label": {
+								"[$LOCALE$]": "Option"
+							},
+							"value": "Option"
+						}
+					],
+					"placeholder": {
+						"[$LOCALE$]": ""
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "text",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"dataSourceType": "manual",
+					"dataType": "string",
+					"ddmDataProviderInstanceId": "[]",
+					"ddmDataProviderInstanceOutput": "[]",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Company"
+					},
+					"localizable": true,
+					"multiple": false,
+					"name": "Company",
+					"options": [
+						{
+							"label": {
+								"[$LOCALE$]": "S Auto Service, Southern California"
+							},
+							"value": "SAutoServiceSouthernCalifornia"
+						},
+						{
+							"label": {
+								"[$LOCALE$]": "S Auto Service, N America HQ"
+							},
+							"value": "SAutoServiceNAmericaHQ"
+						},
+						{
+							"label": {
+								"[$LOCALE$]": "S Auto Service, Northern California"
+							},
+							"value": "SAutoServiceNorthernCalifornia"
+						}
+					],
+					"predefinedValue": {
+						"[$LOCALE$]": "[]"
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "select",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"dataType": "integer",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Phone Number"
+					},
+					"localizable": true,
+					"name": "PhoneNumber",
+					"placeholder": {
+						"[$LOCALE$]": ""
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "numeric",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"autocomplete": false,
+					"dataSourceType": "",
+					"dataType": "string",
+					"ddmDataProviderInstanceId": "[]",
+					"ddmDataProviderInstanceOutput": "[]",
+					"displayStyle": "singleline",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Email"
+					},
+					"localizable": true,
+					"name": "Email",
+					"options": [
+						{
+							"label": {
+								"[$LOCALE$]": "Option"
+							},
+							"value": "Option"
+						}
+					],
+					"placeholder": {
+						"[$LOCALE$]": ""
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "text",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"autocomplete": false,
+					"dataSourceType": "",
+					"dataType": "string",
+					"ddmDataProviderInstanceId": "[]",
+					"ddmDataProviderInstanceOutput": "[]",
+					"displayStyle": "singleline",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Product Name"
+					},
+					"localizable": true,
+					"name": "ProductName",
+					"options": [
+						{
+							"label": {
+								"[$LOCALE$]": "Option"
+							},
+							"value": "Option"
+						}
+					],
+					"placeholder": {
+						"[$LOCALE$]": ""
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "text",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"autocomplete": false,
+					"dataSourceType": "",
+					"dataType": "string",
+					"ddmDataProviderInstanceId": "[]",
+					"ddmDataProviderInstanceOutput": "[]",
+					"displayStyle": "singleline",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Batch No."
+					},
+					"localizable": true,
+					"name": "BatchNo",
+					"options": [
+						{
+							"label": {
+								"[$LOCALE$]": "Option"
+							},
+							"value": "Option"
+						}
+					],
+					"placeholder": {
+						"[$LOCALE$]": ""
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "text",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"dataType": "string",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Date Purchased"
+					},
+					"localizable": true,
+					"name": "DatePurchased",
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "date",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"dataType": "integer",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Number of Faulty Units"
+					},
+					"localizable": true,
+					"name": "NumberOfFaultyUnits",
+					"placeholder": {
+						"[$LOCALE$]": ""
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "numeric",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"dataType": "integer",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Total Number Of Units"
+					},
+					"localizable": true,
+					"name": "TotalNumberOfUnits",
+					"placeholder": {
+						"[$LOCALE$]": ""
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "numeric",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"dataType": "string",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Please insert any photos of the product that you think may be partially or totally defective"
+					},
+					"localizable": true,
+					"name": "PleaseInsertAnyPhotosOfTheProductThatYouThinkMayBePartiallyOrTotallyDefective",
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "document_library",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"autocomplete": false,
+					"dataSourceType": "",
+					"dataType": "string",
+					"ddmDataProviderInstanceId": "[]",
+					"ddmDataProviderInstanceOutput": "[]",
+					"displayStyle": "multiline",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Details of the defect observed"
+					},
+					"localizable": true,
+					"name": "DetailsOfTheDefectObserved",
+					"options": [
+						{
+							"label": {
+								"[$LOCALE$]": "Option"
+							},
+							"value": "Option"
+						}
+					],
+					"placeholder": {
+						"[$LOCALE$]": "Please be as descriptive as possible."
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "text",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				},
+				{
+					"autocomplete": false,
+					"dataSourceType": "",
+					"dataType": "string",
+					"ddmDataProviderInstanceId": "[]",
+					"ddmDataProviderInstanceOutput": "[]",
+					"displayStyle": "multiline",
+					"fieldNamespace": "",
+					"indexType": "keyword",
+					"label": {
+						"[$LOCALE$]": "Any additional message or comments?"
+					},
+					"localizable": true,
+					"name": "AnyAdditionalMessageOrComments",
+					"options": [
+						{
+							"label": {
+								"[$LOCALE$]": "Option"
+							},
+							"value": "Option"
+						}
+					],
+					"placeholder": {
+						"[$LOCALE$]": "Please be as descriptive as possible."
+					},
+					"predefinedValue": {
+						"[$LOCALE$]": ""
+					},
+					"readOnly": false,
+					"repeatable": false,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"[$LOCALE$]": ""
+					},
+					"tooltip": {
+						"[$LOCALE$]": ""
+					},
+					"type": "text",
+					"validation": {
+						"errorMessage": "",
+						"expression": ""
+					},
+					"visibilityExpression": ""
+				}
+			],
+			"successPage": {
+				"body": {
+					"[$LOCALE$]": "We’ve successfully received your report and will get back to you shortly."
+				},
+				"enabled": true,
+				"title": {
+					"[$LOCALE$]": "Your report has been submitted!"
+				}
+			}
+		},
+		"ddmStructureLayout": {
+			"defaultLanguageId": "[$LOCALE$]",
+			"pages": [
+				{
+					"description": {
+						"[$LOCALE$]": ""
+					},
+					"rows": [
+						{
+							"columns": [
+								{
+									"fieldNames": [
+										"Name"
+									],
+									"size": 6
+								},
+								{
+									"fieldNames": [
+										"Company"
+									],
+									"size": 6
+								}
+							]
+						},
+						{
+							"columns": [
+								{
+									"fieldNames": [
+										"PhoneNumber"
+									],
+									"size": 6
+								},
+								{
+									"fieldNames": [
+										"Email"
+									],
+									"size": 6
+								}
+							]
+						}
+					],
+					"title": {
+						"[$LOCALE$]": "Contact Information"
+					}
+				},
+				{
+					"description": {
+						"[$LOCALE$]": ""
+					},
+					"rows": [
+						{
+							"columns": [
+								{
+									"fieldNames": [
+										"ProductName"
+									],
+									"size": 6
+								},
+								{
+									"fieldNames": [
+										"BatchNo"
+									],
+									"size": 6
+								}
+							]
+						},
+						{
+							"columns": [
+								{
+									"fieldNames": [
+										"DatePurchased"
+									],
+									"size": 6
+								},
+								{
+									"fieldNames": [
+										"NumberOfFaultyUnits"
+									],
+									"size": 6
+								}
+							]
+						},
+						{
+							"columns": [
+								{
+									"fieldNames": [
+										"TotalNumberOfUnits"
+									],
+									"size": 6
+								},
+								{
+									"fieldNames": [
+										"PleaseInsertAnyPhotosOfTheProductThatYouThinkMayBePartiallyOrTotallyDefective"
+									],
+									"size": 6
+								}
+							]
+						},
+						{
+							"columns": [
+								{
+									"fieldNames": [
+										"DetailsOfTheDefectObserved"
+									],
+									"size": 12
+								}
+							]
+						},
+						{
+							"columns": [
+								{
+									"fieldNames": [
+										"AnyAdditionalMessageOrComments"
+									],
+									"size": 12
+								}
+							]
+						}
+					],
+					"title": {
+						"[$LOCALE$]": "Product Details"
+					}
+				}
+			],
+			"paginationMode": "wizard"
+		},
+		"description": "To report a product defect, please provide the following information.",
+		"name": "Product Defect Report"
+	}
+]

@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Toolbar</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Toolbar</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ADD</td>
+	<td>//ul[contains(@id,'toolbarContainer')]/li/a[@title='Add']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MANAGE</td>
+	<td>//ul[contains(@id,'toolbarContainer')]/li/a[@title='Manage']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

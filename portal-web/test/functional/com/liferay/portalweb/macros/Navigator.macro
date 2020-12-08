@@ -1,0 +1,334 @@
+definition {
+
+	macro _gotoPage {
+		var key_pageName = "${pageName}";
+		var count = "0";
+
+		while (("${count}" != "3") && (IsElementNotPresent(locator1 = "Home#PAGE_ACTIVE"))) {
+			AssertClick.assertPartialTextClickAt(
+				locator1 = "Home#PAGE",
+				value1 = "${pageName}");
+
+			var count = ${count} + 1;
+		}
+
+		AssertVisible(locator1 = "Home#PAGE_ACTIVE");
+	}
+
+	macro _isLocalizedURL {
+		var currentURL = Navigator.getCurrentURL();
+
+		var portalURL = PropsUtil.get("portal.url");
+		var isLocalizedURL = "false";
+
+		if (contains("${currentURL}", "${portalURL}/${locale}")) {
+			var isLocalizedURL = "true";
+		}
+
+		return "${isLocalizedURL}";
+	}
+
+	macro closeSpecificWindow {
+		Navigator.selectSpecificWindow(windowTitle = "${closeWindowTitle}");
+
+		Close.closeAndSelectWindow(locator1 = "title=${selectWindowTitle}");
+	}
+
+	macro closeWindow {
+		Close.closeWindow();
+	}
+
+	macro ensureLocaleURL {
+		var isLocalizedURL = Navigator._isLocalizedURL(locale = "${locale}");
+
+		if ("${isLocalizedURL}" == "false") {
+			var currentURL = Navigator.getCurrentURL();
+
+			var portalURL = PropsUtil.get("portal.url");
+
+			Navigator.openSpecificURL(url = StringUtil.replace("${currentURL}", "${portalURL}", "${portalURL}/${locale}"));
+		}
+	}
+
+	macro getCurrentURL {
+		var currentURL = selenium.getLocation();
+
+		return "${currentURL}";
+	}
+
+	macro gotoAccountSettings {
+		UserBar.gotoDropdownItem(dropdownItem = "Account Settings");
+	}
+
+	macro gotoBack {
+		Click(locator1 = "Icon#BACK");
+	}
+
+	macro gotoEditPageViaControlMenu {
+		Click(locator1 = "ControlMenu#EDIT_COG");
+
+		AssertTextEquals(
+			locator1 = "Portlet#HEADER",
+			value1 = "${pageName}");
+	}
+
+	macro gotoLoginPage {
+		AssertClick(
+			locator1 = "UserBar#USER_SIGN_IN",
+			value1 = "Sign In");
+	}
+
+	macro gotoNavItem {
+		var key_navItem = "${navItem}";
+
+		AssertClick(
+			locator1 = "NavBar#NAV_ITEM_LINK",
+			value1 = "${navItem}");
+
+		AssertElementPresent(locator1 = "NavBar#ACTIVE_NAV_ITEM_LINK");
+	}
+
+	macro gotoNavNested {
+		var key_navNested = "${navNested}";
+
+		AssertClick.assertPartialTextClickAt(
+			locator1 = "NavNested#NAV_NESTED_LINK",
+			value1 = "${navNested}");
+
+		AssertElementPresent(locator1 = "NavNested#ACTIVE_NAV_NESTED_LINK");
+	}
+
+	macro gotoNavTab {
+		var key_tab = "${navTab}";
+
+		AssertClick.assertPartialTextClickAt(
+			locator1 = "NavTab#TAB_LINK",
+			value1 = "${navTab}");
+
+		AssertElementPresent(locator1 = "NavTab#ACTIVE_TAB_LINK");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro gotoNavUnderline {
+		var key_navUnderline = "${navUnderline}";
+
+		AssertClick(
+			locator1 = "NavUnderline#NAV_UNDERLINE_LINK",
+			value1 = "${navUnderline}");
+
+		AssertElementPresent(locator1 = "NavUnderline#ACTIVE_NAV_UNDERLINE_LINK");
+	}
+
+	macro gotoNotifications {
+		UserBar.gotoDropdownItem(dropdownItem = "Notifications");
+	}
+
+	@summary = "Navigate to the page named '${pageName}'"
+	macro gotoPage {
+		Navigator.openURL(baseURL = "${baseURL}");
+
+		Pause(locator1 = "3000");
+
+		Navigator._gotoPage(pageName = "${pageName}");
+	}
+
+	macro gotoPersonalSite {
+		UserBar.gotoDropdownItem(dropdownItem = "My Profile");
+	}
+
+	macro gotoPrivateSitePage {
+		Navigator.openPrivateSiteURL(
+			baseURL = "${baseURL}",
+			siteName = "${siteName}");
+
+		Navigator._gotoPage(pageName = "${pageName}");
+	}
+
+	@summary = "Navigate to the page named '${pageName}'"
+	macro gotoPrivateStagedSitePage {
+		Navigator.openPrivateStagedSiteURL(
+			baseURL = "${baseURL}",
+			siteNameURL = "${siteName}");
+
+		Navigator._gotoPage(pageName = "${pageName}");
+	}
+
+	macro gotoSidebarTab {
+		var key_tabName = "${tabName}";
+
+		Click.clickNoMouseOver(locator1 = "Sidebar#TAB");
+
+		AssertElementPresent(locator1 = "Sidebar#ACTIVE_TAB");
+	}
+
+	macro gotoSitePage {
+		Navigator.openSiteURL(
+			baseURL = "${baseURL}",
+			siteName = "${siteName}");
+
+		Navigator._gotoPage(pageName = "${pageName}");
+	}
+
+	macro gotoSpecificURLPage {
+		Navigator.openSpecificURL(url = "${url}");
+
+		Navigator._gotoPage(pageName = "${pageName}");
+	}
+
+	@summary = "Navigate to the page named '${pageName}'"
+	macro gotoStagedSitePage {
+		Navigator.openStagingSiteURL(
+			baseURL = "${baseURL}",
+			defaultSite = "${defaultSite}",
+			siteName = "${siteName}");
+
+		Navigator._gotoPage(pageName = "${pageName}");
+	}
+
+	macro gotoStagedView {
+		ProductMenuHelper.openProductMenu();
+
+		Click(locator1 = "Link#STAGING");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro openNodePort {
+		Open(locator1 = "http://localhost:${nodePort}");
+	}
+
+	macro openPrivateSitePageURL {
+		var siteNameURL = StringUtil.replace("${siteName}", " ", "-");
+		var siteNameURL = StringUtil.lowerCase("${siteNameURL}");
+		var pageNameURL = StringUtil.replace("${pageName}", " ", "-");
+		var pageNameURL = StringUtil.lowerCase("${pageNameURL}");
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		Open(locator1 = "${baseURL}/group/${siteNameURL}/${pageNameURL}");
+	}
+
+	macro openPrivateSiteURL {
+		var siteNameURL = StringUtil.replace("${siteName}", " ", "-");
+		var siteNameURL = StringUtil.lowerCase("${siteNameURL}");
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		Open(locator1 = "${baseURL}/group/${siteNameURL}");
+	}
+
+	macro openPrivateStagedSiteURL {
+		var siteNameURL = StringUtil.replace("${siteNameURL}", " ", "-");
+		var siteNameURL = StringUtil.lowerCase("${siteNameURL}");
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		Open(locator1 = "${baseURL}/group/${siteNameURL}-staging");
+	}
+
+	macro openPrivateURL {
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		Open(locator1 = "${baseURL}/group/guest");
+	}
+
+	macro openSitePage {
+		var siteNameURL = StringUtil.replace("${siteName}", " ", "-");
+		var siteNameURL = StringUtil.lowerCase("${siteNameURL}");
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		var pageNameURL = StringUtil.replace("${pageName}", " ", "-");
+		var pageNameURL = StringUtil.lowerCase("${pageNameURL}");
+
+		Open(locator1 = "${baseURL}/web/${siteNameURL}/${pageNameURL}");
+	}
+
+	macro openSiteURL {
+		var siteNameURL = StringUtil.replace("${siteName}", " ", "-");
+		var siteNameURL = StringUtil.lowerCase("${siteNameURL}");
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		Open(locator1 = "${baseURL}/web/${siteNameURL}");
+	}
+
+	macro openSpecificURL {
+		Open(locator1 = "${url}");
+	}
+
+	macro openStagingSiteURL {
+		var siteNameURL = StringUtil.replace("${siteName}", " ", "-");
+		var siteNameURL = StringUtil.lowerCase("${siteNameURL}");
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		if (isSet(defaultSite)) {
+			Open(locator1 = "${baseURL}/web/guest-staging");
+		}
+
+		else {
+			Open(locator1 = "${baseURL}/web/${siteNameURL}-staging");
+		}
+	}
+
+	macro openURL {
+		WaitForSPARefresh();
+
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		Open(locator1 = "${baseURL}/web/guest/home");
+	}
+
+	macro openWithAppendToBaseURL {
+		var baseURL = "${baseURL}";
+
+		if (contains("${baseURL}", "{baseURL}")) {
+			var baseURL = PropsUtil.get("portal.url");
+		}
+
+		Open(locator1 = "${baseURL}/${urlAppend}");
+	}
+
+	macro selectSpecificWindow {
+		SelectWindow(locator1 = "title=${windowTitle}");
+	}
+
+	macro viewNoNavTab {
+		AssertElementNotPresent(
+			key_tab = "${navTab}",
+			locator1 = "NavTab#TAB_LINK");
+
+		AssertElementNotPresent(
+			key_tab = "${navTab}",
+			locator1 = "NavTab#ACTIVE_TAB_LINK");
+	}
+
+}

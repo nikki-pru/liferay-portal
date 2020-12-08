@@ -1,0 +1,163 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%
+String csvExport = "enabled-with-warning";
+
+if (Validator.isNotNull(ddlDisplayContext.getCSVExport())) {
+	csvExport = ddlDisplayContext.getCSVExport();
+}
+
+boolean showCSVWarning = StringUtil.equals("enabled-with-warning", csvExport);
+%>
+
+<div class="hide" id="<portlet:namespace />exportList">
+	<div id="<portlet:namespace />csvWarning">
+		<clay:alert
+			displayType="warning"
+			message="csv-warning-message"
+		/>
+	</div>
+
+	<clay:alert
+		displayType="warning"
+		message="timezone-warning-message"
+	/>
+
+	<aui:select label="file-extension" name="fileExtension">
+		<c:if test='<%= !StringUtil.equals("disabled", csvExport) %>'>
+			<aui:option value="csv">CSV</aui:option>
+		</c:if>
+
+		<aui:option value="xml">XML</aui:option>
+	</aui:select>
+</div>
+
+<aui:script>
+	window['<portlet:namespace />exportRecordSet'] = function (url) {
+		var form = document.createElement('form');
+		form.setAttribute('id', '<portlet:namespace />exportForm');
+
+		var content = document.getElementById('<portlet:namespace />exportList');
+
+		if (content) {
+			form.appendChild(content);
+
+			content.classList.remove('hide');
+			content.removeAttribute('hidden');
+			content.style.display = '';
+		}
+
+		function showCSVWarning() {
+			var csvWarning = document.getElementById(
+				'<portlet:namespace />csvWarning'
+			);
+
+			if (fileExtensionSelect.value === 'csv' && <%= showCSVWarning %>) {
+				csvWarning.classList.remove('hide');
+				csvWarning.removeAttribute('hidden');
+				csvWarning.style.display = '';
+			}
+			else {
+				csvWarning.classList.add('hide');
+				csvWarning.setAttribute('hidden', 'hidden');
+				csvWarning.style.display = 'none';
+			}
+		}
+
+		function handleClose() {
+			content.classList.add('hide');
+			content.setAttribute('hidden', 'hidden');
+			content.style.display = 'none';
+
+			document.body.appendChild(content);
+		}
+
+		Liferay.Util.openModal({
+			bodyHTML: form.outerHTML,
+			buttons: [
+				{
+					displayType: 'secondary',
+					label: '<liferay-ui:message key="cancel" />',
+					type: 'cancel',
+				},
+				{
+					label: '<liferay-ui:message key="ok" />',
+					onClick: function () {
+						var filename;
+						var formData = new FormData();
+						formData.append(
+							fileExtensionSelect.getAttribute('id'),
+							fileExtensionSelect.value
+						);
+
+						Liferay.Util.fetch(url, {body: formData, method: 'POST'})
+							.then(function (response) {
+								var filenamePattern = /filename=\"(.*)\"/;
+								var match = filenamePattern.exec(
+									response.headers.get('content-disposition')
+								);
+								if (match) {
+									filename = match[1];
+								}
+								return response.blob();
+							})
+							.then(function (blob) {
+								var link = document.createElement('a');
+								link.setAttribute(
+									'href',
+									URL.createObjectURL(blob)
+								);
+								if (filename) {
+									link.setAttribute('download', filename);
+								}
+								link.click();
+
+								Liferay.fire('closeModal');
+							})
+							.catch(function (error) {
+								Liferay.Util.openToast({
+									message: Liferay.Language.get(
+										'an-unexpected-system-error-occurred'
+									),
+									type: 'danger',
+								});
+							});
+					},
+					type: 'submit',
+				},
+			],
+			iframeBodyCssClass: 'ddl-record-set-export-modal',
+			onClose: handleClose,
+			onOpen: function () {
+				content = document.getElementById(
+					'<portlet:namespace />exportList'
+				);
+
+				fileExtensionSelect = document.getElementById(
+					'<portlet:namespace />fileExtension'
+				);
+
+				if (fileExtensionSelect) {
+					showCSVWarning();
+
+					fileExtensionSelect.addEventListener('change', showCSVWarning);
+				}
+			},
+			title: '<%= UnicodeLanguageUtil.get(request, "export") %>',
+		});
+	};
+</aui:script>

@@ -1,0 +1,320 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.4.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_4_0.dtd">
+
+<service-builder auto-import-default-references="false" auto-namespace-tables="false" change-tracking-enabled="true" dependency-injector="ds" mvcc-enabled="true" package-path="com.liferay.layout.page.template">
+	<namespace>Layout</namespace>
+	<entity local-service="true" name="LayoutPageTemplateCollection" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="layoutPageTemplateCollectionId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column db-name="lptCollectionKey" name="layoutPageTemplateCollectionKey" type="String" />
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		<column name="lastPublishDate" type="Date" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="G_LPTCK" return-type="LayoutPageTemplateCollection" unique="true">
+			<finder-column name="groupId" />
+			<finder-column name="layoutPageTemplateCollectionKey" />
+		</finder>
+		<finder name="G_N" return-type="LayoutPageTemplateCollection" unique="true">
+			<finder-column name="groupId" />
+			<finder-column name="name" />
+		</finder>
+		<finder name="G_LikeN" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column comparator="LIKE" name="name" />
+		</finder>
+
+		<!-- References -->
+
+		<reference entity="Resource" package-path="com.liferay.portal" />
+		<reference entity="User" package-path="com.liferay.portal" />
+	</entity>
+	<entity local-service="true" name="LayoutPageTemplateEntry" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="layoutPageTemplateEntryId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="layoutPageTemplateCollectionId" type="long" />
+		<column name="layoutPageTemplateEntryKey" type="String" />
+		<column name="classNameId" type="long" />
+		<column name="classTypeId" type="long" />
+		<column accessor="true" name="name" type="String" />
+		<column name="type" type="int" />
+		<column name="previewFileEntryId" type="long" />
+		<column name="defaultTemplate" type="boolean" />
+		<column name="layoutPrototypeId" type="long" />
+		<column name="plid" type="long" />
+		<column name="lastPublishDate" type="Date" />
+		<column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="LayoutPrototypeId" return-type="Collection">
+			<finder-column name="layoutPrototypeId" />
+		</finder>
+		<finder name="Plid" return-type="LayoutPageTemplateEntry" unique="true">
+			<finder-column name="plid" />
+		</finder>
+		<finder name="G_L" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="layoutPageTemplateCollectionId" />
+		</finder>
+		<finder name="G_LPTEK" return-type="LayoutPageTemplateEntry" unique="true">
+			<finder-column name="groupId" />
+			<finder-column name="layoutPageTemplateEntryKey" />
+		</finder>
+		<finder name="G_N" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="name" />
+		</finder>
+		<finder name="G_T" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="type" />
+		</finder>
+		<finder name="G_L_LikeN" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="layoutPageTemplateCollectionId" />
+			<finder-column comparator="LIKE" name="name" />
+		</finder>
+		<finder name="G_L_T" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="layoutPageTemplateCollectionId" />
+			<finder-column name="type" />
+		</finder>
+		<finder name="G_L_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="layoutPageTemplateCollectionId" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_N_T" return-type="LayoutPageTemplateEntry" unique="true">
+			<finder-column name="groupId" />
+			<finder-column name="name" />
+			<finder-column name="type" />
+		</finder>
+		<finder name="G_T_LikeN" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column comparator="LIKE" name="name" />
+			<finder-column name="type" />
+		</finder>
+		<finder name="G_T_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="type" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_L_LikeN_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="layoutPageTemplateCollectionId" />
+			<finder-column comparator="LIKE" name="name" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_C_C_T" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classTypeId" />
+			<finder-column name="type" />
+		</finder>
+		<finder name="G_C_C_D" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classTypeId" />
+			<finder-column name="defaultTemplate" />
+		</finder>
+		<finder name="G_C_T_D" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="classNameId" />
+			<finder-column name="type" />
+			<finder-column name="defaultTemplate" />
+		</finder>
+		<finder name="G_T_LikeN_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column comparator="LIKE" name="name" />
+			<finder-column name="type" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_T_D_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="type" />
+			<finder-column name="defaultTemplate" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_C_C_LikeN_T" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classTypeId" />
+			<finder-column comparator="LIKE" name="name" />
+			<finder-column name="type" />
+		</finder>
+		<finder name="G_C_C_T_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classTypeId" />
+			<finder-column name="type" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_C_C_D_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classTypeId" />
+			<finder-column name="defaultTemplate" />
+			<finder-column name="status" />
+		</finder>
+		<finder name="G_C_C_LikeN_T_S" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classTypeId" />
+			<finder-column comparator="LIKE" name="name" />
+			<finder-column name="type" />
+			<finder-column name="status" />
+		</finder>
+
+		<!-- References -->
+
+		<reference entity="ClassName" package-path="com.liferay.portal" />
+		<reference entity="Layout" package-path="com.liferay.portal" />
+		<reference entity="LayoutSet" package-path="com.liferay.portal" />
+		<reference entity="Resource" package-path="com.liferay.portal" />
+		<reference entity="User" package-path="com.liferay.portal" />
+	</entity>
+	<entity local-service="true" name="LayoutPageTemplateStructure" remote-service="true" uuid="true">
+
+		<!-- PK fields -->
+
+		<column name="layoutPageTemplateStructureId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="classNameId" type="long" />
+		<column name="classPK" type="long" />
+
+		<!-- Finder methods -->
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="G_C_C" return-type="LayoutPageTemplateStructure" unique="true">
+			<finder-column name="groupId" />
+			<finder-column name="classNameId" />
+			<finder-column name="classPK" />
+		</finder>
+
+		<!-- References -->
+
+		<reference entity="User" package-path="com.liferay.portal" />
+	</entity>
+	<entity local-service="true" name="LayoutPageTemplateStructureRel" remote-service="false" uuid="true">
+
+		<!-- PK fields -->
+
+		<column db-name="lPageTemplateStructureRelId" name="layoutPageTemplateStructureRelId" primary="true" type="long" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="layoutPageTemplateStructureId" type="long" />
+		<column name="segmentsExperienceId" type="long" />
+		<column name="data" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="LayoutPageTemplateStructureId" return-type="Collection">
+			<finder-column name="layoutPageTemplateStructureId" />
+		</finder>
+		<finder name="SegmentsExperienceId" return-type="Collection">
+			<finder-column name="segmentsExperienceId" />
+		</finder>
+		<finder name="L_S" return-type="LayoutPageTemplateStructureRel" unique="true">
+			<finder-column name="layoutPageTemplateStructureId" />
+			<finder-column name="segmentsExperienceId" />
+		</finder>
+
+		<!-- References -->
+
+		<reference entity="User" package-path="com.liferay.portal" />
+	</entity>
+	<exceptions>
+		<exception>DuplicateLayoutPageTemplateCollection</exception>
+		<exception>DuplicateLayoutPageTemplateCollectionType</exception>
+		<exception>DuplicateLayoutPageTemplateEntry</exception>
+		<exception>LayoutPageTemplateCollectionName</exception>
+		<exception>LayoutPageTemplateEntryName</exception>
+		<exception>RequiredLayoutPageTemplateEntry</exception>
+	</exceptions>
+</service-builder>

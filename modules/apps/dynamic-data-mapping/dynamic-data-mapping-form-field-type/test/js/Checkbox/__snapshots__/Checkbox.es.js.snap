@@ -1,0 +1,405 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Field Checkbox has a helptext 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    <span
+      aria-hidden="true"
+      class="form-text"
+    >
+      Type something
+    </span>
+    <span
+      aria-hidden="false"
+      hidden=""
+      id="undefined_fieldDetails"
+    >
+      Type something
+      <br />
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox has a key 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox has a label 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        >
+          label
+        </span>
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox has a predefined Value 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox has a spritemap 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox has a value 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox has an id 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox is not editable 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox is not required 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox is shown as a switcher 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox is shown as checkbox 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <div
+      class="custom-control custom-checkbox"
+    >
+      <label>
+        <input
+          checked=""
+          class="custom-control-input"
+          type="checkbox"
+        />
+        <span
+          class="custom-control-label"
+        />
+      </label>
+    </div>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Checkbox renders Label if showLabel is true 1`] = `
+<div>
+  <div
+    aria-labelledby="undefined_fieldDetails"
+    class="form-group hide"
+    tabindex="0"
+  >
+    <label
+      class="ddm-toggle-switch toggle-switch"
+    >
+      <input
+        checked=""
+        class="toggle-switch-check"
+        type="checkbox"
+        value="true"
+      />
+      <span
+        aria-hidden="true"
+        class="toggle-switch-bar"
+      >
+        <span
+          class="toggle-switch-handle"
+        />
+        <span
+          class="toggle-switch-text toggle-switch-text-right"
+        />
+      </span>
+    </label>
+    
+  </div>
+</div>
+`;

@@ -1,0 +1,1537 @@
+definition {
+
+	macro activateStagingCP {
+		ProductMenuHelper.openProductMenu();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "ProductMenu#PRODUCT_MENU_PANEL_SITE_ADMINISTRATION_SITE_NAME",
+			value1 = "${siteName}");
+
+		Pause(locator1 = "3000");
+
+		if ("${remoteStaging}" == "true") {
+			Check.checkHiddenToggleSwitch(locator1 = "SiteSettingsStaging#STAGING_REMOTE_LIVE");
+
+			Type(
+				locator1 = "SiteSettingsStaging#REMOTE_STAGING_IP",
+				value1 = "localhost");
+
+			if (isSet(remotePort)) {
+				Type(
+					locator1 = "SiteSettingsStaging#REMOTE_STAGING_PORT",
+					value1 = "${remotePort}");
+			}
+			else {
+				Type(
+					locator1 = "SiteSettingsStaging#REMOTE_STAGING_PORT",
+					value1 = "8080");
+			}
+
+			Paste(
+				locator1 = "SiteSettingsStaging#REMOTE_STAGING_SITE_ID",
+				value1 = "${siteID}");
+		}
+		else {
+			Check.checkHiddenToggleSwitch(locator1 = "SiteSettingsStaging#STAGING_LOCAL_LIVE");
+		}
+
+		if ("${pageVersioningEnabled}" == "true") {
+			Click(locator1 = "Checkbox#ENABLED_ON_PUBLIC_PAGES");
+
+			Click(locator1 = "Checkbox#ENABLED_ON_PRIVATE_PAGES");
+		}
+
+		if (isSet(noContent)) {
+			Click(locator1 = "SiteSettingsStaging#CONTENT_SELECT_ALL_CHECKBOX");
+
+			Click(locator1 = "SiteSettingsStaging#CONTENT_SELECT_ALL_CHECKBOX");
+		}
+		else if (isSet(contentName)) {
+			Click(locator1 = "SiteSettingsStaging#CONTENT_SELECT_ALL_CHECKBOX");
+
+			Click(locator1 = "SiteSettingsStaging#CONTENT_SELECT_ALL_CHECKBOX");
+
+			Click(
+				key_contentName = "${contentName}",
+				locator1 = "SiteSettingsStaging#CONTENT_CHECKBOX");
+		}
+		else if (isSet(contentByContent)) {
+			for (var contentName : list "Documents and Media,Mobile Device Families,Web Content") {
+				var key_contentName = "${contentName}";
+
+				Click(locator1 = "SiteSettingsStaging#CONTENT_CHECKBOX");
+			}
+
+			for (var contentName : list "Widget Template,Blogs,Bookmarks,Calendar,Documents and Media,Forms,Knowledge Base,Message Boards,Mobile Device Families,Polls,Web Content,Wiki") {
+				var key_contentName = "${contentName}";
+
+				Click(locator1 = "SiteSettingsStaging#CONTENT_CHECKBOX");
+			}
+		}
+		else {
+			Click(locator1 = "SiteSettingsStaging#CONTENT_SELECT_ALL_CHECKBOX");
+		}
+
+		if (isSet(uncheckContent)) {
+			var key_contentName = "${uncheckContent}";
+
+			Click(locator1 = "SiteSettingsStaging#CONTENT_CHECKBOX");
+		}
+
+		if (isSet(isNotEditable)) {
+			var key_contentName = "${isNotEditable}";
+
+			AssertNotEditable(locator1 = "SiteSettingsStaging#CONTENT_CHECKBOX");
+		}
+
+		if (isSet(recycleBinNotification)) {
+			AssertTextPresent(
+				locator1 = "Message#ERROR_3_ALT",
+				value1 = "The recycle bin of this site will be automatically emptied before turning on local staging. Make sure to manually restore anything you don't want to delete permanently before you continue.");
+		}
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${editActivateStaging}" == "true") {
+			Button.clickSave();
+		}
+
+		else if ("${remoteStaging}" == "true") {
+			if ("${browserType}" == "safari") {
+				Button.click(button = "Save");
+			}
+
+			else {
+				AssertClickNoError(
+					locator1 = "Button#SAVE",
+					value1 = "Save");
+			}
+
+			AssertConfirm(value1 = "Are you sure you want to activate remote staging for ${siteName}?");
+
+			while (IsElementNotPresent(locator1 = "Message#SUCCESS")) {
+				Pause(locator1 = "1000");
+			}
+
+			if (IsElementPresent(locator1 = "Button#CLOSE_MESSAGE")) {
+				Click(locator1 = "Button#CLOSE_MESSAGE");
+			}
+		}
+
+		else {
+			if ("${browserType}" == "safari") {
+				Button.click(button = "Save");
+			}
+
+			else {
+				AssertClickNoError(
+					locator1 = "Button#SAVE",
+					value1 = "Save");
+			}
+
+			AssertConfirm(value1 = "Are you sure you want to activate local staging for ${siteName}?");
+
+			while (IsElementNotPresent(locator1 = "Staging#PROCESS_SUCCESSFUL")) {
+				Pause(locator1 = "1000");
+			}
+
+			AssertTextEquals(
+				locator1 = "Staging#PROCESS_RESULT",
+				value1 = "SUCCESSFUL");
+		}
+
+		AssertTextNotPresent(
+			locator1 = "Message#ERROR",
+			value1 = "The tunneling servlet shared secret is not set.");
+
+		AssertTextNotPresent(
+			locator1 = "Message#ERROR",
+			value1 = "Your request failed to complete.");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		AssertElementPresent(locator1 = "Button#PLUS");
+
+		AssertConsoleTextNotPresent(value1 = "Please configure tunneling.servlet.shared.secret");
+
+		AssertConsoleTextNotPresent(value1 = "javax.portlet.PortletException: java.lang.NullPointerException");
+	}
+
+	macro addCustomPublication {
+		Pause(locator1 = "3000");
+
+		LexiconEntry.gotoAdd();
+
+		if (isSet(publishTemplateName)) {
+			var key_publishTemplateName = "${publishTemplateName}";
+
+			Click(locator1 = "Staging#STAGING_PUBLISH_TEMPLATE_LINK");
+		}
+	}
+
+	macro addPageVariationPG {
+		Pause(locator1 = "3000");
+
+		Click(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS");
+
+		Click(locator1 = "Staging#STAGING_MENU_MANAGE_PAGE_VARIATION");
+
+		SelectFrame(locator1 = "IFrame#PAGE_VARIATION_IFRAME");
+
+		AssertClick(
+			locator1 = "Button#ADD_PAGE_VARIATION",
+			value1 = "Add Page Variation");
+
+		Type(
+			locator1 = "StagingManageVariations#MANAGE_VARIATION",
+			value1 = "${pageVariationName}");
+
+		AssertClick(
+			locator1 = "StagingManageVariations#ADD",
+			value1 = "Add");
+
+		Alert.viewSuccessMessage();
+
+		IFrame.closeFrame();
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro addPublishTemplate {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Publish Templates");
+
+		Pause(locator1 = "3000");
+
+		LexiconEntry.gotoAdd();
+
+		Type(
+			locator1 = "TextInput#NAME",
+			value1 = "${publishTemplateName}");
+
+		PortletEntry.inputDescription(description = "${publishTemplateDescription}");
+	}
+
+	macro addRepeatEvent {
+		Click(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		Click(locator1 = "StagingPublishToLive#SWITCH_TO_ADVANCED_PUBLICATION");
+
+		Type(
+			locator1 = "StagingPublishToLive#DATE_SCHEDULE_TITLE_FIELD",
+			value1 = "${scheduleTitleName}");
+
+		Click(locator1 = "StagingPublishToLive#DATE_SCHEDULE_RADIO");
+
+		if (isSet(startOnTomorrow)) {
+			Staging.setStartDateTomorrow();
+		}
+
+		Check(locator1 = "StagingPublishToLive#DATE_SCHEDULE_END_DATE_NO_END_DATE_RADIO");
+
+		Select(
+			locator1 = "StagingPublishToLive#DATE_SCHEDULE_REPEAT_DROPDOWN",
+			value1 = "${frequency}");
+
+		AssertSelectedLabel(
+			locator1 = "StagingPublishToLive#DATE_SCHEDULE_REPEAT_DROPDOWN",
+			value1 = "${frequency}");
+
+		AssertClick(
+			locator1 = "StagingPublishToLive#ADD_EVENT_BUTTON",
+			value1 = "Add Event");
+
+		if (isSet(failureExpected)) {
+			Alert.viewRequestFailedToComplete();
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#ERROR",
+				value1 = "A wrong start date was specified, the scheduled process cannot start in the past.");
+		}
+		else {
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro addSitePagesVariationPG {
+		Click.waitForMenuToggleJSClick(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS");
+
+		Click(locator1 = "Staging#MANAGE_VARIATIONS");
+
+		var key_sitePagesVariationName = "${sitePagesVariationName}";
+
+		SelectFrame(locator1 = "IFrame#SITE_VARIATION_IFRAME");
+
+		AssertClick(
+			locator1 = "StagingManageVariations#ADD_SITE_PAGES_VARIATIONS_BUTTON",
+			value1 = "Add Site Pages Variation");
+
+		Type(
+			locator1 = "StagingManageVariations#MANAGE_VARIATION",
+			value1 = "${sitePagesVariationName}");
+
+		if (isSet(copySitePagesVariationName)) {
+			Select(
+				locator1 = "StagingManageVariations#ADD_SITE_PAGES_VARIATION_COPY_PAGES_SELECT",
+				value1 = "${copySitePagesVariationName}");
+		}
+
+		AssertClick(
+			locator1 = "StagingManageVariations#ADD",
+			value1 = "Add");
+
+		Alert.viewSuccessMessage();
+
+		IFrame.closeFrame();
+	}
+
+	macro addStagingAdminRole {
+		JSONRole.addSiteRole(
+			roleKey = "Staging Admin",
+			roleTitle = "Staging Admin");
+
+		Role.openRolesAdmin();
+
+		Role.definePermissionsCP(
+			permissionDefinitionKeys = "SITE_ADMIN_PAGES_SITE_PAGES_GENERAL_PERMISSIONS_ACTION_CHECKBOX,SITE_ADMIN_PAGES_SITE_PAGES_RESOURCE_PERMISSIONS_SITE_ACTION_CHECKBOX,SITE_ADMIN_PAGES_SITE_PAGES_RESOURCE_PERMISSIONS_PAGE_ACTION_CHECKBOX,SITE_ADMIN_PAGES_SITE_PAGES_RESOURCE_PERMISSIONS_PAGE_VARIATION_ACTION_CHECKBOX,SITE_ADMIN_PAGES_SITE_PAGES_RESOURCE_PERMISSIONS_SITE_PAGES_VARIATION_ACTION_CHECKBOX",
+			roleTitle = "Staging Admin",
+			roleType = "Site");
+	}
+
+	macro assignStagingAdminToSite {
+		JSONUser.addUser(
+			userEmailAddress = "userea@liferay.com",
+			userFirstName = "userfn",
+			userLastName = "userln",
+			userScreenName = "usersn");
+
+		JSONGroup.assignUserToGroup(
+			groupName = "${siteName}",
+			userEmailAddress = "userea@liferay.com");
+
+		JSONGroup.assignGroupRoleToUser(
+			groupName = "${siteName}",
+			roleTitle = "Staging Admin",
+			userEmailAddress = "userea@liferay.com");
+
+		User.openUsersAdmin();
+
+		User.editPasswordCP(
+			userEmailAddress = "userea@liferay.com",
+			userScreenName = "usersn");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "userea@liferay.com",
+			userLoginFullName = "userfn userln");
+	}
+
+	macro changePageVariationInHistory {
+		Click(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS");
+
+		Click(locator1 = "Staging#HISTORY_BUTTON");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		Select(
+			key_pageVariationName = "${pageVariationNameMenulistName}",
+			locator1 = "Staging#VARIATIONS_SELECTOR",
+			value1 = "${pageVariationNameMenulistName}");
+	}
+
+	macro changePageVariationPG {
+		var key_pageVariationName = "${pageVariationName}";
+
+		AssertClick(
+			locator1 = "Staging#PAGE_VARIATION_DROPDOWN",
+			value1 = "${pageVariationName}");
+
+		var key_pageVariationName = "${pageVariationNameMenulistName}";
+
+		AssertClick(
+			locator1 = "Staging#PAGE_VARIATION_MENULIST_NAME",
+			value1 = "${pageVariationNameMenulistName}");
+	}
+
+	macro changeSitePageVariationCP {
+		var key_sitePagesVariationName = "${sitePagesVariationName}";
+
+		Click(locator1 = "Staging#SITE_PAGES_VARIATION_MENULIST_NAME");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#SITE_PAGES_VARIATION_MENULIST_ACTIVE",
+			value1 = "${sitePagesVariationName}");
+	}
+
+	macro changeSitePageVariationPG {
+		var key_sitePagesVariationName = "${sitePagesVariationName}";
+
+		Refresh();
+
+		AssertClick(
+			locator1 = "Staging#SITE_PAGES_VARIATION_DROPDOWN",
+			value1 = "${sitePagesVariationName}");
+
+		var key_sitePagesVariationName = "${sitePagesVariationMenulistName}";
+
+		AssertClick(
+			locator1 = "Staging#SITE_PAGES_VARIATION_MENULIST_NAME",
+			value1 = "${sitePagesVariationMenulistName}");
+	}
+
+	macro configurePublishToLive {
+		if (IsElementPresent.isElementPresentAfterWait(locator1 = "StagingPublishToLive#SWITCH_TO_ADVANCED_PUBLICATION")) {
+			AssertClick.assertPartialTextClickAt(
+				locator1 = "StagingPublishToLive#SWITCH_TO_ADVANCED_PUBLICATION",
+				value1 = "Switch to Advanced Publish Process");
+		}
+
+		SelectFrameTop();
+
+		if (IsElementPresent(locator1 = "IFrame#MODAL_BODY")) {
+			SelectFrame(locator1 = "IFrame#MODAL_BODY");
+		}
+
+		if ("${deleteMissingPages}" == "true") {
+			ContentConfiguration.deleteMissingPages();
+		}
+
+		if ("${uncheckLogo}" == "true") {
+			ContentConfiguration.uncheckLogo();
+		}
+
+		if (isSet(checkPageName)) {
+			ContentConfiguration.checkPageName(checkPageName = "${checkPageName}");
+		}
+
+		if (isSet(contentDateRange)) {
+			ContentConfiguration.contentDateRange(
+				contentDateRange = "${contentDateRange}",
+				dateRangeEndDate = "${dateRangeEndDate}",
+				dateRangeStartDate = "${dateRangeStartDate}");
+		}
+
+		if ("${contentDeletion}" == "true") {
+			ContentConfiguration.contentDeletion();
+		}
+
+		if ("${pageDeletion}" == "true") {
+			ContentConfiguration.pageDeletion();
+		}
+
+		if (isSet(checkContentNameList)) {
+			ContentConfiguration.checkContentNameList(checkContentNameList = "${checkContentNameList}");
+		}
+
+		if (isSet(uncheckContentNameList)) {
+			ContentConfiguration.uncheckContentNameList(uncheckContentNameList = "${uncheckContentNameList}");
+		}
+
+		if (isSet(uncheckPages)) {
+			ContentConfiguration.uncheckPages();
+		}
+
+		if (isSet(uncheckSubContent)) {
+			Check.checkHiddenToggleSwitch(
+				key_contentName = "${mainContent}",
+				locator1 = "PagesConfiguration#CONTENT_CHOOSE_CONTENT_CONTENT_CHECKBOX");
+
+			Pause(locator1 = "3000");
+
+			ContentConfiguration.uncheckSubContent(
+				mainContent = "${mainContent}",
+				uncheckSubContent = "${uncheckSubContent}");
+		}
+
+		if (isSet(uncheckSubSubContent)) {
+			ContentConfiguration.uncheckSubSubContent(
+				contentName = "${contentName}",
+				subContent = "${subContent}",
+				uncheckSubSubContent = "${uncheckSubSubContent}");
+		}
+
+		if (isSet(checkPrivatePages)) {
+			ContentConfiguration.checkPrivatePages(checkPrivatePages = "${checkPrivatePages}");
+		}
+
+		if (isSet(checkPublicPages)) {
+			ContentConfiguration.checkPublicPages(checkPublicPages = "${checkPublicPages}");
+		}
+	}
+
+	macro copyFromLive {
+		Portlet.gotoPortletOptions(
+			portletName = "${portletName}",
+			portletOption = "${portletOption}");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		ClickNoError(locator1 = "Staging#COPY_FROM_LIVE");
+
+		Pause(locator1 = "2000");
+
+		AssertClickNoError.assertPartialTextClickAt(
+			locator1 = "Button#SUBMIT",
+			value1 = "Copy from Live");
+
+		AssertConfirm(value1 = "Are you sure you want to copy from live and update the existing staging widget information?");
+
+		AssertTextEquals(
+			locator1 = "Staging#STAGING_STATUS_PORTLET",
+			value1 = "Successful");
+
+		IFrame.closeFrame();
+	}
+
+	macro deactivateStagingCP {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Staging Configuration");
+
+		if (IsElementPresent(locator1 = "SiteSettingsStaging#ENABLED_ON_PUBLIC_PAGES_CHECKBOX")) {
+			Check.checkHiddenToggleSwitch(locator1 = "SiteSettingsStaging#NONE_RADIO");
+
+			AssertClickNoError(
+				locator1 = "Button#SAVE",
+				value1 = "Save");
+
+			AssertConfirm(value1 = "Are you sure you want to deactivate staging for ${siteName}?");
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Message#SUCCESS",
+				value1 = "Staging is successfully disabled.");
+		}
+
+		AssertNotVisible(locator1 = "SiteSettingsStaging#ENABLED_ON_PUBLIC_PAGES_CHECKBOX");
+	}
+
+	macro deleteHistory {
+		if (IsElementPresent(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS")) {
+			Staging.gotoHistory();
+		}
+
+		Click(locator1 = "Icon#HISTORY_VERTICAL_ELLIPSIS");
+
+		MenuItem.clickNoError(menuItem = "Delete");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		IFrame.closeFrame();
+	}
+
+	macro deletePageVariationPG {
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		Click(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS");
+
+		Click(locator1 = "Staging#STAGING_MENU_MANAGE_PAGE_VARIATION");
+
+		SelectFrame(locator1 = "IFrame#PAGE_VARIATION_IFRAME");
+
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Delete",
+			rowEntry = "${pageVariationName}");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		Alert.viewSuccessMessage();
+
+		IFrame.closeFrame();
+	}
+
+	macro deletePublishTemplate {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Publish Templates");
+
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Delete",
+			rowEntry = "${publishTemplateName}");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		AssertElementNotPresent(
+			key_rowEntry = "${publishTemplateName}",
+			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
+	}
+
+	macro deleteSitePagesVariationPG {
+		Staging.navigateToSitePageVariation();
+
+		LexiconEntry.gotoEntryMenuItemNoWaitNoError(
+			menuItem = "Delete",
+			rowEntry = "${sitePagesVariationName}");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		Alert.viewSuccessMessage();
+
+		IFrame.closeFrame();
+	}
+
+	macro editPublishTemplate {
+		Click(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
+
+		Navigator.gotoNavItem(navItem = "Publish Templates");
+
+		var key_publishTemplateName = "${publishTemplateName}";
+
+		AssertTextEquals(
+			locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_NAME",
+			value1 = "${publishTemplateName}");
+
+		AssertClick(
+			locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_NAME",
+			value1 = "${publishTemplateName}");
+
+		Type(
+			locator1 = "TextInput#NAME",
+			value1 = "${publishTemplateNameEdit}");
+
+		PortletEntry.inputDescription(description = "${publishTemplateDescriptionEdit}");
+	}
+
+	macro editSitePageVariationPG {
+		Staging.navigateToSitePageVariation();
+
+		var key_sitePagesVariationName = "${sitePagesVariationName}";
+
+		LexiconEntry.openEntryMenu(rowEntry = "${sitePagesVariationName}");
+
+		MenuItem.click(menuItem = "Edit");
+
+		Type(
+			locator1 = "StagingManageVariations#MANAGE_VARIATION",
+			value1 = "${sitePagesVariationName} Edit");
+
+		AssertClick(
+			locator1 = "StagingManageVariations#UPDATE_BUTTON",
+			value1 = "Update");
+
+		Staging.viewVariationSuccessMessage();
+	}
+
+	macro editStagingConfiguration {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Staging Configuration");
+
+		if ("${pageVersioningEnabled}" == "true") {
+			Check.checkHiddenToggleSwitch(locator1 = "Checkbox#ENABLED_ON_PUBLIC_PAGES");
+
+			Check.checkHiddenToggleSwitch(locator1 = "Checkbox#ENABLED_ON_PRIVATE_PAGES");
+		}
+
+		if (isSet(isNotEditable)) {
+			var key_contentName = "${isNotEditable}";
+
+			AssertNotEditable(locator1 = "Checkbox#STAGED_CONTENT");
+		}
+
+		Button.clickSave();
+
+		Pause(locator1 = "5000");
+	}
+
+	macro enablePageInSitePagesVariation {
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#STAGING_BAR_PAGE_VARIATIONS_ALERT",
+			value1 = "The page ${pageName} is not enabled in ${sitePagesVariationName}, but is available for other pages variations.");
+
+		AssertClick(
+			locator1 = "Staging#STAGING_MENU_ENABLE_PAGE_BUTTON",
+			value1 = "Enable in ${sitePagesVariationName}");
+
+		Page.view(
+			pageName = "${pageName}",
+			privacy = "${privacy}");
+	}
+
+	macro gotoHistory {
+		while (IsElementNotPresent(locator1 = "Staging#HISTORY_BUTTON")) {
+			Click(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS");
+		}
+
+		Click(locator1 = "Staging#HISTORY_BUTTON");
+
+		SelectFrame(locator1 = "IFrame#METADATA_SETS_IFRAME");
+	}
+
+	macro gotoPublishToLive {
+		if ((IsElementNotPresent(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON")) && (IsElementPresent(locator1 = "Icon#STAGING"))) {
+			Click(locator1 = "Icon#STAGING");
+
+			AssertElementPresent(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
+		}
+
+		if ((IsElementPresent(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION")) && (!(isSet(pleaseDoNotMarkAsReady)))) {
+			Check.toggleSwitch(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION");
+		}
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		Click(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+	}
+
+	macro markAsReadyForPublication {
+		if (IsElementPresent(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION")) {
+			AssertNotChecked(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION");
+
+			Check.toggleSwitch(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION");
+		}
+	}
+
+	macro mergeSitePagesVariation {
+		Refresh();
+
+		Staging.navigateToSitePageVariation();
+
+		LexiconEntry.gotoEntryMenuItemNoWait(
+			menuItem = "Merge",
+			rowEntry = "${sitePagesVariationName}");
+
+		var key_sitePagesVariationMergeName = "${sitePagesVariationMergeName}";
+
+		AssertTextEquals(
+			locator1 = "StagingManageVariations#MERGE_SITE_PAGES_VARIATION_TABLE_BRANCH",
+			value1 = "${sitePagesVariationMergeName}");
+
+		AssertClickNoError(
+			locator1 = "StagingManageVariations#MERGE_SITE_PAGES_VARIATION_TABLE_SELECT_LINK",
+			value1 = "Select");
+
+		AssertConfirm(value1 = "Are you sure you want to merge changes from ${sitePagesVariationMergeName}?");
+
+		Staging.viewVariationSuccessMessage();
+
+		IFrame.closeFrame();
+	}
+
+	macro modifyVariation {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Staging Configuration");
+
+		if (isSet(enableOnPublicPages)) {
+			Click(locator1 = "Checkbox#ENABLED_ON_PUBLIC_PAGES");
+
+			AssertClickNoError(
+				locator1 = "Button#SAVE",
+				value1 = "Save");
+		}
+
+		if (isSet(enableOnPrivatePages)) {
+			Click(locator1 = "Checkbox#ENABLED_ON_PRIVATE_PAGES");
+
+			AssertClickNoError(
+				locator1 = "Button#SAVE",
+				value1 = "Save");
+		}
+	}
+
+	macro moveToTheRecycleBinPublishTemplate {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Publish Templates");
+
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Move to Recycle Bin",
+			rowEntry = "${publishTemplateName}");
+
+		Alert.viewSuccessMessage();
+	}
+
+	macro navigateToSitePageVariation {
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		Click(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS");
+
+		Click(locator1 = "Staging#MANAGE_VARIATIONS");
+
+		SelectFrame(locator1 = "IFrame#SITE_VARIATION_IFRAME");
+	}
+
+	macro openStagingAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/${siteURLKey}/~/control_panel/manage?p_p_id=com_liferay_staging_processes_web_portlet_StagingProcessesPortlet");
+	}
+
+	macro publishCustomPublication {
+		Staging.addCustomPublication();
+
+		if ("${rangeAll}" == "true") {
+			Click(locator1 = "Radio#CHOOSE_CONTENT_ALL_CHANGE");
+
+			Click(locator1 = "Link#REFRESH_COUNTS");
+		}
+
+		if ("${remoteStaging}" == "true") {
+			ClickNoError(locator1 = "Staging#STAGING_PUBLISH_TO_REMOTE_LIVE_BUTTON");
+		}
+		else {
+			ClickNoError(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_CUSTOM_PUBLICATION");
+		}
+
+		while (IsElementNotPresent(locator1 = "Staging#PROCESS_RESULT")) {
+			Pause(locator1 = "1000");
+		}
+
+		if (isSet(failureExpected)) {
+			AssertTextEquals(
+				locator1 = "Staging#PROCESS_RESULT",
+				value1 = "FAILED");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "Staging#PROCESS_RESULT",
+				value1 = "Successful");
+		}
+	}
+
+	macro publishToLive {
+		if (isSet(publicationName)) {
+			PortletEntry.inputName(name = "${publicationName}");
+		}
+
+		if ("${remoteStaging}" == "true") {
+			ClickNoError(locator1 = "Staging#STAGING_PUBLISH_TO_REMOTE_LIVE_BUTTON");
+		}
+		else {
+			ClickNoError(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
+		}
+
+		Pause(locator1 = "5000");
+
+		if (isSet(failureExpected)) {
+			AssertTextEquals(
+				locator1 = "Staging#PROCESS_FAILED",
+				value1 = "Failed");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "Staging#PROCESS_SUCCESSFUL",
+				value1 = "Successful");
+		}
+
+		if (isSet(validateErrorMessage)) {
+			Staging.viewValidationError(validateErrorMessage = "${validateErrorMessage}");
+		}
+
+		SelectFrameTop();
+
+		if (IsElementPresent(locator1 = "IFrame#MODAL_BODY")) {
+			IFrame.closeFrame();
+		}
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+	}
+
+	macro publishToLiveNowViaPortletCP {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Staging");
+
+		Pause(locator1 = "3000");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION_DIALOG");
+
+		if ("${replicateIndividualDeletions}" == "true") {
+			AssertVisible(locator1 = "Staging#STAGING_CONTENT_DELETIONS");
+
+			Click(locator1 = "Staging#STAGING_CONTENT_DELETIONS");
+
+			Click(locator1 = "Staging#REPLICATE_INDIVIDUAL_DELETIONS");
+		}
+
+		ClickNoError(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
+
+		Confirm(value1 = "Are you sure you want to publish to live and update the existing application data?");
+
+		Pause(locator1 = "5000");
+
+		AssertTextEquals(
+			locator1 = "Staging#STAGING_STATUS_PORTLET",
+			value1 = "Successful");
+
+		IFrame.closeFrame();
+	}
+
+	macro publishToLiveNowViaPortletPG {
+		Portlet.gotoPortletOptions(
+			portletName = "${portletName}",
+			portletOption = "Staging");
+
+		IFrame.selectConfigurationFrame();
+
+		AssertClickNoError(
+			locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON",
+			value1 = "Publish to Live");
+
+		AssertConfirm(value1 = "Are you sure you want to publish to live and update the existing application data?");
+
+		Pause(locator1 = "5000");
+
+		AssertTextEquals(
+			locator1 = "Staging#STAGING_STATUS_PORTLET",
+			value1 = "Successful");
+
+		IFrame.closeFrame();
+	}
+
+	macro publishToLivePublishTemplate {
+		if (IsElementPresent(locator1 = "StagingPublishToLive#SWITCH_TO_ADVANCED_PUBLICATION")) {
+			AssertClick.assertPartialTextClickAt(
+				locator1 = "StagingPublishToLive#SWITCH_TO_ADVANCED_PUBLICATION",
+				value1 = "Switch to Advanced Publish Process");
+
+			AssertClick(
+				locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_BUTTON",
+				value1 = "Publish Templates");
+		}
+
+		Click(locator1 = "Icon#HISTORY_VERTICAL_ELLIPSIS");
+
+		Click(locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_PUBLISH_TO_LIVE_ARROW_BUTTON");
+
+		AssertClick(
+			locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON",
+			value1 = "Publish to Live");
+
+		while ((IsElementNotPresent(locator1 = "Staging#PROCESS_SUCCESSFUL")) && (IsElementNotPresent(locator1 = "Staging#LATEST_PROCESS_RESULT"))) {
+			Pause(locator1 = "1000");
+		}
+
+		if (IsElementPresent(locator1 = "Staging#PROCESS_SUCCESSFUL")) {
+			AssertTextEquals(
+				locator1 = "Staging#PROCESS_SUCCESSFUL",
+				value1 = "Successful");
+
+			SelectFrame(value1 = "relative=top");
+
+			IFrame.closeFrame();
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "Staging#LATEST_PROCESS_RESULT",
+				value1 = "SUCCESSFUL");
+		}
+
+		var key_siteName = "${siteName}";
+
+		ProductMenu.gotoPortlet(
+			category = "Publishing",
+			portlet = "Staging");
+
+		if (IsElementPresent(locator1 = "Staging#LATEST_PROCESS_RESULT")) {
+			AssertTextEquals(
+				locator1 = "Staging#LATEST_PROCESS_RESULT",
+				value1 = "SUCCESSFUL");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "Staging#PROCESS_SUCCESSFUL",
+				value1 = "Successful");
+		}
+	}
+
+	macro publishToRemoteUncheckContentViaCustomPublication {
+		LexiconEntry.gotoAdd();
+
+		var key_contentName = "${contentName}";
+
+		Uncheck(locator1 = "Staging#STAGING_CONTENT_CHECKBOX");
+
+		AssertNotChecked(locator1 = "Staging#STAGING_CONTENT_CHECKBOX");
+
+		AssertClickNoError(
+			locator1 = "Staging#STAGING_PUBLISH_TO_REMOTE_LIVE_BUTTON",
+			value1 = "Publish to Remote Live");
+
+		Pause(locator1 = "5000");
+
+		AssertTextEquals(
+			locator1 = "Staging#PROCESS_RESULT",
+			value1 = "SUCCESSFUL");
+	}
+
+	macro publishViaSAP {
+		if (IsElementPresent(locator1 = "Icon#ROW_VERTICAL_ELLIPSIS", key_rowEntry = "${entry}")) {
+			Click(
+				key_rowEntry = "${entry}",
+				locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
+
+			MenuItem.clickNoError(menuItem = "Publish to Live");
+		}
+		else {
+			WebContentNavigator.gotoEntryMenuItem(
+				entry = "${entry}",
+				menuItem = "Publish to Live");
+		}
+
+		AssertConfirm(value1 = "${confirmMessage}");
+
+		AssertTextEquals(
+			locator1 = "Staging#PROCESS_SUCCESSFUL",
+			value1 = "Successful");
+	}
+
+	macro redoStagingPageVersioningPG {
+		while (IsElementNotPresent(locator1 = "Staging#STAGING_MENU_REDO_BUTTON")) {
+			Click(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS");
+		}
+
+		ClickNoError(locator1 = "Staging#STAGING_MENU_REDO_BUTTON");
+
+		AssertConfirm(value1 = "Are you sure you want to redo your last changes?");
+	}
+
+	macro remoteStagingSetUp {
+		if (isSet(remotePort)) {
+			User.loginPG(
+				nodePort = "${remotePort}",
+				password = "test",
+				userEmailAddress = "test@liferay.com");
+		}
+		else {
+			Navigator.openURL();
+		}
+
+		var siteID = "${siteID}";
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
+
+		Site.addBlankCP(siteName = "Remote Site");
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			portlet = "Site Settings");
+
+		var siteID = "siteID";
+
+		Copy(
+			locator1 = "SitesEditSite#SITE_ID",
+			value1 = "siteID");
+
+		if (isSet(remotePort)) {
+			User.loginPG(
+				nodePort = "8080",
+				password = "test",
+				userEmailAddress = "test@liferay.com");
+		}
+
+		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
+
+		ProductMenu.gotoPortlet(
+			category = "Publishing",
+			portlet = "Staging");
+
+		Staging.activateStagingCP(
+			contentName = "${contentName}",
+			editActivateStaging = "${editActivateStaging}",
+			pageVersioningEnabled = "${pageVersioningEnabled}",
+			remotePort = "${remotePort}",
+			remoteStaging = "true",
+			siteID = "${siteID}",
+			siteName = "${siteName}",
+			uncheckContent = "${uncheckContent}");
+	}
+
+	macro savePublishTemplate {
+		Button.clickSave();
+
+		var key_publishTemplateName = "${publishTemplateName}";
+
+		AssertTextEquals(
+			locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_NAME",
+			value1 = "${publishTemplateName}");
+
+		AssertTextEquals(
+			locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_DESCRIPTION",
+			value1 = "${publishTemplateDescription}");
+	}
+
+	macro schedulePublishToLivePG {
+		if (IsElementPresent(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION")) {
+			Check.toggleSwitch(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION");
+		}
+
+		Click(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		Click(locator1 = "StagingPublishToLive#SWITCH_TO_ADVANCED_PUBLICATION");
+
+		Click(locator1 = "PagesConfiguration#PAGES_ALL_PUBLIC_PAGES_CHECKBOX");
+
+		Click(locator1 = "StagingPublishToLive#DATE_SCHEDULE_RADIO");
+
+		Type(
+			locator1 = "StagingPublishToLive#DATE_SCHEDULE_TITLE_FIELD",
+			value1 = "${scheduleTitleName}");
+
+		var displayDateHour = selenium.getAttribute("//input[contains(@id,'schedulerStartDateHour')]@value");
+		var displayDateHourLength = StringUtil.length("${displayDateHour}");
+
+		if ("${displayDateHourLength}" == "1") {
+			var displayDateHour = "0${displayDateHour}";
+		}
+
+		var displayDateAMPM = selenium.getAttribute("//input[contains(@id,'schedulerStartDateAmPm')]@value");
+		var displayDateAMPM = StringUtil.replace("${displayDateAMPM}", "0", "AM");
+		var displayDateAMPM = StringUtil.replace("${displayDateAMPM}", "1", "PM");
+		var displayDateMinute = selenium.getAttribute("//input[contains(@id,'schedulerStartDateMinute')]@value");
+		var displayDateMinuteFuture = ${displayDateMinute} + 3;
+		var displayDateMinuteFutureLength = StringUtil.length("${displayDateMinuteFuture}");
+
+		if ("${displayDateMinuteFutureLength}" == "1") {
+			var displayDateMinuteFuture = "0${displayDateMinuteFuture}";
+		}
+
+		var displayDate = "${displayDateHour}:${displayDateMinuteFuture} ${displayDateAMPM}";
+
+		Type(
+			locator1 = "StagingPublishToLive#DATE_SCHEDULE_TIME_INPUT",
+			value1 = "${displayDate}");
+
+		if (isSet(endByDate)) {
+			Check(locator1 = "StagingPublishToLive#DATE_SCHEDULE_END_DATE_END_BY_RADIO");
+
+			var endByDateDay = selenium.getAttribute("//input[contains(@id,'schedulerEndDateDay')]@value");
+
+			if ("${endByDateDayLength}" == "1") {
+				var endByDateDay = "0${endByDateDay}";
+			}
+
+			var endByDateMonth = selenium.getAttribute("//input[contains(@id,'schedulerEndDateMonth')]@value");
+
+			if ("${endByDateMonthLength}" == "1") {
+				var endByDateMonth = "0${endByDateMonth}";
+			}
+
+			var endByDateYear = selenium.getAttribute("//input[contains(@id,'schedulerEndDateYear')]@value");
+			var endByDateYearFuture = ${endByDateYear} + 5;
+			var endByDay = "${endByDateMonth}/${endByDateDay}/${endByDateYearFuture}";
+
+			Type(
+				locator1 = "StagingPublishToLive#DATE_SCHEDULE_END_DATE_INPUT",
+				value1 = "${endByDay}");
+		}
+
+		if (isSet(frequency)) {
+			Select(
+				locator1 = "StagingPublishToLive#DATE_SCHEDULE_REPEAT_DROPDOWN",
+				value1 = "${frequency}");
+		}
+
+		if (isSet(checkContentNameList)) {
+			for (var contentName : list "${checkContentNameList}") {
+				var key_contentName = "${contentName}";
+
+				Click(locator1 = "PagesConfiguration#CONTENT_CHOOSE_CONTENT_CONTENT_CHECKBOX");
+			}
+		}
+
+		AssertClick(
+			locator1 = "StagingPublishToLive#ADD_EVENT_BUTTON",
+			value1 = "Add Event");
+
+		Alert.viewSuccessMessage();
+
+		SelectFrameTop(value1 = "relative=top");
+
+		Pause(locator1 = "5000");
+	}
+
+	macro searchPublishTemplate {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Publish Templates");
+
+		Pause(locator1 = "3000");
+
+		Search.searchCP(searchTerm = "${searchTerm}");
+
+		var key_publishTemplateName = "${searchTerm}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_NAME",
+			value1 = "${searchTerm}");
+	}
+
+	macro setContentDateRange {
+		if (IsElementPresent(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION")) {
+			Check.toggleSwitch(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION");
+		}
+
+		Click(locator1 = "Staging#STAGING_PUBLISH_TO_LIVE_BUTTON");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		AssertClick.assertPartialTextClickAt(
+			locator1 = "StagingPublishToLive#SWITCH_TO_ADVANCED_PUBLICATION",
+			value1 = "Switch to Advanced Publish Process");
+
+		Click(locator1 = "Radio#CHOOSE_CONTENT_DATE_RANGE_CHANGE");
+
+		var key_contentDateRange = "DateRange";
+
+		Type(
+			locator1 = "Select#DATE_RANGE_START_DATE",
+			value1 = "${dateRangeStartDate}");
+
+		Type(
+			locator1 = "Select#DATE_RANGE_END_DATE",
+			value1 = "${dateRangeEndDate}");
+
+		Click(locator1 = "Link#REFRESH_COUNTS");
+	}
+
+	macro setStartDateTomorrow {
+		Click(locator1 = "StagingPublishToLive#DATE_SCHEDULE_START_DATE");
+
+		var daySelected = selenium.getText("CalendarEditEvent#MINI_CALENDAR_DAY_SELECTED");
+		var tomorrow = ${daySelected} + 1;
+		var key_daySpecific = "${tomorrow}";
+
+		if (IsElementPresent(locator1 = "CalendarEditEvent#MINI_CALENDAR_DAY_SPECIFIC")) {
+			Click(locator1 = "CalendarEditEvent#MINI_CALENDAR_DAY_SPECIFIC");
+		}
+		else {
+			Click(locator1 = "CalendarEditEvent#MINI_CALENDAR_NEXT_MONTH_BUTTON");
+
+			var key_daySpecific = "1";
+
+			Click(locator1 = "CalendarEditEvent#MINI_CALENDAR_DAY_SPECIFIC");
+		}
+	}
+
+	macro submitForPublicationPageRevision {
+		if (IsTextEqual(locator1 = "Message#WORKFLOW_STATUS", value1 = "Draft")) {
+			AssertClick(
+				locator1 = "Staging#STAGING_MENU_SUBMIT_FOR_PUBLICATION",
+				value1 = "Submit for Publication");
+		}
+
+		AssertElementNotPresent(locator1 = "Staging#STAGING_MENU_SUBMIT_FOR_PUBLICATION");
+
+		if (IsTextEqual(locator1 = "Message#WORKFLOW_STATUS", value1 = "Pending (Created)")) {
+			AssertTextEquals(
+				locator1 = "Message#WORKFLOW_STATUS",
+				value1 = "Pending (Created)");
+		}
+		else {
+			AssertTextEquals(
+				locator1 = "Message#WORKFLOW_STATUS",
+				value1 = "Pending (Review)");
+		}
+	}
+
+	macro undoStagingPageVersioningPG {
+		Click(locator1 = "Icon#HISTORY_VERTICAL_ELLIPSIS");
+
+		ClickNoError(locator1 = "Staging#STAGING_MENU_UNDO_BUTTON");
+
+		AssertConfirm(value1 = "Are you sure you want to undo your last changes?");
+	}
+
+	macro viewAddButtonDoesNotExist {
+		IsElementNotPresent(locator1 = "Button#PLUS");
+	}
+
+	macro viewAddButtonExists {
+		AssertVisible(locator1 = "Button#PLUS");
+	}
+
+	macro viewDateRange {
+		AssertElementPresent(
+			key_dateRangeStartDate = "${dateRangeStartDate}",
+			locator1 = "Select#DATE_RANGE_START_DATE_VALUE");
+
+		AssertElementPresent(
+			key_dateRangeEndDate = "${dateRangeEndDate}",
+			locator1 = "Select#DATE_RANGE_END_DATE_VALUE");
+	}
+
+	macro viewDefaultConfiguration {
+		for (var configurationName : list "${configurationNameList}") {
+			var key_checkboxName = "${configurationName}";
+
+			AssertChecked(locator1 = "StagingPublishToLive#STAGING_CONFIGURATION_CHECKBOX");
+		}
+	}
+
+	macro viewEditedSitePagesVariationPG {
+		var key_sitePagesVariationName = "${sitePagesVariationName}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#SITE_PAGES_VARIATION",
+			value1 = "${sitePagesVariationName}");
+	}
+
+	macro viewHistoryVersionPG {
+		if (IsElementPresent(locator1 = "Icon#STAGING_BAR_VERTICAL_ELLIPSIS")) {
+			Staging.gotoHistory();
+		}
+
+		if ("${modifiedVersion}" == "true") {
+			AssertTextNotEquals(
+				locator1 = "Staging#HISTORY_VERSION",
+				value1 = "${historyVersion}");
+		}
+		else if (isSet(historyVersionName)) {
+			var key_historyVersionName = "${historyVersionName}";
+
+			AssertTextEquals.assertPartialText(
+				locator1 = "Staging#HISTORY_VERSION_NAME",
+				value1 = "${historyVersionName}");
+		}
+		else if (IsElementPresent(locator1 = "Staging#HISTORY_VERSION_2")) {
+			AssertTextEquals(
+				locator1 = "Staging#HISTORY_VERSION_2",
+				value1 = "${historyVersion}");
+		}
+		else if (IsElementPresent.isVisible(locator1 = "Staging#HISTORY_VERSION")) {
+			AssertTextEquals(
+				locator1 = "Staging#HISTORY_VERSION",
+				value1 = "${historyVersion}");
+		}
+		else {
+			AssertTextEquals.assertPartialText(
+				locator1 = "Staging#HISTORY_VERSION_ANCHOR",
+				value1 = "${historyVersion}");
+		}
+
+		IFrame.closeFrame();
+	}
+
+	macro viewNoPublishContentCountViaPortletStagingCP {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Staging");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION_DIALOG");
+
+		AssertElementNotPresent(locator1 = "Staging#STAGING_CONTENT_COUNT");
+
+		AssertElementNotPresent(locator1 = "Staging#STAGING_CONTENT_INFO");
+
+		IFrame.closeFrame();
+	}
+
+	macro viewNotStagedAssetMessageOnStaging {
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#NOT_STAGED_ASSET_MESSAGE",
+			value1 = "The data of this portlet is not staged.");
+	}
+
+	macro viewPageVariationPG {
+		var key_pageVariationName = "${pageVariationName}";
+
+		AssertTextEquals(
+			locator1 = "Staging#PAGE_VARIATION",
+			value1 = "${pageVariationName}");
+	}
+
+	macro viewPublicationSummary {
+		LexiconEntry.gotoEntryMenuItem(
+			menuItem = "Summary",
+			rowEntry = "${publicationTitle}");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		AssertElementPresent(locator1 = "Staging#PROCESS_SUMMARY_PAGES_TITLE");
+
+		if (isSet(content)) {
+			for (var content : list "${contentList}") {
+				var key_content = "${content}";
+
+				AssertTextPresent(
+					locator1 = "Staging#PUBLICATION_CONTENT",
+					value1 = "${content}");
+			}
+		}
+
+		if (isSet(deletions)) {
+			AssertElementPresent(locator1 = "Staging#PUBLICATION_DELETIONS");
+		}
+
+		if (isSet(lookAndFeelList)) {
+			for (var lookAndFeel : list "${lookAndFeelList}") {
+				var key_lookAndFeel = "${lookAndFeel}";
+
+				AssertTextPresent(
+					locator1 = "Staging#PUBLICATION_LOOK_AND_FEEL",
+					value1 = "${lookAndFeel}");
+			}
+		}
+
+		if ("${dateRestrictionOption}" == "All") {
+			var key_dateRestrictionOption = "Without Restriction";
+
+			AssertTextPresent(
+				locator1 = "Staging#PUBLICATION_DATE",
+				value1 = "${key_dateRestrictionOption}");
+		}
+
+		if ("${dateRestrictionOption}" == "From Last Publish Date") {
+			AssertTextPresent(
+				locator1 = "Staging#PUBLICATION_DATE",
+				value1 = "${dateRestrictionOption}");
+		}
+
+		if ("${dateRestrictionOption}" == "Date Range") {
+			var key_dateRestrictionOption = "Modified or Created Between";
+
+			AssertTextPresent(
+				locator1 = "Staging#PUBLICATION_DATE",
+				value1 = "${key_dateRestrictionOption}");
+		}
+
+		if ("${dateRestrictionOption}" == "Last") {
+			AssertTextPresent(
+				locator1 = "Staging#PUBLICATION_DATE",
+				value1 = "${dateRestrictionOption}");
+		}
+
+		if (isSet(noContent)) {
+			for (var noContent : list "${noContentList}") {
+				var key_content = "${noContent}";
+
+				AssertTextNotPresent(
+					locator1 = "Staging#PUBLICATION_CONTENT",
+					value1 = "${content}");
+			}
+		}
+
+		if (isSet(pagesOption)) {
+			AssertTextEquals(
+				locator1 = "Staging#PUBLICATION_PAGE_OPTION",
+				value1 = "${pagesOption}");
+		}
+
+		if (isSet(permissions)) {
+			AssertElementPresent(locator1 = "Staging#PUBLICATION_PERMISSION");
+		}
+
+		IFrame.closeFrame();
+	}
+
+	macro viewPublishContentCountViaPortletStagingCP {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Staging");
+
+		SelectFrame(locator1 = "IFrame#CONFIGURATION_DIALOG");
+
+		AssertTextEquals(
+			locator1 = "Staging#STAGING_CONTENT_COUNT",
+			value1 = "${contentCount}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#STAGING_CONTENT_INFO",
+			value1 = "${contentInformation}");
+
+		IFrame.closeFrame();
+	}
+
+	macro viewPublishTemplate {
+		if (IsElementPresent(locator1 = "Icon#HEADER_VERTICAL_ELLIPSIS")) {
+			Click(locator1 = "Icon#HEADER_VERTICAL_ELLIPSIS");
+		}
+
+		MenuItem.click(menuItem = "Publish Templates");
+
+		var key_publishTemplateName = "${publishTemplateName}";
+
+		AssertTextEquals(
+			locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_NAME",
+			value1 = "${publishTemplateName}");
+
+		AssertTextEquals(
+			locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_DESCRIPTION",
+			value1 = "${publishTemplateDescription}");
+
+		if (isSet(uncheckContentNameList)) {
+			AssertClick(
+				locator1 = "StagingPublishToLive#PUBLISH_TEMPLATES_TABLE_NAME",
+				value1 = "${publishTemplateName}");
+
+			for (var contentName : list "${uncheckContentNameList}") {
+				AssertNotChecked(
+					key_contentName = "${contentName}",
+					locator1 = "PagesConfiguration#CONTENT_CHOOSE_CONTENT_CHECKBOX_LABEL");
+			}
+		}
+	}
+
+	macro viewRepeatingEventDetails {
+		Staging.openStagingAdmin(siteURLKey = "${siteName}");
+
+		Navigator.gotoNavItem(navItem = "Scheduled");
+
+		var key_scheduleTitleName = "${scheduleTitleName}";
+
+		AssertTextPresent(
+			locator1 = "StagingPublishToLive#SCHEDULED_TABLE_TITLE",
+			value1 = "${scheduleTitleName}");
+
+		AssertTextEquals(
+			locator1 = "StagingPublishToLive#SCHEDULED_TABLE_END_DATE",
+			value1 = "${endDate}");
+	}
+
+	macro viewSitePagesVariationActiveCP {
+		var key_sitePagesVariationName = "${sitePagesVariationName}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#SITE_PAGES_VARIATION_MENULIST_ACTIVE",
+			value1 = "${sitePagesVariationName}");
+	}
+
+	macro viewSitePagesVariationPG {
+		var key_sitePagesVariationName = "${sitePagesVariationName}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#SITE_PAGES_VARIATION",
+			value1 = "${sitePagesVariationName}");
+	}
+
+	macro viewStagingLocalLivePG {
+		AssertElementPresent(locator1 = "Staging#STAGING_VIEW");
+	}
+
+	macro viewStagingLocalLiveVariationMessagePG {
+		if (IsElementNotPresent(locator1 = "Staging#LIVE_MENU_MESSAGE")) {
+			AssertClick(
+				locator1 = "Staging#LIVE_DROP_DOWN_BUTTON",
+				value1 = "Live");
+		}
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Staging#LIVE_MENU_MESSAGE",
+			value1 = "Page ${pageName} was last published from ${sitePagesVariationName}.");
+	}
+
+	macro viewStagingWorkflowStatusPG {
+		if ("${stagingWorkflowStatus}" == "Ready for Publication") {
+			AssertElementPresent(locator1 = "Staging#STAGING_MENU_READY_FOR_PUBLICATION");
+		}
+	}
+
+	macro viewUncheckContentNameList {
+		LexiconEntry.gotoHeaderMenuItem(menuItem = "Staging Configuration");
+
+		for (var contentName : list "${uncheckContentNameList}") {
+			AssertNotChecked(
+				key_contentName = "${contentName}",
+				locator1 = "PagesConfiguration#CONTENT_CHOOSE_CONTENT_CHECKBOX_LABEL");
+		}
+	}
+
+	macro viewValidationError {
+		Click(locator1 = "Message#SEE_MORE_DETAILS_LINK");
+
+		SelectFrameTop();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#ERROR",
+			value1 = "${validateErrorMessage}");
+	}
+
+	macro viewVariationSuccessMessage {
+		SelectFrameTop(value1 = "relative=top");
+
+		SelectFrame(locator1 = "IFrame#SITE_VARIATION_IFRAME");
+
+		Alert.viewSuccessMessage();
+
+		SelectFrameTop(value1 = "relative=top");
+	}
+
+}

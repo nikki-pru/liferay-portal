@@ -1,0 +1,116 @@
+<html>
+<head>
+<title>KaleoFormsAdminEditProcess</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">KaleoFormsAdminEditProcess</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>NEXT_BUTTON_INACTIVE</td>
+	<td>//button[@disabled='' and contains(.,'Next')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--FORM_NAVIGATOR-->
+<tr>
+	<td>FORM_NAVIGATOR_PROGRESS_BAR_NAME</td>
+	<td>//ul[contains(@class,'nav-list')]/li[contains(@id,'${key_kfProgressName}Tab')]//div[@class='progress-bar-title']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FORM_NAVIGATOR_PROGRESS_BAR_STEP</td>
+	<td>//ul[contains(@class,'nav-list')]/li[contains(@id,'${key_kfProgressName}Tab')]//div[@class='progress-bar-step']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--FIELD_SET-->
+<tr>
+	<td>SELECTED_FIELD_SET</td>
+	<td>//div[contains(@class,'ddm-field-group')]/a[contains(.,'${key_kfFieldSetName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADD_FIELD_SET_BUTTON</td>
+	<td>//button[contains(.,'Add Field Set')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--FIELD_SET_PAGINATION-->
+<tr>
+	<td>FIELD_SET_PAGINATION_SELECTOR_BUTTON</td>
+	<td>//div[@class='dropdown pagination-items-per-page']//a[@role='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--WORKFLOW-->
+<tr>
+	<td>SELECTED_WORKFLOW</td>
+	<td>//div[contains(.,'Selected Workflow')]//span[contains(@id,'workflowDefinitionDisplay')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADD_WORKFLOW_BUTTON</td>
+	<td>//button[contains(.,'Add Workflow')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--WORKFLOW_NAVIGATION-->
+<tr>
+	<td>WORKFLOW_NAVIGATION_PUBLISHED_TAB</td>
+	<td>//a[@title='Published']/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_NAVIGATION_UNPUBLISHED_TAB</td>
+	<td>//a[@title='Unpublished']/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--WORKFLOW_TABLE-->
+<tr>
+	<td>WORKFLOW_TABLE_TITLE</td>
+	<td>//tr[contains(.,'${key_workflowDefinitionTitle}')]/td[contains(.,'${key_workflowDefinitionTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--FORMS_TABLE-->
+<tr>
+	<td>FORMS_TABLE_TASK</td>
+	<td>//table[contains(@class,'table-autofit')]//tr[contains(.,'${key_workflowTask}')]/td</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

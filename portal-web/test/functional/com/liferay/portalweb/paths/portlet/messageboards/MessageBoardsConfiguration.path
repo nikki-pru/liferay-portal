@@ -1,0 +1,20 @@
+<html>
+<head>
+<title>MessageBoardsConfiguration</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">MessageBoardsConfiguration</td></tr>
+</thead>
+<tbody>
+<!--NAVIGATION-->
+<tr>
+	<td>NAVIGATION_SCOPE</td>
+	<td>//ul[contains(@class,'nav')]//a[contains(.,'Scope')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

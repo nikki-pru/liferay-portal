@@ -1,0 +1,102 @@
+@component-name = "portal-upgrades"
+definition {
+
+	property database.types = "db2,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Forms";
+	property testray.main.component.name = "Upgrades Forms";
+
+	setUp {
+		SignIn.signIn();
+
+		Smoke.viewWelcomePage();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	@priority = "5"
+	test AddFormAfterUpgrade625 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "6.2.5";
+
+		Upgrade.addForm(site = "Guest");
+	}
+
+	@priority = "5"
+	test AddFormAfterUpgrade704 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.0.4";
+
+		Upgrade.addForm(site = "Guest");
+	}
+
+	@priority = "5"
+	test AddFormAfterUpgrade713 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.1.3";
+
+		Upgrade.addForm(site = "Guest");
+	}
+
+	@priority = "5"
+	test AddFormAfterUpgrade7110 {
+		property data.archive.type = "data-archive-portal";
+		property portal.version = "7.1.10";
+
+		Upgrade.addForm(site = "Guest");
+	}
+
+	@priority = "5"
+	test AddFormAfterUpgrade70106 {
+		property data.archive.type = "data-archive-portal";
+		property portal.version = "7.0.10.6";
+
+		Upgrade.addForm(site = "Guest");
+	}
+
+	@priority = "5"
+	test AddFormAfterUpgrade621015 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "6.2.10.15";
+
+		Upgrade.addForm(site = "Guest");
+	}
+
+	@priority = "5"
+	test AddFormAfterUpgrade621021 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "6.2.10.21";
+
+		Upgrade.addForm(site = "Guest");
+	}
+
+	@priority = "5"
+	test ViewAndDeleteFormEntryAfterUpgrade704 {
+		property data.archive.type = "data-archive-form-entry";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.0.4";
+
+		Upgrade.viewAndDeleteFormEntry();
+	}
+
+	@priority = "5"
+	test ViewAndDeleteFormEntryAfterUpgrade70106 {
+		property data.archive.type = "data-archive-form-entry";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "7.0.10.6";
+
+		Upgrade.viewAndDeleteFormEntry();
+	}
+
+}

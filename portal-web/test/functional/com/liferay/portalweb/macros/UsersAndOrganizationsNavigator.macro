@@ -1,0 +1,21 @@
+definition {
+
+	macro gotoMenuBarInformation {
+		MenuBar.gotoInformation();
+	}
+
+	macro gotoMenuBarOrganizationSite {
+		MenuBar.gotoOrganizationSite();
+	}
+
+	macro gotoOrganizations {
+		Pause(locator1 = "1000");
+
+		if (IsElementPresent(locator1 = "NavBar#ORGANIZATIONS")) {
+			AssertClick(
+				locator1 = "NavBar#ORGANIZATIONS",
+				value1 = "Organizations");
+		}
+	}
+
+}

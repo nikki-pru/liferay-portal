@@ -1,0 +1,80 @@
+definition {
+
+	macro executeCommand {
+		Type(
+			locator1 = "GogoShell#COMMAND_FIELD",
+			value1 = "${commandName}");
+
+		AssertClick(
+			locator1 = "GogoShell#EXECUTE_BUTTON",
+			value1 = "Execute");
+	}
+
+	macro getModuleID {
+		GogoShell.listModuleStatus(moduleName = "${moduleName}");
+
+		AssertElementPresent(locator1 = "GogoShell#OUTPUT_FIELD");
+
+		var moduleStatusOutput = selenium.getText("GogoShell#OUTPUT_FIELD");
+		var partialModuleStatusOutput = StringUtil.stripBetween("${moduleStatusOutput}", "START", "Name");
+		var originalmoduleID = StringUtil.extractFirst("${partialModuleStatusOutput}", "|");
+		var moduleID = StringUtil.trim("${originalmoduleID}");
+
+		return "${moduleID}";
+	}
+
+	macro listModuleStatus {
+		Type(
+			locator1 = "GogoShell#COMMAND_FIELD",
+			value1 = "lb ${moduleName}");
+
+		AssertClick(
+			locator1 = "GogoShell#EXECUTE_BUTTON",
+			value1 = "Execute");
+	}
+
+	macro openGogoShellAdmin {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_gogo_shell_web_internal_portlet_GogoShellPortlet");
+	}
+
+	macro startModule {
+		Type(
+			locator1 = "GogoShell#COMMAND_FIELD",
+			value1 = "start ${moduleID}");
+
+		AssertClick(
+			locator1 = "GogoShell#EXECUTE_BUTTON",
+			value1 = "Execute");
+	}
+
+	macro stopModule {
+		Type(
+			locator1 = "GogoShell#COMMAND_FIELD",
+			value1 = "stop ${moduleID}");
+
+		AssertClick(
+			locator1 = "GogoShell#EXECUTE_BUTTON",
+			value1 = "Execute");
+	}
+
+	macro viewModuleStatus {
+		GogoShell.listModuleStatus(moduleName = "${moduleName}");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "GogoShell#OUTPUT_FIELD",
+			value1 = "${moduleStatus}");
+	}
+
+	macro viewNoOutput {
+		AssertTextNotPresent(
+			locator1 = "GogoShell#OUTPUT_FIELD",
+			value1 = "${outputContent}");
+	}
+
+	macro viewOutput {
+		AssertTextEquals.assertPartialText(
+			locator1 = "GogoShell#OUTPUT_FIELD",
+			value1 = "${outputContent}");
+	}
+
+}

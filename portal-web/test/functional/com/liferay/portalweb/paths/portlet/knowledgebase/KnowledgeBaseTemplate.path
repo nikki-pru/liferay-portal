@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>KnowledgeBaseTemplate</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">KnowledgeBaseTemplate</td></tr>
+</thead>
+<tbody>
+<!--TEMPLATE-->
+<tr>
+	<td>TEMPLATE_TITLE</td>
+	<td>//div[@class='kb-title']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_TITLE_INPUT</td>
+	<td>//h1[contains(@class,'kb-title')]//div[label[contains(.,'Title')]]//input[@type='text']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TEMPLATE_CONTENT</td>
+	<td>//div[@class='kb-entity-body']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

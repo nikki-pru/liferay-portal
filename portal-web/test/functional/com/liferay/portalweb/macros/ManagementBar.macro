@@ -1,0 +1,94 @@
+definition {
+
+	macro changeDisplayStyle {
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "chrome") {
+			MetalComponent.waitForManagementBar();
+		}
+
+		Click.clickNoMouseOver(locator1 = "Icon#CURRENT_DISPLAY_STYLE");
+
+		MenuItem.click(menuItem = "${displayStyle}");
+
+		ManagementBar.viewDisplayStyle(displayStyle = "${displayStyle}");
+	}
+
+	macro clickAdd {
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "chrome") {
+			MetalComponent.waitForManagementBar();
+		}
+
+		Click.clickNoMouseOver(locator1 = "Button#PLUS");
+	}
+
+	macro clickAddMenuItem {
+		ManagementBar.clickAdd();
+
+		MenuItem.click(menuItem = "${menuItem}");
+	}
+
+	macro clickInfo {
+		Click.clickNoMouseOver(locator1 = "Icon#INFO");
+	}
+
+	macro clickSelectAllCheckbox {
+		Click(locator1 = "Checkbox#LEXICON_SELECT_ALL_CONTAINER");
+
+		AssertChecked.assertCheckedNotVisible(locator1 = "Checkbox#LEXICON_SELECT_ALL_INPUT");
+	}
+
+	macro setFilterAndOrder {
+		if (isSet(filterBy)) {
+			var menuItem = "${filterBy}";
+		}
+		else if (isSet(orderBy)) {
+			var menuItem = "${orderBy}";
+		}
+
+		Click.pauseClickAt(locator1 = "ManagementBar#FILTER_AND_ORDER");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		MenuItem.click(menuItem = "${menuItem}");
+	}
+
+	macro toggleViewOrder {
+		if (IsElementNotPresent(locator1 = "ManagementBar#ORDER_ICON_SPECIFIC", key_order = "${order}")) {
+			Click(locator1 = "ManagementBar#ORDER_ICON_GENERIC");
+
+			MouseOver(locator1 = "ManagementBar#FILTER_AND_ORDER");
+		}
+
+		AssertElementPresent(
+			key_order = "${order}",
+			locator1 = "ManagementBar#ORDER_ICON_SPECIFIC");
+	}
+
+	macro viewDisplayStyle {
+		var displayStyleKey = StringUtil.lowerCaseFirstLetter("${displayStyle}");
+
+		AssertVisible(
+			key_displayStyle = "${displayStyleKey}",
+			locator1 = "Icon#CURRENT_DISPLAY_STYLE_ACTIVE");
+	}
+
+	macro viewFilterAndOrder {
+		Click(locator1 = "ManagementBar#FILTER_AND_ORDER");
+
+		AssertElementPresent(
+			key_menuItem = "${menuItem}",
+			locator1 = "ManagementBar#FILTER_AND_ORDER_ACTIVE_ITEM");
+	}
+
+	macro viewNoSubheaderInFilterAndOrder {
+		Click(locator1 = "ManagementBar#FILTER_AND_ORDER");
+
+		AssertElementNotPresent(
+			key_subheaderItem = "${subheaderItem}",
+			locator1 = "ManagementBar#FILTER_AND_ORDER_SUBHEADER");
+	}
+
+}

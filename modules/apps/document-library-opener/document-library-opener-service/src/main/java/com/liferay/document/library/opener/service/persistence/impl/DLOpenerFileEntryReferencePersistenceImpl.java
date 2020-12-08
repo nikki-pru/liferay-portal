@@ -1,0 +1,1385 @@
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.document.library.opener.service.persistence.impl;
+
+import com.liferay.document.library.opener.exception.NoSuchFileEntryReferenceException;
+import com.liferay.document.library.opener.model.DLOpenerFileEntryReference;
+import com.liferay.document.library.opener.model.DLOpenerFileEntryReferenceTable;
+import com.liferay.document.library.opener.model.impl.DLOpenerFileEntryReferenceImpl;
+import com.liferay.document.library.opener.model.impl.DLOpenerFileEntryReferenceModelImpl;
+import com.liferay.document.library.opener.service.persistence.DLOpenerFileEntryReferencePersistence;
+import com.liferay.document.library.opener.service.persistence.impl.constants.DLOpenerPersistenceConstants;
+import com.liferay.petra.string.StringBundler;
+import com.liferay.portal.kernel.configuration.Configuration;
+import com.liferay.portal.kernel.dao.orm.ArgumentsResolver;
+import com.liferay.portal.kernel.dao.orm.EntityCache;
+import com.liferay.portal.kernel.dao.orm.FinderCache;
+import com.liferay.portal.kernel.dao.orm.FinderPath;
+import com.liferay.portal.kernel.dao.orm.Query;
+import com.liferay.portal.kernel.dao.orm.QueryPos;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.dao.orm.Session;
+import com.liferay.portal.kernel.dao.orm.SessionFactory;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.model.BaseModel;
+import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.service.persistence.impl.BasePersistenceImpl;
+import com.liferay.portal.kernel.util.HashMapDictionary;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.ProxyUtil;
+import com.liferay.portal.kernel.util.SetUtil;
+
+import java.io.Serializable;
+
+import java.lang.reflect.InvocationHandler;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.sql.DataSource;
+
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
+
+/**
+ * The persistence implementation for the dl opener file entry reference service.
+ *
+ * <p>
+ * Caching information and settings can be found in <code>portal.properties</code>
+ * </p>
+ *
+ * @author Brian Wing Shun Chan
+ * @generated
+ */
+@Component(
+	service = {
+		DLOpenerFileEntryReferencePersistence.class, BasePersistence.class
+	}
+)
+public class DLOpenerFileEntryReferencePersistenceImpl
+	extends BasePersistenceImpl<DLOpenerFileEntryReference>
+	implements DLOpenerFileEntryReferencePersistence {
+
+	/*
+	 * NOTE FOR DEVELOPERS:
+	 *
+	 * Never modify or reference this class directly. Always use <code>DLOpenerFileEntryReferenceUtil</code> to access the dl opener file entry reference persistence. Modify <code>service.xml</code> and rerun ServiceBuilder to regenerate this class.
+	 */
+	public static final String FINDER_CLASS_NAME_ENTITY =
+		DLOpenerFileEntryReferenceImpl.class.getName();
+
+	public static final String FINDER_CLASS_NAME_LIST_WITH_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List1";
+
+	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION =
+		FINDER_CLASS_NAME_ENTITY + ".List2";
+
+	private FinderPath _finderPathWithPaginationFindAll;
+	private FinderPath _finderPathWithoutPaginationFindAll;
+	private FinderPath _finderPathCountAll;
+	private FinderPath _finderPathFetchByFileEntryId;
+	private FinderPath _finderPathCountByFileEntryId;
+
+	/**
+	 * Returns the dl opener file entry reference where fileEntryId = &#63; or throws a <code>NoSuchFileEntryReferenceException</code> if it could not be found.
+	 *
+	 * @param fileEntryId the file entry ID
+	 * @return the matching dl opener file entry reference
+	 * @throws NoSuchFileEntryReferenceException if a matching dl opener file entry reference could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference findByFileEntryId(long fileEntryId)
+		throws NoSuchFileEntryReferenceException {
+
+		DLOpenerFileEntryReference dlOpenerFileEntryReference =
+			fetchByFileEntryId(fileEntryId);
+
+		if (dlOpenerFileEntryReference == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("fileEntryId=");
+			sb.append(fileEntryId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchFileEntryReferenceException(sb.toString());
+		}
+
+		return dlOpenerFileEntryReference;
+	}
+
+	/**
+	 * Returns the dl opener file entry reference where fileEntryId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param fileEntryId the file entry ID
+	 * @return the matching dl opener file entry reference, or <code>null</code> if a matching dl opener file entry reference could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference fetchByFileEntryId(long fileEntryId) {
+		return fetchByFileEntryId(fileEntryId, true);
+	}
+
+	/**
+	 * Returns the dl opener file entry reference where fileEntryId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param fileEntryId the file entry ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching dl opener file entry reference, or <code>null</code> if a matching dl opener file entry reference could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference fetchByFileEntryId(
+		long fileEntryId, boolean useFinderCache) {
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {fileEntryId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(
+				_finderPathFetchByFileEntryId, finderArgs);
+		}
+
+		if (result instanceof DLOpenerFileEntryReference) {
+			DLOpenerFileEntryReference dlOpenerFileEntryReference =
+				(DLOpenerFileEntryReference)result;
+
+			if (fileEntryId != dlOpenerFileEntryReference.getFileEntryId()) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_SELECT_DLOPENERFILEENTRYREFERENCE_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILEENTRYID_FILEENTRYID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileEntryId);
+
+				List<DLOpenerFileEntryReference> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByFileEntryId, finderArgs, list);
+					}
+				}
+				else {
+					DLOpenerFileEntryReference dlOpenerFileEntryReference =
+						list.get(0);
+
+					result = dlOpenerFileEntryReference;
+
+					cacheResult(dlOpenerFileEntryReference);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (DLOpenerFileEntryReference)result;
+		}
+	}
+
+	/**
+	 * Removes the dl opener file entry reference where fileEntryId = &#63; from the database.
+	 *
+	 * @param fileEntryId the file entry ID
+	 * @return the dl opener file entry reference that was removed
+	 */
+	@Override
+	public DLOpenerFileEntryReference removeByFileEntryId(long fileEntryId)
+		throws NoSuchFileEntryReferenceException {
+
+		DLOpenerFileEntryReference dlOpenerFileEntryReference =
+			findByFileEntryId(fileEntryId);
+
+		return remove(dlOpenerFileEntryReference);
+	}
+
+	/**
+	 * Returns the number of dl opener file entry references where fileEntryId = &#63;.
+	 *
+	 * @param fileEntryId the file entry ID
+	 * @return the number of matching dl opener file entry references
+	 */
+	@Override
+	public int countByFileEntryId(long fileEntryId) {
+		FinderPath finderPath = _finderPathCountByFileEntryId;
+
+		Object[] finderArgs = new Object[] {fileEntryId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(2);
+
+			sb.append(_SQL_COUNT_DLOPENERFILEENTRYREFERENCE_WHERE);
+
+			sb.append(_FINDER_COLUMN_FILEENTRYID_FILEENTRYID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				queryPos.add(fileEntryId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_FILEENTRYID_FILEENTRYID_2 =
+		"dlOpenerFileEntryReference.fileEntryId = ?";
+
+	private FinderPath _finderPathFetchByR_F;
+	private FinderPath _finderPathCountByR_F;
+
+	/**
+	 * Returns the dl opener file entry reference where referenceType = &#63; and fileEntryId = &#63; or throws a <code>NoSuchFileEntryReferenceException</code> if it could not be found.
+	 *
+	 * @param referenceType the reference type
+	 * @param fileEntryId the file entry ID
+	 * @return the matching dl opener file entry reference
+	 * @throws NoSuchFileEntryReferenceException if a matching dl opener file entry reference could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference findByR_F(
+			String referenceType, long fileEntryId)
+		throws NoSuchFileEntryReferenceException {
+
+		DLOpenerFileEntryReference dlOpenerFileEntryReference = fetchByR_F(
+			referenceType, fileEntryId);
+
+		if (dlOpenerFileEntryReference == null) {
+			StringBundler sb = new StringBundler(6);
+
+			sb.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			sb.append("referenceType=");
+			sb.append(referenceType);
+
+			sb.append(", fileEntryId=");
+			sb.append(fileEntryId);
+
+			sb.append("}");
+
+			if (_log.isDebugEnabled()) {
+				_log.debug(sb.toString());
+			}
+
+			throw new NoSuchFileEntryReferenceException(sb.toString());
+		}
+
+		return dlOpenerFileEntryReference;
+	}
+
+	/**
+	 * Returns the dl opener file entry reference where referenceType = &#63; and fileEntryId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param referenceType the reference type
+	 * @param fileEntryId the file entry ID
+	 * @return the matching dl opener file entry reference, or <code>null</code> if a matching dl opener file entry reference could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference fetchByR_F(
+		String referenceType, long fileEntryId) {
+
+		return fetchByR_F(referenceType, fileEntryId, true);
+	}
+
+	/**
+	 * Returns the dl opener file entry reference where referenceType = &#63; and fileEntryId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param referenceType the reference type
+	 * @param fileEntryId the file entry ID
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the matching dl opener file entry reference, or <code>null</code> if a matching dl opener file entry reference could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference fetchByR_F(
+		String referenceType, long fileEntryId, boolean useFinderCache) {
+
+		referenceType = Objects.toString(referenceType, "");
+
+		Object[] finderArgs = null;
+
+		if (useFinderCache) {
+			finderArgs = new Object[] {referenceType, fileEntryId};
+		}
+
+		Object result = null;
+
+		if (useFinderCache) {
+			result = finderCache.getResult(_finderPathFetchByR_F, finderArgs);
+		}
+
+		if (result instanceof DLOpenerFileEntryReference) {
+			DLOpenerFileEntryReference dlOpenerFileEntryReference =
+				(DLOpenerFileEntryReference)result;
+
+			if (!Objects.equals(
+					referenceType,
+					dlOpenerFileEntryReference.getReferenceType()) ||
+				(fileEntryId != dlOpenerFileEntryReference.getFileEntryId())) {
+
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler sb = new StringBundler(4);
+
+			sb.append(_SQL_SELECT_DLOPENERFILEENTRYREFERENCE_WHERE);
+
+			boolean bindReferenceType = false;
+
+			if (referenceType.isEmpty()) {
+				sb.append(_FINDER_COLUMN_R_F_REFERENCETYPE_3);
+			}
+			else {
+				bindReferenceType = true;
+
+				sb.append(_FINDER_COLUMN_R_F_REFERENCETYPE_2);
+			}
+
+			sb.append(_FINDER_COLUMN_R_F_FILEENTRYID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindReferenceType) {
+					queryPos.add(referenceType);
+				}
+
+				queryPos.add(fileEntryId);
+
+				List<DLOpenerFileEntryReference> list = query.list();
+
+				if (list.isEmpty()) {
+					if (useFinderCache) {
+						finderCache.putResult(
+							_finderPathFetchByR_F, finderArgs, list);
+					}
+				}
+				else {
+					DLOpenerFileEntryReference dlOpenerFileEntryReference =
+						list.get(0);
+
+					result = dlOpenerFileEntryReference;
+
+					cacheResult(dlOpenerFileEntryReference);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (DLOpenerFileEntryReference)result;
+		}
+	}
+
+	/**
+	 * Removes the dl opener file entry reference where referenceType = &#63; and fileEntryId = &#63; from the database.
+	 *
+	 * @param referenceType the reference type
+	 * @param fileEntryId the file entry ID
+	 * @return the dl opener file entry reference that was removed
+	 */
+	@Override
+	public DLOpenerFileEntryReference removeByR_F(
+			String referenceType, long fileEntryId)
+		throws NoSuchFileEntryReferenceException {
+
+		DLOpenerFileEntryReference dlOpenerFileEntryReference = findByR_F(
+			referenceType, fileEntryId);
+
+		return remove(dlOpenerFileEntryReference);
+	}
+
+	/**
+	 * Returns the number of dl opener file entry references where referenceType = &#63; and fileEntryId = &#63;.
+	 *
+	 * @param referenceType the reference type
+	 * @param fileEntryId the file entry ID
+	 * @return the number of matching dl opener file entry references
+	 */
+	@Override
+	public int countByR_F(String referenceType, long fileEntryId) {
+		referenceType = Objects.toString(referenceType, "");
+
+		FinderPath finderPath = _finderPathCountByR_F;
+
+		Object[] finderArgs = new Object[] {referenceType, fileEntryId};
+
+		Long count = (Long)finderCache.getResult(finderPath, finderArgs);
+
+		if (count == null) {
+			StringBundler sb = new StringBundler(3);
+
+			sb.append(_SQL_COUNT_DLOPENERFILEENTRYREFERENCE_WHERE);
+
+			boolean bindReferenceType = false;
+
+			if (referenceType.isEmpty()) {
+				sb.append(_FINDER_COLUMN_R_F_REFERENCETYPE_3);
+			}
+			else {
+				bindReferenceType = true;
+
+				sb.append(_FINDER_COLUMN_R_F_REFERENCETYPE_2);
+			}
+
+			sb.append(_FINDER_COLUMN_R_F_FILEENTRYID_2);
+
+			String sql = sb.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				QueryPos queryPos = QueryPos.getInstance(query);
+
+				if (bindReferenceType) {
+					queryPos.add(referenceType);
+				}
+
+				queryPos.add(fileEntryId);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_R_F_REFERENCETYPE_2 =
+		"dlOpenerFileEntryReference.referenceType = ? AND ";
+
+	private static final String _FINDER_COLUMN_R_F_REFERENCETYPE_3 =
+		"(dlOpenerFileEntryReference.referenceType IS NULL OR dlOpenerFileEntryReference.referenceType = '') AND ";
+
+	private static final String _FINDER_COLUMN_R_F_FILEENTRYID_2 =
+		"dlOpenerFileEntryReference.fileEntryId = ?";
+
+	public DLOpenerFileEntryReferencePersistenceImpl() {
+		Map<String, String> dbColumnNames = new HashMap<String, String>();
+
+		dbColumnNames.put("type", "type_");
+
+		setDBColumnNames(dbColumnNames);
+
+		setModelClass(DLOpenerFileEntryReference.class);
+
+		setModelImplClass(DLOpenerFileEntryReferenceImpl.class);
+		setModelPKClass(long.class);
+
+		setTable(DLOpenerFileEntryReferenceTable.INSTANCE);
+	}
+
+	/**
+	 * Caches the dl opener file entry reference in the entity cache if it is enabled.
+	 *
+	 * @param dlOpenerFileEntryReference the dl opener file entry reference
+	 */
+	@Override
+	public void cacheResult(
+		DLOpenerFileEntryReference dlOpenerFileEntryReference) {
+
+		entityCache.putResult(
+			DLOpenerFileEntryReferenceImpl.class,
+			dlOpenerFileEntryReference.getPrimaryKey(),
+			dlOpenerFileEntryReference);
+
+		finderCache.putResult(
+			_finderPathFetchByFileEntryId,
+			new Object[] {dlOpenerFileEntryReference.getFileEntryId()},
+			dlOpenerFileEntryReference);
+
+		finderCache.putResult(
+			_finderPathFetchByR_F,
+			new Object[] {
+				dlOpenerFileEntryReference.getReferenceType(),
+				dlOpenerFileEntryReference.getFileEntryId()
+			},
+			dlOpenerFileEntryReference);
+	}
+
+	/**
+	 * Caches the dl opener file entry references in the entity cache if it is enabled.
+	 *
+	 * @param dlOpenerFileEntryReferences the dl opener file entry references
+	 */
+	@Override
+	public void cacheResult(
+		List<DLOpenerFileEntryReference> dlOpenerFileEntryReferences) {
+
+		for (DLOpenerFileEntryReference dlOpenerFileEntryReference :
+				dlOpenerFileEntryReferences) {
+
+			if (entityCache.getResult(
+					DLOpenerFileEntryReferenceImpl.class,
+					dlOpenerFileEntryReference.getPrimaryKey()) == null) {
+
+				cacheResult(dlOpenerFileEntryReference);
+			}
+		}
+	}
+
+	/**
+	 * Clears the cache for all dl opener file entry references.
+	 *
+	 * <p>
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache() {
+		entityCache.clearCache(DLOpenerFileEntryReferenceImpl.class);
+
+		finderCache.clearCache(DLOpenerFileEntryReferenceImpl.class);
+	}
+
+	/**
+	 * Clears the cache for the dl opener file entry reference.
+	 *
+	 * <p>
+	 * The <code>EntityCache</code> and <code>FinderCache</code> are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache(
+		DLOpenerFileEntryReference dlOpenerFileEntryReference) {
+
+		entityCache.removeResult(
+			DLOpenerFileEntryReferenceImpl.class, dlOpenerFileEntryReference);
+	}
+
+	@Override
+	public void clearCache(
+		List<DLOpenerFileEntryReference> dlOpenerFileEntryReferences) {
+
+		for (DLOpenerFileEntryReference dlOpenerFileEntryReference :
+				dlOpenerFileEntryReferences) {
+
+			entityCache.removeResult(
+				DLOpenerFileEntryReferenceImpl.class,
+				dlOpenerFileEntryReference);
+		}
+	}
+
+	@Override
+	public void clearCache(Set<Serializable> primaryKeys) {
+		finderCache.clearCache(DLOpenerFileEntryReferenceImpl.class);
+
+		for (Serializable primaryKey : primaryKeys) {
+			entityCache.removeResult(
+				DLOpenerFileEntryReferenceImpl.class, primaryKey);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(
+		DLOpenerFileEntryReferenceModelImpl
+			dlOpenerFileEntryReferenceModelImpl) {
+
+		Object[] args = new Object[] {
+			dlOpenerFileEntryReferenceModelImpl.getFileEntryId()
+		};
+
+		finderCache.putResult(
+			_finderPathCountByFileEntryId, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByFileEntryId, args,
+			dlOpenerFileEntryReferenceModelImpl);
+
+		args = new Object[] {
+			dlOpenerFileEntryReferenceModelImpl.getReferenceType(),
+			dlOpenerFileEntryReferenceModelImpl.getFileEntryId()
+		};
+
+		finderCache.putResult(_finderPathCountByR_F, args, Long.valueOf(1));
+		finderCache.putResult(
+			_finderPathFetchByR_F, args, dlOpenerFileEntryReferenceModelImpl);
+	}
+
+	/**
+	 * Creates a new dl opener file entry reference with the primary key. Does not add the dl opener file entry reference to the database.
+	 *
+	 * @param dlOpenerFileEntryReferenceId the primary key for the new dl opener file entry reference
+	 * @return the new dl opener file entry reference
+	 */
+	@Override
+	public DLOpenerFileEntryReference create(
+		long dlOpenerFileEntryReferenceId) {
+
+		DLOpenerFileEntryReference dlOpenerFileEntryReference =
+			new DLOpenerFileEntryReferenceImpl();
+
+		dlOpenerFileEntryReference.setNew(true);
+		dlOpenerFileEntryReference.setPrimaryKey(dlOpenerFileEntryReferenceId);
+
+		dlOpenerFileEntryReference.setCompanyId(
+			CompanyThreadLocal.getCompanyId());
+
+		return dlOpenerFileEntryReference;
+	}
+
+	/**
+	 * Removes the dl opener file entry reference with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param dlOpenerFileEntryReferenceId the primary key of the dl opener file entry reference
+	 * @return the dl opener file entry reference that was removed
+	 * @throws NoSuchFileEntryReferenceException if a dl opener file entry reference with the primary key could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference remove(long dlOpenerFileEntryReferenceId)
+		throws NoSuchFileEntryReferenceException {
+
+		return remove((Serializable)dlOpenerFileEntryReferenceId);
+	}
+
+	/**
+	 * Removes the dl opener file entry reference with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param primaryKey the primary key of the dl opener file entry reference
+	 * @return the dl opener file entry reference that was removed
+	 * @throws NoSuchFileEntryReferenceException if a dl opener file entry reference with the primary key could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference remove(Serializable primaryKey)
+		throws NoSuchFileEntryReferenceException {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			DLOpenerFileEntryReference dlOpenerFileEntryReference =
+				(DLOpenerFileEntryReference)session.get(
+					DLOpenerFileEntryReferenceImpl.class, primaryKey);
+
+			if (dlOpenerFileEntryReference == null) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				}
+
+				throw new NoSuchFileEntryReferenceException(
+					_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			return remove(dlOpenerFileEntryReference);
+		}
+		catch (NoSuchFileEntryReferenceException noSuchEntityException) {
+			throw noSuchEntityException;
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	protected DLOpenerFileEntryReference removeImpl(
+		DLOpenerFileEntryReference dlOpenerFileEntryReference) {
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (!session.contains(dlOpenerFileEntryReference)) {
+				dlOpenerFileEntryReference =
+					(DLOpenerFileEntryReference)session.get(
+						DLOpenerFileEntryReferenceImpl.class,
+						dlOpenerFileEntryReference.getPrimaryKeyObj());
+			}
+
+			if (dlOpenerFileEntryReference != null) {
+				session.delete(dlOpenerFileEntryReference);
+			}
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		if (dlOpenerFileEntryReference != null) {
+			clearCache(dlOpenerFileEntryReference);
+		}
+
+		return dlOpenerFileEntryReference;
+	}
+
+	@Override
+	public DLOpenerFileEntryReference updateImpl(
+		DLOpenerFileEntryReference dlOpenerFileEntryReference) {
+
+		boolean isNew = dlOpenerFileEntryReference.isNew();
+
+		if (!(dlOpenerFileEntryReference instanceof
+				DLOpenerFileEntryReferenceModelImpl)) {
+
+			InvocationHandler invocationHandler = null;
+
+			if (ProxyUtil.isProxyClass(dlOpenerFileEntryReference.getClass())) {
+				invocationHandler = ProxyUtil.getInvocationHandler(
+					dlOpenerFileEntryReference);
+
+				throw new IllegalArgumentException(
+					"Implement ModelWrapper in dlOpenerFileEntryReference proxy " +
+						invocationHandler.getClass());
+			}
+
+			throw new IllegalArgumentException(
+				"Implement ModelWrapper in custom DLOpenerFileEntryReference implementation " +
+					dlOpenerFileEntryReference.getClass());
+		}
+
+		DLOpenerFileEntryReferenceModelImpl
+			dlOpenerFileEntryReferenceModelImpl =
+				(DLOpenerFileEntryReferenceModelImpl)dlOpenerFileEntryReference;
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		Date now = new Date();
+
+		if (isNew && (dlOpenerFileEntryReference.getCreateDate() == null)) {
+			if (serviceContext == null) {
+				dlOpenerFileEntryReference.setCreateDate(now);
+			}
+			else {
+				dlOpenerFileEntryReference.setCreateDate(
+					serviceContext.getCreateDate(now));
+			}
+		}
+
+		if (!dlOpenerFileEntryReferenceModelImpl.hasSetModifiedDate()) {
+			if (serviceContext == null) {
+				dlOpenerFileEntryReference.setModifiedDate(now);
+			}
+			else {
+				dlOpenerFileEntryReference.setModifiedDate(
+					serviceContext.getModifiedDate(now));
+			}
+		}
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (isNew) {
+				session.save(dlOpenerFileEntryReference);
+			}
+			else {
+				dlOpenerFileEntryReference =
+					(DLOpenerFileEntryReference)session.merge(
+						dlOpenerFileEntryReference);
+			}
+		}
+		catch (Exception exception) {
+			throw processException(exception);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		entityCache.putResult(
+			DLOpenerFileEntryReferenceImpl.class,
+			dlOpenerFileEntryReferenceModelImpl, false, true);
+
+		cacheUniqueFindersCache(dlOpenerFileEntryReferenceModelImpl);
+
+		if (isNew) {
+			dlOpenerFileEntryReference.setNew(false);
+		}
+
+		dlOpenerFileEntryReference.resetOriginalValues();
+
+		return dlOpenerFileEntryReference;
+	}
+
+	/**
+	 * Returns the dl opener file entry reference with the primary key or throws a <code>com.liferay.portal.kernel.exception.NoSuchModelException</code> if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the dl opener file entry reference
+	 * @return the dl opener file entry reference
+	 * @throws NoSuchFileEntryReferenceException if a dl opener file entry reference with the primary key could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference findByPrimaryKey(Serializable primaryKey)
+		throws NoSuchFileEntryReferenceException {
+
+		DLOpenerFileEntryReference dlOpenerFileEntryReference =
+			fetchByPrimaryKey(primaryKey);
+
+		if (dlOpenerFileEntryReference == null) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchFileEntryReferenceException(
+				_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+		}
+
+		return dlOpenerFileEntryReference;
+	}
+
+	/**
+	 * Returns the dl opener file entry reference with the primary key or throws a <code>NoSuchFileEntryReferenceException</code> if it could not be found.
+	 *
+	 * @param dlOpenerFileEntryReferenceId the primary key of the dl opener file entry reference
+	 * @return the dl opener file entry reference
+	 * @throws NoSuchFileEntryReferenceException if a dl opener file entry reference with the primary key could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference findByPrimaryKey(
+			long dlOpenerFileEntryReferenceId)
+		throws NoSuchFileEntryReferenceException {
+
+		return findByPrimaryKey((Serializable)dlOpenerFileEntryReferenceId);
+	}
+
+	/**
+	 * Returns the dl opener file entry reference with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param dlOpenerFileEntryReferenceId the primary key of the dl opener file entry reference
+	 * @return the dl opener file entry reference, or <code>null</code> if a dl opener file entry reference with the primary key could not be found
+	 */
+	@Override
+	public DLOpenerFileEntryReference fetchByPrimaryKey(
+		long dlOpenerFileEntryReferenceId) {
+
+		return fetchByPrimaryKey((Serializable)dlOpenerFileEntryReferenceId);
+	}
+
+	/**
+	 * Returns all the dl opener file entry references.
+	 *
+	 * @return the dl opener file entry references
+	 */
+	@Override
+	public List<DLOpenerFileEntryReference> findAll() {
+		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the dl opener file entry references.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DLOpenerFileEntryReferenceModelImpl</code>.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of dl opener file entry references
+	 * @param end the upper bound of the range of dl opener file entry references (not inclusive)
+	 * @return the range of dl opener file entry references
+	 */
+	@Override
+	public List<DLOpenerFileEntryReference> findAll(int start, int end) {
+		return findAll(start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the dl opener file entry references.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DLOpenerFileEntryReferenceModelImpl</code>.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of dl opener file entry references
+	 * @param end the upper bound of the range of dl opener file entry references (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of dl opener file entry references
+	 */
+	@Override
+	public List<DLOpenerFileEntryReference> findAll(
+		int start, int end,
+		OrderByComparator<DLOpenerFileEntryReference> orderByComparator) {
+
+		return findAll(start, end, orderByComparator, true);
+	}
+
+	/**
+	 * Returns an ordered range of all the dl opener file entry references.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>DLOpenerFileEntryReferenceModelImpl</code>.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of dl opener file entry references
+	 * @param end the upper bound of the range of dl opener file entry references (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @param useFinderCache whether to use the finder cache
+	 * @return the ordered range of dl opener file entry references
+	 */
+	@Override
+	public List<DLOpenerFileEntryReference> findAll(
+		int start, int end,
+		OrderByComparator<DLOpenerFileEntryReference> orderByComparator,
+		boolean useFinderCache) {
+
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+			(orderByComparator == null)) {
+
+			if (useFinderCache) {
+				finderPath = _finderPathWithoutPaginationFindAll;
+				finderArgs = FINDER_ARGS_EMPTY;
+			}
+		}
+		else if (useFinderCache) {
+			finderPath = _finderPathWithPaginationFindAll;
+			finderArgs = new Object[] {start, end, orderByComparator};
+		}
+
+		List<DLOpenerFileEntryReference> list = null;
+
+		if (useFinderCache) {
+			list = (List<DLOpenerFileEntryReference>)finderCache.getResult(
+				finderPath, finderArgs);
+		}
+
+		if (list == null) {
+			StringBundler sb = null;
+			String sql = null;
+
+			if (orderByComparator != null) {
+				sb = new StringBundler(
+					2 + (orderByComparator.getOrderByFields().length * 2));
+
+				sb.append(_SQL_SELECT_DLOPENERFILEENTRYREFERENCE);
+
+				appendOrderByComparator(
+					sb, _ORDER_BY_ENTITY_ALIAS, orderByComparator);
+
+				sql = sb.toString();
+			}
+			else {
+				sql = _SQL_SELECT_DLOPENERFILEENTRYREFERENCE;
+
+				sql = sql.concat(
+					DLOpenerFileEntryReferenceModelImpl.ORDER_BY_JPQL);
+			}
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(sql);
+
+				list = (List<DLOpenerFileEntryReference>)QueryUtil.list(
+					query, getDialect(), start, end);
+
+				cacheResult(list);
+
+				if (useFinderCache) {
+					finderCache.putResult(finderPath, finderArgs, list);
+				}
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Removes all the dl opener file entry references from the database.
+	 *
+	 */
+	@Override
+	public void removeAll() {
+		for (DLOpenerFileEntryReference dlOpenerFileEntryReference :
+				findAll()) {
+
+			remove(dlOpenerFileEntryReference);
+		}
+	}
+
+	/**
+	 * Returns the number of dl opener file entry references.
+	 *
+	 * @return the number of dl opener file entry references
+	 */
+	@Override
+	public int countAll() {
+		Long count = (Long)finderCache.getResult(
+			_finderPathCountAll, FINDER_ARGS_EMPTY);
+
+		if (count == null) {
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query query = session.createQuery(
+					_SQL_COUNT_DLOPENERFILEENTRYREFERENCE);
+
+				count = (Long)query.uniqueResult();
+
+				finderCache.putResult(
+					_finderPathCountAll, FINDER_ARGS_EMPTY, count);
+			}
+			catch (Exception exception) {
+				throw processException(exception);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	@Override
+	public Set<String> getBadColumnNames() {
+		return _badColumnNames;
+	}
+
+	@Override
+	protected EntityCache getEntityCache() {
+		return entityCache;
+	}
+
+	@Override
+	protected String getPKDBName() {
+		return "dlOpenerFileEntryReferenceId";
+	}
+
+	@Override
+	protected String getSelectSQL() {
+		return _SQL_SELECT_DLOPENERFILEENTRYREFERENCE;
+	}
+
+	@Override
+	protected Map<String, Integer> getTableColumnsMap() {
+		return DLOpenerFileEntryReferenceModelImpl.TABLE_COLUMNS_MAP;
+	}
+
+	/**
+	 * Initializes the dl opener file entry reference persistence.
+	 */
+	@Activate
+	public void activate(BundleContext bundleContext) {
+		_bundleContext = bundleContext;
+
+		_argumentsResolverServiceRegistration = _bundleContext.registerService(
+			ArgumentsResolver.class,
+			new DLOpenerFileEntryReferenceModelArgumentsResolver(),
+			new HashMapDictionary<>());
+
+		_finderPathWithPaginationFindAll = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0],
+			new String[0], true);
+
+		_finderPathWithoutPaginationFindAll = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0],
+			new String[0], true);
+
+		_finderPathCountAll = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll",
+			new String[0], new String[0], false);
+
+		_finderPathFetchByFileEntryId = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByFileEntryId",
+			new String[] {Long.class.getName()}, new String[] {"fileEntryId"},
+			true);
+
+		_finderPathCountByFileEntryId = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByFileEntryId",
+			new String[] {Long.class.getName()}, new String[] {"fileEntryId"},
+			false);
+
+		_finderPathFetchByR_F = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByR_F",
+			new String[] {String.class.getName(), Long.class.getName()},
+			new String[] {"referenceType", "fileEntryId"}, true);
+
+		_finderPathCountByR_F = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByR_F",
+			new String[] {String.class.getName(), Long.class.getName()},
+			new String[] {"referenceType", "fileEntryId"}, false);
+	}
+
+	@Deactivate
+	public void deactivate() {
+		entityCache.removeCache(DLOpenerFileEntryReferenceImpl.class.getName());
+
+		_argumentsResolverServiceRegistration.unregister();
+	}
+
+	@Override
+	@Reference(
+		target = DLOpenerPersistenceConstants.SERVICE_CONFIGURATION_FILTER,
+		unbind = "-"
+	)
+	public void setConfiguration(Configuration configuration) {
+	}
+
+	@Override
+	@Reference(
+		target = DLOpenerPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setDataSource(DataSource dataSource) {
+		super.setDataSource(dataSource);
+	}
+
+	@Override
+	@Reference(
+		target = DLOpenerPersistenceConstants.ORIGIN_BUNDLE_SYMBOLIC_NAME_FILTER,
+		unbind = "-"
+	)
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		super.setSessionFactory(sessionFactory);
+	}
+
+	private BundleContext _bundleContext;
+
+	@Reference
+	protected EntityCache entityCache;
+
+	@Reference
+	protected FinderCache finderCache;
+
+	private static final String _SQL_SELECT_DLOPENERFILEENTRYREFERENCE =
+		"SELECT dlOpenerFileEntryReference FROM DLOpenerFileEntryReference dlOpenerFileEntryReference";
+
+	private static final String _SQL_SELECT_DLOPENERFILEENTRYREFERENCE_WHERE =
+		"SELECT dlOpenerFileEntryReference FROM DLOpenerFileEntryReference dlOpenerFileEntryReference WHERE ";
+
+	private static final String _SQL_COUNT_DLOPENERFILEENTRYREFERENCE =
+		"SELECT COUNT(dlOpenerFileEntryReference) FROM DLOpenerFileEntryReference dlOpenerFileEntryReference";
+
+	private static final String _SQL_COUNT_DLOPENERFILEENTRYREFERENCE_WHERE =
+		"SELECT COUNT(dlOpenerFileEntryReference) FROM DLOpenerFileEntryReference dlOpenerFileEntryReference WHERE ";
+
+	private static final String _ORDER_BY_ENTITY_ALIAS =
+		"dlOpenerFileEntryReference.";
+
+	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY =
+		"No DLOpenerFileEntryReference exists with the primary key ";
+
+	private static final String _NO_SUCH_ENTITY_WITH_KEY =
+		"No DLOpenerFileEntryReference exists with the key {";
+
+	private static final Log _log = LogFactoryUtil.getLog(
+		DLOpenerFileEntryReferencePersistenceImpl.class);
+
+	private static final Set<String> _badColumnNames = SetUtil.fromArray(
+		new String[] {"type"});
+
+	@Override
+	protected FinderCache getFinderCache() {
+		return finderCache;
+	}
+
+	private ServiceRegistration<ArgumentsResolver>
+		_argumentsResolverServiceRegistration;
+
+	private static class DLOpenerFileEntryReferenceModelArgumentsResolver
+		implements ArgumentsResolver {
+
+		@Override
+		public Object[] getArguments(
+			FinderPath finderPath, BaseModel<?> baseModel, boolean checkColumn,
+			boolean original) {
+
+			String[] columnNames = finderPath.getColumnNames();
+
+			if ((columnNames == null) || (columnNames.length == 0)) {
+				if (baseModel.isNew()) {
+					return FINDER_ARGS_EMPTY;
+				}
+
+				return null;
+			}
+
+			DLOpenerFileEntryReferenceModelImpl
+				dlOpenerFileEntryReferenceModelImpl =
+					(DLOpenerFileEntryReferenceModelImpl)baseModel;
+
+			long columnBitmask =
+				dlOpenerFileEntryReferenceModelImpl.getColumnBitmask();
+
+			if (!checkColumn || (columnBitmask == 0)) {
+				return _getValue(
+					dlOpenerFileEntryReferenceModelImpl, columnNames, original);
+			}
+
+			Long finderPathColumnBitmask = _finderPathColumnBitmasksCache.get(
+				finderPath);
+
+			if (finderPathColumnBitmask == null) {
+				finderPathColumnBitmask = 0L;
+
+				for (String columnName : columnNames) {
+					finderPathColumnBitmask |=
+						dlOpenerFileEntryReferenceModelImpl.getColumnBitmask(
+							columnName);
+				}
+
+				_finderPathColumnBitmasksCache.put(
+					finderPath, finderPathColumnBitmask);
+			}
+
+			if ((columnBitmask & finderPathColumnBitmask) != 0) {
+				return _getValue(
+					dlOpenerFileEntryReferenceModelImpl, columnNames, original);
+			}
+
+			return null;
+		}
+
+		@Override
+		public String getClassName() {
+			return DLOpenerFileEntryReferenceImpl.class.getName();
+		}
+
+		@Override
+		public String getTableName() {
+			return DLOpenerFileEntryReferenceTable.INSTANCE.getTableName();
+		}
+
+		private Object[] _getValue(
+			DLOpenerFileEntryReferenceModelImpl
+				dlOpenerFileEntryReferenceModelImpl,
+			String[] columnNames, boolean original) {
+
+			Object[] arguments = new Object[columnNames.length];
+
+			for (int i = 0; i < arguments.length; i++) {
+				String columnName = columnNames[i];
+
+				if (original) {
+					arguments[i] =
+						dlOpenerFileEntryReferenceModelImpl.
+							getColumnOriginalValue(columnName);
+				}
+				else {
+					arguments[i] =
+						dlOpenerFileEntryReferenceModelImpl.getColumnValue(
+							columnName);
+				}
+			}
+
+			return arguments;
+		}
+
+		private static Map<FinderPath, Long> _finderPathColumnBitmasksCache =
+			new ConcurrentHashMap<>();
+
+	}
+
+}

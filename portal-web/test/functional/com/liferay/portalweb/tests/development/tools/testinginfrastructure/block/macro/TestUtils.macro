@@ -1,0 +1,72 @@
+definition {
+
+	macro assertEquals {
+		echo("${expected}");
+
+		echo("${actual}");
+
+		if ("${expected}" == "${actual}") {
+			echo("PASSED");
+		}
+		else {
+			TestUtils.fail(message = "FAILED: expected &apos;${expected}&apos;, actual was &apos;${actual}&apos;");
+		}
+	}
+
+	macro assertNotEquals {
+		echo("${expected}");
+
+		echo("${actual}");
+
+		if ("${expected}" != "${actual}") {
+			echo("PASSED");
+		}
+		else {
+			TestUtils.fail(message = "FAILED: &apos;${expected}&apos; equals &apos;${actual}&apos;");
+		}
+	}
+
+	macro fail {
+		if (!(isSet(message))) {
+			var message = "FAIL";
+		}
+
+		echo("${message}");
+
+		fail("${message}");
+	}
+
+	macro isGreaterThan {
+		echo("${expected}");
+
+		echo("${actual}");
+
+		var result = MathUtil.isGreaterThan("${actual}", "${expected}");
+
+		if ("${result}" == "true") {
+			echo("PASSED");
+		}
+		else {
+			TestUtils.fail(message = "FAILED: actual &apos;${actual}&apos; is less than or equals to expected &apos;${expected}&apos;");
+		}
+	}
+
+	macro pass {
+		if (!(isSet(message))) {
+			var message = "PASS";
+		}
+
+		echo("${message}");
+	}
+
+	macro typeIntoField {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Test Page Name");
+	}
+
+}

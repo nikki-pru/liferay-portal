@@ -1,0 +1,541 @@
+definition {
+
+	macro addBlogsEntryLoginUserPG {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		if ("${siteURLTemp}" == "true") {
+			Navigator.gotoSitePage(
+				pageName = "${pageName}",
+				siteName = "${siteName}");
+		}
+		else {
+			Navigator.gotoPage(pageName = "${pageName}");
+		}
+
+		Blogs.addEntry(
+			assetTitle = "${assetTitle}",
+			assetType = "${assetType}",
+			categoryName = "${categoryName}",
+			entryAddCategory = "${entryAddCategory}",
+			entryAddPermissions = "${entryAddPermissions}",
+			entryAddRelatedAsset = "${entryAddRelatedAsset}",
+			entryAddTag = "${entryAddTag}",
+			entryContent = "${entryContent}",
+			entryInvalidContent = "${entryInvalidContent}",
+			entryInvalidTitle = "${entryInvalidTitle}",
+			entryInvalidTitleLength = "${entryInvalidTitleLength}",
+			entryTitle = "${entryTitle}",
+			entryValidTitleLength = "${entryValidTitleLength}",
+			tagName = "${tagName}",
+			viewableBy = "${viewableBy}",
+			viewableBySelection = "${viewableBySelection}",
+			vocabularyName = "${vocabularyName}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro addDMFolderLoginUserPG {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		DMFolder.addPG(
+			dmFolder = "${dmFolder}",
+			dmFolderDescription = "${dmFolderDescription}",
+			dmFolderName = "${dmFolderName}",
+			viewableBy = "${viewableBy}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro definePermissionCP {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		Role.definePermissionCP(
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			permissionDefinitionValue = "${permissionDefinitionValue}",
+			permissionNavigationValue = "${permissionNavigationValue}",
+			roleTitle = "${roleTitle}",
+			roleType = "${roleType}");
+	}
+
+	macro definePermissionLoginUserCP {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		Permissions.definePermissionCP(
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			permissionDefinitionValue = "${permissionDefinitionValue}",
+			permissionNavigationValue = "${permissionNavigationValue}",
+			roleTitle = "${roleTitle}",
+			roleType = "${roleType}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro definePermissionViaJSONAPI {
+		JSONPermission.addPermission(
+			actionId = "${resourceAction}",
+			groupName = "${groupName}",
+			name = "${resourceName}",
+			roleTitle = "${roleTitle}",
+			roleType = "${roleType}");
+	}
+
+	macro removePermissionCP {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		Role.removePermissionCP(
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			permissionDefinitionValue = "${permissionDefinitionValue}",
+			permissionNavigationValue = "${permissionNavigationValue}",
+			roleTitle = "${roleTitle}",
+			roleType = "${roleType}");
+	}
+
+	macro removePermissionLoginUserCP {
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "test@liferay.com",
+			userLoginFullName = "Test Test");
+
+		Permissions.removePermissionCP(
+			permissionDefinitionKey = "${permissionDefinitionKey}",
+			permissionDefinitionValue = "${permissionDefinitionValue}",
+			permissionNavigationValue = "${permissionNavigationValue}",
+			roleTitle = "${roleTitle}",
+			roleType = "${roleType}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro removePermissionViaAPI {
+		JSONPermission.removePermission(
+			actionId = "${resourceAction}",
+			groupName = "${groupName}",
+			name = "${resourceName}",
+			roleTitle = "${roleTitle}",
+			roleType = "${roleType}");
+	}
+
+	macro setUpOrgRoleCP {
+		JSONUser.addUser(
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.editPasswordCP(
+			newPassword = "${newPassword}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+			userEmailAddress = "${userEmailAddress}",
+			userScreenName = "${userScreenName}");
+
+		JSONOrganization.addOrganization(
+			organizationName = "${orgName}",
+			organizationSite = "true");
+
+		JSONOrganization.assignUserToOrganization(
+			organizationName = "${orgName}",
+			userEmailAddress = "${userEmailAddress}");
+
+		JSONLayout.addPublicLayoutByGroupName(
+			groupName = "${orgName}",
+			layoutName = "${pageName}");
+
+		Navigator.gotoSitePage(
+			pageName = "${pageName}",
+			siteName = "Organization Name");
+
+		JSONRole.addOrganizationRole(roleTitle = "${roleTitle}");
+
+		JSONGroup.assignGroupRoleToUser(
+			groupName = "${orgName}",
+			roleTitle = "${roleTitle}",
+			userEmailAddress = "${userEmailAddress}");
+	}
+
+	macro setUpOrgRoleLoginUserPG {
+		JSONUser.addUser(
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.editPasswordCP(
+			newPassword = "${newPassword}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+			userEmailAddress = "${userEmailAddress}",
+			userScreenName = "${userScreenName}");
+
+		JSONOrganization.addOrganization(
+			organizationName = "${orgName}",
+			organizationSite = "true");
+
+		JSONOrganization.assignUserToOrganization(
+			organizationName = "${orgName}",
+			userEmailAddress = "${userEmailAddress}");
+
+		JSONLayout.addPublicLayoutByGroupName(
+			groupName = "${orgName}",
+			layoutName = "${pageName}");
+
+		Navigator.gotoSitePage(
+			pageName = "${pageName}",
+			siteName = "Organization Name");
+
+		Portlet.addPG(
+			i = "${i}",
+			pageName = "${pageName}",
+			portletName = "${portletName}",
+			siteName = "Organization Name",
+			siteURL = "true");
+
+		JSONRole.addOrganizationRole(roleTitle = "${roleTitle}");
+
+		JSONGroup.assignGroupRoleToUser(
+			groupName = "${orgName}",
+			roleTitle = "${roleTitle}",
+			userEmailAddress = "${userEmailAddress}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro setUpRegRoleLoginUserCP {
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Users",
+			configurationName = "Default User Associations",
+			configurationScope = "Virtual Instance Scope");
+
+		PortalSettings.editConfigurationUsersDefaultUserAssociationsRolesCP(roleTitle = "");
+
+		JSONUser.addUser(
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "${userEmailAddress}");
+
+		JSONRole.addRegularRole(roleTitle = "${roleTitle}");
+
+		JSONRole.assignRoleToUser(
+			roleTitle = "${roleTitle}",
+			userEmailAddress = "${userEmailAddress}");
+	}
+
+	macro setUpRegRoleLoginUserPG {
+		Permissions.setUpRegRolePG(
+			pageName = "${pageName}",
+			portletName = "${portletName}",
+			roleTitle = "${roleTitle}",
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro setUpRegRolePG {
+		JSONLayout.addPublicLayout(
+			groupName = "Guest",
+			layoutName = "${pageName}");
+
+		Navigator.gotoPage(pageName = "${pageName}");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "Guest",
+			layoutName = "${pageName}",
+			widgetName = "${portletName}");
+
+		JSONUser.addUser(
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.editPasswordCP(
+			newPassword = "${newPassword}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+			userEmailAddress = "${userEmailAddress}",
+			userScreenName = "${userScreenName}");
+
+		JSONRole.addRegularRole(roleTitle = "${roleTitle}");
+
+		JSONRole.assignRoleToUser(
+			roleTitle = "${roleTitle}",
+			userEmailAddress = "${userEmailAddress}");
+	}
+
+	macro setUpSiteMemberRoleLoginUserPG {
+		JSONUser.addUser(
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "${userEmailAddress}");
+
+		JSONGroup.addGroup(groupName = "${siteName}");
+
+		JSONGroup.assignUserToGroup(
+			groupName = "${siteName}",
+			userEmailAddress = "${userEmailAddress}");
+
+		JSONLayout.addPublicLayout(
+			groupName = "${siteName}",
+			layoutName = "${pageName}");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "${siteName}",
+			layoutName = "${pageName}",
+			widgetName = "${portletName}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro setUpSiteRoleCP {
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "Users",
+			configurationName = "Default User Associations",
+			configurationScope = "Virtual Instance Scope");
+
+		Portlet.waitForForm();
+
+		PortalSettings.editConfigurationUsersDefaultUserAssociationsRolesCP(roleTitle = "");
+
+		JSONUser.addUser(
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.editPasswordCP(
+			newPassword = "${newPassword}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+			userEmailAddress = "${userEmailAddress}",
+			userScreenName = "${userScreenName}");
+
+		JSONGroup.addGroup(groupName = "${siteName}");
+
+		JSONGroup.assignUserToGroup(
+			groupName = "${siteName}",
+			userEmailAddress = "${userEmailAddress}");
+
+		JSONLayout.addPublicLayout(
+			groupName = "${siteName}",
+			layoutName = "${pageName}");
+
+		JSONRole.addSiteRole(roleTitle = "${roleTitle}");
+
+		JSONGroup.assignGroupRoleToUser(
+			groupName = "${siteName}",
+			roleTitle = "${roleTitle}",
+			userEmailAddress = "${userEmailAddress}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro setUpSiteRoleLoginUserCP {
+		Permissions.setUpSiteRoleCP(
+			newPassword = "${newPassword}",
+			pageName = "${pageName}",
+			roleTitle = "${roleTitle}",
+			siteName = "${siteName}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro setUpSiteRoleLoginUserPG {
+		JSONUser.addUser(
+			userEmailAddress = "${userEmailAddress}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userScreenName = "${userScreenName}");
+
+		JSONUser.setFirstPassword(
+			agreeToTermsAndAnswerReminderQuery = "true",
+			requireReset = "false",
+			userEmailAddress = "${userEmailAddress}");
+
+		JSONGroup.addGroup(groupName = "${siteName}");
+
+		JSONGroup.assignUserToGroup(
+			groupName = "${siteName}",
+			userEmailAddress = "${userEmailAddress}");
+
+		JSONLayout.addPublicLayout(
+			groupName = "${siteName}",
+			layoutName = "${pageName}");
+
+		JSONLayout.addWidgetToPublicLayout(
+			groupName = "${siteName}",
+			layoutName = "${pageName}",
+			widgetName = "${portletName}");
+
+		JSONRole.addSiteRole(
+			roleDescription = "${roleDescription}",
+			roleKey = "${roleKey}",
+			roleTitle = "${roleTitle}");
+
+		JSONGroup.assignGroupRoleToUser(
+			groupName = "${siteName}",
+			roleTitle = "${roleTitle}",
+			userEmailAddress = "${userEmailAddress}");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+	macro setUpSiteTeamRoleLoginUserPG {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.addCP(
+			userBirthday = "${userBirthday}",
+			userEmailAddress = "${userEmailAddress}",
+			userEmailAddressVariation = "${userEmailAddressVariation}",
+			userFirstName = "${userFirstName}",
+			userGender = "${userGender}",
+			userLastName = "${userLastName}",
+			userMiddleName = "${userMiddleName}",
+			userScreenName = "${userScreenName}",
+			userScreenNameVariation = "${userScreenNameVariation}");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Users and Organizations");
+
+		User.editPasswordCP(
+			newPassword = "${newPassword}",
+			syntaxCheckingEnabled = "${syntaxCheckingEnabled}",
+			userEmailAddress = "${userEmailAddress}",
+			userScreenName = "${userScreenName}");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
+
+		Site.addBlankCP(siteName = "${siteName}");
+
+		ProductMenu.gotoPortlet(
+			category = "People",
+			portlet = "Memberships");
+
+		Site.assignUserAsMemberCP(
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userMiddleName = "${userMiddleName}",
+			userScreenName = "${userScreenName}");
+
+		SitePages.openPagesAdmin(siteURLKey = "${siteName}");
+
+		ProductMenu.gotoPortlet(
+			category = "People",
+			portlet = "Teams");
+
+		Team.addCP(
+			teamDescription = "${teamDescription}",
+			teamName = "${teamName}");
+
+		Team.assignMembersCP(
+			siteName = "${siteName}",
+			teamName = "${teamName}",
+			userFirstName = "${userFirstName}",
+			userLastName = "${userLastName}",
+			userNameIsNotFound = "${userNameIsNotFound}",
+			userScreenName = "${userScreenName}");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "${pageName}");
+
+		Navigator.gotoSitePage(
+			pageName = "${pageName}",
+			siteName = "${siteName}");
+
+		Portlet.addPG(
+			i = "${i}",
+			pageName = "${pageName}",
+			portletName = "${portletName}",
+			siteName = "${siteName}",
+			siteURL = "true");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		User.logoutAndLoginPG(
+			userLoginEmailAddress = "${userLoginEmailAddress}",
+			userLoginFullName = "${userLoginFullName}");
+	}
+
+}

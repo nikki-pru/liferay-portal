@@ -1,0 +1,93 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%
+String p_u_i_d = ParamUtil.getString(request, "p_u_i_d");
+String eventName = ParamUtil.getString(request, "eventName", liferayPortletResponse.getNamespace() + "selectRegularRole");
+
+User selUser = PortalUtil.getSelectedUser(request);
+
+SelectRoleManagementToolbarDisplayContext selectRoleManagementToolbarDisplayContext = new SelectRoleManagementToolbarDisplayContext(request, renderRequest, renderResponse, eventName);
+
+PortletURL portletURL = selectRoleManagementToolbarDisplayContext.getPortletURL();
+
+SearchContainer<Role> roleSearchContainer = selectRoleManagementToolbarDisplayContext.getRoleSearchContainer(filterManageableRoles);
+%>
+
+<clay:management-toolbar-v2
+	clearResultsURL="<%= selectRoleManagementToolbarDisplayContext.getClearResultsURL() %>"
+	itemsTotal="<%= roleSearchContainer.getTotal() %>"
+	searchActionURL="<%= selectRoleManagementToolbarDisplayContext.getSearchActionURL() %>"
+	searchFormName="searchFm"
+	selectable="<%= false %>"
+	showSearch="<%= true %>"
+	viewTypeItems="<%= selectRoleManagementToolbarDisplayContext.getViewTypeItems() %>"
+/>
+
+<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid container-fluid-max-xl container-form-lg" method="post" name="selectRegularRoleFm">
+	<liferay-ui:search-container
+		headerNames="name"
+		searchContainer="<%= roleSearchContainer %>"
+	>
+		<liferay-ui:search-container-row
+			className="com.liferay.portal.kernel.model.Role"
+			keyProperty="roleId"
+			modelVar="role"
+		>
+			<liferay-ui:search-container-column-text
+				cssClass="table-cell-expand table-cell-minw-200"
+				name="title"
+				value="<%= HtmlUtil.escape(role.getTitle(locale)) %>"
+			/>
+
+			<liferay-ui:search-container-column-text>
+				<c:if test="<%= Validator.isNull(p_u_i_d) || RoleMembershipPolicyUtil.isRoleAllowed((selUser != null) ? selUser.getUserId() : 0, role.getRoleId()) %>">
+
+					<%
+					Map<String, Object> data = HashMapBuilder.<String, Object>put(
+						"entityid", role.getRoleId()
+					).put(
+						"entityname", role.getTitle(locale)
+					).put(
+						"iconcssclass", RolesAdminUtil.getIconCssClass(role)
+					).put(
+						"searchcontainername", "roles"
+					).build();
+
+					long[] defaultRoleIds = (selUser != null) ? selUser.getRoleIds() : new long[0];
+
+					long[] roleIds = ParamUtil.getLongValues(request, "roleIds", defaultRoleIds);
+
+					boolean disabled = ArrayUtil.contains(roleIds, role.getRoleId());
+					%>
+
+					<aui:button cssClass="selector-button" data="<%= data %>" disabled="<%= disabled %>" value="choose" />
+				</c:if>
+			</liferay-ui:search-container-column-text>
+		</liferay-ui:search-container-row>
+
+		<liferay-ui:search-iterator
+			markupView="lexicon"
+		/>
+	</liferay-ui:search-container>
+</aui:form>
+
+<aui:script use="aui-base">
+	Liferay.Util.selectEntityHandler(
+		'#<portlet:namespace />selectRegularRoleFm',
+		'<%= HtmlUtil.escapeJS(eventName) %>'
+	);
+</aui:script>

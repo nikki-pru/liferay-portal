@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>BreadcrumbPortlet</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">BreadcrumbPortlet</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>BREADCRUMB_FOLDER</td>
+	<td>//div[contains(@class,'portlet-body')]//form//ol[contains(@class,'breadcrumb')]//a[contains(.,'${key_breadcrumbName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB_PAGE</td>
+	<td>//div[contains(@class,'portlet-content')]//ol[contains(@class,'breadcrumb') and contains(@class,'breadcrumb')]//a[contains(.,'${key_breadcrumbName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB_PAGE_LINK</td>
+	<td>//ol[contains(@class,'breadcrumb')]/li/a[@href='${key_URL}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB</td>
+	<td>//div[contains(@id,'SiteNavigationBreadcrumbPortlet')]//ol[@class='breadcrumb']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB_ADT</td>
+	<td>//div/ul[contains(@class,'breadcrumb-${key_breadcrumbADTType}')] | //div[contains(@class,'breadcrumb-${key_breadcrumbADTType}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BREADCRUMB_SPECIFIC_ENTRY</td>
+	<td>//div[contains(@id,'SiteNavigationBreadcrumbPortlet')]//li[contains(.,'${key_breadcrumbName}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

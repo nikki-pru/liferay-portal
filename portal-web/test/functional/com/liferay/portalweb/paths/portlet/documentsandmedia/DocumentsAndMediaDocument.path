@@ -1,0 +1,294 @@
+<html>
+<head>
+<title>DocumentsAndMediaDocument</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">DocumentsAndMediaDocument</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>DOCUMENT_VIEW_VERSION_NUMBER</td>
+	<td>//section[contains(@id,'DLAdminPortlet')]//span[@class='workflow-version']/span[contains(@class,'workflow-value')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CUSTOM_FIELD-->
+<tr>
+	<td>CUSTOM_FIELD_NAME</td>
+	<td>//div[contains(@class,'ddm-field-group')]//span[contains(.,'${customFieldName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CUSTOM_FIELD_VALUE</td>
+	<td>//div[contains(@class,'ddm-field-group')]//span[contains(.,'${customFieldValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DOCUMENT_INFO-->
+<tr>
+	<td>DOCUMENT_INFO_COLLABORATOR_TOOLTIP</td>
+	<td>//div[contains(@class,'lfr-portal-tooltip') and contains(@data-title,'${key_collaborator}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_FILE_NAME</td>
+	<td>//p[contains(@class,'component-subtitle')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_LOCATION</td>
+	<td>//dd[contains(@class,'sidebar-dd')]//a[contains(.,'${key_dmFolderName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_TITLE</td>
+	<td>//div[contains(@class,'tbar-section')]/h2[contains(@title,'${key_dmDocumentTitle}')] | //h3[contains(@class,'header-title')]/span[contains(.,'${key_dmDocumentTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_THUMBNAIL</td>
+	<td>//div[@class='sidebar-body']//img[@alt='Thumbnail']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_UPLOADED_BY</td>
+	<td>//div[contains(@class,'username')]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_UPLOADER_NO_PROFILE</td>
+	<td>//div[contains(@class,'username')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_RATING</td>
+	<td>//dd[contains(@class,'sidebar-dd')]//div[contains(@class,'ratings-stars')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_RELATED_ASSETS_HEADER</td>
+	<td>//div[contains(@class,'sidebar-body')]//h2[contains(@class,'sheet-tertiary-title')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_RELATED_ASSETS_TITLE</td>
+	<td>//div[contains(@class,'sidebar-body')]//li[contains(@class,'list-group-item')]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_DESCRIPTION</td>
+	<td>//dd[contains(@class,'sidebar-dd') and contains (.,'Description')] | //dt[contains(@class,'sidebar-dt') and contains (.,'Description')]/following-sibling::dd[contains(.,'${key_dmDocumentDescription}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_CATEGORIES</td>
+	<td>//dd[contains(@class,'sidebar-dd')]/span[contains(@class,'categories')]/span[contains(.,'${key_categoryName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_TAGS</td>
+	<td>//dt[contains(.,'Tags')]/../dd[contains(@class,'sidebar-dd')]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_VERSION</td>
+	<td>//div[@class='sidebar-header']//span[contains(@class,'label-item') and contains(.,'Version')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_WORKFLOW_STATUS</td>
+	<td>//span[@class='workflow-status']/strong</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_CREATED_DATE</td>
+	<td>//div[contains(@class,'sidebar-body')]//dl/dt[5]/following-sibling::dd</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_INFO_GET_URL_OR_WEBDAV_URL</td>
+	<td>//input[contains(@id,'webDavURL')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DOCUMENT_DETAILS-->
+<tr>
+	<td>DOCUMENT_DETAILS_DOWNLOAD</td>
+	<td>//div[@class='sidebar-section']//a[@title='File Size ${key_dmDocumentSize}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_DROPDOWN</td>
+	<td>//li/a[contains(@class,'dropdown-toggle')]/span[contains(.,'Details')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_IMAGE_PREVIEW</td>
+	<td>//div[contains(@class,'preview-file-container')]/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_SIZE</td>
+	<td>//div[contains(@class,'sidebar-body')]//dd[contains(.,'${key_dmDocumentSize}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_UPLOADER</td>
+	<td>//div[contains(@class,'sidebar-body')]//dt[contains(.,'Created')]/following-sibling::dd[contains(.,'${key_dmDocumentUploader}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_URL</td>
+	<td>//div[contains(@class,'sidebar-section')]//label[contains(.,'URL')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_VERSION</td>
+	<td>//div[@class='sidebar-header']//span[contains(@class,'label-item') and contains(.,'Version') and contains(.,'${key_dmDocumentVersionNumber}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_VERSION_LOCKED</td>
+	<td>//div[contains(@class,'sidebar-body')]//span[contains(@class,'version icon-lock')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_WEBDAV_URL</td>
+	<td>//div[contains(@class,'sidebar-section')]//label[contains(.,'WebDAV URL')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DOCUMENT_DETAILS_WORKFLOW</td>
+	<td>//div[contains(@class,'sidebar-header')]//span[contains(@class,'workflow-status')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DOCUMENT_EXTRACTED_METADATA-->
+<tr>
+	<td>DOCUMENT_EXTRACTED_METADATA_FIELD</td>
+	<td>//div[contains(@id,'documentLibraryMetadataPanel')]//label[contains(.,'${key_metadataLabel}')]/../../div[contains(.,'${key_metadataData}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DOCUMENT_VIEWPORT-->
+<tr>
+	<td>DOCUMENT_VIEWPORT_PREVIEW</td>
+	<td>//img[contains(@src,'${key_imageSourceURL}')]</td>
+	<td></td>
+</tr>
+<!--MARKETING-->
+<tr>
+	<td>MARKETING_SELECT</td>
+	<td>//div[@class='lfr-ddm-container']//div[contains(.,'${key_marketingSelect}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MARKETING_CAMPAIGN_THEME</td>
+	<td>//div[@class='lfr-ddm-container']//div[contains(.,'${key_campaignTheme}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MARKETING_NEEDS_LEGAL_REVIEW</td>
+	<td>//div[@class='lfr-ddm-container']//div[contains(.,'${key_legalReview}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MARKETING_BANNER_NAME</td>
+	<td>//div[@class='lfr-ddm-container']//div[contains(.,'${key_bannerName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MARKETING_BANNER_DESCRIPTION</td>
+	<td>//div[@class='lfr-ddm-container']//div[contains(.,'${key_bannerDescription}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DETAILS_PANEL-->
+<tr>
+	<td>DETAILS_URL</td>
+	<td>//div[label[contains(.,'Latest Version URL')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--METADATA_PANEL-->
+<tr>
+	<td>METADATA_PANEL_BOOLEAN</td>
+	<td>//div[@class='lfr-ddm-container']/div[contains(.,'${key_booleanValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_PANEL_DATE</td>
+	<td>//div[@class='lfr-ddm-container']/div[contains(.,'${key_dateValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_PANEL_NUMBER</td>
+	<td>//div[@class='lfr-ddm-container']/div[contains(.,'${key_numberValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_PANEL_RADIO</td>
+	<td>//div[@class='lfr-ddm-container']/div[contains(.,'${key_radioOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_PANEL_SELECT</td>
+	<td>//div[@class='lfr-ddm-container']/div[contains(.,'${key_selectOption}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>METADATA_PANEL_TEXT</td>
+	<td>//div[@class='lfr-ddm-container']/div[contains(.,'${key_textContent}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--VIDEO_GENERATION-->
+<tr>
+	<td>VIDEO_GENERATION_THUMBNAIL_RESOLUTION</td>
+	<td>//head/title[contains(.,'${key_videoGenerationThumbnailResolution}')]</td>
+	<td></td>
+</tr>
+<!--VIDEO_SHORTCUT-->
+<tr>
+	<td>VIDEO_SHORTCUT_PREVIEW</td>
+	<td>//iframe[contains(@src,'${key_videoShortcutPreview}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

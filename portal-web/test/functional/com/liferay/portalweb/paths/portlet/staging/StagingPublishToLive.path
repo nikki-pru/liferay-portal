@@ -1,0 +1,185 @@
+<html>
+<head>
+<title>StagingPublishToLive</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">StagingPublishToLive</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>SWITCH_TO_ADVANCED_PUBLICATION</td>
+	<td>//a[contains(.,'Switch to Advanced Publish Process')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADD_EVENT_BUTTON</td>
+	<td>//button[contains(@id,'addButton')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PUBLISH_TEMPLATES_BUTTON</td>
+	<td>//a[contains(.,'Publish Templates')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>STAGING_CONFIGURATION_CHECKBOX</td>
+	<td>//label[contains(.,'${key_checkboxName}')]/input[@type='checkbox']</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DATE-->
+<tr>
+	<td>DATE_SCHEDULE_RADIO</td>
+	<td>//span[contains(@class,'custom-control-label-text') and contains(.,'Schedule')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_SCHEDULE_START_DATE</td>
+	<td>//input[contains(@name,'_schedulerStartDate') and @placeholder='mm/dd/yyyy']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_SCHEDULE_TITLE_FIELD</td>
+	<td>//input[contains(@id,'ExportImportPortlet_name')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_SCHEDULE_TIME_INPUT</td>
+	<td>//span[contains(@id,'displayTime')]/input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_SCHEDULE_END_DATE_NO_END_DATE_RADIO</td>
+	<td>//input[contains(@id,'schedulerNoEndDate')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_SCHEDULE_END_DATE_END_BY_RADIO</td>
+	<td>//input[contains(@id,'schedulerEndBy')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_SCHEDULE_END_DATE_INPUT</td>
+	<td>//input[contains(@id,'schedulerEndDate')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_SCHEDULE_REPEAT_DROPDOWN</td>
+	<td>//select[contains(@id,'_recurrence')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--PAGES-->
+<tr>
+	<td>PAGES_CHOOSE_PAGE_DELETION_CHECKBOX</td>
+	<td>//span[contains(.,'Publish Page Deletions')]//span[contains(@class,'deletions')]/../../input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_TO_PUBLISH_CHECKBOX_CHECKED</td>
+	<td>//div[@class='pages-selector']//div[normalize-space()='${key_entryName}' and contains(@class,'checked')]//span[contains(@class,'icon-check')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGES_TO_PUBLISH_CHECKBOX_UNCHECKED</td>
+	<td>//div[@class='pages-selector']//div[normalize-space()='${key_entryName}' and not(contains(@class,'checked'))]//span[contains(@class,'icon-check')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CONTENT-->
+<tr>
+	<td>CONTENT_CHOOSE_CONTENT_DELETION_CHECKBOX</td>
+	<td>//input[contains(@name,'DELETIONS')]//following-sibling::span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SIMPLE_PUBLICATION_DELETION</td>
+	<td>//li[contains(.,'${key_itemName}')]//span[contains(@class,'deletions')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SIMPLE_PUBLICATION_CONTENT_TYPE</td>
+	<td>//li[contains(@class,'portlet-list-simple') and contains(.,'${key_itemName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DELETIONS-->
+<tr>
+	<td>DELETIONS_REPLICATE_INDIVIDUAL_DELETIONS_CHECKBOX</td>
+	<td>//input[contains(@id,'StagingProcessesPortlet_DELETIONS')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--SCHEDULED_TABLE-->
+<tr>
+	<td>SCHEDULED_TABLE_TITLE</td>
+	<td>//tr[contains(.,'${key_scheduleTitleName}')]/td[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCHEDULED_TABLE_END_DATE</td>
+	<td>//tr[contains(.,'${key_scheduleTitleName}')]/td[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--PUBLISH_TEMPLATES_TABLE-->
+<tr>
+	<td>PUBLISH_TEMPLATES_TABLE_NAME</td>
+	<td>//div[contains(@id,'Configurations')]//tr[contains(.,'${key_publishTemplateName}')]/td[2]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PUBLISH_TEMPLATES_TABLE_DESCRIPTION</td>
+	<td>//div[contains(@id,'Configurations')]//tr[contains(.,'${key_publishTemplateName}')]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PUBLISH_TEMPLATES_TABLE_PUBLISH_TO_LIVE_ARROW_BUTTON</td>
+	<td>//ul[contains(@aria-labelledby,'ConfigurationsSearchContainer')]/li/a[contains(.,'Publish')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_LAST</td>
+	<td>//span[contains(.,'Last...')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_ALL</td>
+	<td>//span[contains(.,'All')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PUBLICATION_TITLE</td>
+	<td>//input[contains(@id,'StagingProcessesPortlet_name')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

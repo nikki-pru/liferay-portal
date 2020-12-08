@@ -1,0 +1,54 @@
+@component-name = "portal-upgrades"
+definition {
+
+	property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Message Boards";
+	property testray.main.component.name = "Upgrades Collaboration";
+
+	setUp {
+		SignIn.signIn();
+
+		Smoke.viewWelcomePage();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	@priority = "5"
+	test ViewMessageBoardsArchive625 {
+		property data.archive.type = "data-archive-message-boards";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "6.2.5";
+
+		Upgrade.addMessageBoards();
+
+		Upgrade.viewMessageBoards();
+	}
+
+	@priority = "5"
+	test ViewMessageBoardsArchive621015 {
+		property data.archive.type = "data-archive-message-boards";
+		property portal.version = "6.2.10.15";
+
+		Upgrade.addMessageBoards();
+
+		Upgrade.viewMessageBoards();
+	}
+
+	@priority = "5"
+	test ViewMessageBoardsArchive621021 {
+		property data.archive.type = "data-archive-message-boards";
+		property portal.version = "6.2.10.21";
+
+		Upgrade.addMessageBoards();
+
+		Upgrade.viewMessageBoards();
+	}
+
+}

@@ -1,0 +1,34 @@
+def assigneeIdInstanceIds = new HashSet();
+def assigneeIds;
+def completedInstanceIds = new HashSet();
+def taskNameInstanceIds = new HashSet();
+def taskNames;
+
+for (state in states) {
+	if (state == null) {
+		continue;
+	}
+
+	assigneeIdInstanceIds.addAll(state.assigneeIdInstanceIds);
+
+	assigneeIds = state.assigneeIds;
+
+	completedInstanceIds.addAll(state.completedInstanceIds);
+
+	taskNameInstanceIds.addAll(state.taskNameInstanceIds);
+
+	taskNames = state.taskNames;
+}
+
+def instanceCount = 0;
+
+for (instanceId in completedInstanceIds) {
+	if (((assigneeIds == null) ||
+		 assigneeIdInstanceIds.contains(instanceId)) && 
+		((taskNames == null) || taskNameInstanceIds.contains(instanceId))) {
+
+		instanceCount += 1;
+	}
+}
+
+return instanceCount;

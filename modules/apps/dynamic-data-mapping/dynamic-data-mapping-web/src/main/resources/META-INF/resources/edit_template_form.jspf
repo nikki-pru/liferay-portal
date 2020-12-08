@@ -1,0 +1,126 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%
+String namespace = liferayPortletResponse.getNamespace();
+
+if (Validator.isNotNull(portletResourceNamespace)) {
+	namespace = portletResourceNamespace;
+}
+
+if (Validator.isNull(script)) {
+	script = structure.getDefinition();
+}
+
+String fieldsJSONArrayString = String.valueOf(_getFormTemplateFieldsJSONArray(structure, script));
+%>
+
+<aui:input name="language" type="hidden" value="json" />
+<aui:input name="scriptContent" type="hidden" />
+
+<aui:script>
+	function <portlet:namespace />attachValueChange(formBuilder) {
+		var modeInput = document.getElementById('<portlet:namespace />mode');
+
+		if (modeInput) {
+			modeInput.addEventListener('change', function (event) {
+				<portlet:namespace />toggleMode(formBuilder, event.target.value);
+			});
+		}
+	}
+
+	Liferay.on('<portlet:namespace />formBuilderLoaded', function (event) {
+		var formBuilder = event.formBuilder;
+
+		<portlet:namespace />attachValueChange(formBuilder);
+
+		<portlet:namespace />toggleMode(
+			formBuilder,
+			'<%= HtmlUtil.escape(mode) %>'
+		);
+	});
+
+	function <portlet:namespace />setFieldsHiddenAttributes(
+		formBuilder,
+		mode,
+		item,
+		index
+	) {
+		var hiddenAttributesMap = formBuilder.MAP_HIDDEN_FIELD_ATTRS;
+		var hiddenAttributes =
+			hiddenAttributesMap[item.get('type')] || hiddenAttributesMap.DEFAULT;
+		var without = function (array) {
+			var elems = Array.from(arguments).slice(1);
+
+			elems.forEach(function (value) {
+				array = array.filter(function (elem) {
+					return elem != value;
+				});
+			});
+
+			return array;
+		};
+
+		if (mode === '<%= DDMTemplateConstants.TEMPLATE_MODE_EDIT %>') {
+			hiddenAttributes = without(hiddenAttributes, 'readOnly');
+		}
+
+		item.set('hiddenAttributes', hiddenAttributes);
+	}
+
+	function <portlet:namespace />toggleMode(formBuilder, mode) {
+		var modeEdit = mode === '<%= DDMTemplateConstants.TEMPLATE_MODE_EDIT %>';
+
+		formBuilder.set('allowRemoveRequiredFields', modeEdit);
+
+		var setFieldsHiddenAttributes = <portlet:namespace />setFieldsHiddenAttributes.bind(
+			this,
+			formBuilder,
+			mode
+		);
+		formBuilder.get('fields')._items.forEach(setFieldsHiddenAttributes);
+		formBuilder.get('availableFields').forEach(setFieldsHiddenAttributes);
+
+		var editingField = formBuilder.editingField;
+
+		if (editingField) {
+			formBuilder.propertyList.set(
+				'data',
+				formBuilder.getFieldProperties(editingField, true)
+			);
+		}
+	}
+
+	window['<%= HtmlUtil.escapeJS(namespace) %>getAvailableFields'] = function (
+		A,
+		FormBuilder
+	) {
+
+		<%
+		JSONArray structureJSONArray = _getFormTemplateFieldsJSONArray(structure, structure.getDefinition());
+		%>
+
+		var availableFields = <%= structureJSONArray.toString() %>;
+
+		availableFields.forEach(function (item, index) {
+			item.iconClass = FormBuilder.DEFAULT_ICON_CLASS;
+		});
+
+		return availableFields.concat(FormBuilder.AVAILABLE_FIELDS.DDM_TEMPLATE);
+	};
+</aui:script>
+
+<%@ include file="/form_builder.jspf" %>

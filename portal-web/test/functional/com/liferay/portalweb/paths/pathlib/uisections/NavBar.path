@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>NavBar</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">NavBar</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ACTIVE_NAV_ITEM_LINK</td>
+	<td>//div[contains(@class,'navbar')]//a[contains(@class,'active') and normalize-space()='${key_navItem}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADD</td>
+	<td>//div[contains(@class,'navbar-default')]//a/span[contains(.,'Add')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ADDRESSES</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'Addresses')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>APPLICATION_SEARCH_FIELD</td>
+	<td>//div[contains(@class,'active')]//input[contains(@id,'sidebarAddPanelSearch')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_LIBRARIES</td>
+	<td>//*[contains(@class,'nav-link') and contains(.,'Asset Libraries')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_TITLE</td>
+	<td>//*[contains(@class,'nav-link') and contains(text(),'${key_assetTitle}')] | //a[.='${key_assetTitle}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTAINER</td>
+	<td>//div[@class='navbar ' or contains(@class,'navbar-default')]//div[contains(@class,'container')] | //div[contains(@class,'navbar-collapse')]/div[contains(@class,'container')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CONTENT_SEARCH_FIELD</td>
+	<td>//input[contains(@id,'searchContent')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DETAILS</td>
+	<td>//ul[contains(@class,'navbar-nav')]/li/a[contains(@class,'dropdown-toggle')]/span[contains(.,'Details')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GO_TO_HOME_PAGE_LINK</td>
+	<td>//div[contains(@class,'navbar')]//a[contains(@class,'logo')]//*[contains(@role,'heading')][normalize-space(text())='${key_siteName}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>HOME</td>
+	<td>//ol[contains(@class,'breadcrumb')]/li//a[contains(.,'Home')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LOGO_LINK</td>
+	<td>//a[contains(@class,'navbar-brand')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MY_SITES</td>
+	<td>//*[contains(@class,'navbar')]//a[normalize-space()='My Sites']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAV_ITEM_LINK</td>
+	<td>//div[contains(@class,'navbar')]//a[normalize-space()='${key_navItem}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAV_ITEM_REDIRECTION</td>
+	<td>//li[contains(@class,'nav-item')]//a[contains(.,'${key_navItem}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ORGANIZATIONS</td>
+	<td>//ul[contains(@class,'nav') and contains(@class,'navbar-nav')]/li/a[contains(.,'Organizations')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RECENT</td>
+	<td>//*[contains(@class,'navbar')]//a[normalize-space()='Recent']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SEARCH_TOGGLE_ADVANCED</td>
+	<td>//button[contains(@id,'searchtoggleAdvanced')]/span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TOGGLE_NAVIGATION</td>
+	<td>//div[contains(@class,'navbar')]//button[contains(@aria-label,'Toggle navigation')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>USERS</td>
+	<td>//ul[contains(@class,'nav') and contains(@class,'navbar-nav')]/li/a[contains(.,'Users')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,7 @@
+dependencies {
+	testCompile project(":core:petra:petra-test-util")
+}
+
+liferay {
+	deployDir = appServerLibGlobalDir
+}

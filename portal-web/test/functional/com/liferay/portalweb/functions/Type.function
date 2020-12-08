@@ -1,0 +1,277 @@
+@default = "clickAtType"
+@summary = "Type to '${locator1}' the value '${value1}'"
+definition {
+
+	function clickAtType {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.clickAt();
+
+		selenium.pause("1000");
+
+		selenium.type();
+
+		selenium.pause("1000");
+
+		selenium.clickAt();
+
+		selenium.pause("1000");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function sendKeys {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.sendKeys();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function sendKeysAceEditor {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.sendKeysAceEditor();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function sendKeysApplicationSearch {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent(
+			"//script[contains(@src,'/autocomplete-filters/autocomplete-filters')]"
+		);
+
+		selenium.waitForEditable();
+
+		Type.sendKeys();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function type {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.type();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeAceEditor {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.typeAceEditor();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeAceEditorNoError {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.typeAceEditor();
+	}
+
+	function typeAceEditorNoMouseOver {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForEditable();
+
+		selenium.typeAceEditor();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeCKEditor {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.typeCKEditor();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeCKEditorWaitForCKEditor {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible(
+			"//a[contains(@class,'cke_button__source') and contains(@class,'cke_button_off')]"
+		);
+
+		selenium.pause("1000");
+
+		selenium.waitForEditable();
+
+		Type.typeCKEditor();
+
+		selenium.pause("1000");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeClickAt {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.type();
+
+		selenium.clickAt();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeCodeMirrorEditorNoError {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.mouseOver();
+
+		selenium.typeCodeMirrorEditor();
+	}
+
+	function typeEditor {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.typeEditor();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeNoMouseOver {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForEditable();
+
+		selenium.type();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeNotVisibleNoMouseOver {
+		WaitForSPARefresh();
+
+		selenium.waitForEditable();
+
+		selenium.type();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typePause {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForEditable();
+
+		selenium.mouseOver();
+
+		selenium.type();
+
+		selenium.pause("5000");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function typeWaitForCKEditorScript {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent(
+			"//script[contains(@src,'ckeditor/config.js') or contains(@id,'ckEditorScript')]"
+		);
+
+		selenium.waitForEditable();
+
+		Type.type();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

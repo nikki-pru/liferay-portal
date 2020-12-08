@@ -1,0 +1,14 @@
+@default = "assertAlertNotPresent"
+definition {
+
+	function assertAlertNotPresent {
+		WaitForSPARefresh();
+
+		selenium.assertAlertNotPresent();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

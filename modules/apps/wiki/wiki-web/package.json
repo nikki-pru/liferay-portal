@@ -1,0 +1,14 @@
+{
+	"dependencies": {
+		"frontend-js-web": "*",
+		"metal": "2.16.8",
+		"metal-events": "2.16.8"
+	},
+	"name": "wiki-web",
+	"scripts": {
+		"build": "liferay-npm-scripts build",
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix"
+	},
+	"version": "7.0.0"
+}

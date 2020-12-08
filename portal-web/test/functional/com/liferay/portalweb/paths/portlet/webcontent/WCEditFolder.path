@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>WCEditFolder</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">WCEditFolder</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>WORKFLOW_FOLDER_WORKFLOW</td>
+	<td>//select[contains(@id,'workflowDefinition')]//option[contains(@selected,'') and contains(@value,'${key_workflowResourceValue}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_STRUCTURE_RESTRICTIONS_TOGGLE</td>
+	<td>//a[contains(.,'Structure Restrictions and Workflow')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_SPECIFIC_RESTRICTIONS_CHOOSE_STRUCTURE_BUTTON</td>
+	<td>//button[contains(@id,'selectDDMStructure')]/span[contains(.,'Choose Structure')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_SPECIFIC_RESTRICTIONS_STRUCTURE_WORKFLOW_SELECT</td>
+	<td>//tr[contains(.,'${key_ddlDataDefinitionName}')]/td[2]//div/select</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

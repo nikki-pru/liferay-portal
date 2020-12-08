@@ -1,0 +1,427 @@
+@import 'atlas-variables';
+
+.portlet-asset-publisher,
+.portlet-message-boards,
+.portlet-trash {
+	.advanced-reply {
+		float: right;
+	}
+
+	.alloy-editor-switch {
+		margin-top: -40px;
+	}
+
+	.category-subscriptions {
+		clear: both;
+		margin-bottom: 1em;
+	}
+
+	.category-subscriptions {
+		overflow: hidden;
+	}
+
+	.category-subscription-types {
+		float: right;
+		margin-bottom: 0;
+	}
+
+	.quote {
+		background: #fff url(@theme_image_path@/message_boards/quoteleft.png)
+			left top no-repeat;
+		border: 1px solid #777;
+		padding: 5px 0 0 5px;
+	}
+
+	.quote-content {
+		background: transparent
+			url(@theme_image_path@/message_boards/quoteright.png) right bottom
+			no-repeat;
+		padding: 5px 30px 10px;
+	}
+
+	.quote-title {
+		font-weight: bold;
+		padding: 5px 0;
+	}
+
+	.title {
+		border-bottom: 1px solid #ccc;
+		font-size: large;
+		font-weight: normal;
+		padding: 5px;
+	}
+
+	.trash-attachments {
+		float: right;
+	}
+
+	#messageBoardsPanelContainer {
+		border-width: 0;
+	}
+
+	.message-attachments {
+		h3 {
+			color: #333;
+			font-size: 1em;
+		}
+
+		ul {
+			list-style: none;
+		}
+
+		.undo {
+			font-weight: bold;
+		}
+	}
+
+	.view-entries-container {
+		span.h6 {
+			margin-right: 12px;
+		}
+	}
+
+	.thread-container {
+		margin-top: 20px;
+
+		.panel-heading {
+			span.h5 {
+				margin-right: 12px;
+			}
+		}
+
+		& > .message-container {
+			padding-left: 0;
+		}
+
+		.reply-to-main-thread-container {
+			text-align: center;
+		}
+	}
+
+	.message-container {
+		padding-left: 10px;
+	}
+
+	.message-content {
+		display: block;
+
+		.alloy-editor-container .alloy-editor-wrapper {
+			padding-top: 0.5em;
+		}
+
+		img {
+			max-width: 100%;
+		}
+	}
+
+	.thread-bottom,
+	.thread-top {
+		padding: 3px 5px;
+	}
+
+	.thread-top {
+		border-bottom: 1px solid #eee;
+	}
+
+	.thread-bottom {
+		vertical-align: bottom;
+	}
+
+	.taglib-ratings.thumbs .total-rating {
+		padding: 0 5px 0 10px;
+	}
+
+	td.user-info {
+		border-right: 1px solid #ccc;
+		width: 150px;
+	}
+
+	.edit-controls li,
+	.subject {
+		float: left;
+	}
+
+	.edit-controls {
+		float: right;
+
+		li {
+			margin-right: 10px;
+		}
+	}
+
+	.reply-to-message {
+		margin-bottom: 20px;
+	}
+
+	.thread-body {
+		overflow: hidden;
+		padding: 15px;
+
+		td {
+			border: 1px solid #ccc;
+		}
+	}
+
+	h3.component-title {
+		font-size: $h3-font-size;
+
+		@include media-breakpoint-down(sm) {
+			font-size: $h3-font-size-mobile;
+		}
+	}
+
+	.message-user-display {
+		margin-bottom: 0.5rem;
+		margin-top: 0.5rem;
+	}
+
+	.social-interaction {
+		display: flex;
+		margin-left: -0.5rem;
+
+		> div {
+			margin-right: 0.5rem;
+		}
+	}
+
+	@include media-breakpoint-up(sm) {
+		.message-user-display {
+			width: calc(100% - 198px);
+		}
+
+		.social-interaction {
+			margin-left: 0;
+			position: absolute;
+			right: 0;
+			top: 0.25rem;
+
+			> div {
+				float: left;
+			}
+		}
+	}
+
+	.clear {
+		clear: both;
+	}
+
+	.list-group .list-group-item h4,
+	.list-group .list-group-item h2 {
+		font-weight: 400;
+	}
+
+	.taglib-custom-attributes-list {
+		margin-bottom: 1em;
+	}
+
+	.message-boards-panels,
+	.statistics-panel {
+		border-width: 0;
+	}
+
+	.statistics-panel-content {
+		margin: 1em;
+
+		dt {
+			float: left;
+			font-weight: bold;
+			margin-right: 1em;
+		}
+
+		.list-group-item-content span.h5 {
+			margin-right: 12px;
+		}
+	}
+
+	.statistics-panel {
+		background-color: #fff;
+		border: 1px solid #e7e7ed;
+		border-radius: 4px;
+		box-sizing: border-box;
+		margin-top: 1.5rem;
+		padding: 1.5rem;
+
+		&.overview-container {
+			padding: 1rem;
+		}
+
+		small {
+			font-weight: 600;
+		}
+
+		.statistics-number {
+			font-size: 2.5rem;
+			margin-bottom: 0;
+		}
+
+		.sticker {
+			margin-right: 0.5rem;
+		}
+
+		.sticker-categories {
+			background-color: $primary-l3;
+			border: 1px solid $primary-l3;
+			box-shadow: none;
+			color: $primary-l1;
+		}
+
+		.sticker-posts {
+			background-color: $success-l2;
+			border: 1px solid $success-l2;
+			box-shadow: none;
+			color: $success-l1;
+		}
+
+		.sticker-participants {
+			background-color: $danger-l2;
+			border: 1px solid $danger-l2;
+			box-shadow: none;
+			color: $danger-l1;
+		}
+	}
+
+	.views {
+		clear: both;
+		color: #999;
+		float: left;
+		padding: 5px 0;
+		text-align: center;
+		width: 100%;
+
+		.count {
+			display: inline;
+			font-size: 1em;
+		}
+	}
+
+	.taglib-workflow-status {
+		margin: 0;
+	}
+
+	.count {
+		display: block;
+		font-size: 190%;
+		font-weight: bold;
+		height: 25px;
+	}
+
+	.toggle_id_message_boards_view_message_thread {
+		border: 1px solid #ccc;
+		clear: both;
+		margin: 5px 0 0;
+		width: 100%;
+	}
+
+	.thread-controls {
+		margin-bottom: 5px;
+		padding: 3px 5px;
+	}
+
+	.thread-priority {
+		float: left;
+	}
+
+	.thread-actions {
+		float: right;
+	}
+
+	.thread-priority {
+		border-width: 0;
+	}
+
+	.thread-view-controls {
+		list-style: none;
+		margin: 0;
+		text-align: right;
+
+		li {
+			display: inline-block;
+		}
+	}
+
+	.emoticons {
+		border: 1px solid #ccc;
+		margin-left: 10px;
+	}
+
+	.tree {
+		vertical-align: middle;
+	}
+
+	.message-scroll {
+		margin: 5px 0 0;
+	}
+
+	.lfr-textarea {
+		&.message-edit {
+			height: 100%;
+			width: 100%;
+
+			textarea {
+				height: 378px;
+				min-height: 100%;
+				width: 99.5%;
+			}
+		}
+	}
+
+	.category-description,
+	.category-title {
+		display: block;
+	}
+
+	.category-description {
+		@include hyphens();
+	}
+
+	.category-title {
+		font-weight: bold;
+
+		@include text-truncate();
+	}
+
+	.subcategories {
+		text-decoration: underline;
+	}
+
+	.threads-panel {
+		margin-top: 1em;
+	}
+
+	.search-root-entry {
+		color: #999;
+		float: right;
+	}
+}
+
+.col-md-4 {
+	.portlet-asset-publisher,
+	.portlet-message-boards,
+	.portlet-trash {
+		@include media-breakpoint-up(sm) {
+			.message-user-display {
+				width: 100%;
+			}
+
+			.social-interaction {
+				margin-left: -0.5rem;
+				position: static;
+				width: 100%;
+			}
+		}
+	}
+}
+
+.trash-restore-popup {
+	.form {
+		fieldset {
+			margin-bottom: 0;
+			padding: 0 15px;
+		}
+	}
+}
+
+.portal-popup .portlet-message-boards .lfr-dynamic-uploader {
+	position: relative;
+	top: 0;
+}

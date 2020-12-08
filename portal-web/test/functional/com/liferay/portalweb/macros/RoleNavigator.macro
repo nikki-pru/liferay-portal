@@ -1,0 +1,17 @@
+definition {
+
+	macro gotoAssignees {
+		LexiconEntry.gotoEntry(rowEntry = "${roleTitle}");
+
+		Navigator.gotoNavItem(navItem = "Assignees");
+	}
+
+	macro gotoAssigneeType {
+		Navigator.gotoNavItem(navItem = "${assigneeType}");
+	}
+
+	macro gotoRoleType {
+		Navigator.gotoNavItem(navItem = "${roleType} Roles");
+	}
+
+}

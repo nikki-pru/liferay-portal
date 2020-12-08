@@ -1,0 +1,15 @@
+definition {
+
+	macro addCP {
+		SelectFrame(locator1 = "IFrame#CONFIGURATION");
+
+		Type(
+			locator1 = "TextInput#INITIAL_URL",
+			value1 = "${initialURL}");
+
+		PortletEntry.save();
+
+		SelectFrame(value1 = "relative=top");
+	}
+
+}

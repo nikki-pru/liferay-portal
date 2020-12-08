@@ -1,0 +1,101 @@
+@component-name = "portal-security"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Permissions";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			User.firstLoginPG();
+
+			Page.tearDownCP();
+		}
+	}
+
+	@priority = "5"
+	test ViewBlogsPortletAsGuestPG {
+		property app.server.types = "jboss,tcserver,tomcat,weblogic,websphere,wildfly";
+		property database.types = "db2,hypersonic,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+		property environment.acceptance = "true";
+		property portal.acceptance = "false";
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Blogs Page");
+
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Navigator.openSpecificURL(url = "http://localhost:8080/web/guest/blogs-page");
+		}
+		else {
+			Navigator.gotoPage(pageName = "Blogs Page");
+		}
+
+		Portlet.addPG(portletName = "Blogs");
+
+		if ("${browserType}" == "safari") {
+			Navigator.openSpecificURL(url = "http://localhost:8080/web/guest/blogs-page");
+		}
+		else {
+			Navigator.gotoPage(pageName = "Blogs Page");
+		}
+
+		Blogs.viewControlsPG();
+
+		User.logoutPG();
+
+		if ("${browserType}" == "safari") {
+			Navigator.openSpecificURL(url = "http://localhost:8080/web/guest/blogs-page");
+		}
+		else {
+			Navigator.gotoPage(pageName = "Blogs Page");
+		}
+
+		BlogsConfiguration.viewNoPermissionPG();
+	}
+
+	@priority = "4"
+	test ViewNoDisplayPortletConfigurationPermission {
+		property custom.properties = "virtual.hosts.default.site.name=Guest";
+		property test.assert.javascript.errors = "false";
+		property test.assert.warning.exceptions = "true";
+
+		var portalURL = PropsUtil.get("portal.url");
+		var url1 = "${portalURL}/testxxx/?p_p_id=com_liferay_portlet_configuration_web_portlet_PortletConfigurationPortlet&amp;p_p_lifecycle=0&amp;p_p_state=maximized&amp;_com_liferay_portlet_configuration_web_portlet_PortletConfigurationPortlet_mvcPath=%2Fedit_configuration.jsp&amp;_com_liferay_portlet_configuration_web_portlet_PortletConfigurationPortlet_portletResource=com_liferay_users_admin_web_portlet_UsersAdminPortlet";
+		var url2 = "${portalURL}/testxxx/?p_p_id=com_liferay_users_admin_web_portlet_UsersAdminPortlet&amp;p_p_state=maximized";
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "testxxx");
+
+		User.logoutPG();
+
+		Navigator.openSpecificURL(url = "${url1}");
+
+		Alert.viewErrorMessage(errorMessage = "You do not have the required permissions.");
+
+		Navigator.openSpecificURL(url = "${url2}");
+
+		AssertTextEquals(
+			locator1 = "Message#ERROR",
+			value1 = "You do not have the roles required to access this portlet.");
+	}
+
+}

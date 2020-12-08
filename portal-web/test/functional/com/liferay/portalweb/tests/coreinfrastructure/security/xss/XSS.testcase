@@ -1,0 +1,504 @@
+@component-name = "portal-security"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property test.assert.warning.exceptions = "false";
+	property testray.main.component.name = "XSS";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			PortalSettings.tearDownAuthenticationCP();
+
+			Page.tearDownCP();
+		}
+	}
+
+	@priority = "4"
+	test ValidateXSSVulnerabilities {
+		var portalURL = PropsUtil.get("portal.url");
+
+		var maliciousURL1 = '''
+				${portalURL}/group/guest/home?p_p_id=82&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_pos=1&p_p_col_count=2&_82_struts_action=%2Flanguage%2Fview&languageId=&lt;/script&gt;&lt;script&gt;alert(document.domain)&lt;/script>
+			''';
+
+		var maliciousURL2 = '''
+				${portalURL}/group/guest/home?p_p_id=82&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_pos=1&p_p_col_count=2&_82_struts_action=%2Flanguage%2Fview&languageId=&lt;/script&gt;&lt;script&gt;alert(document.domain)&lt;/script&gt;
+			''';
+
+		var maliciousURL3 = '''
+				${portalURL}/group/guest/home?p_p_id=82&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_pos=1&p_p_col_count=2&_82_struts_action=%2Flanguage%2Fview&languageId=%3C/script%3E%3Cscript%3Ealert(document.domain)%3C/script%3E
+			''';
+
+		var maliciousURL4 = '''
+				${portalURL}/group/guest/home?p_p_id=82&p_p_lifecycle=1&p_p_state=normal&p_p_mode=view&p_p_col_id=column-1&p_p_col_pos=1&p_p_col_count=2&_82_struts_action=%2Flanguage%2Fview&languageId=</script><script>alert(document.domain)</script>
+			''';
+
+		var maliciousURL5 = '''
+				${portalURL}/web/guest/search?p_p_id=113&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_113_tabs1=background-styles
+			''';
+
+		Navigator.openSpecificURL(url = "${maliciousURL1}");
+
+		AssertTextEquals(
+			locator1 = "Home#ERROR_MESSAGE_ALERT_ERROR",
+			value1 = "Not Found");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Home#ERROR_MESSAGE_RESOURCE_NOT_FOUND",
+			value1 = "The requested resource could not be found.");
+
+		AssertElementPresent(locator1 = "Home#URL_ERROR_MESSAGE");
+
+		Navigator.openSpecificURL(url = "${maliciousURL2}");
+
+		AssertTextEquals(
+			locator1 = "Home#ERROR_MESSAGE_ALERT_ERROR",
+			value1 = "Not Found");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Home#ERROR_MESSAGE_RESOURCE_NOT_FOUND",
+			value1 = "The requested resource could not be found.");
+
+		AssertElementPresent(locator1 = "Home#URL_ERROR_MESSAGE");
+
+		Navigator.openSpecificURL(url = "${maliciousURL3}");
+
+		AssertTextEquals(
+			locator1 = "Home#ERROR_MESSAGE_ALERT_ERROR",
+			value1 = "Not Found");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Home#ERROR_MESSAGE_RESOURCE_NOT_FOUND",
+			value1 = "The requested resource could not be found.");
+
+		AssertElementPresent(locator1 = "Home#URL_ERROR_MESSAGE");
+
+		Navigator.openSpecificURL(url = "${maliciousURL4}");
+
+		AssertTextEquals(
+			locator1 = "Home#ERROR_MESSAGE_ALERT_ERROR",
+			value1 = "Not Found");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Home#ERROR_MESSAGE_RESOURCE_NOT_FOUND",
+			value1 = "The requested resource could not be found.");
+
+		AssertElementPresent(locator1 = "Home#URL_ERROR_MESSAGE");
+
+		Navigator.openSpecificURL(url = "${maliciousURL5}");
+
+		AssertTextEquals(
+			locator1 = "Message#INFO",
+			value1 = "This portlet could not be found. Please redeploy it or remove it from the page.");
+	}
+
+	@priority = "3"
+	test ViewGoogleAnalyticsID {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			portlet = "Site Settings");
+
+		Site.editGoogleAnalyticsIDCP(googleAnalyticsID = '''']);alert(/googleAnalyticsId/);//''');
+
+		Navigator.openURL();
+
+		AssertAlertNotPresent();
+	}
+
+	@priority = "3"
+	test ViewJSONWS {
+		var portalURL = PropsUtil.get("portal.url");
+
+		Navigator.openSpecificURL(url = "${portalURL}/api/jsonws?contextPath=%22%3E%3Cimg%20src=x%20onerror=alert%28/contextPath/%29%3E");
+
+		AssertAlertNotPresent();
+	}
+
+	@description = "This is a use case for LPS-59198."
+	@priority = "3"
+	test ViewLDAP {
+		PortalSettings.gotoConfiguration(
+			configurationCategory = "LDAP",
+			configurationName = "Servers",
+			configurationScope = "Virtual Instance Scope");
+
+		PortalSettings.addLDAPServer(LDAPServerName = '''<script>alert(123);</script>''');
+
+		AssertAlertNotPresent();
+
+		var actualScript = '''<script>alert(123);</script>''';
+
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
+
+		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+
+		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+	}
+
+	@priority = "4"
+	test ViewLiferayPortletList {
+		var portalURL = PropsUtil.get("portal.url");
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Asset Publisher Page");
+
+		Navigator.gotoPage(pageName = "Asset Publisher Page");
+
+		Portlet.addPG(portletName = "Asset Publisher");
+
+		Navigator.openSpecificURL(url = "${portalURL}/web/guest/home?p_p_id=com_liferay_portlet_configuration_web_portlet_PortletConfigurationPortlet&amp;p_p_state=pop_up&amp;_com_liferay_portlet_configuration_web_portlet_PortletConfigurationPortlet_mvcPath=%2Fedit_configuration.jsp&amp;_com_liferay_portlet_configuration_web_portlet_PortletConfigurationPortlet_portletResource=com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_7awylRgVDERT;alert(1)//%22;alert(2)//%22;alert(3)//%E2%80%93%3E%3C/script%3E%22%3E%27%3E%3Cscript%3Ealert(4)%3C/script%3E&amp;_com_liferay_portlet_configuration_web_portlet_PortletConfigurationPortlet_resourcePrimKey=asdfxxx");
+
+		AssertAlertNotPresent();
+
+		Refresh();
+
+		AssertAlertNotPresent();
+
+		Navigator.openURL();
+
+		AssertAlertNotPresent();
+	}
+
+	@priority = "4"
+	test ViewLookAndFeel {
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = '''<script>alert(123);</script>''');
+
+		Navigator.gotoPage(pageName = '''<script>alert(123);</script>''');
+
+		Portlet.addPG(portletName = "Blogs");
+
+		Portlet.gotoPortletOptions(
+			portletName = "Blogs",
+			portletOption = "Look and Feel Configuration");
+
+		AssertElementNotPresent(locator1 = "//body[.='123']");
+
+		var actualScript = '''<script>alert(123);</script>''';
+
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
+
+		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+
+		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+	}
+
+	@description = "This is a use case for LPS-42750."
+	@priority = "3"
+	test ViewMobileDeviceFamilies {
+		property test.name.skip.portal.instance = "XSS#ViewMobileDeviceFamilies";
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			portlet = "Mobile Device Families");
+
+		MobileDevice.addDeviceFamilyCP(deviceFamilyName = '''<script>alert(123);</script>''');
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.gotoPageMenuItem(
+			menuItem = "Configure",
+			pageName = "Search");
+
+		Navigator.gotoNavTab(navTab = "Advanced");
+
+		Panel.expandPanel(panel = "Mobile Device Rules");
+
+		Page.disableMobileDeviceRulesAreInheritedFromPublicPages();
+
+		Page.selectMobileDeviceFamily(deviceFamilyName = '''<script>alert(123);</script>''');
+
+		AssertElementNotPresent(locator1 = "//body[.='123']");
+
+		var actualScript = '''<script>alert(123);</script>''';
+
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
+
+		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+
+		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+	}
+
+	@priority = "4"
+	test ViewRecycleBin {
+		var entryTitle = '''<script>alert(123);</script>''';
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsNavigator.gotoAddEntry();
+
+		Type(
+			key_editor = "title",
+			locator1 = "AlloyEditor#EDITOR",
+			value1 = "${entryTitle}");
+
+		BlogsEntry.addContent(entryContent = "Blogs Entry Content");
+
+		PortletEntry.publish();
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Blogs");
+
+		BlogsNavigator.moveToRecycleBinCP(entryTitle = "${entryTitle}");
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Recycle Bin",
+			portlet = "Recycle Bin");
+
+		RecycleBin.restoreCP(
+			assetName = "${entryTitle}",
+			assetRestoreLocation = "Blogs",
+			assetType = "Blogs Entry");
+
+		AssertElementNotPresent(locator1 = "//body[.='123']");
+
+		var actualScript = '''<script>alert(123);</script>''';
+
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
+
+		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+
+		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+	}
+
+	@priority = "4"
+	test ViewRoles {
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		Role.add(roleTitle = '''<script>alert(123);</script>''');
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Users",
+			panel = "Control Panel",
+			portlet = "Roles");
+
+		Role.viewCP(
+			roleKey = '''<script>alert(123);</script>''',
+			roleTitle = '''<script>alert(123);</script>''',
+			roleType = "Regular");
+
+		Navigator.openURL();
+
+		Click(locator1 = "Icon#EDIT_PENCIL");
+
+		PageEditor.addWidget(
+			portletName = "Sign In",
+			targetFragmentName = "Container");
+
+		PermissionsInline.gotoConfigurationPG(portletName = "Sign In");
+
+		AssertElementNotPresent(locator1 = "//body[.='123']");
+
+		var actualScript = '''<script>alert(123);</script>''';
+
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
+
+		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+
+		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+	}
+
+	@priority = "5"
+	test ViewSearchResults {
+		var siteName = '''<script>alert(123);</script>''';
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
+
+		Site.addBlankCP(siteName = "${siteName}");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Sites",
+			panel = "Control Panel",
+			portlet = "Sites");
+
+		Search.searchCP(searchTerm = "${siteName}");
+
+		AssertClick(
+			key_rowEntry = "${siteName}",
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME_LINK",
+			value1 = "${siteName}");
+
+		AssertElementNotPresent(locator1 = "//body[.='XSS']");
+
+		var actualScript = '''<script>alert(123);</script>''';
+
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
+
+		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+
+		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+	}
+
+	@priority = "4"
+	test ViewURLValidate {
+		property test.name.skip.portal.instance = "XSSUsecase#ViewURLValidate";
+
+		var maliciousURL1 = '''
+				http://localhost:8080/group/control_panel/manage?p_p_id=132&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_132_struts_action=%2Fplugins_admin%2Fedit_plugin&_132_pluginId=116&_132_pluginType=portlet&_132_title=Activities&_132_moduleId=%3Cscript%3Ealert(%22xss%22);%3C/script%3E
+			''';
+
+		var maliciousURL2 = '''
+				http://localhost:8080/group/control_panel/manage?p_p_id=132&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_132_struts_action=%2Fplugins_admin%2Fedit_plugin&_132_pluginId=116&_132_pluginType=portlet&_132_title=Activities&_132_moduleId=%3Cscript%3Ealert(%22xss%22);%3C/script%3E&_2_backURL=%22%3E%3Cscript%3Ealert%28%27xss%27%29;%3C/script%3E
+			''';
+
+		var maliciousURL3 = '''
+				http://localhost:8080/group/control_panel/manage?p_p_id=132&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_132_struts_action=%2Fplugins_admin%2Fedit_plugin&_132_pluginId=116&_132_pluginType=portlet&_132_title=Activities&_132_moduleId=%3Cscript%3Ealert(%22xss%22);%3C/script%3E&_2_backURL=alert%28%27xss%27%29
+			''';
+
+		var maliciousURL4 = '''
+				http://localhost:8080/html/portal/progress_poller.jsp?ProgressId=a%3D1%3Balert(document.cookie)%3B%2F%2F
+			''';
+
+		Navigator.openSpecificURL(url = "${maliciousURL1}");
+
+		AssertAlertNotPresent();
+
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "Account Settings");
+
+		Navigator.openSpecificURL(url = "${maliciousURL2}");
+
+		AssertAlertNotPresent();
+
+		Navigator.openSpecificURL(url = "${maliciousURL3}");
+
+		AssertAlertNotPresent();
+
+		Navigator.openSpecificURL(url = "${maliciousURL4}");
+
+		AssertAlertNotPresent();
+	}
+
+	@description = "This is a use case for LPS-71236 and LPS-71307."
+	@priority = "5"
+	test ViewWebContent {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoAddCP();
+
+		WebContent.addCP(
+			webContentContent = "WC WebContent Content",
+			webContentTitle = '''<script>alert(123);</script>''');
+
+		PortletEntry.publish();
+
+		WebContent.viewTitle(
+			webContentTitle = '''<script>alert(123);</script>''',
+			webContentTitleEscapeCharacter = '''&lt;script&gt;alert(123);&lt;/script&gt;''');
+
+		Navigator.openURL();
+
+		Click(locator1 = "Icon#EDIT_PENCIL");
+
+		PageEditor.addWidget(
+			portletName = "Web Content Display",
+			targetFragmentName = "Container");
+
+		WebContentDisplayPortlet.selectWebContent(webContentTitle = '''<script>alert(123);</script>''');
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Web Content");
+
+		WebContentNavigator.gotoEditCP(
+			webContentTitle = '''<script>alert(123);</script>''',
+			webContentTitleEscapeCharacter = '''&lt;script&gt;alert(123);&lt;/script&gt;''');
+
+		WebContent.editCP(
+			webContentTitle = '''<script>alert(123);</script>''',
+			webContentTitleEdit = "WC WebContent Title");
+
+		WebContentNavigator.gotoEditCP(webContentTitle = "WebContent Title");
+
+		WebContent.addFeaturedImageFromURL(imageSourceURL = '''<img src="http://url.to.file.which/not.exist" onerror=alert(123);>''');
+
+		PortletEntry.publish();
+
+		LexiconEntry.changeDisplayStyle(displayStyle = "cards");
+
+		AssertAlertNotPresent();
+	}
+
+	@priority = "5"
+	test ViewWiki {
+		Navigator.openURL();
+
+		UserBar.gotoDropdownItem(dropdownItem = "Account Settings");
+
+		User.editUserInformation(
+			userFirstNameEdit = '''<script>alert(123);</script>''',
+			userLastNameEdit = '''<script>alert(123);</script>''',
+			userMiddleNameEdit = '''<script>alert(123);</script>''');
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			portlet = "Wiki");
+
+		WikiNavigator.gotoNode(wikiNodeName = "Main");
+
+		WikiPage.addCP(
+			wikiPageContent = "Wiki Page Content",
+			wikiPageTitle = "Wiki Page Title");
+
+		WikiNavigator.gotoCP(wikiPageTitle = "Wiki Page Title");
+
+		AssertElementNotPresent(locator1 = "//body[.='XSS']");
+
+		var actualScript = '''<script>alert(123);</script>''';
+
+		var escapedScript = '''&lt;script&gt;alert(123);&lt;/script&gt;''';
+
+		AssertHTMLSourceTextNotPresent(value1 = "${actualScript}");
+
+		AssertHTMLSourceTextPresent(value1 = "${escapedScript}");
+	}
+
+}

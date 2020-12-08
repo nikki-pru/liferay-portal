@@ -1,0 +1,264 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%
+String p_u_i_d = ParamUtil.getString(request, "p_u_i_d");
+int step = ParamUtil.getInteger(request, "step", 1);
+String eventName = ParamUtil.getString(request, "eventName", liferayPortletResponse.getNamespace() + "selectOrganizationRole");
+
+User selUser = PortalUtil.getSelectedUser(request);
+
+long uniqueOrganizationId = 0;
+
+List<Organization> organizations = null;
+
+String organizationIds = ParamUtil.getString(request, "organizationIds");
+
+if (step == 1) {
+	organizations = OrganizationLocalServiceUtil.getOrganizations(StringUtil.split(organizationIds, 0L));
+
+	if (filterManageableOrganizations) {
+		organizations = UsersAdminUtil.filterOrganizations(permissionChecker, organizations);
+	}
+
+	if (organizations.size() == 1) {
+		step = 2;
+
+		Organization organization = organizations.get(0);
+
+		uniqueOrganizationId = organization.getOrganizationId();
+	}
+}
+
+SelectRoleManagementToolbarDisplayContext selectRoleManagementToolbarDisplayContext = new SelectRoleManagementToolbarDisplayContext(request, renderRequest, renderResponse, eventName);
+
+PortletURL portletURL = selectRoleManagementToolbarDisplayContext.getPortletURL();
+
+long organizationId = 0;
+Organization selectedOrganization = null;
+
+if (step == 2) {
+	organizationId = ParamUtil.getLong(request, "organizationId", uniqueOrganizationId);
+
+	selectedOrganization = OrganizationServiceUtil.getOrganization(organizationId);
+}
+
+SearchContainer<Role> roleSearchContainer = null;
+
+if (selectedOrganization == null) {
+	roleSearchContainer = selectRoleManagementToolbarDisplayContext.getRoleSearchContainer(filterManageableRoles);
+}
+else {
+	roleSearchContainer = selectRoleManagementToolbarDisplayContext.getRoleSearchContainer(filterManageableRoles, selectedOrganization.getGroupId());
+}
+%>
+
+<clay:management-toolbar-v2
+	clearResultsURL="<%= selectRoleManagementToolbarDisplayContext.getClearResultsURL() %>"
+	itemsTotal="<%= (step == 1) ? organizations.size() : roleSearchContainer.getTotal() %>"
+	searchActionURL="<%= selectRoleManagementToolbarDisplayContext.getSearchActionURL() %>"
+	searchFormName="searchFm"
+	selectable="<%= false %>"
+	showSearch="<%= true %>"
+	viewTypeItems="<%= selectRoleManagementToolbarDisplayContext.getViewTypeItems() %>"
+/>
+
+<aui:form action="<%= portletURL.toString() %>" cssClass="container-fluid container-fluid-max-xl container-form-lg" method="post" name="selectOrganizationRoleFm">
+	<c:choose>
+		<c:when test="<%= step == 1 %>">
+			<aui:input name="organizationId" type="hidden" />
+
+			<div class="alert alert-info">
+				<liferay-ui:message key="please-select-an-organization-to-which-you-will-assign-an-organization-role" />
+			</div>
+
+			<%
+			portletURL.setParameter("step", "1");
+			%>
+
+			<liferay-ui:search-container
+				searchContainer="<%= new OrganizationSearch(renderRequest, portletURL) %>"
+				total="<%= organizations.size() %>"
+			>
+				<liferay-ui:search-container-results
+					results="<%= ListUtil.subList(organizations, searchContainer.getStart(), searchContainer.getEnd()) %>"
+				/>
+
+				<liferay-ui:search-container-row
+					className="com.liferay.portal.kernel.model.Organization"
+					escapedModel="<%= true %>"
+					keyProperty="organizationId"
+					modelVar="organization"
+				>
+					<liferay-ui:search-container-column-text
+						name="name"
+						orderable="<%= true %>"
+						property="name"
+					/>
+
+					<liferay-ui:search-container-column-text
+						name="parent-organization"
+						value="<%= HtmlUtil.escape(organization.getParentOrganizationName()) %>"
+					/>
+
+					<liferay-ui:search-container-column-text
+						name="type"
+						orderable="<%= true %>"
+						value="<%= LanguageUtil.get(request, organization.getType()) %>"
+					/>
+
+					<liferay-ui:search-container-column-text
+						name="city"
+						property="address.city"
+					/>
+
+					<liferay-ui:search-container-column-text
+						name="region"
+						property="address.region.name"
+					/>
+
+					<liferay-ui:search-container-column-text
+						name="country"
+						property="address.country.name"
+					/>
+
+					<liferay-ui:search-container-column-text>
+
+						<%
+						Group group = organization.getGroup();
+
+						Map<String, Object> data = HashMapBuilder.<String, Object>put(
+							"groupid", group.getGroupId()
+						).put(
+							"organizationid", organization.getOrganizationId()
+						).build();
+						%>
+
+						<aui:button cssClass="organization-selector-button" data="<%= data %>" value="choose" />
+					</liferay-ui:search-container-column-text>
+				</liferay-ui:search-container-row>
+
+				<liferay-ui:search-iterator
+					markupView="lexicon"
+				/>
+			</liferay-ui:search-container>
+
+			<aui:script require="frontend-js-web/liferay/delegate/delegate.es as delegateModule">
+				var form = document.<portlet:namespace />selectOrganizationRoleFm;
+
+				var delegate = delegateModule.default;
+
+				delegate(form, 'click', '.organization-selector-button', function (event) {
+					Liferay.Util.postForm(form, {
+						data: {
+							organizationId: event.delegateTarget.dataset.organizationid,
+						},
+
+						<%
+						portletURL.setParameter("resetCur", Boolean.TRUE.toString());
+						portletURL.setParameter("step", "2");
+						%>
+
+						url: '<%= portletURL.toString() %>',
+					});
+				});
+			</aui:script>
+		</c:when>
+		<c:when test="<%= step == 2 %>">
+			<aui:input name="step" type="hidden" value="2" />
+			<aui:input name="organizationId" type="hidden" value="<%= String.valueOf(organizationId) %>" />
+
+			<%
+			portletURL.setParameter("step", "1");
+
+			String breadcrumbs = "<a href=\"" + portletURL.toString() + "\">" + LanguageUtil.get(request, "organizations") + "</a> &raquo; " + HtmlUtil.escape(selectedOrganization.getName());
+			%>
+
+			<div class="breadcrumbs">
+				<%= breadcrumbs %>
+			</div>
+
+			<%
+			portletURL.setParameter("step", "2");
+			portletURL.setParameter("organizationId", String.valueOf(organizationId));
+			%>
+
+			<liferay-ui:search-container
+				headerNames="name"
+				searchContainer="<%= roleSearchContainer %>"
+			>
+				<liferay-ui:search-container-row
+					className="com.liferay.portal.kernel.model.Role"
+					keyProperty="roleId"
+					modelVar="role"
+				>
+					<liferay-ui:search-container-column-text
+						cssClass="table-cell-expand table-cell-minw-200"
+						name="title"
+					>
+						<liferay-ui:icon
+							icon="<%= RolesAdminUtil.getIconCssClass(role) %>"
+							label="<%= true %>"
+							markupView="lexicon"
+							message="<%= HtmlUtil.escape(role.getTitle(locale)) %>"
+						/>
+					</liferay-ui:search-container-column-text>
+
+					<liferay-ui:search-container-column-text>
+						<c:if test="<%= Validator.isNull(p_u_i_d) || OrganizationMembershipPolicyUtil.isRoleAllowed((selUser != null) ? selUser.getUserId() : 0, selectedOrganization.getOrganizationId(), role.getRoleId()) %>">
+
+							<%
+							Group selectedOrganizationGroup = selectedOrganization.getGroup();
+
+							Map<String, Object> data = HashMapBuilder.<String, Object>put(
+								"entityid", role.getRoleId()
+							).put(
+								"entityname", role.getTitle(locale)
+							).put(
+								"groupdescriptivename", selectedOrganizationGroup.getDescriptiveName(locale)
+							).put(
+								"groupid", selectedOrganization.getGroupId()
+							).put(
+								"iconcssclass", RolesAdminUtil.getIconCssClass(role)
+							).put(
+								"searchcontainername", "organizationRoles"
+							).build();
+
+							boolean disabled = false;
+
+							List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(selUser.getUserId());
+
+							for (UserGroupRole userGroupRole : userGroupRoles) {
+								if ((selectedOrganization.getGroupId() == userGroupRole.getGroupId()) && (userGroupRole.getRoleId() == role.getRoleId())) {
+									disabled = true;
+
+									break;
+								}
+							}
+							%>
+
+							<aui:button cssClass="selector-button" data="<%= data %>" disabled="<%= disabled %>" value="choose" />
+						</c:if>
+					</liferay-ui:search-container-column-text>
+				</liferay-ui:search-container-row>
+
+				<liferay-ui:search-iterator
+					markupView="lexicon"
+				/>
+			</liferay-ui:search-container>
+		</c:when>
+	</c:choose>
+</aui:form>

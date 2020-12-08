@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>AppManager</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">AppManager</td></tr>
+</thead>
+<tbody>
+<!--APP-->
+<tr>
+	<td>APP_NAME</td>
+	<td>//div[contains(@class,'content')]//li[contains(@class,'list-group-item')]//a[contains(.,'${key_appName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>APP_STATUS</td>
+	<td>//*[@data-qa-id='rowItemContent' and contains (.,'${key_appName}')]//div/div/following-sibling::div[contains(@class,'additional-info-item') and contains (.,'${key_appStatus}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--BREADCRUMB-->
+<tr>
+	<td>BREADCRUMB_2_LINK</td>
+	<td>//ul[contains(@class,'breadcrumb-horizontal')]/li[2]/a[contains(.,'${key_breadCrumb}')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

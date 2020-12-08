@@ -1,0 +1,24 @@
+var simulationToggle = document.getElementById('${portletNamespace}simulationToggleId');
+
+var sidenavInstance = Liferay.SideNavigation.initialize(simulationToggle);
+
+sidenavInstance.on(
+	'open.lexicon.sidenav',
+	function(event) {
+		Liferay.fire('SimulationMenu:openSimulationPanel');
+	}
+);
+
+sidenavInstance.on(
+	'closed.lexicon.sidenav',
+	function(event) {
+		Liferay.fire('SimulationMenu:closeSimulationPanel');
+	}
+);
+
+Liferay.once(
+	'screenLoad',
+	function() {
+		Liferay.SideNavigation.destroy(simulationToggle);
+	}
+);

@@ -1,0 +1,59 @@
+@default = "assertTextNotEquals"
+@summary = "Assert that '${locator1}' does not equal the value '${value1}'"
+definition {
+
+	@summary = "Assert that '${locator1}' does not contain the value '${value1}'"
+	function assertNotPartialText {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForNotPartialText();
+
+		selenium.assertNotPartialText();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertNotText {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForNotText();
+
+		selenium.assertNotText();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertNotValue {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.waitForNotValue();
+
+		selenium.assertNotValue();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function assertTextNotEquals {
+		WaitForSPARefresh();
+
+		if (contains("${locator1}", "/input")) {
+			AssertTextNotEquals.assertNotValue();
+		}
+		else {
+			AssertTextNotEquals.assertNotText();
+		}
+	}
+
+}

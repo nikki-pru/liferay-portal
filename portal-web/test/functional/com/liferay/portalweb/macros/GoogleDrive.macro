@@ -1,0 +1,81 @@
+definition {
+
+	macro gotoDrive {
+		AssertElementPresent.pauseAssertVisible(locator1 = "Button#SELECT_FILE");
+
+		AssertClick(
+			locator1 = "Button#SELECT_FILE",
+			value1 = "Select File");
+
+		Pause(locator1 = "3000");
+
+		if (isSet(windowTitle)) {
+			SelectWindow(locator1 = "GoogleLogin#PAGE_TITLE");
+
+			if (IsElementPresent(locator1 = "GoogleLogin#HEADER")) {
+				AssertClick(
+					locator1 = "GoogleLogin#ACCOUNT_MENULIST_USE_ANOTHER_ACCOUNT",
+					value1 = "Use another account");
+			}
+
+			Type(
+				locator1 = "GoogleLogin#LOGIN_EMAIL_FIELD",
+				value1 = "${userEmailAddress}");
+
+			Click(locator1 = "GoogleLogin#LOGIN_NEXT_BUTTON");
+
+			AssertElementPresent(locator1 = "GoogleLogin#LOGIN_NEXT_BUTTON");
+
+			Type(
+				locator1 = "GoogleLogin#LOGIN_PASSWORD_FIELD",
+				value1 = "${userPassword}");
+
+			Click(locator1 = "GoogleLogin#LOGIN_NEXT_BUTTON");
+
+			SelectWindow.selectWindowNoSPARefresh(locator1 = "title=${windowTitle}");
+
+			Pause(locator1 = "3000");
+		}
+
+		if (IsElementNotPresent(locator1 = "GoogleDrive#GOOGLE_DRIVE_IFRAME")) {
+			Refresh();
+
+			AssertElementPresent.pauseAssertVisible(locator1 = "Button#SELECT_FILE");
+
+			AssertClick(
+				locator1 = "Button#SELECT_FILE",
+				value1 = "Select File");
+
+			SelectWindow.selectWindowNoSPARefresh(locator1 = "title=${windowTitle}");
+		}
+
+		SelectFrame.selectFrameNoLoading(locator1 = "GoogleDrive#GOOGLE_DRIVE_IFRAME");
+	}
+
+	macro selectDocument {
+		var key_googleDocName = "${googleDocName}";
+
+		Type(
+			locator1 = "GoogleDrive#SEARCH_TERMS",
+			value1 = "${googleDocName}");
+
+		Click(locator1 = "GoogleDrive#SEARCH_BUTTON");
+
+		Click.clickAt(
+			locator1 = "GoogleDrive#LIST_VIEW_DOCUMENT_SPECIFIC",
+			value1 = "${googleDocName}");
+
+		Click.clickAt(
+			locator1 = "GoogleDrive#SELECT_BUTTON",
+			value1 = "Select");
+
+		SelectFrameTop();
+
+		var key_dmDocumentTitle = "${googleDocName}";
+
+		AssertTextEquals(
+			locator1 = "DocumentsAndMediaEntry#SELECTED_DOCUMENT_TITLE",
+			value1 = "${googleDocName}");
+	}
+
+}

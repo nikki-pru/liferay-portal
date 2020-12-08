@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>PageTemplates</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">PageTemplates</td></tr>
+</thead>
+<tbody>
+<!--PAGE_TEMPLATE_TABLE-->
+<tr>
+	<td>PAGE_TEMPLATE_TABLE_NAME</td>
+	<td>//*[@data-qa-id='row']//a[contains(.,'${key_pageTemplateName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGE_TEMPLATE_TABLE_NAME_4</td>
+	<td>xpath=(//*[@data-qa-id='row']//span[contains(@class,'title')])[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGE_TEMPLATE_TABLE_DESCRITPION</td>
+	<td>//*[@data-qa-id='row']//td[contains(.,'${key_pageTemplateDescription}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGE_TEMPLATE_TABLE_ACTIVE</td>
+	<td>//*[@data-qa-id='row' and contains(.,'${key_pageTemplateName}')]//span[contains(@class,'workflow-text')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

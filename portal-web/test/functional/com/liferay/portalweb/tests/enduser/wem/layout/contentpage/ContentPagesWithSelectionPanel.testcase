@@ -1,0 +1,562 @@
+@component-name = "portal-wcm"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Content Pages";
+
+	setUp {
+		task ("Set up instance and sign in") {
+			TestCase.setUpPortalInstance();
+
+			User.firstLoginPG();
+		}
+
+		task ("Add a site via JSON") {
+			JSONGroup.addGroup(groupName = "Test Site Name");
+		}
+
+		task ("Add a content page") {
+			JSONLayout.addPublicLayout(
+				groupName = "Test Site Name",
+				layoutName = "Test Page Name",
+				type = "content");
+		}
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			JSONGroup.deleteGroupByName(groupName = "Test Site Name");
+		}
+	}
+
+	@description = "This is a test for LPS-121281. The data-lfr-priority can order the elements information of fragment with drop zone in Selection panel."
+	@priority = "4"
+	test CanOrderElementInfoOfFragmentWithDropZoneInSelectionPanel {
+		task ("Add a fragment collection") {
+			JSONFragment.addFragmentCollection(
+				groupName = "Test Site Name",
+				name = "Collection Name");
+		}
+
+		task ("Add a fragment with drop zone and data-lfr-priority attribute") {
+			FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "test-site-name");
+
+			FragmentsAdminNavigator.gotoCollection(collectionName = "Collection Name");
+
+			FragmentsAdmin.addFragment(fragmentName = "Fragment Name");
+
+			var htmlSnippet = '''
+<div class="fragment-example">
+	<div class="section">
+		<p data-lfr-editable-id="01-title" data-lfr-editable-type="text" data-lfr-priority="1">
+			Title
+		</p>
+		<lfr-drop-zone data-lfr-drop-zone-id="1" data-lfr-priority="2"></lfr-drop-zone>
+	</div>
+	<div class="section">
+		<p data-lfr-editable-id="02-title" data-lfr-editable-type="text" data-lfr-priority="3">
+			Title
+		</p>
+		<lfr-drop-zone data-lfr-drop-zone-id="2" data-lfr-priority="4"></lfr-drop-zone>
+	</div>
+</div>
+		''';
+
+			var cssSnippet = '''
+.fragment-example {
+}
+		''';
+
+			FragmentsEditor.typeHtmlEditor(content = "${htmlSnippet}");
+
+			FragmentsEditor.typeCssEditor(content = "${cssSnippet}");
+
+			FragmentsEditor.waitForAutoSave();
+
+			FragmentsEditor.publish();
+		}
+
+		task ("Add a new fragment to page") {
+			ContentPagesNavigator.openEditContentPage(
+				pageName = "Test Page Name",
+				siteName = "Test Site Name");
+
+			PageEditor.addFragment(
+				collectionName = "Collection Name",
+				fragmentName = "Fragment Name");
+		}
+
+		task ("Assert elements information is organized in Selection panel") {
+			PageEditor.clickConfigurableField(fragmentName = "Fragment Name");
+
+			Pause(locator1 = "3000");
+
+			var n = "1";
+
+			for (var nodeName : list "Fragment Name,01-title,Drop Zone 1,02-title,Drop Zone 2") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+	}
+
+	@description = "This is a test for LPS-121626. The data-lfr-priority can order the elements information of fragment with editable fields in Selection panel."
+	@priority = "4"
+	test CanOrderElementInfoOfFragmentWithEditableFieldInSelectionPanel {
+		task ("Add a fragment collection") {
+			JSONFragment.addFragmentCollection(
+				groupName = "Test Site Name",
+				name = "Collection Name");
+		}
+
+		task ("Add a fragment with editable fields and data-lfr-priority attribute") {
+			FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "test-site-name");
+
+			FragmentsAdminNavigator.gotoCollection(collectionName = "Collection Name");
+
+			FragmentsAdmin.addFragment(fragmentName = "Fragment Name");
+
+			var htmlSnippet = '''
+<div class="fragment-example">
+	<div class="item">
+		<h2 data-lfr-editable-type="text" data-lfr-priority="3" data-lfr-editable-id="01-title">
+		Title
+		</h2>
+		<a data-lfr-editable-type="link" data-lfr-priority="1" data-lfr-editable-id="01-link">Go Somewhere</a>
+		<p data-lfr-editable-type="rich-text" data-lfr-priority="2" data-lfr-editable-id="01-subtitle">Subtitle</p>
+	</div>
+	<div class="item">
+		<h2 data-lfr-editable-type="text" data-lfr-priority="6" data-lfr-editable-id="02-title">
+		Title
+		</h2>
+		<a data-lfr-editable-type="link" data-lfr-priority="4" data-lfr-editable-id="02-link">Go Somewhere</a>
+		<p data-lfr-editable-type="rich-text" data-lfr-priority="5" data-lfr-editable-id="02-subtitle">Subtitle</p>
+	</div>
+</div>
+		''';
+
+			var cssSnippet = '''
+.fragment-example {
+}
+		''';
+
+			FragmentsEditor.typeHtmlEditor(content = "${htmlSnippet}");
+
+			FragmentsEditor.typeCssEditor(content = "${cssSnippet}");
+
+			FragmentsEditor.waitForAutoSave();
+
+			FragmentsEditor.publish();
+		}
+
+		task ("Add a new fragment to page") {
+			ContentPagesNavigator.openEditContentPage(
+				pageName = "Test Page Name",
+				siteName = "Test Site Name");
+
+			PageEditor.addFragment(
+				collectionName = "Collection Name",
+				fragmentName = "Fragment Name");
+		}
+
+		task ("Assert elements information is organized in Selection panel") {
+			PageEditor.clickConfigurableField(fragmentName = "Fragment Name");
+
+			Pause(locator1 = "3000");
+
+			var n = "1";
+
+			for (var nodeName : list "Fragment Name,01-link,01-subtitle,01-title,02-link,02-subtitle,02-title") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+	}
+
+	@description = "This is a test for LPS-118271. Can change the order of the elements in page editor via Selection panel."
+	@priority = "5"
+	test ChangeOrderOfElementsViaSelectionPanel {
+		property portal.acceptance = "true";
+
+		task ("Add a Container element to the page") {
+			ContentPagesNavigator.openEditContentPage(
+				pageName = "Test Page Name",
+				siteName = "Test Site Name");
+
+			PageEditor.addFragment(
+				collectionName = "Layout Elements",
+				fragmentName = "Container");
+		}
+
+		task ("Add a Heading fragment below the Container") {
+			PageEditor.addFragment(
+				collectionName = "Basic Components",
+				fragmentName = "Heading",
+				targetFragmentName = "Container");
+		}
+
+		task ("Add an Asset Publisher portlet below the Heading") {
+			PageEditor.addWidget(
+				portletName = "Asset Publisher",
+				targetFragmentName = "Heading");
+		}
+
+		task ("Assert the order of elements in page editor") {
+			var n = "1";
+
+			for (var fragmentName : list "Container,Heading,Asset Publisher") {
+				PageEditor.viewFragmentOrder(
+					fragmentName = "${fragmentName}",
+					position = "${n}");
+
+				var n = ${n} + 1;
+			}
+		}
+
+		task ("Assert the order of element nodes in the Selection panel") {
+			PageEditor.gotoTab(tabName = "Selection");
+
+			Pause(locator1 = "3000");
+
+			var n = "1";
+
+			for (var nodeName : list "Container,Heading,Asset Publisher") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+
+		task ("Move the Asset Publisher up to the Container via the Selection panel") {
+			DragAndDrop.javaScriptDragAndDropToUp(
+				locator1 = "//div[contains(@class,'list-item__node')][contains(.,'Asset Publisher')]//div[@role='button'][@draggable='true']",
+				locator2 = "//div[contains(@class,'list-item__node')][contains(.,'Container')]//div[@role='button'][@draggable='true']");
+
+			Pause(locator1 = "3000");
+		}
+
+		task ("Assert the order of element nodes in the Selection panel") {
+			var n = "1";
+
+			for (var nodeName : list "Asset Publisher,Container,Heading") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+
+		task ("Assert the order of elements in page editor") {
+			var n = "1";
+
+			for (var fragmentName : list "Asset Publisher,Container,Heading") {
+				PageEditor.viewFragmentOrder(
+					fragmentName = "${fragmentName}",
+					position = "${n}");
+
+				var n = ${n} + 1;
+			}
+		}
+
+		task ("Move the Container down to the Heading via the Selection panel") {
+			DragAndDrop.javaScriptDragAndDropToBottom(
+				locator1 = "//div[contains(@class,'list-item__node')][contains(.,'Container')]//div[@role='button'][@draggable='true']",
+				locator2 = "//div[contains(@class,'list-item__node')][contains(.,'Heading')]//div[@role='button'][@draggable='true']");
+
+			Pause(locator1 = "3000");
+		}
+
+		task ("Assert the order of element nodes in the Selection panel") {
+			var n = "1";
+
+			for (var nodeName : list "Asset Publisher,Heading,Container") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+
+		task ("Assert the order of elements in page editor") {
+			var n = "1";
+
+			for (var fragmentName : list "Asset Publisher,Heading,Container") {
+				PageEditor.viewFragmentOrder(
+					fragmentName = "${fragmentName}",
+					position = "${n}");
+
+				var n = ${n} + 1;
+			}
+		}
+	}
+
+	@description = "This is a test for LPS-118271. Can add elements into Layout elements via Selection panel."
+	@priority = "5"
+	test MoveElementsIntoLayoutElementsViaSelectionPanel {
+		property portal.acceptance = "true";
+
+		task ("Add a Container element to the page") {
+			ContentPagesNavigator.openEditContentPage(
+				pageName = "Test Page Name",
+				siteName = "Test Site Name");
+
+			PageEditor.addFragment(
+				collectionName = "Layout Elements",
+				fragmentName = "Container");
+		}
+
+		task ("Add a Button fragment below the Container") {
+			PageEditor.addFragment(
+				collectionName = "Basic Components",
+				fragmentName = "Button",
+				targetFragmentName = "Container");
+		}
+
+		task ("Add a Grid element below the Button") {
+			PageEditor.addFragment(
+				collectionName = "Layout Elements",
+				fragmentName = "Grid",
+				targetFragmentName = "Button");
+		}
+
+		task ("Add an Asset Publisher portlet below the Grid") {
+			PageEditor.addWidget(
+				portletName = "Asset Publisher",
+				targetFragmentName = "Grid");
+		}
+
+		task ("Assert the order of elements in page editor") {
+			var n = "1";
+
+			for (var fragmentName : list "Container,Button,Grid,Asset Publisher") {
+				PageEditor.viewFragmentOrder(
+					fragmentName = "${fragmentName}",
+					position = "${n}");
+
+				var n = ${n} + 1;
+			}
+		}
+
+		task ("Move the Button into the Container via the Selection panel") {
+			PageEditor.gotoTab(tabName = "Selection");
+
+			Pause(locator1 = "3000");
+
+			DragAndDrop.javaScriptDragAndDropToObject(
+				locator1 = "//div[contains(@class,'list-item__node')][contains(.,'Button')]//div[@role='button'][@draggable='true']",
+				locator2 = "//div[contains(@class,'list-item__node')][contains(.,'Container')]//div[@role='button'][@draggable='true']");
+
+			Pause(locator1 = "3000");
+
+			AssertElementPresent(
+				key_elementHeader = "//div[contains(@class,'page-editor')]//li[contains(.,'Button')]",
+				key_position = "1",
+				locator1 = "PageEditor#CONTAINER_CONTAINER_NESTED_ELEMENT");
+		}
+
+		task ("Move the Asset Publisher into the first module of Grid via the Selection panel") {
+			Click(
+				key_nodeName = "Grid",
+				locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_COLLAPSED");
+
+			DragAndDrop.javaScriptDragAndDropToObject(
+				locator1 = "//div[contains(@class,'list-item__node')][contains(.,'Asset Publisher')]//div[@role='button'][@draggable='true']",
+				locator2 = "//div[contains(@class,'treeview-node-list')][@role='group']/div[contains(@role,'treeitem')][1]//div[@role='button'][contains(@aria-label,'Module')]");
+
+			Pause(locator1 = "3000");
+
+			AssertElementPresent(
+				key_columnNumber = "1",
+				key_elementHeader = "//div[contains(@class,'page-editor')]//li[contains(.,'Asset Publisher')]",
+				key_position = "1",
+				locator1 = "PageEditor#GRID_COLUMN_NESTED_ELEMENT");
+		}
+	}
+
+	@description = "This is a test for LPS-118271. Can add fragments into the cell of Collection Display via Selection panel."
+	@priority = "5"
+	test MoveFragmentsIntoCollectionDisplayViaSelectionPanel {
+		property portal.acceptance = "true";
+
+		task ("Add three web content articles") {
+			for (var i : list "1,2,3") {
+				JSONWebcontent.addWebContent(
+					content = "Web Content Content ${i}",
+					groupName = "Test Site Name",
+					title = "Web Content Title ${i}");
+			}
+		}
+
+		task ("Add a Collection Display to page") {
+			ContentPagesNavigator.openEditContentPage(
+				pageName = "Test Page Name",
+				siteName = "Test Site Name");
+
+			PageEditor.addFragment(
+				collectionName = "Content Display",
+				fragmentName = "Collection Display");
+		}
+
+		task ("Add a Heading fragment below the Collection Display") {
+			PageEditor.addFragment(
+				collectionName = "Basic Components",
+				fragmentName = "Heading",
+				targetFragmentName = "Collection Display");
+		}
+
+		task ("Select the Highest Rated Assets Collection Providers in Collection Display") {
+			PageEditor.editCollectionDisplay(
+				fragmentName = "Collection Display",
+				infoListProviderName = "Highest Rated Assets");
+		}
+
+		task ("Move the Heading fragment to the cell of Collection Display via Selection panel") {
+			Pause(locator1 = "3000");
+
+			DragAndDrop.javaScriptDragAndDropToObject(
+				locator1 = "//div[contains(@class,'list-item__node')][contains(.,'Heading')]//div[@role='button'][@draggable='true']",
+				locator2 = "//div[contains(@class,'treeview-node-list')][@role='group']/div[contains(@role,'treeitem')]//div[@role='button'][contains(@aria-label,'Collection Item')]");
+
+			Pause(locator1 = "3000");
+
+			for (var n : list "1,2,3") {
+				AssertElementPresent(
+					key_colPosition = "1",
+					key_element = "//div[contains(@class,'page-editor')]//li[contains(.,'Heading')]",
+					key_fragmentName = "Collection Display",
+					key_rowPosition = "${n}",
+					locator1 = "PageEditor#COLLECTION_CELL_NESTED_ELEMENT");
+			}
+		}
+	}
+
+	@description = "This is a test for LPS-121626. The elements information of Slider is organized in Selection panel."
+	@priority = "5"
+	test ViewElementInfoOrderOfSliderInSelectionPanel {
+		task ("Add a Slider fragment to page") {
+			ContentPagesNavigator.openEditContentPage(
+				pageName = "Test Page Name",
+				siteName = "Test Site Name");
+
+			PageEditor.addFragment(
+				collectionName = "Basic Components",
+				fragmentName = "Slider");
+		}
+
+		task ("Assert elements information is organized in Selection panel") {
+			PageEditor.clickConfigurableField(fragmentName = "Slider");
+
+			Pause(locator1 = "3000");
+
+			var n = "1";
+
+			for (var nodeName : list "Slider,01-01-title,01-02-subtitle,01-03-image,02-01-title,02-02-subtitle,02-03-image,03-01-title,03-02-subtitle,03-03-image") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+	}
+
+	@description = "This is a test for LPS-121281. The elements information of Tabs is organized in Selection panel."
+	@priority = "5"
+	test ViewElementInfoOrderOfTabsInSelectionPanel {
+		task ("Add a Tabs fragment to page") {
+			ContentPagesNavigator.openEditContentPage(
+				pageName = "Test Page Name",
+				siteName = "Test Site Name");
+
+			PageEditor.addFragment(
+				collectionName = "Basic Components",
+				fragmentName = "Tabs");
+		}
+
+		task ("Assert elements information is organized in Selection panel") {
+			PageEditor.clickConfigurableField(fragmentName = "Tabs");
+
+			Pause(locator1 = "3000");
+
+			var n = "1";
+
+			for (var nodeName : list "Tabs,title1,Drop Zone 1,title2,Drop Zone 2,title3,Drop Zone 3,title4,Drop Zone 4") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+
+		task ("Change the Number of Tabs to 5") {
+			PageEditor.gotoStyle(fragmentName = "Tabs");
+
+			PageEditor.configureFragment(numberOfTabs = "5");
+		}
+
+		task ("Assert elements information is organized in Selection panel") {
+			PageEditor.clickConfigurableField(fragmentName = "Tabs");
+
+			Pause(locator1 = "3000");
+
+			var n = "1";
+
+			for (var nodeName : list "Tabs,title1,Drop Zone 1,title2,Drop Zone 2,title3,Drop Zone 3,title4,Drop Zone 4,title5,Drop Zone 5") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+
+		task ("Change the Number of Tabs to 3") {
+			PageEditor.gotoStyle(fragmentName = "Tabs");
+
+			PageEditor.configureFragment(numberOfTabs = "3");
+		}
+
+		task ("Assert elements information is organized in Selection panel") {
+			PageEditor.clickConfigurableField(fragmentName = "Tabs");
+
+			Pause(locator1 = "3000");
+
+			var n = "1";
+
+			for (var nodeName : list "Tabs,title1,Drop Zone 1,title2,Drop Zone 2,title3,Drop Zone 3") {
+				AssertElementPresent(
+					key_nodeName = "${nodeName}",
+					key_position = "${n}",
+					locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_POSITION");
+
+				var n = ${n} + 1;
+			}
+		}
+	}
+
+}

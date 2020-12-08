@@ -1,0 +1,123 @@
+definition {
+
+	macro activateAppCP {
+		LexiconEntry.openEntryMenu(rowEntry = "${appName}");
+
+		MenuItem.clickNoError(menuItem = "Activate");
+	}
+
+	macro deactivateAppCP {
+		LexiconEntry.openEntryMenu(rowEntry = "${appName}");
+
+		MenuItem.clickNoError(menuItem = "Deactivate");
+
+		AssertConfirm(value1 = "Are you sure you want to deactivate this?");
+	}
+
+	macro selectAppCP {
+		var key_appName = "${appName}";
+
+		while (IsElementNotPresent(locator1 = "AppManager#APP_NAME")) {
+			Click(locator1 = "Pagination#NEXT_LINK");
+		}
+
+		AssertClick(
+			locator1 = "AppManager#APP_NAME",
+			value1 = "${appName}");
+	}
+
+	macro uninstallAppCP {
+		LexiconEntry.openEntryMenu(rowEntry = "${appName}");
+
+		MenuItem.clickNoError(menuItem = "Uninstall");
+
+		AssertConfirm(value1 = "Are you sure you want to delete this? It will be deleted immediately.");
+
+		Pause(locator1 = "15000");
+	}
+
+	macro uploadAppCP {
+		var key_appName = "${appName}";
+
+		Click(locator1 = "Portlet#OPTIONS_ICON");
+
+		MenuItem.click(menuItem = "Upload");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		AssertElementPresent(locator1 = "TextInput#FILE");
+
+		UploadCommonFile.uploadCommonFileHiddenNoMouseOver(
+			locator1 = "TextInput#FILE",
+			value1 = "${warFileName}");
+
+		Button.clickInstall();
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Message#SUCCESS",
+			value1 = "The plugin was uploaded successfully and is now being installed.");
+
+		SelectFrame.selectFrameTop();
+
+		Click(locator1 = "Icon#CLOSE");
+
+		WaitForConsoleTextPresent(value1 = "STARTED ${appName}");
+
+		AssertConsoleTextNotPresent(value1 = "HotDeployException: Error initializing Spring for ${appName}");
+
+		AssertConsoleTextNotPresent(value1 = "HotDeployException: Error registering hook for ${appName}");
+
+		AssertConsoleTextNotPresent(value1 = "HotDeployException: Error registering portlets for ${appName}");
+	}
+
+	macro viewAppCP {
+		var key_appName = "${appName}";
+
+		if (isSet(searchTerm)) {
+			Search.searchCP(searchTerm = "${searchTerm}");
+		}
+		else {
+			Search.searchCP(searchTerm = "${appName}");
+		}
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "AppManager#APP_NAME",
+			value1 = "${appName}");
+
+		if (isSet(appStatus)) {
+			AppManager.viewStatus(
+				appName = "${appName}",
+				appStatus = "${appStatus}");
+		}
+	}
+
+	macro viewNoAppCP {
+		var key_appName = "${appName}";
+
+		AssertElementNotPresent(locator1 = "AppManager#APP_NAME");
+
+		while (IsElementPresent(locator1 = "Pagination#NEXT_LINK")) {
+			Click(locator1 = "Pagination#NEXT_LINK");
+
+			AssertElementNotPresent(locator1 = "AppManager#APP_NAME");
+		}
+	}
+
+	macro viewStatus {
+		var key_appName = "${appName}";
+		var key_appStatus = "${appStatus}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "AppManager#APP_STATUS",
+			value1 = "${appStatus}");
+	}
+
+	macro viewUninstallAppCP {
+		Search.searchCP(searchTerm = "${appName}");
+
+		AssertElementNotPresent(
+			key_appName = "${appName}",
+			locator1 = "AppManager#APP_NAME");
+	}
+
+}

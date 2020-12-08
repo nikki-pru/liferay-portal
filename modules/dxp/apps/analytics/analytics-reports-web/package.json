@@ -1,0 +1,33 @@
+{
+	"dependencies": {
+		"@clayui/button": "3.5.0",
+		"@clayui/drop-down": "3.8.1",
+		"@clayui/form": "3.13.0",
+		"@clayui/icon": "3.1.0",
+		"@clayui/label": "3.4.0",
+		"@clayui/layout": "3.2.0",
+		"@clayui/loading-indicator": "3.2.0",
+		"@clayui/sticker": "3.3.0",
+		"@clayui/tooltip": "3.4.1",
+		"classnames": "2.2.6",
+		"frontend-js-react-web": "*",
+		"frontend-js-web": "*",
+		"prop-types": "15.7.2",
+		"react": "16.12.0",
+		"recharts": "1.8.5"
+	},
+	"jest": {
+		"setupFiles": [
+			"<rootDir>/jest-setup.config.js"
+		]
+	},
+	"name": "analytics-reports-web",
+	"private": true,
+	"scripts": {
+		"build": "liferay-npm-scripts build",
+		"checkFormat": "liferay-npm-scripts check",
+		"format": "liferay-npm-scripts fix",
+		"test": "liferay-npm-scripts test"
+	},
+	"version": "2.0.0"
+}

@@ -1,0 +1,225 @@
+@default = "click"
+@summary = "Click on '${locator1}'"
+definition {
+
+	function click {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickAt {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.clickAt("${locator1}", "${value1}");
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickAtNotVisible {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.mouseOver();
+
+		selenium.clickAt();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickAtSidebarClickAtWaitForScript {
+		WaitForSPARefresh();
+
+		selenium.pause("1000");
+
+		selenium.waitForElementPresent(
+			"//*[@data-qa-id='controlMenu']//*[@data-qa-id='add']"
+		);
+
+		selenium.mouseOver();
+
+		selenium.waitForElementPresent(
+			"//script[contains(@src,'/liferay/node.js')] | //script[contains(@src,'/js/control_menu.js')]"
+		);
+
+		selenium.pause("1000");
+
+		Click.clickAt();
+
+		selenium.waitForElementPresent(
+			"//script[contains(@src,'/liferay/dockbar_add_application.js')] | //script[contains( @src,'/js/product_navigation_control_menu_add_content.js')] | //script[contains(@src,'js/product_navigation_control_menu_add_application.js')]"
+		);
+	}
+
+	function clickNoMouseOver {
+		WaitForSPARefresh();
+
+		selenium.waitForVisible();
+
+		selenium.click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickNoMouseOverNoWaitForVisible {
+		WaitForSPARefresh();
+
+		selenium.click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickNoSPARefresh {
+		selenium.waitForVisible();
+
+		selenium.mouseOver();
+
+		selenium.click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickNoWaitForVisible {
+		WaitForSPARefresh();
+
+		selenium.mouseOver();
+
+		selenium.click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function clickWaitForInlineCKEditorNoMouseOver {
+		WaitForSPARefresh();
+
+		if (selenium.isElementPresent("//div[contains(@class,'cke_editable_inline')]")) {
+			selenium.waitForElementPresent(
+				"//script[contains(@src,'http://localhost:8080/o/frontend-editors-web/ckeditor/plugins/wsc/lang/en.js')]"
+			);
+		}
+
+		selenium.waitForVisible();
+
+		selenium.click();
+	}
+
+	function javaScriptClick {
+		WaitForSPARefresh();
+
+		selenium.javaScriptClick();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function mouseDownMouseUp {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.waitForVisible();
+
+		selenium.mouseDown();
+
+		selenium.mouseUp();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function mouseOverClick {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent();
+
+		selenium.mouseOver();
+
+		selenium.waitForVisible();
+
+		selenium.click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function pauseClickAt {
+		WaitForSPARefresh();
+
+		selenium.pause("1000");
+
+		selenium.mouseOver();
+
+		Click.clickAt();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function waitForMenuToggleJSClick {
+		WaitForSPARefresh();
+
+		selenium.selectFrame("relative=top");
+
+		selenium.waitForElementPresent(
+			"//script[contains(@src,'/o/frontend-js-aui-web/liferay/menu_toggle.js')]"
+		);
+
+		if (selenium.isElementPresent("//*[contains(@class,'modal-body')]/iframe[not(contains(@class,'hidden'))]")) {
+			selenium.selectFrame("//*[contains(@class,'modal-body')]/iframe[not(contains(@class,'hidden'))]");
+		}
+
+		selenium.pause("3000");
+
+		Click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+	function waitForPersonalMenuJSClick {
+		WaitForSPARefresh();
+
+		selenium.waitForElementPresent(
+			"//script[contains(@src,'personal_menu/js/PersonalMenu.es.js')]"
+		);
+
+		selenium.pause("3000");
+
+		Click();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

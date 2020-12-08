@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>NavTab</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">NavTab</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ACTIVE_TAB_LINK</td>
+	<td>//*[contains(@class,'nav-link') and contains(@class,'active') and normalize-space()='${key_tab}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NAV_TABS</td>
+	<td>//*[contains(@class,'nav-tabs')]//*[contains(.,'${key_tab}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TAB_LINK</td>
+	<td>//*[contains(@class,'nav-link') and normalize-space()='${key_tab}']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

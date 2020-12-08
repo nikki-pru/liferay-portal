@@ -1,0 +1,114 @@
+@component-name = "portal-security"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.main.component.name = "Login";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			User.firstLoginPG();
+		}
+	}
+
+	@description = "This is a use case for LPS-75977."
+	@priority = "5"
+	test RedirectOnExpire {
+		property custom.properties = "session.timeout.redirect.on.expire=true";
+		property test.name.skip.portal.instance = "SessionTimeout#RedirectOnExpire";
+		property web.xml.timeout = "2";
+
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Session Page");
+
+		Navigator.gotoPage(pageName = "Session Page");
+
+		AssertElementNotPresent(locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION");
+
+		AssertElementNotPresent(locator1 = "UserBar#USER_SIGN_IN");
+
+		Pause(locator1 = "60000");
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",
+			value1 = "Due to inactivity, your session will expire");
+
+		Pause(locator1 = "60000");
+
+		AssertElementPresent(locator1 = "UserBar#USER_SIGN_IN");
+
+		Smoke.viewWelcomeContentPage();
+	}
+
+	@priority = "4"
+	test RememberMeChecked {
+		property web.xml.timeout = "2";
+
+		Navigator.openURL();
+
+		AssertElementNotPresent(locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION");
+
+		AssertElementNotPresent(locator1 = "UserBar#USER_SIGN_IN");
+
+		Pause(locator1 = "120000");
+
+		AssertTextEquals(
+			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",
+			value1 = "Danger:Due to inactivity, your session has expired. Please save any data you may have entered before refreshing the page.");
+
+		Refresh();
+
+		AssertElementPresent(locator1 = "UserBar#USER_SIGN_IN");
+
+		User.loginPG(rememberMeChecked = "true");
+
+		Navigator.openURL();
+
+		Pause(locator1 = "120000");
+
+		AssertElementNotPresent(locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION");
+
+		Refresh();
+
+		Smoke.viewWelcomePage(
+			userFirstName = "Test",
+			userLastName = "Test");
+
+		User.logoutPG();
+
+		User.loginPG();
+
+		Navigator.openURL();
+
+		AssertElementNotPresent(locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION");
+
+		AssertElementNotPresent(locator1 = "UserBar#USER_SIGN_IN");
+
+		Pause(locator1 = "120000");
+
+		AssertTextEquals(
+			locator1 = "Home#ERROR_MESSAGE_EXPIRED_SESSION",
+			value1 = "Danger:Due to inactivity, your session has expired. Please save any data you may have entered before refreshing the page.");
+
+		Refresh();
+
+		AssertElementPresent(locator1 = "UserBar#USER_SIGN_IN");
+	}
+
+}

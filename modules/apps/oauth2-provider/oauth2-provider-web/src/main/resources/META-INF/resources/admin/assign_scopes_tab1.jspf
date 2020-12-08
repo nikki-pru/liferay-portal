@@ -1,0 +1,225 @@
+<%--
+/**
+ * Copyright (c) 2000-present Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<div aria-orientation="vertical" class="panel-group" id="<portlet:namespace />appsAccordion" role="tablist">
+
+	<%
+	List<Map.Entry<String, String>> applicationsNamesDescriptionsList = assignScopesDisplayContext.getSortedApplicationNamesDescriptions();
+
+	for (Map.Entry<String, String> applicationNameDescriptionEntry : applicationsNamesDescriptionsList) {
+		String applicationName = applicationNameDescriptionEntry.getKey();
+
+		String applicationNameHtmlId = HtmlUtil.getAUICompatibleId(applicationName);
+	%>
+
+		<div class="panel panel-secondary">
+			<a aria-controls="<portlet:namespace />appsAccordion<%= applicationNameHtmlId %>" aria-expanded="false" class="collapse-icon collapsed panel-header panel-header-link" data-toggle="liferay-collapse" href="#<portlet:namespace />appsAccordion<%= applicationNameHtmlId %>" id="<portlet:namespace />appsAccordionHeading<%= applicationNameHtmlId %>" role="tab">
+				<span class="panel-title"><%= HtmlUtil.escape(applicationNameDescriptionEntry.getValue()) %></span>
+
+				<span class="collapse-icon-closed">
+					<clay:icon
+						symbol="angle-right"
+					/>
+				</span>
+				<span class="collapse-icon-open">
+					<clay:icon
+						symbol="angle-down"
+					/>
+				</span>
+			</a>
+
+			<div aria-labelledby="<portlet:namespace />appsAccordionHeading<%= applicationNameHtmlId %>" class="collapse panel-collapse" id="<portlet:namespace />appsAccordion<%= applicationNameHtmlId %>" role="tabpanel">
+				<div class="panel-body">
+					<ul class="list-group">
+
+						<%
+						Map<AssignableScopes, AssignScopesDisplayContext.Relations> applicationAssignableScopesRelations = assignScopesDisplayContext.getAssignableScopesRelations(applicationName);
+
+						for (Map.Entry<AssignableScopes, AssignScopesDisplayContext.Relations> applicationAssignableScopesRelationsEntry : applicationAssignableScopesRelations.entrySet()) {
+							AssignScopesDisplayContext.Relations relations = applicationAssignableScopesRelationsEntry.getValue();
+
+							Set<String> assignedScopeAliases = relations.getAssignedScopeAliases();
+
+							Set<String> globalScopeAliases = relations.getGlobalScopeAliases();
+
+							Map<String, Object> data = HashMapBuilder.<String, Object>put(
+								"slave", StringUtil.merge(globalScopeAliases, StringPool.SPACE)
+							).build();
+
+							String id = "scopeAlias" + StringUtil.randomId();
+
+							Set<String> scopeAliases = relations.getScopeAliases();
+
+							boolean removedScope = scopeAliases.isEmpty() && globalScopeAliases.isEmpty();
+						%>
+
+							<li class="list-group-item list-group-item-flex<c:if test="<%= removedScope %>"> removed-scope</c:if>">
+								<div class="autofit-col">
+									<c:choose>
+										<c:when test="<%= assignedScopeAliases.isEmpty() && scopeAliases.isEmpty() %>">
+											<aui:input data="<%= data %>" disabled="<%= true %>" id="<%= id %>" label="" name="<%= id %>" onClick="return false;" title="<%= HtmlUtil.escapeAttribute(scopeAliases.toString()) %>" type="checkbox" />
+										</c:when>
+										<c:otherwise>
+
+											<%
+											String scopeAliasesString = null;
+
+											if (removedScope) {
+												scopeAliasesString = StringUtil.merge(assignedScopeAliases, StringPool.SPACE);
+											}
+											else {
+												scopeAliasesString = StringUtil.merge(scopeAliases, StringPool.SPACE);
+											}
+											%>
+
+											<aui:input checked="<%= !assignedScopeAliases.isEmpty() %>" data="<%= data %>" id="<%= id %>" label="" name="scopeAliases" onChange='<%= liferayPortletResponse.getNamespace() + "recalculateDependants(this)" %>' title="<%= scopeAliasesString %>" type="checkbox" value="<%= scopeAliasesString %>" />
+										</c:otherwise>
+									</c:choose>
+								</div>
+
+								<div class="autofit-col autofit-col-expand">
+									<h4 class="list-group-title text-truncate">
+
+										<%
+										AssignableScopes assignedAssignableScopes = relations.getAssignedAssignableScopes();
+										AssignableScopes assignableScopes = applicationAssignableScopesRelationsEntry.getKey();
+										%>
+
+										<c:choose>
+											<c:when test="<%= assignedAssignableScopes == null %>">
+												<label for="<portlet:namespace /><%= id %>">
+													<div>
+														<%= assignScopesDisplayContext.getApplicationScopeDescription(applicationName, assignableScopes, "<br />+ ") %>
+													</div>
+												</label>
+											</c:when>
+											<c:otherwise>
+
+												<%
+												AssignableScopes newAssignableScopes = assignableScopes.subtract(assignedAssignableScopes);
+												AssignableScopes removedAssignableScopes = assignedAssignableScopes.subtract(assignableScopes);
+
+												AssignableScopes subtractAssignableScopes = assignableScopes.subtract(newAssignableScopes);
+
+												AssignableScopes unchangedAssignableScopes = subtractAssignableScopes.subtract(removedAssignableScopes);
+
+												String applicationScopeDescription = assignScopesDisplayContext.getApplicationScopeDescription(applicationName, unchangedAssignableScopes, "<br />+ ");
+												%>
+
+												<label for="<portlet:namespace /><%= id %>">
+													<div>
+														<%= applicationScopeDescription %>
+													</div>
+
+													<%
+													boolean firstLine = applicationScopeDescription.length() == 0;
+													applicationScopeDescription = assignScopesDisplayContext.getApplicationScopeDescription(applicationName, removedAssignableScopes, "<br />+ ");
+													%>
+
+													<c:if test="<%= applicationScopeDescription.length() > 0 %>">
+														<div class="removed-scope">
+															<c:if test="<%= !firstLine %>">+ </c:if>
+
+															<%
+															firstLine = firstLine && (applicationScopeDescription.length() == 0);
+															%>
+
+															<%= applicationScopeDescription %>
+														</div>
+													</c:if>
+
+													<%
+													applicationScopeDescription = assignScopesDisplayContext.getApplicationScopeDescription(applicationName, newAssignableScopes, "<br />+ ");
+													%>
+
+													<c:if test="<%= applicationScopeDescription.length() > 0 %>">
+														<div class="added-scope">
+															<c:if test="<%= !firstLine %>">+ </c:if>
+															<%= applicationScopeDescription %>
+														</div>
+													</c:if>
+												</label>
+											</c:otherwise>
+										</c:choose>
+									</h4>
+
+									<c:if test="<%= !globalScopeAliases.isEmpty() %>">
+										<c:choose>
+											<c:when test="<%= !scopeAliases.isEmpty() %>">
+												<span>
+													<aui:a data="<%= data %>" href="#1">
+														<liferay-ui:message key="can-be-assigned-via-a-global-scope" />
+													</aui:a>
+												</span>
+											</c:when>
+											<c:otherwise>
+												<span>
+													<aui:a data="<%= data %>" href="#1">
+														<liferay-ui:message key="must-be-assigned-via-a-global-scope" />
+													</aui:a>
+												</span>
+											</c:otherwise>
+										</c:choose>
+									</c:if>
+
+									<div>
+
+										<%
+										Set<String> relatedScopeAliases = new HashSet<>(scopeAliases);
+
+										relatedScopeAliases.addAll(assignedScopeAliases);
+										relatedScopeAliases.addAll(globalScopeAliases);
+
+										List<String> relatedScopeAliasesList = new ArrayList<>(relatedScopeAliases);
+
+										Collections.sort(relatedScopeAliasesList);
+
+										for (String relatedScopeAlias : relatedScopeAliasesList) {
+										%>
+
+											<span class="badge badge-secondary<c:if test="<%= !scopeAliases.contains(relatedScopeAlias) && !globalScopeAliases.contains(relatedScopeAlias) %>"> removed-scope-alias</c:if>">
+												<span class="badge-item<c:if test="<%= !scopeAliases.contains(relatedScopeAlias) %>"> global-scope-alias-reference</c:if>">
+													<%= HtmlUtil.escapeAttribute(relatedScopeAlias) %>
+												</span>
+											</span>
+
+										<%
+										}
+										%>
+
+									</div>
+
+								</div>
+
+								<c:if test="<%= removedScope %>">
+									<div class="autofit-col"><liferay-ui:message key="this-scope-is-no-longer-available" /></div>
+								</c:if>
+							</li>
+
+						<%
+						}
+						%>
+
+					</ul>
+				</div>
+			</div>
+		</div>
+
+	<%
+	}
+	%>
+
+</div>

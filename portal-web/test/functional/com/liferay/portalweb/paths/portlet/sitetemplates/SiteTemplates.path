@@ -1,0 +1,61 @@
+<html>
+<head>
+<title>SiteTemplates</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">SiteTemplates</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>SITE_TEMPLATE_NAME</td>
+	<td>//div[contains(@class,'site-name') and contains(.,'${key_siteTemplateName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--CONFIGURATION-->
+<tr>
+	<td>CONFIGURATION_SITE_TEMPLATE_SETTINGS</td>
+	<td>//li[contains(.,'Site Template Settings')]/a[contains(@id,'SiteTemplateSettingsPortlet')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--SITE_TEMPLATE_TABLE-->
+<tr>
+	<td>SITE_TEMPLATE_TABLE_NAME</td>
+	<td>//tr[contains(.,'${key_siteTemplateName}')]/td//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SITE_TEMPLATE_TABLE_NAME_3</td>
+	<td>xpath=(//tr/td[2]//a)[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SITE_TEMPLATE_TABLE_DESCRIPTION</td>
+	<td>//tr[contains(.,'${key_siteTemplateDescription}')]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SITE_TEMPLATE_TABLE_ACTIVE</td>
+	<td>//tr[contains(.,'${key_siteTemplateName}')]/td[5]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SITE_TEMPLATE_TABLE_ACTIONS</td>
+	<td>//tr[contains(.,'${key_siteTemplateName}')]/td[6]//div/a</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

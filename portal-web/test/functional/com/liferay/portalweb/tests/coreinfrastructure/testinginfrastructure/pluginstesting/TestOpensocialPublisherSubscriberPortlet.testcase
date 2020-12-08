@@ -1,0 +1,43 @@
+@component-name = "portal-test-plugins"
+definition {
+
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property portlet.plugins.includes = "test-opensocial-pubsub-portlet";
+	property testray.main.component.name = "Test Plugins";
+
+	setUp {
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		Page.tearDownCP();
+	}
+
+	@priority = "4"
+	test ViewPublisherSubscriber {
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		SitePages.addPublicPage(pageName = "Test Publisher Subscriber Page");
+
+		Navigator.gotoPage(pageName = "Test Publisher Subscriber Page");
+
+		Portlet.addPG(portletName = "Publisher Portlet");
+
+		Navigator.gotoPage(pageName = "Test Publisher Subscriber Page");
+
+		Portlet.addPG(portletName = "Subscriber Portlet");
+
+		Click(locator1 = "TestSubscriber#SUBSCRIBER_PORTLET_SUBSCRIBE_BUTTON");
+
+		Click(locator1 = "TestPublisher#PUBLISHER_PORTLET_PUBLISH_BUTTON");
+
+		/*<var name="randomNumber" path="TestPublisher" locator="PUBLISHER_PORTLET_MESSAGE" />
+
+		<execute function="AssertTextEquals#assertPartialText" locator1="TestPublisher#PUBLISHER_PORTLET_MESSAGE" value1="${randomNumber}" />
+		<execute function="AssertTextEquals#assertPartialText" locator1=" TestSubscriber#SUBSCRIBER_PORTLET_MESSAGE" value1="${randomNumber}" />*/
+	}
+
+}

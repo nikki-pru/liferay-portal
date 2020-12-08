@@ -1,0 +1,59 @@
+buildscript {
+	dependencies {
+		classpath(group: "com.liferay", name: "com.liferay.gradle.plugins", version: "13.0.2") {
+			exclude group: "biz.aQute.bnd", module: "biz.aQute.bnd"
+		}
+		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.theme.builder", version: "2.0.14"
+	}
+
+	repositories {
+		File dir = rootProject.projectDir
+
+		while (dir != null) {
+			File tmpMavenRepositoryDir = new File(dir, ".m2-tmp")
+
+			if (tmpMavenRepositoryDir.exists()) {
+				maven {
+					url tmpMavenRepositoryDir
+				}
+			}
+
+			dir = dir.getParentFile();
+		}
+
+		maven {
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+		}
+	}
+}
+
+apply plugin: "com.liferay.portal.tools.theme.builder"
+apply plugin: "com.liferay.target.platform"
+
+task runGradleTest
+
+dependencies {
+	parentThemes group: "com.liferay", name: "com.liferay.frontend.theme.styled"
+
+	portalCommonCSS group: "com.liferay", name: "com.liferay.frontend.css.common"
+
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom", version: "7.2.1"
+}
+
+repositories {
+	maven {
+		url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+	}
+}
+
+runGradleTest {
+	doLast {
+		ResolvedArtifact resolvedArtifact = configurations.parentThemes.resolvedConfiguration.resolvedArtifacts.find {
+			it.name == "com.liferay.frontend.theme.styled"
+		}
+
+		assert resolvedArtifact.file.name.equals("com.liferay.frontend.theme.styled-4.0.20.jar")
+
+		assert configurations.portalCommonCSS.singleFile.name.equals("com.liferay.frontend.css.common-4.0.3.jar")
+	}
+}

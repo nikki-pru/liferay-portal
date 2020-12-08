@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Field Paragraph has a key 1`] = `
+<div>
+  <div
+    aria-labelledby="textField_fieldDetails"
+    class="form-group hide"
+    data-field-name="textField"
+    tabindex="0"
+  >
+    <div
+      class="form-group liferay-ddm-form-field-paragraph"
+      data-field-name="textField"
+    >
+      <div
+        class="liferay-ddm-form-field-paragraph-text"
+      />
+    </div>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Paragraph has a label 1`] = `
+<div>
+  <div
+    class="form-group hide"
+    data-field-name="textField"
+  >
+    <label
+      aria-labelledby="textField_fieldDetails"
+      class="ddm-label"
+      tabindex="0"
+    >
+      label
+    </label>
+    <div
+      class="form-group liferay-ddm-form-field-paragraph"
+      data-field-name="textField"
+    >
+      <div
+        class="liferay-ddm-form-field-paragraph-text"
+      />
+    </div>
+    <span
+      aria-hidden="false"
+      hidden=""
+      id="textField_fieldDetails"
+    >
+      label
+      <br />
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Field Paragraph has a placeholder 1`] = `
+<div>
+  <div
+    aria-labelledby="textField_fieldDetails"
+    class="form-group hide"
+    data-field-name="textField"
+    tabindex="0"
+  >
+    <div
+      class="form-group liferay-ddm-form-field-paragraph"
+      data-field-name="textField"
+    >
+      <div
+        class="liferay-ddm-form-field-paragraph-text"
+      />
+    </div>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Paragraph has a value 1`] = `
+<div>
+  <div
+    aria-labelledby="textField_fieldDetails"
+    class="form-group hide"
+    data-field-name="textField"
+    tabindex="0"
+  >
+    <div
+      class="form-group liferay-ddm-form-field-paragraph"
+      data-field-name="textField"
+    >
+      <div
+        class="liferay-ddm-form-field-paragraph-text"
+      />
+    </div>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Paragraph has an id 1`] = `
+<div>
+  <div
+    aria-labelledby="textField_fieldDetails"
+    class="form-group hide"
+    data-field-name="textField"
+    tabindex="0"
+  >
+    <div
+      class="form-group liferay-ddm-form-field-paragraph"
+      data-field-name="textField"
+    >
+      <div
+        class="liferay-ddm-form-field-paragraph-text"
+      />
+    </div>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Paragraph is not required 1`] = `
+<div>
+  <div
+    aria-labelledby="textField_fieldDetails"
+    class="form-group hide"
+    data-field-name="textField"
+    tabindex="0"
+  >
+    <div
+      class="form-group liferay-ddm-form-field-paragraph"
+      data-field-name="textField"
+    >
+      <div
+        class="liferay-ddm-form-field-paragraph-text"
+      />
+    </div>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Paragraph is readOnly 1`] = `
+<div>
+  <div
+    aria-labelledby="textField_fieldDetails"
+    class="form-group hide"
+    data-field-name="textField"
+    tabindex="0"
+  >
+    <div
+      class="form-group liferay-ddm-form-field-paragraph"
+      data-field-name="textField"
+    >
+      <div
+        class="liferay-ddm-form-field-paragraph-text"
+      />
+    </div>
+    
+  </div>
+</div>
+`;
+
+exports[`Field Paragraph renders Label if showLabel is true 1`] = `
+<div>
+  <div
+    class="form-group hide"
+    data-field-name="textField"
+  >
+    <label
+      aria-labelledby="textField_fieldDetails"
+      class="ddm-label"
+      tabindex="0"
+    >
+      text
+    </label>
+    <div
+      class="form-group liferay-ddm-form-field-paragraph"
+      data-field-name="textField"
+    >
+      <div
+        class="liferay-ddm-form-field-paragraph-text"
+      />
+    </div>
+    <span
+      aria-hidden="false"
+      hidden=""
+      id="textField_fieldDetails"
+    >
+      text
+      <br />
+    </span>
+  </div>
+</div>
+`;

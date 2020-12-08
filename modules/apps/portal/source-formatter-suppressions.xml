@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<suppressions>
+	<checkstyle>
+		<suppress checks="PersistenceCallCheck" files="portal-dao-test/src/testIntegration/java/com/liferay/portal/dao/orm/hibernate/test/SuspendedSessionConnectionTest\.java" />
+		<suppress checks="PersistenceCallCheck" files="portal-upgrade-test/src/testIntegration/java/com/liferay/portal/upgrade/test/BaseBuildAutoUpgradeTestCase\.java" />
+	</checkstyle>
+	<source-check>
+		<suppress checks="JavaXMLSecurityCheck" files="portal-monitoring/src/main/java/com/liferay/portal/monitoring/internal/MonitoringGateKeeper\.java" />
+	</source-check>
+</suppressions>

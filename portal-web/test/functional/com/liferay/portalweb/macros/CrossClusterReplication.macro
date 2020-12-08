@@ -1,0 +1,71 @@
+definition {
+
+	macro cleanWorkflowIndex {
+		var companyId = JSONCompany.getCompanyId();
+
+		var cleanCurl = '''
+			http://localhost:9200/liferay-${companyId}-${workflowIndexName}/_delete_by_query?pretty \
+			-H 'Content-Type: application/json' \
+			-d '{
+				"query": {
+					"match_all": {}
+				}
+			}'
+		''';
+
+		com.liferay.poshi.runner.util.JSONCurlUtil.post("${cleanCurl}");
+	}
+
+	macro setupCrossClusterReplication {
+		OSGiConfig.deployOSGiConfigs(
+			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConfiguration.config",
+			OSGiConfigs = "productionModeEnabled=&quot;true&quot;,logExceptionsOnly=&quot;true&quot;");
+
+		OSGiConfig.deployOSGiConfigs(
+			OSGiConfigFileName = "com.liferay.portal.search.elasticsearch7.configuration.ElasticsearchConnectionConfiguration-default_ccr.config",
+			OSGiConfigs = "active=&quot;true&quot;,connectionId=&quot;ccr&quot;,networkHostAddresses=[&quot;http://localhost:9202&quot;]");
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "System Settings");
+
+		SystemSettings.gotoConfiguration(
+			configurationCategory = "Search",
+			configurationName = "Cross-Cluster Replication",
+			configurationScope = "System Scope");
+
+		FormFields.enableCheckbox(fieldName = "ccrEnabled");
+
+		FormFields.editTextMultiline(
+			fieldName = "ccrLocalClusterConnectionConfigurations",
+			fieldValue = "localhost:8080,ccr");
+
+		SystemSettings.saveConfiguration();
+	}
+
+	macro setupWorkflow {
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Configuration",
+			portlet = "Workflow");
+
+		Workflow.configureWorkflow(
+			workflowDefinition = "Single Approver",
+			workflowResourceValue = "Blogs Entry");
+
+		ProductMenu.gotoPortlet(
+			category = "Content &amp; Data",
+			panel = "Site Administration",
+			portlet = "Blogs");
+
+		Blogs.addWithWorkflow(
+			entryContent = "Blogs Entry Content",
+			entrySubtitle = "Subtitle",
+			entryTitle = "Blogs Entry Title");
+
+		Navigator.openURL();
+	}
+
+}

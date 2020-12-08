@@ -1,0 +1,16 @@
+@default = "assertTextPresent"
+definition {
+
+	function assertTextPresent {
+		WaitForSPARefresh();
+
+		selenium.waitForTextPresent();
+
+		selenium.assertTextPresent();
+
+		selenium.assertJavaScriptErrors();
+
+		selenium.assertLiferayErrors();
+	}
+
+}

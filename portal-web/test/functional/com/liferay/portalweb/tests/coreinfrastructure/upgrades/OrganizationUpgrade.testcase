@@ -1,0 +1,237 @@
+@component-name = "portal-upgrades"
+definition {
+
+	property custom.properties = "organizations.types=organization,location";
+	property database.types = "db2,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
+	property portal.release = "true";
+	property portal.upstream = "true";
+	property testray.component.names = "Users and Organizations";
+	property testray.main.component.name = "Upgrades User and System Management";
+
+	setUp {
+		SignIn.signIn();
+
+		Smoke.viewWelcomePage();
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade625 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "6.2.5";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade704 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.0.4";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade713 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.1.3";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade720 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.2.0";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade721 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.2.1";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade730 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.3.0";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade7110 {
+		property data.archive.type = "data-archive-portal";
+		property portal.version = "7.1.10";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade7210 {
+		property data.archive.type = "data-archive-portal";
+		property portal.version = "7.2.10";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade70106 {
+		property data.archive.type = "data-archive-portal";
+		property portal.version = "7.0.10.6";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade72101 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "7.2.10.1";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade621015 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "6.2.10.15";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddOrganizationAfterUpgrade621021 {
+		property data.archive.type = "data-archive-portal";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "6.2.10.21";
+
+		Upgrade.addOrganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade625 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "mysql";
+		property portal.version = "6.2.5";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade704 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.0.4";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade713 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.1.3";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade720 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.2.0";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade721 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.2.1";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade730 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "mariadb,mysql,postgresql";
+		property portal.version = "7.3.0";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade7110 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "7.1.10";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade7210 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "7.2.10";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade70106 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "7.0.10.6";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade72101 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "db2,mariadb,mysql,oracle,postgresql,sybase";
+		property portal.version = "7.2.10.1";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade621015 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "db2,mysql,oracle,sybase";
+		property portal.version = "6.2.10.15";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+	@priority = "5"
+	test AddUserandSuborganizationAfterUpgrade621021 {
+		property data.archive.type = "data-archive-admin-org-with-user";
+		property database.types = "db2,mysql,oracle,postgresql,sybase";
+		property portal.version = "6.2.10.21";
+
+		Upgrade.addUserAndSuborganization();
+	}
+
+}

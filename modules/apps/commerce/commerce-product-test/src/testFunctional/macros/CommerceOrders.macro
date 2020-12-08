@@ -1,0 +1,122 @@
+definition {
+
+	macro editOrderItemDetails {
+		CommerceNavigator.gotoEntry(entryName = "${orderItemSKU}");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CommerceEntry#IFRAME_SIDE_PANEL");
+
+		if (isSet(orderItemQuantity)) {
+			Type(
+				key_fieldLabel = "Quantity",
+				locator1 = "TextInput#GENERIC_TEXT_INPUT",
+				value1 = "${orderItemQuantity}");
+		}
+
+		if (isSet(orderItemPrice)) {
+			Type(
+				key_fieldLabel = "Price",
+				locator1 = "TextInput#GENERIC_TEXT_INPUT",
+				value1 = "${orderItemPrice}");
+		}
+
+		if (isSet(orderItemRequestedDeliveryDate)) {
+			Type(
+				key_fieldLabel = "Requested Delivery Date",
+				locator1 = "TextInput#GENERIC_TEXT_INPUT",
+				value1 = "${orderItemRequestedDeliveryDate}");
+		}
+
+		if (isSet(orderItemDeliveryGroup)) {
+			Type(
+				key_fieldLabel = "Delivery Group",
+				locator1 = "TextInput#GENERIC_TEXT_INPUT",
+				value1 = "${orderItemDeliveryGroup}");
+		}
+
+		Button.clickSave();
+
+		KeyPress(
+			locator1 = "Icon#CLOSE",
+			value1 = "\ESCAPE");
+
+		IFrame.selectTopFrame();
+	}
+
+	macro viewOrdersEntry {
+		if (isSet(addressAddress) && isSet(addressCity) && isSet(addressZipCode)) {
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressAddress}",
+				locator1 = "CommerceOrders#ORDER_DETAILS_BILLING_ADDRESS",
+				value1 = "${addressAddress}");
+
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressCity}",
+				locator1 = "CommerceOrders#ORDER_DETAILS_BILLING_ADDRESS",
+				value1 = "${addressCity}");
+
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressZipCode}",
+				locator1 = "CommerceOrders#ORDER_DETAILS_BILLING_ADDRESS",
+				value1 = "${addressZipCode}");
+
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressAddress}",
+				locator1 = "CommerceOrders#ORDER_DETAILS_SHIPPING_ADDRESS",
+				value1 = "${addressAddress}");
+
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressCity}",
+				locator1 = "CommerceOrders#ORDER_DETAILS_SHIPPING_ADDRESS",
+				value1 = "${addressCity}");
+
+			AssertTextEquals.assertPartialText(
+				key_addressInfo = "${addressZipCode}",
+				locator1 = "CommerceOrders#ORDER_DETAILS_SHIPPING_ADDRESS",
+				value1 = "${addressZipCode}");
+		}
+
+		AssertTextEquals(
+			key_productSKU = "${productSKU}",
+			locator1 = "CommerceOrders#ORDER_DETAILS_PRODUCT_SKU",
+			value1 = "${productSKU}");
+
+		AssertTextEquals(
+			key_productName = "${productName}",
+			locator1 = "CommerceOrders#ORDER_DETAILS_PRODUCT_NAME",
+			value1 = "${productName}");
+
+		AssertTextEquals.assertPartialText(
+			key_productListPrice = "${productListPrice}",
+			locator1 = "CommerceOrders#ORDER_DETAILS_PRODUCT_LIST_PRICE",
+			value1 = "${productListPrice}");
+
+		if (isSet(productDiscount)) {
+			AssertTextEquals(
+				key_productDiscount = "$ ${productDiscount}",
+				locator1 = "CommerceOrders#ORDER_DETAILS_PRODUCT_DISCOUNT",
+				value1 = "${productDiscount}");
+		}
+
+		AssertTextEquals(
+			key_productQuantity = "${productQuantity}",
+			locator1 = "CommerceOrders#ORDER_DETAILS_PRODUCT_QUANTITY",
+			value1 = "${productQuantity}");
+
+		AssertTextEquals.assertPartialText(
+			key_productTotalPrice = "${productTotalPrice}",
+			locator1 = "CommerceOrders#ORDER_DETAILS_TOTAL_PRICE",
+			value1 = "${productTotalPrice}");
+
+		if (isSet(paymentMethod)) {
+			Click(
+				key_menuTab = "Payments",
+				locator1 = "CommerceEntry#MENU_TAB");
+
+			AssertTextEquals.assertPartialText(
+				key_paymentMethod = "${paymentMethod}",
+				locator1 = "CommerceOrders#ORDER_DETAILS_PAYMENT_METHOD_NAME",
+				value1 = "${paymentMethod}");
+		}
+	}
+
+}

@@ -1,0 +1,14 @@
+@import 'atlas-variables';
+
+.page-editor__fragments-widgets__search-results-panel__filter-subtitle {
+	color: $dark;
+	font-size: 0.7rem;
+	font-weight: 600;
+	margin-bottom: 8px;
+	padding-top: 8px;
+	text-transform: uppercase;
+
+	& ~ .page-editor__collapse {
+		margin-left: 12px;
+	}
+}

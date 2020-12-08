@@ -1,0 +1,34 @@
+apply plugin: "com.liferay.target.platform"
+apply plugin: "java"
+
+task runGradleTest
+
+configurations {
+	portalKernel
+}
+
+dependencies {
+	portalKernel group: "com.liferay.portal", name: "com.liferay.portal.kernel"
+
+	targetPlatformBoms group: "com.liferay.portal", name: "release.portal.bom", version: "7.2.1"
+}
+
+repositories {
+	maven {
+		url "https://repository-cdn.liferay.com/nexus/content/groups/public"
+	}
+}
+
+runGradleTest {
+	doLast {
+		ResolvedArtifact portalKernelResolvedArtifact = configurations.portalKernel.resolvedConfiguration.resolvedArtifacts.find {
+			it.name.contains "kernel"
+		}
+
+		assert portalKernelResolvedArtifact.file.name.contains("4.35.2")
+	}
+}
+
+targetPlatform {
+	applyToConfiguration "portalKernel"
+}

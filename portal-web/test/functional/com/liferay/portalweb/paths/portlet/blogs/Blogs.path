@@ -1,0 +1,134 @@
+<html>
+<head>
+<title>Blogs</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Blogs</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ADD_BLOGS_ENTRY</td>
+	<td>//a[contains(@aria-label,'Add Blog Entry')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_COMMENTS_COUNT</td>
+	<td>//div[contains(@class,'widget-content') and contains (.,'${key_entryContent}')]/div//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SUBSCRIBE_LINK</td>
+	<td>//div/a[contains(.,'Subscribe')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>UNSUBSCRIBE_LINK</td>
+	<td>//div/a[contains(.,'Unsubscribe')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--DESCRIPTIVE_VIEW-->
+<tr>
+	<td>DESCRIPTIVE_VIEW_ENTRY_TITLE</td>
+	<td>//div[contains(@id,'blogEntriesSearchContainer')]//*[@data-qa-id='rowItemContent']/h4/a[contains(.,'${key_entryTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DESCRIPTIVE_VIEW_ENTRY_STATUS</td>
+	<td>//*[@data-qa-id='rowItemContent' and contains(.,'${key_entryTitle}')]//span[contains(@class,'status')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ICON_VIEW-->
+<tr>
+	<td>ICON_VIEW_ENTRY_TITLE</td>
+	<td>//div[contains(@id,'blogEntriesSearchContainer')]//p[contains(@class,'card-title') and @title='${key_entryTitle}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ICON_VIEW_ENTRY_TITLE_2</td>
+	<td>//div[contains(@id,'blogEntriesSearchContainer')]//li[contains(.,'${key_entryStatus}')]//p[contains(@class,'card-title') and @title='${key_entryTitle}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ICON_VIEW_ENTRY_STATUS</td>
+	<td>//div[contains(@id,'blogEntriesSearchContainer')]//li[contains(.,'${key_entryTitle}')]//span[contains(@class,'status')] | //div[contains(.,'${key_entryTitle}')]//span[contains(@class,'label-item')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--WIDGET_VIEW-->
+<tr>
+	<td>WIDGET_VIEW_ENTRY_ELLIPSIS</td>
+	<td>//div[contains(@class,'widget-mode')]//div[contains(.,'${key_entryTitle}')]//div[contains(@class,'dropdown')]//a[span/*[name()='svg'][contains(@class,'lexicon-icon-ellipsis')]]</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--ENTRY_TABLE-->
+<tr>
+	<td>ENTRY_TABLE_ALL_CHECKBOX</td>
+	<td>//div[contains(@class,'management-bar')]//input[@type='checkbox'] | //li[@class='nav-item']//div[@class='custom-control custom-checkbox']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_TABLE_CHECKBOX</td>
+	<td>//tr[contains(.,'${key_entryTitle}')]//input[@type='checkbox']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_TABLE_TITLE</td>
+	<td>//tr[contains(.,'${key_entryTitle}')]/td[2]//a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_TABLE_AUTHOR</td>
+	<td>//tr[contains(.,'${key_entryTitle}')]/td[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_TABLE_CREATE_DATE</td>
+	<td>//tr[contains(.,'${key_entryTitle}')]/td[4]//span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ENTRY_TABLE_STATUS</td>
+	<td>//tr[contains(.,'${key_entryTitle}')]/td//span[@class='workflow-status']/strong</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<!--RECENT_BLOGGER-->
+<tr>
+	<td>RECENT_BLOGGER_USER_NAME</td>
+	<td>//span[contains(@class,'user-name') and contains(.,'${key_entryAuthor}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>RECENT_BLOGGER_POSTS</td>
+	<td>//div[@class='blogger-post-count']</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>

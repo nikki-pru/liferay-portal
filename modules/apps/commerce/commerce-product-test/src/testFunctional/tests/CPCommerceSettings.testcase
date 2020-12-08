@@ -1,0 +1,117 @@
+@component-name = "portal-commerce"
+definition {
+
+	property portal.release = "true";
+	property testray.main.component.name = "Commerce";
+
+	setUp {
+		TestCase.setUpPortalInstance();
+
+		User.firstLoginPG();
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			Navigator.openURL();
+
+			CommerceConfiguration.commerceAdminTearDown();
+		}
+	}
+
+	test CreateNewAvailabilityEstimate {
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
+		property test.name.skip.portal.instance = "CPCommerceSettings#CreateNewAvailabilityEstimate";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Settings",
+			portlet = "Availability Estimates");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewAvailabilityEstimatesEntry(entryName = "New Availability Estimate");
+
+		Button.clickSave();
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+	test CreateNewCountry {
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
+		property test.name.skip.portal.instance = "CPCommerceSettings#CreateNewCountry";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Settings",
+			portlet = "Countries");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewCountriesEntry(
+			entryIsoNumber = "020",
+			entryIsoThreeLetters = "TCO",
+			entryIsoTwoLetters = "TC",
+			entryName = "Test Country");
+
+		Button.clickSave();
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		CommerceEntry.gotoMenuTab(menuTab = "Regions");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewRegionsEntry(
+			code = "TRE",
+			entryName = "Test Region");
+
+		Button.clickSave();
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+	test CreateNewMeasurementUnits {
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
+		property test.name.skip.portal.instance = "CPCommerceSettings#CreateNewMeasurementUnits";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Settings",
+			portlet = "Measurement Units");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewDimensionUnit(entryName = "New Dimension Unit");
+
+		Button.clickSave();
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+
+		CommerceNavigator.gotoCommercePortletNavItem(navItem = "Weight");
+
+		Click(locator1 = "Button#PLUS");
+
+		CommerceEntry.addNewWeightUnit(entryName = "New Weight Unit");
+
+		Button.clickSave();
+
+		AssertElementPresent(locator1 = "Message#SUCCESS");
+	}
+
+	test ViewInstanceCurrenciesAvailable {
+		property environment.acceptance = "true";
+		property test.name.skip.portal.instance = "CommerceSmoke#ViewAvailableCurrencies";
+
+		CommerceNavigator.gotoPortlet(
+			category = "Store Management",
+			portlet = "Currencies");
+
+		CommerceEntry.viewCurrenciesEntry(currenciesList = "US Dollar,Australian Dollar,British Pound,Canadian Dollar,Chinese Yuan Renminbi,Euro,Hong Kong Dollar,Japanese Yen,Indian Rupee,Brazilian real");
+	}
+
+}

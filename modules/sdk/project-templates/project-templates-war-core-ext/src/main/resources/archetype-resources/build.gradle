@@ -1,0 +1,7 @@
+apply plugin: "eclipse"
+
+eclipse {
+	classpath {
+		plusConfigurations += [configurations.portal]
+	}
+}

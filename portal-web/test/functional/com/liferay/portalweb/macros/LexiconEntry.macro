@@ -1,0 +1,232 @@
+definition {
+
+	macro changeDisplayStyle {
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "chrome") {
+			MetalComponent.waitForManagementBar();
+		}
+
+		Click(locator1 = "Icon#CURRENT_DISPLAY_STYLE");
+
+		MenuItem.click(menuItem = StringUtil.upperCaseFirstLetter("${displayStyle}"));
+	}
+
+	macro changeExportDisplayStyle {
+		Click.clickNoMouseOverNoWaitForVisible(locator1 = "Icon#CURRENT_DISPLAY_STYLE");
+
+		Click.clickNoMouseOverNoWaitForVisible(
+			key_menuItem = StringUtil.upperCaseFirstLetter("${displayStyle}"),
+			locator1 = "MenuItem#ANY_MENU_ITEM");
+	}
+
+	macro delete {
+		LexiconEntry.gotoEntryMenuItemNoError(
+			menuItem = "Delete",
+			rowEntry = "${rowEntry}");
+
+		if (isSet(confirmationText)) {
+			AssertConfirm(value1 = "${confirmationText}");
+		}
+		else {
+			Confirm();
+		}
+
+		if (isSet(failure)) {
+			if (IsElementPresent(locator1 = "Message#ERROR_2")) {
+				Alert.viewRequestFailedToComplete();
+
+				AssertTextEquals(
+					locator1 = "Message#ERROR_2",
+					value1 = "${failure}");
+			}
+			else {
+				AssertTextEquals(
+					locator1 = "Message#ERROR",
+					value1 = "${failure}");
+			}
+		}
+		else {
+			Alert.viewSuccessMessage();
+		}
+	}
+
+	macro gotoAdd {
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "chrome") {
+			MetalComponent.waitForManagementBar();
+		}
+		Click(locator1 = "Button#PLUS");
+	}
+
+	macro gotoAddDropdownMenuItem {
+		LexiconEntry.gotoAdd();
+
+		DropdownMenuItem.click(menuItem = "${menuItem}");
+	}
+
+	macro gotoAddMenuItem {
+		LexiconEntry.gotoAdd();
+
+		MenuItem.click(menuItem = "${menuItem}");
+	}
+
+	macro gotoAddReport {
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "chrome") {
+			MetalComponent.waitForReportsManagementBar();
+		}
+
+		Click(locator1 = "Button#PLUS");
+	}
+
+	macro gotoEllipsisMenuItem {
+		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
+
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		MenuItem.click(menuItem = "${menuItem}");
+	}
+
+	macro gotoEllipsisMenuItemNoError {
+		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
+
+		MenuItem.clickNoError(menuItem = "${menuItem}");
+	}
+
+	macro gotoEntry {
+		if (IsElementPresent(locator1 = "Icon#DISPLAY_STYLE_ACTIVE", key_displayStyle = "cards")) {
+			AssertClick(
+				key_card = "${rowEntry}",
+				locator1 = "Card#CARD_TITLE_LINK",
+				value1 = "${rowEntry}");
+		}
+		else {
+			AssertClick(
+				key_rowEntry = "${rowEntry}",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
+				value1 = "${rowEntry}");
+		}
+	}
+
+	macro gotoEntryMenuItem {
+		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+
+		MenuItem.click(menuItem = "${menuItem}");
+	}
+
+	macro gotoEntryMenuItemNoError {
+		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+
+		MenuItem.clickNoError(menuItem = "${menuItem}");
+	}
+
+	macro gotoEntryMenuItemNoWait {
+		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+
+		MenuItem.click(menuItem = "${menuItem}");
+	}
+
+	macro gotoEntryMenuItemNoWaitNoError {
+		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+
+		MenuItem.clickNoError(menuItem = "${menuItem}");
+	}
+
+	macro gotoFragmentPageContentEllipsisMenuItem {
+		Click.waitForMenuToggleJSClick(
+			key_rowEntry = "${rowEntry}",
+			locator1 = "Icon#FRAGMENT_PAGE_CONTENT_VERTICAL_ELLIPSIS");
+
+		Click(
+			key_menuItem = "${menuItem}",
+			locator1 = "MenuItem#DROPDOWN_MENU_ITEM");
+	}
+
+	macro gotoHeaderMenuItem {
+		Click(locator1 = "Icon#HEADER_VERTICAL_ELLIPSIS");
+
+		MenuItem.click(menuItem = "${menuItem}");
+	}
+
+	macro gotoVerticalEllipsisMenuItemNoError {
+		Click.waitForMenuToggleJSClick(locator1 = "Icon#VERTICAL_ELLIPSIS_BUTTON");
+
+		MenuItem.clickNoError(menuItem = "${menuItem}");
+	}
+
+	macro openEntryMenu {
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "safari") {
+			Click.waitForMenuToggleJSClick(
+				key_rowEntry = "${rowEntry}",
+				locator1 = "Icon#ROW_VERTICAL_ELLIPSIS_SAFARI");
+		}
+
+		else {
+			Click.waitForMenuToggleJSClick(
+				key_rowEntry = "${rowEntry}",
+				locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
+		}
+	}
+
+	macro selectEntry {
+		Check(
+			key_rowEntry = "${rowEntry}",
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_CHECKBOX");
+	}
+
+	macro viewActiveDisplayStyle {
+		AssertElementPresent(
+			key_displayStyle = "${displayStyle}",
+			locator1 = "Icon#CURRENT_DISPLAY_STYLE_ACTIVE");
+	}
+
+	macro viewEntryName {
+		var browserType = PropsUtil.get("browser.type");
+
+		if ("${browserType}" == "chrome") {
+			AssertTextEquals.assertPartialText(
+				key_rowEntry = "${rowEntry}",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
+				value1 = "${rowEntry}");
+		}
+		else {
+			AssertTextEquals(
+				key_rowEntry = "${rowEntry}",
+				locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME",
+				value1 = "${rowEntry}");
+		}
+	}
+
+	macro viewEntryStatus {
+		AssertElementPresent(
+			key_rowEntry = "${rowEntry}",
+			key_rowStatus = "${rowStatus}",
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_STATUS");
+	}
+
+	macro viewNoEntry {
+		AssertElementNotPresent(
+			key_rowEntry = "${rowEntry}",
+			locator1 = "ContentRow#ENTRY_CONTENT_ENTRY_NAME");
+	}
+
+	macro viewNoEntryMenu {
+		AssertElementNotPresent(
+			key_rowEntry = "${rowEntry}",
+			locator1 = "Icon#ROW_VERTICAL_ELLIPSIS");
+	}
+
+	macro viewNoEntryMenuItem {
+		LexiconEntry.openEntryMenu(rowEntry = "${rowEntry}");
+
+		AssertElementNotPresent(
+			key_menuItem = "${menuItem}",
+			locator1 = "MenuItem#ANY_MENU_ITEM");
+	}
+
+}

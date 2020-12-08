@@ -1,0 +1,35 @@
+definition {
+
+	macro addDate {
+
+		/*
+		To ensure the desired month will always be reached, click "Previous"
+		until it reaches our baseline of May 2016. Then click "Next" until
+		it reaches ${month} ${year}.
+		*/
+
+		var key_month = "May";
+		var key_year = "2016";
+
+		while (IsElementNotPresent(locator1 = "YUICalendarWidget#DATEPICKER_SPECIFIC_MONTH_YEAR")) {
+			Click(locator1 = "YUICalendarWidget#PREVIOUS_MONTH_ARROW");
+		}
+
+		var key_day = "${day}";
+		var key_month = "${month}";
+		var key_year = "${year}";
+
+		while (IsElementNotPresent(locator1 = "YUICalendarWidget#DATEPICKER_SPECIFIC_MONTH_YEAR")) {
+			Click(locator1 = "YUICalendarWidget#NEXT_MONTH_ARROW");
+		}
+
+		AssertTextEquals(
+			locator1 = "YUICalendarWidget#DATEPICKER_SPECIFIC_MONTH_YEAR",
+			value1 = "${month} ${year}");
+
+		AssertClick(
+			locator1 = "YUICalendarWidget#DATEPICKER_SPECIFIC_DAY",
+			value1 = "${day}");
+	}
+
+}

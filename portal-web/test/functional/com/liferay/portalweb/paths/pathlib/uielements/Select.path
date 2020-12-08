@@ -1,0 +1,239 @@
+<html>
+<head>
+<title>Select</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">Select</td></tr>
+</thead>
+<tbody>
+<tr>
+	<td>ANY</td>
+	<td>//div[not(contains(@class,'hide'))]/div[contains(@class,'input-select-wrapper')][label[contains(.,'${key_selectFieldLabel}')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>APPLICATION_DECORATORS</td>
+	<td>//div[label[contains(.,'Application Decorators')]]/select[contains(@id,'portletDecorator')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ANY_DISABLED</td>
+	<td>//div[not(contains(@class,'hide'))]/div[contains(@class,'input-select-wrapper')][label[contains(.,'${key_selectFieldLabel}')]]/select[contains(@class,'disabled')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSIGNMENT_TYPE</td>
+	<td>//select[@name='assignmentType']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BORDER_BOTTOM_SELECT_FIELD</td>
+	<td>//div[contains(@class,'label')][normalize-space()='${key_borderBottom}']/following-sibling::div[1]//div[label[contains(.,'${key_fieldLabel}')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PERMISSIONS_VIEW_ROLE</td>
+	<td>//select[contains(.,'${key_permissionsViewRole}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>ASSET_SUBTYPE</td>
+	<td>//div[not(contains(@class,'hide'))]/select[contains(@id,'subtype')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>BLOGS_RATING</td>
+	<td>//select[contains(@id,'blogs')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>APPLICATIONS_RATING</td>
+	<td>//select[contains(@id,'${key_applications}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>COUNTRY</td>
+	<td>//div[label[contains(.,'Country')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_RANGE_START_DATE</td>
+	<td>xpath=(//ul[contains(@class,'date-range-options')]//input[contains(@name,'startDate') and contains(@type,'text')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_RANGE_START_DATE_VALUE</td>
+	<td>//ul[contains(@class,'date-range-options')]//input[contains(@name,'startDate') and contains(@value,'${key_dateRangeStartDate}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_RANGE_END_DATE</td>
+	<td>xpath=(//ul[contains(@class,'date-range-options')]//input[contains(@name,'endDate') and contains(@type,'text')])[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DATE_RANGE_END_DATE_VALUE</td>
+	<td>//ul[contains(@class,'date-range-options')]//input[contains(@name,'endDate') and contains(@value,'${key_dateRangeEndDate}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DEFAULT_LANGUAGE</td>
+	<td>//select[contains(@id,'languageId')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DISPLAY_STYLE</td>
+	<td>//div[label[contains(.,'Display Style')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DISPLAY_TEMPLATE</td>
+	<td>//div[label[contains(.,'Display Template')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>EXPORT_FILE_FORMAT</td>
+	<td>//div[contains(.,'Export File Format')]//select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FEED_ITEM_CONTENT</td>
+	<td>//select[contains(@id,'contentFieldSelector')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>FEED_TYPE</td>
+	<td>//select[contains(@id,'feedType')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GENERIC_SELECT_FIELD</td>
+	<td>//div[label[normalize-space(text())='${key_fieldLabel}']]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GENERIC_SELECT_VALUE</td>
+	<td>//div[label[normalize-space(text())='${key_fieldLabel}']]/select//option[normalize-space(text())='${key_value}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>GROUPED_SELECT_VALUE</td>
+	<td>//div[label[normalize-space(text())='${key_fieldLabel}']]/select/optgroup[@label='${key_groupLabel}']/option[normalize-space(text())='${key_value}']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>KNOWLEDGE_BASE_RATING</td>
+	<td>//select[contains(@id,'knowledge-base')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LOS_ANGELES_TIME_ZONE</td>
+	<td>//select[contains(@id,'timeZoneId')]/option[@value='America/Los_Angeles']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MINIMUM_AGE</td>
+	<td>//select[contains(@id,'maxAge')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MONDAY_CLOSE</td>
+	<td>//select[contains(@id,'monClose')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>MONDAY_OPEN</td>
+	<td>//select[contains(@id,'monOpen')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>NEW_PARENT</td>
+	<td>//div[label[contains(.,'New Parent')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PAGE_DELTA</td>
+	<td>//select[contains(@id,'pageDelta')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PERMISSIONS</td>
+	<td>//select[contains(@id,'inputPermissionsViewRole')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>QUESTION</td>
+	<td>//div[label[contains(.,'Question')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REDIRECT_TYPE</td>
+	<td>//div[label[contains(.,'Type')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REGION</td>
+	<td>//div[label[contains(.,'Region')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPORT_FORMAT</td>
+	<td>//select[contains(@id,'AdminPortlet_format')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SAML_NAME_IDENTIFIER_FORMAT_SELECT</td>
+	<td>//select[contains(@id,'SamlAdminPortlet_nameIdFormat')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SITES</td>
+	<td>//div[label[contains(.,'Sites')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCOPE</td>
+	<td>//div[label[contains(.,'Scope')]]/select | //div/select[@title='Scope']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCOPE_CONFIGURATION</td>
+	<td>//div[label[contains(.,'Scope')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCOPE_SELECTED</td>
+	<td>//div[label[contains(.,'Scope')]]//option[contains(.,'${key_scopeName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TIME_ZONE</td>
+	<td>//select[contains(@id,'timeZoneId')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TYPE</td>
+	<td>//div[label[contains(.,'Type')]]/select</td>
+	<td></td>
+</tr>
+<tr>
+	<td>TYPE_SELECTED</td>
+	<td>//div[label[contains(.,'Type')]]//option[contains(.,'${key_typeName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WARNING_TIME</td>
+	<td>//select[contains(@id,'warningTime')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WORKFLOW_DEFAULT</td>
+	<td>//select[contains(@id,'workflowDefinition-1')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
