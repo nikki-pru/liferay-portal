@@ -41,6 +41,7 @@ definition {
 			Blogs.tearDownConfigurationScopePG(
 				pageName = "Blogs Page",
 				portletName = "Blogs");
+				
 
 			Page.tearDownCP();
 
@@ -97,6 +98,7 @@ definition {
 			commentCount = "1",
 			entryComment = "Blogs Entry Comment",
 			userFullName = "Test Test (You)");
+			
 	}
 
 	@priority = "4"
