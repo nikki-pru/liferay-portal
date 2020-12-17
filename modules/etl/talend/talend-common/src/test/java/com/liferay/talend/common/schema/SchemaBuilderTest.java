@@ -50,8 +50,14 @@ public class SchemaBuilderTest extends BaseTestCase {
 	public void testBooleanSchemaFieldsForProducts() {
 		String endpoint = "/v1.0/catalogs/{siteId}/product";
 
+<<<<<<< HEAD
 		_assertValidProductSchema(
 			_getSchema(endpoint, OASConstants.OPERATION_POST));
+=======
+		Schema schema = _getSchema(endpoint, OASConstants.OPERATION_POST);
+
+		_assertValidProductSchema(schema);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -67,9 +73,15 @@ public class SchemaBuilderTest extends BaseTestCase {
 		String endpoint =
 			"/v1.0/products/by-externalReferenceCode/{externalReferenceCode}";
 
+<<<<<<< HEAD
 		Assert.assertFalse(
 			AvroUtils.isSchemaEmpty(
 				_getSchema(endpoint, OASConstants.OPERATION_DELETE)));
+=======
+		Schema schema = _getSchema(endpoint, OASConstants.OPERATION_DELETE);
+
+		Assert.assertFalse(AvroUtils.isSchemaEmpty(schema));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -87,9 +99,15 @@ public class SchemaBuilderTest extends BaseTestCase {
 	public void testInferSchemaForInsertOperation() {
 		String endpoint = "/v1.0/catalogs/{siteId}/product";
 
+<<<<<<< HEAD
 		Assert.assertFalse(
 			AvroUtils.isSchemaEmpty(
 				_getSchema(endpoint, OASConstants.OPERATION_POST)));
+=======
+		Schema schema = _getSchema(endpoint, OASConstants.OPERATION_POST);
+
+		Assert.assertFalse(AvroUtils.isSchemaEmpty(schema));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -97,9 +115,15 @@ public class SchemaBuilderTest extends BaseTestCase {
 		String endpoint =
 			"/v1.0/products/by-externalReferenceCode/{externalReferenceCode}";
 
+<<<<<<< HEAD
 		Assert.assertFalse(
 			AvroUtils.isSchemaEmpty(
 				_getSchema(endpoint, OASConstants.OPERATION_PATCH)));
+=======
+		Schema schema = _getSchema(endpoint, OASConstants.OPERATION_PATCH);
+
+		Assert.assertFalse(AvroUtils.isSchemaEmpty(schema));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test

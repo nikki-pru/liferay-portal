@@ -21,8 +21,11 @@ import com.liferay.source.formatter.checks.util.BNDSourceUtil;
 
 import java.io.File;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 /**
  * @author Alan Huang
  */
@@ -43,6 +46,7 @@ public class BNDLiferayRelengBundleCheck extends BaseFileCheck {
 			return content;
 		}
 
+<<<<<<< HEAD
 		List<String> allowedLiferayRelengBundleNames = getAttributeValues(
 			_ALLOWED_LIFERAY_RELENG_BUNDLE_NAMES, absolutePath);
 
@@ -54,6 +58,8 @@ public class BNDLiferayRelengBundleCheck extends BaseFileCheck {
 			}
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String liferayRelengBundle = BNDSourceUtil.getDefinitionValue(
 			content, "Liferay-Releng-Bundle");
 
@@ -80,7 +86,10 @@ public class BNDLiferayRelengBundleCheck extends BaseFileCheck {
 		return content;
 	}
 
+<<<<<<< HEAD
 	private static final String _ALLOWED_LIFERAY_RELENG_BUNDLE_NAMES =
 		"allowedLiferayRelengBundleNames";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

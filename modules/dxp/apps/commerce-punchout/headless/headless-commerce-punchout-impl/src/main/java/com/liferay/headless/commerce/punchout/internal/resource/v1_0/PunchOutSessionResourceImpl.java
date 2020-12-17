@@ -85,7 +85,10 @@ import org.osgi.service.component.annotations.ServiceScope;
 public class PunchOutSessionResourceImpl
 	extends BasePunchOutSessionResourceImpl {
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public PunchOutSession postPunchOutSessionRequest(
 			@NotNull PunchOutSession punchOutSession)
 		throws Exception {

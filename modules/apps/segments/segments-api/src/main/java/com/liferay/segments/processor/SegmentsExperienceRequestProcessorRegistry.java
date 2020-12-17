@@ -32,12 +32,15 @@ public interface SegmentsExperienceRequestProcessorRegistry {
 	public long[] getSegmentsExperienceIds(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, long groupId,
+<<<<<<< HEAD
 			long classNameId, long classPK)
 		throws PortalException;
 
 	public long[] getSegmentsExperienceIds(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, long groupId,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			long classNameId, long classPK, long[] segmentsEntryIds)
 		throws PortalException;
 

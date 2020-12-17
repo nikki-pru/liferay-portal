@@ -18,7 +18,10 @@
 
 <%
 CPCompareContentHelper cpCompareContentHelper = (CPCompareContentHelper)request.getAttribute(CPContentWebKeys.CP_COMPARE_CONTENT_HELPER);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 CPDataSourceResult cpDataSourceResult = (CPDataSourceResult)request.getAttribute(CPWebKeys.CP_DATA_SOURCE_RESULT);
 
 List<CPCatalogEntry> cpCatalogEntries = cpDataSourceResult.getCPCatalogEntries();

@@ -17,8 +17,11 @@ import ClayForm, {ClayInput} from '@clayui/form';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+<<<<<<< HEAD
 import {VIEWPORT_SIZES} from '../../app/config/constants/viewportSizes';
 import {useSelector} from '../../app/store/index';
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import {useId} from '../../app/utils/useId';
 import {openImageSelector} from '../../core/openImageSelector';
 
@@ -30,11 +33,15 @@ export function ImageSelector({
 }) {
 	const imageTitleId = useId();
 
+<<<<<<< HEAD
 	const selectedViewportSize = useSelector(
 		(state) => state.selectedViewportSize
 	);
 
 	return selectedViewportSize === VIEWPORT_SIZES.desktop ? (
+=======
+	return (
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<>
 			<ClayForm.Group>
 				<label htmlFor={imageTitleId}>{label}</label>
@@ -78,8 +85,11 @@ export function ImageSelector({
 				</div>
 			</ClayButton.Group>
 		</>
+<<<<<<< HEAD
 	) : (
 		<ReadOnlyImageInput imageTitle={imageTitle} label={label} />
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	);
 }
 
@@ -89,6 +99,7 @@ ImageSelector.propTypes = {
 	onClearButtonPressed: PropTypes.func.isRequired,
 	onImageSelected: PropTypes.func.isRequired,
 };
+<<<<<<< HEAD
 
 function ReadOnlyImageInput({imageTitle, label}) {
 	const readOnlyInputId = useId();
@@ -113,3 +124,5 @@ ReadOnlyImageInput.propTypes = {
 	imageTitle: PropTypes.string,
 	label: PropTypes.string,
 };
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

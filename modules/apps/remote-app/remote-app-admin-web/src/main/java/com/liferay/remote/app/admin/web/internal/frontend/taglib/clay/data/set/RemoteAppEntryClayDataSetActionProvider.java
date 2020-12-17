@@ -146,8 +146,14 @@ public class RemoteAppEntryClayDataSetActionProvider
 		RequestBackedPortletURLFactory requestBackedPortletURLFactory =
 			RequestBackedPortletURLFactoryUtil.create(httpServletRequest);
 
+<<<<<<< HEAD
 		return requestBackedPortletURLFactory.createRenderURL(
 			_getPortletId(httpServletRequest));
+=======
+		String portletId = _getPortletId(httpServletRequest);
+
+		return requestBackedPortletURLFactory.createRenderURL(portletId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Reference

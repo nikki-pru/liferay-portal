@@ -14,19 +14,28 @@
 
 package com.liferay.change.tracking.web.internal.portlet.action;
 
+<<<<<<< HEAD
 import com.liferay.change.tracking.exception.CTLocalizedException;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.change.tracking.model.CTCollection;
 import com.liferay.change.tracking.service.CTCollectionLocalService;
 import com.liferay.change.tracking.service.CTCollectionService;
 import com.liferay.change.tracking.web.internal.constants.CTPortletKeys;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.language.Language;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
+=======
+import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
+import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -76,6 +85,7 @@ public class UndoCTCollectionMVCActionCommand extends BaseMVCActionCommand {
 				ctCollection.getName(), "\"");
 		}
 
+<<<<<<< HEAD
 		try {
 			CTCollection ctCollection = _ctCollectionService.undoCTCollection(
 				ctCollectionId, themeDisplay.getUserId(), name, description);
@@ -116,6 +126,32 @@ public class UndoCTCollectionMVCActionCommand extends BaseMVCActionCommand {
 	private static final Log _log = LogFactoryUtil.getLog(
 		UndoCTCollectionMVCActionCommand.class);
 
+=======
+		CTCollection ctCollection = _ctCollectionService.undoCTCollection(
+			ctCollectionId, themeDisplay.getUserId(), name, description);
+
+		PortletURL redirectURL = PortletURLFactoryUtil.create(
+			actionRequest, CTPortletKeys.PUBLICATIONS,
+			PortletRequest.RENDER_PHASE);
+
+		String publishTime = ParamUtil.get(actionRequest, "publishTime", "now");
+
+		if (publishTime.equals("now")) {
+			redirectURL.setParameter(
+				"mvcRenderCommandName", "/change_tracking/view_conflicts");
+		}
+		else {
+			redirectURL.setParameter(
+				"mvcRenderCommandName", "/change_tracking/view_changes");
+		}
+
+		redirectURL.setParameter(
+			"ctCollectionId", String.valueOf(ctCollection.getCtCollectionId()));
+
+		sendRedirect(actionRequest, actionResponse, redirectURL.toString());
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Reference
 	private CTCollectionLocalService _ctCollectionLocalService;
 

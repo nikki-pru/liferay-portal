@@ -115,9 +115,14 @@ public class DDMStructureClassType implements ClassType {
 	}
 
 	private static final String[] _SELECTABLE_DDM_STRUCTURE_FIELDS = {
+<<<<<<< HEAD
 		"checkbox", "date", "ddm-date", "ddm-decimal", "ddm-image",
 		"ddm-integer", "ddm-number", "ddm-text-html", "image", "numeric",
 		"radio", "rich_text", "select", "text", "textarea"
+=======
+		"checkbox", "ddm-date", "ddm-decimal", "ddm-image", "ddm-integer",
+		"ddm-number", "ddm-text-html", "radio", "select", "text", "textarea"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	};
 
 	private final long _classTypeId;

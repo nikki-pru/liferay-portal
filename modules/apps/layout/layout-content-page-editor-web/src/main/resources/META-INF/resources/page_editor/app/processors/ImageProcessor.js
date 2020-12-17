@@ -30,10 +30,19 @@ function createEditor(element, changeCallback, destroyCallback) {
 		const url = image && image.url ? image.url : '';
 
 		changeCallback(
+<<<<<<< HEAD
 			{
 				fileEntryId: image ? image.fileEntryId : undefined,
 				url,
 			},
+=======
+			config.adaptiveMediaEnabled
+				? {
+						fileEntryId: image ? image.fileEntryId : undefined,
+						url,
+				  }
+				: url,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			{imageTitle: image && image.title ? image.title : ''}
 		);
 	}, destroyCallback);
@@ -63,6 +72,7 @@ function render(element, value, editableConfig = {}, languageId) {
 	}
 
 	if (image) {
+<<<<<<< HEAD
 		if (editableConfig.alt && typeof editableConfig.alt === 'object') {
 			image.alt =
 				editableConfig.alt[languageId] ||
@@ -75,6 +85,14 @@ function render(element, value, editableConfig = {}, languageId) {
 		else {
 			image.alt = '';
 		}
+=======
+		const alt = value.alt || config.alt || image.alt;
+
+		image.alt =
+			typeof alt === 'object'
+				? alt[languageId] || alt[config.defaultLanguageId] || ''
+				: alt || '';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		const link =
 			editableConfig[languageId] ||

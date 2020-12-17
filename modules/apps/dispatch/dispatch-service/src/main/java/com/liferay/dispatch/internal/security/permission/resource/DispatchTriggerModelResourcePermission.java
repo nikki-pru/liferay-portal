@@ -15,10 +15,15 @@
 package com.liferay.dispatch.internal.security.permission.resource;
 
 import com.liferay.dispatch.model.DispatchTrigger;
+<<<<<<< HEAD
 import com.liferay.dispatch.service.DispatchTriggerLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
+=======
+import com.liferay.dispatch.security.permission.DispatchTriggerPermission;
+import com.liferay.portal.kernel.exception.PortalException;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
@@ -42,11 +47,16 @@ public class DispatchTriggerModelResourcePermission
 			DispatchTrigger dispatchTrigger, String actionId)
 		throws PortalException {
 
+<<<<<<< HEAD
 		if (!contains(permissionChecker, dispatchTrigger, actionId)) {
 			throw new PrincipalException.MustHavePermission(
 				permissionChecker, DispatchTrigger.class.getName(),
 				dispatchTrigger.getDispatchTriggerId(), actionId);
 		}
+=======
+		dispatchTriggerPermission.check(
+			permissionChecker, dispatchTrigger, actionId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -55,15 +65,21 @@ public class DispatchTriggerModelResourcePermission
 			String actionId)
 		throws PortalException {
 
+<<<<<<< HEAD
 		if (!contains(permissionChecker, primaryKey, actionId)) {
 			throw new PrincipalException.MustHavePermission(
 				permissionChecker, DispatchTrigger.class.getName(), primaryKey,
 				actionId);
 		}
+=======
+		dispatchTriggerPermission.check(
+			permissionChecker, primaryKey, actionId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
 	public boolean contains(
+<<<<<<< HEAD
 		PermissionChecker permissionChecker, DispatchTrigger dispatchTrigger,
 		String actionId) {
 
@@ -75,6 +91,14 @@ public class DispatchTriggerModelResourcePermission
 			GroupConstants.DEFAULT_LIVE_GROUP_ID,
 			DispatchTrigger.class.getName(),
 			dispatchTrigger.getDispatchTriggerId(), actionId);
+=======
+			PermissionChecker permissionChecker,
+			DispatchTrigger dispatchTrigger, String actionId)
+		throws PortalException {
+
+		return dispatchTriggerPermission.contains(
+			permissionChecker, dispatchTrigger, actionId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -83,10 +107,15 @@ public class DispatchTriggerModelResourcePermission
 			String actionId)
 		throws PortalException {
 
+<<<<<<< HEAD
 		return contains(
 			permissionChecker,
 			_dispatchTriggerLocalService.getDispatchTrigger(dispatchTriggerId),
 			actionId);
+=======
+		return dispatchTriggerPermission.contains(
+			permissionChecker, dispatchTriggerId, actionId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -100,6 +129,10 @@ public class DispatchTriggerModelResourcePermission
 	}
 
 	@Reference
+<<<<<<< HEAD
 	private DispatchTriggerLocalService _dispatchTriggerLocalService;
+=======
+	protected DispatchTriggerPermission dispatchTriggerPermission;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 }

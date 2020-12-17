@@ -182,7 +182,10 @@ public abstract class BaseWorkflowLogResourceTestCase {
 		WorkflowLog workflowLog = randomWorkflowLog();
 
 		workflowLog.setCommentLog(regex);
+<<<<<<< HEAD
 		workflowLog.setDescription(regex);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		workflowLog.setPreviousState(regex);
 		workflowLog.setState(regex);
 
@@ -193,7 +196,10 @@ public abstract class BaseWorkflowLogResourceTestCase {
 		workflowLog = WorkflowLogSerDes.toDTO(json);
 
 		Assert.assertEquals(regex, workflowLog.getCommentLog());
+<<<<<<< HEAD
 		Assert.assertEquals(regex, workflowLog.getDescription());
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Assert.assertEquals(regex, workflowLog.getPreviousState());
 		Assert.assertEquals(regex, workflowLog.getState());
 	}
@@ -581,6 +587,7 @@ public abstract class BaseWorkflowLogResourceTestCase {
 				continue;
 			}
 
+<<<<<<< HEAD
 			if (Objects.equals("description", additionalAssertFieldName)) {
 				if (workflowLog.getDescription() == null) {
 					valid = false;
@@ -589,6 +596,8 @@ public abstract class BaseWorkflowLogResourceTestCase {
 				continue;
 			}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			if (Objects.equals("person", additionalAssertFieldName)) {
 				if (workflowLog.getPerson() == null) {
 					valid = false;
@@ -778,6 +787,7 @@ public abstract class BaseWorkflowLogResourceTestCase {
 				continue;
 			}
 
+<<<<<<< HEAD
 			if (Objects.equals("description", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						workflowLog1.getDescription(),
@@ -789,6 +799,8 @@ public abstract class BaseWorkflowLogResourceTestCase {
 				continue;
 			}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			if (Objects.equals("id", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						workflowLog1.getId(), workflowLog2.getId())) {
@@ -1012,6 +1024,7 @@ public abstract class BaseWorkflowLogResourceTestCase {
 			return sb.toString();
 		}
 
+<<<<<<< HEAD
 		if (entityFieldName.equals("description")) {
 			sb.append("'");
 			sb.append(String.valueOf(workflowLog.getDescription()));
@@ -1020,6 +1033,8 @@ public abstract class BaseWorkflowLogResourceTestCase {
 			return sb.toString();
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (entityFieldName.equals("id")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
@@ -1118,8 +1133,11 @@ public abstract class BaseWorkflowLogResourceTestCase {
 				commentLog = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
 				dateCreated = RandomTestUtil.nextDate();
+<<<<<<< HEAD
 				description = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				id = RandomTestUtil.randomLong();
 				previousState = StringUtil.toLowerCase(
 					RandomTestUtil.randomString());

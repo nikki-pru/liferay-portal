@@ -15,7 +15,10 @@
 package com.liferay.segments.web.internal.field.customizer;
 
 import com.liferay.portal.kernel.model.Country;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.service.CountryService;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.segments.field.Field;
@@ -58,8 +61,12 @@ public class CountrySegmentsFieldCustomizer
 
 	@Override
 	public List<Field.Option> getOptions(Locale locale) {
+<<<<<<< HEAD
 		List<Country> countries = _countryService.getCompanyCountries(
 			CompanyThreadLocal.getCompanyId());
+=======
+		List<Country> countries = _countryService.getCountries();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Stream<Country> stream = countries.stream();
 

@@ -50,6 +50,7 @@ public class AccountGroupTable extends BaseTable<AccountGroupTable> {
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<AccountGroupTable, Date> modifiedDate = createColumn(
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+<<<<<<< HEAD
 	public final Column<AccountGroupTable, Boolean> defaultAccountGroup =
 		createColumn(
 			"defaultAccountGroup", Boolean.class, Types.BOOLEAN,
@@ -58,6 +59,12 @@ public class AccountGroupTable extends BaseTable<AccountGroupTable> {
 		"description", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<AccountGroupTable, String> name = createColumn(
 		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+=======
+	public final Column<AccountGroupTable, String> name = createColumn(
+		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+	public final Column<AccountGroupTable, String> description = createColumn(
+		"description", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	private AccountGroupTable() {
 		super("AccountGroup", AccountGroupTable::new);

@@ -24,7 +24,10 @@ public class DispatchTriggerImpl extends DispatchTriggerBaseImpl {
 	public DispatchTriggerImpl() {
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public UnicodeProperties getTaskSettingsUnicodeProperties() {
 		if (_taskSettingsUnicodeProperties == null) {
 			_taskSettingsUnicodeProperties = new UnicodeProperties(true);
@@ -35,14 +38,20 @@ public class DispatchTriggerImpl extends DispatchTriggerBaseImpl {
 		return _taskSettingsUnicodeProperties;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void setTaskSettings(String taskSettings) {
 		super.setTaskSettings(taskSettings);
 
 		_taskSettingsUnicodeProperties = null;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void setTaskSettingsUnicodeProperties(
 		UnicodeProperties taskSettingsUnicodeProperties) {
 

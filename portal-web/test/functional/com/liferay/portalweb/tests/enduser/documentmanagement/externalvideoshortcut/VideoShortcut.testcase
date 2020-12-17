@@ -45,8 +45,11 @@ definition {
 	@description = "This ensures that a video shortcut can be added with Facebook."
 	@priority = "5"
 	test AddFacebookCP {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
 		VideoShortcut.addCP(
@@ -59,6 +62,7 @@ definition {
 		VideoShortcut.viewCP(videoShortcutTitle = "Test Facebook Video Name");
 	}
 
+<<<<<<< HEAD
 	@description = "This test ensures that a user is able to embed an external video in a KB article."
 	@priority = "5"
 	test AddKBArticleWithEmbeddedVideo {
@@ -91,6 +95,11 @@ definition {
 	test AddTwitchPG {
 		property portal.acceptance = "true";
 
+=======
+	@description = "This ensures that a video shortcut can be added with Twitch."
+	@priority = "5"
+	test AddTwitchPG {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
 		VideoShortcut.addPG(
@@ -104,8 +113,11 @@ definition {
 	@description = "This ensures that a video shortcut can be added with Vimeo."
 	@priority = "5"
 	test AddVimeoCP {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
 		VideoShortcut.addCP(
@@ -120,6 +132,7 @@ definition {
 		VideoShortcut.viewCP(videoShortcutTitle = "Test Vimeo Video Name");
 	}
 
+<<<<<<< HEAD
 	@description = "This test ensures that a user is able to embed an external video in web content."
 	@priority = "5"
 	test AddWCWithEmbeddedVideo {
@@ -155,6 +168,8 @@ definition {
 			locator1 = "WCPreview#BODY_FIELD_VIDEO");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "It ensures that a message is displayed in the preview section When pasting an invalid URL."
 	@priority = "4"
 	test AddWithInvalidURL {
@@ -192,8 +207,11 @@ definition {
 	@description = "This ensures that a video shortcut can be added with YouTube."
 	@priority = "5"
 	test AddYouTubePG {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
 		VideoShortcut.addPG(
@@ -208,6 +226,7 @@ definition {
 			videoShortcutTitle = "Test YouTube Video Name");
 	}
 
+<<<<<<< HEAD
 	@description = "This ensures that the video shortcut can be viewed with different views in the item selector."
 	@priority = "5"
 	test ChangeViewsInItemSelector {
@@ -248,6 +267,8 @@ definition {
 			videoShortcutList = "Test Facebook Video,Test Vimeo Video,Test YouTube Video,Test Facebook Video");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "This ensures that a video shortcut associated with a category can be searched."
 	@priority = "5"
 	test SearchForCategory {
@@ -459,15 +480,22 @@ definition {
 
 		Pause(locator1 = "3000");
 
+<<<<<<< HEAD
 		AssertVisible(
 			key_videoShortcutPreview = "https://www.youtube.com",
 			locator1 = "DocumentsAndMediaDocument#VIDEO_SHORTCUT_PREVIEW");
 
 		SelectFrame.selectFrameNoLoading(locator1 = "IFrame#EXTERNAL_VIDEO_IFRAME");
+=======
+		SelectFrame.selectFrameNoLoading(locator1 = "IFrame#ASSET_DETAILS_IFRAME");
+
+		AssertVisible(locator1 = "SearchResults#ASSET_DETAILS_YOUTUBE_PREVIEW");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		AssertElementPresent(locator1 = "Button#YOUTUBE_PLAY");
 	}
 
+<<<<<<< HEAD
 	@description = "This test covers LPS-124246 and LPS-124309. It ensures that YouTube shortcut can be added with the invalid file name and the thumbnail can be displayed in AP."
 	@priority = "4"
 	test ViewThumbnailViaAP {
@@ -501,4 +529,6 @@ definition {
 			locator1 = "AP#ASSET_ABSTRACT_DETAIL_EXTERNAL_VIDEO_THUMBNAIL");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

@@ -174,8 +174,16 @@ public class BatchEngineTaskMethodRegistryImpl
 				batchEngineTaskItemDelegateExecutorCreatorMap =
 					_batchEngineTaskItemDelegateExecutorCreators.get(itemClass);
 
+<<<<<<< HEAD
 			batchEngineTaskItemDelegateExecutorCreatorMap.remove(
 				_getBatchEngineTaskItemDelegateName(serviceReference));
+=======
+			String batchEngineTaskItemDelegateName =
+				_getBatchEngineTaskItemDelegateName(serviceReference);
+
+			batchEngineTaskItemDelegateExecutorCreatorMap.remove(
+				batchEngineTaskItemDelegateName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			if (batchEngineTaskItemDelegateExecutorCreatorMap.isEmpty()) {
 				_batchEngineTaskItemDelegateExecutorCreators.remove(itemClass);

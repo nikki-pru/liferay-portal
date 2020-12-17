@@ -114,6 +114,7 @@ public class ReferralTrafficChannelImplTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testToJSONObjectWithMoreThanTenReferringDomains() {
 		ReferralTrafficChannelImpl referralTrafficChannelImpl =
 			new ReferralTrafficChannelImpl(
@@ -326,6 +327,8 @@ public class ReferralTrafficChannelImplTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testToJSONObjectWithoutReferringDomainsAndWithoutReferringPages() {
 		ReferralTrafficChannelImpl referralTrafficChannelImpl =
 			new ReferralTrafficChannelImpl(
@@ -353,6 +356,7 @@ public class ReferralTrafficChannelImplTest {
 					_getResourceBundle(referralTrafficChannelImpl))));
 	}
 
+<<<<<<< HEAD
 	@Test
 	public void testToJSONObjectWithUnsortedReferringDomains() {
 		ReferralTrafficChannelImpl referralTrafficChannelImpl =
@@ -459,6 +463,8 @@ public class ReferralTrafficChannelImplTest {
 					_getResourceBundle(referralTrafficChannelImpl))));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private ResourceBundle _getResourceBundle(TrafficChannel trafficChannel) {
 		return new ResourceBundle() {
 

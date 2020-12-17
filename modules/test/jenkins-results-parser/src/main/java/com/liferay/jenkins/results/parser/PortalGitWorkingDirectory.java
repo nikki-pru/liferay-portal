@@ -40,11 +40,14 @@ import org.json.JSONObject;
  */
 public class PortalGitWorkingDirectory extends GitWorkingDirectory {
 
+<<<<<<< HEAD
 	public String getMajorPortalVersion() {
 		return JenkinsResultsParserUtil.getProperty(
 			getReleaseProperties(), "lp.version.major");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<File> getModifiedModuleDirsList() throws IOException {
 		return getModifiedModuleDirsList(null, null);
 	}
@@ -211,6 +214,7 @@ public class PortalGitWorkingDirectory extends GitWorkingDirectory {
 		return npmModuleDirsList;
 	}
 
+<<<<<<< HEAD
 	public Properties getReleaseProperties() {
 		if (_releaseProperties != null) {
 			return _releaseProperties;
@@ -265,6 +269,8 @@ public class PortalGitWorkingDirectory extends GitWorkingDirectory {
 		return _testProperties;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected PortalGitWorkingDirectory(
 			String upstreamBranchName, String workingDirectoryPath)
 		throws IOException {
@@ -320,9 +326,12 @@ public class PortalGitWorkingDirectory extends GitWorkingDirectory {
 		return false;
 	}
 
+<<<<<<< HEAD
 	private Properties _releaseProperties;
 	private Properties _testProperties;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static class Module {
 
 		public static Module getModule(Path path) {

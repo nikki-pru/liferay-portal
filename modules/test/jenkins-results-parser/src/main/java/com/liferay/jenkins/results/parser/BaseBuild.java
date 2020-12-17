@@ -1418,7 +1418,10 @@ public abstract class BaseBuild implements Build {
 		return !_status.equals(_previousStatus);
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isCompareToUpstream() {
 		TopLevelBuild topLevelBuild = getTopLevelBuild();
 
@@ -1426,6 +1429,7 @@ public abstract class BaseBuild implements Build {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public boolean isCompleted() {
 		String result = getResult();
 		String status = getStatus();
@@ -1438,6 +1442,8 @@ public abstract class BaseBuild implements Build {
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isFromArchive() {
 		return fromArchive;
 	}

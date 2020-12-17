@@ -70,6 +70,7 @@ window.themeDisplay = {
 	isSignedIn: () => true,
 };
 
+<<<<<<< HEAD
 const sub = function (string, data) {
 	if (
 		arguments.length > 2 ||
@@ -87,6 +88,11 @@ window.util = {
 	...window.util,
 	selectEntity: () => {},
 	sub,
+=======
+window.util = {
+	...window.util,
+	selectEntity: () => {},
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 };
 
 const languageMap = {

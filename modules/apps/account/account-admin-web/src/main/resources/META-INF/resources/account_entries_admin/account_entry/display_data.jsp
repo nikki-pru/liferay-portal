@@ -45,9 +45,12 @@ AccountEntryDisplay accountEntryDisplay = (AccountEntryDisplay)request.getAttrib
 				}
 				%>
 
+<<<<<<< HEAD
 				<c:if test="<%= Objects.equals(accountEntryDisplay.getType(), AccountConstants.ACCOUNT_ENTRY_TYPE_GUEST) %>">
 					<aui:option label="<%= LanguageUtil.get(request, accountEntryDisplay.getType()) %>" selected="<%= true %>" value="<%= accountEntryDisplay.getType() %>" />
 				</c:if>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			</aui:select>
 
 			<aui:input helpMessage="tax-id-help" label="tax-id" name="taxIdNumber" type="text" value="<%= accountEntryDisplay.getTaxIdNumber() %>">

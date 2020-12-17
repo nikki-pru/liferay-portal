@@ -737,7 +737,11 @@
 </tr>
 <tr>
 	<td>IMAGE_RESOLUTION_LABEL</td>
+<<<<<<< HEAD
 	<td>//div[contains(@class,'text-secondary')][contains(.,'${key_resolutionLabel}')]</td>
+=======
+	<td>//div[contains(@class,'image-properties-panel__resolution-label')][contains(.,'${key_resolutionLabel}')]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>

@@ -53,8 +53,14 @@ public class ParallelDestinationPrototype implements DestinationPrototype {
 		parallelDestination.setRejectedExecutionHandler(
 			destinationConfiguration.getRejectedExecutionHandler());
 		parallelDestination.setUserLocalService(_userLocalService);
+<<<<<<< HEAD
 		parallelDestination.setWorkersSize(
 			destinationConfiguration.getWorkersCoreSize(),
+=======
+		parallelDestination.setWorkersCoreSize(
+			destinationConfiguration.getWorkersCoreSize());
+		parallelDestination.setWorkersMaxSize(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			destinationConfiguration.getWorkersMaxSize());
 
 		parallelDestination.afterPropertiesSet();

@@ -81,8 +81,15 @@ public class AutocompleteUserMVCResourceCommandTest {
 		MockLiferayResourceResponse mockLiferayResourceResponse =
 			new MockLiferayResourceResponse();
 
+<<<<<<< HEAD
 		_mvcResourceCommand.serveResource(
 			_getMockLiferayResourceRequest(_getThemeDisplay(user, true)),
+=======
+		ThemeDisplay themeDisplay = _getThemeDisplay(user, true);
+
+		_mvcResourceCommand.serveResource(
+			_getMockLiferayResourceRequest(themeDisplay),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			mockLiferayResourceResponse);
 
 		JSONArray jsonArray = _getUsersJSONArray(mockLiferayResourceResponse);
@@ -125,8 +132,15 @@ public class AutocompleteUserMVCResourceCommandTest {
 		MockLiferayResourceResponse mockLiferayResourceResponse =
 			new MockLiferayResourceResponse();
 
+<<<<<<< HEAD
 		_mvcResourceCommand.serveResource(
 			_getMockLiferayResourceRequest(_getThemeDisplay(user, true)),
+=======
+		ThemeDisplay themeDisplay = _getThemeDisplay(user, true);
+
+		_mvcResourceCommand.serveResource(
+			_getMockLiferayResourceRequest(themeDisplay),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			mockLiferayResourceResponse);
 
 		JSONArray jsonArray = _getUsersJSONArray(mockLiferayResourceResponse);

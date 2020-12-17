@@ -58,7 +58,11 @@ page import="com.liferay.commerce.product.type.virtual.order.model.CommerceVirtu
 page import="com.liferay.commerce.product.type.virtual.util.VirtualCPTypeHelper" %><%@
 page import="com.liferay.commerce.product.type.virtual.web.internal.display.context.CPDefinitionVirtualSettingDisplayContext" %><%@
 page import="com.liferay.commerce.product.type.virtual.web.internal.display.context.CommerceVirtualOrderItemEditDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.product.type.virtual.web.internal.servlet.taglib.ui.constants.CPDefinitionVirtualSettingFormNavigatorConstants" %><%@
+=======
+page import="com.liferay.commerce.product.type.virtual.web.internal.servlet.taglib.ui.CPDefinitionVirtualSettingFormNavigatorConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.journal.model.JournalArticle" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@

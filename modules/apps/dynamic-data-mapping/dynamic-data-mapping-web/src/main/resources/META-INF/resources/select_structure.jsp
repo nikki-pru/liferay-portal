@@ -28,7 +28,10 @@ SearchContainer<DDMStructure> structureSearch = ddmDisplayContext.getStructureSe
 
 <clay:management-toolbar-v2
 	clearResultsURL="<%= ddmDisplayContext.getClearResultsURL() %>"
+<<<<<<< HEAD
 	componentId="ddmStructureManagementToolbar"
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	creationMenu="<%= ddmDisplayContext.getSelectStructureCreationMenu() %>"
 	disabled="<%= ddmDisplayContext.isDisabledManagementBar(DDMWebKeys.DYNAMIC_DATA_MAPPING_STRUCTURE) %>"
 	filterDropdownItems="<%= ddmDisplayContext.getFilterItemsDropdownItems() %>"
@@ -107,6 +110,7 @@ SearchContainer<DDMStructure> structureSearch = ddmDisplayContext.getStructureSe
 </aui:form>
 
 <aui:script>
+<<<<<<< HEAD
 	Liferay.componentReady('ddmStructureManagementToolbar').then(function (
 		managementToolbar
 	) {
@@ -114,6 +118,11 @@ SearchContainer<DDMStructure> structureSearch = ddmDisplayContext.getStructureSe
 			document.<portlet:namespace />searchForm.<portlet:namespace />keywords
 		);
 	});
+=======
+	Liferay.Util.focusFormField(
+		document.<portlet:namespace />searchForm.<portlet:namespace />keywords
+	);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	Liferay.Util.selectEntityHandler(
 		'#<portlet:namespace />selectStructureFm',

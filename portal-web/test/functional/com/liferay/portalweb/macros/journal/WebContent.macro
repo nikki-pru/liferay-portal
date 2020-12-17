@@ -14,8 +14,11 @@ definition {
 		AssertVisible(locator1 = "WCEditWebContent#SIDEBAR");
 
 		if (isSet(webContentTitle)) {
+<<<<<<< HEAD
 			Pause(locator1 = "2000");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			Click(locator1 = "TextInput#TITLE");
 
 			PortletEntry.inputTitle(title = "${webContentTitle}");
@@ -31,6 +34,7 @@ definition {
 			SelectFrame(value1 = "relative=top");
 		}
 
+<<<<<<< HEAD
 		if (isSet(embedVideo)) {
 			WaitForLiferayEvent.initializeLiferayEventLog();
 
@@ -48,6 +52,8 @@ definition {
 			}
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (isSet(viewableBy)) {
 			Panel.expandPanel(panel = "Permissions");
 
@@ -507,7 +513,11 @@ definition {
 		if (isSet(webContentText)) {
 			Type(
 				key_fieldName = "Text",
+<<<<<<< HEAD
 				locator1 = "FormViewBuilder#TEXT_FIELD",
+=======
+				locator1 = "TextInput#DDM",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				value1 = "${webContentText}");
 		}
 
@@ -1583,11 +1593,20 @@ definition {
 	}
 
 	macro uploadAudio {
+<<<<<<< HEAD
 		Click(locator1 = "CKEditor#TOOLBAR_AUDIO_BUTTON");
 
 		ItemSelector.addAudioFromURL(
 			audioSourceURL = "${dmDocumentURL}",
 			navTab = "${navTab}");
+=======
+		Click.pauseClickAt(locator1 = "WCEditWebContent#AUDIO_BUTTON");
+
+		ItemSelector.addFromURL(
+			imageSourceURL = "${dmDocumentURL}",
+			navTab = "${navTab}",
+			type = "Audio");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		SelectFrame.selectFrameNoLoading(
 			key_fieldLabel = "content",
@@ -1599,11 +1618,20 @@ definition {
 	}
 
 	macro uploadVideo {
+<<<<<<< HEAD
 		Click(locator1 = "WCEditWebContent#VIDEO_BUTTON");
 
 		ItemSelector.addVideoFromURL(
 			navTab = "${navTab}",
 			videoSourceURL = "${dmDocumentURL}");
+=======
+		Click.pauseClickAt(locator1 = "WCEditWebContent#VIDEO_BUTTON");
+
+		ItemSelector.addFromURL(
+			imageSourceURL = "${dmDocumentURL}",
+			navTab = "${navTab}",
+			type = "Video");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		SelectFrame.selectFrameNoLoading(
 			key_fieldLabel = "content",
@@ -2295,7 +2323,11 @@ definition {
 
 			AssertTextEquals.assertValue(
 				key_fieldFieldLabel = "${webContentColorFieldLabel}",
+<<<<<<< HEAD
 				locator1 = "TextInput#SELECTOR_INPUT",
+=======
+				locator1 = "WCEditWebContent#TEXT_INPUT",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				value1 = "${webContentColor}");
 		}
 
@@ -2364,7 +2396,11 @@ definition {
 				var webContentMultipleSelectionFieldLabel = "Multiple Selection";
 			}
 
+<<<<<<< HEAD
 			AssertChecked.assertCheckedNotVisible(
+=======
+			AssertChecked(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				key_fieldFieldLabel = "${webContentMultipleSelectionFieldLabel}",
 				key_optionValue = "${webContentMultipleSelection}",
 				locator1 = "WCEditWebContent#SELECTION_OPTION");
@@ -2375,10 +2411,25 @@ definition {
 				var webContentNumericFieldLabel = "Numeric";
 			}
 
+<<<<<<< HEAD
 			AssertTextEquals.assertValue(
 				key_fieldFieldLabel = "${webContentNumericFieldLabel}",
 				locator1 = "WCEditWebContent#TEXT_INPUT",
 				value1 = "${webContentNumeric}");
+=======
+			if ("${numericType}" == "Decimal") {
+				AssertTextEquals.assertValue(
+					key_fieldFieldLabel = "${webContentNumericFieldLabel}",
+					locator1 = "WCEditWebContent#TEXT_INPUT",
+					value1 = "${webContentNumber}");
+			}
+			else {
+				AssertTextEquals.assertValue(
+					key_fieldFieldLabel = "${webContentNumericFieldLabel}",
+					locator1 = "WCEditWebContent#TEXT_INPUT",
+					value1 = "${webContentNumber}");
+			}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		if (isSet(webContentRichText)) {
@@ -2398,11 +2449,19 @@ definition {
 		}
 
 		if (isSet(webContentSelectFromList)) {
+<<<<<<< HEAD
 			if (!(isSet(webContentSelectFromListFieldLabel))) {
 				var webContentSelectFromListFieldLabel = "Select from List";
 			}
 
 			AssertTextEquals(
+=======
+			if (!(isSet(webContentSeparatorFieldLabel))) {
+				var webContentSeparatorFieldLabel = "Select from List";
+			}
+
+			AssertSelectedLabel(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				key_fieldFieldLabel = "${webContentSelectFromListFieldLabel}",
 				locator1 = "DDMField#SELECT_FROM_LIST",
 				value1 = "${webContentSelectFromList}");
@@ -2423,7 +2482,11 @@ definition {
 				var webContentSingleSelectionFieldLabel = "Single Selection";
 			}
 
+<<<<<<< HEAD
 			AssertChecked.assertCheckedNotVisible(
+=======
+			AssertChecked(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				key_fieldFieldLabel = "${webContentSingleSelectionFieldLabel}",
 				key_optionValue = "${webContentSingleSelection}",
 				locator1 = "WCEditWebContent#SELECTION_OPTION");

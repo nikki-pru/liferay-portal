@@ -145,7 +145,11 @@ export default function TrafficSources({
 											></span>
 										</td>
 										<td
+<<<<<<< HEAD
 											className="c-py-1 text-secondary"
+=======
+											className="c-py-1 pie-chart-wrapper--legend--title text-secondary"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 											onMouseOut={handleLegendMouseLeave}
 											onMouseOver={() =>
 												handleLegendMouseEnter(
@@ -155,7 +159,11 @@ export default function TrafficSources({
 										>
 											{entry.value > 0 && hasDetails ? (
 												<ClayButton
+<<<<<<< HEAD
 													className="px-0 py-1 text-primary"
+=======
+													className="font-weight-semi-bold px-0 py-1 text-primary"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 													displayType="link"
 													onClick={() =>
 														onTrafficSourceClick(
@@ -177,7 +185,11 @@ export default function TrafficSources({
 												title={entry.title}
 											/>
 										</td>
+<<<<<<< HEAD
 										<td className="font-weight-semi-bold">
+=======
+										<td className="font-weight-bold">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 											{entry.value !== undefined &&
 											!publishedToday
 												? numberFormat(

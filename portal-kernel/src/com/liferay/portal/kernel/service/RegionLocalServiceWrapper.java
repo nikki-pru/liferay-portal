@@ -121,12 +121,19 @@ public class RegionLocalServiceWrapper
 	 *
 	 * @param region the region
 	 * @return the region that was removed
+<<<<<<< HEAD
 	 * @throws PortalException
 	 */
 	@Override
 	public com.liferay.portal.kernel.model.Region deleteRegion(
 			com.liferay.portal.kernel.model.Region region)
 		throws com.liferay.portal.kernel.exception.PortalException {
+=======
+	 */
+	@Override
+	public com.liferay.portal.kernel.model.Region deleteRegion(
+		com.liferay.portal.kernel.model.Region region) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return _regionLocalService.deleteRegion(region);
 	}
@@ -230,6 +237,7 @@ public class RegionLocalServiceWrapper
 		return _regionLocalService.fetchRegion(regionId);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public com.liferay.portal.kernel.model.Region fetchRegion(
 		long countryId, java.lang.String regionCode) {
@@ -237,6 +245,8 @@ public class RegionLocalServiceWrapper
 		return _regionLocalService.fetchRegion(countryId, regionCode);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the region with the matching UUID and company.
 	 *
@@ -311,6 +321,7 @@ public class RegionLocalServiceWrapper
 		return _regionLocalService.getRegion(regionId);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public com.liferay.portal.kernel.model.Region getRegion(
 			long countryId, java.lang.String regionCode)
@@ -319,6 +330,8 @@ public class RegionLocalServiceWrapper
 		return _regionLocalService.getRegion(countryId, regionCode);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the region with the matching UUID and company.
 	 *
@@ -353,6 +366,7 @@ public class RegionLocalServiceWrapper
 		return _regionLocalService.getRegions(start, end);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public java.util.List<com.liferay.portal.kernel.model.Region> getRegions(
 			long countryId, boolean active)
@@ -389,6 +403,8 @@ public class RegionLocalServiceWrapper
 		return _regionLocalService.getRegions(companyId, a2, active);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the number of regions.
 	 *
@@ -399,6 +415,7 @@ public class RegionLocalServiceWrapper
 		return _regionLocalService.getRegionsCount();
 	}
 
+<<<<<<< HEAD
 	@Override
 	public int getRegionsCount(long countryId) {
 		return _regionLocalService.getRegionsCount(countryId);
@@ -427,6 +444,8 @@ public class RegionLocalServiceWrapper
 			regionId, active, name, position, regionCode);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Updates the region in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

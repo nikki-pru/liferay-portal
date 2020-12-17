@@ -63,6 +63,7 @@ import java.rmi.RemoteException;
 @Deprecated
 public class CountryServiceSoap {
 
+<<<<<<< HEAD
 	public static com.liferay.portal.kernel.model.CountrySoap addCountry(
 			String a2, String a3, boolean active, boolean billingAllowed,
 			String idd, String name, String number, double position,
@@ -86,6 +87,8 @@ public class CountryServiceSoap {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * @deprecated As of Cavanaugh (7.4.x)
 	 */
@@ -110,6 +113,7 @@ public class CountryServiceSoap {
 		}
 	}
 
+<<<<<<< HEAD
 	public static void deleteCountry(long countryId) throws RemoteException {
 		try {
 			CountryServiceUtil.deleteCountry(countryId);
@@ -121,6 +125,8 @@ public class CountryServiceSoap {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static com.liferay.portal.kernel.model.CountrySoap fetchCountry(
 			long countryId)
 		throws RemoteException {
@@ -140,6 +146,7 @@ public class CountryServiceSoap {
 	}
 
 	public static com.liferay.portal.kernel.model.CountrySoap fetchCountryByA2(
+<<<<<<< HEAD
 			long companyId, String a2)
 		throws RemoteException {
 
@@ -162,6 +169,8 @@ public class CountryServiceSoap {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.CountrySoap fetchCountryByA2(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String a2)
 		throws RemoteException {
 
@@ -180,6 +189,7 @@ public class CountryServiceSoap {
 	}
 
 	public static com.liferay.portal.kernel.model.CountrySoap fetchCountryByA3(
+<<<<<<< HEAD
 			long companyId, String a3)
 		throws RemoteException {
 
@@ -202,6 +212,8 @@ public class CountryServiceSoap {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.CountrySoap fetchCountryByA3(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String a3)
 		throws RemoteException {
 
@@ -219,6 +231,7 @@ public class CountryServiceSoap {
 		}
 	}
 
+<<<<<<< HEAD
 	public static com.liferay.portal.kernel.model.CountrySoap[]
 			getCompanyCountries(long companyId)
 		throws RemoteException {
@@ -336,6 +349,8 @@ public class CountryServiceSoap {
 	 * @deprecated As of Cavanaugh (7.4.x)
 	 */
 	@Deprecated
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static com.liferay.portal.kernel.model.CountrySoap[] getCountries()
 		throws RemoteException {
 
@@ -353,10 +368,13 @@ public class CountryServiceSoap {
 		}
 	}
 
+<<<<<<< HEAD
 	/**
 	 * @deprecated As of Cavanaugh (7.4.x)
 	 */
 	@Deprecated
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static com.liferay.portal.kernel.model.CountrySoap[] getCountries(
 			boolean active)
 		throws RemoteException {
@@ -394,6 +412,7 @@ public class CountryServiceSoap {
 	}
 
 	public static com.liferay.portal.kernel.model.CountrySoap getCountryByA2(
+<<<<<<< HEAD
 			long companyId, String a2)
 		throws RemoteException {
 
@@ -416,6 +435,8 @@ public class CountryServiceSoap {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.CountrySoap getCountryByA2(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String a2)
 		throws RemoteException {
 
@@ -434,6 +455,7 @@ public class CountryServiceSoap {
 	}
 
 	public static com.liferay.portal.kernel.model.CountrySoap getCountryByA3(
+<<<<<<< HEAD
 			long companyId, String a3)
 		throws RemoteException {
 
@@ -456,6 +478,8 @@ public class CountryServiceSoap {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.CountrySoap getCountryByA3(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String a3)
 		throws RemoteException {
 
@@ -474,6 +498,7 @@ public class CountryServiceSoap {
 	}
 
 	public static com.liferay.portal.kernel.model.CountrySoap getCountryByName(
+<<<<<<< HEAD
 			long companyId, String name)
 		throws RemoteException {
 
@@ -496,6 +521,8 @@ public class CountryServiceSoap {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.CountrySoap getCountryByName(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String name)
 		throws RemoteException {
 
@@ -513,6 +540,7 @@ public class CountryServiceSoap {
 		}
 	}
 
+<<<<<<< HEAD
 	public static com.liferay.portal.kernel.model.CountrySoap
 			getCountryByNumber(long companyId, String number)
 		throws RemoteException {
@@ -590,6 +618,8 @@ public class CountryServiceSoap {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static Log _log = LogFactoryUtil.getLog(CountryServiceSoap.class);
 
 }

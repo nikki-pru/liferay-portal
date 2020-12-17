@@ -987,8 +987,14 @@ public class PoshiContext {
 		throws Exception {
 
 		for (String baseDirName : baseDirNames) {
+<<<<<<< HEAD
 			_storeRootElements(
 				_getPoshiURLs(includes, baseDirName), _DEFAULT_NAMESPACE);
+=======
+			List<URL> poshiURLs = _getPoshiURLs(includes, baseDirName);
+
+			_storeRootElements(poshiURLs, _DEFAULT_NAMESPACE);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 

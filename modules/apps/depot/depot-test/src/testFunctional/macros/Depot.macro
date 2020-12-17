@@ -664,6 +664,7 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
+<<<<<<< HEAD
 	macro tearDownCP {
 		DepotNavigator.openDepotAdmin();
 
@@ -682,6 +683,8 @@ definition {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro view4LanguagesOrder {
 		AssertTextEquals.assertPartialText(
 			locator1 = "LanguageConfiguration#DEPOT_LANGUAGE_LOCALIZATION_NAME_1",
@@ -705,7 +708,11 @@ definition {
 
 		Click(
 			key_card = "${depotName}",
+<<<<<<< HEAD
 			locator1 = "Card#CARD_TITLE_LINK");
+=======
+			locator1 = "Card#CARD_TITLE");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (isSet(noApplication)) {
 			for (var applicationList : list "${applicationList}") {

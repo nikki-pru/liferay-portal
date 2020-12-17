@@ -20,12 +20,18 @@
 AssetEntry assetEntry = (AssetEntry)request.getAttribute("liferay-asset:asset-metadata:assetEntry");
 AssetRenderer<?> assetRenderer = (AssetRenderer<?>)request.getAttribute("liferay-asset:asset-metadata:assetRenderer");
 boolean filterByMetadata = GetterUtil.getBoolean(request.getAttribute("liferay-asset:asset-metadata:filterByMetadata"));
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String metadataField = (String)request.getAttribute("liferay-asset:asset-metadata:metadataField");
 
 String label = LanguageUtil.get(resourceBundle, metadataField);
 String metadataFieldCssClass = "metadata-" + metadataField;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 boolean showLabel = true;
 String value = null;
 

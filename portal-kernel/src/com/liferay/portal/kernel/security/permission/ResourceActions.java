@@ -168,17 +168,24 @@ public interface ResourceActions {
 
 	public boolean isRootModelResource(String modelResource);
 
+<<<<<<< HEAD
 	public void populatePortletResource(
 			Portlet portlet, ClassLoader classLoader, String... sources)
 		throws ResourceActionsException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void read(ClassLoader classLoader, String source)
 		throws ResourceActionsException;
 
 	public void read(ClassLoader classLoader, String... sources)
 		throws ResourceActionsException;
 
+<<<<<<< HEAD
 	public void read(Document document, Set<String> resourceNames)
+=======
+	public void read(Document document, Set<String> portletNames)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws ResourceActionsException;
 
 	/**
@@ -204,7 +211,11 @@ public interface ResourceActions {
 	@Deprecated
 	public void read(
 			String servletContextName, Document document,
+<<<<<<< HEAD
 			Set<String> resourceNames)
+=======
+			Set<String> portletNames)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws ResourceActionsException;
 
 	public void readAndCheck(ClassLoader classLoader, String... sources)

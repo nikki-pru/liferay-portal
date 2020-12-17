@@ -155,7 +155,12 @@ function FieldBase({
 	}
 
 	if (text) {
+<<<<<<< HEAD
 		fieldDetails += text + '<br>';
+=======
+		fieldDetails +=
+			(typeof text === 'object' ? text.content : text) + '<br>';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	if (hasError) {

@@ -41,6 +41,7 @@ definition {
 		AssertTextEquals.assertPartialText(
 			locator1 = "ServerAdministrationScript#OUTPUT_FIELD",
 			value1 = '''<div class="embedded-html-test"> Test Embedded HTML </div>''');
+<<<<<<< HEAD
 
 		ServerAdministration.executeScript(
 			htmlOutput = "true",
@@ -50,6 +51,8 @@ definition {
 		AssertTextEquals(
 			locator1 = "//div[@class='embedded-html-test']",
 			value1 = "Test Embedded HTML");
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@priority = "5"

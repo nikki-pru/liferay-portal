@@ -142,8 +142,11 @@ definition {
 
 	@priority = "4"
 	test ConfigureEventsDisplaySettingsAndViewEvents {
+<<<<<<< HEAD
 		property portal.upstream = "quarantine";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		for (var eventNumber : list "1,2,3,4,5,6") {
 			CalendarNavigator.gotoAddEvent();
 

@@ -35,7 +35,11 @@ page import="com.liferay.commerce.channel.web.internal.frontend.CommerceChannelH
 page import="com.liferay.commerce.channel.web.internal.frontend.CommercePaymentMethodClayTable" %><%@
 page import="com.liferay.commerce.channel.web.internal.frontend.CommerceShippingMethodClayTable" %><%@
 page import="com.liferay.commerce.channel.web.internal.frontend.CommerceTaxMethodClayTable" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.channel.web.internal.servlet.taglib.ui.constants.CommerceChannelScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.channel.web.internal.servlet.taglib.ui.CommerceChannelScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.constants.CommerceOrderConstants" %><%@
 page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
 page import="com.liferay.commerce.pricing.constants.CommercePricingConstants" %><%@

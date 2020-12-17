@@ -154,7 +154,11 @@ public class DDMRESTDataProviderTest {
 
 		outputParameters.addNestedDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
+<<<<<<< HEAD
 				"outputParameterPath", "nameCurrentValue;name"));
+=======
+				"outputParameterPath", "nameCurrentValue;countryId"));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		outputParameters.addNestedDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
@@ -317,7 +321,11 @@ public class DDMRESTDataProviderTest {
 
 		outputParameters.addNestedDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
+<<<<<<< HEAD
 				"outputParameterPath", "nameCurrentValue;name"));
+=======
+				"outputParameterPath", "nameCurrentValue;countryId"));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		outputParameters.addNestedDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
@@ -361,7 +369,11 @@ public class DDMRESTDataProviderTest {
 
 		KeyValuePair actualKeyValuePair = expectedKeyValuePairs.get(0);
 
+<<<<<<< HEAD
 		Assert.assertEquals("brazil", actualKeyValuePair.getKey());
+=======
+		Assert.assertEquals("48", actualKeyValuePair.getKey());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Assert.assertEquals("Brazil", actualKeyValuePair.getValue());
 
 		_ddmDataProviderInstanceLocalService.deleteDataProviderInstance(
@@ -418,7 +430,11 @@ public class DDMRESTDataProviderTest {
 
 		outputParameters.addNestedDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
+<<<<<<< HEAD
 				"outputParameterPath", "nameCurrentValue;name"));
+=======
+				"outputParameterPath", "nameCurrentValue;countryId"));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		outputParameters.addNestedDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
@@ -462,7 +478,11 @@ public class DDMRESTDataProviderTest {
 
 		KeyValuePair actualKeyValuePair = expectedKeyValuePairs.get(0);
 
+<<<<<<< HEAD
 		Assert.assertEquals("canada", actualKeyValuePair.getKey());
+=======
+		Assert.assertEquals("1", actualKeyValuePair.getKey());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Assert.assertEquals("Canada", actualKeyValuePair.getValue());
 
 		_ddmDataProviderInstanceLocalService.deleteDataProviderInstance(
@@ -472,10 +492,17 @@ public class DDMRESTDataProviderTest {
 	protected List<KeyValuePair> createKeyValuePairs() {
 		List<KeyValuePair> keyValuePairs = new ArrayList<>();
 
+<<<<<<< HEAD
 		keyValuePairs.add(new KeyValuePair("france", "France"));
 		keyValuePairs.add(new KeyValuePair("spain", "Spain"));
 		keyValuePairs.add(new KeyValuePair("united-states", "United States"));
 		keyValuePairs.add(new KeyValuePair("brazil", "Brazil"));
+=======
+		keyValuePairs.add(new KeyValuePair("3", "France"));
+		keyValuePairs.add(new KeyValuePair("15", "Spain"));
+		keyValuePairs.add(new KeyValuePair("19", "United States"));
+		keyValuePairs.add(new KeyValuePair("48", "Brazil"));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return keyValuePairs;
 	}

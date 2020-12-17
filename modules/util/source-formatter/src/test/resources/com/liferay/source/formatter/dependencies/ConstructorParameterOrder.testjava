@@ -19,6 +19,7 @@ package com.liferay.source.formatter.dependencies;
  */
 public class ConstructorParameterOrder {
 
+<<<<<<< HEAD
 	public ConstructorParameterOrder(String value, String attribute) {
 		_attribute = attribute;
 		_name = "Hello World";
@@ -26,6 +27,8 @@ public class ConstructorParameterOrder {
 		_value = value;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public ConstructorParameterOrder(String value, String attribute, int type) {
 		_attribute = attribute;
 		_type = type;
@@ -33,7 +36,10 @@ public class ConstructorParameterOrder {
 	}
 
 	private final String _attribute;
+<<<<<<< HEAD
 	private String _name;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private final int _type;
 	private final String _value;
 

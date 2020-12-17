@@ -24,10 +24,13 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
+<<<<<<< HEAD
 			Site.tearDownCP();
 
 			Depot.tearDownCP();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			User.logoutPG();
 		}
 	}
@@ -422,8 +425,11 @@ definition {
 	@description = "This test ensures that a user can view the image using display page template with DM type from AL on a connect site."
 	@priority = "5"
 	test ViewImage {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		var portalURL = PropsUtil.get("portal.url");
 
 		DepotNavigator.openDepotDocumentsAndMediaAdmin(depotName = "Test Depot Name");
@@ -498,8 +504,11 @@ definition {
 	@description = "This test ensures that a user can view the web content using display page template with WC structure from AL on a connect site."
 	@priority = "5"
 	test ViewWC {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		var portalURL = PropsUtil.get("portal.url");
 
 		DepotNavigator.openDepotWebContentAdmin(depotName = "Test Depot Name");

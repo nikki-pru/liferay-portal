@@ -15,11 +15,14 @@
 package com.liferay.portal.template.freemarker.internal;
 
 import com.liferay.petra.concurrent.ConcurrentReferenceKeyHashMap;
+<<<<<<< HEAD
 import com.liferay.petra.concurrent.NoticeableExecutorService;
 import com.liferay.petra.concurrent.NoticeableFuture;
 import com.liferay.petra.concurrent.ThreadPoolHandlerAdapter;
 import com.liferay.petra.executor.PortalExecutorConfig;
 import com.liferay.petra.executor.PortalExecutorManager;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.lang.ClassLoaderPool;
 import com.liferay.petra.memory.FinalizeManager;
 import com.liferay.petra.reflect.ReflectionUtil;
@@ -28,8 +31,11 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.cache.PortalCache;
 import com.liferay.portal.kernel.cache.SingleVMPool;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.cache.thread.local.Lifecycle;
 import com.liferay.portal.kernel.cache.thread.local.ThreadLocalCacheManager;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.JSPSupportServlet;
@@ -39,7 +45,10 @@ import com.liferay.portal.kernel.template.TemplateException;
 import com.liferay.portal.kernel.template.TemplateManager;
 import com.liferay.portal.kernel.template.TemplateResource;
 import com.liferay.portal.kernel.template.TemplateResourceLoader;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.NamedThreadFactory;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.PropertiesUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.template.BaseTemplateManager;
@@ -67,9 +76,13 @@ import freemarker.template.TemplateModelException;
 
 import java.io.IOException;
 import java.io.InputStream;
+<<<<<<< HEAD
 import java.io.Writer;
 
 import java.lang.reflect.Array;
+=======
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -83,12 +96,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+<<<<<<< HEAD
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
+=======
+import java.util.concurrent.ConcurrentHashMap;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.function.Function;
 
 import javax.servlet.GenericServlet;
@@ -99,7 +116,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleEvent;
+<<<<<<< HEAD
 import org.osgi.framework.ServiceRegistration;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.framework.wiring.BundleCapability;
 import org.osgi.framework.wiring.BundleWiring;
 import org.osgi.service.component.ComponentContext;
@@ -107,6 +127,10 @@ import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ConfigurationPolicy;
 import org.osgi.service.component.annotations.Deactivate;
+<<<<<<< HEAD
+=======
+import org.osgi.service.component.annotations.Modified;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.util.tracker.BundleTracker;
 import org.osgi.util.tracker.BundleTrackerCustomizer;
@@ -371,6 +395,10 @@ public class FreeMarkerManager extends BaseTemplateManager {
 	}
 
 	@Activate
+<<<<<<< HEAD
+=======
+	@Modified
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected void activate(ComponentContext componentContext) {
 		_freeMarkerEngineConfiguration = ConfigurableUtil.createConfigurable(
 			FreeMarkerEngineConfiguration.class,
@@ -388,6 +416,7 @@ public class FreeMarkerManager extends BaseTemplateManager {
 		_bundleTracker.open();
 
 		WriterFactoryUtil.setWriterFactory(new UnsyncStringWriterFactory());
+<<<<<<< HEAD
 
 		if (_freeMarkerEngineConfiguration.asyncRenderTimeout() > 0) {
 			_serviceRegistration = bundleContext.registerService(
@@ -412,6 +441,8 @@ public class FreeMarkerManager extends BaseTemplateManager {
 
 			_timeoutTemplateCounters = new ConcurrentHashMap<>();
 		}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected void addTaglibSupport(
@@ -457,6 +488,7 @@ public class FreeMarkerManager extends BaseTemplateManager {
 	@Deactivate
 	protected void deactivate() {
 		_bundleTracker.close();
+<<<<<<< HEAD
 
 		if (_freeMarkerEngineConfiguration.asyncRenderTimeout() > 0) {
 			_noticeableExecutorService.shutdownNow();
@@ -465,6 +497,8 @@ public class FreeMarkerManager extends BaseTemplateManager {
 
 			_serviceRegistration.unregister();
 		}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -544,6 +578,7 @@ public class FreeMarkerManager extends BaseTemplateManager {
 		return false;
 	}
 
+<<<<<<< HEAD
 	protected void render(
 			String templateId, Writer writer, boolean restricted,
 			Callable<Void> callable)
@@ -616,6 +651,8 @@ public class FreeMarkerManager extends BaseTemplateManager {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Reference(unbind = "-")
 	protected void setSingleVMPool(SingleVMPool singleVMPool) {
 		_singleVMPool = singleVMPool;
@@ -666,11 +703,17 @@ public class FreeMarkerManager extends BaseTemplateManager {
 	private Configuration _configuration;
 	private BeansWrapper _defaultBeanWrapper;
 	private volatile FreeMarkerBundleClassloader _freeMarkerBundleClassloader;
+<<<<<<< HEAD
 	private FreeMarkerEngineConfiguration _freeMarkerEngineConfiguration;
+=======
+	private volatile FreeMarkerEngineConfiguration
+		_freeMarkerEngineConfiguration;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Reference
 	private FreeMarkerTemplateResourceCache _freeMarkerTemplateResourceCache;
 
+<<<<<<< HEAD
 	private NoticeableExecutorService _noticeableExecutorService;
 
 	@Reference
@@ -678,12 +721,16 @@ public class FreeMarkerManager extends BaseTemplateManager {
 
 	private BeansWrapper _restrictedBeanWrapper;
 	private ServiceRegistration<PortalExecutorConfig> _serviceRegistration;
+=======
+	private BeansWrapper _restrictedBeanWrapper;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private SingleVMPool _singleVMPool;
 	private final Map<String, String> _taglibMappings =
 		new ConcurrentHashMap<>();
 	private TemplateClassResolver _templateClassResolver;
 	private final Map<String, TemplateModel> _templateModels =
 		new ConcurrentHashMap<>();
+<<<<<<< HEAD
 	private Map<String, AtomicInteger> _timeoutTemplateCounters;
 
 	private static class ThreadLocalUtil {
@@ -767,6 +814,8 @@ public class FreeMarkerManager extends BaseTemplateManager {
 		}
 
 	}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	private class ServletContextInvocationHandler implements InvocationHandler {
 

@@ -18,6 +18,7 @@ import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTemplateCont
 import com.liferay.dynamic.data.mapping.form.field.type.internal.util.DDMFormFieldTypeUtil;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.render.DDMFormFieldRenderingContext;
+<<<<<<< HEAD
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.editor.configuration.EditorConfiguration;
 import com.liferay.portal.kernel.editor.configuration.EditorConfigurationFactoryUtil;
@@ -30,6 +31,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+=======
+import com.liferay.portal.kernel.util.HashMapBuilder;
+
+import java.util.Map;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -60,6 +67,7 @@ public class RichTextDDMFormFieldTemplateContextContributor
 			"value",
 			DDMFormFieldTypeUtil.getPropertyValue(
 				ddmFormFieldRenderingContext, "value")
+<<<<<<< HEAD
 		).putAll(
 			_getData(ddmFormFieldRenderingContext, ddmFormField.getType())
 		).build();
@@ -88,4 +96,9 @@ public class RichTextDDMFormFieldTemplateContextContributor
 		return editorConfiguration.getData();
 	}
 
+=======
+		).build();
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

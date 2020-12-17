@@ -21,6 +21,10 @@ import com.liferay.change.tracking.model.CTPreferences;
 import com.liferay.change.tracking.service.CTCollectionLocalService;
 import com.liferay.change.tracking.service.CTEntryLocalService;
 import com.liferay.change.tracking.service.CTPreferencesLocalService;
+<<<<<<< HEAD
+=======
+import com.liferay.counter.kernel.service.CounterLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.function.UnsafeConsumer;
 import com.liferay.petra.io.StreamUtil;
 import com.liferay.petra.string.StringBundler;
@@ -39,6 +43,10 @@ import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.test.log.CaptureAppender;
 import com.liferay.portal.test.log.Log4JLoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -483,9 +491,16 @@ public class CTSQLTransformerTest {
 
 	@Test
 	public void testSimpleCountAdd() throws Exception {
+<<<<<<< HEAD
 		_assertQuery(
 			"simple_count_in.sql", "simple_count_out_ct.sql",
 			_getCTCollectionId(1),
+=======
+		long ctCollectionId = _getCTCollectionId(1);
+
+		_assertQuery(
+			"simple_count_in.sql", "simple_count_out_ct.sql", ctCollectionId,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ps -> {
 			},
 			rs -> Assert.assertEquals(6, rs.getLong(1)));
@@ -493,9 +508,16 @@ public class CTSQLTransformerTest {
 
 	@Test
 	public void testSimpleCountModify() throws Exception {
+<<<<<<< HEAD
 		_assertQuery(
 			"simple_count_in.sql", "simple_count_out_ct.sql",
 			_getCTCollectionId(2),
+=======
+		long ctCollectionId = _getCTCollectionId(2);
+
+		_assertQuery(
+			"simple_count_in.sql", "simple_count_out_ct.sql", ctCollectionId,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ps -> {
 			},
 			rs -> Assert.assertEquals(5, rs.getLong(1)));
@@ -503,9 +525,16 @@ public class CTSQLTransformerTest {
 
 	@Test
 	public void testSimpleCountMoved() throws Exception {
+<<<<<<< HEAD
 		_assertQuery(
 			"simple_count_in.sql", "simple_count_out_ct.sql",
 			_getCTCollectionId(3),
+=======
+		long ctCollectionId = _getCTCollectionId(3);
+
+		_assertQuery(
+			"simple_count_in.sql", "simple_count_out_ct.sql", ctCollectionId,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ps -> {
 			},
 			rs -> Assert.assertEquals(5, rs.getLong(1)));
@@ -513,9 +542,16 @@ public class CTSQLTransformerTest {
 
 	@Test
 	public void testSimpleCountRemove() throws Exception {
+<<<<<<< HEAD
 		_assertQuery(
 			"simple_count_in.sql", "simple_count_out_ct.sql",
 			_getCTCollectionId(4),
+=======
+		long ctCollectionId = _getCTCollectionId(4);
+
+		_assertQuery(
+			"simple_count_in.sql", "simple_count_out_ct.sql", ctCollectionId,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ps -> {
 			},
 			rs -> Assert.assertEquals(4, rs.getLong(1)));
@@ -683,11 +719,20 @@ public class CTSQLTransformerTest {
 
 	@Test
 	public void testSimpleSelectRemove() throws Exception {
+<<<<<<< HEAD
 		long groupId = 3;
 
 		_assertQuery(
 			"simple_select_in.sql", "simple_select_out_ct.sql",
 			_getCTCollectionId(4), ps -> ps.setLong(1, groupId),
+=======
+		long ctCollectionId = _getCTCollectionId(4);
+		long groupId = 3;
+
+		_assertQuery(
+			"simple_select_in.sql", "simple_select_out_ct.sql", ctCollectionId,
+			ps -> ps.setLong(1, groupId),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			rs -> {
 				Assert.assertEquals(1, rs.getLong("mainTableId"));
 				Assert.assertEquals(0, rs.getLong("ctCollectionId"));
@@ -1018,9 +1063,22 @@ public class CTSQLTransformerTest {
 		}
 
 		if (ctCollection == null) {
+<<<<<<< HEAD
 			ctCollection = _ctCollectionLocalService.addCTCollection(
 				TestPropsValues.getCompanyId(), TestPropsValues.getUserId(),
 				CTSQLTransformerTest.class.getName(), null);
+=======
+			long ctCollectionId = _counterLocalService.increment();
+
+			ctCollection = _ctCollectionLocalService.createCTCollection(
+				ctCollectionId);
+
+			ctCollection.setName(String.valueOf(ctCollectionId));
+			ctCollection.setStatus(WorkflowConstants.STATUS_DRAFT);
+
+			ctCollection = _ctCollectionLocalService.updateCTCollection(
+				ctCollection);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			_ctCollections.add(ctCollection);
 		}
@@ -1247,6 +1305,12 @@ public class CTSQLTransformerTest {
 	private static ClassNameLocalService _classNameLocalService;
 
 	@Inject
+<<<<<<< HEAD
+=======
+	private static CounterLocalService _counterLocalService;
+
+	@Inject
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static CTCollectionLocalService _ctCollectionLocalService;
 
 	private static final List<CTCollection> _ctCollections = new ArrayList<>();

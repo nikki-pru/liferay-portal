@@ -8,6 +8,11 @@
 		"@clayui/label": "3.4.0",
 		"@clayui/panel": "3.3.1",
 		"@clayui/tooltip": "3.4.1",
+<<<<<<< HEAD
+=======
+		"clay-dropdown": "2.21.4",
+		"clay-label": "2.21.4",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		"codemirror": "^5.52.2",
 		"frontend-js-components-web": "*",
 		"frontend-js-web": "*",

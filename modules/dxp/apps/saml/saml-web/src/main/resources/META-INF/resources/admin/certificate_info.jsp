@@ -24,7 +24,10 @@ LocalEntityManager.CertificateUsage certificateUsage = LocalEntityManager.Certif
 GeneralTabDefaultViewDisplayContext.X509CertificateStatus x509CertificateStatus = generalTabDefaultViewDisplayContext.getX509CertificateStatus(certificateUsage);
 
 X509Certificate x509Certificate = x509CertificateStatus.getX509Certificate();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String deleteCertificatePrompt = UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-delete-this-certificate-from-the-keystore");
 String introKey = StringPool.BLANK;
 %>

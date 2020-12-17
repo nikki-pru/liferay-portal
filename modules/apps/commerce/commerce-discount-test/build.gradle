@@ -1,4 +1,9 @@
 dependencies {
+<<<<<<< HEAD
 	testIntegrationCompile project(":apps:commerce:commerce-discount-api")
 	testIntegrationCompile project(":test:arquillian-extension-junit-bridge")
+=======
+	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
+	testIntegrationCompile project(":apps:commerce:commerce-discount-api")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

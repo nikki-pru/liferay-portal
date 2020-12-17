@@ -243,8 +243,14 @@ public class JavaServiceObjectCheck extends BaseJavaTermCheck {
 		String variableTypeName, String getterObjectName,
 		List<String> importNames) {
 
+<<<<<<< HEAD
 		Element serviceXMLElement = _getServiceXMLElement(
 			_getPackageName(variableTypeName, importNames));
+=======
+		String packageName = _getPackageName(variableTypeName, importNames);
+
+		Element serviceXMLElement = _getServiceXMLElement(packageName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (serviceXMLElement == null) {
 			return false;

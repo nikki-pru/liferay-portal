@@ -227,9 +227,13 @@ public class DDMFormValuesToMapConverterImpl
 
 		return stream.collect(
 			Collectors.toMap(
+<<<<<<< HEAD
 				LanguageUtil::getLanguageId,
 				locale -> GetterUtil.getString(
 					localizedValue.getString(locale))));
+=======
+				LanguageUtil::getLanguageId, localizedValue::getString));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private List<String> _toStringList(

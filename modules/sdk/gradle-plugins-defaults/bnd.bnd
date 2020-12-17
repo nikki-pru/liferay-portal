@@ -1,6 +1,10 @@
 Bundle-Name: Liferay Gradle Plugins Defaults
 Bundle-SymbolicName: com.liferay.gradle.plugins.defaults
+<<<<<<< HEAD
 Bundle-Version: 7.0.9
+=======
+Bundle-Version: 7.0.7
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 Export-Package:\
 	com.liferay.gradle.plugins.defaults,\
 	com.liferay.gradle.plugins.defaults.extensions,\

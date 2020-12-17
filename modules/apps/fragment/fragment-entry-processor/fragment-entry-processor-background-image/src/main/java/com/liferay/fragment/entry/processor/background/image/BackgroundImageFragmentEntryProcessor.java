@@ -21,7 +21,10 @@ import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.processor.FragmentEntryProcessor;
 import com.liferay.fragment.processor.FragmentEntryProcessorContext;
 import com.liferay.info.type.WebImage;
+<<<<<<< HEAD
 import com.liferay.petra.string.StringBundler;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -148,12 +151,16 @@ public class BackgroundImageFragmentEntryProcessor
 			}
 
 			if (Validator.isNotNull(value)) {
+<<<<<<< HEAD
 				long fileEntryId = 0;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				if (JSONUtil.isValid(value)) {
 					JSONObject valueJSONObject =
 						JSONFactoryUtil.createJSONObject(value);
 
+<<<<<<< HEAD
 					fileEntryId = valueJSONObject.getLong("fileEntryId");
 					value = valueJSONObject.getString("url", value);
 				}
@@ -171,6 +178,15 @@ public class BackgroundImageFragmentEntryProcessor
 				}
 
 				element.attr("style", sb.toString());
+=======
+					value = valueJSONObject.getString("url", value);
+				}
+
+				element.attr(
+					"style",
+					"background-image: url(" + value +
+						"); background-size: cover");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 		}
 

@@ -78,6 +78,7 @@ public class DataLayout implements Cloneable, Serializable {
 
 	protected Long dataDefinitionId;
 
+<<<<<<< HEAD
 	public Map<String, Object> getDataLayoutFields() {
 		return dataLayoutFields;
 	}
@@ -100,6 +101,8 @@ public class DataLayout implements Cloneable, Serializable {
 
 	protected Map<String, Object> dataLayoutFields;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getDataLayoutKey() {
 		return dataLayoutKey;
 	}

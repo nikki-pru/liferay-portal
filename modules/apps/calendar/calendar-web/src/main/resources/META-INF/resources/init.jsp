@@ -179,7 +179,10 @@ long rssTimeInterval = GetterUtil.getLong(portletPreferences.getValue("rssTimeIn
 CalendarBooking calendarBooking = (CalendarBooking)request.getAttribute(CalendarWebKeys.CALENDAR_BOOKING);
 
 CalendarResource groupCalendarResource = CalendarResourceUtil.getScopeGroupCalendarResource(liferayPortletRequest, scopeGroupId);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 CalendarResource userCalendarResource = null;
 
 if (showUserEvents || !themeDisplay.isSignedIn()) {

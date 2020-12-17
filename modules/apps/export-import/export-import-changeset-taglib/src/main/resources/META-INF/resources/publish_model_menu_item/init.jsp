@@ -18,7 +18,10 @@
 
 <%
 String changesetUuid = GetterUtil.getString(request.getAttribute("liferay-export-import-changeset:publish-model-menu-item:changesetUuid"));
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String className = GetterUtil.getString(request.getAttribute("liferay-export-import-changeset:publish-model-menu-item:className"));
 String uuid = GetterUtil.getString(request.getAttribute("liferay-export-import-changeset:publish-model-menu-item:uuid"));
 

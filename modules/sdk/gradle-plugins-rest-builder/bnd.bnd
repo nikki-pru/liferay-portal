@@ -1,5 +1,9 @@
 Bundle-Description: The REST Builder Gradle plugin lets you generate a Liferay REST service layer defined in a rest.yaml file.
 Bundle-Name: Liferay Gradle Plugins REST Builder
 Bundle-SymbolicName: com.liferay.gradle.plugins.rest.builder
+<<<<<<< HEAD
 Bundle-Version: 1.1.18
+=======
+Bundle-Version: 1.1.16
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 Export-Package: com.liferay.gradle.plugins.rest.builder

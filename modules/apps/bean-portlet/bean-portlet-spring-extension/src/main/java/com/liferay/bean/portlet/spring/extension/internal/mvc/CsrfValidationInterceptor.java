@@ -44,7 +44,10 @@ public class CsrfValidationInterceptor extends BeanPortletMethodInterceptor {
 		super(beanPortletMethod, controller);
 
 		_configuration = configuration;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_method = beanPortletMethod.getMethod();
 	}
 

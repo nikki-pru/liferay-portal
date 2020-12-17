@@ -25,7 +25,11 @@
 </tr>
 <tr>
 	<td>ACCOUNT_SELECTOR_DROPDOWN</td>
+<<<<<<< HEAD
 	<td>//button[contains(@class,'commerce-account-selector-button')]</td>
+=======
+	<td>//button[@data-onclick='toggleAccountSelector']</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>
@@ -94,16 +98,21 @@
 	<td></td>
 </tr>
 <tr>
+<<<<<<< HEAD
 	<td>PRODUCT_DETAILS_DISCOUNT</td>
 	<td>//h2[contains(@class,'commerce-price')]//span[contains(@class,'price-value-discount')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>PRODUCT_DETAILS_LIST_PRICE</td>
+=======
+	<td>PRODUCT_DETAILS_PRICE_VALUE</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td>//h2[contains(@class,'commerce-price')]//span[contains(@class,'price-value')]</td>
 	<td></td>
 </tr>
 <tr>
+<<<<<<< HEAD
 	<td>PRODUCT_DETAILS_LIST_PRICE_INACTIVE</td>
 	<td>//h2[contains(@class,'commerce-price')]//span[contains(@class,'price-value-inactive')]</td>
 	<td></td>
@@ -114,6 +123,8 @@
 	<td></td>
 </tr>
 <tr>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td>ROLES_BUTTON</td>
 	<td>//button[contains(.,'Roles')]</td>
 	<td></td>

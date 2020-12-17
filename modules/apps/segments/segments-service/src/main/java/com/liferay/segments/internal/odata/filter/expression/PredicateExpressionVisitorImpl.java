@@ -58,7 +58,10 @@ public class PredicateExpressionVisitorImpl<T extends Map>
 
 	public PredicateExpressionVisitorImpl(EntityModel entityModel) {
 		_entityModel = entityModel;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_lambdaCollectionEntityField = null;
 	}
 

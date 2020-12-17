@@ -14,19 +14,35 @@
 
 package com.liferay.portal.template.soy.renderer.internal;
 
+<<<<<<< HEAD
 import com.liferay.portal.kernel.template.TemplateException;
+=======
+import com.liferay.portal.kernel.template.Template;
+import com.liferay.portal.kernel.template.TemplateConstants;
+import com.liferay.portal.kernel.template.TemplateException;
+import com.liferay.portal.kernel.template.TemplateManager;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.template.soy.renderer.SoyRenderer;
 
 import java.io.IOException;
 import java.io.Writer;
 
 import java.util.Map;
+<<<<<<< HEAD
 import java.util.logging.Logger;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.osgi.service.component.annotations.Component;
+<<<<<<< HEAD
+=======
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.component.annotations.ReferenceCardinality;
+import org.osgi.service.component.annotations.ReferencePolicy;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Iván Zaera Avellón
@@ -52,6 +68,7 @@ public class SoyRendererImpl implements SoyRenderer {
 			String templateNamespace, Map<String, ?> context)
 		throws TemplateException {
 
+<<<<<<< HEAD
 		_logger.warning(
 			"Server-side rendering support for Soy templates is no longer " +
 				"available");
@@ -59,5 +76,48 @@ public class SoyRendererImpl implements SoyRenderer {
 
 	private static final Logger _logger = Logger.getLogger(
 		SoyRendererImpl.class.getName());
+=======
+		Template template = _getTemplate();
+
+		template.putAll(context);
+
+		template.put(TemplateConstants.NAMESPACE, templateNamespace);
+
+		template.prepare(httpServletRequest);
+
+		template.processTemplate(writer);
+	}
+
+	@Reference(
+		cardinality = ReferenceCardinality.MULTIPLE,
+		policy = ReferencePolicy.DYNAMIC
+	)
+	protected void addTemplateManager(TemplateManager templateManager) {
+		String templateManagerName = templateManager.getName();
+
+		if (templateManagerName.equals(TemplateConstants.LANG_TYPE_SOY)) {
+			_templateManager = templateManager;
+		}
+	}
+
+	protected void removeTemplateManager(TemplateManager templateManager) {
+		String templateManagerName = templateManager.getName();
+
+		if (templateManagerName.equals(TemplateConstants.LANG_TYPE_SOY)) {
+			_templateManager = null;
+		}
+	}
+
+	private Template _getTemplate() throws TemplateException {
+		if (_templateManager == null) {
+			throw new TemplateException(
+				"Unable to find the Soy template manager");
+		}
+
+		return _templateManager.getTemplate(null, false);
+	}
+
+	private volatile TemplateManager _templateManager;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 }

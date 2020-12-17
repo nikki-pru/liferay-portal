@@ -12,6 +12,10 @@ dependencies {
 	compileOnly project(":apps:item-selector:item-selector-api")
 	compileOnly project(":apps:item-selector:item-selector-criteria-api")
 	compileOnly project(":apps:layout:layout-item-selector-api")
+<<<<<<< HEAD
+=======
+	compileOnly project(":apps:portal-template:portal-template-soy-api")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":apps:static:osgi:osgi-util")
 	compileOnly project(":core:osgi-service-tracker-collections")
 	compileOnly project(":core:petra:petra-lang")

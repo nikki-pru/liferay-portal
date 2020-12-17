@@ -51,12 +51,21 @@ public class CountryLocalServiceWrapper
 			boolean billingAllowed, java.lang.String idd, java.lang.String name,
 			java.lang.String number, double position, boolean shippingAllowed,
 			boolean subjectToVAT, boolean zipRequired,
+<<<<<<< HEAD
+=======
+			java.util.Map<java.lang.String, java.lang.String> titleMap,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _countryLocalService.addCountry(
 			a2, a3, active, billingAllowed, idd, name, number, position,
+<<<<<<< HEAD
 			shippingAllowed, subjectToVAT, zipRequired, serviceContext);
+=======
+			shippingAllowed, subjectToVAT, zipRequired, titleMap,
+			serviceContext);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -235,6 +244,7 @@ public class CountryLocalServiceWrapper
 		return _countryLocalService.fetchCountry(countryId);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public com.liferay.portal.kernel.model.Country fetchCountryByA2(
 		long companyId, java.lang.String a2) {
@@ -263,6 +273,8 @@ public class CountryLocalServiceWrapper
 		return _countryLocalService.fetchCountryByNumber(companyId, number);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the country with the matching UUID and company.
 	 *
@@ -301,6 +313,7 @@ public class CountryLocalServiceWrapper
 	}
 
 	@Override
+<<<<<<< HEAD
 	public java.util.List<com.liferay.portal.kernel.model.Country>
 		getCompanyCountries(long companyId, boolean active) {
 
@@ -330,15 +343,20 @@ public class CountryLocalServiceWrapper
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public int getCompanyCountriesCount(long companyId) {
 		return _countryLocalService.getCompanyCountriesCount(companyId);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public int getCompanyCountriesCount(long companyId, boolean active) {
 		return _countryLocalService.getCompanyCountriesCount(companyId, active);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns a range of all the countries.
 	 *
@@ -381,6 +399,7 @@ public class CountryLocalServiceWrapper
 		return _countryLocalService.getCountry(countryId);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public com.liferay.portal.kernel.model.Country getCountryByA2(
 			long companyId, java.lang.String a2)
@@ -413,6 +432,8 @@ public class CountryLocalServiceWrapper
 		return _countryLocalService.getCountryByNumber(companyId, number);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the country with the matching UUID and company.
 	 *
@@ -484,6 +505,7 @@ public class CountryLocalServiceWrapper
 		return _countryLocalService.getPersistedModel(primaryKeyObj);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public com.liferay.portal.kernel.model.Country updateActive(
 			long countryId, boolean active)
@@ -492,6 +514,8 @@ public class CountryLocalServiceWrapper
 		return _countryLocalService.updateActive(countryId, active);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Updates the country in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -510,6 +534,7 @@ public class CountryLocalServiceWrapper
 	}
 
 	@Override
+<<<<<<< HEAD
 	public com.liferay.portal.kernel.model.Country updateCountry(
 			long countryId, java.lang.String a2, java.lang.String a3,
 			boolean active, boolean billingAllowed, java.lang.String idd,
@@ -523,6 +548,8 @@ public class CountryLocalServiceWrapper
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public com.liferay.portal.kernel.model.CountryLocalization
 			updateCountryLocalization(
 				com.liferay.portal.kernel.model.Country country,
@@ -545,6 +572,7 @@ public class CountryLocalServiceWrapper
 	}
 
 	@Override
+<<<<<<< HEAD
 	public com.liferay.portal.kernel.model.Country updateGroupFilterEnabled(
 			long countryId, boolean groupFilterEnabled)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -554,6 +582,8 @@ public class CountryLocalServiceWrapper
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CountryLocalService getWrappedService() {
 		return _countryLocalService;
 	}

@@ -4,6 +4,7 @@ definition {
 		Click(locator1 = "AppBuilderWorkflow#ADD_NEW_FORM_VIEW_BUTTON");
 	}
 
+<<<<<<< HEAD
 	macro addNewObject {
 		AppBuilderWorkflow.clickOnAddNewCustomObjectButton();
 
@@ -18,6 +19,8 @@ definition {
 			locator1 = "IFrame#MODAL_ANY");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro addNewStep {
 		Click(locator1 = "AppBuilderWorkflow#NEW_STEP_BUTTON");
 	}
@@ -65,6 +68,7 @@ definition {
 		Button.viewPresent(button = "${buttonName}");
 	}
 
+<<<<<<< HEAD
 	macro assertCreateFormViewButton {
 		AssertElementPresent(
 			key_positionNumber = "${positionNumber}",
@@ -75,6 +79,8 @@ definition {
 		AssertElementPresent(locator1 = "AppBuilderWorkflow#CREATE_TABLE_VIEW_BUTTON");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro assertEntryAppVersion {
 		var key_versionNumber = "${versionNumber}";
 
@@ -129,12 +135,15 @@ definition {
 			value1 = "${formViewName}");
 	}
 
+<<<<<<< HEAD
 	macro assertObjectSelected {
 		AssertTextEquals(
 			locator1 = "AppBuilderWorkflow#SELECT_CUSTOM_OBJECT_BUTTON_TEXT",
 			value1 = "${objectName}");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro assertRemoveFormViewButton {
 		AssertElementPresent(
 			key_positionNumber = "${positionNumber}",
@@ -157,12 +166,15 @@ definition {
 			locator1 = "AppBuilderWorkflow#STEP_CARD");
 	}
 
+<<<<<<< HEAD
 	macro assertTableViewSelected {
 		AssertTextEquals(
 			locator1 = "AppBuilderWorkflow#SELECT_TABLE_VIEW_BUTTON_TEXT",
 			value1 = "${tableViewName}");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro assignEntryThroughTableView {
 		Click(
 			key_itemName = "${itemName}",
@@ -223,10 +235,13 @@ definition {
 		Button.click(button = "Add New Action");
 	}
 
+<<<<<<< HEAD
 	macro clickOnAddNewCustomObjectButton {
 		Click(locator1 = "AppBuilderWorkflow#CREATE_NEW_CUSTOM_OBJECT_BUTTON");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro clickOnSelectFormView {
 		Click(
 			key_positionNumber = "${positionNumber}",
@@ -255,6 +270,7 @@ definition {
 		Click(locator1 = "AppBuilderWorkflow#STEP_CONFIGURATION_BACK_BUTTON");
 	}
 
+<<<<<<< HEAD
 	macro clickToCreateFormView {
 		Click.javaScriptClick(
 			key_positionNumber = "${positionNumber}",
@@ -285,6 +301,8 @@ definition {
 		TableViewBuilder.save();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro defineActionName {
 		Type(
 			key_action = "${action}",
@@ -315,6 +333,7 @@ definition {
 		}
 	}
 
+<<<<<<< HEAD
 	macro openFormView {
 		Click.javaScriptClick(
 			key_positionNumber = "${positionNumber}",
@@ -337,6 +356,8 @@ definition {
 			locator1 = "IFrame#MODAL_ANY");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro removeFormView {
 		Click.javaScriptClick(
 			key_positionNumber = "${positionNumber}",
@@ -474,10 +495,13 @@ definition {
 			locator1 = "AppBuilderWorkflow#FORM_OR_TABLE_VIEW_ITEM");
 	}
 
+<<<<<<< HEAD
 	macro validatePlusButton {
 		AssertElementPresent(locator1 = "AppBuilderWorkflow#CREATE_NEW_CUSTOM_OBJECT_BUTTON");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro verifyAssignToOption {
 		Click(
 			key_itemName = "${itemName}",

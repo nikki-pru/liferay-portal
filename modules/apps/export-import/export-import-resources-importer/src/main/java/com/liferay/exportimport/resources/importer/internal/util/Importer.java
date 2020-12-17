@@ -14,6 +14,11 @@
 
 package com.liferay.exportimport.resources.importer.internal.util;
 
+<<<<<<< HEAD
+=======
+import com.liferay.journal.util.JournalConverter;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import javax.servlet.ServletContext;
 
 /**
@@ -50,6 +55,11 @@ public interface Importer {
 
 	public void setIndexAfterImport(boolean indexAfterImport);
 
+<<<<<<< HEAD
+=======
+	public void setJournalConverter(JournalConverter journalConverter);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void setResourcesDir(String resourcesDir);
 
 	public void setServletContext(ServletContext servletContext);

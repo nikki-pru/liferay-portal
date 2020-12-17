@@ -163,8 +163,16 @@ public class AccountUserDisplay {
 	}
 
 	public String getValidDomainsString() {
+<<<<<<< HEAD
 		List<Set<String>> accountEntryDomains = Stream.of(
 			_getAccountEntryUserRels(getUserId())
+=======
+		List<AccountEntryUserRel> accountEntryUserRels =
+			_getAccountEntryUserRels(getUserId());
+
+		List<Set<String>> accountEntryDomains = Stream.of(
+			accountEntryUserRels
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		).flatMap(
 			List::stream
 		).map(
@@ -253,7 +261,14 @@ public class AccountUserDisplay {
 	}
 
 	private String _getAccountEntryNamesStyle(long userId) {
+<<<<<<< HEAD
 		if (ListUtil.isEmpty(_getAccountEntryUserRels(userId))) {
+=======
+		List<AccountEntryUserRel> accountEntryUserRels =
+			_getAccountEntryUserRels(userId);
+
+		if (ListUtil.isEmpty(accountEntryUserRels)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return "font-italic text-muted";
 		}
 

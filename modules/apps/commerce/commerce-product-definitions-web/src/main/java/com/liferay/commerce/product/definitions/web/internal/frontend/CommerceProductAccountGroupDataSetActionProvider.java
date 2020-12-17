@@ -17,7 +17,10 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
 import com.liferay.commerce.account.model.CommerceAccountGroupRel;
 import com.liferay.commerce.account.service.CommerceAccountGroupRelService;
 import com.liferay.commerce.product.constants.CPPortletKeys;
+<<<<<<< HEAD
 import com.liferay.commerce.product.definitions.web.internal.frontend.constants.CommerceProductDataSetConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.product.definitions.web.internal.model.AccountGroup;
 import com.liferay.commerce.product.definitions.web.internal.security.permission.resource.CommerceCatalogPermission;
 import com.liferay.commerce.product.model.CPDefinition;

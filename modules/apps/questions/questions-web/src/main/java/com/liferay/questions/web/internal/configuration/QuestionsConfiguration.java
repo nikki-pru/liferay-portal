@@ -22,7 +22,11 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
  * @author Javier Gamarra
  */
 @ExtendedObjectClassDefinition(
+<<<<<<< HEAD
 	category = "message-boards", generateUI = true,
+=======
+	category = "third-party", generateUI = true,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	scope = ExtendedObjectClassDefinition.Scope.PORTLET_INSTANCE
 )
 @Meta.OCD(

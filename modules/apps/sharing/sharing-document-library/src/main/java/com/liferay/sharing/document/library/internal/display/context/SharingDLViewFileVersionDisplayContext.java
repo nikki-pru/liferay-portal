@@ -68,14 +68,22 @@ public class SharingDLViewFileVersionDisplayContext
 
 		_httpServletRequest = httpServletRequest;
 		_fileEntry = fileEntry;
+<<<<<<< HEAD
+=======
+		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_sharingEntryLocalService = sharingEntryLocalService;
 		_sharingMenuItemFactory = sharingMenuItemFactory;
 		_sharingToolbarItemFactory = sharingToolbarItemFactory;
 		_sharingPermission = sharingPermission;
 		_sharingConfiguration = sharingConfiguration;
+<<<<<<< HEAD
 
 		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

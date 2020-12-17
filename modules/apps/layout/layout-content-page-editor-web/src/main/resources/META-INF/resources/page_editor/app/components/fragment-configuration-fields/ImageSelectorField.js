@@ -14,15 +14,27 @@
 
 import ClayForm, {ClaySelectWithOption} from '@clayui/form';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 import React, {useState} from 'react';
 
 import {ImageSelector} from '../../../common/components/ImageSelector';
 import {ImageSelectorSize} from '../../../common/components/ImageSelectorSize';
+=======
+import React, {useEffect, useState} from 'react';
+
+import {ImageSelector} from '../../../common/components/ImageSelector';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import MappingSelector from '../../../common/components/MappingSelector';
 import {ConfigurationFieldPropTypes} from '../../../prop-types/index';
 import {EDITABLE_TYPES} from '../../config/constants/editableTypes';
 import {VIEWPORT_SIZES} from '../../config/constants/viewportSizes';
+<<<<<<< HEAD
 import {useSelector} from '../../store/index';
+=======
+import {config} from '../../config/index';
+import ImageService from '../../services/ImageService';
+import {useDispatch, useSelector} from '../../store/index';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import {useId} from '../../utils/useId';
 
 const IMAGE_SOURCES = {
@@ -38,11 +50,20 @@ const IMAGE_SOURCES = {
 };
 
 export const ImageSelectorField = ({field, onValueSelect, value = {}}) => {
+<<<<<<< HEAD
 	const imageSourceInputId = useId();
 
 	const selectedViewportSize = useSelector(
 		(state) => state.selectedViewportSize
 	);
+=======
+	const dispatch = useDispatch();
+	const imageSourceInputId = useId();
+
+	const [imageConfigurations, setImageConfigurations] = useState([]);
+
+	const [imageFileSize, setImageFileSize] = useState('');
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	const [imageSource, setImageSource] = useState(() =>
 		value.fieldId || value.mappedField
@@ -50,6 +71,19 @@ export const ImageSelectorField = ({field, onValueSelect, value = {}}) => {
 			: IMAGE_SOURCES.direct.value
 	);
 
+<<<<<<< HEAD
+=======
+	const [imageWidth, setImageWidth] = useState('');
+
+	const selectedViewportSize = useSelector(
+		(state) => state.selectedViewportSize
+	);
+
+	const {maxWidth, minWidth} = config.availableViewportSizes[
+		selectedViewportSize
+	];
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	const handleImageChanged = (image) => {
 		onValueSelect(field.name, image);
 	};
@@ -62,6 +96,7 @@ export const ImageSelectorField = ({field, onValueSelect, value = {}}) => {
 		}
 	};
 
+<<<<<<< HEAD
 	return (
 		<>
 			{selectedViewportSize === VIEWPORT_SIZES.desktop && (
@@ -95,6 +130,59 @@ export const ImageSelectorField = ({field, onValueSelect, value = {}}) => {
 						/>
 					)}
 				</>
+=======
+	useEffect(() => {
+		const fileEntryId = value?.fileEntryId;
+
+		if (config.adaptiveMediaEnabled && fileEntryId > 0) {
+			ImageService.getAvailableImageConfigurations({
+				fileEntryId,
+				onNetworkStatus: dispatch,
+			}).then((availableImageConfigurations) =>
+				setImageConfigurations(availableImageConfigurations)
+			);
+		}
+	}, [dispatch, value.fileEntryId]);
+
+	useEffect(() => {
+		if (config.adaptiveMediaEnabled) {
+			imageConfigurations.forEach((imageConfiguration) => {
+				if (
+					(selectedViewportSize === VIEWPORT_SIZES.desktop &&
+						imageConfiguration.value === 'auto') ||
+					(imageConfiguration.width > minWidth &&
+						imageConfiguration.width <= maxWidth)
+				) {
+					setImageFileSize(imageConfiguration.size);
+					setImageWidth(imageConfiguration.width);
+				}
+			});
+		}
+	}, [imageConfigurations, maxWidth, minWidth, selectedViewportSize]);
+
+	return (
+		<>
+			<ClayForm.Group small>
+				<label htmlFor={imageSourceInputId}>
+					{Liferay.Language.get('image-source')}
+				</label>
+
+				<ClaySelectWithOption
+					id={imageSourceInputId}
+					onChange={handleSourceChanged}
+					options={Object.values(IMAGE_SOURCES)}
+					value={imageSource}
+				/>
+			</ClayForm.Group>
+
+			{imageSource === IMAGE_SOURCES.direct.value ? (
+				<ImageSelector
+					imageTitle={value.title}
+					label={field.label}
+					onClearButtonPressed={() => handleImageChanged({})}
+					onImageSelected={handleImageChanged}
+				/>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			) : (
 				<MappingSelector
 					fieldType={EDITABLE_TYPES.backgroundImage}
@@ -102,6 +190,27 @@ export const ImageSelectorField = ({field, onValueSelect, value = {}}) => {
 					onMappingSelect={handleImageChanged}
 				/>
 			)}
+<<<<<<< HEAD
+=======
+
+			{config.adaptiveMediaEnabled && value?.fileEntryId && imageWidth && (
+				<div className="page-editor__image-properties-panel__resolution-label">
+					<b>{Liferay.Language.get('width')}:</b>
+					<span className="ml-1">{imageWidth}px</span>
+				</div>
+			)}
+
+			{config.adaptiveMediaEnabled &&
+				value?.fileEntryId &&
+				imageFileSize && (
+					<div className="mb-3 page-editor__image-properties-panel__resolution-label">
+						<b>{Liferay.Language.get('file-size')}:</b>
+						<span className="ml-1">
+							{Number(imageFileSize).toFixed(2)}kB
+						</span>
+					</div>
+				)}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		</>
 	);
 };

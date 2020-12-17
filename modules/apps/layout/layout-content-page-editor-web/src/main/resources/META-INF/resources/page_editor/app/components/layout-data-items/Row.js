@@ -23,8 +23,11 @@ import {useSelector} from '../../store/index';
 import {getFrontendTokenValue} from '../../utils/getFrontendTokenValue';
 import {getResponsiveConfig} from '../../utils/getResponsiveConfig';
 import loadBackgroundImage from '../../utils/loadBackgroundImage';
+<<<<<<< HEAD
 import {useBackgroundImageMediaQueries} from '../../utils/useBackgroundImageQueries';
 import {useId} from '../../utils/useId';
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 const Row = React.forwardRef(
 	({children, className, item, withinTopper = false}, ref) => {
@@ -70,6 +73,7 @@ const Row = React.forwardRef(
 
 		const [backgroundImageValue, setBackgroundImageValue] = useState('');
 
+<<<<<<< HEAD
 		const elementId = useId();
 
 		const backgroundImageMediaQueries = useBackgroundImageMediaQueries(
@@ -77,6 +81,8 @@ const Row = React.forwardRef(
 			backgroundImage
 		);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		useEffect(() => {
 			loadBackgroundImage(backgroundImage).then(setBackgroundImageValue);
 		}, [backgroundImage]);
@@ -137,11 +143,17 @@ const Row = React.forwardRef(
 							: '']: textAlign,
 					}
 				)}
+<<<<<<< HEAD
 				id={elementId}
 				ref={ref}
 				style={style}
 			>
 				<style>{backgroundImageMediaQueries}</style>
+=======
+				ref={ref}
+				style={style}
+			>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				{children}
 			</ClayLayout.Row>
 		);

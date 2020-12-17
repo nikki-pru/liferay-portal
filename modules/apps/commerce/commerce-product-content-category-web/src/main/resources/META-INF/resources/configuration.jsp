@@ -18,6 +18,7 @@
 
 <%
 CPCategoryContentDisplayContext cpCategoryContentDisplayContext = (CPCategoryContentDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
+<<<<<<< HEAD
 
 long assetCategoryId = 0;
 
@@ -26,6 +27,8 @@ AssetCategory assetCategory = cpCategoryContentDisplayContext.getAssetCategory()
 if (assetCategory != null) {
 	assetCategoryId = assetCategory.getCategoryId();
 }
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 %>
 
 <liferay-portlet:actionURL portletConfiguration="<%= true %>" var="configurationActionURL" />
@@ -56,7 +59,11 @@ if (assetCategory != null) {
 						</div>
 
 						<div class="lfr-use-asset-category-content toggler-content-collapsed">
+<<<<<<< HEAD
 							<aui:input id="preferencesAssetCategoryId" name="preferences--assetCategoryId--" type="number" value="<%= assetCategoryId %>" />
+=======
+							<aui:input id="preferencesAssetCategoryId" name="preferences--assetCategoryId--" type="number" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						</div>
 					</div>
 				</aui:fieldset>

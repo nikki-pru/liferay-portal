@@ -27,8 +27,16 @@ import com.liferay.portal.kernel.model.Release;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.CountryLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.StringUtil;
 
+=======
+import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+
+import java.util.Collections;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -92,6 +100,11 @@ public class PortalInstanceLifecycleListenerImpl
 					countryJSONObject.getString("idd"), name,
 					countryJSONObject.getString("number"), 0, true, false,
 					countryJSONObject.getBoolean("zipRequired"),
+<<<<<<< HEAD
+=======
+					Collections.singletonMap(
+						LocaleUtil.ENGLISH.getLanguage(), name),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					serviceContext);
 			}
 			catch (Exception exception) {

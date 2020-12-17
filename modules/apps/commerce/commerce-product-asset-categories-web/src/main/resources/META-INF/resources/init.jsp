@@ -34,7 +34,11 @@ page import="com.liferay.commerce.media.CommerceMediaResolverUtil" %><%@
 page import="com.liferay.commerce.product.asset.categories.web.internal.display.context.CategoryCPAttachmentFileEntriesDisplayContext" %><%@
 page import="com.liferay.commerce.product.asset.categories.web.internal.display.context.CategoryCPDisplayLayoutDisplayContext" %><%@
 page import="com.liferay.commerce.product.asset.categories.web.internal.frontend.CommerceCategoryDisplayPageClayTable" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.product.asset.categories.web.internal.servlet.taglib.ui.constants.CategoryCPAttachmentFormNavigatorConstants" %><%@
+=======
+page import="com.liferay.commerce.product.asset.categories.web.internal.servlet.taglib.ui.CategoryCPAttachmentFormNavigatorConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.product.constants.CPConstants" %><%@
 page import="com.liferay.commerce.product.exception.CPAttachmentFileEntryExpirationDateException" %><%@
 page import="com.liferay.commerce.product.exception.CPDisplayLayoutEntryException" %><%@

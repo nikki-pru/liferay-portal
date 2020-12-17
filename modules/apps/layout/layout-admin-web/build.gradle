@@ -46,6 +46,10 @@ dependencies {
 	compileOnly project(":apps:layout:layout-taglib")
 	compileOnly project(":apps:mobile-device-rules:mobile-device-rules-api")
 	compileOnly project(":apps:petra:petra-content")
+<<<<<<< HEAD
+=======
+	compileOnly project(":apps:portal-template:portal-template-soy-api")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":apps:portal:portal-aop-api")
 	compileOnly project(":apps:product-navigation:product-navigation-control-menu-api")
 	compileOnly project(":apps:segments:segments-api")

@@ -26,7 +26,11 @@ import com.liferay.portal.kernel.util.Validator;
 public class ServiceBuilderAddressUtil {
 
 	public static Address toServiceBuilderAddress(
+<<<<<<< HEAD
 		long companyId, PostalAddress postalAddress, String type) {
+=======
+		PostalAddress postalAddress, String type) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		String street1 = postalAddress.getStreetAddressLine1();
 		String street2 = postalAddress.getStreetAddressLine2();
@@ -34,7 +38,11 @@ public class ServiceBuilderAddressUtil {
 		String city = postalAddress.getAddressLocality();
 		String zip = postalAddress.getPostalCode();
 		long countryId = ServiceBuilderCountryUtil.toServiceBuilderCountryId(
+<<<<<<< HEAD
 			companyId, postalAddress.getAddressCountry());
+=======
+			postalAddress.getAddressCountry());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (Validator.isNull(street1) && Validator.isNull(street2) &&
 			Validator.isNull(street3) && Validator.isNull(city) &&

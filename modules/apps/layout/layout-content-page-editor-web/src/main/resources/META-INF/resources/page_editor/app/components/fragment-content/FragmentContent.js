@@ -21,6 +21,10 @@ import setFragmentEditables from '../../actions/setFragmentEditables';
 import selectCanConfigureWidgets from '../../selectors/selectCanConfigureWidgets';
 import selectLanguageId from '../../selectors/selectLanguageId';
 import selectSegmentsExperienceId from '../../selectors/selectSegmentsExperienceId';
+<<<<<<< HEAD
+=======
+import FragmentService from '../../services/FragmentService';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import {useDispatch, useSelector, useSelectorCallback} from '../../store/index';
 import {getFrontendTokenValue} from '../../utils/getFrontendTokenValue';
 import {getResponsiveConfig} from '../../utils/getResponsiveConfig';
@@ -93,7 +97,10 @@ const FragmentContent = ({
 
 	const defaultContent = useGetContent(
 		fragmentEntryLink,
+<<<<<<< HEAD
 		languageId,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		segmentsExperienceId
 	);
 	const [content, setContent] = useState(defaultContent);
@@ -126,6 +133,7 @@ const FragmentContent = ({
 		if (!isProcessorEnabled()) {
 			fragmentElement.innerHTML = defaultContent;
 
+<<<<<<< HEAD
 			Promise.all(
 				getAllEditables(fragmentElement).map((editable) =>
 					resolveEditableValue(
@@ -150,6 +158,58 @@ const FragmentContent = ({
 					setContent(fragmentElement.innerHTML);
 				}
 			});
+=======
+			const hasLocalizable =
+				fragmentEntryLink.configuration?.fieldSets?.some((fieldSet) =>
+					fieldSet.fields.some((field) => field.localizable)
+				) ?? false;
+
+			const processEditables = () => {
+				Promise.all(
+					getAllEditables(fragmentElement).map((editable) =>
+						resolveEditableValue(
+							editableValues,
+							editable.editableId,
+							editable.editableValueNamespace,
+							languageId,
+							getFieldValue
+						).then(([value, editableConfig]) => {
+							editable.processor.render(
+								editable.element,
+								value,
+								editableConfig,
+								languageId
+							);
+
+							editable.element.classList.add(
+								'page-editor__editable'
+							);
+						})
+					)
+				).then(() => {
+					if (isMounted() && fragmentElement) {
+						setContent(fragmentElement.innerHTML);
+					}
+				});
+			};
+
+			if (hasLocalizable) {
+				FragmentService.renderFragmentEntryLinkContent({
+					fragmentEntryLinkId: fragmentEntryLink.fragmentEntryLinkId,
+					languageId,
+					onNetworkStatus: dispatch,
+					segmentsExperienceId,
+				}).then(({content}) => {
+					if (isMounted()) {
+						fragmentElement.innerHTML = content;
+						processEditables();
+					}
+				});
+			}
+			else {
+				processEditables();
+			}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return () => {

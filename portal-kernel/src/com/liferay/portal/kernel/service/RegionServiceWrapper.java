@@ -53,6 +53,7 @@ public class RegionServiceWrapper
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void deleteRegion(long regionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -60,6 +61,8 @@ public class RegionServiceWrapper
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public com.liferay.portal.kernel.model.Region fetchRegion(long regionId) {
 		return _regionService.fetchRegion(regionId);
 	}
@@ -123,6 +126,7 @@ public class RegionServiceWrapper
 	}
 
 	@Override
+<<<<<<< HEAD
 	public java.util.List<com.liferay.portal.kernel.model.Region> getRegions(
 		long countryId, boolean active, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator
@@ -179,6 +183,8 @@ public class RegionServiceWrapper
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public RegionService getWrappedService() {
 		return _regionService;
 	}

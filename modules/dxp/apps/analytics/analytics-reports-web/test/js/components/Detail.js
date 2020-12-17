@@ -121,6 +121,7 @@ const mockCurrentPageReferral = {
 		referringDomains: [
 			{
 				trafficAmount: 17985230,
+<<<<<<< HEAD
 				url: 'http://foo.example.com',
 			},
 			{
@@ -138,11 +139,31 @@ const mockCurrentPageReferral = {
 			{
 				trafficAmount: 253399,
 				url: 'http://fred.example.com',
+=======
+				url: 'http://youtube.com/',
+			},
+			{
+				trafficAmount: 12218030,
+				url: 'http://www.google.com/',
+			},
+			{
+				trafficAmount: 9062949,
+				url: 'http://microsoft.com/',
+			},
+			{
+				trafficAmount: 4601453,
+				url: 'http://linkedin.com/',
+			},
+			{
+				trafficAmount: 253399,
+				url: 'https://www.liferay.com',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			},
 		],
 		referringPages: [
 			{
 				trafficAmount: 125461,
+<<<<<<< HEAD
 				url: 'http://one.example.com',
 			},
 			{
@@ -180,6 +201,54 @@ const mockCurrentPageReferral = {
 			{
 				trafficAmount: 100,
 				url: 'http://ten.example.com',
+=======
+				url:
+					'https://www.liferay.com/resources/ebooks/Becoming+a+Digital+Business-4+Common+Enterprise+Challenges+Conquered',
+			},
+			{
+				trafficAmount: 85485,
+				url:
+					'https://www.liferay.com/resources/whitepapers/B2B+E-Commerce+RFP+Kit',
+			},
+			{
+				trafficAmount: 84564,
+				url:
+					'https://www.liferay.com/resources/whitepapers/6+Tactics+to+Modernize+Your+Intranet',
+			},
+			{
+				trafficAmount: 5846,
+				url:
+					'https://www.liferay.com/resources/case-studies/materion-case-study',
+			},
+			{
+				trafficAmount: 3521,
+				url: 'https://www.liferay.com/web/l/a1-hrvatska-case-study',
+			},
+			{
+				trafficAmount: 2513,
+				url:
+					'https://www.liferay.com/resources/case-studies/excellus-case-study',
+			},
+			{
+				trafficAmount: 2200,
+				url:
+					'https://www.liferay.com/resources/case-studies/terres-inovia-case-study',
+			},
+			{
+				trafficAmount: 1230,
+				url:
+					'https://www.liferay.com/resources/case-studies/vodafone-business',
+			},
+			{
+				trafficAmount: 1100,
+				url:
+					'https://www.liferay.com/web/guest/resources/case-studies/agia',
+			},
+			{
+				trafficAmount: 100,
+				url:
+					'https://www.liferay.com/resources/case-studies/vitality-case-study',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			},
 		],
 		share: 90,
@@ -244,6 +313,7 @@ describe('Detail', () => {
 		cleanup();
 	});
 
+<<<<<<< HEAD
 	it('displays 10 urls when clicking on the view more button', async () => {
 		const testProps = {
 			pagePublishDate: 'Thu Aug 10 08:17:57 GMT 2020',
@@ -288,6 +358,8 @@ describe('Detail', () => {
 		expect(getByText('view-less')).toBeInTheDocument();
 	});
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	describe('Organic Detail', () => {
 		it('displays the organic detail according to API', async () => {
 			const {getByText} = render(
@@ -541,6 +613,7 @@ describe('Detail', () => {
 			expect(getByText('278,256')).toBeInTheDocument();
 
 			expect(getByText('top-referring-pages')).toBeInTheDocument();
+<<<<<<< HEAD
 			expect(getByText('http://one.example.com')).toBeInTheDocument();
 			expect(getByText('125,461')).toBeInTheDocument();
 			expect(getByText('http://two.example.com')).toBeInTheDocument();
@@ -551,10 +624,38 @@ describe('Detail', () => {
 			expect(getByText('5,846')).toBeInTheDocument();
 			expect(getByText('http://five.example.com')).toBeInTheDocument();
 			expect(getByText('3,521')).toBeInTheDocument();
+=======
+			expect(
+				getByText(
+					'https://www.liferay.com/resources/ebooks/Becoming+a+Digital+Business-4+Common+Enterprise+Challenges+Conquered'
+				)
+			).toBeInTheDocument();
+			expect(
+				getByText(
+					'https://www.liferay.com/resources/whitepapers/B2B+E-Commerce+RFP+Kit'
+				)
+			).toBeInTheDocument();
+			expect(
+				getByText(
+					'https://www.liferay.com/resources/whitepapers/6+Tactics+to+Modernize+Your+Intranet'
+				)
+			).toBeInTheDocument();
+			expect(
+				getByText(
+					'https://www.liferay.com/resources/case-studies/materion-case-study'
+				)
+			).toBeInTheDocument();
+			expect(
+				getByText(
+					'https://www.liferay.com/web/l/a1-hrvatska-case-study'
+				)
+			).toBeInTheDocument();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			expect(getByText('view-more')).toBeInTheDocument();
 
 			expect(getByText('top-referring-domains')).toBeInTheDocument();
+<<<<<<< HEAD
 			expect(getByText('http://foo.example.com')).toBeInTheDocument();
 			expect(getByText('17,985,230')).toBeInTheDocument();
 			expect(getByText('http://bar.example.com')).toBeInTheDocument();
@@ -565,6 +666,13 @@ describe('Detail', () => {
 			expect(getByText('4,601,453')).toBeInTheDocument();
 			expect(getByText('http://fred.example.com')).toBeInTheDocument();
 			expect(getByText('253,399')).toBeInTheDocument();
+=======
+			expect(getByText('http://youtube.com/')).toBeInTheDocument();
+			expect(getByText('http://www.google.com/')).toBeInTheDocument();
+			expect(getByText('http://microsoft.com/')).toBeInTheDocument();
+			expect(getByText('http://linkedin.com/')).toBeInTheDocument();
+			expect(getByText('https://www.liferay.com')).toBeInTheDocument();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			expect(mockTrafficShareDataProvider).toHaveBeenCalledTimes(1);
 			expect(mockTrafficVolumeDataProvider).toHaveBeenCalledTimes(1);

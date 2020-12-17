@@ -14,23 +14,32 @@
 
 package com.liferay.dynamic.data.mapping.form.field.type.internal.checkbox;
 
+<<<<<<< HEAD
 import com.liferay.configuration.admin.constants.ConfigurationAdminPortletKeys;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTemplateContextContributor;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.render.DDMFormFieldRenderingContext;
+<<<<<<< HEAD
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactory;
 import com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 
 import java.util.Map;
 
+<<<<<<< HEAD
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.service.component.annotations.Component;
 
 /**
@@ -59,6 +68,7 @@ public class CheckboxDDMFormFieldTemplateContextContributor
 			"showAsSwitcher",
 			GetterUtil.getBoolean(ddmFormField.getProperty("showAsSwitcher"))
 		).put(
+<<<<<<< HEAD
 			"showMaximumRepetitionsInfo",
 			GetterUtil.getBoolean(
 				ddmFormField.getProperty("showMaximumRepetitionsInfo"))
@@ -76,6 +86,8 @@ public class CheckboxDDMFormFieldTemplateContextContributor
 					ddmFormFieldRenderingContext.getHttpServletRequest());
 			}
 		).put(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			"value",
 			GetterUtil.getBoolean(ddmFormFieldRenderingContext.getValue())
 		).build();
@@ -95,6 +107,7 @@ public class CheckboxDDMFormFieldTemplateContextContributor
 			ddmFormFieldRenderingContext.getLocale());
 	}
 
+<<<<<<< HEAD
 	private String _getSystemSettingsURL(
 		HttpServletRequest httpServletRequest) {
 
@@ -114,4 +127,6 @@ public class CheckboxDDMFormFieldTemplateContextContributor
 		return portletURL.toString();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

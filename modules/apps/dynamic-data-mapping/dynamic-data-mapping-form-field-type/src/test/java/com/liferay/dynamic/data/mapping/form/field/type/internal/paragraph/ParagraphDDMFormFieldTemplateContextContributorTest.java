@@ -14,14 +14,30 @@
 
 package com.liferay.dynamic.data.mapping.form.field.type.internal.paragraph;
 
+<<<<<<< HEAD
+=======
+import com.google.template.soy.data.SanitizedContent;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.form.field.type.BaseDDMFormFieldTypeSettingsTestCase;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.render.DDMFormFieldRenderingContext;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
+import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.template.soy.internal.data.SoyDataFactoryImpl;
+import com.liferay.portal.util.HtmlImpl;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.util.Map;
 
 import org.junit.Assert;
+<<<<<<< HEAD
+=======
+import org.junit.Before;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.junit.Test;
 
 /**
@@ -30,6 +46,21 @@ import org.junit.Test;
 public class ParagraphDDMFormFieldTemplateContextContributorTest
 	extends BaseDDMFormFieldTypeSettingsTestCase {
 
+<<<<<<< HEAD
+=======
+	@Before
+	@Override
+	public void setUp() {
+		HtmlUtil htmlUtil = new HtmlUtil();
+
+		htmlUtil.setHtml(new HtmlImpl());
+
+		ReflectionTestUtil.setFieldValue(
+			_paragraphDDMFormFieldTemplateContextContributor, "_soyDataFactory",
+			new SoyDataFactoryImpl());
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Test
 	public void testGetParameters() {
 		DDMFormField ddmFormField = new DDMFormField("field", "paragraph");
@@ -44,8 +75,17 @@ public class ParagraphDDMFormFieldTemplateContextContributorTest
 			_paragraphDDMFormFieldTemplateContextContributor.getParameters(
 				ddmFormField, new DDMFormFieldRenderingContext());
 
+<<<<<<< HEAD
 		Assert.assertEquals(
 			text.getString(text.getDefaultLocale()), parameters.get("text"));
+=======
+		SanitizedContent sanitizedContent = (SanitizedContent)parameters.get(
+			"text");
+
+		Assert.assertEquals(
+			text.getString(text.getDefaultLocale()),
+			sanitizedContent.getContent());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -67,8 +107,17 @@ public class ParagraphDDMFormFieldTemplateContextContributorTest
 			_paragraphDDMFormFieldTemplateContextContributor.getParameters(
 				ddmFormField, ddmFormFieldRenderingContext);
 
+<<<<<<< HEAD
 		Assert.assertEquals(
 			text.getString(text.getDefaultLocale()), parameters.get("text"));
+=======
+		SanitizedContent sanitizedContent = (SanitizedContent)parameters.get(
+			"text");
+
+		Assert.assertEquals(
+			text.getString(text.getDefaultLocale()),
+			sanitizedContent.getContent());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private final ParagraphDDMFormFieldTemplateContextContributor

@@ -28,8 +28,13 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.commerce.catalog.web.internal.display.context.CommerceCatalogDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.catalog.web.internal.frontend.constants.CommerceCatalogDataSetConstants" %><%@
 page import="com.liferay.commerce.catalog.web.internal.servlet.taglib.ui.constants.CommerceCatalogScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.catalog.web.internal.frontend.CommerceCatalogDataSetConstants" %><%@
+page import="com.liferay.commerce.catalog.web.internal.servlet.taglib.ui.CommerceCatalogScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
 page import="com.liferay.commerce.price.list.constants.CommercePriceListConstants" %><%@
 page import="com.liferay.commerce.price.list.exception.NoSuchPriceListException" %><%@

@@ -63,6 +63,7 @@ public interface Job {
 
 	public static enum BuildProfile {
 
+<<<<<<< HEAD
 		DXP("DXP", "dxp"), PORTAL("Portal", "portal");
 
 		public String toDisplayString() {
@@ -81,6 +82,28 @@ public interface Job {
 
 		private final String _displayString;
 		private final String _string;
+=======
+		DXP {
+
+			private static final String _TEXT = "dxp";
+
+			@Override
+			public String toString() {
+				return _TEXT;
+			}
+
+		},
+		PORTAL {
+
+			private static final String _TEXT = "portal";
+
+			@Override
+			public String toString() {
+				return _TEXT;
+			}
+
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	}
 

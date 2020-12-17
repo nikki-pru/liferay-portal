@@ -15,7 +15,10 @@
 package com.liferay.portal.workflow.kaleo.internal.upgrade;
 
 import com.liferay.portal.kernel.upgrade.BaseUpgradeSQLServerDatetime;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.upgrade.DummyUpgradeProcess;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.upgrade.registry.UpgradeStepRegistrator;
 import com.liferay.portal.workflow.kaleo.internal.upgrade.v1_0_0.UpgradeKaleoTaskInstanceToken;
 import com.liferay.portal.workflow.kaleo.internal.upgrade.v1_1_0.UpgradeWorkflowContext;
@@ -99,10 +102,15 @@ public class KaleoServiceUpgrade implements UpgradeStepRegistrator {
 		registry.register(
 			"1.4.0", "1.4.1", new UpgradeKaleoDefinitionVersion());
 
+<<<<<<< HEAD
 		registry.register("1.4.1", "1.4.2", new DummyUpgradeProcess());
 
 		registry.register(
 			"1.4.2", "2.0.0",
+=======
+		registry.register(
+			"1.4.1", "2.0.0",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			new BaseUpgradeSQLServerDatetime(
 				new Class<?>[] {
 					KaleoActionTable.class, KaleoConditionTable.class,

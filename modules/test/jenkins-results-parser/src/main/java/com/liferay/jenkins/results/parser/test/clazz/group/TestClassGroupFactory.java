@@ -43,9 +43,14 @@ public class TestClassGroupFactory {
 	}
 
 	public static BatchTestClassGroup newBatchTestClassGroup(
+<<<<<<< HEAD
 		String batchName, Job job) {
 
 		Job.BuildProfile buildProfile = job.getBuildProfile();
+=======
+		String batchName, BatchTestClassGroup.BuildProfile buildProfile,
+		Job job) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		String key = JenkinsResultsParserUtil.combine(
 			batchName, "_", buildProfile.toString(), "_", job.getJobName());
@@ -125,6 +130,22 @@ public class TestClassGroupFactory {
 		return batchTestClassGroup;
 	}
 
+<<<<<<< HEAD
+=======
+	public static BatchTestClassGroup newBatchTestClassGroup(
+		String batchName, Job job) {
+
+		BatchTestClassGroup.BuildProfile buildProfile =
+			BatchTestClassGroup.BuildProfile.PORTAL;
+
+		if (job.getBuildProfile() == Job.BuildProfile.DXP) {
+			buildProfile = BatchTestClassGroup.BuildProfile.DXP;
+		}
+
+		return newBatchTestClassGroup(batchName, buildProfile, job);
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static SegmentTestClassGroup newSegmentTestClassGroup(
 		BatchTestClassGroup batchTestClassGroup) {
 

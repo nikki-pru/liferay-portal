@@ -35,8 +35,11 @@ public class DispatchConstants {
 
 	public static final String REPOSITORY_FOLDER_NAME = "dispatch";
 
+<<<<<<< HEAD
 	public static final String RESOURCE_NAME = "com.liferay.dispatch";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static final String SCREEN_NAVIGATION_KEY_DISPATCH_GENERAL =
 		"dispatch.general";
 

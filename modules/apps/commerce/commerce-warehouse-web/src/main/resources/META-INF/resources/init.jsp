@@ -36,7 +36,11 @@ page import="com.liferay.commerce.product.model.CPInstance" %><%@
 page import="com.liferay.commerce.product.model.CommerceChannel" %><%@
 page import="com.liferay.commerce.warehouse.web.internal.display.context.CommerceInventoryWarehouseItemsDisplayContext" %><%@
 page import="com.liferay.commerce.warehouse.web.internal.display.context.CommerceInventoryWarehousesDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.warehouse.web.internal.servlet.taglib.ui.constants.CommerceInventoryWarehouseFormNavigatorConstants" %><%@
+=======
+page import="com.liferay.commerce.warehouse.web.internal.servlet.taglib.ui.CommerceInventoryWarehouseFormNavigatorConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.frontend.taglib.servlet.taglib.ManagementBarFilterItem" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@

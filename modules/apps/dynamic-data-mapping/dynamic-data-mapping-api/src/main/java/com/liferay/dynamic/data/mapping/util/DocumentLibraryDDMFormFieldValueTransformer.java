@@ -17,7 +17,10 @@ package com.liferay.dynamic.data.mapping.util;
 import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
 import com.liferay.document.library.kernel.service.DLAppServiceUtil;
 import com.liferay.document.library.kernel.util.DLUtil;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.petra.string.StringPool;
@@ -39,7 +42,11 @@ public class DocumentLibraryDDMFormFieldValueTransformer
 
 	@Override
 	public String getFieldType() {
+<<<<<<< HEAD
 		return DDMFormFieldType.DOCUMENT_LIBRARY;
+=======
+		return "ddm-documentlibrary";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

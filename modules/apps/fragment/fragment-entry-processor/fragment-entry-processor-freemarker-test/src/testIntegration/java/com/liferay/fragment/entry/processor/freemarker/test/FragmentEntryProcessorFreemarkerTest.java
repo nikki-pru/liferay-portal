@@ -53,7 +53,10 @@ import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.Constants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
@@ -72,8 +75,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+<<<<<<< HEAD
 import org.hamcrest.CoreMatchers;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -402,6 +408,7 @@ public class FragmentEntryProcessorFreemarkerTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testProcessFragmentEntryLinkHTMLWithConfigurationLocalizable()
 		throws Exception {
 
@@ -446,6 +453,8 @@ public class FragmentEntryProcessorFreemarkerTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testProcessFragmentEntryLinkHTMLWithInvalidFreemarker()
 		throws Exception {
 

@@ -21,7 +21,10 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.Validator;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.util.Locale;
 import java.util.Map;
@@ -68,6 +71,7 @@ public class NestedFieldsSupportMapToDDMFormValuesConverterStrategy
 			}
 		};
 
+<<<<<<< HEAD
 		Object value = fieldInstanceValue.get("value");
 
 		if (!StringUtil.equals(ddmFormField.getType(), "fieldset") &&
@@ -75,6 +79,12 @@ public class NestedFieldsSupportMapToDDMFormValuesConverterStrategy
 
 			ddmFormFieldValue.setValue(
 				createValue(ddmFormField, locale, value));
+=======
+		if (!StringUtil.equals(ddmFormField.getType(), "fieldset")) {
+			ddmFormFieldValue.setValue(
+				createValue(
+					ddmFormField, locale, fieldInstanceValue.get("value")));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		if (ListUtil.isNotEmpty(ddmFormField.getNestedDDMFormFields())) {

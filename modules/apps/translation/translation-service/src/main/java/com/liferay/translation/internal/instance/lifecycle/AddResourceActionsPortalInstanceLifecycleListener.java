@@ -18,15 +18,21 @@ import com.liferay.portal.instance.lifecycle.BasePortalInstanceLifecycleListener
 import com.liferay.portal.instance.lifecycle.PortalInstanceLifecycleListener;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.security.permission.ResourceActions;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.util.PropsValues;
 
+<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.Set;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -39,7 +45,10 @@ public class AddResourceActionsPortalInstanceLifecycleListener
 
 	@Override
 	public void portalInstanceRegistered(Company company) throws Exception {
+<<<<<<< HEAD
 		Set<String> names = new HashSet<>();
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String xml = StringUtil.read(
 			AddResourceActionsPortalInstanceLifecycleListener.class.
 				getClassLoader(),
@@ -55,19 +64,26 @@ public class AddResourceActionsPortalInstanceLifecycleListener
 						StringUtil.replace(
 							xml, "[$LANGUAGE_ID$]", languageIds[i]),
 						"[$WEIGHT$]", String.valueOf(i))),
+<<<<<<< HEAD
 				names);
 		}
 
 		for (String name : names) {
 			_resourceActionLocalService.checkResourceActions(
 				name, _resourceActions.getModelResourceActions(name));
+=======
+				null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 
 	@Reference
+<<<<<<< HEAD
 	private ResourceActionLocalService _resourceActionLocalService;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private ResourceActions _resourceActions;
 
 }

@@ -174,18 +174,27 @@ public class CountryModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)
 	 */
 	@Deprecated
+<<<<<<< HEAD
 	public static final long BILLINGALLOWED_COLUMN_BITMASK = 8L;
+=======
+	public static final long COMPANYID_COLUMN_BITMASK = 8L;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)
 	 */
 	@Deprecated
+<<<<<<< HEAD
 	public static final long COMPANYID_COLUMN_BITMASK = 16L;
+=======
+	public static final long NAME_COLUMN_BITMASK = 16L;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)
 	 */
 	@Deprecated
+<<<<<<< HEAD
 	public static final long NAME_COLUMN_BITMASK = 32L;
 
 	/**
@@ -205,6 +214,9 @@ public class CountryModelImpl
 	 */
 	@Deprecated
 	public static final long UUID_COLUMN_BITMASK = 256L;
+=======
+	public static final long UUID_COLUMN_BITMASK = 32L;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -862,6 +874,7 @@ public class CountryModelImpl
 		_billingAllowed = billingAllowed;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *             #getColumnOriginalValue(String)}
@@ -872,6 +885,8 @@ public class CountryModelImpl
 			this.<Boolean>getColumnOriginalValue("billingAllowed"));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@JSON
 	@Override
 	public boolean getGroupFilterEnabled() {
@@ -962,6 +977,7 @@ public class CountryModelImpl
 		_number = number;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *             #getColumnOriginalValue(String)}
@@ -971,6 +987,8 @@ public class CountryModelImpl
 		return getColumnOriginalValue("number_");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@JSON
 	@Override
 	public double getPosition() {
@@ -1007,6 +1025,7 @@ public class CountryModelImpl
 		_shippingAllowed = shippingAllowed;
 	}
 
+<<<<<<< HEAD
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *             #getColumnOriginalValue(String)}
@@ -1017,6 +1036,8 @@ public class CountryModelImpl
 			this.<Boolean>getColumnOriginalValue("shippingAllowed"));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@JSON
 	@Override
 	public boolean getSubjectToVAT() {

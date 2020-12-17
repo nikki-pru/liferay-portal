@@ -251,6 +251,7 @@ const Main = ({
 
 		let repetitionsCounter = 0;
 
+<<<<<<< HEAD
 		visitor.mapFields(
 			(field) => {
 				if (fieldName === field.fieldName) {
@@ -260,6 +261,13 @@ const Main = ({
 			true,
 			true
 		);
+=======
+		visitor.mapFields((field) => {
+			if (fieldName === field.fieldName) {
+				repetitionsCounter++;
+			}
+		});
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return repetitionsCounter === maximumRepetitions;
 	};

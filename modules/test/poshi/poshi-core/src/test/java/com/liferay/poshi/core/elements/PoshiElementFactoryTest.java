@@ -289,8 +289,15 @@ public class PoshiElementFactoryTest {
 	}
 
 	private PoshiElement _getPoshiElement(String fileName) throws Exception {
+<<<<<<< HEAD
 		return (PoshiElement)PoshiNodeFactory.newPoshiNodeFromFile(
 			FileUtil.getURL(_getFile(fileName)));
+=======
+		File file = _getFile(fileName);
+
+		return (PoshiElement)PoshiNodeFactory.newPoshiNodeFromFile(
+			FileUtil.getURL(file));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private static final String _BASE_DIR =

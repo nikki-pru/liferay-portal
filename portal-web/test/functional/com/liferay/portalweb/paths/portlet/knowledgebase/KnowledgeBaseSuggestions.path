@@ -46,7 +46,11 @@
 </tr>
 <tr>
 	<td>NAVIGATION_NEW</td>
+<<<<<<< HEAD
 	<td>//li[contains(@class,'list-group-header')]/div[contains(@class,'list-group-header-title')]</td>
+=======
+	<td>//div[contains(@class,'list-group-header')]/div[contains(@class,'list-group-header-title')]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 </tbody>

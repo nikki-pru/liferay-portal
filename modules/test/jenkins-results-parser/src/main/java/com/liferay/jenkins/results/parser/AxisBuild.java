@@ -44,9 +44,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Map;
 import java.util.Properties;
 import java.util.TreeMap;
+=======
+import java.util.Properties;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.GZIPInputStream;
@@ -125,11 +129,14 @@ public class AxisBuild extends BaseBuild {
 		}
 	}
 
+<<<<<<< HEAD
 	public String getAxisName() {
 		return JenkinsResultsParserUtil.combine(
 			getJobVariant(), "/", getAxisNumber());
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getAxisNumber() {
 		Matcher matcher = _axisVariablePattern.matcher(getAxisVariable());
 
@@ -424,6 +431,7 @@ public class AxisBuild extends BaseBuild {
 		return startTime;
 	}
 
+<<<<<<< HEAD
 	public TestClassResult getTestClassResult(String testClassName) {
 		if (_testClassResults.containsKey(testClassName)) {
 			return _testClassResults.get(testClassName);
@@ -463,6 +471,14 @@ public class AxisBuild extends BaseBuild {
 
 		if (!_testResults.isEmpty()) {
 			return new ArrayList<>(_testResults.values());
+=======
+	@Override
+	public List<TestResult> getTestResults(String testStatus) {
+		String status = getStatus();
+
+		if (!status.equals("completed")) {
+			return Collections.emptyList();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		JSONObject testReportJSONObject = getTestReportJSONObject(true);
@@ -474,6 +490,7 @@ public class AxisBuild extends BaseBuild {
 			return Collections.emptyList();
 		}
 
+<<<<<<< HEAD
 		List<TestResult> testResults = getTestResults(
 			this, testReportJSONObject.getJSONArray("suites"), testStatus);
 
@@ -482,6 +499,10 @@ public class AxisBuild extends BaseBuild {
 		}
 
 		return testResults;
+=======
+		return getTestResults(
+			this, testReportJSONObject.getJSONArray("suites"), testStatus);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -695,8 +716,11 @@ public class AxisBuild extends BaseBuild {
 	private static final Pattern _axisVariablePattern = Pattern.compile(
 		"AXIS_VARIABLE=(?<axisNumber>[^,]+),.*");
 
+<<<<<<< HEAD
 	private final Map<String, TestClassResult> _testClassResults =
 		new TreeMap<>();
 	private final Map<String, TestResult> _testResults = new TreeMap<>();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

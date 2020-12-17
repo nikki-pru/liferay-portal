@@ -4,7 +4,11 @@
 		"frontend-js-web": "*",
 		"incremental-dom-string": "0.0.2",
 		"metal-component": "2.16.8",
+<<<<<<< HEAD
 		"metal-soy": "2.16.9"
+=======
+		"metal-soy": "2.16.8"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	},
 	"jest": {
 		"modulePathIgnorePatterns": [

@@ -703,7 +703,11 @@ public abstract class BaseIndexer<T> implements Indexer<T> {
 				addSelectedLocalizedFieldNames(
 					selectedFieldNames,
 					LocaleUtil.toLanguageIds(
+<<<<<<< HEAD
 						LanguageUtil.getAvailableLocales()));
+=======
+						LanguageUtil.getSupportedLocales()));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 			else {
 				addSelectedLocalizedFieldNames(

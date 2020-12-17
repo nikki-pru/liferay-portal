@@ -64,7 +64,10 @@ rulesSearchContainer.setOrderByComparator(orderByComparator);
 rulesSearchContainer.setOrderByType(orderByType);
 
 int rulesCount = MDRRuleLocalServiceUtil.getRulesCount(ruleGroupId);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 List<MDRRule> rules = MDRRuleLocalServiceUtil.getRules(ruleGroupId, rulesSearchContainer.getStart(), rulesSearchContainer.getEnd(), rulesSearchContainer.getOrderByComparator());
 
 rulesSearchContainer.setResults(rules);

@@ -14,7 +14,10 @@
 
 package com.liferay.portal.security.permission;
 
+<<<<<<< HEAD
 import com.liferay.petra.function.UnsafeConsumer;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -579,6 +582,7 @@ public class ResourceActionsImpl implements ResourceActions {
 		return false;
 	}
 
+<<<<<<< HEAD
 	public void populatePortletResource(
 			Portlet portlet, ClassLoader classLoader, String... sources)
 		throws ResourceActionsException {
@@ -605,11 +609,17 @@ public class ResourceActionsImpl implements ResourceActions {
 			_getPortletResourceActions(portletResourceName, portlet));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Override
 	public void read(ClassLoader classLoader, String source)
 		throws ResourceActionsException {
 
+<<<<<<< HEAD
 		_read(classLoader, source, rootElement -> _read(rootElement, null));
+=======
+		_read(classLoader, source, null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -622,7 +632,11 @@ public class ResourceActionsImpl implements ResourceActions {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void read(Document document, Set<String> resourceNames)
+=======
+	public void read(Document document, Set<String> portletNames)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws ResourceActionsException {
 
 		DocumentType documentType = document.getDocumentType();
@@ -637,7 +651,11 @@ public class ResourceActionsImpl implements ResourceActions {
 			}
 		}
 
+<<<<<<< HEAD
 		_read(document.getRootElement(), resourceNames);
+=======
+		_read(document.getRootElement(), portletNames);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -672,16 +690,24 @@ public class ResourceActionsImpl implements ResourceActions {
 	@Override
 	public void read(
 			String servletContextName, Document document,
+<<<<<<< HEAD
 			Set<String> resourceNames)
 		throws ResourceActionsException {
 
 		read(document, resourceNames);
+=======
+			Set<String> portletNames)
+		throws ResourceActionsException {
+
+		read(document, portletNames);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
 	public void readAndCheck(ClassLoader classLoader, String... sources)
 		throws ResourceActionsException {
 
+<<<<<<< HEAD
 		Set<String> resourceNames = new HashSet<>();
 
 		for (String source : sources) {
@@ -693,6 +719,16 @@ public class ResourceActionsImpl implements ResourceActions {
 		for (String resourceName : resourceNames) {
 			resourceActionLocalService.checkResourceActions(
 				resourceName, getResourceActions(resourceName));
+=======
+		Set<String> portletNames = new HashSet<>();
+
+		for (String source : sources) {
+			_read(classLoader, source, portletNames);
+		}
+
+		for (String portletName : portletNames) {
+			check(portletName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 
@@ -1027,9 +1063,13 @@ public class ResourceActionsImpl implements ResourceActions {
 	}
 
 	private void _read(
+<<<<<<< HEAD
 			ClassLoader classLoader, String source,
 			UnsafeConsumer<Element, ResourceActionsException>
 				readResourceConsumer)
+=======
+			ClassLoader classLoader, String source, Set<String> portletNames)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws ResourceActionsException {
 
 		InputStream inputStream = classLoader.getResourceAsStream(source);
@@ -1070,21 +1110,36 @@ public class ResourceActionsImpl implements ResourceActions {
 				String file = StringUtil.trim(
 					resourceElement.attributeValue("file"));
 
+<<<<<<< HEAD
 				_read(classLoader, file, readResourceConsumer);
+=======
+				_read(classLoader, file, portletNames);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 				String extFileName = StringUtil.replace(
 					file, ".xml", "-ext.xml");
 
+<<<<<<< HEAD
 				_read(classLoader, extFileName, readResourceConsumer);
 			}
 
 			readResourceConsumer.accept(rootElement);
+=======
+				_read(classLoader, extFileName, portletNames);
+			}
+
+			_read(rootElement, portletNames);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			if (source.endsWith(".xml") && !source.endsWith("-ext.xml")) {
 				String extFileName = StringUtil.replace(
 					source, ".xml", "-ext.xml");
 
+<<<<<<< HEAD
 				_read(classLoader, extFileName, readResourceConsumer);
+=======
+				_read(classLoader, extFileName, portletNames);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 		}
 		catch (DocumentException documentException) {
@@ -1092,7 +1147,11 @@ public class ResourceActionsImpl implements ResourceActions {
 		}
 	}
 
+<<<<<<< HEAD
 	private void _read(Element rootElement, Set<String> resourceNames)
+=======
+	private void _read(Element rootElement, Set<String> portletNames)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws ResourceActionsException {
 
 		if (PropsValues.RESOURCE_ACTIONS_READ_PORTLET_RESOURCES) {
@@ -1115,8 +1174,13 @@ public class ResourceActionsImpl implements ResourceActions {
 				_readResource(
 					portletResourceElement, portletName, portletActions);
 
+<<<<<<< HEAD
 				if (resourceNames != null) {
 					resourceNames.add(portletName);
+=======
+				if (portletNames != null) {
+					portletNames.add(portletName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				}
 			}
 		}
@@ -1187,8 +1251,13 @@ public class ResourceActionsImpl implements ResourceActions {
 				modelResourceElement, modelName,
 				Collections.singleton(ActionKeys.PERMISSIONS));
 
+<<<<<<< HEAD
 			if (resourceNames != null) {
 				resourceNames.add(modelName);
+=======
+			if (portletNames != null) {
+				portletNames.addAll(_resourceReferences.get(modelName));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 		}
 	}
@@ -1207,6 +1276,7 @@ public class ResourceActionsImpl implements ResourceActions {
 		}
 	}
 
+<<<<<<< HEAD
 	private void _readPortletResource(Element rootElement, Portlet portlet)
 		throws ResourceActionsException {
 
@@ -1234,6 +1304,8 @@ public class ResourceActionsImpl implements ResourceActions {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private void _readResource(
 			Element resourceElement, String name,
 			Set<String> defaultResourceActions)

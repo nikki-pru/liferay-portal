@@ -32,10 +32,13 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
+<<<<<<< HEAD
 			Site.tearDownCP();
 
 			Depot.tearDownCP();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			DMDocument.tearDownCP();
 
 			DMFolder.tearDownCP();
@@ -47,8 +50,11 @@ definition {
 	@description = "This ensures that the approved image from a depot is available to use in its connected site."
 	@priority = "5"
 	test ApproveImage {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DepotNavigator.openDepotDocumentsAndMediaAdmin(depotName = "Test Depot Name");
 
 		DMFolder.addCP(
@@ -138,8 +144,11 @@ definition {
 	@description = "This ensures that the approved WC article from a depot is available to use in its connected site."
 	@priority = "5"
 	test ApproveWCArticle {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		ApplicationsMenu.gotoPortlet(
 			category = "Workflow",
 			panel = "Applications",
@@ -899,8 +908,11 @@ definition {
 	@description = "This ensures that the workflow can be set in an asset library."
 	@priority = "5"
 	test Smoke {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DepotNavigator.openDepotAdmin();
 
 		DepotNavigator.gotoDepotPortlet(

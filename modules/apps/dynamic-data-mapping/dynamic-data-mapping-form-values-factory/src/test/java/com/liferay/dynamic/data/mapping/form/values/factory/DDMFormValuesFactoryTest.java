@@ -21,7 +21,10 @@ import com.liferay.dynamic.data.mapping.io.DDMFormValuesSerializerSerializeReque
 import com.liferay.dynamic.data.mapping.io.DDMFormValuesSerializerSerializeResponse;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.model.UnlocalizedValue;
 import com.liferay.dynamic.data.mapping.model.Value;
@@ -711,8 +714,13 @@ public class DDMFormValuesFactoryTest extends PowerMockito {
 		ddmForm.setDefaultLocale(defaultLocale);
 
 		DDMFormField separatorDDMFormField = DDMFormTestUtil.createDDMFormField(
+<<<<<<< HEAD
 			"Separator", "Separator", DDMFormFieldType.SEPARATOR,
 			StringPool.BLANK, false, true, false);
+=======
+			"Separator", "Separator", "ddm-separator", StringPool.BLANK, false,
+			true, false);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		DDMFormField nameDDMFormField = DDMFormTestUtil.createTextDDMFormField(
 			"Name", true, false, false);

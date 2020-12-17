@@ -24,8 +24,11 @@ LayoutSetPrototype layoutSetPrototype = (LayoutSetPrototype)row.getObject();
 long layoutSetPrototypeId = layoutSetPrototype.getLayoutSetPrototypeId();
 
 Group group = layoutSetPrototype.getGroup();
+<<<<<<< HEAD
 
 boolean readyForPropagation = GetterUtil.getBoolean(layoutSetPrototype.getSettingsProperty("readyForPropagation"), true);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 %>
 
 <liferay-ui:icon-menu
@@ -61,7 +64,11 @@ boolean readyForPropagation = GetterUtil.getBoolean(layoutSetPrototype.getSettin
 
 		<c:choose>
 			<c:when test="<%= layoutSetPrototype.isActive() && !group.isGuest() %>">
+<<<<<<< HEAD
 				<portlet:actionURL name="updateLayoutSetPrototypeAction" var="deactivateURL">
+=======
+				<portlet:actionURL name="activateDeactivateLayoutSetPrototype" var="deactivateURL">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="layoutSetPrototypeId" value="<%= String.valueOf(layoutSetPrototypeId) %>" />
 					<portlet:param name="active" value="<%= Boolean.FALSE.toString() %>" />
@@ -72,7 +79,11 @@ boolean readyForPropagation = GetterUtil.getBoolean(layoutSetPrototype.getSettin
 				/>
 			</c:when>
 			<c:when test="<%= !layoutSetPrototype.isActive() %>">
+<<<<<<< HEAD
 				<portlet:actionURL name="updateLayoutSetPrototypeAction" var="activateURL">
+=======
+				<portlet:actionURL name="activateDeactivateLayoutSetPrototype" var="activateURL">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="layoutSetPrototypeId" value="<%= String.valueOf(layoutSetPrototypeId) %>" />
 					<portlet:param name="active" value="<%= Boolean.TRUE.toString() %>" />
@@ -84,6 +95,7 @@ boolean readyForPropagation = GetterUtil.getBoolean(layoutSetPrototype.getSettin
 				/>
 			</c:when>
 		</c:choose>
+<<<<<<< HEAD
 
 		<c:choose>
 			<c:when test="<%= readyForPropagation && !group.isGuest() %>">
@@ -111,6 +123,8 @@ boolean readyForPropagation = GetterUtil.getBoolean(layoutSetPrototype.getSettin
 				/>
 			</c:when>
 		</c:choose>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	</c:if>
 
 	<c:if test="<%= LayoutSetPrototypePermissionUtil.contains(permissionChecker, layoutSetPrototypeId, ActionKeys.PERMISSIONS) %>">

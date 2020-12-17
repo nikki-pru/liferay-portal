@@ -28,7 +28,11 @@ ConfigurationCategoryMenuDisplay configurationCategoryMenuDisplay = (Configurati
 
 ConfigurationCategoryDisplay configurationCategoryDisplay = configurationCategoryMenuDisplay.getConfigurationCategoryDisplay();
 
+<<<<<<< HEAD
 String categoryDisplayName = configurationCategoryDisplay.getCategoryLabel(locale);
+=======
+String categoryDisplayName = HtmlUtil.escape(configurationCategoryDisplay.getCategoryLabel(locale));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 String viewCategoryHREF = ConfigurationCategoryUtil.getHREF(configurationCategoryMenuDisplay, liferayPortletResponse, renderRequest, renderResponse);
 

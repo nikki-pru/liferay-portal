@@ -39,8 +39,13 @@ portletDisplay.setShowBackIcon(true);
 							<span><%= HtmlUtil.escape(ctCollection.getName()) %></span>
 
 							<clay:label
+<<<<<<< HEAD
 								displayType="<%= publicationsDisplayContext.getStatusStyle(ctCollection.getStatus()) %>"
 								label="<%= publicationsDisplayContext.getStatusLabel(ctCollection.getStatus()) %>"
+=======
+								displayType="<%= WorkflowConstants.getStatusStyle(ctCollection.getStatus()) %>"
+								label="<%= viewChangesDisplayContext.getStatusLabel(ctCollection.getStatus()) %>"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							/>
 						</div>
 
@@ -103,6 +108,7 @@ portletDisplay.setShowBackIcon(true);
 						/>
 					</li>
 				</c:when>
+<<<<<<< HEAD
 				<c:when test="<%= ctCollection.getStatus() == WorkflowConstants.STATUS_EXPIRED %>">
 					<li class="tbar-item tbar-item-expand text-left">
 						<div class="publication-name">
@@ -153,14 +159,21 @@ portletDisplay.setShowBackIcon(true);
 						/>
 					</li>
 				</c:when>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				<c:when test="<%= ctCollection.getStatus() == WorkflowConstants.STATUS_SCHEDULED %>">
 					<li class="tbar-item tbar-item-expand text-left">
 						<div class="publication-name">
 							<span><%= HtmlUtil.escape(ctCollection.getName()) %></span>
 
 							<clay:label
+<<<<<<< HEAD
 								displayType="<%= publicationsDisplayContext.getStatusStyle(ctCollection.getStatus()) %>"
 								label="<%= publicationsDisplayContext.getStatusLabel(ctCollection.getStatus()) %>"
+=======
+								displayType="<%= WorkflowConstants.getStatusStyle(ctCollection.getStatus()) %>"
+								label="<%= viewChangesDisplayContext.getStatusLabel(ctCollection.getStatus()) %>"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							/>
 						</div>
 
@@ -209,8 +222,13 @@ portletDisplay.setShowBackIcon(true);
 							<span><%= HtmlUtil.escape(ctCollection.getName()) %></span>
 
 							<clay:label
+<<<<<<< HEAD
 								displayType="<%= publicationsDisplayContext.getStatusStyle(ctCollection.getStatus()) %>"
 								label="<%= publicationsDisplayContext.getStatusLabel(ctCollection.getStatus()) %>"
+=======
+								displayType="<%= WorkflowConstants.getStatusStyle(ctCollection.getStatus()) %>"
+								label="<%= viewChangesDisplayContext.getStatusLabel(ctCollection.getStatus()) %>"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							/>
 						</div>
 

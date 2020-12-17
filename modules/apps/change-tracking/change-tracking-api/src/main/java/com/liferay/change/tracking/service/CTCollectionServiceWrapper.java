@@ -75,33 +75,56 @@ public class CTCollectionServiceWrapper
 	@Override
 	public java.util.List<com.liferay.change.tracking.model.CTCollection>
 		getCTCollections(
+<<<<<<< HEAD
 			long companyId, int[] statuses, int start, int end,
+=======
+			long companyId, int status, int start, int end,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			com.liferay.portal.kernel.util.OrderByComparator
 				<com.liferay.change.tracking.model.CTCollection>
 					orderByComparator) {
 
 		return _ctCollectionService.getCTCollections(
+<<<<<<< HEAD
 			companyId, statuses, start, end, orderByComparator);
+=======
+			companyId, status, start, end, orderByComparator);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
 	public java.util.List<com.liferay.change.tracking.model.CTCollection>
 		getCTCollections(
+<<<<<<< HEAD
 			long companyId, int[] statuses, String keywords, int start, int end,
+=======
+			long companyId, int status, String keywords, int start, int end,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			com.liferay.portal.kernel.util.OrderByComparator
 				<com.liferay.change.tracking.model.CTCollection>
 					orderByComparator) {
 
 		return _ctCollectionService.getCTCollections(
+<<<<<<< HEAD
 			companyId, statuses, keywords, start, end, orderByComparator);
+=======
+			companyId, status, keywords, start, end, orderByComparator);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
 	public int getCTCollectionsCount(
+<<<<<<< HEAD
 		long companyId, int[] statuses, String keywords) {
 
 		return _ctCollectionService.getCTCollectionsCount(
 			companyId, statuses, keywords);
+=======
+		long companyId, int status, String keywords) {
+
+		return _ctCollectionService.getCTCollectionsCount(
+			companyId, status, keywords);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**

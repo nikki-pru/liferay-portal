@@ -41,9 +41,14 @@ public class AccountGroupSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+<<<<<<< HEAD
 		soapModel.setDefaultAccountGroup(model.isDefaultAccountGroup());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setName(model.getName());
+=======
+		soapModel.setName(model.getName());
+		soapModel.setDescription(model.getDescription());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return soapModel;
 	}
@@ -161,6 +166,7 @@ public class AccountGroupSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+<<<<<<< HEAD
 	public boolean getDefaultAccountGroup() {
 		return _defaultAccountGroup;
 	}
@@ -171,6 +177,14 @@ public class AccountGroupSoap implements Serializable {
 
 	public void setDefaultAccountGroup(boolean defaultAccountGroup) {
 		_defaultAccountGroup = defaultAccountGroup;
+=======
+	public String getName() {
+		return _name;
+	}
+
+	public void setName(String name) {
+		_name = name;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getDescription() {
@@ -181,6 +195,7 @@ public class AccountGroupSoap implements Serializable {
 		_description = description;
 	}
 
+<<<<<<< HEAD
 	public String getName() {
 		return _name;
 	}
@@ -189,6 +204,8 @@ public class AccountGroupSoap implements Serializable {
 		_name = name;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private long _mvccVersion;
 	private String _externalReferenceCode;
 	private long _accountGroupId;
@@ -197,8 +214,13 @@ public class AccountGroupSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+<<<<<<< HEAD
 	private boolean _defaultAccountGroup;
 	private String _description;
 	private String _name;
+=======
+	private String _name;
+	private String _description;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 }

@@ -17,7 +17,10 @@ package com.liferay.jenkins.results.parser.spira;
 import com.liferay.jenkins.results.parser.JenkinsResultsParserUtil;
 import com.liferay.jenkins.results.parser.JenkinsResultsParserUtil.HttpRequestMethod;
 import com.liferay.jenkins.results.parser.ParallelExecutor;
+<<<<<<< HEAD
 import com.liferay.jenkins.results.parser.spira.result.SpiraTestResult;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -121,7 +124,12 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 			requestJSONObject.put("RunnerStackTrace", result.getDescription());
 			requestJSONObject.put(
 				"RunnerTestName", spiraTestCaseObject.getName());
+<<<<<<< HEAD
 			requestJSONObject.put("StartDate", toDateString(calendar));
+=======
+			requestJSONObject.put(
+				"StartDate", PathSpiraArtifact.toDateString(calendar));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			requestJSONObject.put(
 				"TestRunFormatId", result.getRunnerFormatID());
 
@@ -162,9 +170,19 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 			List<SpiraTestCaseRun> spiraTestCaseRuns = new ArrayList<>();
 
 			for (int i = 0; i < responseJSONArray.length(); i++) {
+<<<<<<< HEAD
 				spiraTestCaseRuns.add(
 					new SpiraTestCaseRun(
 						spiraProject, responseJSONArray.getJSONObject(i)));
+=======
+				JSONObject responseJSONObject = responseJSONArray.getJSONObject(
+					i);
+
+				responseJSONObject.put(
+					SpiraProject.KEY_ID, spiraProject.getID());
+
+				spiraTestCaseRuns.add(new SpiraTestCaseRun(responseJSONObject));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 
 			return spiraTestCaseRuns;
@@ -273,6 +291,7 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 		return spiraTestCaseRuns;
 	}
 
+<<<<<<< HEAD
 	public static List<SpiraTestCaseRun> recordSpiraTestCaseRuns(
 		SpiraProject spiraProject, SpiraTestResult... spiraTestResults) {
 
@@ -308,6 +327,8 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public JSONObject getAutomatedJSONObject() {
 		if (_automatedJSONObject != null) {
 			return _automatedJSONObject;
@@ -335,11 +356,14 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public String getName() {
 		return jsonObject.getString("RunnerTestName");
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getURL() {
 		SpiraProject spiraProject = getSpiraProject();
 
@@ -359,11 +383,18 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 			_spiraTestCaseObject = spiraTestCaseObject;
 			_spiraAutomationHost = spiraAutomationHost;
 			_runnerFormat = runnerFormat;
+<<<<<<< HEAD
 			_duration = duration;
 			_status = status;
 			_spiraCustomPropertyValues = spiraCustomPropertyValues;
 
 			_description = runnerStackTrace;
+=======
+			_description = runnerStackTrace;
+			_duration = duration;
+			_status = status;
+			_spiraCustomPropertyValues = spiraCustomPropertyValues;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		public Result(
@@ -375,11 +406,18 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 			_spiraTestCaseObjectSupplier = spiraTestCaseObjectSupplier;
 			_spiraAutomationHost = spiraAutomationHost;
 			_runnerFormat = runnerFormat;
+<<<<<<< HEAD
 			_duration = duration;
 			_status = status;
 			_spiraCustomPropertyValues = spiraCustomPropertyValues;
 
 			_description = runnerStackTrace;
+=======
+			_description = runnerStackTrace;
+			_duration = duration;
+			_status = status;
+			_spiraCustomPropertyValues = spiraCustomPropertyValues;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		public JSONArray getCustomPropertyValuesJSONArray() {
@@ -612,7 +650,11 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 
 				@Override
 				public SpiraTestCaseRun apply(JSONObject jsonObject) {
+<<<<<<< HEAD
 					return new SpiraTestCaseRun(spiraProject, jsonObject);
+=======
+					return new SpiraTestCaseRun(jsonObject);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				}
 
 			},
@@ -675,11 +717,17 @@ public class SpiraTestCaseRun extends BaseSpiraArtifact {
 		}
 	}
 
+<<<<<<< HEAD
 	private SpiraTestCaseRun(SpiraProject spiraProject, JSONObject jsonObject) {
 		super(jsonObject);
 
 		jsonObject.put(spiraProject.getKeyID(), spiraProject.getID());
 
+=======
+	private SpiraTestCaseRun(JSONObject jsonObject) {
+		super(jsonObject);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		cacheSpiraArtifact(SpiraTestCaseRun.class, this);
 	}
 

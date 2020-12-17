@@ -15,7 +15,10 @@
 package com.liferay.portal.template.freemarker.internal;
 
 import com.liferay.petra.io.unsync.UnsyncStringWriter;
+<<<<<<< HEAD
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.template.StringTemplateResource;
 import com.liferay.portal.kernel.template.Template;
 import com.liferay.portal.kernel.template.TemplateException;
@@ -24,7 +27,10 @@ import com.liferay.portal.kernel.template.TemplateResourceCache;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.template.TemplateContextHelper;
+<<<<<<< HEAD
 import com.liferay.portal.template.freemarker.configuration.FreeMarkerEngineConfiguration;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import freemarker.cache.TemplateCache;
 
@@ -75,6 +81,7 @@ public class FreeMarkerTemplateTest {
 			"_freeMarkerTemplateResourceCache", _templateResourceCache);
 
 		_freeMarkerTemplateResourceLoader.activate(Collections.emptyMap());
+<<<<<<< HEAD
 
 		_freeMarkerManager = new FreeMarkerManager();
 
@@ -82,6 +89,8 @@ public class FreeMarkerTemplateTest {
 			_freeMarkerManager, "_freeMarkerEngineConfiguration",
 			ConfigurableUtil.createConfigurable(
 				FreeMarkerEngineConfiguration.class, Collections.emptyMap()));
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Before
@@ -104,8 +113,12 @@ public class FreeMarkerTemplateTest {
 		Template template = new FreeMarkerTemplate(
 			new MockTemplateResource(_TEMPLATE_FILE_NAME), null, _configuration,
 			_templateContextHelper, _templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -125,8 +138,12 @@ public class FreeMarkerTemplateTest {
 		Template template = new FreeMarkerTemplate(
 			new MockTemplateResource(_TEMPLATE_FILE_NAME), null, _configuration,
 			_templateContextHelper, _templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -148,8 +165,12 @@ public class FreeMarkerTemplateTest {
 		Template template = new FreeMarkerTemplate(
 			new MockTemplateResource(_TEMPLATE_FILE_NAME), null, _configuration,
 			_templateContextHelper, _templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -167,8 +188,12 @@ public class FreeMarkerTemplateTest {
 		Template template = new FreeMarkerTemplate(
 			new MockTemplateResource(_WRONG_TEMPLATE_ID), null, _configuration,
 			_templateContextHelper, _templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -193,8 +218,12 @@ public class FreeMarkerTemplateTest {
 				_WRONG_TEMPLATE_ID, _TEST_TEMPLATE_CONTENT),
 			null, _configuration, _templateContextHelper,
 			_templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -212,8 +241,12 @@ public class FreeMarkerTemplateTest {
 		Template template = new FreeMarkerTemplate(
 			new MockTemplateResource(_TEMPLATE_FILE_NAME), null, _configuration,
 			_templateContextHelper, _templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -233,8 +266,12 @@ public class FreeMarkerTemplateTest {
 		Template template = new FreeMarkerTemplate(
 			new MockTemplateResource(_WRONG_TEMPLATE_ID), null, _configuration,
 			_templateContextHelper, _templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -254,8 +291,12 @@ public class FreeMarkerTemplateTest {
 		Template template = new FreeMarkerTemplate(
 			new MockTemplateResource(_WRONG_TEMPLATE_ID), null, _configuration,
 			_templateContextHelper, _templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -281,8 +322,12 @@ public class FreeMarkerTemplateTest {
 		Template template = new FreeMarkerTemplate(
 			new MockTemplateResource(_WRONG_TEMPLATE_ID), null, _configuration,
 			_templateContextHelper, _templateResourceCache, false,
+<<<<<<< HEAD
 			(BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			(BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		template.put(_TEST_KEY, _TEST_VALUE);
 
@@ -306,8 +351,12 @@ public class FreeMarkerTemplateTest {
 				_TEST_KEY, _TEST_VALUE
 			).build(),
 			_configuration, _templateContextHelper, _templateResourceCache,
+<<<<<<< HEAD
 			false, (BeansWrapper)_configuration.getObjectWrapper(),
 			_freeMarkerManager);
+=======
+			false, (BeansWrapper)_configuration.getObjectWrapper(), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		UnsyncStringWriter unsyncStringWriter = new UnsyncStringWriter();
 
@@ -331,7 +380,10 @@ public class FreeMarkerTemplateTest {
 
 	private static final String _WRONG_TEMPLATE_ID = "WRONG_TEMPLATE_ID";
 
+<<<<<<< HEAD
 	private static FreeMarkerManager _freeMarkerManager;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static FreeMarkerTemplateResourceLoader
 		_freeMarkerTemplateResourceLoader;
 	private static TemplateResourceCache _templateResourceCache;

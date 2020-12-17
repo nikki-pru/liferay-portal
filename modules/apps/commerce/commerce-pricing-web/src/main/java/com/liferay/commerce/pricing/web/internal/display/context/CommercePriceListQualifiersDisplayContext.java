@@ -28,8 +28,13 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.PortletProvider;
 import com.liferay.portal.kernel.portlet.PortletProviderUtil;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.ListUtil;
 
+=======
+
+import java.util.ArrayList;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.List;
 
 import javax.portlet.PortletURL;
@@ -121,11 +126,23 @@ public class CommercePriceListQualifiersDisplayContext
 			getPriceListAccountGroupClayDataSetActionDropdownItems()
 		throws PortalException {
 
+<<<<<<< HEAD
 		return ListUtil.fromArray(
+=======
+		List<ClayDataSetActionDropdownItem> clayDataSetActionDropdownItems =
+			new ArrayList<>();
+
+		clayDataSetActionDropdownItems.add(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			new ClayDataSetActionDropdownItem(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
 				"delete", "headless"));
+<<<<<<< HEAD
+=======
+
+		return clayDataSetActionDropdownItems;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getPriceListAccountGroupsApiURL() throws PortalException {

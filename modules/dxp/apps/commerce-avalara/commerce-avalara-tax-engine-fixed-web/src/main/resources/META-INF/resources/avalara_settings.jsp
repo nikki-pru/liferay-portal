@@ -17,6 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
+<<<<<<< HEAD
 CommerceAvalaraConnectorConfiguration commerceAvalaraConnectorConfiguration = (CommerceAvalaraConnectorConfiguration)request.getAttribute(CommerceAvalaraConnectorConfiguration.class.getName());
 %>
 
@@ -50,3 +51,23 @@ CommerceAvalaraConnectorConfiguration commerceAvalaraConnectorConfiguration = (C
 		inputCmd.value = 'verifyConnection';
 	});
 </aui:script>
+=======
+CommerceTaxAvalaraTypeConfiguration commerceTaxAvalaraTypeConfiguration = (CommerceTaxAvalaraTypeConfiguration)request.getAttribute(CommerceTaxAvalaraTypeConfiguration.class.getName());
+%>
+
+<portlet:actionURL name="/commerce_tax_methods/edit_commerce_tax_avalara" var="editCommerceTaxAvalaraActionURL" />
+
+<commerce-ui:side-panel-content
+	title='<%= LanguageUtil.get(resourceBundle, "edit-avalara-settings") %>'
+>
+	<aui:form action="<%= editCommerceTaxAvalaraActionURL %>" method="post" name="fm">
+		<commerce-ui:panel>
+			<%@ include file="/edit_avalara_settings.jspf" %>
+		</commerce-ui:panel>
+
+		<aui:button-row>
+			<aui:button cssClass="btn-lg" type="submit" />
+		</aui:button-row>
+	</aui:form>
+</commerce-ui:side-panel-content>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

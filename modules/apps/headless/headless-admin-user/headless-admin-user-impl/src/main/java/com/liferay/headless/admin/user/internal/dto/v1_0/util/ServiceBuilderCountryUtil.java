@@ -26,26 +26,41 @@ import java.util.Optional;
  */
 public class ServiceBuilderCountryUtil {
 
+<<<<<<< HEAD
 	public static Country toServiceBuilderCountry(
 		long companyId, String addressCountry) {
 
 		try {
 			Country country = CountryServiceUtil.fetchCountryByA2(
 				companyId, addressCountry);
+=======
+	public static Country toServiceBuilderCountry(String addressCountry) {
+		try {
+			Country country = CountryServiceUtil.fetchCountryByA2(
+				addressCountry);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			if (country != null) {
 				return country;
 			}
 
+<<<<<<< HEAD
 			country = CountryServiceUtil.fetchCountryByA3(
 				companyId, addressCountry);
+=======
+			country = CountryServiceUtil.fetchCountryByA3(addressCountry);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			if (country != null) {
 				return country;
 			}
 
+<<<<<<< HEAD
 			return CountryServiceUtil.getCountryByName(
 				companyId, addressCountry);
+=======
+			return CountryServiceUtil.getCountryByName(addressCountry);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
@@ -56,6 +71,7 @@ public class ServiceBuilderCountryUtil {
 		return null;
 	}
 
+<<<<<<< HEAD
 	public static long toServiceBuilderCountryId(
 		long companyId, String addressCountry) {
 
@@ -63,6 +79,13 @@ public class ServiceBuilderCountryUtil {
 			addressCountry
 		).map(
 			country -> toServiceBuilderCountry(companyId, country)
+=======
+	public static long toServiceBuilderCountryId(String addressCountry) {
+		return Optional.ofNullable(
+			addressCountry
+		).map(
+			ServiceBuilderCountryUtil::toServiceBuilderCountry
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		).map(
 			Country::getCountryId
 		).orElse(

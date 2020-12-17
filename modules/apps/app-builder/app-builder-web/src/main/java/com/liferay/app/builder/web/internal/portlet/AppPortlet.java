@@ -74,9 +74,13 @@ public class AppPortlet extends MVCPortlet {
 		_portletName = portletName;
 		_showFormView = showFormView;
 		_showTableView = showTableView;
+<<<<<<< HEAD
 
 		_viewTemplate =
 			showTableView ? "/view_app_entries.jsp" : "/edit_app_entry.jsp";
+=======
+		_viewTemplate = showTableView ? "/view_entries.jsp" : "/edit_entry.jsp";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public Dictionary<String, Object> getProperties(

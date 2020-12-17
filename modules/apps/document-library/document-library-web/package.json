@@ -8,6 +8,12 @@
 		"@clayui/loading-indicator": "3.2.0",
 		"@clayui/modal": "3.8.1",
 		"asset-taglib": "*",
+<<<<<<< HEAD
+=======
+		"clay-button": "2.21.4",
+		"clay-multi-select": "2.21.4",
+		"clay-radio": "2.21.4",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		"clipboard": "2.0.4",
 		"frontend-js-react-web": "*",
 		"frontend-js-web": "*",

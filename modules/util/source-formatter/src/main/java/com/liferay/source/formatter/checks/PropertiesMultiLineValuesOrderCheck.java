@@ -111,7 +111,11 @@ public class PropertiesMultiLineValuesOrderCheck extends BaseFileCheck {
 	}
 
 	private static final Pattern _keyValuesPattern = Pattern.compile(
+<<<<<<< HEAD
 		"(?<=(\n|\\A))( *).+=\\\\(\n\\2    .+){2,}");
+=======
+		"(\n|\\A)( *).+=\\\\(\n\\2    .+){2,}");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static final Pattern _multiLineValuesPattern = Pattern.compile(
 		"(\n +(?![\\\\# ]).*){2,}");
 

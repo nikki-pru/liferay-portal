@@ -208,11 +208,37 @@ definition {
 		}
 
 		task ("Add a web content article") {
+<<<<<<< HEAD
 			JSONWebcontent.addWebContent(
 				content = "Webcontent Content",
 				groupName = "Test Site Name (Staging)",
 				site = "false",
 				title = "Webcontent Title");
+=======
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name-staging");
+
+			WebContentNavigator.gotoAddCP();
+
+			WebContent.addCP(
+				webContentContent = "Webcontent Content",
+				webContentTitle = "Webcontent Title");
+		}
+
+		task ("Assert the display page is selected by default") {
+			Panel.expandPanel(panel = "Display Page Template");
+
+			AssertSelectedLabel(
+				locator1 = "WCEditWebContent#DISPLAY_PAGE_SELECT",
+				value1 = "Default Display Page Template");
+
+			AssertTextEquals(
+				locator1 = "WCEditWebContent#DISPLAY_PAGE_DEFAULT_SELECTION",
+				value1 = "Display Page Name");
+		}
+
+		task ("Publish the web content article") {
+			PortletEntry.publish();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the web content article displays through the display page in the staging site") {
@@ -266,11 +292,23 @@ definition {
 		}
 
 		task ("Add a web content article") {
+<<<<<<< HEAD
 			JSONWebcontent.addWebContent(
 				content = "Webcontent Content",
 				groupName = "Test Site Name (Staging)",
 				site = "false",
 				title = "Webcontent Title");
+=======
+			WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name-staging");
+
+			WebContentNavigator.gotoAddCP();
+
+			WebContent.addCP(
+				webContentContent = "Webcontent Content",
+				webContentTitle = "Webcontent Title");
+
+			PortletEntry.publish();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Publish the site to live") {

@@ -248,6 +248,7 @@ public interface CTCollectionPersistence extends BasePersistence<CTCollection> {
 	public int filterCountByCompanyId(long companyId);
 
 	/**
+<<<<<<< HEAD
 	 * Returns all the ct collections where schemaVersionId = &#63;.
 	 *
 	 * @param schemaVersionId the schema version ID
@@ -457,6 +458,8 @@ public interface CTCollectionPersistence extends BasePersistence<CTCollection> {
 	public int filterCountBySchemaVersionId(long schemaVersionId);
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns all the ct collections where companyId = &#63; and status = &#63;.
 	 *
 	 * @param companyId the company ID
@@ -655,6 +658,7 @@ public interface CTCollectionPersistence extends BasePersistence<CTCollection> {
 		throws NoSuchCollectionException;
 
 	/**
+<<<<<<< HEAD
 	 * Returns all the ct collections that the user has permission to view where companyId = &#63; and status = any &#63;.
 	 *
 	 * @param companyId the company ID
@@ -770,6 +774,8 @@ public interface CTCollectionPersistence extends BasePersistence<CTCollection> {
 		boolean useFinderCache);
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Removes all the ct collections where companyId = &#63; and status = &#63; from the database.
 	 *
 	 * @param companyId the company ID
@@ -787,6 +793,7 @@ public interface CTCollectionPersistence extends BasePersistence<CTCollection> {
 	public int countByC_S(long companyId, int status);
 
 	/**
+<<<<<<< HEAD
 	 * Returns the number of ct collections where companyId = &#63; and status = any &#63;.
 	 *
 	 * @param companyId the company ID
@@ -796,6 +803,8 @@ public interface CTCollectionPersistence extends BasePersistence<CTCollection> {
 	public int countByC_S(long companyId, int[] statuses);
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the number of ct collections that the user has permission to view where companyId = &#63; and status = &#63;.
 	 *
 	 * @param companyId the company ID
@@ -805,6 +814,7 @@ public interface CTCollectionPersistence extends BasePersistence<CTCollection> {
 	public int filterCountByC_S(long companyId, int status);
 
 	/**
+<<<<<<< HEAD
 	 * Returns the number of ct collections that the user has permission to view where companyId = &#63; and status = any &#63;.
 	 *
 	 * @param companyId the company ID
@@ -814,6 +824,8 @@ public interface CTCollectionPersistence extends BasePersistence<CTCollection> {
 	public int filterCountByC_S(long companyId, int[] statuses);
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Caches the ct collection in the entity cache if it is enabled.
 	 *
 	 * @param ctCollection the ct collection

@@ -48,7 +48,10 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 import com.liferay.portal.kernel.util.Constants;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.ListUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -253,11 +256,23 @@ public class CommerceDiscountDisplayContext extends BasePricingDisplayContext {
 			getDiscountCategoryClayDataSetActionDropdownItems()
 		throws PortalException {
 
+<<<<<<< HEAD
 		return ListUtil.fromArray(
+=======
+		List<ClayDataSetActionDropdownItem> clayDataSetActionDropdownItems =
+			new ArrayList<>();
+
+		clayDataSetActionDropdownItems.add(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			new ClayDataSetActionDropdownItem(
 				null, "trash", "delete",
 				LanguageUtil.get(httpServletRequest, "delete"), "delete",
 				"delete", "headless"));
+<<<<<<< HEAD
+=======
+
+		return clayDataSetActionDropdownItems;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public List<ClayDataSetActionDropdownItem>

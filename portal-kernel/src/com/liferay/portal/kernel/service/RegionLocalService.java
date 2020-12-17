@@ -126,10 +126,16 @@ public interface RegionLocalService
 	 *
 	 * @param region the region
 	 * @return the region that was removed
+<<<<<<< HEAD
 	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	public Region deleteRegion(Region region) throws PortalException;
+=======
+	 */
+	@Indexable(type = IndexableType.DELETE)
+	public Region deleteRegion(Region region);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public <T> T dslQuery(DSLQuery dslQuery);
@@ -203,9 +209,12 @@ public interface RegionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region fetchRegion(long regionId);
 
+<<<<<<< HEAD
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region fetchRegion(long countryId, String regionCode);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the region with the matching UUID and company.
 	 *
@@ -251,10 +260,13 @@ public interface RegionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region getRegion(long regionId) throws PortalException;
 
+<<<<<<< HEAD
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region getRegion(long countryId, String regionCode)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the region with the matching UUID and company.
 	 *
@@ -281,6 +293,7 @@ public interface RegionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Region> getRegions(int start, int end);
 
+<<<<<<< HEAD
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Region> getRegions(long countryId, boolean active)
 		throws PortalException;
@@ -299,6 +312,8 @@ public interface RegionLocalService
 	public List<Region> getRegions(long companyId, String a2, boolean active)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the number of regions.
 	 *
@@ -307,6 +322,7 @@ public interface RegionLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getRegionsCount();
 
+<<<<<<< HEAD
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getRegionsCount(long countryId);
 
@@ -321,6 +337,8 @@ public interface RegionLocalService
 			String regionCode)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Updates the region in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *

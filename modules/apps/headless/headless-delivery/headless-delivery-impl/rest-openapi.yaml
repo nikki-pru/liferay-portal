@@ -1735,6 +1735,7 @@ components:
             required:
                 - name
             type: object
+<<<<<<< HEAD
         Language:
             # @review
             description:
@@ -1757,6 +1758,8 @@ components:
                         type: string
                     type: object
             type: object
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
         MasterPage:
             description:
                 ""
@@ -3694,6 +3697,7 @@ paths:
                     description:
                         ""
             tags: ["Document"]
+<<<<<<< HEAD
     "/asset-libraries/{assetLibraryId}/languages":
         get:
             # @review
@@ -3723,6 +3727,8 @@ paths:
                     description:
                         ""
             tags: [ "Language" ]
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
     "/asset-libraries/{assetLibraryId}/structured-content-folders":
         get:
             operationId: getAssetLibraryStructuredContentFoldersPage
@@ -7999,6 +8005,7 @@ paths:
                     description:
                         ""
             tags: ["KnowledgeBaseFolder"]
+<<<<<<< HEAD
     "/sites/{siteId}/languages":
         get:
             # @review
@@ -8028,6 +8035,8 @@ paths:
                     description:
                         ""
             tags: [ "Language" ]
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
     "/sites/{siteId}/message-board-messages":
         # @review
         get:

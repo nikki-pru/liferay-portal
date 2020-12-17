@@ -44,7 +44,10 @@ public class Organization {
 
 	public Organization(String[] errorMessages) {
 		_errorMessages = errorMessages;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_success = false;
 	}
 

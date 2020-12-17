@@ -28,11 +28,18 @@ public class LockProtectedAction<T> {
 	public LockProtectedAction(
 		Class<?> clazz, String lockKey, long timeout, long retryDelay) {
 
+<<<<<<< HEAD
 		_lockKey = lockKey;
 		_timeout = timeout;
 		_retryDelay = retryDelay;
 
 		_className = clazz.getName();
+=======
+		_className = clazz.getName();
+		_lockKey = lockKey;
+		_timeout = timeout;
+		_retryDelay = retryDelay;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public T getReturnValue() {

@@ -49,7 +49,11 @@ public class AssetEntryItemSelectorReturnTypeResolver
 		).put(
 			"classNameId", assetEntry.getClassNameId()
 		).put(
+<<<<<<< HEAD
 			"classPK", String.valueOf(assetEntry.getClassPK())
+=======
+			"classPK", assetEntry.getClassPK()
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		).put(
 			"title", assetEntry.getTitle(themeDisplay.getLocale())
 		).toString();

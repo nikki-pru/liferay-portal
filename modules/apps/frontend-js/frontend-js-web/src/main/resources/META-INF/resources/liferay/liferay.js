@@ -14,7 +14,11 @@
 
 Liferay = window.Liferay || {};
 
+<<<<<<< HEAD
 (function () {
+=======
+(function (Liferay) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	var isFunction = function (val) {
 		return typeof val === 'function';
 	};
@@ -225,4 +229,8 @@ Liferay = window.Liferay || {};
 		PORTLET:
 			'<div class="portlet"><div class="portlet-topper"><div class="portlet-title"></div></div><div class="portlet-content"></div><div class="forbidden-action"></div></div>',
 	};
+<<<<<<< HEAD
 })();
+=======
+})(Liferay);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

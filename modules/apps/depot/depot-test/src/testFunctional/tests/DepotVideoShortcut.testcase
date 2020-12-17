@@ -24,15 +24,19 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
+<<<<<<< HEAD
 			Site.tearDownCP();
 
 			Depot.tearDownCP();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			DMDocument.tearDownCP();
 
 			DMFolder.tearDownCP();
 
 			User.logoutPG();
+<<<<<<< HEAD
 		}
 	}
 
@@ -83,6 +87,11 @@ definition {
 			embedVideo = "true",
 			entryContent = "video",
 			entryTitle = "Blogs Entry Title");
+=======
+
+			Site.tearDownCP();
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@description = "This ensures that a depot video shortcut associated with a tag can be searched from the connected site."
@@ -177,6 +186,7 @@ definition {
 		SearchResultPortlet.viewNoSearchResults(searchTerm = "depot");
 	}
 
+<<<<<<< HEAD
 	@description = "This ensures that a depot external video cannot be viewed from the disconnected site."
 	@priority = "4"
 	test ViewFromDisconnectedSite {
@@ -290,4 +300,6 @@ definition {
 		AssertElementPresent(locator1 = "Button#YOUTUBE_PLAY");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

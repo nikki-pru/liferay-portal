@@ -300,7 +300,11 @@ public class DDMIndexerImpl implements DDMIndexer {
 
 					String type = field.getType();
 
+<<<<<<< HEAD
 					if (type.equals(DDMFormFieldType.SELECT)) {
+=======
+					if (type.equals(DDMImpl.TYPE_SELECT)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
 							valueString);
 
@@ -312,7 +316,11 @@ public class DDMIndexerImpl implements DDMIndexer {
 						sb.append(StringPool.SPACE);
 					}
 					else {
+<<<<<<< HEAD
 						if (type.equals(DDMFormFieldType.TEXT_HTML)) {
+=======
+						if (type.equals(DDMImpl.TYPE_DDM_TEXT_HTML)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							valueString = HtmlUtil.extractText(valueString);
 						}
 
@@ -489,7 +497,11 @@ public class DDMIndexerImpl implements DDMIndexer {
 				document.addGeoLocation(
 					name.concat("_geolocation"), latitude, longitude);
 			}
+<<<<<<< HEAD
 			else if (type.equals(DDMFormFieldType.SELECT)) {
+=======
+			else if (type.equals(DDMImpl.TYPE_SELECT)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				document.addKeyword(
 					_getSortableFieldName(name),
 					ArrayUtil.toStringArray(
@@ -500,7 +512,11 @@ public class DDMIndexerImpl implements DDMIndexer {
 						JSONFactoryUtil.createJSONArray(valueString)));
 			}
 			else {
+<<<<<<< HEAD
 				if (type.equals(DDMFormFieldType.TEXT_HTML)) {
+=======
+				if (type.equals(DDMImpl.TYPE_DDM_TEXT_HTML)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					valueString = HtmlUtil.extractText(valueString);
 					sortableValueString = HtmlUtil.extractText(
 						sortableValueString);

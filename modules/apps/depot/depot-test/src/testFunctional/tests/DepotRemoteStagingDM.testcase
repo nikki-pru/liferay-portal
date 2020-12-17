@@ -4,6 +4,11 @@ definition {
 	property app.server.bundles.size = "1";
 	property custom.properties = "tunneling.servlet.shared.secret=1234567890123456${line.separator}auth.verifier.TunnelAuthVerifier.hosts.allowed=";
 	property databases.size = "1";
+<<<<<<< HEAD
+=======
+	property osgi.module.configuration.file.names = "com.liferay.depot.web.internal.configuration.FFDepotStagingConfiguration.config";
+	property osgi.module.configurations = "enabled=B&quot;true&quot;";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Depot";
@@ -51,6 +56,7 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
+<<<<<<< HEAD
 			JSONDepot.deleteDepot(depotName = "Test Depot Name");
 
 			JSONDepot.deleteDepot(depotName = "Remote Depot");
@@ -59,6 +65,8 @@ definition {
 
 			JSONGroup.deleteGroupByName(groupName = "Site Name");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			User.logoutPG();
 		}
 	}
@@ -66,7 +74,10 @@ definition {
 	@description = "This ensures that image in depot can be removed and republished in AP through widget config manual selection when enabling remote staging."
 	@priority = "5"
 	test DeleteImageInDepot {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		property test.name.skip.portal.instance = "DepotRemoteStagingDM#DeleteImageInDepot";
 
 		DepotNavigator.openDepotDocumentsAndMediaAdmin(depotName = "Test Depot Name");
@@ -165,6 +176,7 @@ definition {
 			value1 = "Document_2.jpg");
 	}
 
+<<<<<<< HEAD
 	@description = "This ensures that video shortcut in depot can be deleted and republished in Blogs when enabling remote staging."
 	@priority = "4"
 	test DeleteVideoShortcutInDepot {
@@ -286,6 +298,8 @@ definition {
 			entryTitle = "Blogs Entry Title");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "This ensures that the blog small image from a depot can be edited and republished when enabling remote staging."
 	@priority = "5"
 	test EditBlogSmallImage {

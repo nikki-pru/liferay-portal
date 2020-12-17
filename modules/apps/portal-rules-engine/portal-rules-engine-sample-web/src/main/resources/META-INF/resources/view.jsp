@@ -63,7 +63,10 @@ RulesEngine rulesEngine = (RulesEngine)request.getAttribute(RulesEngine.class.ge
 							AssetRenderer<?> assetRenderer = assetRendererFactory.getAssetRenderer(assetEntry.getClassPK());
 
 							request.setAttribute(WebKeys.ASSET_RENDERER, assetRenderer);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							request.setAttribute(WebKeys.ASSET_RENDERER_FACTORY, assetRendererFactory);
 						%>
 

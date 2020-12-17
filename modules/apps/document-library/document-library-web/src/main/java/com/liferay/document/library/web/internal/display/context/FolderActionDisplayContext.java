@@ -685,7 +685,13 @@ public class FolderActionDisplayContext {
 	}
 
 	private String _getDeleteFolderCommand() throws PortalException {
+<<<<<<< HEAD
 		if (DLFolderUtil.isRepositoryRoot(_getFolder())) {
+=======
+		Folder folder = _getFolder();
+
+		if (DLFolderUtil.isRepositoryRoot(folder)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return Constants.DELETE;
 		}
 

@@ -28,6 +28,12 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 public interface FFLayoutContentPageEditorConfiguration {
 
 	@Meta.AD(deflt = "false", required = false)
+<<<<<<< HEAD
+=======
+	public boolean adaptiveMediaEnabled();
+
+	@Meta.AD(deflt = "false", required = false)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean containerItemFlexEnabled();
 
 }

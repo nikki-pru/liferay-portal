@@ -23,7 +23,10 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.util.Collections;
+<<<<<<< HEAD
 import java.util.Comparator;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -37,7 +40,10 @@ public class ReferralTrafficChannelImpl implements TrafficChannel {
 
 	public ReferralTrafficChannelImpl(boolean error) {
 		_error = error;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_referringDomains = Collections.emptyList();
 		_referringPages = Collections.emptyList();
 		_trafficAmount = 0;
@@ -48,12 +54,19 @@ public class ReferralTrafficChannelImpl implements TrafficChannel {
 		List<ReferringURL> referringDomains, List<ReferringURL> referringPages,
 		long trafficAmount, double trafficShare) {
 
+<<<<<<< HEAD
+=======
+		_error = false;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_referringDomains = referringDomains;
 		_referringPages = referringPages;
 		_trafficAmount = trafficAmount;
 		_trafficShare = trafficShare;
+<<<<<<< HEAD
 
 		_error = false;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -157,11 +170,15 @@ public class ReferralTrafficChannelImpl implements TrafficChannel {
 		Stream<ReferringURL> stream = _referringDomains.stream();
 
 		return JSONUtil.putAll(
+<<<<<<< HEAD
 			stream.limit(
 				10
 			).sorted(
 				_getReferringURLComparator()
 			).map(
+=======
+			stream.map(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				ReferringURL::toJSONObject
 			).toArray());
 	}
@@ -174,15 +191,20 @@ public class ReferralTrafficChannelImpl implements TrafficChannel {
 		Stream<ReferringURL> stream = _referringPages.stream();
 
 		return JSONUtil.putAll(
+<<<<<<< HEAD
 			stream.limit(
 				10
 			).sorted(
 				_getReferringURLComparator()
 			).map(
+=======
+			stream.map(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				ReferringURL::toJSONObject
 			).toArray());
 	}
 
+<<<<<<< HEAD
 	private Comparator<ReferringURL> _getReferringURLComparator() {
 		Comparator<ReferringURL> comparator = Comparator.comparingInt(
 			ReferringURL::getTrafficAmount);
@@ -190,6 +212,8 @@ public class ReferralTrafficChannelImpl implements TrafficChannel {
 		return comparator.reversed();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private final boolean _error;
 	private final List<ReferringURL> _referringDomains;
 	private final List<ReferringURL> _referringPages;

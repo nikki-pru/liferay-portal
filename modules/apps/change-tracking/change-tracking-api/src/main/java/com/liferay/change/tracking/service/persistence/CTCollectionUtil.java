@@ -370,6 +370,7 @@ public class CTCollectionUtil {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns all the ct collections where schemaVersionId = &#63;.
 	 *
 	 * @param schemaVersionId the schema version ID
@@ -626,6 +627,8 @@ public class CTCollectionUtil {
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns all the ct collections where companyId = &#63; and status = &#63;.
 	 *
 	 * @param companyId the company ID
@@ -862,6 +865,7 @@ public class CTCollectionUtil {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns all the ct collections that the user has permission to view where companyId = &#63; and status = any &#63;.
 	 *
 	 * @param companyId the company ID
@@ -997,6 +1001,8 @@ public class CTCollectionUtil {
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Removes all the ct collections where companyId = &#63; and status = &#63; from the database.
 	 *
 	 * @param companyId the company ID
@@ -1018,6 +1024,7 @@ public class CTCollectionUtil {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the number of ct collections where companyId = &#63; and status = any &#63;.
 	 *
 	 * @param companyId the company ID
@@ -1029,6 +1036,8 @@ public class CTCollectionUtil {
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the number of ct collections that the user has permission to view where companyId = &#63; and status = &#63;.
 	 *
 	 * @param companyId the company ID
@@ -1040,6 +1049,7 @@ public class CTCollectionUtil {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the number of ct collections that the user has permission to view where companyId = &#63; and status = any &#63;.
 	 *
 	 * @param companyId the company ID
@@ -1051,6 +1061,8 @@ public class CTCollectionUtil {
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Caches the ct collection in the entity cache if it is enabled.
 	 *
 	 * @param ctCollection the ct collection

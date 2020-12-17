@@ -15,7 +15,10 @@
 package com.liferay.dispatch.web.internal.display.context;
 
 import com.liferay.dispatch.constants.DispatchConstants;
+<<<<<<< HEAD
 import com.liferay.dispatch.executor.DispatchTaskStatus;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dispatch.model.DispatchLog;
 import com.liferay.dispatch.model.DispatchTrigger;
 import com.liferay.dispatch.service.DispatchLogService;
@@ -65,6 +68,7 @@ public class DispatchLogDisplayContext {
 	}
 
 	public DispatchLog getDispatchLog() throws PortalException {
+<<<<<<< HEAD
 		return _dispatchLogService.getDispatchLog(
 			ParamUtil.getLong(
 				_dispatchRequestHelper.getRequest(), "dispatchLogId"));
@@ -89,6 +93,20 @@ public class DispatchLogDisplayContext {
 		Date endDate = dispatchLog.getEndDate();
 
 		return endDate.getTime() - startDate.getTime();
+=======
+		long dispatchLogId = ParamUtil.getLong(
+			_dispatchRequestHelper.getRequest(), "dispatchLogId");
+
+		if (dispatchLogId == 0) {
+			return null;
+		}
+
+		return _dispatchLogService.getDispatchLog(dispatchLogId);
+	}
+
+	public DispatchTrigger getDispatchTrigger() {
+		return _dispatchRequestHelper.getDispatchTrigger();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getOrderByCol() {

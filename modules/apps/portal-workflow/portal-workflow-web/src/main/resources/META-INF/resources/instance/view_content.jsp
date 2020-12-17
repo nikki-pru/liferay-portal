@@ -20,7 +20,10 @@
 String redirect = ParamUtil.getString(request, "redirect");
 
 long assetEntryId = ParamUtil.getLong(request, "assetEntryId");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String type = ParamUtil.getString(request, "type");
 
 AssetRendererFactory<?> assetRendererFactory = AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByType(type);

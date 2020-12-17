@@ -60,11 +60,14 @@
 	<td></td>
 </tr>
 <tr>
+<<<<<<< HEAD
 	<td>SELECT_CUSTOM_OBJECT_BUTTON_TEXT</td>
 	<td>//button[contains(@aria-labelledby,'select-object-label')]//span</td>
 	<td></td>
 </tr>
 <tr>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td>SELECT_FORM_VIEW_BUTTON</td>
 	<td>xpath=(//button[contains(@aria-labelledby,'form-view')])[${key_positionNumber}]</td>
 	<td></td>
@@ -85,11 +88,14 @@
 	<td></td>
 </tr>
 <tr>
+<<<<<<< HEAD
 	<td>SELECT_TABLE_VIEW_BUTTON_TEXT</td>
 	<td>//button[contains(@aria-labelledby,'table-view')]//span</td>
 	<td></td>
 </tr>
 <tr>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td>FORM_OR_TABLE_VIEW_ITEM</td>
 	<td>//div[contains(@class,'dropdown-menu show')]//button[contains(@class,'dropdown-item') and contains(text(),'${key_itemName}')]</td>
 	<td></td>
@@ -160,6 +166,7 @@
 	<td></td>
 </tr>
 <tr>
+<<<<<<< HEAD
 	<td>CREATE_FORM_VIEW_BUTTON</td>
 	<td>xpath=(//button[@title='New Form View'])[${key_positionNumber}]</td>
 	<td></td>
@@ -170,6 +177,8 @@
 	<td></td>
 </tr>
 <tr>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td>REMOVE_FORM_VIEW_BUTTON_GENERAL</td>
 	<td>//div[contains(@class,'step-form-view')]//button[contains(@title,'Remove')]</td>
 	<td></td>
@@ -179,6 +188,7 @@
 	<td>xpath=(//div[contains(@class,'step-form-view')]//button[contains(@title,'Remove')])[${key_positionNumber}]</td>
 	<td></td>
 </tr>
+<<<<<<< HEAD
 <tr>
 	<td>CREATE_NEW_CUSTOM_OBJECT_BUTTON</td>
 	<td>//button[contains(@class,'btn btn-monospaced btn-secondary mr-2 nav-btn nav-btn-monospaced')]</td>
@@ -194,6 +204,8 @@
 	<td>//button[contains(text(),'Continue')]</td>
 	<td></td>
 </tr>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 <!--APP_RUNNING-->
 <tr>
 	<td>SELECT_NEW_ASSIGNEE_BUTTON</td>
@@ -225,6 +237,7 @@
 	<td>//a//span[contains(text(),'${key_entryName}')]/ancestor::tr//span[contains(text(),'${key_info}')]</td>
 	<td></td>
 </tr>
+<<<<<<< HEAD
 <tr>
 	<td>OPEN_FORM_VIEW</td>
 	<td>xpath=(//div[contains(@label,'Select a Form View')]/parent::div//button[@title='Open'])[${key_positionNumber}]</td>
@@ -235,6 +248,8 @@
 	<td>//div[contains(@label,'Select a Table View')]/parent::div//button[@title='Open']</td>
 	<td></td>
 </tr>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 </tbody>
 </table>
 </body>

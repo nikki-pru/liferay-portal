@@ -186,6 +186,7 @@ public class SoyComponentRendererHelper {
 			writer.append("\">");
 		}
 
+<<<<<<< HEAD
 		String placeholder = (String)_context.get("__placeholder__");
 
 		if (Validator.isNotNull(placeholder)) {
@@ -196,6 +197,11 @@ public class SoyComponentRendererHelper {
 			writer.append((String)_context.get("id"));
 			writer.append("\"></div>");
 		}
+=======
+		_soyRenderer.renderSoy(
+			_httpServletRequest, writer,
+			_componentDescriptor.getTemplateNamespace(), _context);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (wrapper) {
 			writer.append("</div>");

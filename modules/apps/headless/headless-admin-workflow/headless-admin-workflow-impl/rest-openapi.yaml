@@ -292,12 +292,15 @@ components:
                     format: date-time
                     readOnly: true
                     type: string
+<<<<<<< HEAD
                 description:
                     # @review
                     description:
                         The log's description.
                     readOnly: true
                     type: string
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
                 id:
                     description:
                         The log's ID.

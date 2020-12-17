@@ -21,7 +21,10 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 WikiEngineRenderer wikiEngineRenderer = (WikiEngineRenderer)request.getAttribute(WikiWebKeys.WIKI_ENGINE_RENDERER);
 WikiNode node = (WikiNode)request.getAttribute(WikiWebKeys.WIKI_NODE);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 WikiPage wikiPage = (WikiPage)request.getAttribute(WikiWebKeys.WIKI_PAGE);
 
 long nodeId = BeanParamUtil.getLong(wikiPage, request, "nodeId");
@@ -425,7 +428,10 @@ if ((wikiPage != null) && !wikiPage.isNew()) {
 	PortletURL viewPageURL = wikiURLHelper.getViewPageURL(node, title);
 
 	PortalUtil.addPortletBreadcrumbEntry(request, wikiPage.getTitle(), viewPageURL.toString());
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "edit"), currentURL);
 }
 else {

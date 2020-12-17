@@ -34,7 +34,10 @@ class ChangeTrackingChangesView extends React.Component {
 			contextView,
 			ctCollectionId,
 			discardURL,
+<<<<<<< HEAD
 			expired,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			models,
 			namespace,
 			pathParam,
@@ -71,7 +74,10 @@ class ChangeTrackingChangesView extends React.Component {
 		this.contextView = contextView;
 		this.ctCollectionId = ctCollectionId;
 		this.discardURL = discardURL;
+<<<<<<< HEAD
 		this.expired = expired;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		this.models = models;
 		this.renderCTEntryURL = renderCTEntryURL;
 		this.renderDiffURL = renderDiffURL;
@@ -2021,6 +2027,7 @@ class ChangeTrackingChangesView extends React.Component {
 		else {
 			content = (
 				<div className="container-fluid container-fluid-max-xl">
+<<<<<<< HEAD
 					{this.expired && (
 						<ClayAlert
 							displayType="warning"
@@ -2033,6 +2040,8 @@ class ChangeTrackingChangesView extends React.Component {
 						</ClayAlert>
 					)}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					<ClayBreadcrumb
 						ellipsisBuffer={1}
 						items={this.state.breadcrumbItems}

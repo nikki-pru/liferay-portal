@@ -14,6 +14,10 @@
 
 package com.liferay.document.library.internal.repository.capabilities;
 
+<<<<<<< HEAD
+=======
+import com.liferay.document.library.kernel.util.DLAppHelperThreadLocal;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.document.library.kernel.util.DLProcessorRegistryUtil;
 import com.liferay.document.library.security.io.InputStreamSanitizer;
 import com.liferay.document.library.service.DLFileVersionPreviewLocalService;
@@ -55,16 +59,37 @@ public class LiferayProcessorCapability
 
 	@Override
 	public void cleanUp(FileEntry fileEntry) {
+<<<<<<< HEAD
+=======
+		if (!DLAppHelperThreadLocal.isEnabled()) {
+			return;
+		}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DLProcessorRegistryUtil.cleanUp(fileEntry);
 	}
 
 	@Override
 	public void cleanUp(FileVersion fileVersion) {
+<<<<<<< HEAD
+=======
+		if (!DLAppHelperThreadLocal.isEnabled()) {
+			return;
+		}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DLProcessorRegistryUtil.cleanUp(fileVersion);
 	}
 
 	@Override
 	public void copy(FileEntry fileEntry, FileVersion fileVersion) {
+<<<<<<< HEAD
+=======
+		if (!DLAppHelperThreadLocal.isEnabled()) {
+			return;
+		}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (_resourceGenerationStrategy == ResourceGenerationStrategy.REUSE) {
 			registerDLProcessorCallback(fileEntry, fileVersion);
 		}
@@ -75,6 +100,13 @@ public class LiferayProcessorCapability
 
 	@Override
 	public void generateNew(FileEntry fileEntry) {
+<<<<<<< HEAD
+=======
+		if (!DLAppHelperThreadLocal.isEnabled()) {
+			return;
+		}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		registerDLProcessorCallback(fileEntry, null);
 	}
 

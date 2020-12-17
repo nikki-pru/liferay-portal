@@ -80,6 +80,7 @@ definition {
 			locator1 = "Card#CARD");
 	}
 
+<<<<<<< HEAD
 	macro viewCardSticker {
 		AssertVisible(
 			key_card = "${card}",
@@ -87,6 +88,8 @@ definition {
 			locator1 = "Card#CARD_STICKER");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro viewCardSubtitle {
 		AssertTextEquals(
 			key_card = "${card}",
@@ -107,6 +110,15 @@ definition {
 			value1 = "${card}");
 	}
 
+<<<<<<< HEAD
+=======
+	macro viewMarkAsDefault {
+		AssertVisible(
+			key_card = "${card}",
+			locator1 = "Card#CARD_STICKER");
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro viewMenuItemNotPresent {
 		Click(
 			key_card = "${card}",

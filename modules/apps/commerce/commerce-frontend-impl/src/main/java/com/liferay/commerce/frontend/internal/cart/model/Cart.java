@@ -29,14 +29,22 @@ public class Cart {
 		_orderId = orderId;
 		_products = products;
 		_summary = summary;
+<<<<<<< HEAD
 		_valid = valid;
 
 		_success = true;
+=======
+		_success = true;
+		_valid = valid;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public Cart(String[] errorMessages) {
 		_errorMessages = errorMessages;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_success = false;
 	}
 

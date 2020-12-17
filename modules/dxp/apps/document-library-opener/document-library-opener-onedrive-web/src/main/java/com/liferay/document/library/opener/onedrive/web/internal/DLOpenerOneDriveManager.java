@@ -148,7 +148,13 @@ public class DLOpenerOneDriveManager {
 			long userId, FileEntry fileEntry)
 		throws PortalException {
 
+<<<<<<< HEAD
 		if (Validator.isNull(_getOneDriveFileId(fileEntry))) {
+=======
+		String oneDriveFileId = _getOneDriveFileId(fileEntry);
+
+		if (Validator.isNull(oneDriveFileId)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			throw new IllegalArgumentException(
 				StringBundler.concat(
 					"File entry ", fileEntry.getFileEntryId(),
@@ -243,7 +249,13 @@ public class DLOpenerOneDriveManager {
 			long userId, FileEntry fileEntry)
 		throws PortalException {
 
+<<<<<<< HEAD
 		if (Validator.isNull(_getOneDriveFileId(fileEntry))) {
+=======
+		String oneDriveFileId = _getOneDriveFileId(fileEntry);
+
+		if (Validator.isNull(oneDriveFileId)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			throw new IllegalArgumentException(
 				StringBundler.concat(
 					"File entry ", fileEntry.getFileEntryId(),

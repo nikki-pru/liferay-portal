@@ -20,6 +20,15 @@
 DispatchLogDisplayContext dispatchLogDisplayContext = (DispatchLogDisplayContext)request.getAttribute(WebKeys.PORTLET_DISPLAY_CONTEXT);
 
 DispatchLog dispatchLog = dispatchLogDisplayContext.getDispatchLog();
+<<<<<<< HEAD
+=======
+
+Date endDate = dispatchLog.getEndDate();
+
+Date startDate = dispatchLog.getStartDate();
+
+long timeMillis = endDate.getTime() - startDate.getTime();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 %>
 
 <portlet:actionURL name="/dispatch/edit_dispatch_log" var="editDispatchLogActionURL" />
@@ -40,7 +49,11 @@ DispatchLog dispatchLog = dispatchLogDisplayContext.getDispatchLog();
 
 				<aui:input disabled="<%= true %>" name="status" value="<%= LanguageUtil.get(request, dispatchTaskStatus.getLabel()) %>" />
 
+<<<<<<< HEAD
 				<aui:input disabled="<%= true %>" label="runtime" name="runTime" value='<%= dispatchLogDisplayContext.getExecutionTimeMills() + " ms" %>' />
+=======
+				<aui:input disabled="<%= true %>" label="runtime" name="runTime" value='<%= timeMillis + " ms" %>' />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 				<aui:input disabled="<%= true %>" label="error" name="error" type="textarea" value="<%= dispatchLog.getError() %>" />
 

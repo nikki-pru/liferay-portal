@@ -77,6 +77,7 @@
 		}
 	}
 
+<<<<<<< HEAD
 	.lfr-search-container-list {
 		.list-group:last-child {
 			.list-group-item:nth-last-child(2) {
@@ -104,6 +105,16 @@
 		}
 
 		.list-group-item {
+=======
+	.list-group {
+		margin-bottom: 0;
+
+		.list-group-item {
+			&:nth-last-child(2) {
+				@include border-bottom-radius($list-group-border-radius);
+			}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			h4 {
 				font-size: $font-size-sm;
 				line-height: 1.5;
@@ -127,6 +138,17 @@
 			h6 + h5 {
 				font-weight: 600;
 			}
+<<<<<<< HEAD
+=======
+
+			.checkbox {
+				margin-top: 0;
+			}
+		}
+
+		& + .taglib-search-iterator-page-iterator-bottom {
+			margin-top: 20px;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 

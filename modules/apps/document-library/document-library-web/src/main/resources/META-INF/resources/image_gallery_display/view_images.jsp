@@ -42,7 +42,10 @@ DLPortletInstanceSettingsHelper dlPortletInstanceSettingsHelper = new DLPortletI
 
 				boolean hasAudio = AudioProcessorUtil.hasAudio(fileVersion);
 				boolean hasImages = ImageProcessorUtil.hasImages(fileVersion);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				boolean hasPDFImages = PDFProcessorUtil.hasImages(fileVersion);
 				boolean hasVideo = VideoProcessorUtil.hasVideo(fileVersion);
 

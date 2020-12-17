@@ -28,7 +28,11 @@ long dataDefinitionId = BeanParamUtil.getLong(fileEntryType, request, "dataDefin
 String defaultLanguageId = LocaleUtil.toLanguageId(LocaleUtil.getSiteDefault());
 
 if (dataDefinitionId != 0) {
+<<<<<<< HEAD
 	com.liferay.dynamic.data.mapping.model.DDMStructure ddmStructure = DDMStructureLocalServiceUtil.getStructure(dataDefinitionId);
+=======
+	com.liferay.dynamic.data.mapping.model.DDMStructure ddmStructure = DDMStructureServiceUtil.getStructure(dataDefinitionId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	defaultLanguageId = ddmStructure.getDefaultLanguageId();
 }

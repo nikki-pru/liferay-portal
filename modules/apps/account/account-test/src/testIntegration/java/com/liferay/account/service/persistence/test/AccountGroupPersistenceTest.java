@@ -138,12 +138,19 @@ public class AccountGroupPersistenceTest {
 
 		newAccountGroup.setModifiedDate(RandomTestUtil.nextDate());
 
+<<<<<<< HEAD
 		newAccountGroup.setDefaultAccountGroup(RandomTestUtil.randomBoolean());
 
 		newAccountGroup.setDescription(RandomTestUtil.randomString());
 
 		newAccountGroup.setName(RandomTestUtil.randomString());
 
+=======
+		newAccountGroup.setName(RandomTestUtil.randomString());
+
+		newAccountGroup.setDescription(RandomTestUtil.randomString());
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_accountGroups.add(_persistence.update(newAccountGroup));
 
 		AccountGroup existingAccountGroup = _persistence.findByPrimaryKey(
@@ -172,6 +179,7 @@ public class AccountGroupPersistenceTest {
 			Time.getShortTimestamp(existingAccountGroup.getModifiedDate()),
 			Time.getShortTimestamp(newAccountGroup.getModifiedDate()));
 		Assert.assertEquals(
+<<<<<<< HEAD
 			existingAccountGroup.isDefaultAccountGroup(),
 			newAccountGroup.isDefaultAccountGroup());
 		Assert.assertEquals(
@@ -179,6 +187,12 @@ public class AccountGroupPersistenceTest {
 			newAccountGroup.getDescription());
 		Assert.assertEquals(
 			existingAccountGroup.getName(), newAccountGroup.getName());
+=======
+			existingAccountGroup.getName(), newAccountGroup.getName());
+		Assert.assertEquals(
+			existingAccountGroup.getDescription(),
+			newAccountGroup.getDescription());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -189,6 +203,7 @@ public class AccountGroupPersistenceTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testCountByC_D() throws Exception {
 		_persistence.countByC_D(
 			RandomTestUtil.nextLong(), RandomTestUtil.randomBoolean());
@@ -197,6 +212,8 @@ public class AccountGroupPersistenceTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testCountByC_ERC() throws Exception {
 		_persistence.countByC_ERC(RandomTestUtil.nextLong(), "");
 
@@ -232,8 +249,13 @@ public class AccountGroupPersistenceTest {
 		return OrderByComparatorFactoryUtil.create(
 			"AccountGroup", "mvccVersion", true, "externalReferenceCode", true,
 			"accountGroupId", true, "companyId", true, "userId", true,
+<<<<<<< HEAD
 			"userName", true, "createDate", true, "modifiedDate", true,
 			"defaultAccountGroup", true, "description", true, "name", true);
+=======
+			"userName", true, "createDate", true, "modifiedDate", true, "name",
+			true, "description", true);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -531,12 +553,19 @@ public class AccountGroupPersistenceTest {
 
 		accountGroup.setModifiedDate(RandomTestUtil.nextDate());
 
+<<<<<<< HEAD
 		accountGroup.setDefaultAccountGroup(RandomTestUtil.randomBoolean());
 
 		accountGroup.setDescription(RandomTestUtil.randomString());
 
 		accountGroup.setName(RandomTestUtil.randomString());
 
+=======
+		accountGroup.setName(RandomTestUtil.randomString());
+
+		accountGroup.setDescription(RandomTestUtil.randomString());
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_accountGroups.add(_persistence.update(accountGroup));
 
 		return accountGroup;

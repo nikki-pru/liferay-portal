@@ -2555,9 +2555,16 @@ definition {
 		KaleoFormsAdmin.saveFieldSet();
 	}
 
+<<<<<<< HEAD
 	@ignore = "true"
 	@priority = "3"
 	test ViewFieldSetParentDefinitionIframeTitle {
+=======
+	@priority = "3"
+	test ViewFieldSetParentDefinitionIframeTitle {
+		property portal.upstream = "quarantine";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(

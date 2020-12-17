@@ -30,13 +30,19 @@ public class Order {
 		_lastEdit = lastEdit;
 		_status = status;
 		_addOrderLink = addOrderLink;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_success = true;
 	}
 
 	public Order(String[] errorMessages) {
 		_errorMessages = errorMessages;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_success = false;
 	}
 

@@ -83,15 +83,24 @@ public class Sidecar {
 		SidecarManager sidecarManager) {
 
 		_clusterExecutor = clusterExecutor;
+<<<<<<< HEAD
+=======
+		_dataHomePath = elasticsearchInstancePaths.getDataPath();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_elasticsearchConfigurationWrapper = elasticsearchConfigurationWrapper;
 		_elasticsearchInstancePaths = elasticsearchInstancePaths;
 		_processExecutor = processExecutor;
 		_processExecutorPaths = processExecutorPaths;
 		_settingsContributors = settingsContributors;
+<<<<<<< HEAD
 		_sidecarManager = sidecarManager;
 
 		_dataHomePath = elasticsearchInstancePaths.getDataPath();
 		_sidecarHomePath = elasticsearchInstancePaths.getHomePath();
+=======
+		_sidecarHomePath = elasticsearchInstancePaths.getHomePath();
+		_sidecarManager = sidecarManager;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getNetworkHostAddress() {

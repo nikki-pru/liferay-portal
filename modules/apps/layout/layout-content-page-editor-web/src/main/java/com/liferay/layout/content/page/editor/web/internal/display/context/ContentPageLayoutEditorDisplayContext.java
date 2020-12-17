@@ -768,7 +768,13 @@ public class ContentPageLayoutEditorDisplayContext
 	}
 
 	private boolean _hasEditSegmentsEntryPermission() throws Exception {
+<<<<<<< HEAD
 		if (Validator.isNull(_getEditSegmentsEntryURL())) {
+=======
+		String editSegmentsEntryURL = _getEditSegmentsEntryURL();
+
+		if (Validator.isNull(editSegmentsEntryURL)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return false;
 		}
 

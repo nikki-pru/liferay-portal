@@ -17,12 +17,15 @@ import ClayIcon from '@clayui/icon';
 import ClayTabs from '@clayui/tabs';
 import React, {useState} from 'react';
 
+<<<<<<< HEAD
 import PreviewImage from './PreviewImage.es';
 import PreviewVideo from './PreviewVideo.es';
 
 const STR_VIDEO_HTML_RETURN_TYPE =
 	'com.liferay.item.selector.criteria.VideoEmbeddableHTMLItemSelectorReturnType';
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 const Arrow = ({direction, handleClick}) => (
 	<div className={`pull-${direction}`}>
 		<ClayButton
@@ -102,6 +105,7 @@ const Carousel = ({
 				<Arrow direction="left" handleClick={handleClickPrevious} />
 			)}
 
+<<<<<<< HEAD
 			{currentItem.returntype === STR_VIDEO_HTML_RETURN_TYPE ? (
 				<PreviewVideo html={currentItem.value} />
 			) : (
@@ -110,6 +114,12 @@ const Carousel = ({
 					title={currentItem.title}
 				/>
 			)}
+=======
+			<img
+				alt={currentItem.title}
+				src={currentItem.url || currentItem.base64}
+			/>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			{showArrows && (
 				<Arrow direction="right" handleClick={handleClickNext} />

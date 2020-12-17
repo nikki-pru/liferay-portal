@@ -1301,6 +1301,183 @@
 		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
+<<<<<<< HEAD
+=======
+		<description></description>
+		<name>file-card-v2</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.soy.FileCardTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>actionDropdownItems</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>componentId</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>contributorKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>data</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>defaultEventHandler</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>elementClasses</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>fileCard</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>groupName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>href</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>icon</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>inputName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>inputValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>labels</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>labelStylesMap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>selectable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>spritemap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>stickerCssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>stickerIcon</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>stickerImageAlt</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>stickerImageSrc</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>stickerLabel</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>stickerShape</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>stickerStyle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>subtitle</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<name>headless-data-set-display</name>
 		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.HeadlessDataSetDisplayTag</tag-class>
 		<body-content>empty</body-content>
@@ -1551,64 +1728,111 @@
 	</tag>
 	<tag>
 		<description></description>
+<<<<<<< HEAD
 		<name>icon</name>
 		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.IconTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>componentId</name>
+=======
+		<name>horizontal-card-v2</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.soy.HorizontalCardTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>actionDropdownItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>contributorKey</name>
+=======
+			<description></description>
+			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<name>cssClass</name>
+=======
+			<description></description>
+			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+=======
+			<description></description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<name>data</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+=======
+			<description></description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<name>defaultEventHandler</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
 			<name>elementClasses</name>
+=======
+			<description></description>
+			<name>disabled</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
 			<name>id</name>
+=======
+			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>monospaced</name>
+=======
+			<description></description>
+			<name>groupName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>spritemap</name>
+=======
+			<description></description>
+			<name>horizontalCard</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
 			<name>symbol</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -1623,46 +1847,83 @@
 		<attribute>
 			<description></description>
 			<name>actionDropdownItems</name>
+=======
+			<name>href</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+			<name>icon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
 			<name>additionalProps</name>
+=======
+			<name>id</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
 			<name>aspectRatioClasses</name>
+=======
+			<name>inputName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
 			<name>componentId</name>
+=======
+			<description></description>
+			<name>inputValue</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
 			<name>contributorKey</name>
+=======
+			<description></description>
+			<name>selectable</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
 			<name>cssClass</name>
+=======
+			<name>selected</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
 			<name>data</name>
+=======
+			<description></description>
+			<name>spritemap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
 			<name>defaultEventHandler</name>
 			<required>false</required>
@@ -1671,30 +1932,71 @@
 		<attribute>
 			<description></description>
 			<name>disabled</name>
+=======
+			<description></description>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description></description>
+		<name>icon</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.IconTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.4.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
 			<name>elementClasses</name>
+=======
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
 			<name>groupName</name>
+=======
+			<name>cssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description></description>
 			<name>href</name>
+=======
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>data</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description></description>
 			<name>icon</name>
+=======
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -1705,19 +2007,30 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description></description>
 			<name>imageAlt</name>
+=======
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>monospaced</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
 			<description></description>
 			<name>imageCard</name>
+=======
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>spritemap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
 			<name>imageSrc</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -1725,95 +2038,740 @@
 		<attribute>
 			<description></description>
 			<name>inputName</name>
+=======
+			<name>symbol</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>image-card</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.ImageCardTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>actionDropdownItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>inputValue</name>
+=======
+			<name>additionalProps</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>labels</name>
+=======
+			<name>aspectRatioClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+<<<<<<< HEAD
+			<name>labelStylesMap</name>
+=======
+			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>propsTransformer</name>
+=======
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>propsTransformerServletContext</name>
+=======
+			<name>cssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>selectable</name>
+=======
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>data</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>selected</name>
+=======
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>spritemap</name>
+=======
+			<name>disabled</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>stickerCssClass</name>
+=======
+			<description>Deprecated as of 7.4.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>stickerIcon</name>
+=======
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>groupName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>stickerImageAlt</name>
+=======
+			<name>href</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>stickerImageSrc</name>
+=======
+			<name>icon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>stickerLabel</name>
+=======
+			<name>id</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>stickerShape</name>
+=======
+			<name>imageAlt</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>stickerStyle</name>
+=======
+			<name>imageCard</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>subtitle</name>
+=======
+			<name>imageSrc</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>label</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.LabelTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>dismissible</code>]]>.</description>
+			<name>closeable</name>
+=======
+			<name>inputName</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
 			<name>inputValue</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>componentId</name>
+=======
 			<description></description>
 			<name>labels</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+=======
 			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
 			<name>labelStylesMap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
-			<name>propsTransformer</name>
+<<<<<<< HEAD
+			<name>cssClass</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>data</name>
+=======
+			<name>propsTransformer</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+=======
 			<description></description>
 			<name>propsTransformerServletContext</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>displayType</name>
+=======
 			<name>selectable</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+			<name>elementClasses</name>
+=======
 			<description></description>
 			<name>selected</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>href</name>
+=======
 			<description></description>
 			<name>spritemap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+=======
 			<name>stickerCssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>label</name>
+=======
 			<name>stickerIcon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>large</name>
+=======
 			<name>stickerImageAlt</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>message</name>
+=======
 			<description></description>
 			<name>stickerImageSrc</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>large</code>]]>.</description>
+			<name>size</name>
+=======
 			<description></description>
 			<name>stickerLabel</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>spritemap</name>
+=======
 			<description></description>
 			<name>stickerShape</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>displayType</code>]]>.</description>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>label-item-after</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.LabelItemAfterTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>cssClass</name>
+=======
+			<description></description>
+			<name>stickerStyle</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+			<name>subtitle</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+=======
+			<name>title</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+<<<<<<< HEAD
+		<name>label-item-before</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.LabelItemBeforeTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>cssClass</name>
+=======
+		<name>image-card-v2</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.soy.ImageCardTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>actionDropdownItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>label-item-expand</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.LabelItemExpandTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>cssClass</name>
+=======
+			<name>aspectRatioClasses</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>link</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.LinkTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>ariaLabel</name>
+=======
+			<name>contributorKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>data</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>borderless</name>
+=======
+			<name>defaultEventHandler</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>button</name>
+=======
+			<name>disabled</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>displayType</code>]]>.</description>
+			<name>buttonStyle</name>
+=======
+			<description></description>
+			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>componentId</name>
+=======
+			<description></description>
+			<name>groupName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+=======
+			<description></description>
+			<name>href</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>cssClass</name>
+=======
+			<name>icon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>data</name>
+=======
+			<description></description>
+			<name>id</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+=======
+			<description></description>
+			<name>imageAlt</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>displayType</name>
+=======
+			<name>imageCard</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>download</name>
+=======
+			<name>imageSrc</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+			<name>elementClasses</name>
+=======
+			<description></description>
+			<name>inputName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>href</name>
+			<required>true</required>
+=======
+			<name>inputValue</name>
+			<required>false</required>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>icon</name>
+=======
+			<name>labels</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>iconAlignment</name>
+=======
+			<description></description>
+			<name>labelStylesMap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+=======
+			<name>selectable</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>label</name>
+=======
+			<name>selected</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>monospaced</name>
+=======
+			<name>spritemap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>outline</name>
+=======
+			<name>stickerCssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>small</name>
+=======
+			<name>stickerIcon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>spritemap</name>
+=======
+			<description></description>
+			<name>stickerImageAlt</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>displayType</code>]]>.</description>
+			<name>style</name>
+=======
+			<description></description>
+			<name>stickerImageSrc</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>target</name>
+=======
+			<description></description>
+			<name>stickerLabel</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>title</name>
+=======
+			<description></description>
+			<name>stickerShape</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>management-toolbar</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.soy.ManagementToolbarTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>actionDropdownItems</name>
+=======
 			<name>stickerStyle</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -1830,7 +2788,6 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
-		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
 		<description></description>
@@ -1840,88 +2797,153 @@
 		<attribute>
 			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>dismissible</code>]]>.</description>
 			<name>closeable</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>checkboxStatus</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>clearResultsURL</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>clearSelectionURL</name>
+=======
 			<name>cssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>componentId</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>data</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>contentRenderer</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>defaultEventHandler</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>contributorKey</name>
+=======
 			<name>displayType</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>creationMenu</name>
+=======
 			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
 			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>data</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>href</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>defaultEventHandler</name>
+=======
 			<name>id</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>disabled</name>
+=======
 			<name>label</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>displayContext</name>
+=======
 			<name>large</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>elementClasses</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>message</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>filterDropdownItems</name>
+=======
 			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>large</code>]]>.</description>
 			<name>size</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>filterLabelItems</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>spritemap</name>
 			<required>false</required>
@@ -1942,6 +2964,7 @@
 		<body-content>JSP</body-content>
 		<attribute>
 			<name>cssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -1951,6 +2974,11 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+<<<<<<< HEAD
+		<attribute>
+			<description></description>
+			<name>infoPanelId</name>
+=======
 		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
@@ -1960,11 +2988,21 @@
 		<body-content>JSP</body-content>
 		<attribute>
 			<name>cssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>itemsTotal</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>namespace</name>
+=======
 			<name>id</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -1978,11 +3016,21 @@
 		<body-content>JSP</body-content>
 		<attribute>
 			<name>cssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>searchActionURL</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>searchContainerId</name>
+=======
 			<name>id</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -1997,77 +3045,131 @@
 		<attribute>
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>ariaLabel</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>searchFormMethod</name>
+=======
 			<name>borderless</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>searchFormName</name>
+=======
 			<name>button</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>searchInputName</name>
+=======
 			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>displayType</code>]]>.</description>
 			<name>buttonStyle</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>searchValue</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>selectable</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>selectAllURL</name>
+=======
 			<name>cssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>selectedItems</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>data</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>showAdvancedSearch</name>
+=======
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>defaultEventHandler</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>showCreationMenu</name>
+=======
 			<name>displayType</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>showFiltersDoneButton</name>
+=======
 			<name>download</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>showInfoButton</name>
+=======
 			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
 			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>showResultsBar</name>
+=======
 			<name>href</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -2081,46 +3183,70 @@
 		<attribute>
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>iconAlignment</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>showSearch</name>
+=======
 			<name>id</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>showSelectAllButton</name>
+=======
 			<name>label</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>sortingOrder</name>
+=======
 			<name>monospaced</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>sortingURL</name>
+=======
 			<name>outline</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+=======
 			<name>small</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<name>spritemap</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>supportsBulkActions</name>
+=======
 			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>displayType</code>]]>.</description>
 			<name>style</name>
 			<required>false</required>
@@ -2135,11 +3261,22 @@
 		<attribute>
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>title</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>viewTypeItems</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description></description>
+		<name>management-toolbar-v2</name>
+=======
 			<name>type</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -2149,6 +3286,7 @@
 	<tag>
 		<description></description>
 		<name>management-toolbar</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.soy.ManagementToolbarTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
@@ -2391,6 +3529,71 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+<<<<<<< HEAD
+		<tag-extension namespace="urn:liferay.com:liferay-jsp-view-state_1.0.0">
+			<extension-element id="actionDropdownItems" xsi:type="jspvs:String"/>
+			<extension-element id="addEntryMessage" xsi:type="jspvs:String"/>
+			<extension-element id="addEntryURL" xsi:type="jspvs:RenderURL"/>
+			<extension-element id="clearResultsURL" xsi:type="jspvs:RenderURL"/>
+			<extension-element id="componentId" xsi:type="jspvs:String" />
+			<extension-element id="contentRenderer" xsi:type="jspvs:String" />
+			<extension-element id="creationMenu" xsi:type="jspvs:fqcn">
+				<jspvs:fqcn>com.liferay.frontend.taglib.clay.servlet.taglib.util.CreationMenu</jspvs:fqcn>
+			</extension-element>
+			<extension-element id="data" xsi:type="jspvs:fqcn">
+				<jspvs:fqcn>java.util.Map&lt;java.lang.String,java.lang.String&gt;</jspvs:fqcn>
+			</extension-element>
+			<extension-element id="defaultEventHandler" xsi:type="jspvs:String" />
+			<extension-element id="disabled" xsi:type="jspvs:boolean" />
+			<extension-element id="displayStyle" xsi:type="jspvs:String" />
+			<extension-element id="displayStyleURL" xsi:type="jspvs:RenderURL"/>
+			<extension-element id="elementClasses" xsi:type="jspvs:String" />
+			<extension-element id="filterDropdownItems" xsi:type="jspvs:fqcn">
+				<jspvs:fqcn>java.util.List&lt;com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem&gt;</jspvs:fqcn>
+			</extension-element>
+			<extension-element id="filterLabelItems" xsi:type="jspvs:fqcn">
+				<jspvs:fqcn>java.util.List&lt;com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItem&gt;</jspvs:fqcn>
+			</extension-element>
+			<extension-element id="id" xsi:type="jspvs:String" />
+			<extension-element id="infoPanelId" xsi:type="jspvs:String" />
+			<extension-element id="itemsTotal" xsi:type="jspvs:int" />
+			<extension-element id="namespace" xsi:type="jspvs:String" />
+			<extension-element id="searchActionURL" xsi:type="jspvs:RenderURL"/>
+			<extension-element id="searchContainerId" xsi:type="jspvs:String" />
+			<extension-element id="searchFormMethod" xsi:type="jspvs:String" />
+			<extension-element id="searchFormName" xsi:type="jspvs:String" />
+			<extension-element id="searchInputName" xsi:type="jspvs:String" />
+			<extension-element id="searchURL" xsi:type="jspvs:RenderURL"/>
+			<extension-element id="searchValue" xsi:type="jspvs:String" />
+			<extension-element id="selectable" xsi:type="jspvs:boolean" />
+			<extension-element id="selectedItems" xsi:type="jspvs:int" />
+			<extension-element id="sortingOrder" xsi:type="jspvs:String" />
+			<extension-element id="sortingURLCurrent" xsi:type="jspvs:RenderURL"/>
+			<extension-element id="sortingURLReverse" xsi:type="jspvs:RenderURL"/>
+			<extension-element id="showAdvancedSearch" xsi:type="jspvs:boolean"/>
+			<extension-element id="showCreationMenu" xsi:type="jspvs:boolean"/>
+			<extension-element id="showDisplayStyleCard" xsi:type="jspvs:boolean"/>
+			<extension-element id="showDisplayStyleList" xsi:type="jspvs:boolean"/>
+			<extension-element id="showDisplayStyleTable" xsi:type="jspvs:boolean"/>
+			<extension-element id="showFiltersDoneButton" xsi:type="jspvs:boolean"/>
+			<extension-element id="showInfoButton" xsi:type="jspvs:boolean"/>
+			<extension-element id="showSearch" xsi:type="jspvs:boolean"/>
+			<extension-element id="supportsBulkActions" xsi:type="jspvs:boolean"/>
+			<extension-element id="spritemap" xsi:type="jspvs:String"/>
+			<extension-element id="viewTypeItems" xsi:type="jspvs:fqcn">
+				<jspvs:fqcn>java.util.List&lt;com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItem&gt;</jspvs:fqcn>
+			</extension-element>
+		</tag-extension>
+	</tag>
+	<tag>
+		<description></description>
+		<name>multi-select</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.soy.MultiSelectTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>attributeProviderKey</name>
+=======
 	</tag>
 	<tag>
 		<description></description>
@@ -2400,107 +3603,189 @@
 		<attribute>
 			<description></description>
 			<name>actionDropdownItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
-			<name>checkboxStatus</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
-			<name>clearResultsURL</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
-			<name>clearSelectionURL</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
+<<<<<<< HEAD
 			<name>componentId</name>
+=======
+			<name>checkboxStatus</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>contentRenderer</name>
+=======
+			<name>clearResultsURL</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>contributorKey</name>
+=======
+			<name>clearSelectionURL</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>data</name>
+=======
+			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>dataSource</name>
+			<required>true</required>
+=======
 			<name>contentRenderer</name>
 			<required>false</required>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>elementClasses</name>
+=======
 			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>extractData</name>
+=======
 			<name>creationMenu</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>helpText</name>
+			<required>true</required>
+=======
 			<name>data</name>
 			<required>false</required>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
-			<name>defaultEventHandler</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
-			<name>disabled</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
-			<name>displayContext</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
-			<name>elementClasses</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
-			<name>filterDropdownItems</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
-			<name>filterLabelItems</name>
-			<required>false</required>
-			<rtexprvalue>true</rtexprvalue>
-		</attribute>
-		<attribute>
-			<description></description>
+<<<<<<< HEAD
 			<name>id</name>
+=======
+			<name>defaultEventHandler</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>inputName</name>
+=======
+			<name>disabled</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>label</name>
+=======
+			<name>displayContext</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>labelLocator</name>
+=======
+			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>requestOptions</name>
+=======
+			<name>filterDropdownItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>selectedItems</name>
+=======
+			<name>filterLabelItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>selectedItems</name>
+=======
+			<name>id</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>spritemap</name>
+=======
 			<name>infoPanelId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>valueLocator</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description></description>
+		<name>navigation-bar</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.NavigationBarTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>componentId</name>
+=======
 			<name>itemsTotal</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -2508,53 +3793,107 @@
 		<attribute>
 			<description></description>
 			<name>namespace</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+=======
 			<description></description>
 			<name>searchActionURL</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>cssClass</name>
+=======
 			<name>searchContainerId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>data</name>
+=======
 			<description></description>
 			<name>searchFormMethod</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+=======
 			<description></description>
 			<name>searchFormName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+			<name>elementClasses</name>
+=======
 			<description></description>
 			<name>searchInputName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+=======
 			<name>searchValue</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>inverted</name>
+=======
 			<name>selectable</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>navigationItems</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>spritemap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description></description>
+		<name>navigation-card</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.NavigationCardTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>additionalProps</name>
+=======
 			<name>selectAllURL</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -2562,77 +3901,138 @@
 		<attribute>
 			<description></description>
 			<name>selectedItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>cssClass</name>
+=======
 			<name>showAdvancedSearch</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>description</name>
+=======
 			<name>showCreationMenu</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>href</name>
+=======
 			<name>showFiltersDoneButton</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>icon</name>
+=======
 			<name>showInfoButton</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+=======
 			<name>showResultsBar</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>imageAlt</name>
+=======
 			<name>showSearch</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>imageSrc</name>
+=======
 			<name>showSelectAllButton</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>navigationCard</name>
+=======
 			<name>sortingOrder</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>propsTransformer</name>
+=======
 			<name>sortingURL</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>propsTransformerServletContext</name>
+=======
 			<name>spritemap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>small</name>
+=======
 			<name>supportsBulkActions</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>progressbar</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.ProgressBarTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>componentId</name>
+=======
 			<name>viewTypeItems</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -2700,34 +4100,61 @@
 		<attribute>
 			<description></description>
 			<name>attributeProviderKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>containerElement</name>
+=======
 			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+=======
 			<description></description>
 			<name>contentRenderer</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>cssClass</name>
+=======
 			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+=======
 			<description></description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<name>data</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+=======
 			<description></description>
 			<name>dataSource</name>
 			<required>true</required>
@@ -2735,12 +4162,15 @@
 		</attribute>
 		<attribute>
 			<description></description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<name>elementClasses</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+=======
 			<name>extractData</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -2753,36 +4183,70 @@
 		</attribute>
 		<attribute>
 			<description></description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<name>id</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>maxValue</name>
+=======
 			<name>inputName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>minValue</name>
+=======
 			<name>label</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>spritemap</name>
+=======
 			<description></description>
 			<name>labelLocator</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>status</name>
+=======
 			<name>requestOptions</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>radio</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.RadioTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>checked</name>
+=======
 			<name>selectedItems</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -2796,10 +4260,13 @@
 		<attribute>
 			<description></description>
 			<name>spritemap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+=======
 			<description></description>
 			<name>valueLocator</name>
 			<required>false</required>
@@ -2812,6 +4279,7 @@
 		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.NavigationBarTag</tag-class>
 		<body-content>empty</body-content>
 		<attribute>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
 			<name>componentId</name>
 			<required>false</required>
@@ -2842,6 +4310,10 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>disabled</name>
+=======
 			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
 			<name>elementClasses</name>
 			<required>false</required>
@@ -3086,6 +4558,7 @@
 		<attribute>
 			<description></description>
 			<name>disabled</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -3304,6 +4777,18 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+<<<<<<< HEAD
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>sheet-section</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.SheetSectionTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description></description>
+			<name>containerElement</name>
+=======
 		<dynamic-attributes>true</dynamic-attributes>
 	</tag>
 	<tag>
@@ -3623,11 +5108,28 @@
 		<attribute>
 			<description></description>
 			<name>icon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>sticker</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.StickerTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>componentId</name>
+=======
 			<name>id</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -3635,77 +5137,136 @@
 		<attribute>
 			<description></description>
 			<name>imageAlt</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+=======
 			<description></description>
 			<name>imageSrc</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>cssClass</name>
+=======
 			<name>inputName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>data</name>
+=======
 			<description></description>
 			<name>inputValue</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+=======
 			<description></description>
 			<name>name</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>displayType</name>
+=======
 			<name>propsTransformer</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+			<name>elementClasses</name>
+=======
 			<description></description>
 			<name>propsTransformerServletContext</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>icon</name>
+=======
 			<name>selectable</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+=======
 			<name>selected</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
+<<<<<<< HEAD
+			<description></description>
+			<name>imageAlt</name>
+=======
 			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
 			<name>spritemap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>imageSrc</name>
+=======
 			<name>subtitle</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>inline</name>
+=======
 			<name>userCard</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>label</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>outside</name>
+=======
 			<name>userColorClass</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -3714,8 +5275,260 @@
 	</tag>
 	<tag>
 		<description></description>
+		<name>user-card-v2</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.soy.UserCardTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>actionDropdownItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>position</name>
+=======
+			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>shape</name>
+=======
+			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>size</name>
+=======
+			<name>data</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>spritemap</name>
+=======
+			<description></description>
+			<name>defaultEventHandler</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>displayType</code>]]>.</description>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>stripe</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.StripeTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<description></description>
+			<name>autoClose</name>
+=======
+			<description></description>
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>dismissible</code>]]>.</description>
+			<name>closeable</name>
+=======
+			<description></description>
+			<name>groupName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>componentId</name>
+=======
+			<description></description>
+			<name>href</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+=======
+			<description></description>
+			<name>icon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>data</name>
+=======
+			<description></description>
+			<name>id</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+=======
+			<description></description>
+			<name>imageAlt</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>destroyOnHide</name>
+=======
+			<description></description>
+			<name>imageSrc</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>dismissible</name>
+=======
+			<name>inputName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>displayType</name>
+=======
+			<name>inputValue</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+			<name>elementClasses</name>
+=======
+			<description></description>
+			<name>name</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+=======
+			<name>selectable</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>message</name>
+=======
+			<name>selected</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+=======
+			<description></description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<name>spritemap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, replaced by the attribute <![CDATA[<code>displayType</code>]]>.</description>
+			<name>style</name>
+=======
+			<description></description>
+			<name>subtitle</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>title</name>
+=======
+			<name>userCard</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.3.0, with no direct replacement.</description>
+			<name>type</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>user-card</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.UserCardTag</tag-class>
+=======
+			<description></description>
+			<name>userColorClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description></description>
 		<name>vertical-card</name>
 		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.VerticalCardTag</tag-class>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<body-content>empty</body-content>
 		<attribute>
 			<description></description>
@@ -3779,12 +5592,15 @@
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+=======
 			<name>horizontalFlush</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<attribute>
 			<description></description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<name>href</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -3827,6 +5643,9 @@
 		</attribute>
 		<attribute>
 			<description></description>
+<<<<<<< HEAD
+			<name>name</name>
+=======
 			<name>labels</name>
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
@@ -3834,6 +5653,7 @@
 		<attribute>
 			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
 			<name>labelStylesMap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -3846,6 +5666,320 @@
 		<attribute>
 			<description></description>
 			<name>propsTransformerServletContext</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>selectable</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>selected</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+=======
+			<description></description>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<name>spritemap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>subtitle</name>
+=======
+			<name>stickerCssClass</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>userCard</name>
+=======
+			<name>stickerIcon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>userColorClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>vertical-card</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.VerticalCardTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>actionDropdownItems</name>
+=======
+			<name>stickerImageAlt</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>stickerImageSrc</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>additionalProps</name>
+=======
+			<name>stickerLabel</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>componentId</name>
+=======
+			<description></description>
+			<name>stickerShape</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>contributorKey</name>
+=======
+			<description></description>
+			<name>stickerStyle</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>cssClass</name>
+=======
+			<name>subtitle</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>data</name>
+=======
+			<description></description>
+			<name>title</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>defaultEventHandler</name>
+=======
+			<description></description>
+			<name>verticalCard</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>disabled</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description>Deprecated as of 7.4.0, replaced by the attribute <![CDATA[<code>cssClass</code>]]>.</description>
+			<name>elementClasses</name>
+=======
+			<name>verticalFlush</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<dynamic-attributes>true</dynamic-attributes>
+	</tag>
+	<tag>
+		<description></description>
+		<name>vertical-card-v2</name>
+		<tag-class>com.liferay.frontend.taglib.clay.servlet.taglib.soy.VerticalCardTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<description></description>
+			<name>actionDropdownItems</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>groupName</name>
+=======
+			<description></description>
+			<name>componentId</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>horizontalFlush</name>
+=======
+			<name>contributorKey</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>href</name>
+=======
+			<name>data</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>icon</name>
+=======
+			<name>defaultEventHandler</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>id</name>
+=======
+			<name>disabled</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>imageAlt</name>
+=======
+			<name>elementClasses</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>imageSrc</name>
+=======
+			<name>groupName</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>inputName</name>
+=======
+			<name>href</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>inputValue</name>
+=======
+			<name>icon</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>labels</name>
+=======
+			<name>id</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+<<<<<<< HEAD
+			<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+			<name>labelStylesMap</name>
+=======
+			<description></description>
+			<name>imageAlt</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>propsTransformer</name>
+=======
+			<name>imageSrc</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+<<<<<<< HEAD
+			<name>propsTransformerServletContext</name>
+=======
+			<name>inputName</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>inputValue</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>labels</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<description></description>
+			<name>labelStylesMap</name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
@@ -3927,6 +6061,7 @@
 			<required>false</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+<<<<<<< HEAD
 		<attribute>
 			<description></description>
 			<name>verticalFlush</name>
@@ -3934,5 +6069,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 		<dynamic-attributes>true</dynamic-attributes>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	</tag>
 </taglib>

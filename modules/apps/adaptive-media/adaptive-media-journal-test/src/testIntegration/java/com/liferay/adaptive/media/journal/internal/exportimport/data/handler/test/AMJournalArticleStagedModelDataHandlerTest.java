@@ -169,8 +169,15 @@ public class AMJournalArticleStagedModelDataHandlerTest
 	public void testExportSucceedsWithInvalidReferences() throws Exception {
 		int invalidFileEntryId = 9999999;
 
+<<<<<<< HEAD
 		JournalArticle journalArticle = _addJournalArticle(
 			_getContent(_getImgTag(invalidFileEntryId)), _getServiceContext());
+=======
+		String content = _getContent(_getImgTag(invalidFileEntryId));
+
+		JournalArticle journalArticle = _addJournalArticle(
+			content, _getServiceContext());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		initExport();
 

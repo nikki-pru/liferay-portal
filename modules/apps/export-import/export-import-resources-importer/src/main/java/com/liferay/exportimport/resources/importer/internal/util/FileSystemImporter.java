@@ -99,6 +99,12 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.kernel.xml.Attribute;
+import com.liferay.portal.kernel.xml.Document;
+import com.liferay.portal.kernel.xml.Element;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.xml.SAXReader;
 import com.liferay.portal.search.index.IndexStatusManager;
 import com.liferay.portlet.display.template.PortletDisplayTemplate;
@@ -502,6 +508,13 @@ public class FileSystemImporter extends BaseImporter {
 		DDMForm ddmForm = null;
 
 		if (language.equals(TemplateConstants.LANG_TYPE_XML)) {
+<<<<<<< HEAD
+=======
+			if (isJournalStructureXSD(content)) {
+				content = journalConverter.getDDMXSD(content);
+			}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ddmxml.validateXML(content);
 
 			ddmForm = deserializeXSD(content);
@@ -1681,6 +1694,24 @@ public class FileSystemImporter extends BaseImporter {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	protected boolean isJournalStructureXSD(String xsd) throws Exception {
+		Document document = saxReader.read(xsd);
+
+		Element rootElement = document.getRootElement();
+
+		Attribute availableLocalesAttribute = rootElement.attribute(
+			"available-locales");
+
+		if (availableLocalesAttribute == null) {
+			return true;
+		}
+
+		return false;
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected File[] listFiles(File dir) {
 		File[] files = dir.listFiles();
 

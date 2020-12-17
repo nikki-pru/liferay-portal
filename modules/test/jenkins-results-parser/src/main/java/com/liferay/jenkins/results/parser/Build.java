@@ -189,8 +189,11 @@ public interface Build {
 
 	public boolean isCompareToUpstream();
 
+<<<<<<< HEAD
 	public boolean isCompleted();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isFromArchive();
 
 	public boolean isFromCompletedBuild();

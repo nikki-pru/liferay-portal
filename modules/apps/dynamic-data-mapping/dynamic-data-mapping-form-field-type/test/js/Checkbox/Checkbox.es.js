@@ -225,6 +225,7 @@ describe('Field Checkbox', () => {
 
 		expect(handleFieldEdited).toHaveBeenCalled();
 	});
+<<<<<<< HEAD
 
 	describe('Maximum Repetitions Info', () => {
 		it('does not show the maximum repetitions info', () => {
@@ -261,4 +262,6 @@ describe('Field Checkbox', () => {
 			expect(ddmInfo).not.toBeNull();
 		});
 	});
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 });

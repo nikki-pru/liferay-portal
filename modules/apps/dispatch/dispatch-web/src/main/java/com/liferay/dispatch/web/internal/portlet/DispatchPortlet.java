@@ -61,7 +61,11 @@ import org.osgi.service.component.annotations.Reference;
 		"javax.portlet.init-param.view-template=/view.jsp",
 		"javax.portlet.name=" + DispatchPortletKeys.DISPATCH,
 		"javax.portlet.resource-bundle=content.Language",
+<<<<<<< HEAD
 		"javax.portlet.security-role-ref=administrator"
+=======
+		"javax.portlet.security-role-ref=power-user,user"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	},
 	service = Portlet.class
 )

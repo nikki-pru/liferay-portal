@@ -54,9 +54,15 @@ definition {
 		Panel.expandPanel(panel = "Categorization");
 
 		AssertTextEquals(
+<<<<<<< HEAD
 			key_tagName = "adventures",
 			locator1 = "AssetCategorization#TAG",
 			value1 = "adventures");
+=======
+			key_tagName = "alice",
+			locator1 = "AssetCategorization#TAG",
+			value1 = "alice");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	macro addContentPage {
@@ -3209,6 +3215,7 @@ definition {
 			portlet = "Web Content",
 			site = "${siteName}");
 
+<<<<<<< HEAD
 		for (var fieldName : list "Boolean,Date,Decimal,Documents and Media,HTML,Image,Integer,Link to Page,Number,Radio,Select,Separator,Text,Text Box") {
 			WebContentAdmin.viewEntryWorkflowStatus(
 				entry = "${fieldName} Web Content",
@@ -3305,6 +3312,31 @@ definition {
 		WebContent.viewWithStructureCP(
 			webContentSeparator = "true",
 			webContentTitle = "Separator Web Content");
+=======
+		WebContentAdmin.viewEntryWorkflowStatus(
+			entry = "Web Content Title",
+			workflowStatus = "Approved");
+
+		WebContentUpgrade.viewWithStructureCP(
+			webContentBoolean = "true",
+			webContentDate = "10/10/2020",
+			webContentDecimal = "0.5",
+			webContentDocumentsAndMedia = "Document Title",
+			webContentDocumentsAndMediaFieldName = "Documents_and_Media",
+			webContentHTML = "This is a HTML field",
+			webContentImage = "Document_1.jpg",
+			webContentInteger = "9",
+			webContentLinkToPage = "Welcome",
+			webContentLinkToPageFieldName = "Link_to_Page",
+			webContentNumber = "-1",
+			webContentRadio = "option 1",
+			webContentSelect = "option 2",
+			webContentSeparator = "true",
+			webContentText = "This is a Text field",
+			webContentTextBox = "This is a Text Box field",
+			webContentTextBoxFieldName = "Text_Box",
+			webContentTitle = "Web Content Title");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	macro viewWebContentWithPredefinedValueInWebContentField {
@@ -3321,9 +3353,16 @@ definition {
 				workflowStatus = "Approved");
 		}
 
+<<<<<<< HEAD
 		WebContent.viewWithStructureCP(
 			webContentTitle = "Web Content With Predefined Value",
 			webContentWebContent = "Web Content Title");
+=======
+		WebContentUpgrade.viewWithStructureCP(
+			webContentTitle = "Web Content With Predefined Value",
+			webContentWebContent = "Web Content Title",
+			webContentWebContentFieldName = "WebContent");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	macro viewWebContextsCORS {

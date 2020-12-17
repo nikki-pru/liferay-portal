@@ -590,6 +590,7 @@ definition {
 			title = "Numeric Field - Table View Title");
 	}
 
+<<<<<<< HEAD
 	@description = "Automate LPS-117199 Define translations when creating fieldsets"
 	@priority = "5"
 	test DefineTranslationForFieldSets {
@@ -632,6 +633,8 @@ definition {
 		Site.configureCurrentLanguagesCP(defaultSiteLanguage = "English (United States)");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "Delete an existing custom object with no associated relationships"
 	@priority = "5"
 	test DeleteCustomObjectWithAssociatedRelationship {
@@ -1009,16 +1012,22 @@ definition {
 
 		App.selectTableView(tableViewName = "My Table View 2");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.clickPrevious();
 
 		App.clickPrevious();
 
 		App.selectTableView(tableViewName = "My Table View 1");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.toggleDeploy(deployOption = "Widget");
 
 		App.clickDeploy();
@@ -1071,8 +1080,11 @@ definition {
 
 		App.selectTableView(tableViewName = "My Table View 2");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.saveApp();
 
 		Navigator.gotoSitePage(
@@ -1096,8 +1108,11 @@ definition {
 
 		App.selectTableView(tableViewName = "My Table View 1");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.saveApp();
 
 		Navigator.gotoSitePage(
@@ -1548,8 +1563,12 @@ definition {
 	@description = "Publish my app as a widget with only a Table View"
 	@priority = "5"
 	test PublishAppAsWidgetWithOnlyTableView {
+<<<<<<< HEAD
 		property portal.acceptance = "quarantine";
 		property portal.upstream = "quarantine";
+=======
+		property portal.acceptance = "true";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		AppBuilderAdmin.addCustomObject(
 			customObjectName = "my custom object",
@@ -1864,7 +1883,10 @@ definition {
 		AppBuilderAdmin.validateItemNameOnTable(itemName = "${myTableViewName_1}");
 		AppBuilderAdmin.validateItemNameOnTable(itemName = "${myTableViewName_2}");
 		App.selectTableView(tableViewName = "${myTableViewName_1}");
+<<<<<<< HEAD
 		Button.clickNext();
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.toggleDeploy(deployOption = "Product Menu");
 		App.openProductMenuPlaceItDropdown();
 		App.validateProductMenuPlaceItDropdownList(menuOption = "Applications");
@@ -1974,7 +1996,10 @@ definition {
 		AppBuilderAdmin.setName(title = "${myAppName_1}");
 		App.selectFormView(formViewName = "${myFormViewName_1}");
 		App.selectTableView(tableViewName = "${myTableViewName_1}");
+<<<<<<< HEAD
 		Button.clickNext();
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.toggleDeploy(deployOption = "Widget");
 		App.toggleDeploy(deployOption = "Standalone");
 		App.toggleDeploy(deployOption = "Product Menu");
@@ -3013,8 +3038,11 @@ definition {
 
 		App.selectTableView(tableViewName = "Table View Title");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.saveApp();
 
 		AppBuilderAdmin.openItem(itemName = "Test App C");
@@ -3023,8 +3051,11 @@ definition {
 
 		App.selectTableView(tableViewName = "Table View Title Two");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.saveApp();
 
 		AppBuilderAdmin.openItem(itemName = "Test App C");
@@ -3033,8 +3064,11 @@ definition {
 
 		App.selectTableView(tableViewName = "Table View Title");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		App.saveApp();
 	}
 
@@ -3446,6 +3480,10 @@ definition {
 	@priority = "5"
 	test ViewFormViewRules {
 		property portal.acceptance = "quarantine";
+<<<<<<< HEAD
+=======
+		property portal.upstream = "quarantine";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		ApplicationsMenu.gotoPortlet(
 			category = "Users",

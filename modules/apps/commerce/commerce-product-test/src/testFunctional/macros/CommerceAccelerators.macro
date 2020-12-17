@@ -6,6 +6,7 @@ definition {
 			panel = "Control Panel",
 			portlet = "Sites");
 
+<<<<<<< HEAD
 		if (isSet(siteTemplateName)) {
 			Site.addCP(
 				membershipType = "Private",
@@ -18,6 +19,12 @@ definition {
 				siteName = "${siteName}",
 				siteTemplateName = "${siteName}");
 		}
+=======
+		Site.addCP(
+			membershipType = "Private",
+			siteName = "${siteName}",
+			siteTemplateName = "${siteName}");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 }

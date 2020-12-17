@@ -42,7 +42,10 @@ String fullName = namespace + HtmlUtil.escapeJS(name);
 
 					for (Map.Entry<String, List<ValidatorTag>> entry : validatorTagsMap.entrySet()) {
 						String fieldName = entry.getKey();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						List<ValidatorTag> validatorTags = entry.getValue();
 
 						for (ValidatorTag validatorTag : validatorTags) {

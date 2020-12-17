@@ -71,6 +71,7 @@ public class SiteParamConverterProvider
 			return siteId;
 		}
 
+<<<<<<< HEAD
 		StringBuilder sb = new StringBuilder(4);
 
 		sb.append("Unable to get a valid ");
@@ -86,6 +87,10 @@ public class SiteParamConverterProvider
 		sb.append(parameter);
 
 		throw new NotFoundException(sb.toString());
+=======
+		throw new NotFoundException(
+			"Unable to get a valid site with ID " + parameter);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

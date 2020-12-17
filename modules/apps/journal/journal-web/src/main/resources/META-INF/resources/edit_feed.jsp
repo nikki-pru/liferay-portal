@@ -24,7 +24,10 @@ JournalFeed feed = ActionUtil.getFeed(request);
 long groupId = BeanParamUtil.getLong(feed, request, "groupId", scopeGroupId);
 
 String feedId = BeanParamUtil.getString(feed, request, "feedId");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String newFeedId = ParamUtil.getString(request, "newFeedId");
 
 String ddmStructureKey = ParamUtil.getString(request, "ddmStructureKey");

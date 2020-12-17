@@ -58,7 +58,11 @@
 
 					<h4>
 						<aui:a href="<%= rowURL %>">
+<<<<<<< HEAD
 							<%= HtmlUtil.escape(workflowTaskDisplayContext.getAssetTitle(workflowTask)) %>
+=======
+							<%= workflowTaskDisplayContext.getAssetTitle(workflowTask) %>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						</aui:a>
 					</h4>
 
@@ -102,7 +106,11 @@
 					cssClass="asset-title"
 					href="<%= rowURL %>"
 					name="asset-title"
+<<<<<<< HEAD
 					value="<%= HtmlUtil.escape(workflowTaskDisplayContext.getAssetTitle(workflowTask)) %>"
+=======
+					value="<%= workflowTaskDisplayContext.getAssetTitle(workflowTask) %>"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				/>
 
 				<liferay-ui:search-container-column-text

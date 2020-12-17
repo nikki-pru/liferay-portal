@@ -20,7 +20,10 @@ import com.liferay.commerce.price.list.service.CommercePriceListService;
 import com.liferay.commerce.pricing.service.CommercePriceModifierService;
 import com.liferay.commerce.pricing.type.CommercePriceModifierTypeRegistry;
 import com.liferay.commerce.pricing.web.internal.display.context.CommercePriceListDisplayContext;
+<<<<<<< HEAD
 import com.liferay.commerce.pricing.web.internal.servlet.taglib.ui.constants.CommercePriceListScreenNavigationConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.product.service.CommerceCatalogService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;

@@ -18,7 +18,11 @@ import ClickGoalPicker from '../../../src/main/resources/META-INF/resources/js/c
 import {segmentsExperiment} from '../fixtures.es';
 import renderApp from '../renderApp.es';
 
+<<<<<<< HEAD
 describe('ClickGoalPicker', () => {
+=======
+describe('Segments Experiments with Click Goal', () => {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	afterEach(cleanup);
 
 	it('Experiment renders when goal value is click', () => {
@@ -31,6 +35,7 @@ describe('ClickGoalPicker', () => {
 		};
 
 		const {getByText} = renderApp({
+<<<<<<< HEAD
 			initialSegmentsExperiment: experiment,
 		});
 
@@ -41,6 +46,16 @@ describe('ClickGoalPicker', () => {
 	});
 
 	it('User clicks in "Select Clickable Element" button, the button turns from default to active mode', () => {
+=======
+			initialSegmentsExperiment: segmentsExperiment,
+		});
+
+		getByText(experiment.name);
+		getByText('review-and-run-test');
+	});
+
+	it('User clicks in set element button, the button turns from default to active mode', () => {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		const experiment = {
 			...segmentsExperiment,
 			goal: {
@@ -53,7 +68,11 @@ describe('ClickGoalPicker', () => {
 			<ClickGoalPicker segmentsExperiment={experiment} />
 		);
 
+<<<<<<< HEAD
 		const setElementButton = getByText('select-clickable-element');
+=======
+		const setElementButton = getByText('set-element');
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		userEvent.click(setElementButton);
 
 		const clickGoalRoot = document.body.querySelector(
@@ -62,7 +81,11 @@ describe('ClickGoalPicker', () => {
 		expect(clickGoalRoot).not.toBe(null);
 	});
 
+<<<<<<< HEAD
 	it('The user can select a clickable element in a draft experiment', () => {
+=======
+	it('The user can set a click target element in a draft experiment', () => {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		const experiment = {
 			...segmentsExperiment,
 			goal: {
@@ -76,6 +99,7 @@ describe('ClickGoalPicker', () => {
 		);
 
 		expect(experiment.status.label).toBe('Draft');
+<<<<<<< HEAD
 
 		const selectClickableElementButton = getByText(
 			'select-clickable-element'
@@ -86,11 +110,25 @@ describe('ClickGoalPicker', () => {
 	});
 
 	it('The user can change a clickable element in a draft experiment', () => {
+=======
+		getByText(
+			'a-clickable-element-on-the-page-must-be-selected-to-be-measured'
+		);
+		const setElementButton = getByText('set-element');
+		expect(setElementButton.attributes['disabled']).toBe(undefined);
+	});
+
+	it('The user can edit a selected click target element in a draft experiment', () => {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		const experiment = {
 			...segmentsExperiment,
 			goal: {
 				label: 'Click',
+<<<<<<< HEAD
 				target: 'myButtonId',
+=======
+				target: '#myButtonId',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				value: 'click',
 			},
 		};
@@ -100,20 +138,33 @@ describe('ClickGoalPicker', () => {
 		);
 
 		expect(experiment.status.label).toBe('Draft');
+<<<<<<< HEAD
 		const editElement = getByText('change-clickable-element');
 		expect(editElement.attributes['disabled']).toBe(undefined);
 	});
 
 	it('The user selects a clickable element target and the HTML id of the element displays inside the input', () => {
+=======
+		const editElement = getByText('edit-element');
+		expect(editElement.attributes['disabled']).toBe(undefined);
+	});
+
+	it('When the user set element as click target, then the element is set as the click target and the id of the element as a link', () => {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		const experiment = {
 			...segmentsExperiment,
 			goal: {
 				label: 'Click',
+<<<<<<< HEAD
 				target: 'myButtonId',
+=======
+				target: '#myButtonId',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				value: 'click',
 			},
 		};
 
+<<<<<<< HEAD
 		const {getByLabelText} = render(
 			<ClickGoalPicker target={experiment.goal.target} />
 		);
@@ -121,6 +172,16 @@ describe('ClickGoalPicker', () => {
 		const input = getByLabelText('element-id');
 		expect(input).toBeInTheDocument();
 		expect(input.value).toBe(experiment.goal.target);
+=======
+		const {getByText} = render(
+			<ClickGoalPicker target={experiment.goal.target} />
+		);
+
+		const targetElement = getByText(experiment.goal.target);
+		expect(targetElement.attributes['href'].value).toBe(
+			experiment.goal.target
+		);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	});
 
 	test.todo(

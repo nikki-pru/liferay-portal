@@ -15,5 +15,8 @@ dependencies {
 	compileOnly project(":apps:site-navigation:site-navigation-taglib")
 	compileOnly project(":core:petra:petra-lang")
 	compileOnly project(":core:petra:petra-sql-dsl-api")
+<<<<<<< HEAD
 	compileOnly project(":core:petra:petra-string")
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

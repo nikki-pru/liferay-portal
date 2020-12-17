@@ -12,7 +12,10 @@
 		"classnames": "2.2.6",
 		"frontend-js-react-web": "*",
 		"frontend-js-web": "*",
+<<<<<<< HEAD
 		"moment": "2.24.0",
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		"path-to-regexp": "3.0.0"
 	},
 	"description": "",

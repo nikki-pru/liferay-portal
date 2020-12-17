@@ -23,8 +23,15 @@ public class GitBranchFactoryTest extends GitRefTest {
 
 	@Test
 	public void testNewLocalGitBranch() {
+<<<<<<< HEAD
 		LocalGitBranch localGitBranch = GitBranchFactory.newLocalGitBranch(
 			_getLocalGitRepository(), NAME_REF, SHA_REF);
+=======
+		LocalGitRepository localGitRepository = _getLocalGitRepository();
+
+		LocalGitBranch localGitBranch = GitBranchFactory.newLocalGitBranch(
+			localGitRepository, NAME_REF, SHA_REF);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (localGitBranch == null) {
 			errorCollector.addError(new Throwable("Local Git branch is null"));

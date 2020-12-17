@@ -14,6 +14,12 @@
 
 package com.liferay.dynamic.data.mapping.internal.notification;
 
+<<<<<<< HEAD
+=======
+import com.google.template.soy.data.SanitizedContent;
+import com.google.template.soy.data.UnsafeSanitizedContentOrdainer;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.dynamic.data.mapping.form.field.type.DefaultDDMFormFieldValueRenderer;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
@@ -25,6 +31,12 @@ import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.template.soy.data.SoyDataFactory;
+import com.liferay.portal.template.soy.data.SoyHTMLData;
+import com.liferay.portal.template.soy.util.SoyRawData;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.util.HtmlImpl;
 
 import java.util.Map;
@@ -70,8 +82,14 @@ public class DDMFormEmailNotificationSenderTest {
 		Assert.assertTrue(fieldLabelValueMap.containsKey("value"));
 		Assert.assertNull(fieldLabelValueMap.get("label"));
 
+<<<<<<< HEAD
 		Assert.assertEquals(
 			"test", String.valueOf(fieldLabelValueMap.get("value")));
+=======
+		SoyRawData soyRawData = (SoyRawData)fieldLabelValueMap.get("value");
+
+		Assert.assertEquals("test", String.valueOf(soyRawData.getValue()));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -89,8 +107,15 @@ public class DDMFormEmailNotificationSenderTest {
 		Assert.assertTrue(fieldLabelValueMap.containsKey("value"));
 		Assert.assertNull(fieldLabelValueMap.get("label"));
 
+<<<<<<< HEAD
 		Assert.assertEquals(
 			StringPool.BLANK, String.valueOf(fieldLabelValueMap.get("value")));
+=======
+		SoyRawData soyRawData = (SoyRawData)fieldLabelValueMap.get("value");
+
+		Assert.assertEquals(
+			StringPool.BLANK, String.valueOf(soyRawData.getValue()));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected DDMFormValues createDDMFormValues(Value value) {
@@ -123,6 +148,36 @@ public class DDMFormEmailNotificationSenderTest {
 		).set(
 			_ddmFormEmailNotificationSender, _ddmFormFieldTypeServicesTracker
 		);
+<<<<<<< HEAD
+=======
+
+		MemberMatcher.field(
+			DDMFormEmailNotificationSender.class, "_soyDataFactory"
+		).set(
+			_ddmFormEmailNotificationSender,
+			new SoyDataFactory() {
+
+				@Override
+				public SoyHTMLData createSoyHTMLData(String html) {
+					return null;
+				}
+
+				@Override
+				public SoyRawData createSoyRawData(String html) {
+					return new SoyRawData() {
+
+						@Override
+						public Object getValue() {
+							return UnsafeSanitizedContentOrdainer.ordainAsSafe(
+								html, SanitizedContent.ContentKind.HTML);
+						}
+
+					};
+				}
+
+			}
+		);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected void setUpDDMFormFieldTypeServicesTracker() {

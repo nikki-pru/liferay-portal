@@ -24,12 +24,17 @@ import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.module.framework.service.IdentifiableOSGiService;
 import com.liferay.portal.kernel.service.BaseServiceImpl;
 import com.liferay.portal.kernel.service.CountryService;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.service.persistence.AddressPersistence;
 import com.liferay.portal.kernel.service.persistence.CountryLocalizationPersistence;
 import com.liferay.portal.kernel.service.persistence.CountryPersistence;
 import com.liferay.portal.kernel.service.persistence.OrganizationFinder;
 import com.liferay.portal.kernel.service.persistence.OrganizationPersistence;
 import com.liferay.portal.kernel.service.persistence.RegionPersistence;
+=======
+import com.liferay.portal.kernel.service.persistence.CountryLocalizationPersistence;
+import com.liferay.portal.kernel.service.persistence.CountryPersistence;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.service.persistence.UserFinder;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
 import com.liferay.portal.kernel.util.PortalUtil;
@@ -139,6 +144,7 @@ public abstract class CountryServiceBaseImpl
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the address local service.
 	 *
 	 * @return the address local service
@@ -202,6 +208,8 @@ public abstract class CountryServiceBaseImpl
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the country localization persistence.
 	 *
 	 * @return the country localization persistence
@@ -222,6 +230,7 @@ public abstract class CountryServiceBaseImpl
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the organization local service.
 	 *
 	 * @return the organization local service
@@ -367,6 +376,8 @@ public abstract class CountryServiceBaseImpl
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the user local service.
 	 *
 	 * @return the user local service
@@ -510,6 +521,7 @@ public abstract class CountryServiceBaseImpl
 	protected com.liferay.counter.kernel.service.CounterLocalService
 		counterLocalService;
 
+<<<<<<< HEAD
 	@BeanReference(
 		type = com.liferay.portal.kernel.service.AddressLocalService.class
 	)
@@ -524,10 +536,13 @@ public abstract class CountryServiceBaseImpl
 	@BeanReference(type = AddressPersistence.class)
 	protected AddressPersistence addressPersistence;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@BeanReference(type = CountryLocalizationPersistence.class)
 	protected CountryLocalizationPersistence countryLocalizationPersistence;
 
 	@BeanReference(
+<<<<<<< HEAD
 		type = com.liferay.portal.kernel.service.OrganizationLocalService.class
 	)
 	protected com.liferay.portal.kernel.service.OrganizationLocalService
@@ -558,6 +573,8 @@ public abstract class CountryServiceBaseImpl
 	protected RegionPersistence regionPersistence;
 
 	@BeanReference(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		type = com.liferay.portal.kernel.service.UserLocalService.class
 	)
 	protected com.liferay.portal.kernel.service.UserLocalService

@@ -94,9 +94,16 @@ public class JSResolveModulesServlet
 		PrintWriter printWriter = new PrintWriter(
 			httpServletResponse.getOutputStream(), true);
 
+<<<<<<< HEAD
 		BrowserModulesResolution browserModulesResolution =
 			_browserModulesResolver.resolve(
 				_getModuleNames(httpServletRequest), httpServletRequest);
+=======
+		List<String> moduleNames = _getModuleNames(httpServletRequest);
+
+		BrowserModulesResolution browserModulesResolution =
+			_browserModulesResolver.resolve(moduleNames, httpServletRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		printWriter.write(browserModulesResolution.toJSON());
 

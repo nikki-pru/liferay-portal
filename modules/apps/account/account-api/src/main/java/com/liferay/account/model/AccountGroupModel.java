@@ -202,6 +202,7 @@ public interface AccountGroupModel
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+<<<<<<< HEAD
 	 * Returns the default account group of this account group.
 	 *
 	 * @return the default account group of this account group
@@ -221,6 +222,21 @@ public interface AccountGroupModel
 	 * @param defaultAccountGroup the default account group of this account group
 	 */
 	public void setDefaultAccountGroup(boolean defaultAccountGroup);
+=======
+	 * Returns the name of this account group.
+	 *
+	 * @return the name of this account group
+	 */
+	@AutoEscape
+	public String getName();
+
+	/**
+	 * Sets the name of this account group.
+	 *
+	 * @param name the name of this account group
+	 */
+	public void setName(String name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * Returns the description of this account group.
@@ -237,6 +253,7 @@ public interface AccountGroupModel
 	 */
 	public void setDescription(String description);
 
+<<<<<<< HEAD
 	/**
 	 * Returns the name of this account group.
 	 *
@@ -252,4 +269,6 @@ public interface AccountGroupModel
 	 */
 	public void setName(String name);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

@@ -31,7 +31,10 @@ public class QueryTypeEntriesHolder {
 		add("match_phrase", "Match Phrase");
 		add("match_phrase_prefix", "Match Phrase Prefix");
 		add("multi_match", "Multi Match");
+<<<<<<< HEAD
 		add("nested", "Nested");
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		add("prefix", "Prefix");
 		add("query_string", "Query String");
 		add("range", "Range");

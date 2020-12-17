@@ -39,11 +39,15 @@ const Text = ({
 	syncDelay,
 	value: initialValue,
 }) => {
+<<<<<<< HEAD
 	const [value, setValue] = useSyncValue(
 		initialValue,
 		syncDelay,
 		editingLanguageId
 	);
+=======
+	const [value, setValue] = useSyncValue(initialValue, syncDelay);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	const inputRef = useRef(null);
 

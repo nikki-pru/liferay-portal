@@ -14,7 +14,10 @@
 
 package com.liferay.dispatch.talend.web.internal.frontend.taglib.servlet.taglib.ui;
 
+<<<<<<< HEAD
 import com.liferay.admin.kernel.util.Omniadmin;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dispatch.constants.DispatchConstants;
 import com.liferay.dispatch.constants.DispatchWebKeys;
 import com.liferay.dispatch.model.DispatchTrigger;
@@ -81,6 +84,7 @@ public class DispatchTalendScreenNavigationCategory
 
 	@Override
 	public boolean isVisible(User user, DispatchTrigger dispatchTrigger) {
+<<<<<<< HEAD
 		if ((dispatchTrigger == null) ||
 			!Objects.equals(
 				dispatchTrigger.getTaskExecutorType(),
@@ -92,6 +96,22 @@ public class DispatchTalendScreenNavigationCategory
 		}
 
 		return true;
+=======
+		if (dispatchTrigger == null) {
+			return false;
+		}
+
+		if (Objects.equals(
+				dispatchTrigger.getTaskExecutorType(),
+				TalendDispatchTaskExecutor.
+					DISPATCH_TASK_EXECUTOR_TYPE_TALEND) &&
+			!dispatchTrigger.isSystem()) {
+
+			return true;
+		}
+
+		return false;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -129,9 +149,12 @@ public class DispatchTalendScreenNavigationCategory
 	@Reference
 	private JSPRenderer _jspRenderer;
 
+<<<<<<< HEAD
 	@Reference
 	private Omniadmin _omniadmin;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Reference(
 		target = "(osgi.web.symbolicname=com.liferay.dispatch.talend.web)"
 	)

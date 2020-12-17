@@ -60,9 +60,14 @@ public class AccountGroupLocalServiceImpl
 		accountGroup.setUserId(user.getUserId());
 		accountGroup.setUserName(user.getFullName());
 
+<<<<<<< HEAD
 		accountGroup.setDefaultAccountGroup(false);
 		accountGroup.setDescription(description);
 		accountGroup.setName(name);
+=======
+		accountGroup.setName(name);
+		accountGroup.setDescription(description);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return accountGroupPersistence.update(accountGroup);
 	}
@@ -103,6 +108,7 @@ public class AccountGroupLocalServiceImpl
 	}
 
 	@Override
+<<<<<<< HEAD
 	public AccountGroup getDefaultAccountGroup(long companyId) {
 		return accountGroupPersistence.fetchByC_D_First(companyId, true, null);
 	}
@@ -119,6 +125,8 @@ public class AccountGroupLocalServiceImpl
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public BaseModelSearchResult<AccountGroup> searchAccountGroups(
 		long companyId, String keywords, int start, int end,
 		OrderByComparator<AccountGroup> orderByComparator) {
@@ -139,8 +147,13 @@ public class AccountGroupLocalServiceImpl
 		AccountGroup accountGroup = accountGroupPersistence.fetchByPrimaryKey(
 			accountGroupId);
 
+<<<<<<< HEAD
 		accountGroup.setDescription(description);
 		accountGroup.setName(name);
+=======
+		accountGroup.setName(name);
+		accountGroup.setDescription(description);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return accountGroupPersistence.update(accountGroup);
 	}

@@ -135,6 +135,7 @@ public abstract class SpiraCustomPropertyValue<T> extends BaseSpiraArtifact {
 		return true;
 	}
 
+<<<<<<< HEAD
 	public JSONObject getCustomPropertyJSONObject() {
 		JSONObject customPropertyJSONObject = new JSONObject();
 
@@ -143,6 +144,8 @@ public abstract class SpiraCustomPropertyValue<T> extends BaseSpiraArtifact {
 		return customPropertyJSONObject;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Override
 	public String getName() {
 		SpiraCustomProperty spiraCustomProperty = getSpiraCustomProperty();
@@ -203,6 +206,17 @@ public abstract class SpiraCustomPropertyValue<T> extends BaseSpiraArtifact {
 		_spiraCustomProperty = spiraCustomProperty;
 	}
 
+<<<<<<< HEAD
+=======
+	protected JSONObject getCustomPropertyJSONObject() {
+		JSONObject customPropertyJSONObject = new JSONObject();
+
+		customPropertyJSONObject.put("PropertyNumber", getPropertyNumber());
+
+		return customPropertyJSONObject;
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected JSONObject getDefinitionJSONObject() {
 		SpiraProject spiraProject = getSpiraProject();
 

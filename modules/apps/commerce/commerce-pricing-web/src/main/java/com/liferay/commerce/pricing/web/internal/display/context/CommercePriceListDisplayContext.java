@@ -26,7 +26,11 @@ import com.liferay.commerce.pricing.model.CommercePriceModifier;
 import com.liferay.commerce.pricing.service.CommercePriceModifierService;
 import com.liferay.commerce.pricing.type.CommercePriceModifierType;
 import com.liferay.commerce.pricing.type.CommercePriceModifierTypeRegistry;
+<<<<<<< HEAD
 import com.liferay.commerce.pricing.web.internal.servlet.taglib.ui.constants.CommercePriceListScreenNavigationConstants;
+=======
+import com.liferay.commerce.pricing.web.internal.servlet.taglib.ui.CommercePriceListScreenNavigationConstants;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.product.display.context.util.CPRequestHelper;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.service.CommerceCatalogService;
@@ -42,7 +46,10 @@ import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.ListUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.URLCodec;
@@ -335,11 +342,23 @@ public class CommercePriceListDisplayContext
 	public List<ClayDataSetActionDropdownItem>
 		getPriceModifierCategoryClayDataSetActionDropdownItems() {
 
+<<<<<<< HEAD
 		return ListUtil.fromArray(
+=======
+		List<ClayDataSetActionDropdownItem> clayDataSetActionDropdownItems =
+			new ArrayList<>();
+
+		clayDataSetActionDropdownItems.add(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			new ClayDataSetActionDropdownItem(
 				null, "trash", "remove",
 				LanguageUtil.get(httpServletRequest, "remove"), "delete",
 				"delete", "headless"));
+<<<<<<< HEAD
+=======
+
+		return clayDataSetActionDropdownItems;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getPriceModifierCPDefinitionApiUrl() throws PortalException {
@@ -351,21 +370,45 @@ public class CommercePriceListDisplayContext
 	public List<ClayDataSetActionDropdownItem>
 		getPriceModifierCPDefinitionClayDataSetActionDropdownItems() {
 
+<<<<<<< HEAD
 		return ListUtil.fromArray(
+=======
+		List<ClayDataSetActionDropdownItem> clayDataSetActionDropdownItem =
+			new ArrayList<>();
+
+		clayDataSetActionDropdownItem.add(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			new ClayDataSetActionDropdownItem(
 				null, "trash", "remove",
 				LanguageUtil.get(httpServletRequest, "remove"), "delete",
 				"delete", "headless"));
+<<<<<<< HEAD
+=======
+
+		return clayDataSetActionDropdownItem;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public List<ClayDataSetActionDropdownItem>
 		getPriceModifierPricingClassClayDataSetActionDropdownItems() {
 
+<<<<<<< HEAD
 		return ListUtil.fromArray(
+=======
+		List<ClayDataSetActionDropdownItem> clayDataSetActionDropdownItems =
+			new ArrayList<>();
+
+		clayDataSetActionDropdownItems.add(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			new ClayDataSetActionDropdownItem(
 				null, "trash", "remove",
 				LanguageUtil.get(httpServletRequest, "remove"), "delete",
 				"delete", "headless"));
+<<<<<<< HEAD
+=======
+
+		return clayDataSetActionDropdownItems;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getPriceModifierPricingClassesApiUrl()

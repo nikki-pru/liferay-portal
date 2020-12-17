@@ -25,7 +25,10 @@ import com.liferay.change.tracking.service.CTCollectionLocalService;
 import com.liferay.change.tracking.service.CTEntryLocalService;
 import com.liferay.change.tracking.service.CTMessageLocalService;
 import com.liferay.change.tracking.service.CTProcessLocalService;
+<<<<<<< HEAD
 import com.liferay.change.tracking.service.CTSchemaVersionLocalService;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.lang.SafeClosable;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.aop.AopService;
@@ -89,6 +92,7 @@ public class CTPublishBackgroundTaskExecutor
 		long ctCollectionId = GetterUtil.getLong(
 			taskContextMap.get("ctCollectionId"));
 
+<<<<<<< HEAD
 		CTCollection ctCollection = _ctCollectionLocalService.getCTCollection(
 			ctCollectionId);
 
@@ -101,12 +105,20 @@ public class CTPublishBackgroundTaskExecutor
 					" because it is out of date with the current release"));
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		try (SafeClosable safeClosable =
 				CTCollectionThreadLocal.setCTCollectionId(ctCollectionId)) {
 
 			_ctServiceRegistry.onBeforePublish(ctCollectionId);
 		}
 
+<<<<<<< HEAD
+=======
+		CTCollection ctCollection = _ctCollectionLocalService.getCTCollection(
+			ctCollectionId);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Map<Long, List<ConflictInfo>> conflictInfosMap =
 			_ctCollectionLocalService.checkConflicts(ctCollection);
 
@@ -154,7 +166,11 @@ public class CTPublishBackgroundTaskExecutor
 
 						throw new SystemException(
 							StringBundler.concat(
+<<<<<<< HEAD
 								"Unable to publish ", ctCollection.getName(),
+=======
+								"Unable to publish ", ctCollectionId,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 								" because service for ", modelClassNameId,
 								" is missing"));
 					});
@@ -222,9 +238,12 @@ public class CTPublishBackgroundTaskExecutor
 	private CTProcessLocalService _ctProcessLocalService;
 
 	@Reference
+<<<<<<< HEAD
 	private CTSchemaVersionLocalService _ctSchemaVersionLocalService;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private CTServiceRegistry _ctServiceRegistry;
 
 	@Reference

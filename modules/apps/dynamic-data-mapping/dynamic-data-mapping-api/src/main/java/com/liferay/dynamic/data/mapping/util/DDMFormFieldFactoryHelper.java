@@ -382,7 +382,13 @@ public class DDMFormFieldFactoryHelper {
 	}
 
 	private com.liferay.dynamic.data.mapping.model.DDMForm _getNestedDDMForm() {
+<<<<<<< HEAD
 		return DDMFormFactory.create(_getReturnType());
+=======
+		Class<?> returnType = _getReturnType();
+
+		return DDMFormFactory.create(returnType);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private Class<?> _getReturnType() {

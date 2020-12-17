@@ -44,8 +44,11 @@ public class CTCollectionTable extends BaseTable<CTCollectionTable> {
 		"createDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
 	public final Column<CTCollectionTable, Date> modifiedDate = createColumn(
 		"modifiedDate", Date.class, Types.TIMESTAMP, Column.FLAG_DEFAULT);
+<<<<<<< HEAD
 	public final Column<CTCollectionTable, Long> schemaVersionId = createColumn(
 		"schemaVersionId", Long.class, Types.BIGINT, Column.FLAG_DEFAULT);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public final Column<CTCollectionTable, String> name = createColumn(
 		"name", String.class, Types.VARCHAR, Column.FLAG_DEFAULT);
 	public final Column<CTCollectionTable, String> description = createColumn(

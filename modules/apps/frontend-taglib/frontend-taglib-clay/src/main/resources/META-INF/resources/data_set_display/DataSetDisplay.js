@@ -76,8 +76,12 @@ function DataSetDisplay({
 	style,
 }) {
 	const wrapperRef = useRef(null);
+<<<<<<< HEAD
 	const [dataLoading, setDataLoading] = useState(false);
 	const [componentLoading, setComponentLoading] = useState(false);
+=======
+	const [loading, setLoading] = useState(false);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	const [dataSetDisplaySupportSidePanelId] = useState(
 		sidePanelId || 'support-side-panel-' + getRandomId()
 	);
@@ -100,7 +104,10 @@ function DataSetDisplay({
 	);
 	const [total, setTotal] = useState(0);
 	const [{activeView, views}, dispatch] = useContext(ViewsContext);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	const {
 		component: CurrentViewComponent,
 		contentRenderer,
@@ -173,6 +180,44 @@ function DataSetDisplay({
 		updateItems(dataSetData.items);
 	}
 
+<<<<<<< HEAD
+=======
+	const pendingPromise = useRef(null);
+
+	useEffect(() => {
+		const promise = Promise.race([
+			delay(200).then(() => {
+				if (isMounted() && pendingPromise.current === promise) {
+					setLoading(true);
+				}
+			}),
+			Promise.all([requestComponent(), requestData()]).then(
+				([component, data]) => {
+					if (isMounted() && pendingPromise.current === promise) {
+						pendingPromise.current = null;
+
+						dispatch(
+							updateViewComponent(activeViewName, component)
+						);
+
+						setLoading(false);
+						updateDataSetItems(data);
+					}
+				}
+			),
+		]);
+
+		pendingPromise.current = promise;
+	}, [
+		activeViewName,
+		dispatch,
+		isMounted,
+		requestComponent,
+		requestData,
+		setLoading,
+	]);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	useEffect(() => {
 		const itemsAreInjected = !apiURL && itemsProp?.length !== items.length;
 
@@ -225,7 +270,11 @@ function DataSetDisplay({
 	}, [wrapperRef]);
 
 	function refreshData(successNotification) {
+<<<<<<< HEAD
 		setDataLoading(true);
+=======
+		setLoading(true);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return requestData()
 			.then((data) => {
@@ -239,7 +288,11 @@ function DataSetDisplay({
 				}
 
 				if (isMounted()) {
+<<<<<<< HEAD
 					setDataLoading(false);
+=======
+					setLoading(false);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					updateDataSetItems(data);
 
 					Liferay.fire(DATASET_DISPLAY_UPDATED, {id});
@@ -249,13 +302,18 @@ function DataSetDisplay({
 			})
 			.catch((error) => {
 				logError(error);
+<<<<<<< HEAD
 				setDataLoading(false);
+=======
+				setLoading(false);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 				throw error;
 			});
 	}
 
 	useEffect(() => {
+<<<<<<< HEAD
 		setComponentLoading(true);
 
 		requestComponent().then((component) => {
@@ -284,6 +342,8 @@ function DataSetDisplay({
 	}, [isMounted, requestData, setDataLoading]);
 
 	useEffect(() => {
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		function handleRefreshFromTheOutside(event) {
 			if (event.id === id) {
 				refreshData();
@@ -337,7 +397,11 @@ function DataSetDisplay({
 	) : null;
 
 	const view =
+<<<<<<< HEAD
 		!dataLoading && !componentLoading ? (
+=======
+		!loading && CurrentViewComponent ? (
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			<div className="data-set-display-content-wrapper">
 				<input
 					hidden

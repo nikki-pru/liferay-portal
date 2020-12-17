@@ -159,8 +159,14 @@ public class PunchOutLoginPostAction extends Action {
 		httpServletRequest.setAttribute(
 			CommerceWebKeys.COMMERCE_CONTEXT, commerceContext);
 
+<<<<<<< HEAD
 		httpServletRequest.setAttribute(
 			WebKeys.THEME_DISPLAY, _getThemeDisplay());
+=======
+		ThemeDisplay themeDisplay = _getThemeDisplay();
+
+		httpServletRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		String cookieName = _commerceOrderHttpHelper.getCookieName(
 			commerceOrder.getGroupId());

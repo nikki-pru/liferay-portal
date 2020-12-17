@@ -17,7 +17,10 @@ create table CTCollection (
 	userId LONG,
 	createDate DATE null,
 	modifiedDate DATE null,
+<<<<<<< HEAD
 	schemaVersionId LONG,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	name VARCHAR(75) null,
 	description VARCHAR(200) null,
 	status INTEGER,
@@ -65,6 +68,7 @@ create table CTProcess (
 	createDate DATE null,
 	ctCollectionId LONG,
 	backgroundTaskId LONG
+<<<<<<< HEAD
 );
 
 create table CTSchemaVersion (
@@ -72,4 +76,6 @@ create table CTSchemaVersion (
 	schemaVersionId LONG not null primary key,
 	companyId LONG,
 	schemaContext TEXT null
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 );

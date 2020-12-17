@@ -66,8 +66,15 @@ public class PasswordPoliciesConfigurationModelListener
 	private void _validateDurations(Long[] durations) throws Exception {
 		for (long duration : durations) {
 			if (duration < 0) {
+<<<<<<< HEAD
 				String message = ResourceBundleUtil.getString(
 					_getResourceBundle(),
+=======
+				ResourceBundle resourceBundle = _getResourceBundle();
+
+				String message = ResourceBundleUtil.getString(
+					resourceBundle,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					"the-duration-must-be-greater-than-or-equal-to-0");
 
 				throw new Exception(message);

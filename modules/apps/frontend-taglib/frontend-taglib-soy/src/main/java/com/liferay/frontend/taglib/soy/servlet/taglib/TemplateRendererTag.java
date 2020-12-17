@@ -23,9 +23,16 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.template.soy.renderer.ComponentDescriptor;
 import com.liferay.portal.template.soy.renderer.SoyComponentRenderer;
+<<<<<<< HEAD
 import com.liferay.taglib.util.ParamAndPropertyAncestorTagImpl;
 
 import java.util.HashMap;
+=======
+import com.liferay.portal.template.soy.util.SoyContext;
+import com.liferay.portal.template.soy.util.SoyContextFactoryUtil;
+import com.liferay.taglib.util.ParamAndPropertyAncestorTagImpl;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.Map;
 import java.util.Set;
 
@@ -36,9 +43,13 @@ import javax.servlet.jsp.JspWriter;
 
 /**
  * @author Bruno Basto
+<<<<<<< HEAD
  * @deprecated As of Cavanaugh (7.4.x), with no direct replacement
  */
 @Deprecated
+=======
+ */
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 public class TemplateRendererTag extends ParamAndPropertyAncestorTagImpl {
 
 	@Override
@@ -125,7 +136,20 @@ public class TemplateRendererTag extends ParamAndPropertyAncestorTagImpl {
 	}
 
 	public void putHTMLValue(String key, String value) {
+<<<<<<< HEAD
 		putValue(key, value);
+=======
+		Map<String, Object> context = getContext();
+
+		if (context instanceof SoyContext) {
+			SoyContext soyContext = (SoyContext)context;
+
+			soyContext.putHTML(key, value);
+		}
+		else {
+			putValue(key, value);
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public void putValue(String key, Object value) {
@@ -146,7 +170,16 @@ public class TemplateRendererTag extends ParamAndPropertyAncestorTagImpl {
 	}
 
 	public void setContext(Map<String, Object> context) {
+<<<<<<< HEAD
 		_context = context;
+=======
+		if (context instanceof SoyContext) {
+			_context = context;
+		}
+		else {
+			_context = SoyContextFactoryUtil.createSoyContext(context);
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public void setDependencies(Set<String> dependencies) {
@@ -194,7 +227,11 @@ public class TemplateRendererTag extends ParamAndPropertyAncestorTagImpl {
 
 	protected Map<String, Object> getContext() {
 		if (_context == null) {
+<<<<<<< HEAD
 			_context = new HashMap<>();
+=======
+			_context = SoyContextFactoryUtil.createSoyContext();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return _context;

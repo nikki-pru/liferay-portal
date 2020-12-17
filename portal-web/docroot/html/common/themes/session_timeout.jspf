@@ -17,10 +17,17 @@
 <c:if test="<%= !PropsValues.SESSION_DISABLED %>">
 
 	<%
+<<<<<<< HEAD
 	String rememberMe = CookieKeys.getCookie(request, CookieKeys.REMEMBER_ME);
 	%>
 
 	<c:if test="<%= !themeDisplay.isSignedIn() || Validator.isNull(rememberMe) %>">
+=======
+	String autoRememberMe = CookieKeys.getCookie(request, CookieKeys.REMEMBER_ME);
+	%>
+
+	<c:if test="<%= !themeDisplay.isSignedIn() || Validator.isNull(autoRememberMe) %>">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		<%
 		boolean autoExtend = !themeDisplay.isSignedIn() || PropsValues.SESSION_TIMEOUT_AUTO_EXTEND;

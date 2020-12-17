@@ -17,7 +17,10 @@ package com.liferay.layout.admin.web.internal.exportimport.data.handler;
 import com.liferay.asset.list.model.AssetListEntry;
 import com.liferay.asset.list.service.AssetListEntryLocalService;
 import com.liferay.counter.kernel.service.CounterLocalService;
+<<<<<<< HEAD
 import com.liferay.exportimport.configuration.ExportImportServiceConfiguration;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.exportimport.controller.PortletExportController;
 import com.liferay.exportimport.controller.PortletImportController;
 import com.liferay.exportimport.data.handler.base.BaseStagedModelDataHandler;
@@ -85,8 +88,11 @@ import com.liferay.portal.kernel.model.LayoutTypePortletConstants;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.model.PortletPreferences;
 import com.liferay.portal.kernel.model.adapter.StagedTheme;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
 import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ImageLocalService;
 import com.liferay.portal.kernel.service.LayoutFriendlyURLLocalService;
@@ -255,20 +261,31 @@ public class LayoutStagedModelDataHandler
 
 		validateMissingGroupReference(portletDataContext, referenceElement);
 
+<<<<<<< HEAD
 		String uuid = GetterUtil.getString(
 			referenceElement.attributeValue("uuid"));
 
 		long groupId = GetterUtil.getLong(
 			referenceElement.attributeValue("group-id"));
+=======
+		String uuid = referenceElement.attributeValue("uuid");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Map<Long, Long> groupIds =
 			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
 				Group.class);
 
+<<<<<<< HEAD
+=======
+		long groupId = GetterUtil.getLong(
+			referenceElement.attributeValue("group-id"));
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		groupId = MapUtil.getLong(groupIds, groupId);
 
 		boolean privateLayout = GetterUtil.getBoolean(
 			referenceElement.attributeValue("private-layout"));
+<<<<<<< HEAD
 		String type = GetterUtil.getString(
 			referenceElement.attributeValue("type"));
 
@@ -282,6 +299,11 @@ public class LayoutStagedModelDataHandler
 			existingLayout = fetchMissingReference(
 				uuid, groupId, privateLayout);
 		}
+=======
+
+		Layout existingLayout = fetchMissingReference(
+			uuid, groupId, privateLayout);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (existingLayout == null) {
 			return false;
@@ -362,6 +384,7 @@ public class LayoutStagedModelDataHandler
 				"parent-layout-uuid");
 
 			if ((parentLayout != null) && Validator.isNull(parentLayoutUuid)) {
+<<<<<<< HEAD
 				if (_isExportParentLayout(
 						portletDataContext.getLayoutIds(), parentLayoutId)) {
 
@@ -379,6 +402,13 @@ public class LayoutStagedModelDataHandler
 					"parent-layout-friendly-url",
 					parentLayout.getFriendlyURL());
 				layoutElement.addAttribute(
+=======
+				StagedModelDataHandlerUtil.exportReferenceStagedModel(
+					portletDataContext, layout, parentLayout,
+					PortletDataContext.REFERENCE_TYPE_PARENT);
+
+				layoutElement.addAttribute(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					"parent-layout-uuid", parentLayout.getUuid());
 			}
 		}
@@ -599,9 +629,13 @@ public class LayoutStagedModelDataHandler
 			existingLayout = _layoutLocalService.fetchLayoutByUuidAndGroupId(
 				uuid, groupId, privateLayout);
 
+<<<<<<< HEAD
 			if (SitesUtil.isLayoutModifiedSinceLastMerge(existingLayout) ||
 				!_isLayoutOutdated(existingLayout, layout)) {
 
+=======
+			if (SitesUtil.isLayoutModifiedSinceLastMerge(existingLayout)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				layouts.put(oldLayoutId, existingLayout);
 
 				return;
@@ -799,6 +833,7 @@ public class LayoutStagedModelDataHandler
 		if ((parentLayoutId != LayoutConstants.DEFAULT_PARENT_LAYOUT_ID) &&
 			(parentLayoutElement != null)) {
 
+<<<<<<< HEAD
 			Layout importedParentLayout = null;
 
 			String action = GetterUtil.getString(
@@ -833,6 +868,20 @@ public class LayoutStagedModelDataHandler
 				importedParentLayout = layouts.get(parentLayoutId);
 			}
 
+=======
+			long originalPlid = portletDataContext.getPlid();
+
+			try {
+				StagedModelDataHandlerUtil.importStagedModel(
+					portletDataContext, parentLayoutElement);
+			}
+			finally {
+				portletDataContext.setPlid(originalPlid);
+			}
+
+			Layout importedParentLayout = layouts.get(parentLayoutId);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			parentPlid = importedParentLayout.getPlid();
 			parentLayoutId = importedParentLayout.getLayoutId();
 		}
@@ -2112,6 +2161,7 @@ public class LayoutStagedModelDataHandler
 	}
 
 	@Reference(unbind = "-")
+<<<<<<< HEAD
 	protected void setConfigurationProvider(
 		ConfigurationProvider configurationProvider) {
 
@@ -2119,6 +2169,8 @@ public class LayoutStagedModelDataHandler
 	}
 
 	@Reference(unbind = "-")
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected void setCounterLocalService(
 		CounterLocalService counterLocalService) {
 
@@ -2433,6 +2485,7 @@ public class LayoutStagedModelDataHandler
 		return layout.getLayoutPrototypeUuid();
 	}
 
+<<<<<<< HEAD
 	private boolean _isExportParentLayout(
 		long[] layoutIds, long parentLayoutId) {
 
@@ -2478,6 +2531,8 @@ public class LayoutStagedModelDataHandler
 		return false;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private Layout _updateCollectionLayoutTypeSettings(
 		PortletDataContext portletDataContext, Layout layout,
 		Layout importedLayout) {
@@ -2550,7 +2605,10 @@ public class LayoutStagedModelDataHandler
 	@Reference
 	private AssetListEntryLocalService _assetListEntryLocalService;
 
+<<<<<<< HEAD
 	private ConfigurationProvider _configurationProvider;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private CounterLocalService _counterLocalService;
 
 	@Reference

@@ -47,6 +47,7 @@ public class UpgradeSchema extends UpgradeProcess {
 			});
 
 		try (LoggingTimer loggingTimer = new LoggingTimer()) {
+<<<<<<< HEAD
 			if (!hasColumnType(
 					KaleoNotificationTable.TABLE_NAME, "notificationTypes",
 					"VARCHAR(255) null")) {
@@ -56,6 +57,11 @@ public class UpgradeSchema extends UpgradeProcess {
 					new AlterColumnType(
 						"notificationTypes", "VARCHAR(255) null"));
 			}
+=======
+			alter(
+				KaleoNotificationTable.class,
+				new AlterColumnType("notificationTypes", "VARCHAR(255) null"));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 

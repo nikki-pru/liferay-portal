@@ -19,7 +19,10 @@ import com.liferay.dispatch.constants.DispatchPortletKeys;
 import com.liferay.dispatch.executor.DispatchTaskClusterMode;
 import com.liferay.dispatch.model.DispatchTrigger;
 import com.liferay.dispatch.service.DispatchTriggerService;
+<<<<<<< HEAD
 import com.liferay.dispatch.web.internal.security.permisison.resource.DispatchTriggerPermission;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -30,17 +33,25 @@ import com.liferay.portal.kernel.messaging.Destination;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.servlet.ServletResponseUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+=======
+import com.liferay.portal.kernel.servlet.ServletResponseUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.WebKeys;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.io.IOException;
 
@@ -92,7 +103,12 @@ public class EditDispatchTriggerMVCActionCommand extends BaseMVCActionCommand {
 
 	@Override
 	protected void doProcessAction(
+<<<<<<< HEAD
 		ActionRequest actionRequest, ActionResponse actionResponse) {
+=======
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		String cmd = ParamUtil.getString(actionRequest, Constants.CMD);
 
@@ -127,16 +143,24 @@ public class EditDispatchTriggerMVCActionCommand extends BaseMVCActionCommand {
 		}
 	}
 
+<<<<<<< HEAD
 	protected JSONObject runProcess(ActionRequest actionRequest)
 		throws PortalException {
+=======
+	protected JSONObject runProcess(ActionRequest actionRequest) {
+		JSONObject jsonObject = _jsonFactory.createJSONObject();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		long dispatchTriggerId = ParamUtil.getLong(
 			actionRequest, "dispatchTriggerId");
 
+<<<<<<< HEAD
 		_checkPermission(actionRequest, dispatchTriggerId);
 
 		JSONObject jsonObject = _jsonFactory.createJSONObject();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		try {
 			_sendMessage(dispatchTriggerId);
 		}
@@ -256,6 +280,7 @@ public class EditDispatchTriggerMVCActionCommand extends BaseMVCActionCommand {
 		httpServletResponse.flushBuffer();
 	}
 
+<<<<<<< HEAD
 	private void _checkPermission(
 			ActionRequest actionRequest, long dispatchTriggerId)
 		throws PortalException {
@@ -268,6 +293,8 @@ public class EditDispatchTriggerMVCActionCommand extends BaseMVCActionCommand {
 			ActionKeys.UPDATE);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private void _sendMessage(long dispatchTriggerId) {
 		Message message = new Message();
 

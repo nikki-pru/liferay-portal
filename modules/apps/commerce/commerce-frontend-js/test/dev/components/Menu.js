@@ -76,5 +76,9 @@ function Menu({spritemap}) {
 }
 
 launcher(Menu, 'menu', 'menu-root', {
+<<<<<<< HEAD
 	spritemap: './assets/clay/icons.svg',
+=======
+	spritemap: './assets/icons.svg',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 });

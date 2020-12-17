@@ -2108,11 +2108,15 @@ public class DataFactory {
 		ddmFieldModel.setCompanyId(_companyId);
 		ddmFieldModel.setParentFieldId(0);
 		ddmFieldModel.setStorageId(ddmStorageLinkModel.getClassPK());
+<<<<<<< HEAD
 
 		long structureVersionId = ddmStorageLinkModel.getStructureVersionId();
 
 		ddmFieldModel.setStructureVersionId(structureVersionId);
 
+=======
+		ddmFieldModel.setStructureVersionId(_defaultDLDDMStructureVersionId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		ddmFieldModel.setFieldName(StringPool.BLANK);
 		ddmFieldModel.setFieldType(StringPool.BLANK);
 		ddmFieldModel.setInstanceId(StringPool.BLANK);
@@ -2130,9 +2134,16 @@ public class DataFactory {
 			ddmFieldModel.setCompanyId(_companyId);
 			ddmFieldModel.setParentFieldId(0);
 			ddmFieldModel.setStorageId(ddmStorageLinkModel.getClassPK());
+<<<<<<< HEAD
 			ddmFieldModel.setStructureVersionId(structureVersionId);
 			ddmFieldModel.setFieldName(
 				nextDDLCustomFieldName(ddlRecordModel.getGroupId(), i - 1));
+=======
+			ddmFieldModel.setStructureVersionId(
+				_defaultDLDDMStructureVersionId);
+			ddmFieldModel.setFieldName(
+				nextDDLCustomFieldName(ddlRecordModel.getGroupId(), i));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ddmFieldModel.setFieldType("string");
 			ddmFieldModel.setInstanceId(StringUtil.randomId());
 			ddmFieldModel.setLocalizable(true);
@@ -2145,12 +2156,20 @@ public class DataFactory {
 	}
 
 	public DDMStorageLinkModel newDDMStorageLinkModel(
+<<<<<<< HEAD
 		DDLRecordModel ddlRecordModel, long ddmStorageLinkId, long structureId,
 		long structureVersionId) {
 
 		return newDDMStorageLinkModel(
 			ddmStorageLinkId, ddlRecordModel.getDDMStorageId(), structureId,
 			structureVersionId);
+=======
+		DDLRecordModel ddlRecordModel, long ddmStorageLinkId,
+		long structureId) {
+
+		return newDDMStorageLinkModel(
+			ddmStorageLinkId, ddlRecordModel.getDDMStorageId(), structureId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public DDMStorageLinkModel newDDMStorageLinkModel(
@@ -2158,8 +2177,12 @@ public class DataFactory {
 		long structureId) {
 
 		return newDDMStorageLinkModel(
+<<<<<<< HEAD
 			ddmStorageLinkId, _counter.get(), structureId,
 			_defaultDLDDMStructureVersionId);
+=======
+			ddmStorageLinkId, _counter.get(), structureId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public DDMStorageLinkModel newDDMStorageLinkModel(
@@ -2187,6 +2210,33 @@ public class DataFactory {
 		return ddmStorageLinkModel;
 	}
 
+<<<<<<< HEAD
+=======
+	public DDMStorageLinkModel newDDMStorageLinkModel(
+		long ddmStorageLinkId, long classPK, long structureId) {
+
+		DDMStorageLinkModel ddmStorageLinkModel = new DDMStorageLinkModelImpl();
+
+		// UUID
+
+		ddmStorageLinkModel.setUuid(SequentialUUID.generate());
+
+		// PK fields
+
+		ddmStorageLinkModel.setStorageLinkId(ddmStorageLinkId);
+
+		// Other fields
+
+		ddmStorageLinkModel.setClassNameId(getClassNameId(DDMContent.class));
+		ddmStorageLinkModel.setClassPK(classPK);
+		ddmStorageLinkModel.setStructureId(structureId);
+		ddmStorageLinkModel.setStructureVersionId(
+			_defaultDLDDMStructureVersionId);
+
+		return ddmStorageLinkModel;
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public DDMStructureLinkModel newDDMStructureLinkModel(
 		DDLRecordSetModel ddlRecordSetModel) {
 
@@ -3655,31 +3705,81 @@ public class DataFactory {
 	public List<ResourcePermissionModel> newResourcePermissionModels(
 		DDLRecordSetModel ddlRecordSetModel) {
 
+<<<<<<< HEAD
 		return newResourcePermissionModels(
 			DDLRecordSet.class.getName(),
 			String.valueOf(ddlRecordSetModel.getRecordSetId()), _sampleUserId);
+=======
+		return Collections.singletonList(
+			newResourcePermissionModel(
+				DDLRecordSet.class.getName(),
+				String.valueOf(ddlRecordSetModel.getRecordSetId()),
+				_ownerRoleModel.getRoleId(), _defaultUserId));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public List<ResourcePermissionModel> newResourcePermissionModels(
 		DDMStructureModel ddmStructureModel) {
 
+<<<<<<< HEAD
+=======
+		List<ResourcePermissionModel> resourcePermissionModels =
+			new ArrayList<>(3);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String name = _getResourcePermissionModelName(
 			DDMStructure.class.getName(),
 			getClassName(ddmStructureModel.getClassNameId()));
 		String primKey = String.valueOf(ddmStructureModel.getStructureId());
 
+<<<<<<< HEAD
 		return newResourcePermissionModels(name, primKey, _sampleUserId);
+=======
+		resourcePermissionModels.add(
+			newResourcePermissionModel(
+				name, primKey, _guestRoleModel.getRoleId(), 0));
+		resourcePermissionModels.add(
+			newResourcePermissionModel(
+				name, primKey, _ownerRoleModel.getRoleId(),
+				ddmStructureModel.getUserId()));
+		resourcePermissionModels.add(
+			newResourcePermissionModel(
+				name, primKey, _userRoleModel.getRoleId(), 0));
+
+		return resourcePermissionModels;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public List<ResourcePermissionModel> newResourcePermissionModels(
 		DDMTemplateModel ddmTemplateModel) {
 
+<<<<<<< HEAD
+=======
+		List<ResourcePermissionModel> resourcePermissionModels =
+			new ArrayList<>(3);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String name = _getResourcePermissionModelName(
 			DDMTemplate.class.getName(),
 			getClassName(ddmTemplateModel.getResourceClassNameId()));
 		String primKey = String.valueOf(ddmTemplateModel.getTemplateId());
 
+<<<<<<< HEAD
 		return newResourcePermissionModels(name, primKey, _sampleUserId);
+=======
+		resourcePermissionModels.add(
+			newResourcePermissionModel(
+				name, primKey, _guestRoleModel.getRoleId(), 0));
+		resourcePermissionModels.add(
+			newResourcePermissionModel(
+				name, primKey, _ownerRoleModel.getRoleId(),
+				ddmTemplateModel.getUserId()));
+		resourcePermissionModels.add(
+			newResourcePermissionModel(
+				name, primKey, _userRoleModel.getRoleId(), 0));
+
+		return resourcePermissionModels;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public List<ResourcePermissionModel> newResourcePermissionModels(
@@ -4309,6 +4409,7 @@ public class DataFactory {
 		return blogsEntryModel;
 	}
 
+<<<<<<< HEAD
 	protected DDMStorageLinkModel newDDMStorageLinkModel(
 		long ddmStorageLinkId, long classPK, long structureId, long versionId) {
 
@@ -4336,6 +4437,8 @@ public class DataFactory {
 		return ddmStorageLinkModel;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected DDMStructureLayoutModel newDDMStructureLayoutModel(
 		long groupId, long userId, long structureVersionId, String definition) {
 
@@ -4382,10 +4485,13 @@ public class DataFactory {
 
 		ddmStructureLinkModel.setStructureLinkId(_counter.get());
 
+<<<<<<< HEAD
 		// Audit fields
 
 		ddmStructureLinkModel.setCompanyId(_companyId);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		// Other fields
 
 		ddmStructureLinkModel.setClassNameId(classNameId);

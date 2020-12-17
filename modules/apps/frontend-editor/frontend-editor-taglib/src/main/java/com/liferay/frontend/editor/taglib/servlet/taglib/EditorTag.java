@@ -461,7 +461,13 @@ public class EditorTag extends BaseValidatorTagSupport {
 	}
 
 	private EditorRenderer _getEditorProvider() {
+<<<<<<< HEAD
 		return EditorRendererUtil.getEditorRenderer(_getResolvedEditorName());
+=======
+		String resolvedEditorName = _getResolvedEditorName();
+
+		return EditorRendererUtil.getEditorRenderer(resolvedEditorName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private String _getEditorResourceType() {

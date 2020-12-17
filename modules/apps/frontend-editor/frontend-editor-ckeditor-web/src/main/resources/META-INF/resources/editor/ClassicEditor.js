@@ -106,7 +106,10 @@ const ClassicEditor = ({
 			<Editor
 				className="lfr-editable"
 				config={getConfig()}
+<<<<<<< HEAD
 				name={name}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				onBeforeLoad={(CKEDITOR) => {
 					CKEDITOR.disableAutoInline = true;
 					CKEDITOR.dtd.$removeEmpty.i = 0;
@@ -117,6 +120,7 @@ const ClassicEditor = ({
 							? CKEDITOR.dialog._.currentZIndex + 10
 							: Liferay.zIndex.WINDOW + 10;
 					};
+<<<<<<< HEAD
 				}}
 				onChange={onChangeCallback}
 				onDrop={(event) => {
@@ -138,6 +142,36 @@ const ClassicEditor = ({
 				onInstanceReady={({editor}) => {
 					editor.setData(contents);
 				}}
+=======
+
+					CKEDITOR.on('instanceCreated', ({editor}) => {
+						editor.name = name;
+
+						editor.on('drop', (event) => {
+							var data = event.data.dataTransfer.getData(
+								'text/html'
+							);
+
+							if (data) {
+								var fragment = CKEDITOR.htmlParser.fragment.fromHtml(
+									data
+								);
+
+								var name = fragment.children[0].name;
+
+								if (name) {
+									return editor.pasteFilter.check(name);
+								}
+							}
+						});
+
+						editor.on('instanceReady', () => {
+							editor.setData(contents);
+						});
+					});
+				}}
+				onChange={onChangeCallback}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				ref={editorRef}
 				{...otherProps}
 			/>

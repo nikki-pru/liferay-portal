@@ -59,9 +59,17 @@ public class MenuItemProvider {
 		Folder folder, ThemeDisplay themeDisplay,
 		PortletRequest portletRequest) {
 
+<<<<<<< HEAD
 		if (!_hasPermission(
 				themeDisplay.getPermissionChecker(),
 				themeDisplay.getScopeGroupId(), _getFolderId(folder),
+=======
+		long folderId = _getFolderId(folder);
+
+		if (!_hasPermission(
+				themeDisplay.getPermissionChecker(),
+				themeDisplay.getScopeGroupId(), folderId,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				ActionKeys.ADD_DOCUMENT)) {
 
 			return Collections.emptyList();
@@ -365,11 +373,14 @@ public class MenuItemProvider {
 		portletURL.setParameter(Constants.CMD, Constants.ADD);
 		portletURL.setParameter(
 			"redirect", PortalUtil.getCurrentURL(portletRequest));
+<<<<<<< HEAD
 
 		PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
 		portletURL.setParameter("portletResource", portletDisplay.getId());
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		portletURL.setParameter(
 			"repositoryId",
 			String.valueOf(_getRepositoryId(folder, themeDisplay)));

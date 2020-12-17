@@ -66,8 +66,11 @@ definition {
 
 	@priority = "4"
 	test ViewWebsiteNotificationForNewBookmarkInFolder {
+<<<<<<< HEAD
 		var portalURL = PropsUtil.get("portal.url");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.gotoPage(pageName = "Bookmarks Page");
 
 		BookmarksFolder.addPG(
@@ -96,8 +99,11 @@ definition {
 			bookmarkName = "Bookmark Name",
 			bookmarkURL = "https://www.liferay.com");
 
+<<<<<<< HEAD
 		Open(locator1 = "${portalURL}/web/guest/bookmarks-page");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.gotoPage(pageName = "Bookmarks Page");
 
 		Notifications.viewBadgeCount(notificationCount = "0");
@@ -132,8 +138,11 @@ definition {
 
 	@priority = "4"
 	test ViewWebsiteNotificationForUpdatedBookmarkInFolder {
+<<<<<<< HEAD
 		var portalURL = PropsUtil.get("portal.url");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.gotoPage(pageName = "Bookmarks Page");
 
 		BookmarksFolder.addPG(
@@ -152,8 +161,11 @@ definition {
 			bookmarkName = "Bookmark Name",
 			bookmarkURL = "https://www.liferay.com");
 
+<<<<<<< HEAD
 		Open(locator1 = "${portalURL}/web/guest/bookmarks-page");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.gotoPage(pageName = "Bookmarks Page");
 
 		Notifications.viewBadgeCount(notificationCount = "0");
@@ -174,8 +186,11 @@ definition {
 			bookmarkURL = "https://www.liferay.com",
 			bookmarkURLEdit = "https://www.liferay.com");
 
+<<<<<<< HEAD
 		Open(locator1 = "${portalURL}/web/guest/bookmarks-page");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Notifications.viewBadgeCount(notificationCount = "0");
 
 		User.logoutPG();

@@ -24,8 +24,11 @@ import {useSelector} from '../../store/index';
 import {getFrontendTokenValue} from '../../utils/getFrontendTokenValue';
 import {getResponsiveConfig} from '../../utils/getResponsiveConfig';
 import loadBackgroundImage from '../../utils/loadBackgroundImage';
+<<<<<<< HEAD
 import {useBackgroundImageMediaQueries} from '../../utils/useBackgroundImageQueries';
 import {useId} from '../../utils/useId';
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 const Container = React.forwardRef(
 	({children, className, data, item, withinTopper = false}, ref) => {
@@ -70,16 +73,22 @@ const Container = React.forwardRef(
 
 		const {widthType} = itemConfig;
 
+<<<<<<< HEAD
 		const elementId = useId();
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		const languageId = useSelector(selectLanguageId);
 		const [backgroundImageValue, setBackgroundImageValue] = useState('');
 		const [link, setLink] = useState(null);
 
+<<<<<<< HEAD
 		const backgroundImageMediaQueries = useBackgroundImageMediaQueries(
 			elementId,
 			backgroundImage
 		);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		useEffect(() => {
 			loadBackgroundImage(backgroundImage).then(setBackgroundImageValue);
 		}, [backgroundImage]);
@@ -145,11 +154,14 @@ const Container = React.forwardRef(
 			style.backgroundPosition = '50% 50%';
 			style.backgroundRepeat = 'no-repeat';
 			style.backgroundSize = 'cover';
+<<<<<<< HEAD
 
 			if (backgroundImage?.fileEntryId) {
 				style['--background-image-file-entry-id'] =
 					backgroundImage.fileEntryId;
 			}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		const content = (
@@ -177,11 +189,17 @@ const Container = React.forwardRef(
 							: '']: textAlign,
 					}
 				)}
+<<<<<<< HEAD
 				id={elementId}
 				ref={ref}
 				style={style}
 			>
 				<style>{backgroundImageMediaQueries}</style>
+=======
+				ref={ref}
+				style={style}
+			>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				{children}
 			</div>
 		);

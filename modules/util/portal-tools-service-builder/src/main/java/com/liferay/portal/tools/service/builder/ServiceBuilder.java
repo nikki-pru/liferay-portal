@@ -647,12 +647,20 @@ public class ServiceBuilder {
 					"The package-path attribute is required");
 			}
 
+<<<<<<< HEAD
 			_databaseNameMaxLength = GetterUtil.getInteger(
 				rootElement.attributeValue("database-name-max-length"),
 				databaseNameMaxLength);
 
 			_apiPackagePath = GetterUtil.getString(
 				rootElement.attributeValue("api-package-path"), packagePath);
+=======
+			_apiPackagePath = GetterUtil.getString(
+				rootElement.attributeValue("api-package-path"), packagePath);
+			_databaseNameMaxLength = GetterUtil.getInteger(
+				rootElement.attributeValue("database-name-max-length"),
+				databaseNameMaxLength);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_oldServiceOutputPath =
 				_apiDirName + "/" + StringUtil.replace(packagePath, '.', '/');
 			_outputPath =
@@ -2639,7 +2647,13 @@ public class ServiceBuilder {
 		Map<String, JavaMethod> methods = new LinkedHashMap<>();
 
 		for (JavaMethod method : _getMethods(modelImplJavaClass)) {
+<<<<<<< HEAD
 			methods.put(_getMethodSignature(method, false), method);
+=======
+			String methodSignature = _getMethodSignature(method, false);
+
+			methods.put(methodSignature, method);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		Set<Map.Entry<String, JavaMethod>> entrySet = methods.entrySet();
@@ -2663,7 +2677,13 @@ public class ServiceBuilder {
 				_serviceOutputPath, "/model/", entity.getName(), "Model.java"));
 
 		for (JavaMethod method : _getMethods(modelJavaClass)) {
+<<<<<<< HEAD
 			methods.remove(_getMethodSignature(method, false));
+=======
+			String methodSignature = _getMethodSignature(method, false);
+
+			methods.remove(methodSignature);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		Map<String, Object> context = _getContext();
@@ -3726,8 +3746,14 @@ public class ServiceBuilder {
 			return;
 		}
 
+<<<<<<< HEAD
 		String content = _processTemplate(
 			_tplServletContextUtil, _getContext());
+=======
+		Map<String, Object> context = _getContext();
+
+		String content = _processTemplate(_tplServletContextUtil, context);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		File file = new File(
 			_serviceOutputPath + "/service/ServletContextUtil.java");

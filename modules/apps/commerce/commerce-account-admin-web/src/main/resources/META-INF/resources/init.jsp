@@ -29,7 +29,11 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.commerce.account.admin.web.internal.display.context.CommerceAccountAdminDisplayContext" %><%@
 page import="com.liferay.commerce.account.admin.web.internal.display.context.CommerceAccountOrganizationRelAdminDisplayContext" %><%@
 page import="com.liferay.commerce.account.admin.web.internal.display.context.CommerceAccountUserRelAdminDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.account.admin.web.internal.servlet.taglib.ui.constants.CommerceAccountScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.account.admin.web.internal.servlet.taglib.ui.CommerceAccountScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.account.constants.CommerceAccountActionKeys" %><%@
 page import="com.liferay.commerce.account.constants.CommerceAccountConstants" %><%@
 page import="com.liferay.commerce.account.exception.CommerceAccountNameException" %><%@

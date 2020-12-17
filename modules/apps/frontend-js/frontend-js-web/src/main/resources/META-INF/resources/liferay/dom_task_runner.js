@@ -12,7 +12,11 @@
  * details.
  */
 
+<<<<<<< HEAD
 (function () {
+=======
+(function (Liferay) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	var DOMTaskRunner = {
 		_scheduledTasks: [],
 
@@ -63,4 +67,8 @@
 	};
 
 	Liferay.DOMTaskRunner = DOMTaskRunner;
+<<<<<<< HEAD
 })();
+=======
+})(Liferay);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

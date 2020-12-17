@@ -150,15 +150,25 @@ DLViewDisplayContext dlViewDisplayContext = new DLViewDisplayContext(dlAdminDisp
 								</liferay-frontend:vertical-card>
 
 								<li class="display-descriptive entry-display-style list-group-item">
+<<<<<<< HEAD
 									<div class="autofit-col"></div>
 
 									<div class="autofit-col">
+=======
+									<div class="list-group-item-field"></div>
+
+									<div class="list-group-item-field">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 										<div class="click-selector user-icon user-icon-square user-icon-xl">
 											<img alt="thumbnail" class="img-fluid rounded" src="<%= thumbnailSrc %>" />
 										</div>
 									</div>
 
+<<<<<<< HEAD
 									<div class="autofit-col autofit-col-expand">
+=======
+									<div class="list-group-item-content">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 										<h5 class="text-default">
 											<liferay-ui:message arguments="<%= HtmlUtil.escape(user.getFullName()) %>" key="right-now-by-x" />
 										</h5>
@@ -170,7 +180,11 @@ DLViewDisplayContext dlViewDisplayContext = new DLViewDisplayContext(dlAdminDisp
 										</h4>
 									</div>
 
+<<<<<<< HEAD
 									<div class="autofit-col"></div>
+=======
+									<div class="list-group-item-field"></div>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 								</li>
 							</div>
 						</div>
@@ -251,7 +265,11 @@ DLViewDisplayContext dlViewDisplayContext = new DLViewDisplayContext(dlAdminDisp
 					uploadable: <%= dlViewDisplayContext.isUploadable() %>,
 					uploadURL: '<%= dlViewDisplayContext.getUploadURL() %>',
 					viewFileEntryTypeURL:
+<<<<<<< HEAD
 						'<%= dlViewDisplayContext.getViewFileEntryTypeURL() %>',
+=======
+						'<%= dlViewDisplayContext.getViewFileEntryURL() %>',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					viewFileEntryURL: '<%= dlViewDisplayContext.getViewFileEntryURL() %>',
 				}),
 				{

@@ -98,6 +98,7 @@ public class WorkflowLog implements Cloneable, Serializable {
 
 	protected Date dateCreated;
 
+<<<<<<< HEAD
 	public String getDescription() {
 		return description;
 	}
@@ -119,6 +120,8 @@ public class WorkflowLog implements Cloneable, Serializable {
 
 	protected String description;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public Long getId() {
 		return id;
 	}

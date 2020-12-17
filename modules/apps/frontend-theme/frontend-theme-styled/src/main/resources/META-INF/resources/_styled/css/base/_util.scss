@@ -3,6 +3,7 @@
 }
 
 .hide-accessible {
+<<<<<<< HEAD
 	border: 0 !important;
 	clip: rect(0 0 0 0) !important;
 	height: 1px !important;
@@ -13,6 +14,10 @@
 	position: absolute !important;
 	white-space: nowrap !important;
 	width: 1px !important;
+=======
+	clip: rect(0 0 0 0) !important;
+	position: absolute !important;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }
 
 .force-offset {

@@ -129,6 +129,7 @@ if (cpAttachmentFileEntry != null) {
 		});
 	});
 
+<<<<<<< HEAD
 	Liferay.provide(
 		window,
 		'<portlet:namespace />saveAttachmentFileEntry',
@@ -150,6 +151,25 @@ if (cpAttachmentFileEntry != null) {
 			submitForm(form);
 		}
 	);
+=======
+	function <portlet:namespace />saveAttachmentFileEntry(forceDisable) {
+		var form = window.document['<portlet:namespace />fm'];
+
+		var ddmForm = Liferay.component(
+			'ProductOptions<%= cpDefinitionId %>DDMForm'
+		);
+
+		if (ddmForm) {
+			var fieldValues = FormsHelper.getDefaultFieldsShape(ddmForm);
+
+			form['<portlet:namespace />ddmFormValues'].value = JSON.stringify(
+				fieldValues
+			);
+		}
+
+		submitForm(form);
+	}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 </aui:script>
 
 <aui:script use="aui-base,event-input">

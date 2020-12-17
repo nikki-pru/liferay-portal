@@ -276,6 +276,7 @@ public class CountryPersistenceTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testCountByC_Name() throws Exception {
 		_persistence.countByC_Name(RandomTestUtil.nextLong(), "");
 
@@ -311,6 +312,14 @@ public class CountryPersistenceTest {
 
 		_persistence.countByC_A_S(
 			0L, RandomTestUtil.randomBoolean(), RandomTestUtil.randomBoolean());
+=======
+	public void testCountByC_N() throws Exception {
+		_persistence.countByC_N(RandomTestUtil.nextLong(), "");
+
+		_persistence.countByC_N(0L, "null");
+
+		_persistence.countByC_N(0L, (String)null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -631,6 +640,7 @@ public class CountryPersistenceTest {
 			ReflectionTestUtil.invoke(
 				country, "getColumnOriginalValue",
 				new Class<?>[] {String.class}, "name"));
+<<<<<<< HEAD
 
 		Assert.assertEquals(
 			Long.valueOf(country.getCompanyId()),
@@ -642,6 +652,8 @@ public class CountryPersistenceTest {
 			ReflectionTestUtil.invoke(
 				country, "getColumnOriginalValue",
 				new Class<?>[] {String.class}, "number_"));
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected Country addCountry() throws Exception {

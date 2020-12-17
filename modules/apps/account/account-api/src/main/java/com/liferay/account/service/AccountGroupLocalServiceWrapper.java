@@ -310,6 +310,7 @@ public class AccountGroupLocalServiceWrapper
 	}
 
 	@Override
+<<<<<<< HEAD
 	public com.liferay.account.model.AccountGroup getDefaultAccountGroup(
 		long companyId) {
 
@@ -317,6 +318,8 @@ public class AccountGroupLocalServiceWrapper
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 		getIndexableActionableDynamicQuery() {
 
@@ -345,11 +348,14 @@ public class AccountGroupLocalServiceWrapper
 	}
 
 	@Override
+<<<<<<< HEAD
 	public boolean hasDefaultAccountGroup(long companyId) {
 		return _accountGroupLocalService.hasDefaultAccountGroup(companyId);
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.account.model.AccountGroup> searchAccountGroups(
 			long companyId, String keywords, int start, int end,

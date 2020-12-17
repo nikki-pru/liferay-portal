@@ -19,6 +19,7 @@ import com.liferay.account.exception.AccountEntryDomainsException;
 import com.liferay.account.exception.AccountEntryNameException;
 import com.liferay.account.exception.AccountEntryTypeException;
 import com.liferay.account.model.AccountEntry;
+<<<<<<< HEAD
 import com.liferay.account.model.AccountEntryOrganizationRelTable;
 import com.liferay.account.model.AccountEntryTable;
 import com.liferay.account.model.AccountEntryUserRelTable;
@@ -33,6 +34,12 @@ import com.liferay.petra.sql.dsl.query.JoinStep;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.dao.orm.custom.sql.CustomSQL;
+=======
+import com.liferay.account.model.impl.AccountEntryImpl;
+import com.liferay.account.service.base.AccountEntryLocalServiceBaseImpl;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.aop.AopService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
@@ -40,10 +47,15 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.ModelHintsUtil;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.UserTable;
+=======
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.User;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Indexer;
@@ -76,8 +88,11 @@ import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.ListIterator;
 import java.util.stream.Stream;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import org.apache.commons.validator.routines.DomainValidator;
 
@@ -341,6 +356,7 @@ public class AccountEntryLocalServiceImpl
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<AccountEntry> getUserAccountEntries(
 			long userId, Long parentAccountEntryId, String keywords,
 			String[] types, int start, int end)
@@ -392,6 +408,8 @@ public class AccountEntryLocalServiceImpl
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public BaseModelSearchResult<AccountEntry> search(
 		long companyId, String keywords, LinkedHashMap<String, Object> params,
 		int cur, int delta, String orderByField, boolean reverse) {
@@ -512,6 +530,7 @@ public class AccountEntryLocalServiceImpl
 		return updateAccountEntry(accountEntry);
 	}
 
+<<<<<<< HEAD
 	private GroupByStep _getGroupByStep(
 			FromStep fromStep, long userId, Long parentAccountId,
 			String keywords, String[] types, Integer status)
@@ -631,6 +650,8 @@ public class AccountEntryLocalServiceImpl
 		);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private SearchRequest _getSearchRequest(
 		long companyId, String keywords, LinkedHashMap<String, Object> params,
 		int cur, int delta, String orderByField, boolean reverse) {
@@ -798,9 +819,12 @@ public class AccountEntryLocalServiceImpl
 	private CompanyLocalService _companyLocalService;
 
 	@Reference
+<<<<<<< HEAD
 	private CustomSQL _customSQL;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private Portal _portal;
 
 	@Reference

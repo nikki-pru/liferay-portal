@@ -41,7 +41,10 @@ import org.osgi.service.component.annotations.Reference;
 public class CommercePriceListActionHelperImpl
 	implements CommercePriceListActionHelper {
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CommercePriceEntry> getCommercePriceEntries(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -64,7 +67,10 @@ public class CommercePriceListActionHelperImpl
 		return commercePriceEntries;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CommercePriceEntry getCommercePriceEntry(RenderRequest renderRequest)
 		throws PortalException {
 
@@ -94,7 +100,10 @@ public class CommercePriceListActionHelperImpl
 		return commercePriceEntry;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CommercePriceList getCommercePriceList(PortletRequest portletRequest)
 		throws PortalException {
 
@@ -124,7 +133,10 @@ public class CommercePriceListActionHelperImpl
 		return commercePriceList;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CommercePriceList> getCommercePriceLists(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -147,7 +159,10 @@ public class CommercePriceListActionHelperImpl
 		return commercePriceLists;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CommerceTierPriceEntry> getCommerceTierPriceEntries(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -171,7 +186,10 @@ public class CommercePriceListActionHelperImpl
 		return commerceTierPriceEntries;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CommerceTierPriceEntry getCommerceTierPriceEntry(
 			RenderRequest renderRequest)
 		throws PortalException {

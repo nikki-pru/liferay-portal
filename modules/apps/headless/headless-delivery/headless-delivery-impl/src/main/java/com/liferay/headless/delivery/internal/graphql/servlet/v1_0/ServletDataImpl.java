@@ -28,7 +28,10 @@ import com.liferay.headless.delivery.resource.v1_0.DocumentResource;
 import com.liferay.headless.delivery.resource.v1_0.KnowledgeBaseArticleResource;
 import com.liferay.headless.delivery.resource.v1_0.KnowledgeBaseAttachmentResource;
 import com.liferay.headless.delivery.resource.v1_0.KnowledgeBaseFolderResource;
+<<<<<<< HEAD
 import com.liferay.headless.delivery.resource.v1_0.LanguageResource;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.headless.delivery.resource.v1_0.MessageBoardAttachmentResource;
 import com.liferay.headless.delivery.resource.v1_0.MessageBoardMessageResource;
 import com.liferay.headless.delivery.resource.v1_0.MessageBoardSectionResource;
@@ -121,8 +124,11 @@ public class ServletDataImpl implements ServletData {
 			_knowledgeBaseAttachmentResourceComponentServiceObjects);
 		Query.setKnowledgeBaseFolderResourceComponentServiceObjects(
 			_knowledgeBaseFolderResourceComponentServiceObjects);
+<<<<<<< HEAD
 		Query.setLanguageResourceComponentServiceObjects(
 			_languageResourceComponentServiceObjects);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Query.setMessageBoardAttachmentResourceComponentServiceObjects(
 			_messageBoardAttachmentResourceComponentServiceObjects);
 		Query.setMessageBoardMessageResourceComponentServiceObjects(
@@ -248,8 +254,11 @@ public class ServletDataImpl implements ServletData {
 	private ComponentServiceObjects<ContentTemplateResource>
 		_contentTemplateResourceComponentServiceObjects;
 
+<<<<<<< HEAD
 	@Reference(scope = ReferenceScope.PROTOTYPE_REQUIRED)
 	private ComponentServiceObjects<LanguageResource>
 		_languageResourceComponentServiceObjects;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

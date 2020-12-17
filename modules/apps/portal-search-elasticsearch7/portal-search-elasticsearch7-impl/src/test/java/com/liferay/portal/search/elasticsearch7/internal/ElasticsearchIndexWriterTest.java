@@ -40,7 +40,10 @@ import org.junit.Test;
 public class ElasticsearchIndexWriterTest extends BaseIndexingTestCase {
 
 	@Before
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void setUp() throws Exception {
 		super.setUp();
 
@@ -48,7 +51,10 @@ public class ElasticsearchIndexWriterTest extends BaseIndexingTestCase {
 	}
 
 	@After
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void tearDown() throws SearchException {
 		Stream<Document> stream = _documents.stream();
 

@@ -60,6 +60,7 @@ searchContainer.setId("selectPublication");
 										<%= HtmlUtil.escape(ctCollection.getName()) %>
 									</div>
 
+<<<<<<< HEAD
 									<c:if test="<%= Validator.isNotNull(ctCollection.getDescription()) %>">
 										<div class="font-italic publication-description">
 											<%= HtmlUtil.escape(ctCollection.getDescription()) %>
@@ -100,6 +101,30 @@ searchContainer.setId("selectPublication");
 											label="<%= publicationsDisplayContext.getStatusLabel(ctCollection.getStatus()) %>"
 										/>
 									</div>
+=======
+									<div class="font-italic publication-description">
+										<%= HtmlUtil.escape(ctCollection.getDescription()) %>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<aui:a
+										cssClass="selector-button"
+										data='<%=
+											HashMapBuilder.<String, Object>put(
+												"ctcollectionid", ctCollection.getCtCollectionId()
+											).build()
+										%>'
+										href="javascript:;"
+									>
+										<div class="publication-name">
+											<%= HtmlUtil.escape(ctCollection.getName()) %>
+										</div>
+
+										<div class="publication-description">
+											<%= HtmlUtil.escape(ctCollection.getDescription()) %>
+										</div>
+									</aui:a>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 								</c:otherwise>
 							</c:choose>
 						</td>

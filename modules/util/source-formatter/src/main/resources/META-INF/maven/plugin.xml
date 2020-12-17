@@ -7,7 +7,11 @@
 	<description/>
 	<groupId>com.liferay</groupId>
 	<artifactId>com.liferay.source.formatter</artifactId>
+<<<<<<< HEAD
 	<version>1.0.1073</version>
+=======
+	<version>1.0.1071</version>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<goalPrefix>source-formatter</goalPrefix>
 	<isolatedRealm>false</isolatedRealm>
 	<inheritedByDefault>true</inheritedByDefault>

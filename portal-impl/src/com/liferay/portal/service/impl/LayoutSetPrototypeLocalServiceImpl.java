@@ -45,8 +45,12 @@ public class LayoutSetPrototypeLocalServiceImpl
 	public LayoutSetPrototype addLayoutSetPrototype(
 			long userId, long companyId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
+<<<<<<< HEAD
 			boolean layoutsUpdateable, boolean readyForPropagation,
 			ServiceContext serviceContext)
+=======
+			boolean layoutsUpdateable, ServiceContext serviceContext)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws PortalException {
 
 		// Layout set prototype
@@ -74,8 +78,11 @@ public class LayoutSetPrototypeLocalServiceImpl
 
 		settingsUnicodeProperties.put(
 			"layoutsUpdateable", String.valueOf(layoutsUpdateable));
+<<<<<<< HEAD
 		settingsUnicodeProperties.put(
 			"readyForPropagation", String.valueOf(readyForPropagation));
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		layoutSetPrototype.setSettingsProperties(settingsUnicodeProperties);
 
@@ -106,6 +113,7 @@ public class LayoutSetPrototypeLocalServiceImpl
 	}
 
 	@Override
+<<<<<<< HEAD
 	public LayoutSetPrototype addLayoutSetPrototype(
 			long userId, long companyId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
@@ -118,6 +126,8 @@ public class LayoutSetPrototypeLocalServiceImpl
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@SystemEvent(
 		action = SystemEventConstants.ACTION_SKIP,
 		type = SystemEventConstants.TYPE_DELETE
@@ -226,8 +236,12 @@ public class LayoutSetPrototypeLocalServiceImpl
 	public LayoutSetPrototype updateLayoutSetPrototype(
 			long layoutSetPrototypeId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
+<<<<<<< HEAD
 			boolean layoutsUpdateable, boolean readyForPropagation,
 			ServiceContext serviceContext)
+=======
+			boolean layoutsUpdateable, ServiceContext serviceContext)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws PortalException {
 
 		// Layout set prototype
@@ -247,8 +261,11 @@ public class LayoutSetPrototypeLocalServiceImpl
 
 		settingsUnicodeProperties.put(
 			"layoutsUpdateable", String.valueOf(layoutsUpdateable));
+<<<<<<< HEAD
 		settingsUnicodeProperties.put(
 			"readyForPropagation", String.valueOf(readyForPropagation));
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		layoutSetPrototype.setSettingsProperties(settingsUnicodeProperties);
 
@@ -257,6 +274,7 @@ public class LayoutSetPrototypeLocalServiceImpl
 
 	@Override
 	public LayoutSetPrototype updateLayoutSetPrototype(
+<<<<<<< HEAD
 			long layoutSetPrototypeId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
 			boolean layoutsUpdateable, ServiceContext serviceContext)
@@ -269,6 +287,8 @@ public class LayoutSetPrototypeLocalServiceImpl
 
 	@Override
 	public LayoutSetPrototype updateLayoutSetPrototype(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			long layoutSetPrototypeId, String settings)
 		throws PortalException {
 

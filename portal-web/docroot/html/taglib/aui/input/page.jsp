@@ -60,7 +60,10 @@
 		String buttonIconOn = (String)dynamicAttributes.get("buttonIconOn");
 		String iconOff = (String)dynamicAttributes.get("iconOff");
 		String iconOn = (String)dynamicAttributes.get("iconOn");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String labelOff = (String)dynamicAttributes.get("labelOff");
 		String labelOn = (String)dynamicAttributes.get("labelOn");
 

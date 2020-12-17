@@ -68,7 +68,10 @@ function SegmentsExperiments({
 		: selectedExperienceId;
 	const noExperimentIllustration = `${assetsPath}${NO_EXPERIMENT_ILLUSTRATION_FILE_NAME}`;
 	const winnerVariant = variants.find((variant) => variant.winner === true);
+<<<<<<< HEAD
 	const goalTarget = experiment?.goal?.target?.substring(1);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	return (
 		<>
@@ -224,7 +227,11 @@ function SegmentsExperiments({
 									onSelectClickGoalTarget={(selector) => {
 										onTargetChange(selector);
 									}}
+<<<<<<< HEAD
 									target={goalTarget}
+=======
+									target={experiment.goal.target}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 								/>
 							)}
 

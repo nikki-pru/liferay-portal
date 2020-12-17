@@ -60,7 +60,11 @@
 </tr>
 <tr>
 	<td>CARD_STICKER</td>
+<<<<<<< HEAD
 	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//span[contains(@class,'sticker-overlay')]//*[name()='svg'][contains(@class,'lexicon-icon-${key_icon}')]</td>
+=======
+	<td>//div[contains(@class,'card')][contains(.,'${key_card}')]//span[contains(@class,'sticker')]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>

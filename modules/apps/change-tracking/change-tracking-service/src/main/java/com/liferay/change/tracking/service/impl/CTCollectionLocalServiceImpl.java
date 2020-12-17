@@ -20,7 +20,10 @@ import com.liferay.change.tracking.conflict.ConflictInfo;
 import com.liferay.change.tracking.constants.CTConstants;
 import com.liferay.change.tracking.exception.CTCollectionDescriptionException;
 import com.liferay.change.tracking.exception.CTCollectionNameException;
+<<<<<<< HEAD
 import com.liferay.change.tracking.exception.CTLocalizedException;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.change.tracking.internal.CTEnclosureUtil;
 import com.liferay.change.tracking.internal.CTServiceCopier;
 import com.liferay.change.tracking.internal.CTServiceRegistry;
@@ -36,11 +39,17 @@ import com.liferay.change.tracking.model.CTCollection;
 import com.liferay.change.tracking.model.CTEntry;
 import com.liferay.change.tracking.model.CTPreferences;
 import com.liferay.change.tracking.model.CTProcess;
+<<<<<<< HEAD
 import com.liferay.change.tracking.model.CTSchemaVersion;
 import com.liferay.change.tracking.service.CTEntryLocalService;
 import com.liferay.change.tracking.service.CTPreferencesLocalService;
 import com.liferay.change.tracking.service.CTProcessLocalService;
 import com.liferay.change.tracking.service.CTSchemaVersionLocalService;
+=======
+import com.liferay.change.tracking.service.CTEntryLocalService;
+import com.liferay.change.tracking.service.CTPreferencesLocalService;
+import com.liferay.change.tracking.service.CTProcessLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.change.tracking.service.base.CTCollectionLocalServiceBaseImpl;
 import com.liferay.change.tracking.service.persistence.CTAutoResolutionInfoPersistence;
 import com.liferay.change.tracking.spi.display.CTDisplayRenderer;
@@ -119,6 +128,7 @@ public class CTCollectionLocalServiceImpl
 
 		ctCollection.setCompanyId(companyId);
 		ctCollection.setUserId(userId);
+<<<<<<< HEAD
 
 		CTSchemaVersion latestCTSchemaVersion =
 			_ctSchemaVersionLocalService.getLatestCTSchemaVersion(companyId);
@@ -126,6 +136,8 @@ public class CTCollectionLocalServiceImpl
 		ctCollection.setSchemaVersionId(
 			latestCTSchemaVersion.getSchemaVersionId());
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		ctCollection.setName(name);
 		ctCollection.setDescription(description);
 		ctCollection.setStatus(WorkflowConstants.STATUS_DRAFT);
@@ -164,9 +176,14 @@ public class CTCollectionLocalServiceImpl
 							throw new SystemException(
 								StringBundler.concat(
 									"Unable to check conflicts for ",
+<<<<<<< HEAD
 									ctCollection.getName(),
 									" because service for ", modelClassNameId,
 									" is missing"));
+=======
+									ctCollection, " because service for ",
+									modelClassNameId, " is missing"));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						}
 
 						return new CTConflictChecker<>(
@@ -421,6 +438,7 @@ public class CTCollectionLocalServiceImpl
 			ResourceConstants.SCOPE_INDIVIDUAL,
 			ctCollection.getCtCollectionId());
 
+<<<<<<< HEAD
 		int count = ctCollectionPersistence.countBySchemaVersionId(
 			ctCollection.getSchemaVersionId());
 
@@ -438,6 +456,8 @@ public class CTCollectionLocalServiceImpl
 			}
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		return ctCollectionPersistence.remove(ctCollection);
 	}
 
@@ -622,6 +642,7 @@ public class CTCollectionLocalServiceImpl
 			ctCollectionPersistence.findByPrimaryKey(ctCollectionId);
 
 		if (undoCTCollection.getStatus() != WorkflowConstants.STATUS_APPROVED) {
+<<<<<<< HEAD
 			throw new CTLocalizedException(
 				StringBundler.concat(
 					"Unable to undo ", undoCTCollection.getName(),
@@ -640,6 +661,11 @@ public class CTCollectionLocalServiceImpl
 				"unable-to-revert-x-because-it-is-out-of-date-with-the-" +
 					"current-release",
 				undoCTCollection.getName());
+=======
+			throw new IllegalArgumentException(
+				"Unable to undo " + undoCTCollection +
+					" because it is not published");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		CTCollection newCTCollection = addCTCollection(
@@ -659,7 +685,11 @@ public class CTCollectionLocalServiceImpl
 			ctEntryPersistence.findByCTCollectionId(
 				undoCTCollection.getCtCollectionId());
 
+<<<<<<< HEAD
 		Map<Long, CTServiceCopier<?>> ctServiceCopiers = new HashMap<>();
+=======
+		Map<Long, CTServiceCopier> ctServiceCopiers = new HashMap<>();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		long batchCounter = counterLocalService.increment(
 			CTEntry.class.getName(), publishedCTEntries.size());
@@ -667,6 +697,7 @@ public class CTCollectionLocalServiceImpl
 		batchCounter -= publishedCTEntries.size();
 
 		for (CTEntry publishedCTEntry : publishedCTEntries) {
+<<<<<<< HEAD
 			long modelClassNameId = publishedCTEntry.getModelClassNameId();
 
 			if (!ctServiceCopiers.containsKey(modelClassNameId)) {
@@ -690,13 +721,37 @@ public class CTCollectionLocalServiceImpl
 						ctService, undoCTCollection.getCtCollectionId(),
 						newCTCollection.getCtCollectionId()));
 			}
+=======
+			ctServiceCopiers.computeIfAbsent(
+				publishedCTEntry.getModelClassNameId(),
+				modelClassNameId -> {
+					CTService<?> ctService = _ctServiceRegistry.getCTService(
+						modelClassNameId);
+
+					if (ctService != null) {
+						return new CTServiceCopier<>(
+							ctService, undoCTCollection.getCtCollectionId(),
+							newCTCollection.getCtCollectionId());
+					}
+
+					throw new SystemException(
+						StringBundler.concat(
+							"Unable to undo ", undoCTCollection,
+							" because service for ", modelClassNameId,
+							" is missing"));
+				});
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			CTEntry ctEntry = ctEntryPersistence.create(++batchCounter);
 
 			ctEntry.setCompanyId(newCTCollection.getCompanyId());
 			ctEntry.setUserId(newCTCollection.getUserId());
 			ctEntry.setCtCollectionId(newCTCollection.getCtCollectionId());
+<<<<<<< HEAD
 			ctEntry.setModelClassNameId(modelClassNameId);
+=======
+			ctEntry.setModelClassNameId(publishedCTEntry.getModelClassNameId());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ctEntry.setModelClassPK(publishedCTEntry.getModelClassPK());
 			ctEntry.setModelMvccVersion(publishedCTEntry.getModelMvccVersion());
 
@@ -715,9 +770,13 @@ public class CTCollectionLocalServiceImpl
 		}
 
 		try {
+<<<<<<< HEAD
 			for (CTServiceCopier<?> ctServiceCopier :
 					ctServiceCopiers.values()) {
 
+=======
+			for (CTServiceCopier ctServiceCopier : ctServiceCopiers.values()) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				ctServiceCopier.copy();
 			}
 
@@ -853,9 +912,12 @@ public class CTCollectionLocalServiceImpl
 	private CTProcessLocalService _ctProcessLocalService;
 
 	@Reference
+<<<<<<< HEAD
 	private CTSchemaVersionLocalService _ctSchemaVersionLocalService;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private CTServiceRegistry _ctServiceRegistry;
 
 	@Reference

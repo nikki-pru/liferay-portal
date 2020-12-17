@@ -161,9 +161,19 @@ definition {
 			portlet = "Web Content",
 			site = "${siteName}");
 
+<<<<<<< HEAD
 		WebContentUpgrade.viewWithStructureCP(
 			webContentImage = "Document_1.jpg",
 			webContentTitle = "WC WebContent Title");
+=======
+		WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
+
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "WC WebContent Title");
+
+		AssertVisible(locator1 = "Button#PREVIEW");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@description = "This is a use case for LPS-98619."
@@ -180,9 +190,19 @@ definition {
 			portlet = "Web Content",
 			site = "${siteName}");
 
+<<<<<<< HEAD
 		WebContentUpgrade.viewWithStructureCP(
 			webContentImage = "Document_1.jpg",
 			webContentTitle = "WC WebContent Title");
+=======
+		WebContentNavigator.gotoEditCP(webContentTitle = "WC WebContent Title");
+
+		AssertTextEquals(
+			locator1 = "TextInput#TITLE",
+			value1 = "WC WebContent Title");
+
+		AssertVisible(locator1 = "Button#PREVIEW");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@description = "This is a use case for LRQA-62830."

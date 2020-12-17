@@ -81,9 +81,15 @@ definition {
 			displayPageName = "${displayPageName}",
 			item = "Mark As Default");
 
+<<<<<<< HEAD
 		LexiconCard.viewCardSticker(
 			card = "${displayPageName}",
 			icon = "check-circle");
+=======
+		AssertVisible(
+			key_card = "${displayPageName}",
+			locator1 = "Card#CARD_STICKER");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	macro openDisplayPagesAdmin {

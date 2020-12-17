@@ -30,7 +30,10 @@ import java.util.Map;
  */
 public class ClaySampleVerticalCard implements VerticalCard {
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<DropdownItem> getActionDropdownItems() {
 		if (_actionDropdownItems != null) {
 			return _actionDropdownItems;
@@ -77,7 +80,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return _actionDropdownItems;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getCssClass() {
 		if (_cssClass != null) {
 			return _cssClass;
@@ -86,7 +92,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "custom-vertical-card-css-class";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public Map<String, String> getDynamicAttributes() {
 		return HashMapBuilder.put(
 			"data-id", getId()
@@ -95,7 +104,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		).build();
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getHref() {
 		if (_href != null) {
 			return _href;
@@ -104,7 +116,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "#vertical-card-href";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getIcon() {
 		if (_icon != null) {
 			return _icon;
@@ -113,7 +128,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "list";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getId() {
 		if (_id != null) {
 			return _id;
@@ -124,17 +142,26 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "verticalCardId" + _currentIdNumber;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getImageAlt() {
 		return _imageAlt;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getImageSrc() {
 		return _imageSrc;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getInputName() {
 		if (_inputName != null) {
 			return _inputName;
@@ -143,7 +170,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "vertical-card-input-name";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getInputValue() {
 		if (_inputValue != null) {
 			return _inputValue;
@@ -152,7 +182,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "vertical-card-input-value";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<LabelItem> getLabels() {
 		if (_labels != null) {
 			return _labels;
@@ -176,27 +209,42 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		).build();
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getStickerCssClass() {
 		return _stickerCssClass;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getStickerIcon() {
 		return _stickerIcon;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getStickerImageAlt() {
 		return _stickerImageAlt;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getStickerImageSrc() {
 		return _stickerImageSrc;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getStickerLabel() {
 		if (_stickerLabel != null) {
 			return _stickerLabel;
@@ -205,7 +253,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "JPG";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getStickerShape() {
 		if (_stickerShape != null) {
 			return _stickerShape;
@@ -214,7 +265,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "circle";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getStickerStyle() {
 		if (_stickerStyle != null) {
 		}
@@ -222,7 +276,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "warning";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getSubtitle() {
 		if (_subtitle != null) {
 			return _subtitle;
@@ -231,7 +288,10 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "Card Action";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getTitle() {
 		if (_title != null) {
 			return _title;
@@ -240,17 +300,26 @@ public class ClaySampleVerticalCard implements VerticalCard {
 		return "Vertical Card";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isDisabled() {
 		return _disabled;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isSelectable() {
 		return _selectable;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isSelected() {
 		return _selected;
 	}

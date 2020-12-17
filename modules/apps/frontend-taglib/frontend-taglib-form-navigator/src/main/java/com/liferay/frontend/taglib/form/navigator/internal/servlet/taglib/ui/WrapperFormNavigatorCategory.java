@@ -30,17 +30,26 @@ public class WrapperFormNavigatorCategory implements FormNavigatorCategory {
 		_formNavigatorCategory = formNavigatorCategory;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getFormNavigatorId() {
 		return _formNavigatorCategory.getFormNavigatorId();
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getKey() {
 		return _formNavigatorCategory.getKey();
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getLabel(Locale locale) {
 		return _formNavigatorCategory.getLabel(locale);
 	}

@@ -18,12 +18,23 @@ import ClayLoadingIndicator from '@clayui/loading-indicator';
 import {ClayTooltipProvider} from '@clayui/tooltip';
 import classNames from 'classnames';
 import {useIsMounted, useStateSafe} from 'frontend-js-react-web';
+<<<<<<< HEAD
 import React, {useRef, useState} from 'react';
 
 import AppContext from '../../AppContext.es';
 import useLoad from '../../hooks/useLoad.es';
 
 const {useContext, useEffect} = React;
+=======
+import React from 'react';
+
+import AppContext from '../../AppContext.es';
+import useLazy from '../../hooks/useLazy.es';
+import useLoad from '../../hooks/useLoad.es';
+import usePlugins from '../../hooks/usePlugins.es';
+
+const {Suspense, useCallback, useContext, useEffect} = React;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 const CLASSNAME_INDICATORS = [
 	'.change-tracking-indicator',
@@ -41,6 +52,7 @@ export default function MultiPanelSidebar({
 	sidebarPanels,
 	variant = 'dark',
 }) {
+<<<<<<< HEAD
 	const [, dispatch] = useContext(AppContext);
 	const [{sidebarOpen, sidebarPanelId}, setSidebarState] = useState({
 		sidebarOpen: true,
@@ -84,6 +96,71 @@ export default function MultiPanelSidebar({
 			}
 		});
 	}, [isMounted, dispatch, load]);
+=======
+	const [{sidebarOpen, sidebarPanelId}, dispatch] = useContext(AppContext);
+	const [hasError, setHasError] = useStateSafe(false);
+	const isMounted = useIsMounted();
+	const load = useLoad();
+	const {getInstance, register} = usePlugins();
+
+	const panel = sidebarPanels[sidebarPanelId];
+	const promise = panel
+		? load(sidebarPanelId, panel.pluginEntryPoint)
+		: Promise.resolve();
+
+	const app = {
+		dispatch,
+		panel,
+		sidebarOpen,
+		sidebarPanelId,
+	};
+
+	let registerPanel;
+
+	if (sidebarPanelId) {
+		registerPanel = register(sidebarPanelId, promise, {app, panel});
+	}
+
+	const togglePlugin = () => {
+		if (hasError) {
+			setHasError(false);
+		}
+
+		if (registerPanel) {
+			registerPanel.then((plugin) => {
+				if (
+					plugin &&
+					typeof plugin.activate === 'function' &&
+					isMounted()
+				) {
+					plugin.activate();
+				}
+				else if (!plugin) {
+					setHasError(true);
+				}
+			});
+		}
+	};
+
+	useEffect(
+		() => {
+			if (panel) {
+				togglePlugin(panel);
+			}
+			else if (sidebarPanelId) {
+				dispatch({
+					payload: {
+						sidebarOpen: false,
+						sidebarPanelId: null,
+					},
+					type: 'SWITCH_SIDEBAR_PANEL',
+				});
+			}
+		},
+		/* eslint-disable react-hooks/exhaustive-deps */
+		[panel, sidebarOpen, sidebarPanelId]
+	);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	const changeAlertClassName = (styleName) => {
 		const formBuilderMessage = document.querySelector(
@@ -108,9 +185,18 @@ export default function MultiPanelSidebar({
 					changeAlertClassName('data-engine-form-builder-messages');
 				}
 
+<<<<<<< HEAD
 				setSidebarState({
 					sidebarOpen: false,
 					sidebarPanelId: null,
+=======
+				dispatch({
+					payload: {
+						sidebarOpen: false,
+						sidebarPanelId: null,
+					},
+					type: 'SWITCH_SIDEBAR_PANEL',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				});
 			};
 
@@ -123,7 +209,25 @@ export default function MultiPanelSidebar({
 				sideNavigationListener.removeListener();
 			};
 		}
+<<<<<<< HEAD
 	}, [sidebarOpen]);
+=======
+	}, []);
+
+	const SidebarPanel = useLazy(
+		useCallback(({instance}) => {
+			if (typeof instance.renderSidebar === 'function') {
+				return instance.renderSidebar();
+			}
+			else if (typeof instance === 'function') {
+				return instance;
+			}
+			else {
+				return null;
+			}
+		}, [])
+	);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	const handleClick = (panel) => {
 		const open =
@@ -145,9 +249,18 @@ export default function MultiPanelSidebar({
 			changeAlertClassName('data-engine-form-builder-messages');
 		}
 
+<<<<<<< HEAD
 		setSidebarState({
 			sidebarOpen: open,
 			sidebarPanelId: panel.sidebarPanelId,
+=======
+		dispatch({
+			payload: {
+				sidebarOpen: open,
+				sidebarPanelId: panel.sidebarPanelId,
+			},
+			type: 'SWITCH_SIDEBAR_PANEL',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		});
 	};
 
@@ -258,10 +371,20 @@ export default function MultiPanelSidebar({
 								block
 								displayType="secondary"
 								onClick={() => {
+<<<<<<< HEAD
 									setSidebarState({
 										sidebarOpen: false,
 										sidebarPanelId:
 											panels[0] && panels[0][0],
+=======
+									dispatch({
+										payload: {
+											sidebarOpen: false,
+											sidebarPanelId:
+												panels[0] && panels[0][0],
+										},
+										type: 'SWITCH_SIDEBAR_PANEL',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 									});
 									setHasError(false);
 								}}
@@ -276,6 +399,7 @@ export default function MultiPanelSidebar({
 								setHasError(true);
 							}}
 						>
+<<<<<<< HEAD
 							{panelComponents.length === 0 && (
 								<ClayLoadingIndicator />
 							)}
@@ -292,6 +416,14 @@ export default function MultiPanelSidebar({
 									<panel.Component />
 								</div>
 							))}
+=======
+							<Suspense fallback={<ClayLoadingIndicator />}>
+								<SidebarPanel
+									getInstance={getInstance}
+									pluginId={sidebarPanelId}
+								/>
+							</Suspense>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						</ErrorBoundary>
 					)}
 				</div>

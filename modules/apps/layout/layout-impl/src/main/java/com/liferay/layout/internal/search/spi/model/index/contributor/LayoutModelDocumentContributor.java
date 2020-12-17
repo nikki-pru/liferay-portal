@@ -14,6 +14,7 @@
 
 package com.liferay.layout.internal.search.spi.model.index.contributor;
 
+<<<<<<< HEAD
 import com.liferay.layout.internal.search.util.LayoutCrawler;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructure;
 import com.liferay.layout.page.template.service.LayoutPageTemplateStructureLocalService;
@@ -22,14 +23,58 @@ import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.util.Html;
+=======
+import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
+import com.liferay.fragment.constants.FragmentEntryLinkConstants;
+import com.liferay.fragment.renderer.FragmentRendererController;
+import com.liferay.layout.adaptive.media.LayoutAdaptiveMediaProcessor;
+import com.liferay.layout.internal.search.util.LayoutPageTemplateStructureRenderUtil;
+import com.liferay.layout.page.template.model.LayoutPageTemplateStructure;
+import com.liferay.layout.page.template.service.LayoutPageTemplateStructureLocalService;
+import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.language.LanguageUtil;
+import com.liferay.portal.kernel.model.Group;
+import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.search.BooleanClause;
+import com.liferay.portal.kernel.search.BooleanClauseFactoryUtil;
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
+import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.Query;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.LayoutLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
+import com.liferay.portal.kernel.servlet.DynamicServletRequest;
+import com.liferay.portal.kernel.util.HtmlUtil;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.search.spi.model.index.contributor.ModelDocumentContributor;
+<<<<<<< HEAD
 
 import java.util.Locale;
 import java.util.Set;
 
+=======
+import com.liferay.segments.constants.SegmentsExperienceConstants;
+import com.liferay.staging.StagingGroupHelper;
+
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -78,10 +123,29 @@ public class LayoutModelDocumentContributor
 			return;
 		}
 
+<<<<<<< HEAD
+=======
+		HttpServletRequest httpServletRequest = null;
+		HttpServletResponse httpServletResponse = null;
+
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		if ((serviceContext != null) && (serviceContext.getRequest() != null)) {
+			httpServletRequest = DynamicServletRequest.addQueryString(
+				serviceContext.getRequest(), "p_l_id=" + layout.getPlid(),
+				false);
+			httpServletResponse = serviceContext.getResponse();
+		}
+
+		long[] segmentsExperienceIds = {SegmentsExperienceConstants.ID_DEFAULT};
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Set<Locale> locales = LanguageUtil.getAvailableLocales(
 			layout.getGroupId());
 
 		for (Locale locale : locales) {
+<<<<<<< HEAD
 			String content = _html.stripHtml(
 				_layoutCrawler.getLayoutContent(layout, locale));
 
@@ -99,9 +163,110 @@ public class LayoutModelDocumentContributor
 
 	@Reference
 	private LayoutCrawler _layoutCrawler;
+=======
+			try {
+				String content = StringPool.BLANK;
+
+				if ((httpServletRequest == null) ||
+					(httpServletResponse == null)) {
+
+					content = _getStagedContent(layout, locale);
+				}
+				else {
+					content =
+						LayoutPageTemplateStructureRenderUtil.
+							renderLayoutContent(
+								_fragmentRendererController, httpServletRequest,
+								httpServletResponse,
+								_layoutAdaptiveMediaProcessor,
+								layoutPageTemplateStructure,
+								FragmentEntryLinkConstants.VIEW,
+								new HashMap<>(), locale, segmentsExperienceIds);
+				}
+
+				if (Validator.isNull(content)) {
+					continue;
+				}
+
+				document.addText(
+					Field.getLocalizedName(locale, Field.CONTENT),
+					HtmlUtil.stripHtml(content));
+			}
+			catch (PortalException portalException) {
+				throw new SystemException(portalException);
+			}
+		}
+	}
+
+	private String _getStagedContent(Layout layout, Locale locale)
+		throws PortalException {
+
+		Group group = _groupLocalService.getGroup(layout.getGroupId());
+
+		Group stagingGroup = null;
+
+		if (ExportImportThreadLocal.isInitialLayoutStagingInProcess()) {
+			stagingGroup = _stagingGroupHelper.fetchLiveGroup(group);
+		}
+		else if (!group.isStaged() || group.isStagingGroup()) {
+			stagingGroup = group;
+		}
+		else {
+			stagingGroup = group.getStagingGroup();
+		}
+
+		Layout stagingLayout = _layoutLocalService.fetchLayoutByUuidAndGroupId(
+			layout.getUuid(), stagingGroup.getGroupId(),
+			layout.isPrivateLayout());
+
+		SearchContext searchContext = new SearchContext();
+
+		BooleanClause<Query> booleanClause = BooleanClauseFactoryUtil.create(
+			Field.ENTRY_CLASS_PK, String.valueOf(stagingLayout.getPlid()),
+			BooleanClauseOccur.MUST.getName());
+
+		searchContext.setBooleanClauses(new BooleanClause[] {booleanClause});
+
+		searchContext.setCompanyId(stagingGroup.getCompanyId());
+		searchContext.setEntryClassNames(new String[] {Layout.class.getName()});
+		searchContext.setGroupIds(new long[] {stagingGroup.getGroupId()});
+
+		Indexer<Layout> indexer = IndexerRegistryUtil.getIndexer(Layout.class);
+
+		Hits hits = indexer.search(searchContext);
+
+		Document[] documents = hits.getDocs();
+
+		if (documents.length != 1) {
+			return StringPool.BLANK;
+		}
+
+		Document document = documents[0];
+
+		return document.get(Field.getLocalizedName(locale, Field.CONTENT));
+	}
+
+	@Reference
+	private FragmentRendererController _fragmentRendererController;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
+
+	@Reference
+	private LayoutAdaptiveMediaProcessor _layoutAdaptiveMediaProcessor;
+
+	@Reference
+	private LayoutLocalService _layoutLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Reference
 	private LayoutPageTemplateStructureLocalService
 		_layoutPageTemplateStructureLocalService;
 
+<<<<<<< HEAD
+=======
+	@Reference
+	private StagingGroupHelper _stagingGroupHelper;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

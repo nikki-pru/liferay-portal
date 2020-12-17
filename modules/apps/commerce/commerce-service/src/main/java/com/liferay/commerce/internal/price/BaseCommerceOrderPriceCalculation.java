@@ -590,6 +590,7 @@ public abstract class BaseCommerceOrderPriceCalculation
 		CommerceCurrency commerceCurrency,
 		CommerceOrderItemPrice commerceOrderItemPrice, BigDecimal promoPrice) {
 
+<<<<<<< HEAD
 		CommerceMoney unitPriceCommerceMoney =
 			commerceOrderItemPrice.getUnitPrice();
 
@@ -597,6 +598,9 @@ public abstract class BaseCommerceOrderPriceCalculation
 			CommerceBigDecimalUtil.gt(
 				promoPrice, unitPriceCommerceMoney.getPrice())) {
 
+=======
+		if (!_greaterThanZero(promoPrice)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return;
 		}
 

@@ -407,9 +407,16 @@ public class JavaParser {
 
 		Position startPosition = DetailASTUtil.getStartPosition(detailAST);
 
+<<<<<<< HEAD
 		String javaTermContent = javaTerm.toString(
 			_getExpectedIndent(detailAST, fileContents), StringPool.BLANK,
 			maxLineLength);
+=======
+		String expectedIndent = _getExpectedIndent(detailAST, fileContents);
+
+		String javaTermContent = javaTerm.toString(
+			expectedIndent, StringPool.BLANK, maxLineLength);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (javaTermContent.contains(
 				"\n" + JavaClassCall.NESTED_CODE_BLOCK + "\n") ||

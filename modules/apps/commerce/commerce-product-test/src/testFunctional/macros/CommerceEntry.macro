@@ -89,7 +89,11 @@ definition {
 				locator1 = "Button#SELECT",
 				value1 = "Select Site");
 
+<<<<<<< HEAD
 			SelectFrame(locator1 = "IFrame#MODAL_IFRAME");
+=======
+			SelectFrame.selectFrameNoLoading(locator1 = "IFrame#MODAL_IFRAME");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Click(
 				key_siteName = "${siteName}",
@@ -178,15 +182,33 @@ definition {
 			locator1 = "CommerceEntry#DISCOUNT_AMOUNT",
 			value1 = "${discountAmount}");
 
+<<<<<<< HEAD
 		if (isSet(maximumDiscountAmount)) {
 			Type(
 				locator1 = "CommerceEntry#MAXIMUM_DISCOUNT_AMOUNT_FIELD",
 				value1 = "${maximumDiscountAmount}");
 		}
+=======
+		Type(
+			locator1 = "CommerceEntry#MAXIMUM_DISCOUNT_AMOUNT_FIELD",
+			value1 = "${maximumDiscountAmount}");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Check.checkToggleSwitch(locator1 = "CommerceEntry#ACTIVE_CHECKBOX");
 
 		Button.clickPublish();
+<<<<<<< HEAD
+=======
+
+		CommerceEntry.gotoMenuTab(menuTab = "Eligibility");
+
+		CommerceEntry.setEntryEligibility(
+			accountGroupsEligibility = "${accountGroupsEligibility}",
+			accountsEligibility = "${accountsEligibility}",
+			channelsEligibility = "${channelsEligibility}");
+
+		Button.clickPublish();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	macro addNewFilters {
@@ -670,8 +692,11 @@ definition {
 				key_radioOption = "All Channels",
 				locator1 = "CommerceEntry#RADIO_BUTTON");
 		}
+<<<<<<< HEAD
 
 		Button.clickPublish();
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	macro uploadCatalogEntrySingleImage {

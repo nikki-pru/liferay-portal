@@ -22,7 +22,10 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.OrderByComparator;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.util.List;
 
@@ -64,8 +67,11 @@ public interface RegionService extends BaseService {
 			long countryId, String regionCode, String name, boolean active)
 		throws PortalException;
 
+<<<<<<< HEAD
 	public void deleteRegion(long regionId) throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Region fetchRegion(long regionId);
 
@@ -99,6 +105,7 @@ public interface RegionService extends BaseService {
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Region> getRegions(long countryId, boolean active);
 
+<<<<<<< HEAD
 	@AccessControlled(guestAccessEnabled = true)
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Region> getRegions(
@@ -129,4 +136,6 @@ public interface RegionService extends BaseService {
 			String regionCode)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

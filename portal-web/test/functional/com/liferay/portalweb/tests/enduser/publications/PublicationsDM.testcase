@@ -37,6 +37,10 @@ definition {
 	@priority = "4"
 	test CheckoutAndCheckinDocumentInPublication {
 		property test.assert.warning.exceptions = "true";
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsDM#CheckoutAndCheckinDocumentInPublication";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
@@ -90,6 +94,11 @@ definition {
 
 	@priority = "4"
 	test ConflictingPublicationsNeedManualResolution {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsDM#ConflictingPublicationsNeedManualResolution";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
 		DMDocument.addCP(
@@ -164,6 +173,11 @@ definition {
 
 	@priority = "4"
 	test PublishDocumentFolderWithEditedDocument {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsDM#PublishDocumentFolderWithEditedDocument";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -250,6 +264,11 @@ definition {
 
 	@priority = "4"
 	test PublishDocumentWithNewDocumentType {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsDM#PublishDocumentWithNewDocumentType";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
 		Navigator.openURL();

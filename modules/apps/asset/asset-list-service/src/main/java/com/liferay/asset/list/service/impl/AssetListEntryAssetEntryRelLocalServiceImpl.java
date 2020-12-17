@@ -26,6 +26,11 @@ import com.liferay.asset.list.service.base.AssetListEntryAssetEntryRelLocalServi
 import com.liferay.petra.sql.dsl.DSLQueryFactoryUtil;
 import com.liferay.petra.sql.dsl.expression.Predicate;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
+<<<<<<< HEAD
+=======
+import com.liferay.petra.sql.dsl.query.FromStep;
+import com.liferay.petra.sql.dsl.query.GroupByStep;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.sql.dsl.query.JoinStep;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -197,6 +202,7 @@ public class AssetListEntryAssetEntryRelLocalServiceImpl
 				assetListEntryId, segmentsEntryIds, start, end);
 		}
 
+<<<<<<< HEAD
 		DSLQuery dslQuery = DSLQueryFactoryUtil.select(
 			AssetListEntryAssetEntryRelTable.INSTANCE
 		).from(
@@ -206,6 +212,14 @@ public class AssetListEntryAssetEntryRelLocalServiceImpl
 		).limit(
 			start, end
 		);
+=======
+		GroupByStep groupByStep = _getGroupByStep(
+			DSLQueryFactoryUtil.select(
+				AssetListEntryAssetEntryRelTable.INSTANCE),
+			assetListEntryId, segmentsEntryIds, assetCategoryIds);
+
+		DSLQuery dslQuery = groupByStep.limit(start, end);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		List<AssetListEntryAssetEntryRel> assetListEntryAssetEntryRels =
 			assetListEntryAssetEntryRelPersistence.dslQuery(dslQuery);
@@ -253,12 +267,18 @@ public class AssetListEntryAssetEntryRelLocalServiceImpl
 				assetListEntryId, segmentsEntryIds);
 		}
 
+<<<<<<< HEAD
 		DSLQuery dslQuery = DSLQueryFactoryUtil.count(
 		).from(
 			AssetListEntryAssetEntryRelTable.INSTANCE
 		).where(
 			_getPredicate(assetListEntryId, segmentsEntryIds, assetCategoryIds)
 		);
+=======
+		DSLQuery dslQuery = _getGroupByStep(
+			DSLQueryFactoryUtil.count(), assetListEntryId, segmentsEntryIds,
+			assetCategoryIds);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Long count = assetListEntryAssetEntryRelPersistence.dslQuery(dslQuery);
 
@@ -422,6 +442,7 @@ public class AssetListEntryAssetEntryRelLocalServiceImpl
 		);
 	}
 
+<<<<<<< HEAD
 	private Predicate _getPredicate(
 		long assetListEntryId, long[] segmentsEntryIds,
 		long[][] assetCategoryIds) {
@@ -432,6 +453,14 @@ public class AssetListEntryAssetEntryRelLocalServiceImpl
 		).from(
 			AssetListEntryAssetEntryRelTable.INSTANCE
 		);
+=======
+	private GroupByStep _getGroupByStep(
+		FromStep fromStep, long assetListEntryId, long[] segmentsEntryIds,
+		long[][] assetCategoryIds) {
+
+		JoinStep joinStep = fromStep.from(
+			AssetListEntryAssetEntryRelTable.INSTANCE);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		for (int i = 0; i < assetCategoryIds.length; i++) {
 			joinStep = joinStep.innerJoinON(
@@ -442,6 +471,7 @@ public class AssetListEntryAssetEntryRelLocalServiceImpl
 						"AssetEntryAssetCategoryRel" + i).assetEntryId));
 		}
 
+<<<<<<< HEAD
 		return AssetListEntryAssetEntryRelTable.INSTANCE.
 			assetListEntryAssetEntryRelId.in(
 				joinStep.where(
@@ -455,6 +485,17 @@ public class AssetListEntryAssetEntryRelLocalServiceImpl
 										ArrayUtil.toArray(segmentsEntryIds))
 							),
 						assetCategoryIds)));
+=======
+		return joinStep.where(
+			_addPredicate(
+				AssetListEntryAssetEntryRelTable.INSTANCE.assetListEntryId.eq(
+					assetListEntryId
+				).and(
+					AssetListEntryAssetEntryRelTable.INSTANCE.segmentsEntryId.
+						in(ArrayUtil.toArray(segmentsEntryIds))
+				),
+				assetCategoryIds));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(

@@ -83,6 +83,7 @@ public interface LayoutSetPrototypeLocalService
 	public LayoutSetPrototype addLayoutSetPrototype(
 			long userId, long companyId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
+<<<<<<< HEAD
 			boolean layoutsUpdateable, boolean readyForPropagation,
 			ServiceContext serviceContext)
 		throws PortalException;
@@ -90,6 +91,8 @@ public interface LayoutSetPrototypeLocalService
 	public LayoutSetPrototype addLayoutSetPrototype(
 			long userId, long companyId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			boolean layoutsUpdateable, ServiceContext serviceContext)
 		throws PortalException;
 
@@ -340,6 +343,7 @@ public interface LayoutSetPrototypeLocalService
 	public LayoutSetPrototype updateLayoutSetPrototype(
 			long layoutSetPrototypeId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
+<<<<<<< HEAD
 			boolean layoutsUpdateable, boolean readyForPropagation,
 			ServiceContext serviceContext)
 		throws PortalException;
@@ -347,6 +351,8 @@ public interface LayoutSetPrototypeLocalService
 	public LayoutSetPrototype updateLayoutSetPrototype(
 			long layoutSetPrototypeId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, boolean active,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			boolean layoutsUpdateable, ServiceContext serviceContext)
 		throws PortalException;
 

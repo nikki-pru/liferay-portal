@@ -22,7 +22,10 @@ import com.liferay.portal.search.query.BooleanQuery;
 import com.liferay.portal.search.query.DateRangeTermQuery;
 import com.liferay.portal.search.query.FuzzyQuery;
 import com.liferay.portal.search.query.MatchQuery;
+<<<<<<< HEAD
 import com.liferay.portal.search.query.NestedQuery;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.search.query.Queries;
 import com.liferay.portal.search.query.Query;
 import com.liferay.portal.search.query.RangeTermQuery;
@@ -92,6 +95,7 @@ public class ComplexQueryBuilderImplTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testFilterNestedQuery() {
 		ComplexQueryBuilderImpl complexQueryBuilderImpl =
 			new ComplexQueryBuilderImpl(_queries, _scripts);
@@ -106,6 +110,8 @@ public class ComplexQueryBuilderImplTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testFilterRangeTermQuery() {
 		ComplexQueryBuilderImpl complexQueryBuilderImpl =
 			new ComplexQueryBuilderImpl(_queries, _scripts);

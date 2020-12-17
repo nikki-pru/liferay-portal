@@ -133,7 +133,11 @@ public abstract class BaseDataLayoutResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+<<<<<<< HEAD
 	 * curl -X 'POST' 'http://localhost:8080/o/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-layouts' -d $'{"contentType": ___, "dataDefinitionId": ___, "dataLayoutFields": ___, "dataLayoutKey": ___, "dataLayoutPages": ___, "dataRules": ___, "dateCreated": ___, "dateModified": ___, "description": ___, "id": ___, "name": ___, "paginationMode": ___, "siteId": ___, "userId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+=======
+	 * curl -X 'POST' 'http://localhost:8080/o/data-engine/v2.0/data-definitions/{dataDefinitionId}/data-layouts' -d $'{"contentType": ___, "dataDefinitionId": ___, "dataLayoutKey": ___, "dataLayoutPages": ___, "dataRules": ___, "dateCreated": ___, "dateModified": ___, "description": ___, "id": ___, "name": ___, "paginationMode": ___, "siteId": ___, "userId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})
@@ -273,7 +277,11 @@ public abstract class BaseDataLayoutResourceImpl
 	/**
 	 * Invoke this method with the command line:
 	 *
+<<<<<<< HEAD
 	 * curl -X 'PUT' 'http://localhost:8080/o/data-engine/v2.0/data-layouts/{dataLayoutId}' -d $'{"contentType": ___, "dataDefinitionId": ___, "dataLayoutFields": ___, "dataLayoutKey": ___, "dataLayoutPages": ___, "dataRules": ___, "dateCreated": ___, "dateModified": ___, "description": ___, "id": ___, "name": ___, "paginationMode": ___, "siteId": ___, "userId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+=======
+	 * curl -X 'PUT' 'http://localhost:8080/o/data-engine/v2.0/data-layouts/{dataLayoutId}' -d $'{"contentType": ___, "dataDefinitionId": ___, "dataLayoutKey": ___, "dataLayoutPages": ___, "dataRules": ___, "dateCreated": ___, "dateModified": ___, "description": ___, "id": ___, "name": ___, "paginationMode": ___, "siteId": ___, "userId": ___}' --header 'Content-Type: application/json' -u 'test@liferay.com:test'
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 */
 	@Override
 	@Consumes({"application/json", "application/xml"})

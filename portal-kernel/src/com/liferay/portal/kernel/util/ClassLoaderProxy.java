@@ -37,7 +37,11 @@ public class ClassLoaderProxy {
 	public ClassLoaderProxy(
 		Object object, String className, ClassLoader classLoader) {
 
+<<<<<<< HEAD
 		_object = object;
+=======
+		_obj = object;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_className = className;
 		_classLoader = classLoader;
 	}
@@ -110,7 +114,11 @@ public class ClassLoaderProxy {
 
 	private Object _invoke(MethodHandler methodHandler) throws Exception {
 		try {
+<<<<<<< HEAD
 			return methodHandler.invoke(_object);
+=======
+			return methodHandler.invoke(_obj);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 		catch (NoSuchMethodException noSuchMethodException) {
 			MethodKey methodKey = methodHandler.getMethodKey();
@@ -145,7 +153,11 @@ public class ClassLoaderProxy {
 				}
 
 				if (correctParams) {
+<<<<<<< HEAD
 					return method.invoke(_object, methodHandler.getArguments());
+=======
+					return method.invoke(_obj, methodHandler.getArguments());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				}
 			}
 
@@ -158,6 +170,10 @@ public class ClassLoaderProxy {
 
 	private final ClassLoader _classLoader;
 	private final String _className;
+<<<<<<< HEAD
 	private final Object _object;
+=======
+	private final Object _obj;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 }

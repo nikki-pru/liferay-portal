@@ -15,17 +15,36 @@
 import React from 'react';
 
 import InfoPanel from './InfoPanel.es';
+<<<<<<< HEAD
+=======
+import {Component} from './PluginContext.es';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * Entry-point for sidebar pane functionality.
  */
 export default class {
+<<<<<<< HEAD
 	constructor({panel}) {
+=======
+	constructor({app, panel}) {
+		this.Component = Component(app);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		this.title = panel.label;
 		this.url = panel.url;
 	}
 
 	renderSidebar() {
+<<<<<<< HEAD
 		return <InfoPanel title={this.title} url={this.url} />;
+=======
+		const {Component} = this;
+
+		return (
+			<Component>
+				<InfoPanel title={this.title} url={this.url} />
+			</Component>
+		);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 }

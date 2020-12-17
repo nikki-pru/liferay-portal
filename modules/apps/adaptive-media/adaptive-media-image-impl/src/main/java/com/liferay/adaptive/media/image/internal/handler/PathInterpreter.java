@@ -55,15 +55,29 @@ public class PathInterpreter {
 
 			long fileEntryId = Long.valueOf(matcher.group(1));
 
+<<<<<<< HEAD
 			FileVersion fileVersion = _getFileVersion(
 				_dlAppService.getFileEntry(fileEntryId),
 				_getFileVersionId(matcher));
+=======
+			FileEntry fileEntry = _dlAppService.getFileEntry(fileEntryId);
+
+			long fileVersionId = _getFileVersionId(matcher);
+
+			FileVersion fileVersion = _getFileVersion(fileEntry, fileVersionId);
+
+			String configurationEntryUUID = _getConfigurationEntryUUID(matcher);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Optional<AMImageConfigurationEntry>
 				amImageConfigurationEntryOptional =
 					_amImageConfigurationHelper.getAMImageConfigurationEntry(
+<<<<<<< HEAD
 						fileVersion.getCompanyId(),
 						_getConfigurationEntryUUID(matcher));
+=======
+						fileVersion.getCompanyId(), configurationEntryUUID);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return Optional.of(
 				Tuple.of(

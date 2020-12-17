@@ -68,10 +68,16 @@ public class OutputStreamWriter extends Writer {
 
 		_outputStream = outputStream;
 		_charsetName = charsetName;
+<<<<<<< HEAD
 		_autoFlush = autoFlush;
 
 		_charsetEncoder = CharsetEncoderUtil.getCharsetEncoder(charsetName);
 		_outputByteBuffer = ByteBuffer.allocate(outputBufferSize);
+=======
+		_charsetEncoder = CharsetEncoderUtil.getCharsetEncoder(charsetName);
+		_outputByteBuffer = ByteBuffer.allocate(outputBufferSize);
+		_autoFlush = autoFlush;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

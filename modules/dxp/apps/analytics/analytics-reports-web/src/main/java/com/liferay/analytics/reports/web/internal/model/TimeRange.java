@@ -69,11 +69,18 @@ public class TimeRange {
 	private TimeRange(
 		boolean includeToday, TimeSpan timeSpan, int timeSpanOffset) {
 
+<<<<<<< HEAD
 		_includeToday = includeToday;
 		_timeSpan = timeSpan;
 		_timeSpanOffset = timeSpanOffset;
 
 		_clock = Clock.systemUTC();
+=======
+		_clock = Clock.systemUTC();
+		_includeToday = includeToday;
+		_timeSpan = timeSpan;
+		_timeSpanOffset = timeSpanOffset;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private int _getOffsetDays() {

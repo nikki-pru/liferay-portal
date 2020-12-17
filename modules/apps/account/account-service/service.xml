@@ -49,7 +49,10 @@
 		<!-- References -->
 
 		<reference entity="Group" package-path="com.liferay.portal" />
+<<<<<<< HEAD
 		<reference entity="Organization" package-path="com.liferay.portal" />
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<reference entity="Resource" package-path="com.liferay.portal" />
 		<reference entity="User" package-path="com.liferay.portal" />
 		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
@@ -136,19 +139,27 @@
 
 		<!-- Other fields -->
 
+<<<<<<< HEAD
 		<column name="defaultAccountGroup" type="boolean" />
 		<column name="description" type="String" />
 		<column name="name" type="String" />
+=======
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		<!-- Finder methods -->
 
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
+<<<<<<< HEAD
 		<finder name="C_D" return-type="Collection">
 			<finder-column name="companyId" />
 			<finder-column name="defaultAccountGroup" />
 		</finder>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		<!-- References -->
 
@@ -221,7 +232,10 @@
 		<exception>AccountEntryDomains</exception>
 		<exception>AccountEntryName</exception>
 		<exception>AccountEntryType</exception>
+<<<<<<< HEAD
 		<exception>DefaultAccountGroup</exception>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<exception>DuplicateAccountEntryId</exception>
 		<exception>DuplicateAccountEntryOrganizationRel</exception>
 		<exception>DuplicateAccountEntryUserRel</exception>

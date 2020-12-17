@@ -35,17 +35,25 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.Organization;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.role.RoleConstants;
+=======
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.User;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.search.BaseModelSearchResult;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.service.ClassNameLocalService;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.service.OrganizationLocalService;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.service.ResourcePermissionLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.test.rule.DataGuard;
@@ -63,7 +71,10 @@ import com.liferay.portal.search.test.util.SearchTestRule;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -335,6 +346,7 @@ public class AccountEntryLocalServiceTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testGetUserAccountEntriesByAccountEntryMembership()
 		throws Exception {
 
@@ -540,6 +552,8 @@ public class AccountEntryLocalServiceTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testSearchByAccountGroupIds() throws Exception {
 		_addAccountEntries();
 
@@ -868,6 +882,7 @@ public class AccountEntryLocalServiceTest {
 		return accountEntry;
 	}
 
+<<<<<<< HEAD
 	private Organization _addOrganization(User user, long parentOrganizationId)
 		throws Exception {
 
@@ -876,11 +891,14 @@ public class AccountEntryLocalServiceTest {
 			RandomTestUtil.randomString(), false);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private AccountEntry _addPersonAccountEntry() throws Exception {
 		return AccountEntryTestUtil.addPersonAccountEntry(
 			_accountEntryLocalService);
 	}
 
+<<<<<<< HEAD
 	private AccountEntry _addUserAccountEntry(
 			long userId, String name, long[] organizationIds, long[] userIds)
 		throws Exception {
@@ -914,6 +932,8 @@ public class AccountEntryLocalServiceTest {
 		return accountEntry;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private void _assertDeleted(long accountEntryId) throws Exception {
 		Assert.assertNull(
 			_accountEntryLocalService.fetchAccountEntry(accountEntryId));
@@ -1012,6 +1032,7 @@ public class AccountEntryLocalServiceTest {
 			TestPropsValues.getCompanyId(), keywords, null, 0, 10, null, false);
 	}
 
+<<<<<<< HEAD
 	private void _testGetUserAccountEntries(
 			User user, List<AccountEntry> expectedAccountEntries)
 		throws Exception {
@@ -1054,6 +1075,8 @@ public class AccountEntryLocalServiceTest {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static final Comparator<AccountEntry> _accountEntryNameComparator =
 		(accountEntry1, accountEntry2) -> {
 			String name1 = accountEntry1.getName();
@@ -1089,9 +1112,12 @@ public class AccountEntryLocalServiceTest {
 	private ClassNameLocalService _classNameLocalService;
 
 	@Inject
+<<<<<<< HEAD
 	private OrganizationLocalService _organizationLocalService;
 
 	@Inject
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private ResourcePermissionLocalService _resourcePermissionLocalService;
 
 }

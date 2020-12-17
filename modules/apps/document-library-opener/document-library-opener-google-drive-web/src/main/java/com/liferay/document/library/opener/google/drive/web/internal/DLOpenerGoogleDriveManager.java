@@ -210,7 +210,13 @@ public class DLOpenerGoogleDriveManager
 			long userId, FileEntry fileEntry)
 		throws PortalException {
 
+<<<<<<< HEAD
 		if (Validator.isNull(_getGoogleDriveFileId(fileEntry))) {
+=======
+		String googleDriveFileId = _getGoogleDriveFileId(fileEntry);
+
+		if (Validator.isNull(googleDriveFileId)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			throw new IllegalArgumentException(
 				StringBundler.concat(
 					"File entry ", fileEntry.getFileEntryId(),

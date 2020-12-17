@@ -21,7 +21,10 @@ String action = (String)request.getAttribute("render_controls.jsp-action");
 boolean childControl = GetterUtil.getBoolean(String.valueOf(request.getAttribute("render_controls.jsp-childControl")));
 PortletDataHandlerControl[] controls = (PortletDataHandlerControl[])request.getAttribute("render_controls.jsp-controls");
 ManifestSummary manifestSummary = (ManifestSummary)request.getAttribute("render_controls.jsp-manifestSummary");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String portletId = (String)request.getAttribute("render_controls.jsp-portletId");
 
 if (Validator.isNotNull(portletId)) {

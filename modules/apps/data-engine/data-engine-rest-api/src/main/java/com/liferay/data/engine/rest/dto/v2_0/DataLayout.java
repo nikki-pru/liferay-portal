@@ -114,6 +114,7 @@ public class DataLayout implements Serializable {
 	protected Long dataDefinitionId;
 
 	@Schema
+<<<<<<< HEAD
 	@Valid
 	public Map<String, Object> getDataLayoutFields() {
 		return dataLayoutFields;
@@ -144,6 +145,8 @@ public class DataLayout implements Serializable {
 	protected Map<String, Object> dataLayoutFields;
 
 	@Schema
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getDataLayoutKey() {
 		return dataLayoutKey;
 	}
@@ -509,6 +512,7 @@ public class DataLayout implements Serializable {
 			sb.append(dataDefinitionId);
 		}
 
+<<<<<<< HEAD
 		if (dataLayoutFields != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -519,6 +523,8 @@ public class DataLayout implements Serializable {
 			sb.append(_toJSON(dataLayoutFields));
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (dataLayoutKey != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");

@@ -14,7 +14,10 @@
 
 import {PagesVisitor} from 'dynamic-data-mapping-form-renderer';
 
+<<<<<<< HEAD
 import RulesSupport from '../../RuleBuilder/RulesSupport.es';
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import {getField} from '../util/fields.es';
 import handleFieldEdited from './fieldEditedHandler.es';
 
@@ -44,17 +47,22 @@ const handleFocusedFieldEvaluationEnded = (
 		return state;
 	}
 
+<<<<<<< HEAD
 	const {pages} = state;
 
 	const visitor = new PagesVisitor(pages);
 
 	let newState = {
+=======
+	state = {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		...state,
 		focusedField: {
 			...focusedField,
 			instanceId: instanceId || focusedField.instanceId,
 			settingsContext,
 		},
+<<<<<<< HEAD
 		pages: visitor.mapFields((field) => {
 			if (field.fieldName !== fieldName.value) {
 				return field;
@@ -71,17 +79,29 @@ const handleFocusedFieldEvaluationEnded = (
 
 	settingsContextVisitor.mapFields(({fieldName, value}) => {
 		newState = handleFieldEdited(props, newState, {
+=======
+	};
+
+	const visitor = new PagesVisitor(settingsContext.pages);
+
+	visitor.mapFields(({fieldName, value}) => {
+		state = handleFieldEdited(props, state, {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			propertyName: fieldName,
 			propertyValue: value,
 		});
 	});
 
+<<<<<<< HEAD
 	return {
 		...newState,
 		rules: changedFieldType
 			? RulesSupport.formatRules(newState.pages, state.rules)
 			: state.rules,
 	};
+=======
+	return state;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 };
 
 export default handleFocusedFieldEvaluationEnded;

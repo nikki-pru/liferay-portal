@@ -53,7 +53,12 @@ public class SerialDestinationPrototype implements DestinationPrototype {
 		serialDestination.setRejectedExecutionHandler(
 			destinationConfiguration.getRejectedExecutionHandler());
 		serialDestination.setUserLocalService(_userLocalService);
+<<<<<<< HEAD
 		serialDestination.setWorkersSize(_WORKERS_CORE_SIZE, _WORKERS_MAX_SIZE);
+=======
+		serialDestination.setWorkersCoreSize(_WORKERS_CORE_SIZE);
+		serialDestination.setWorkersMaxSize(_WORKERS_MAX_SIZE);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		serialDestination.afterPropertiesSet();
 

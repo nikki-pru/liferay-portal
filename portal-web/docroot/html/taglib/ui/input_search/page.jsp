@@ -25,7 +25,10 @@ String name = GetterUtil.getString((String)request.getAttribute("liferay-ui:inpu
 String placeholder = GetterUtil.getString((String)request.getAttribute("liferay-ui:input-search:placeholder"));
 boolean showButton = GetterUtil.getBoolean(request.getAttribute("liferay-ui:input-search:showButton"));
 String title = GetterUtil.getString((String)request.getAttribute("liferay-ui:input-search:title"));
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 boolean useNamespace = GetterUtil.getBoolean(request.getAttribute("liferay-ui:input-search:useNamespace"), true);
 
 if (!useNamespace) {

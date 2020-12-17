@@ -62,7 +62,10 @@ public class PortletCategory implements Serializable {
 		}
 		else {
 			_name = name;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_parentPortletCategory = null;
 			_path = name;
 		}

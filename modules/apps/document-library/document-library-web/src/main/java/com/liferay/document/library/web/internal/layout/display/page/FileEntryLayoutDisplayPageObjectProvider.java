@@ -18,7 +18,10 @@ import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
 import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
+<<<<<<< HEAD
 import com.liferay.document.library.kernel.model.DLFileEntry;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.document.library.kernel.model.DLFileEntryConstants;
 import com.liferay.layout.display.page.LayoutDisplayPageObjectProvider;
 import com.liferay.petra.string.StringPool;
@@ -94,8 +97,12 @@ public class FileEntryLayoutDisplayPageObjectProvider
 	private AssetEntry _getAssetEntry(FileEntry fileEntry) {
 		AssetRendererFactory<?> assetRendererFactory =
 			AssetRendererFactoryRegistryUtil.
+<<<<<<< HEAD
 				getAssetRendererFactoryByClassNameId(
 					PortalUtil.getClassNameId(DLFileEntry.class));
+=======
+				getAssetRendererFactoryByClassNameId(getClassNameId());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (assetRendererFactory == null) {
 			return null;

@@ -19,7 +19,10 @@
 <%
 String sourceName = (String)request.getAttribute("liferay-frontend:diff:sourceName");
 String targetName = (String)request.getAttribute("liferay-frontend:diff:targetName");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 List<DiffResult>[] diffResults = (List<DiffResult>[])request.getAttribute("liferay-frontend:diff:diffResults");
 
 List<DiffResult> sourceResults = diffResults[0];

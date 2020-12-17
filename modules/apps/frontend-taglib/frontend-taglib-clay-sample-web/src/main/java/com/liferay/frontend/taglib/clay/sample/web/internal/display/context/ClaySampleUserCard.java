@@ -25,7 +25,10 @@ import java.util.List;
  */
 public class ClaySampleUserCard implements UserCard {
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<DropdownItem> getActionDropdownItems() {
 		if (_actionDropdownItems != null) {
 			return _actionDropdownItems;
@@ -44,7 +47,10 @@ public class ClaySampleUserCard implements UserCard {
 		).build();
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getCssClass() {
 		if (_cssClass != null) {
 			return _cssClass;
@@ -53,7 +59,10 @@ public class ClaySampleUserCard implements UserCard {
 		return "custom-css-class";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getHref() {
 		if (_href != null) {
 			return _href;
@@ -62,12 +71,18 @@ public class ClaySampleUserCard implements UserCard {
 		return "#user-card-href";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getIcon() {
 		return _icon;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getId() {
 		if (_id != null) {
 			return _id;
@@ -78,7 +93,10 @@ public class ClaySampleUserCard implements UserCard {
 		return "userCardId" + _currentIdNumber;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getImageAlt() {
 		if (_imageAlt != null) {
 			return _imageAlt;
@@ -87,12 +105,18 @@ public class ClaySampleUserCard implements UserCard {
 		return "User Card Image Alt Text";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getImageSrc() {
 		return _imageSrc;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getInputName() {
 		if (_inputName != null) {
 			return _inputName;
@@ -101,7 +125,10 @@ public class ClaySampleUserCard implements UserCard {
 		return "user-card-input-name";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getInputValue() {
 		if (_inputValue != null) {
 			return _inputValue;
@@ -110,7 +137,10 @@ public class ClaySampleUserCard implements UserCard {
 		return "user-card-input-value";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getName() {
 		if (_name != null) {
 			return _name;
@@ -119,7 +149,10 @@ public class ClaySampleUserCard implements UserCard {
 		return "User Name";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getSubtitle() {
 		if (_subtitle != null) {
 			return _subtitle;
@@ -128,7 +161,10 @@ public class ClaySampleUserCard implements UserCard {
 		return "Latest Action";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getUserColorClass() {
 		if (_userColorClass != null) {
 			return _userColorClass;
@@ -137,17 +173,26 @@ public class ClaySampleUserCard implements UserCard {
 		return "info";
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isDisabled() {
 		return _disabled;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isSelectable() {
 		return _selectable;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isSelected() {
 		return _selected;
 	}

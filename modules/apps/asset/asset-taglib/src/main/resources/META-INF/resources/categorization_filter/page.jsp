@@ -18,7 +18,10 @@
 
 <%
 String assetType = GetterUtil.getString((String)request.getAttribute("liferay-asset:categorization-filter:assetType"), "content");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 PortletURL portletURL = (PortletURL)request.getAttribute("liferay-asset:categorization-filter:portletURL");
 
 if (portletURL == null) {

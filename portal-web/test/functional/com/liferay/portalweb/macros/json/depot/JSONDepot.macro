@@ -20,6 +20,7 @@ definition {
 		var messageId = JSONCurlUtil.post("${curl}");
 	}
 
+<<<<<<< HEAD
 	@summary = "This calls the JSON WS API to delete a Depot entry"
 	macro deleteDepot {
 		var depotId = JSONGroupAPI._getDepotIdByName(depotName = "${depotName}");
@@ -37,4 +38,6 @@ definition {
 		var messageId = JSONCurlUtil.post("${curl}");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

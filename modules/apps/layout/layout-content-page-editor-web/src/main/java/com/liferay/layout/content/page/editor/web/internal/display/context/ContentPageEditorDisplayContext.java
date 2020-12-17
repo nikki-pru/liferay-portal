@@ -221,7 +221,10 @@ public class ContentPageEditorDisplayContext {
 		_itemSelector = itemSelector;
 		_pageEditorConfiguration = pageEditorConfiguration;
 		_renderResponse = renderResponse;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_resourceBundleLoader =
 			ResourceBundleLoaderUtil.
 				getResourceBundleLoaderByBundleSymbolicName(
@@ -241,6 +244,12 @@ public class ContentPageEditorDisplayContext {
 		return HashMapBuilder.<String, Object>put(
 			"config",
 			HashMapBuilder.<String, Object>put(
+<<<<<<< HEAD
+=======
+				"adaptiveMediaEnabled",
+				_ffLayoutContentPageEditorConfiguration.adaptiveMediaEnabled()
+			).put(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				"addFragmentCompositionURL",
 				getFragmentEntryActionURL(
 					"/layout_content_page_editor/add_fragment_composition")
@@ -1761,10 +1770,19 @@ public class ContentPageEditorDisplayContext {
 	private JSONObject _getMasterLayoutJSONObject() {
 		Layout layout = themeDisplay.getLayout();
 
+<<<<<<< HEAD
 		return JSONUtil.put(
 			"masterLayoutData",
 			Optional.ofNullable(
 				_getMasterLayoutStructure()
+=======
+		LayoutStructure masterLayoutStructure = _getMasterLayoutStructure();
+
+		return JSONUtil.put(
+			"masterLayoutData",
+			Optional.ofNullable(
+				masterLayoutStructure
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			).map(
 				LayoutStructure::toJSONObject
 			).orElse(

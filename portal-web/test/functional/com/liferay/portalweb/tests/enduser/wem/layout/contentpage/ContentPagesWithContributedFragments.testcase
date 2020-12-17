@@ -1424,7 +1424,11 @@ definition {
 			AssertVisible(
 				id = "image-square",
 				key_image = "Document_1.jpg",
+<<<<<<< HEAD
 				key_imageDescription = "",
+=======
+				key_imageDescription = "Responsive Image",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				locator1 = "Fragment#CONTRIBUTED_FRAGMENT_EDITABLE_FIELD_IMAGE_PROPERTIES");
 		}
 
@@ -1438,7 +1442,11 @@ definition {
 			AssertVisible(
 				id = "image-square",
 				key_image = "Document_1.jpg",
+<<<<<<< HEAD
 				key_imageDescription = "",
+=======
+				key_imageDescription = "Responsive Image",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				locator1 = "Fragment#CONTRIBUTED_FRAGMENT_EDITABLE_FIELD_IMAGE_PROPERTIES");
 		}
 	}

@@ -76,6 +76,7 @@ public class SocialTrafficChannelImplTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testToJSONObjectWithEmptyTrafficAmountReferringSocialMedia() {
 		SocialTrafficChannelImpl socialTrafficChannelImpl =
 			new SocialTrafficChannelImpl(
@@ -109,6 +110,8 @@ public class SocialTrafficChannelImplTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testToJSONObjectWithError() {
 		SocialTrafficChannelImpl socialTrafficChannelImpl =
 			new SocialTrafficChannelImpl(true);
@@ -155,6 +158,7 @@ public class SocialTrafficChannelImplTest {
 					_getResourceBundle(socialTrafficChannelImpl))));
 	}
 
+<<<<<<< HEAD
 	@Test
 	public void testToJSONObjectWithUnsortedReferringSocialMedia() {
 		SocialTrafficChannelImpl socialTrafficChannelImpl =
@@ -187,6 +191,8 @@ public class SocialTrafficChannelImplTest {
 			String.valueOf(jsonObject.get("referringSocialMedia")));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private ResourceBundle _getResourceBundle(TrafficChannel trafficChannel) {
 		return new ResourceBundle() {
 

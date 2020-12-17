@@ -523,6 +523,7 @@ public class TeamUtil {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns all the teams where companyId = &#63;.
 	 *
 	 * @param companyId the company ID
@@ -691,6 +692,8 @@ public class TeamUtil {
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns all the teams where groupId = &#63;.
 	 *
 	 * @param groupId the group ID

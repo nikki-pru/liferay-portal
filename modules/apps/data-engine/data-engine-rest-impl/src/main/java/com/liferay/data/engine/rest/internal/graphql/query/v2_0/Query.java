@@ -282,7 +282,11 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+<<<<<<< HEAD
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {dataLayout(dataLayoutId: ___){contentType, dataDefinitionId, dataLayoutFields, dataLayoutKey, dataLayoutPages, dataRules, dateCreated, dateModified, description, id, name, paginationMode, siteId, userId}}"}' -u 'test@liferay.com:test'
+=======
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {dataLayout(dataLayoutId: ___){contentType, dataDefinitionId, dataLayoutKey, dataLayoutPages, dataRules, dateCreated, dateModified, description, id, name, paginationMode, siteId, userId}}"}' -u 'test@liferay.com:test'
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 */
 	@GraphQLField
 	public DataLayout dataLayout(@GraphQLName("dataLayoutId") Long dataLayoutId)
@@ -298,7 +302,11 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+<<<<<<< HEAD
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {dataLayoutByContentTypeByDataLayoutKey(contentType: ___, dataLayoutKey: ___, siteKey: ___){contentType, dataDefinitionId, dataLayoutFields, dataLayoutKey, dataLayoutPages, dataRules, dateCreated, dateModified, description, id, name, paginationMode, siteId, userId}}"}' -u 'test@liferay.com:test'
+=======
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {dataLayoutByContentTypeByDataLayoutKey(contentType: ___, dataLayoutKey: ___, siteKey: ___){contentType, dataDefinitionId, dataLayoutKey, dataLayoutPages, dataRules, dateCreated, dateModified, description, id, name, paginationMode, siteId, userId}}"}' -u 'test@liferay.com:test'
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 */
 	@GraphQLField
 	public DataLayout dataLayoutByContentTypeByDataLayoutKey(

@@ -317,7 +317,11 @@ renderResponse.setTitle(headerTitle);
 
 					<aui:input label="title" name="title" />
 
+<<<<<<< HEAD
 					<aui:input label="file-name" name="fileName" required="<%= (fileVersion != null) && Validator.isNotNull(fileVersion.getExtension()) %>" type='<%= dlEditFileEntryDisplayContext.isFileNameVisible() ? "text" : "hidden" %>' />
+=======
+					<aui:input label="file-name" name="fileName" type='<%= dlEditFileEntryDisplayContext.isFileNameVisible() ? "text" : "hidden" %>' />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 					<c:if test="<%= (folder == null) || folder.isSupportsMetadata() %>">
 						<aui:input name="description" />

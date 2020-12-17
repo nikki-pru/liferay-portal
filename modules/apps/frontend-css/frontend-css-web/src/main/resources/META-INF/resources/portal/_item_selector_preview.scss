@@ -82,6 +82,7 @@ $infoPanelSidebarDDColor: $secondary-l1;
 			}
 		}
 
+<<<<<<< HEAD
 		&:not(.open) {
 			img,
 			.video-preview {
@@ -90,6 +91,13 @@ $infoPanelSidebarDDColor: $secondary-l1;
 				top: 50%;
 				transform: translate(-50%, -50%);
 			}
+=======
+		&:not(.open) img {
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 

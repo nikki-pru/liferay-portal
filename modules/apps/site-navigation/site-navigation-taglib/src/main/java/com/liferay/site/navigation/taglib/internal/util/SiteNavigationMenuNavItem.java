@@ -42,6 +42,7 @@ public class SiteNavigationMenuNavItem extends NavItem {
 
 		super(httpServletRequest, themeDisplay, themeDisplay.getLayout(), null);
 
+<<<<<<< HEAD
 		_httpServletRequest = httpServletRequest;
 		_themeDisplay = themeDisplay;
 		_siteNavigationMenuItem = siteNavigationMenuItem;
@@ -49,6 +50,16 @@ public class SiteNavigationMenuNavItem extends NavItem {
 		_siteNavigationMenuItemType =
 			ServletContextUtil.getSiteNavigationMenuItemType(
 				siteNavigationMenuItem.getType());
+=======
+		SiteNavigationMenuItemType siteNavigationMenuItemType =
+			ServletContextUtil.getSiteNavigationMenuItemType(
+				siteNavigationMenuItem.getType());
+
+		_httpServletRequest = httpServletRequest;
+		_themeDisplay = themeDisplay;
+		_siteNavigationMenuItem = siteNavigationMenuItem;
+		_siteNavigationMenuItemType = siteNavigationMenuItemType;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

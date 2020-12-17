@@ -14,9 +14,15 @@
 
 package com.liferay.dynamic.data.mapping.internal.storage;
 
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldOptions;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+import com.liferay.dynamic.data.mapping.internal.util.DDMImpl;
+import com.liferay.dynamic.data.mapping.model.DDMFormField;
+import com.liferay.dynamic.data.mapping.model.DDMFormFieldOptions;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.storage.BaseFieldRenderer;
@@ -57,11 +63,19 @@ public class StringFieldRenderer extends BaseFieldRenderer {
 				continue;
 			}
 
+<<<<<<< HEAD
 			if (fieldType.equals(DDMFormFieldType.SELECT)) {
 				valueString = handleSelectFieldValue(
 					field, valueString, locale);
 			}
 			else if (fieldType.equals(DDMFormFieldType.RADIO)) {
+=======
+			if (fieldType.equals(DDMImpl.TYPE_SELECT)) {
+				valueString = handleSelectFieldValue(
+					field, valueString, locale);
+			}
+			else if (fieldType.equals(DDMImpl.TYPE_RADIO)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				return handleRadioFieldValue(
 					field, String.valueOf(value), locale);
 			}
@@ -86,10 +100,17 @@ public class StringFieldRenderer extends BaseFieldRenderer {
 
 		String valueString = String.valueOf(value);
 
+<<<<<<< HEAD
 		if (fieldType.equals(DDMFormFieldType.SELECT)) {
 			return handleSelectFieldValue(field, valueString, locale);
 		}
 		else if (fieldType.equals(DDMFormFieldType.RADIO)) {
+=======
+		if (fieldType.equals(DDMImpl.TYPE_SELECT)) {
+			return handleSelectFieldValue(field, valueString, locale);
+		}
+		else if (fieldType.equals(DDMImpl.TYPE_RADIO)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return handleRadioFieldValue(field, valueString, locale);
 		}
 

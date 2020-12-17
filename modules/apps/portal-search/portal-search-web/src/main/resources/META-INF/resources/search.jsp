@@ -65,7 +65,10 @@ String format = ParamUtil.getString(request, SearchPortletParameterNames.FORMAT)
 
 <%
 String pageSubtitle = LanguageUtil.get(request, "search-results");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String pageKeywords = LanguageUtil.get(request, "search");
 
 if (Validator.isNotNull(searchDisplayContext.getKeywords())) {

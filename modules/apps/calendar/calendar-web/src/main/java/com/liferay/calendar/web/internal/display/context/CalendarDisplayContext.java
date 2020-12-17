@@ -88,7 +88,10 @@ public class CalendarDisplayContext {
 		_calendarLocalService = calendarLocalService;
 		_calendarResourceLocalService = calendarResourceLocalService;
 		_calendarService = calendarService;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 	}

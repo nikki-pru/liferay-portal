@@ -25,14 +25,22 @@ public class AccountUser {
 		_userId = userId;
 		_name = name;
 		_email = email;
+<<<<<<< HEAD
 		_thumbnail = thumbnail;
 
 		_success = true;
+=======
+		_success = true;
+		_thumbnail = thumbnail;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public AccountUser(String[] errorMessages) {
 		_errorMessages = errorMessages;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_success = false;
 	}
 

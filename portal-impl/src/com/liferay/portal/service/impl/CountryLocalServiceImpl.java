@@ -14,7 +14,10 @@
 
 package com.liferay.portal.service.impl;
 
+<<<<<<< HEAD
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.exception.CountryA2Exception;
 import com.liferay.portal.kernel.exception.CountryA3Exception;
 import com.liferay.portal.kernel.exception.CountryIddException;
@@ -23,6 +26,7 @@ import com.liferay.portal.kernel.exception.CountryNumberException;
 import com.liferay.portal.kernel.exception.DuplicateCountryException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Country;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.Organization;
 import com.liferay.portal.kernel.model.OrganizationConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
@@ -31,10 +35,19 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
+=======
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.LocaleUtil;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.base.CountryLocalServiceBaseImpl;
 
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Brian Wing Shun Chan
@@ -47,10 +60,19 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 			String a2, String a3, boolean active, boolean billingAllowed,
 			String idd, String name, String number, double position,
 			boolean shippingAllowed, boolean subjectToVAT, boolean zipRequired,
+<<<<<<< HEAD
 			ServiceContext serviceContext)
 		throws PortalException {
 
 		if (fetchCountryByA2(serviceContext.getCompanyId(), a2) != null) {
+=======
+			Map<String, String> titleMap, ServiceContext serviceContext)
+		throws PortalException {
+
+		if (countryPersistence.fetchByC_A2(serviceContext.getCompanyId(), a2) !=
+				null) {
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			throw new DuplicateCountryException();
 		}
 
@@ -86,6 +108,7 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 
 	@Override
 	public void deleteCompanyCountries(long companyId) {
+<<<<<<< HEAD
 		List<Country> countries = countryPersistence.findByCompanyId(companyId);
 
 		for (Country country : countries) {
@@ -151,6 +174,9 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 	@Override
 	public Country fetchCountryByNumber(long companyId, String number) {
 		return countryPersistence.fetchByC_Number(companyId, number);
+=======
+		countryPersistence.removeByCompanyId(companyId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -159,6 +185,7 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<Country> getCompanyCountries(long companyId, boolean active) {
 		return countryPersistence.findByC_Active(companyId, active);
 	}
@@ -182,10 +209,13 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public int getCompanyCountriesCount(long companyId) {
 		return countryPersistence.countByCompanyId(companyId);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public int getCompanyCountriesCount(long companyId, boolean active) {
 		return countryPersistence.countByC_Active(companyId, active);
@@ -267,6 +297,8 @@ public class CountryLocalServiceImpl extends CountryLocalServiceBaseImpl {
 		return countryPersistence.update(country);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected void validate(
 			String a2, String a3, String idd, String name, String number)
 		throws PortalException {

@@ -106,7 +106,10 @@
 					layoutSetBranch = LayoutSetBranchLocalServiceUtil.getLayoutSetBranch(layoutSetBranchId);
 
 					simplePublishLayoutsURL.setParameter("layoutSetBranchName", layoutSetBranch.getName());
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					simplePublishLayoutsURL.setParameter("layoutSetBranchId", String.valueOf(layoutSetBranchId));
 
 					publishRenderURL.setParameter("layoutSetBranchId", String.valueOf(layoutSetBranchId));

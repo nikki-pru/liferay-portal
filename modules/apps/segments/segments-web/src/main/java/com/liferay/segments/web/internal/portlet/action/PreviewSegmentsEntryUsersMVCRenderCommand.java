@@ -19,7 +19,10 @@ import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCRenderCommand;
 import com.liferay.portal.kernel.service.UserLocalService;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.ParamUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.segments.constants.SegmentsPortletKeys;
 import com.liferay.segments.odata.retriever.ODataRetriever;
@@ -29,7 +32,10 @@ import com.liferay.segments.web.internal.constants.SegmentsWebKeys;
 import com.liferay.segments.web.internal.display.context.PreviewSegmentsEntryUsersDisplayContext;
 
 import javax.portlet.PortletException;
+<<<<<<< HEAD
 import javax.portlet.PortletSession;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 
@@ -63,6 +69,7 @@ public class PreviewSegmentsEntryUsersMVCRenderCommand
 		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
 			renderRequest);
 
+<<<<<<< HEAD
 		if (ParamUtil.getBoolean(httpServletRequest, "clearSessionCriteria")) {
 			PortletSession portletSession = renderRequest.getPortletSession();
 
@@ -70,6 +77,8 @@ public class PreviewSegmentsEntryUsersMVCRenderCommand
 				SegmentsWebKeys.PREVIEW_SEGMENTS_ENTRY_CRITERIA);
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		ODataRetriever<User> userODataRetriever = _serviceTrackerMap.getService(
 			User.class.getName());
 

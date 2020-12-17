@@ -36,6 +36,11 @@ definition {
 
 	@priority = "3"
 	test CancelPublicationCreation {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsManagePublications#CancelPublicationCreation";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.cancelPublicationCreation(publicationsName = "Publication Name");
 
 		AssertElementNotPresent(
@@ -45,6 +50,11 @@ definition {
 
 	@priority = "3"
 	test CreateNewPublicationWithLongName {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsManagePublications#CreateNewPublicationWithLongName";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(
 			gotoManagePublications = "true",
 			publicationsName = "Lopadotemachoselachogaleokranioleipsanodrimhypotrimmatosilphioparaomelitokatakechymenokichlepikossyphophattoperisteralektryonoptekephalliokigklopeleiolagoiosiraiobaphetraganopterygon");
@@ -54,6 +64,11 @@ definition {
 
 	@priority = "3"
 	test CreateNewPublicationWithoutName {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsManagePublications#CreateNewPublicationWithoutName";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(gotoManagePublications = "true");
 
 		Alert.viewRequiredField();
@@ -61,6 +76,11 @@ definition {
 
 	@priority = "5"
 	test DeletePublication {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsManagePublications#DeletePublication";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(
 			gotoManagePublications = "true",
 			publicationsDescription = "Publication Description",
@@ -80,6 +100,11 @@ definition {
 
 	@priority = "4"
 	test SwitchPublication {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsManagePublications#SwitchPublication";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
 		Navigator.openURL();

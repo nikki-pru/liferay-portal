@@ -68,7 +68,10 @@ public class AddressLocalServiceImpl extends AddressLocalServiceBaseImpl {
 	 * @deprecated As of Cavanaugh (7.4.x)
 	 */
 	@Deprecated
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public Address addAddress(
 			long userId, String className, long classPK, String street1,
 			String street2, String street3, String city, String zip,

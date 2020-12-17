@@ -15,7 +15,10 @@
 package com.liferay.commerce.account.admin.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.account.admin.web.internal.display.context.CommerceAccountUserRelAdminDisplayContext;
+<<<<<<< HEAD
 import com.liferay.commerce.account.admin.web.internal.servlet.taglib.ui.constants.CommerceAccountScreenNavigationConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.service.CommerceAccountUserRelService;

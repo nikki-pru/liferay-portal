@@ -9,8 +9,11 @@ definition {
 
 		App.selectTableView(tableViewName = "${tableViewName}");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		AppBuilderAdmin.setName(title = "${appTitle}");
 
 		App.toggleDeploy(deployOption = "${deployOption}");
@@ -108,12 +111,15 @@ definition {
 			locator1 = "AppBuilder#ITEM_ON_THE_TABLE_CLICK");
 
 		Button.clickNext();
+<<<<<<< HEAD
 	}
 
 	macro selectWorkflow {
 		Click(
 			key_itemName = "${workflowName}",
 			locator1 = "AppBuilder#ITEM_ON_THE_TABLE_CLICK");
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Button.clickNext();
 	}
@@ -125,9 +131,17 @@ definition {
 	}
 
 	macro toggleUndeploy {
+<<<<<<< HEAD
 		for (var number : list "1,2,3") {
 			Button.clickNext();
 		}
+=======
+		Button.clickNext();
+
+		Button.clickNext();
+
+		Button.clickNext();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Uncheck.uncheckToggleSwitch(
 			key_deployOption = "${deployOption}",

@@ -420,6 +420,7 @@ public class AccountEntryLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+<<<<<<< HEAD
 	public static java.util.List<com.liferay.account.model.AccountEntry>
 			getUserAccountEntries(
 				long userId, Long parentAccountEntryId, String keywords,
@@ -458,6 +459,8 @@ public class AccountEntryLocalServiceUtil {
 			userId, parentAccountEntryId, keywords, types, status);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.account.model.AccountEntry> search(
 			long companyId, String keywords,

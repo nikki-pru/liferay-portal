@@ -260,7 +260,10 @@ LocalPatternCheck | [Performance](performance_checks.markdown#performance-checks
 [LocalVariableNameCheck](https://checkstyle.sourceforge.io/config_naming.html#LocalVariableName) | [Naming Conventions](naming_conventions_checks.markdown#naming-conventions-checks) | .java, .jsp, .jspf, .tag, .tpl or .vm | Checks that local, non-final variable names conform to a specified pattern. |
 LocaleUtilCheck | [Bug Prevention](bug_prevention_checks.markdown#bug-prevention-checks) | .java, .jsp, .jspf, .tag, .tpl or .vm | Finds cases where `com.liferay.portal.kernel.util.LocaleUtil` should be used (instead of `java.util.Locale`). |
 [LogMessageCheck](checks/message_check.markdown#messagecheck) | [Styling](styling_checks.markdown#styling-checks) | .java | Validates messages that are passed to `log.*` calls. |
+<<<<<<< HEAD
 [MVCCommandNameCheck](checks/mvc_command_name_check.markdown#mvccommandnamecheck) | [Naming Conventions](naming_conventions_checks.markdown#naming-conventions-checks) | .java | Checks for consistent naming for values of `mvc.command.name`. |
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 [MapBuilderCheck](checks/builder_check.markdown#buildercheck) | [Miscellaneous](miscellaneous_checks.markdown#miscellaneous-checks) | .java, .jsp, .jspf, .tag, .tpl or .vm | Checks that `ConcurrentHashMapBuilder`, `HashMapBuilder`, `LinkedHashMapBuilder` or `TreeMapBuilder` is used when possible. |
 [MapIterationCheck](checks/map_iteration_check.markdown#mapiterationcheck) | [Performance](performance_checks.markdown#performance-checks) | .java, .jsp, .jspf, .tag, .tpl or .vm | Checks that there are no unnecessary map iterations. |
 MarkdownFileExtensionCheck | [Styling](styling_checks.markdown#styling-checks) | .markdown or .md | Finds `markdown` files with `.md` extension (use `.markdown`). |
@@ -277,7 +280,11 @@ MissingAuthorCheck | [Javadoc](javadoc_checks.markdown#javadoc-checks) | .java |
 [MissingDeprecatedCheck](https://checkstyle.sourceforge.io/config_annotation.html#MissingDeprecated) | [Bug Prevention](bug_prevention_checks.markdown#bug-prevention-checks) | .java | Verifies that the annotation @Deprecated and the Javadoc tag @deprecated are both present when either of them is present. |
 MissingDeprecatedJavadocCheck | [Javadoc](javadoc_checks.markdown#javadoc-checks) | .java | Verifies that the annotation @Deprecated and the Javadoc tag @deprecated are both present when either of them is present. |
 MissingDiamondOperatorCheck | [Bug Prevention](bug_prevention_checks.markdown#bug-prevention-checks) | .java, .jsp, .jspf, .tag, .tpl or .vm | Checks for missing diamond operator for types that require diamond operator. |
+<<<<<<< HEAD
 [MissingEmptyLineCheck](checks/missing_empty_line_check.markdown#missingemptylinecheck) | [Styling](styling_checks.markdown#styling-checks) | .java, .jsp, .jspf, .tag, .tpl or .vm | Checks for missing line breaks around variable declarations. |
+=======
+[MissingEmptyLineCheck](checks/missing_empty_line_check.markdown#missingemptylinecheck) | [Styling](styling_checks.markdown#styling-checks) | .java | Checks for missing line breaks around variable declarations. |
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 MissingModifierCheck | [Bug Prevention](bug_prevention_checks.markdown#bug-prevention-checks) | .java | Verifies that a method or global variable has a modifier specified. |
 MissingOverrideCheck | [Bug Prevention](bug_prevention_checks.markdown#bug-prevention-checks) | .java | Verifies that a method that overrides a method in a superclass has the @Override annotation. |
 MissingParenthesesCheck | [Styling](styling_checks.markdown#styling-checks) | .java, .jsp, .jspf, .tag, .tpl or .vm | Finds missing parentheses in conditional statement. |

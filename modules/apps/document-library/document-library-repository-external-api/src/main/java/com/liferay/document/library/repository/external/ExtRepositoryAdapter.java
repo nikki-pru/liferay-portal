@@ -956,10 +956,13 @@ public class ExtRepositoryAdapter extends BaseRepositoryImpl {
 				extRepositorySearchResults) {
 
 			try {
+<<<<<<< HEAD
 				if (extRepositorySearchResult.getObject() == null) {
 					continue;
 				}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				ExtRepositoryObjectAdapter<?> extRepositoryEntryAdapter =
 					_toExtRepositoryObjectAdapter(
 						ExtRepositoryObjectAdapterType.OBJECT,

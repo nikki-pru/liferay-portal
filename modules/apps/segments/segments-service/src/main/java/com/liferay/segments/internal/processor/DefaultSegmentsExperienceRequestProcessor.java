@@ -18,6 +18,10 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.segments.model.SegmentsExperience;
 import com.liferay.segments.model.SegmentsExperienceModel;
 import com.liferay.segments.processor.SegmentsExperienceRequestProcessor;
+<<<<<<< HEAD
+=======
+import com.liferay.segments.service.SegmentsEntryLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.segments.service.SegmentsExperienceLocalService;
 
 import java.util.List;
@@ -44,6 +48,7 @@ public class DefaultSegmentsExperienceRequestProcessor
 	public long[] getSegmentsExperienceIds(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, long groupId,
+<<<<<<< HEAD
 			long classNameId, long classPK, long[] segmentsExperienceIds)
 		throws PortalException {
 
@@ -62,6 +67,8 @@ public class DefaultSegmentsExperienceRequestProcessor
 	public long[] getSegmentsExperienceIds(
 			HttpServletRequest httpServletRequest,
 			HttpServletResponse httpServletResponse, long groupId,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			long classNameId, long classPK, long[] segmentsEntryIds,
 			long[] segmentsExperienceIds)
 		throws PortalException {
@@ -78,6 +85,12 @@ public class DefaultSegmentsExperienceRequestProcessor
 	}
 
 	@Reference
+<<<<<<< HEAD
+=======
+	private SegmentsEntryLocalService _segmentsEntryLocalService;
+
+	@Reference
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private SegmentsExperienceLocalService _segmentsExperienceLocalService;
 
 }

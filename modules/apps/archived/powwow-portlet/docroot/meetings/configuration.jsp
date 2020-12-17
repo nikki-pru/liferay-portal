@@ -23,7 +23,10 @@ String emailSubjectParam = "emailSubject_" + currentLanguageId;
 String emailBodyParam = "emailBody_" + currentLanguageId;
 
 String defaultEmailSubject = ContentUtil.get(PowwowUtil.class.getClassLoader(), PortletPropsValues.POWWOW_INVITATION_EMAIL_SUBJECT);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String defaultEmailBody = ContentUtil.get(PowwowUtil.class.getClassLoader(), PortletPropsValues.POWWOW_INVITATION_EMAIL_BODY);
 
 String emailBody = PrefsParamUtil.getString(portletPreferences, request, emailBodyParam, defaultEmailBody);

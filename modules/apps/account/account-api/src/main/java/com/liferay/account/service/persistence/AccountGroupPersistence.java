@@ -184,6 +184,7 @@ public interface AccountGroupPersistence extends BasePersistence<AccountGroup> {
 	public int countByCompanyId(long companyId);
 
 	/**
+<<<<<<< HEAD
 	 * Returns all the account groups where companyId = &#63; and defaultAccountGroup = &#63;.
 	 *
 	 * @param companyId the company ID
@@ -339,6 +340,8 @@ public interface AccountGroupPersistence extends BasePersistence<AccountGroup> {
 	public int countByC_D(long companyId, boolean defaultAccountGroup);
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the account group where companyId = &#63; and externalReferenceCode = &#63; or throws a <code>NoSuchGroupException</code> if it could not be found.
 	 *
 	 * @param companyId the company ID

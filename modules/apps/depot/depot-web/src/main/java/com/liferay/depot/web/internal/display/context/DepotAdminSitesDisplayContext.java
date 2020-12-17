@@ -130,8 +130,15 @@ public class DepotAdminSitesDisplayContext {
 	}
 
 	public List<DepotEntryGroupRel> getDepotEntryGroupRels() {
+<<<<<<< HEAD
 		return DepotEntryGroupRelLocalServiceUtil.getDepotEntryGroupRels(
 			_getDepotEntry());
+=======
+		DepotEntry depotEntry = _getDepotEntry();
+
+		return DepotEntryGroupRelLocalServiceUtil.getDepotEntryGroupRels(
+			depotEntry);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public PortletURL getItemSelectorURL() {

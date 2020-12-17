@@ -304,7 +304,15 @@ $product-menu-pages-administration-link-height: 72px;
 		padding: 0;
 		position: absolute;
 		right: 0;
+<<<<<<< HEAD
 		top: 0;
+=======
+		top: 55px;
+
+		@include media-breakpoint-up(sm) {
+			top: 64px;
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		@include media-breakpoint-down(xs) {
 			overflow: visible;
@@ -341,6 +349,19 @@ $product-menu-pages-administration-link-height: 72px;
 		display: block;
 	}
 
+<<<<<<< HEAD
+=======
+	.list-group {
+		> .collapse,
+		> .collapsing {
+			> .list-group-item > .tabular-list-group {
+				margin-bottom: -10px;
+				margin-top: -10px;
+			}
+		}
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	.list-group-heading {
 		h1,
 		h2,
@@ -384,6 +405,14 @@ $product-menu-pages-administration-link-height: 72px;
 			height: auto;
 		}
 
+<<<<<<< HEAD
+=======
+		.list-group-item-content,
+		.list-group-item-field {
+			vertical-align: middle;
+		}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		.site-link {
 			color: #333;
 

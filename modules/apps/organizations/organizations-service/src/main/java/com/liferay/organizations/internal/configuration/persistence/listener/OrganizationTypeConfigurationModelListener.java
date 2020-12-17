@@ -69,9 +69,16 @@ public class OrganizationTypeConfigurationModelListener
 			return;
 		}
 
+<<<<<<< HEAD
 		String message = ResourceBundleUtil.getString(
 			_getResourceBundle(),
 			"an-organization-type-must-have-a-valid-name");
+=======
+		ResourceBundle resourceBundle = _getResourceBundle();
+
+		String message = ResourceBundleUtil.getString(
+			resourceBundle, "an-organization-type-must-have-a-valid-name");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		throw new Exception(message);
 	}
@@ -96,8 +103,15 @@ public class OrganizationTypeConfigurationModelListener
 			return;
 		}
 
+<<<<<<< HEAD
 		String message = ResourceBundleUtil.getString(
 			_getResourceBundle(),
+=======
+		ResourceBundle resourceBundle = _getResourceBundle();
+
+		String message = ResourceBundleUtil.getString(
+			resourceBundle,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			"there-is-already-an-organization-type-with-the-name-x", name);
 
 		throw new Exception(message);

@@ -8,6 +8,12 @@ Export-Package:\
 	com.liferay.document.library.display.context,\
 	com.liferay.document.library.exception,\
 	com.liferay.document.library.exportimport.data.handler,\
+<<<<<<< HEAD
+=======
+	com.liferay.document.library.external.video,\
+	com.liferay.document.library.external.video.provider,\
+	com.liferay.document.library.external.video.resolver,\
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	com.liferay.document.library.model,\
 	com.liferay.document.library.portlet.toolbar.contributor,\
 	com.liferay.document.library.preview,\
@@ -17,8 +23,12 @@ Export-Package:\
 	com.liferay.document.library.service.persistence,\
 	com.liferay.document.library.url.provider,\
 	com.liferay.document.library.util,\
+<<<<<<< HEAD
 	com.liferay.document.library.versioning,\
 	com.liferay.document.library.video.external.shortcut,\
 	com.liferay.document.library.video.external.shortcut.provider,\
 	com.liferay.document.library.video.external.shortcut.resolver,\
 	com.liferay.document.library.video.renderer
+=======
+	com.liferay.document.library.versioning
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

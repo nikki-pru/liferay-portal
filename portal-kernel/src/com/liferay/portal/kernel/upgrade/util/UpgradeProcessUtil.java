@@ -20,7 +20,10 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeException;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LocaleUtil;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.version.Version;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -104,6 +107,7 @@ public class UpgradeProcessUtil {
 		return _createIGImageDocumentType;
 	}
 
+<<<<<<< HEAD
 	public static boolean isRequiredSchemaVersion(
 		Version currentSchemaVersion, Version newSchemaVersion) {
 
@@ -119,6 +123,8 @@ public class UpgradeProcessUtil {
 		return false;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static void setCreateIGImageDocumentType(
 		boolean createIGImageDocumentType) {
 

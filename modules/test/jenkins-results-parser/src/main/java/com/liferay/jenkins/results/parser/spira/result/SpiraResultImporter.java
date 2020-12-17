@@ -14,6 +14,7 @@
 
 package com.liferay.jenkins.results.parser.spira.result;
 
+<<<<<<< HEAD
 import com.liferay.jenkins.results.parser.AnalyticsCloudBranchInformationBuild;
 import com.liferay.jenkins.results.parser.AntException;
 import com.liferay.jenkins.results.parser.AntUtil;
@@ -48,12 +49,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+=======
+import com.liferay.jenkins.results.parser.Build;
+import com.liferay.jenkins.results.parser.BuildFactory;
+import com.liferay.jenkins.results.parser.Job;
+import com.liferay.jenkins.results.parser.test.clazz.group.AxisTestClassGroup;
+import com.liferay.jenkins.results.parser.test.clazz.group.TestClassGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Michael Hashimoto
  */
 public class SpiraResultImporter {
 
+<<<<<<< HEAD
 	public SpiraResultImporter(String buildURL) {
 		Build build = BuildFactory.newBuild(buildURL, null);
 
@@ -79,6 +91,14 @@ public class SpiraResultImporter {
 		spiraTestResults.add(
 			SpiraResultFactory.newSpiraTestResult(
 				_spiraBuildResult, null, null));
+=======
+	public static void record(String buildURL) {
+		Build build = BuildFactory.newBuild(buildURL, null);
+
+		Job job = build.getJob();
+
+		List<SpiraResult> spiraResults = new ArrayList<>();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		for (AxisTestClassGroup axisTestClassGroup :
 				job.getAxisTestClassGroups()) {
@@ -86,6 +106,7 @@ public class SpiraResultImporter {
 			for (TestClassGroup.TestClass testClass :
 					axisTestClassGroup.getTestClasses()) {
 
+<<<<<<< HEAD
 				spiraTestResults.add(
 					SpiraResultFactory.newSpiraTestResult(
 						_spiraBuildResult, axisTestClassGroup, testClass));
@@ -440,4 +461,17 @@ public class SpiraResultImporter {
 	private List<SpiraTestCaseObject> _spiraTestCaseObjects;
 	private final TopLevelBuild _topLevelBuild;
 
+=======
+				spiraResults.add(
+					SpiraResultFactory.newSpiraResult(
+						axisTestClassGroup, testClass));
+			}
+		}
+
+		for (SpiraResult spiraResult : spiraResults) {
+			spiraResult.record();
+		}
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

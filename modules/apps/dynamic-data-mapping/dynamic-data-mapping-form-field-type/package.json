@@ -7,7 +7,16 @@
 		"@clayui/table": "3.1.0",
 		"axios": "0.18.1",
 		"classnames": "2.2.6",
+<<<<<<< HEAD
 		"clay-icon": "2.22.0",
+=======
+		"clay-button": "2.21.4",
+		"clay-checkbox": "2.21.4",
+		"clay-dropdown": "2.21.4",
+		"clay-icon": "2.21.4",
+		"clay-label": "2.21.4",
+		"clay-radio": "2.21.4",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		"frontend-editor-ckeditor-web": "*",
 		"frontend-js-web": "*",
 		"leaflet": "1.2.0",
@@ -17,7 +26,11 @@
 		"metal-dom": "2.16.8",
 		"metal-drag-drop": "3.3.1",
 		"metal-position": "2.1.2",
+<<<<<<< HEAD
 		"metal-soy": "2.16.9",
+=======
+		"metal-soy": "2.16.8",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		"moment": "^2.22.2",
 		"text-mask-addons": "^3.7.1",
 		"text-mask-core": "^5.1.2",

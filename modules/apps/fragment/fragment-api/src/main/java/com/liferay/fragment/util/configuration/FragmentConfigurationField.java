@@ -69,9 +69,14 @@ public class FragmentConfigurationField {
 		_name = name;
 		_dataType = dataType;
 		_defaultValue = defaultValue;
+<<<<<<< HEAD
 		_type = type;
 
 		_localizable = false;
+=======
+		_localizable = false;
+		_type = type;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getDataType() {

@@ -78,17 +78,30 @@ public class IndexerRequestBufferExecutorWatcher {
 		IndexerRequestBufferExecutor indexerRequestBufferExecutor,
 		Map<String, Object> properties) {
 
+<<<<<<< HEAD
 		_indexerRequestBufferExecutors.put(
 			_getBufferedExecutionMode(properties),
 			indexerRequestBufferExecutor);
+=======
+		String bufferedExecutionMode = _getBufferedExecutionMode(properties);
+
+		_indexerRequestBufferExecutors.put(
+			bufferedExecutionMode, indexerRequestBufferExecutor);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected void removeIndexerRequestBufferExecutor(
 		IndexerRequestBufferExecutor indexerRequestBufferExecutor,
 		Map<String, Object> properties) {
 
+<<<<<<< HEAD
 		_indexerRequestBufferExecutors.remove(
 			_getBufferedExecutionMode(properties));
+=======
+		String bufferedExecutionMode = _getBufferedExecutionMode(properties);
+
+		_indexerRequestBufferExecutors.remove(bufferedExecutionMode);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private String _getBufferedExecutionMode(Map<String, Object> properties) {

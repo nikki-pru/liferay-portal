@@ -594,6 +594,7 @@ public class AccountGroupPersistenceImpl
 	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 =
 		"accountGroup.companyId = ?";
 
+<<<<<<< HEAD
 	private FinderPath _finderPathWithPaginationFindByC_D;
 	private FinderPath _finderPathWithoutPaginationFindByC_D;
 	private FinderPath _finderPathCountByC_D;
@@ -1139,6 +1140,8 @@ public class AccountGroupPersistenceImpl
 	private static final String _FINDER_COLUMN_C_D_DEFAULTACCOUNTGROUP_2 =
 		"accountGroup.defaultAccountGroup = ?";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private FinderPath _finderPathFetchByC_ERC;
 	private FinderPath _finderPathCountByC_ERC;
 
@@ -1985,6 +1988,7 @@ public class AccountGroupPersistenceImpl
 			new String[] {Long.class.getName()}, new String[] {"companyId"},
 			false);
 
+<<<<<<< HEAD
 		_finderPathWithPaginationFindByC_D = new FinderPath(
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByC_D",
 			new String[] {
@@ -2004,6 +2008,8 @@ public class AccountGroupPersistenceImpl
 			new String[] {Long.class.getName(), Boolean.class.getName()},
 			new String[] {"companyId", "defaultAccountGroup"}, false);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_finderPathFetchByC_ERC = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByC_ERC",
 			new String[] {Long.class.getName(), String.class.getName()},

@@ -44,12 +44,15 @@ public interface ExportImportServiceConfiguration {
 	public boolean replicateIndividualDeletionsByDefault();
 
 	@Meta.AD(
+<<<<<<< HEAD
 		deflt = "true", description = "publish-parent-layouts-by-default-help",
 		name = "publish-parent-layouts-by-default", required = false
 	)
 	public boolean publishParentLayoutsByDefault();
 
 	@Meta.AD(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		deflt = "false", description = "publish-permissions-by-default-help",
 		name = "publish-permissions-by-default", required = false
 	)

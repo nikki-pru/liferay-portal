@@ -25,7 +25,10 @@ import {DragAndDropContextProvider} from '../utils/dragAndDrop/useDragAndDrop';
 import {CollectionActiveItemContextProvider} from './CollectionActiveItemContext';
 import {ControlsProvider} from './Controls';
 import DragPreview from './DragPreview';
+<<<<<<< HEAD
 import {GlobalContextProvider} from './GlobalContext';
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import LayoutViewport from './LayoutViewport';
 import ShortcutManager from './ShortcutManager';
 import Sidebar from './Sidebar';
@@ -59,6 +62,7 @@ export default function App({state}) {
 					<DragAndDropContextProvider>
 						<DragPreview />
 						<Toolbar />
+<<<<<<< HEAD
 						<ShortcutManager />
 
 						<GlobalContextProvider>
@@ -68,6 +72,14 @@ export default function App({state}) {
 								<Sidebar />
 							</StyleBookContextProvider>
 						</GlobalContextProvider>
+=======
+						<LayoutViewport />
+						<ShortcutManager />
+
+						<StyleBookContextProvider>
+							<Sidebar />
+						</StyleBookContextProvider>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					</DragAndDropContextProvider>
 				</CollectionActiveItemContextProvider>
 			</ControlsProvider>

@@ -296,12 +296,15 @@ public class AccountGroupLocalServiceUtil {
 		return getService().getActionableDynamicQuery();
 	}
 
+<<<<<<< HEAD
 	public static com.liferay.account.model.AccountGroup getDefaultAccountGroup(
 		long companyId) {
 
 		return getService().getDefaultAccountGroup(companyId);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static
 		com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
 			getIndexableActionableDynamicQuery() {
@@ -328,10 +331,13 @@ public class AccountGroupLocalServiceUtil {
 		return getService().getPersistedModel(primaryKeyObj);
 	}
 
+<<<<<<< HEAD
 	public static boolean hasDefaultAccountGroup(long companyId) {
 		return getService().hasDefaultAccountGroup(companyId);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static com.liferay.portal.kernel.search.BaseModelSearchResult
 		<com.liferay.account.model.AccountGroup> searchAccountGroups(
 			long companyId, String keywords, int start, int end,

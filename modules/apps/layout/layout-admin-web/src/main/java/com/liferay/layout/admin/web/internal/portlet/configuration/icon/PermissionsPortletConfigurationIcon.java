@@ -49,7 +49,11 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + LayoutAdminPortletKeys.GROUP_PAGES,
+<<<<<<< HEAD
 		"path=/layout_admin/edit_layout"
+=======
+		"path=/layout/edit_layout"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	},
 	service = PortletConfigurationIcon.class
 )

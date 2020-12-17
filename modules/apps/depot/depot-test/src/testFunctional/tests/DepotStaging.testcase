@@ -1,6 +1,11 @@
 @component-name = "portal-document-management"
 definition {
 
+<<<<<<< HEAD
+=======
+	property osgi.module.configuration.file.names = "com.liferay.depot.web.internal.configuration.FFDepotStagingConfiguration.config";
+	property osgi.module.configurations = "enabled=B&quot;true&quot;";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Depot";
@@ -38,12 +43,15 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
+<<<<<<< HEAD
 			JSONDepot.deleteDepot(depotName = "Test Depot Name");
 
 			JSONDepot.deleteDepot(depotName = "Remote Depot");
 
 			Site.tearDownCP();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			User.logoutPG();
 		}
 	}

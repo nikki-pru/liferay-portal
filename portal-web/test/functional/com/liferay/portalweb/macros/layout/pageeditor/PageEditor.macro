@@ -528,6 +528,7 @@ definition {
 		PageEditor.closeSidebar(tabName = "Fragments and Widgets");
 	}
 
+<<<<<<< HEAD
 	macro assertAutoImageResolution {
 		var currentSrc = selenium.getAttribute("${element}@currentSrc");
 
@@ -539,6 +540,8 @@ definition {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro assertFragmentSidebarLoaded {
 		Pause(locator1 = "5000");
 
@@ -557,6 +560,7 @@ definition {
 		AssertElementPresent(locator1 = "PageEditor#EXPERIENCE_BUTTON_NAME");
 	}
 
+<<<<<<< HEAD
 	macro changeLocale {
 		Click(
 			key_currentLocale = StringUtil.lowerCase("${currentLocale}"),
@@ -571,6 +575,8 @@ definition {
 			locator1 = "Button#TRANSLATIONS_LOCALIZATION");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro clickBack {
 		Click(locator1 = "Icon#ANGLE_LEFT_BACK");
 	}
@@ -1233,7 +1239,11 @@ definition {
 				navTab = "Documents and Media");
 		}
 		else if (isSet(imageSourceURL)) {
+<<<<<<< HEAD
 			ItemSelector.addImageFromURL(
+=======
+			ItemSelector.addFromURL(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				imageSourceURL = "${imageSourceURL}",
 				navTab = "URL");
 		}
@@ -1368,7 +1378,11 @@ definition {
 								uploadFileName = "${uploadFileName}");
 						}
 						else if (isSet(imageSourceURL)) {
+<<<<<<< HEAD
 							ItemSelector.addImageFromURL(
+=======
+							ItemSelector.addFromURL(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 								imageSourceURL = "${imageSourceURL}",
 								navTab = "URL");
 						}
@@ -1720,6 +1734,7 @@ definition {
 		PageEditor.waitForAutoSave();
 	}
 
+<<<<<<< HEAD
 	macro editMenuDisplay {
 		var key_fragmentName = "Menu Display";
 
@@ -1811,6 +1826,8 @@ definition {
 		PageEditor.waitForAutoSave();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro expandFragmentCollection {
 		PageEditor.gotoTab(tabName = "Fragments and Widgets");
 
@@ -1835,8 +1852,11 @@ definition {
 	macro getFileSizeOfSelectedImageResolution {
 		var key_resolutionLabel = "File Size";
 
+<<<<<<< HEAD
 		WaitForElementPresent(locator1 = "PageEditor#IMAGE_RESOLUTION_LABEL");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		var fileSize = selenium.getText("PageEditor#IMAGE_RESOLUTION_LABEL");
 		var fileSize = StringUtil.extractFirst("${fileSize}", ".");
 		var fileSize = StringUtil.extractDigits("${fileSize}");
@@ -1847,8 +1867,11 @@ definition {
 	macro getWidthOfSelectedImageResolution {
 		var key_resolutionLabel = "Width";
 
+<<<<<<< HEAD
 		WaitForElementPresent(locator1 = "PageEditor#IMAGE_RESOLUTION_LABEL");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		var width = selenium.getText("PageEditor#IMAGE_RESOLUTION_LABEL");
 		var width = StringUtil.extractDigits("${width}");
 

@@ -12,7 +12,11 @@
  * details.
  */
 
+<<<<<<< HEAD
 (function (A) {
+=======
+(function (A, Liferay) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	var Lang = A.Lang;
 
 	var Util = Liferay.Util;
@@ -676,4 +680,8 @@
 	};
 
 	Liferay.Portlet = Portlet;
+<<<<<<< HEAD
 })(AUI());
+=======
+})(AUI(), Liferay);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

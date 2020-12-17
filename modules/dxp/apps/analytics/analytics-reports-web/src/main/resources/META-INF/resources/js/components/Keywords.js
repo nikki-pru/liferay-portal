@@ -186,7 +186,11 @@ export default function Keywords({currentPage, languageTag}) {
 													data-tooltip-align="top"
 													title={keyword}
 												>
+<<<<<<< HEAD
 													<span className="text-secondary text-truncate">
+=======
+													<span className="text-truncate">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 														{keyword}
 													</span>
 												</span>
@@ -194,7 +198,11 @@ export default function Keywords({currentPage, languageTag}) {
 										</ClayList.ItemText>
 									</ClayList.ItemField>
 									<ClayList.ItemField expand>
+<<<<<<< HEAD
 										<span className="align-self-end font-weight-semi-bold text-dark">
+=======
+										<span className="align-self-end">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 											{numberFormat(
 												languageTag,
 												keywordValueType.name ===

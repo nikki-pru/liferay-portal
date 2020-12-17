@@ -78,23 +78,36 @@ public class CTCollectionServiceUtil {
 
 	public static java.util.List<com.liferay.change.tracking.model.CTCollection>
 		getCTCollections(
+<<<<<<< HEAD
 			long companyId, int[] statuses, int start, int end,
+=======
+			long companyId, int status, int start, int end,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			com.liferay.portal.kernel.util.OrderByComparator
 				<com.liferay.change.tracking.model.CTCollection>
 					orderByComparator) {
 
 		return getService().getCTCollections(
+<<<<<<< HEAD
 			companyId, statuses, start, end, orderByComparator);
+=======
+			companyId, status, start, end, orderByComparator);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public static java.util.List<com.liferay.change.tracking.model.CTCollection>
 		getCTCollections(
+<<<<<<< HEAD
 			long companyId, int[] statuses, String keywords, int start, int end,
+=======
+			long companyId, int status, String keywords, int start, int end,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			com.liferay.portal.kernel.util.OrderByComparator
 				<com.liferay.change.tracking.model.CTCollection>
 					orderByComparator) {
 
 		return getService().getCTCollections(
+<<<<<<< HEAD
 			companyId, statuses, keywords, start, end, orderByComparator);
 	}
 
@@ -103,6 +116,15 @@ public class CTCollectionServiceUtil {
 
 		return getService().getCTCollectionsCount(
 			companyId, statuses, keywords);
+=======
+			companyId, status, keywords, start, end, orderByComparator);
+	}
+
+	public static int getCTCollectionsCount(
+		long companyId, int status, String keywords) {
+
+		return getService().getCTCollectionsCount(companyId, status, keywords);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**

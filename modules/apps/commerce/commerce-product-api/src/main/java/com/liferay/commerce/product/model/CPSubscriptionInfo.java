@@ -24,21 +24,36 @@ public class CPSubscriptionInfo {
 	public CPSubscriptionInfo(
 		int subscriptionLength, String subscriptionType,
 		UnicodeProperties subscriptionTypeSettingsUnicodeProperties,
+<<<<<<< HEAD
 		long maxSubscriptionCycles, int deliverySubscriptionLength,
 		String deliverySubscriptionType,
 		UnicodeProperties deliverySubscriptionTypeSettingsUnicodeProperties,
 		long deliveryMaxSubscriptionCycles) {
+=======
+		long maxSubscriptionCycleNumber, int deliverySubscriptionLength,
+		String deliverySubscriptionType,
+		UnicodeProperties deliverySubscriptionTypeSettingsUnicodeProperties,
+		long deliveryMaxSubscriptionCycleNumber) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		_subscriptionLength = subscriptionLength;
 		_subscriptionType = subscriptionType;
 		_subscriptionTypeSettingsUnicodeProperties =
 			subscriptionTypeSettingsUnicodeProperties;
+<<<<<<< HEAD
 		_maxSubscriptionCycles = maxSubscriptionCycles;
+=======
+		_maxSubscriptionCycles = maxSubscriptionCycleNumber;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_deliverySubscriptionLength = deliverySubscriptionLength;
 		_deliverySubscriptionType = deliverySubscriptionType;
 		_deliverySubscriptionTypeSettingsUnicodeProperties =
 			deliverySubscriptionTypeSettingsUnicodeProperties;
+<<<<<<< HEAD
 		_deliveryMaxSubscriptionCycles = deliveryMaxSubscriptionCycles;
+=======
+		_deliveryMaxSubscriptionCycles = deliveryMaxSubscriptionCycleNumber;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public long getDeliveryMaxSubscriptionCycles() {

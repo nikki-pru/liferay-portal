@@ -130,7 +130,11 @@ public class DDMFormFieldInfoFieldConverterImpl
 
 			return DateInfoFieldType.INSTANCE;
 		}
+<<<<<<< HEAD
 		else if (Objects.equals(ddmFormFieldType, DDMFormFieldType.IMAGE) ||
+=======
+		else if (Objects.equals(ddmFormFieldType, "ddm-image") ||
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				 Objects.equals(ddmFormFieldType, "image")) {
 
 			return ImageInfoFieldType.INSTANCE;

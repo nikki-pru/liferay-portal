@@ -75,9 +75,15 @@ public class AccountEntryUsersScreenNavigationCategory
 			return false;
 		}
 
+<<<<<<< HEAD
 		if (!Objects.equals(
 				accountEntryDisplay.getType(),
 				AccountConstants.ACCOUNT_ENTRY_TYPE_BUSINESS)) {
+=======
+		if (Objects.equals(
+				accountEntryDisplay.getType(),
+				AccountConstants.ACCOUNT_ENTRY_TYPE_PERSON)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return false;
 		}

@@ -16,7 +16,10 @@ package com.liferay.analytics.settings.internal.configuration;
 
 import com.liferay.analytics.message.sender.constants.AnalyticsMessagesDestinationNames;
 import com.liferay.analytics.message.sender.constants.AnalyticsMessagesProcessorCommand;
+<<<<<<< HEAD
 import com.liferay.analytics.message.sender.model.AnalyticsMessage;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.analytics.message.sender.model.listener.EntityModelListener;
 import com.liferay.analytics.message.storage.service.AnalyticsMessageLocalService;
 import com.liferay.analytics.settings.configuration.AnalyticsConfiguration;
@@ -30,8 +33,11 @@ import com.liferay.expando.kernel.service.ExpandoColumnLocalService;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.Message;
@@ -50,14 +56,20 @@ import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.transaction.TransactionCommitCallbackUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.HashMapBuilder;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.service.access.policy.model.SAPEntry;
 import com.liferay.portal.security.service.access.policy.service.SAPEntryLocalService;
 
+<<<<<<< HEAD
 import java.nio.charset.Charset;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -479,6 +491,7 @@ public class AnalyticsConfigurationTrackerImpl
 			}
 		}
 
+<<<<<<< HEAD
 		String[] previousSyncedContactFieldNames = GetterUtil.getStringValues(
 			dictionary.get("previousSyncedContactFieldNames"));
 		String[] previousSyncedUserFieldNames = GetterUtil.getStringValues(
@@ -491,6 +504,14 @@ public class AnalyticsConfigurationTrackerImpl
 		Arrays.sort(previousSyncedContactFieldNames);
 		Arrays.sort(previousSyncedUserFieldNames);
 		Arrays.sort(syncedContactFieldNames);
+=======
+		String[] previousSyncedUserFieldNames = GetterUtil.getStringValues(
+			dictionary.get("previousSyncedUserFieldNames"));
+		String[] syncedUserFieldNames = GetterUtil.getStringValues(
+			dictionary.get("syncedUserFieldNames"));
+
+		Arrays.sort(previousSyncedUserFieldNames);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Arrays.sort(syncedUserFieldNames);
 
 		if (!Arrays.equals(
@@ -500,6 +521,7 @@ public class AnalyticsConfigurationTrackerImpl
 				(Long)dictionary.get("companyId"), syncedUserFieldNames);
 		}
 
+<<<<<<< HEAD
 		if (!Arrays.equals(
 				previousSyncedContactFieldNames, syncedContactFieldNames) ||
 			!Arrays.equals(
@@ -510,6 +532,8 @@ public class AnalyticsConfigurationTrackerImpl
 				syncedUserFieldNames);
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (GetterUtil.getBoolean(dictionary.get("syncAllContacts"))) {
 			if (!GetterUtil.getBoolean(
 					dictionary.get("previousSyncAllContacts"))) {
@@ -564,6 +588,7 @@ public class AnalyticsConfigurationTrackerImpl
 		}
 	}
 
+<<<<<<< HEAD
 	private void _syncDefaultFields(
 		long companyId, String[] syncedContactFieldNames,
 		String[] syncedUserFieldNames) {
@@ -612,6 +637,8 @@ public class AnalyticsConfigurationTrackerImpl
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private void _syncOrganizationUsers(String[] organizationIds) {
 		for (String organizationId : organizationIds) {
 			int count = _userLocalService.getOrganizationUsersCount(
@@ -716,6 +743,7 @@ public class AnalyticsConfigurationTrackerImpl
 	private static final Log _log = LogFactoryUtil.getLog(
 		AnalyticsConfigurationTrackerImpl.class);
 
+<<<<<<< HEAD
 	private static final Map<String, String> _defaultFieldNames =
 		HashMapBuilder.put(
 			"accountId", "Integer"
@@ -807,6 +835,8 @@ public class AnalyticsConfigurationTrackerImpl
 			"uuid", "Text"
 		).build();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private boolean _active;
 	private final Map<Long, AnalyticsConfiguration> _analyticsConfigurations =
 		new ConcurrentHashMap<>();

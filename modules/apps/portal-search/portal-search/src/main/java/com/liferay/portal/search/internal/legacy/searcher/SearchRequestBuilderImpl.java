@@ -60,9 +60,14 @@ public class SearchRequestBuilderImpl implements SearchRequestBuilder {
 		SearchContext searchContext) {
 
 		_searchRequestBuilderFactory = searchRequestBuilderFactory;
+<<<<<<< HEAD
 		_searchContext = searchContext;
 
 		_facetContext = new FacetContextImpl(searchContext);
+=======
+		_facetContext = new FacetContextImpl(searchContext);
+		_searchContext = searchContext;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public SearchRequestBuilderImpl(

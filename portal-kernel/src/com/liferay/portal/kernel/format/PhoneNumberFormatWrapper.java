@@ -21,9 +21,14 @@ package com.liferay.portal.kernel.format;
 public class PhoneNumberFormatWrapper implements PhoneNumberFormat {
 
 	public PhoneNumberFormatWrapper(PhoneNumberFormat phoneNumberFormat) {
+<<<<<<< HEAD
 		_phoneNumberFormat = phoneNumberFormat;
 
 		_originalPhoneNumberFormat = phoneNumberFormat;
+=======
+		_originalPhoneNumberFormat = phoneNumberFormat;
+		_phoneNumberFormat = phoneNumberFormat;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

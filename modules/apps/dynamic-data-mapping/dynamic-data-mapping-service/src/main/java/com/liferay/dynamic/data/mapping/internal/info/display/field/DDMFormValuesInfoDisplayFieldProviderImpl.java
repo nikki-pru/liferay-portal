@@ -22,7 +22,10 @@ import com.liferay.dynamic.data.mapping.kernel.DDMFormField;
 import com.liferay.dynamic.data.mapping.kernel.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.kernel.DDMFormValues;
 import com.liferay.dynamic.data.mapping.kernel.Value;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
@@ -89,8 +92,12 @@ public class DDMFormValuesInfoDisplayFieldProviderImpl<T extends GroupedModel>
 
 			List<DDMFormFieldValue> ddmFormFieldsValues = entry.getValue();
 
+<<<<<<< HEAD
 			if ((Objects.equals(
 					ddmFormField.getType(), DDMFormFieldType.IMAGE) ||
+=======
+			if ((Objects.equals(ddmFormField.getType(), "ddm-image") ||
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				 Objects.equals(ddmFormField.getType(), "image")) &&
 				(ddmFormFieldsValues.size() > 1)) {
 
@@ -205,8 +212,12 @@ public class DDMFormValuesInfoDisplayFieldProviderImpl<T extends GroupedModel>
 		String valueString = value.getString(locale);
 
 		if (Objects.equals(ddmFormFieldValue.getType(), "date") ||
+<<<<<<< HEAD
 			Objects.equals(
 				ddmFormFieldValue.getType(), DDMFormFieldType.DATE)) {
+=======
+			Objects.equals(ddmFormFieldValue.getType(), "ddm-date")) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			try {
 				DateFormat dateFormat = DateFormat.getDateInstance(
@@ -221,16 +232,24 @@ public class DDMFormValuesInfoDisplayFieldProviderImpl<T extends GroupedModel>
 				return valueString;
 			}
 		}
+<<<<<<< HEAD
 		else if (Objects.equals(
 					ddmFormFieldValue.getType(), DDMFormFieldType.DECIMAL) ||
+=======
+		else if (Objects.equals(ddmFormFieldValue.getType(), "ddm-decimal") ||
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				 Objects.equals(ddmFormFieldValue.getType(), "numeric")) {
 
 			NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 
 			return numberFormat.format(GetterUtil.getDouble(valueString));
 		}
+<<<<<<< HEAD
 		else if (Objects.equals(
 					ddmFormFieldValue.getType(), DDMFormFieldType.IMAGE) ||
+=======
+		else if (Objects.equals(ddmFormFieldValue.getType(), "ddm-image") ||
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				 Objects.equals(ddmFormFieldValue.getType(), "image")) {
 
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject(

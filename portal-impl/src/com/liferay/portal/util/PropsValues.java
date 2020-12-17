@@ -619,6 +619,7 @@ public class PropsValues {
 	public static final String CUSTOM_SQL_FUNCTION_ISNULL = PropsUtil.get(
 		PropsKeys.CUSTOM_SQL_FUNCTION_ISNULL);
 
+<<<<<<< HEAD
 	public static final long DATA_LIMIT_MAX_ORGANIZATION_COUNT =
 		GetterUtil.getLong(
 			PropsUtil.get(PropsKeys.DATA_LIMIT_MAX_ORGANIZATION_COUNT));
@@ -635,6 +636,8 @@ public class PropsValues {
 	public static final long DATA_LIMIT_MAX_USER_COUNT = GetterUtil.getLong(
 		PropsUtil.get(PropsKeys.DATA_LIMIT_MAX_USER_COUNT));
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static final int DATABASE_IN_MAX_PARAMETERS = GetterUtil.getInteger(
 		PropsUtil.get(PropsKeys.DATABASE_IN_MAX_PARAMETERS));
 

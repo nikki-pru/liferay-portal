@@ -23,13 +23,20 @@ import com.liferay.portal.kernel.xml.Element;
 public class MemberResponseElement implements ResponseElement {
 
 	public MemberResponseElement(User user, boolean member) {
+<<<<<<< HEAD
 		_member = member;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_id = user.getScreenName();
 		_name = user.getFullName();
 		_loginName = user.getScreenName();
 		_email = user.getEmailAddress();
 		_domainGroup = false;
+<<<<<<< HEAD
+=======
+		_member = member;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_siteAdmin = false;
 	}
 

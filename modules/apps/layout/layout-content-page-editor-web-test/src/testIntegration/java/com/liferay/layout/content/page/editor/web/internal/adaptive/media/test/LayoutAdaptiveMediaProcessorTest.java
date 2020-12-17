@@ -42,6 +42,10 @@ import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutTypePortlet;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
@@ -49,6 +53,10 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.servlet.HttpMethods;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.kernel.settings.definition.ConfigurationBeanDeclaration;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.rule.Sync;
@@ -58,6 +66,10 @@ import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.kernel.util.HashMapDictionary;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -67,8 +79,15 @@ import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
 import com.liferay.segments.constants.SegmentsExperienceConstants;
 
 import java.util.Collection;
+<<<<<<< HEAD
 import java.util.Iterator;
 
+=======
+import java.util.Dictionary;
+import java.util.Iterator;
+
+import org.junit.After;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.ClassRule;
@@ -97,6 +116,19 @@ public class LayoutAdaptiveMediaProcessorTest {
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
 
+<<<<<<< HEAD
+=======
+		Dictionary<String, Object> properties = new HashMapDictionary<>();
+
+		properties.put("adaptiveMediaEnabled", true);
+
+		_configurationProvider.saveSystemConfiguration(
+			_configurationBeanDeclaration.getConfigurationBeanClass(),
+			properties);
+
+		Thread.sleep(200);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_serviceContext = new ServiceContext();
 
 		_serviceContext.setScopeGroupId(_group.getGroupId());
@@ -120,6 +152,20 @@ public class LayoutAdaptiveMediaProcessorTest {
 		_addLayout();
 	}
 
+<<<<<<< HEAD
+=======
+	@After
+	public void tearDown() throws Exception {
+		Dictionary<String, Object> properties = new HashMapDictionary<>();
+
+		properties.put("adaptiveMediaEnabled", false);
+
+		_configurationProvider.saveSystemConfiguration(
+			_configurationBeanDeclaration.getConfigurationBeanClass(),
+			properties);
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Test
 	public void testContentPageAdaptiveMediaProcessModeAuto() throws Exception {
 		RenderFragmentLayoutTag renderFragmentLayoutTag =
@@ -303,6 +349,17 @@ public class LayoutAdaptiveMediaProcessorTest {
 	@Inject
 	private CompanyLocalService _companyLocalService;
 
+<<<<<<< HEAD
+=======
+	@Inject(
+		filter = "component.name=com.liferay.layout.content.page.editor.web.internal.settings.definition.FFLayoutContentPageEditorConfigurationBeanDeclaration"
+	)
+	private ConfigurationBeanDeclaration _configurationBeanDeclaration;
+
+	@Inject
+	private ConfigurationProvider _configurationProvider;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Inject
 	private DLAppLocalService _dlAppLocalService;
 

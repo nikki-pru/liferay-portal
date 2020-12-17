@@ -1,6 +1,11 @@
 @component-name = "portal-document-management"
 definition {
 
+<<<<<<< HEAD
+=======
+	property osgi.module.configuration.file.names = "com.liferay.depot.web.internal.configuration.FFDepotStagingConfiguration.config";
+	property osgi.module.configurations = "enabled=B&quot;true&quot;";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Depot";
@@ -54,10 +59,13 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
+<<<<<<< HEAD
 			Site.tearDownCP();
 
 			Depot.tearDownCP();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			User.logoutPG();
 		}
 	}
@@ -65,8 +73,11 @@ definition {
 	@description = "This ensures that image in depot can be removed and republished in AP through widget config manual selection when enabling local staging."
 	@priority = "5"
 	test DeleteImageInDepot {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DepotNavigator.openDepotDocumentsAndMediaAdminStaging(depotName = "Test Depot Name");
 
 		DMDocument.addCP(
@@ -134,6 +145,7 @@ definition {
 		Navigator.gotoStagedView();
 	}
 
+<<<<<<< HEAD
 	@description = "This ensures that video shortcut in depot can be deleted and republished in Blogs when enabling local staging."
 	@priority = "4"
 	test DeleteVideoShortcutInDepot {
@@ -236,6 +248,8 @@ definition {
 			entryTitle = "Blogs Entry Title");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "This ensures that the blog small image from a depot can be edited and republished when enabling local staging."
 	@priority = "5"
 	test EditBlogSmallImage {
@@ -333,8 +347,11 @@ definition {
 	@description = "This ensures that document in depot can be replaced and republished in AP through widget config manual selection when enabling local staging."
 	@priority = "5"
 	test EditDocumentInDepot {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DepotNavigator.openDepotDocumentsAndMediaAdminStaging(depotName = "Test Depot Name");
 
 		DMDocument.addCP(

@@ -16,14 +16,20 @@ package com.liferay.account.admin.web.internal.frontend.taglib.servlet.taglib;
 
 import com.liferay.account.admin.web.internal.constants.AccountScreenNavigationEntryConstants;
 import com.liferay.account.admin.web.internal.display.AccountEntryDisplay;
+<<<<<<< HEAD
 import com.liferay.account.constants.AccountConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.User;
 
 import java.util.Locale;
+<<<<<<< HEAD
 import java.util.Objects;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import org.osgi.service.component.annotations.Component;
 
@@ -65,6 +71,7 @@ public class AccountEntryRolesScreenNavigationCategory
 	public boolean isVisible(
 		User user, AccountEntryDisplay accountEntryDisplay) {
 
+<<<<<<< HEAD
 		if (Objects.equals(
 				accountEntryDisplay.getType(),
 				AccountConstants.ACCOUNT_ENTRY_TYPE_GUEST)) {
@@ -72,6 +79,8 @@ public class AccountEntryRolesScreenNavigationCategory
 			return false;
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (accountEntryDisplay.getAccountEntryId() > 0) {
 			return true;
 		}

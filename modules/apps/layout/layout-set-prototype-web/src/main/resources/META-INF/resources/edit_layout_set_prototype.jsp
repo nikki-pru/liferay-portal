@@ -50,7 +50,10 @@ if (layoutSetPrototype == null) {
 }
 
 boolean layoutsUpdateable = GetterUtil.getBoolean(layoutSetPrototype.getSettingsProperty("layoutsUpdateable"), true);
+<<<<<<< HEAD
 boolean readyForPropagation = GetterUtil.getBoolean(layoutSetPrototype.getSettingsProperty("readyForPropagation"), true);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 Group group = themeDisplay.getSiteGroup();
 
@@ -88,12 +91,19 @@ request.setAttribute("edit_layout_set_prototype.jsp-redirect", currentURL);
 
 				<aui:input name="description" placeholder="description" />
 
+<<<<<<< HEAD
 				<aui:input helpMessage="active-help" label="active" name="active" type="toggle-switch" value="<%= layoutSetPrototype.isActive() %>" />
 
 				<aui:input helpMessage="allow-site-administrators-to-modify-pages-associated-with-this-site-template-help" label="allow-site-administrators-to-modify-pages-associated-with-this-site-template" name="layoutsUpdateable" type="toggle-switch" value="<%= layoutsUpdateable %>" />
 
 				<aui:input helpMessage="ready-for-propagation-help" label="ready-for-propagation" name="readyForPropagation" type="toggle-switch" value="<%= readyForPropagation %>" />
 
+=======
+				<aui:input name="active" type="toggle-switch" value="<%= layoutSetPrototype.isActive() %>" />
+
+				<aui:input helpMessage="allow-site-administrators-to-modify-pages-associated-with-this-site-template-help" label="allow-site-administrators-to-modify-pages-associated-with-this-site-template" name="layoutsUpdateable" type="toggle-switch" value="<%= layoutsUpdateable %>" />
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				<%
 				Set<String> servletContextNames = CustomJspRegistryUtil.getServletContextNames();
 

@@ -49,7 +49,10 @@ SegmentsEntry segmentsEntry = (SegmentsEntry)row.getObject();
 		<portlet:renderURL var="previewMembersURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 			<portlet:param name="mvcRenderCommandName" value="/segments/preview_segments_entry_users" />
 			<portlet:param name="segmentsEntryId" value="<%= String.valueOf(segmentsEntry.getSegmentsEntryId()) %>" />
+<<<<<<< HEAD
 			<portlet:param name="clearSessionCriteria" value="<%= Boolean.TRUE.toString() %>" />
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		</portlet:renderURL>
 
 		<liferay-ui:icon

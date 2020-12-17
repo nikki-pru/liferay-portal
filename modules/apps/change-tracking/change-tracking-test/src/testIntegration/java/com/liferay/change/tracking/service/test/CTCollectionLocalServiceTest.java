@@ -23,6 +23,10 @@ import com.liferay.change.tracking.conflict.ConflictInfo;
 import com.liferay.change.tracking.model.CTCollection;
 import com.liferay.change.tracking.service.CTCollectionLocalService;
 import com.liferay.change.tracking.service.CTProcessLocalService;
+<<<<<<< HEAD
+=======
+import com.liferay.counter.kernel.service.CounterLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.journal.constants.JournalArticleConstants;
 import com.liferay.journal.constants.JournalFolderConstants;
 import com.liferay.journal.model.JournalArticle;
@@ -49,6 +53,10 @@ import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
@@ -76,16 +84,37 @@ public class CTCollectionLocalServiceTest {
 
 	@Before
 	public void setUp() throws Exception {
+<<<<<<< HEAD
 		_ctCollection1 = _ctCollectionLocalService.addCTCollection(
 			TestPropsValues.getCompanyId(), TestPropsValues.getUserId(),
 			CTCollectionLocalServiceTest.class.getSimpleName(), null);
 		_group = GroupTestUtil.addGroup();
+=======
+		long ctCollectionId = _counterLocalService.increment(
+			CTCollection.class.getName());
+
+		_ctCollection1 = _ctCollectionLocalService.createCTCollection(
+			ctCollectionId);
+
+		_ctCollection1.setUserId(TestPropsValues.getUserId());
+		_ctCollection1.setName(String.valueOf(ctCollectionId));
+		_ctCollection1.setStatus(WorkflowConstants.STATUS_DRAFT);
+
+		_ctCollection1 = _ctCollectionLocalService.updateCTCollection(
+			_ctCollection1);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_journalArticleClassNameId = _classNameLocalService.getClassNameId(
 			JournalArticle.class);
 		_journalFolderClassNameId = _classNameLocalService.getClassNameId(
 			JournalFolder.class);
 		_layoutClassNameId = _classNameLocalService.getClassNameId(
 			Layout.class);
+<<<<<<< HEAD
+=======
+
+		_group = GroupTestUtil.addGroup();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -546,6 +575,12 @@ public class CTCollectionLocalServiceTest {
 	private static ClassNameLocalService _classNameLocalService;
 
 	@Inject
+<<<<<<< HEAD
+=======
+	private static CounterLocalService _counterLocalService;
+
+	@Inject
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static CTCollectionLocalService _ctCollectionLocalService;
 
 	@Inject

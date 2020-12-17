@@ -205,6 +205,7 @@ public class TeamPersistenceTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testCountByCompanyId() throws Exception {
 		_persistence.countByCompanyId(RandomTestUtil.nextLong());
 
@@ -212,6 +213,8 @@ public class TeamPersistenceTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testCountByGroupId() throws Exception {
 		_persistence.countByGroupId(RandomTestUtil.nextLong());
 

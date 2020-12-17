@@ -435,7 +435,13 @@ public class JavadocBuilder {
 		String[] lines, Map<String, Element> fieldElementsMap,
 		JavaField javaField) {
 
+<<<<<<< HEAD
 		Element fieldElement = fieldElementsMap.get(_getFieldKey(javaField));
+=======
+		String fieldKey = _getFieldKey(javaField);
+
+		Element fieldElement = fieldElementsMap.get(fieldKey);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (fieldElement == null) {
 			return null;
@@ -480,8 +486,14 @@ public class JavadocBuilder {
 		String[] lines, Map<String, Element> methodElementsMap,
 		JavaMethod javaMethod) {
 
+<<<<<<< HEAD
 		Element methodElement = methodElementsMap.get(
 			_getMethodKey(javaMethod));
+=======
+		String methodKey = _getMethodKey(javaMethod);
+
+		Element methodElement = methodElementsMap.get(methodKey);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (methodElement == null) {
 			return null;
@@ -755,7 +767,13 @@ public class JavadocBuilder {
 			}
 		}
 
+<<<<<<< HEAD
 		String newContent = _getJavadocXml(_getJavaClass(fileName));
+=======
+		JavaClass javaClass = _getJavaClass(fileName);
+
+		String newContent = _getJavadocXml(javaClass);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if ((oldContent == null) || !oldContent.equals(newContent)) {
 			_fileImpl.write(file, newContent.getBytes());
@@ -797,7 +815,13 @@ public class JavadocBuilder {
 		List<Element> methodElements = rootElement.elements("method");
 
 		for (Element methodElement : methodElements) {
+<<<<<<< HEAD
 			methodElementsMap.put(_getMethodKey(methodElement), methodElement);
+=======
+			String methodKey = _getMethodKey(methodElement);
+
+			methodElementsMap.put(methodKey, methodElement);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		JavaMethod[] javaMethods = javaClass.getMethods();
@@ -817,7 +841,13 @@ public class JavadocBuilder {
 		List<Element> fieldElements = rootElement.elements("field");
 
 		for (Element fieldElement : fieldElements) {
+<<<<<<< HEAD
 			fieldElementsMap.put(_getFieldKey(fieldElement), fieldElement);
+=======
+			String fieldKey = _getFieldKey(fieldElement);
+
+			fieldElementsMap.put(fieldKey, fieldElement);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		JavaField[] javaFields = javaClass.getFields();

@@ -50,9 +50,14 @@ public class AccountGroupWrapper
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+<<<<<<< HEAD
 		attributes.put("defaultAccountGroup", isDefaultAccountGroup());
 		attributes.put("description", getDescription());
 		attributes.put("name", getName());
+=======
+		attributes.put("name", getName());
+		attributes.put("description", getDescription());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return attributes;
 	}
@@ -108,11 +113,18 @@ public class AccountGroupWrapper
 			setModifiedDate(modifiedDate);
 		}
 
+<<<<<<< HEAD
 		Boolean defaultAccountGroup = (Boolean)attributes.get(
 			"defaultAccountGroup");
 
 		if (defaultAccountGroup != null) {
 			setDefaultAccountGroup(defaultAccountGroup);
+=======
+		String name = (String)attributes.get("name");
+
+		if (name != null) {
+			setName(name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		String description = (String)attributes.get("description");
@@ -120,12 +132,15 @@ public class AccountGroupWrapper
 		if (description != null) {
 			setDescription(description);
 		}
+<<<<<<< HEAD
 
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
 			setName(name);
 		}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -159,6 +174,7 @@ public class AccountGroupWrapper
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the default account group of this account group.
 	 *
 	 * @return the default account group of this account group
@@ -169,6 +185,8 @@ public class AccountGroupWrapper
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the description of this account group.
 	 *
 	 * @return the description of this account group
@@ -258,6 +276,7 @@ public class AccountGroupWrapper
 		return model.getUserUuid();
 	}
 
+<<<<<<< HEAD
 	/**
 	 * Returns <code>true</code> if this account group is default account group.
 	 *
@@ -268,6 +287,8 @@ public class AccountGroupWrapper
 		return model.isDefaultAccountGroup();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Override
 	public void persist() {
 		model.persist();
@@ -304,6 +325,7 @@ public class AccountGroupWrapper
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Sets whether this account group is default account group.
 	 *
 	 * @param defaultAccountGroup the default account group of this account group
@@ -314,6 +336,8 @@ public class AccountGroupWrapper
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Sets the description of this account group.
 	 *
 	 * @param description the description of this account group

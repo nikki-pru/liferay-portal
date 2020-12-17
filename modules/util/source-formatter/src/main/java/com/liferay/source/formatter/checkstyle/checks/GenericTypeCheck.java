@@ -402,8 +402,15 @@ public class GenericTypeCheck extends BaseCheck {
 
 		Map<String, Integer> genericTypeNamesMap = _getGenericTypeNamesMap();
 
+<<<<<<< HEAD
 		String fullyQualifiedTypeName = getFullyQualifiedTypeName(
 			_getTypeName(childDetailAST), childDetailAST, false);
+=======
+		String typeName = _getTypeName(childDetailAST);
+
+		String fullyQualifiedTypeName = getFullyQualifiedTypeName(
+			typeName, childDetailAST, false);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if ((fullyQualifiedTypeName == null) ||
 			genericTypeNamesMap.containsKey(fullyQualifiedTypeName)) {

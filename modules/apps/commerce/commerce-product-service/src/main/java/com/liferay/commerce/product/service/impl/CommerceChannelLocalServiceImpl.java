@@ -124,16 +124,20 @@ public class CommerceChannelLocalServiceImpl
 		commerceChannelRelLocalService.deleteCommerceChannelRels(
 			commerceChannel.getCommerceChannelId());
 
+<<<<<<< HEAD
 		// Resources
 
 		resourceLocalService.deleteResource(
 			commerceChannel, ResourceConstants.SCOPE_INDIVIDUAL);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		// Group
 
 		Group group = getCommerceChannelGroup(
 			commerceChannel.getCommerceChannelId());
 
+<<<<<<< HEAD
 		// Commerce channel
 
 		commerceChannel = commerceChannelPersistence.remove(commerceChannel);
@@ -141,6 +145,18 @@ public class CommerceChannelLocalServiceImpl
 		groupLocalService.deleteGroup(group);
 
 		return commerceChannel;
+=======
+		groupLocalService.deleteGroup(group);
+
+		// Resources
+
+		resourceLocalService.deleteResource(
+			commerceChannel, ResourceConstants.SCOPE_INDIVIDUAL);
+
+		// Commerce channel
+
+		return commerceChannelPersistence.remove(commerceChannel);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

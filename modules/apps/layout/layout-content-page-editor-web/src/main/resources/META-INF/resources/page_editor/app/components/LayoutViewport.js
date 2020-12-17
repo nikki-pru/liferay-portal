@@ -21,7 +21,11 @@ import {config} from '../config/index';
 import {useSelector} from '../store/index';
 import {useSelectItem} from './Controls';
 import DisabledArea from './DisabledArea';
+<<<<<<< HEAD
 import {GlobalContextFrame} from './GlobalContext';
+=======
+import GlobalContextProvider from './GlobalContext';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import Layout from './Layout';
 import MasterLayout from './MasterLayout';
 
@@ -126,7 +130,11 @@ export default function LayoutViewport() {
 				ref={setElement}
 				style={{width: layoutWidth}}
 			>
+<<<<<<< HEAD
 				<GlobalContextFrame
+=======
+				<GlobalContextProvider
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					useIframe={selectedViewportSize !== VIEWPORT_SIZES.desktop}
 				>
 					<DisabledArea />
@@ -136,7 +144,11 @@ export default function LayoutViewport() {
 					) : (
 						<Layout mainItemId={mainItemId} />
 					)}
+<<<<<<< HEAD
 				</GlobalContextFrame>
+=======
+				</GlobalContextProvider>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			</div>
 
 			{selectedViewportSize !== VIEWPORT_SIZES.desktop && (

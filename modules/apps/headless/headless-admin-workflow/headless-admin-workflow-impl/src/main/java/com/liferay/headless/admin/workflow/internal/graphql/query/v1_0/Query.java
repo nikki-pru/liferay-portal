@@ -272,7 +272,11 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+<<<<<<< HEAD
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {workflowLog(workflowLogId: ___){auditPerson, commentLog, dateCreated, description, id, person, previousPerson, previousRole, previousState, role, state, type, workflowTaskId}}"}' -u 'test@liferay.com:test'
+=======
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {workflowLog(workflowLogId: ___){auditPerson, commentLog, dateCreated, id, person, previousPerson, previousRole, previousState, role, state, type, workflowTaskId}}"}' -u 'test@liferay.com:test'
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 */
 	@GraphQLField
 	public WorkflowLog workflowLog(

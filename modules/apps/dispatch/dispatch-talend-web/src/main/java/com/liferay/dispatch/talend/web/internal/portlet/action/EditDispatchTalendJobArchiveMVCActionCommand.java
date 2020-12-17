@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.servlet.SessionErrors;
@@ -29,6 +30,12 @@ import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
+=======
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Portal;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -55,8 +62,11 @@ public class EditDispatchTalendJobArchiveMVCActionCommand
 		throws PortalException {
 
 		try {
+<<<<<<< HEAD
 			_checkPermission(actionRequest);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			UploadPortletRequest uploadPortletRequest =
 				_portal.getUploadPortletRequest(actionRequest);
 
@@ -77,6 +87,7 @@ public class EditDispatchTalendJobArchiveMVCActionCommand
 		}
 	}
 
+<<<<<<< HEAD
 	private void _checkPermission(ActionRequest actionRequest)
 		throws PrincipalException {
 
@@ -91,6 +102,8 @@ public class EditDispatchTalendJobArchiveMVCActionCommand
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static final Log _log = LogFactoryUtil.getLog(
 		EditDispatchTalendJobArchiveMVCActionCommand.class);
 

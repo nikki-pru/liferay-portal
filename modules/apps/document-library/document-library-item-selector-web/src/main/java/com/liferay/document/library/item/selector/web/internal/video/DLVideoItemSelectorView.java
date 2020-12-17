@@ -54,7 +54,11 @@ public class DLVideoItemSelectorView
 
 	@Override
 	public String[] getMimeTypes() {
+<<<<<<< HEAD
 		String[] mimeTypes = {DLContentTypes.VIDEO_EXTERNAL_SHORTCUT};
+=======
+		String[] mimeTypes = {DLContentTypes.EXTERNAL_VIDEO};
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (XugglerUtil.isEnabled()) {
 			mimeTypes = ArrayUtil.append(

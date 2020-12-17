@@ -55,12 +55,15 @@ public class RegionServiceUtil {
 		return getService().addRegion(countryId, regionCode, name, active);
 	}
 
+<<<<<<< HEAD
 	public static void deleteRegion(long regionId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		getService().deleteRegion(regionId);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static com.liferay.portal.kernel.model.Region fetchRegion(
 		long regionId) {
 
@@ -120,6 +123,7 @@ public class RegionServiceUtil {
 		return getService().getRegions(countryId, active);
 	}
 
+<<<<<<< HEAD
 	public static java.util.List<com.liferay.portal.kernel.model.Region>
 		getRegions(
 			long countryId, boolean active, int start, int end,
@@ -171,6 +175,8 @@ public class RegionServiceUtil {
 			regionId, active, name, position, regionCode);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static RegionService getService() {
 		if (_service == null) {
 			_service = (RegionService)PortalBeanLocatorUtil.locate(

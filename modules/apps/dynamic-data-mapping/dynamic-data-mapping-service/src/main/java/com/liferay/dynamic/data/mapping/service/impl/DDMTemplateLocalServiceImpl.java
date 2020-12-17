@@ -1836,17 +1836,25 @@ public class DDMTemplateLocalServiceImpl
 
 	private long[] _getAncestorSiteAndDepotGroupIds(long groupId) {
 		try {
+<<<<<<< HEAD
 			DepotEntryLocalService depotEntryLocalService =
 				_depotEntryLocalService;
 
 			if (depotEntryLocalService == null) {
+=======
+			if (_depotEntryLocalService == null) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				return _portal.getAncestorSiteGroupIds(groupId);
 			}
 
 			return ArrayUtil.append(
 				_portal.getAncestorSiteGroupIds(groupId),
 				ListUtil.toLongArray(
+<<<<<<< HEAD
 					depotEntryLocalService.getGroupConnectedDepotEntries(
+=======
+					_depotEntryLocalService.getGroupConnectedDepotEntries(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						groupId, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
 					DepotEntry::getGroupId));
 		}
@@ -1879,7 +1887,11 @@ public class DDMTemplateLocalServiceImpl
 		cardinality = ReferenceCardinality.OPTIONAL,
 		policyOption = ReferencePolicyOption.GREEDY
 	)
+<<<<<<< HEAD
 	private volatile DepotEntryLocalService _depotEntryLocalService;
+=======
+	private DepotEntryLocalService _depotEntryLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Reference
 	private Portal _portal;

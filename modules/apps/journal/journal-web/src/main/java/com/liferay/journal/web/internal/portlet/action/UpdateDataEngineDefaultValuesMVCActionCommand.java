@@ -19,9 +19,15 @@ import com.liferay.asset.display.page.portlet.AssetDisplayPageEntryFormProcessor
 import com.liferay.dynamic.data.mapping.form.values.factory.DDMFormValuesFactory;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
 import com.liferay.dynamic.data.mapping.storage.Fields;
 import com.liferay.dynamic.data.mapping.util.DDMFormValuesToFieldsConverter;
+=======
+import com.liferay.dynamic.data.mapping.storage.Fields;
+import com.liferay.dynamic.data.mapping.util.DDMFormValuesToFieldsConverter;
+import com.liferay.dynamic.data.mapping.util.DDMUtil;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.journal.constants.JournalPortletKeys;
 import com.liferay.journal.exception.ArticleContentSizeException;
 import com.liferay.journal.model.JournalArticle;
@@ -119,6 +125,7 @@ public class UpdateDataEngineDefaultValuesMVCActionCommand
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			JournalArticle.class.getName(), uploadPortletRequest);
 
+<<<<<<< HEAD
 		DDMFormValues ddmFormValues = _ddmFormValuesFactory.create(
 			actionRequest, ddmStructure.getDDMForm());
 
@@ -127,6 +134,12 @@ public class UpdateDataEngineDefaultValuesMVCActionCommand
 
 		String content = _journalConverter.getContent(
 			ddmStructure, fields, groupId);
+=======
+		Fields fields = DDMUtil.getFields(
+			ddmStructure.getStructureId(), serviceContext);
+
+		String content = _journalConverter.getContent(ddmStructure, fields);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Map<Locale, String> descriptionMap =
 			LocalizationUtil.getLocalizationMap(

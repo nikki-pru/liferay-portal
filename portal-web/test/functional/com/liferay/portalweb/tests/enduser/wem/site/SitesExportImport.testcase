@@ -31,6 +31,7 @@ definition {
 	@description = "This is a use case for LPS-96391."
 	@priority = "5"
 	test ExportImportSiteWithEmbeddedWCDInFragment {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
 		property testray.component.names = "Content Pages,Site Administration";
 
@@ -38,6 +39,11 @@ definition {
 			groupName = "Test Site Name",
 			name = "Collection Name");
 
+=======
+		property portal.acceptance = "false";
+		property testray.component.names = "Content Pages,Site Administration";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "test-site-name");
 
 		FragmentsAdminNavigator.gotoCollection(collectionName = "Collection Name");
@@ -54,16 +60,24 @@ definition {
 
 		PortletEntry.publish();
 
+<<<<<<< HEAD
 		JSONLayout.addPublicLayout(
 			groupName = "Test Site Name",
 			layoutName = "Test Content Page Name",
 			type = "content");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		JSONWebcontent.addWebContent(
 			content = "WC WebContent Content",
 			groupName = "Test Site Name",
 			title = "WC WebContent Title");
 
+<<<<<<< HEAD
+=======
+		SitePages.openPagesAdmin(siteURLKey = "test-site-name");
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		ContentPagesNavigator.openEditContentPage(
 			pageName = "Test Content Page Name",
 			siteName = "Test Site Name");
@@ -78,9 +92,13 @@ definition {
 
 		PageEditor.clickPublish();
 
+<<<<<<< HEAD
 		ContentPagesNavigator.openViewContentPage(
 			pageName = "Test Content Page Name",
 			siteName = "Test Site Name");
+=======
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		WebContent.viewPGViaWCD(webContentContent = "WC WebContent Content");
 
@@ -107,6 +125,7 @@ definition {
 			webContentTitle = "WC WebContent Title",
 			webContentTitleEdit = "WC WebContent New Title");
 
+<<<<<<< HEAD
 		ContentPagesNavigator.openViewContentPage(
 			pageName = "Test Content Page Name",
 			siteName = "Test Site Name");
@@ -116,6 +135,13 @@ definition {
 		ContentPagesNavigator.openViewContentPage(
 			pageName = "Test Content Page Name",
 			siteName = "New Site");
+=======
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/test-content-page-name");
+
+		WebContent.viewPGViaWCD(webContentContent = "WC WebContent New Content");
+
+		Navigator.openWithAppendToBaseURL(urlAppend = "web/new-site/test-content-page-name");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		WebContent.viewPGViaWCD(webContentContent = "WC WebContent Content");
 	}
@@ -159,7 +185,11 @@ definition {
 			AssertVisible(
 				id = "image-square",
 				key_image = "Document_1.jpg",
+<<<<<<< HEAD
 				key_imageDescription = "",
+=======
+				key_imageDescription = "Document_1.jpg",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				locator1 = "Fragment#CONTRIBUTED_FRAGMENT_EDITABLE_FIELD_IMAGE_PROPERTIES");
 
 			PageEditor.clickPublish();
@@ -195,7 +225,11 @@ definition {
 			AssertVisible(
 				id = "image-square",
 				key_image = "Document_1.jpg",
+<<<<<<< HEAD
 				key_imageDescription = "",
+=======
+				key_imageDescription = "Document_1.jpg",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				locator1 = "Fragment#CONTRIBUTED_FRAGMENT_EDITABLE_FIELD_IMAGE_PROPERTIES");
 		}
 	}

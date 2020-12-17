@@ -19,7 +19,10 @@ import com.liferay.document.library.kernel.exception.NoSuchFolderException;
 import com.liferay.document.library.kernel.model.DLFileEntry;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLTrashLocalService;
+<<<<<<< HEAD
 import com.liferay.document.library.kernel.util.DLAppHelperThreadLocal;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.lang.SafeClosable;
 import com.liferay.petra.string.StringBundler;
@@ -158,6 +161,7 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 			mimeType = MimeTypesUtil.getContentType(file, fileName);
 		}
 
+<<<<<<< HEAD
 		boolean dlAppHelperEnabled = DLAppHelperThreadLocal.isEnabled();
 
 		try {
@@ -174,6 +178,15 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 		finally {
 			DLAppHelperThreadLocal.setEnabled(dlAppHelperEnabled);
 		}
+=======
+		LocalRepository localRepository =
+			_repositoryProvider.getLocalRepository(
+				repository.getRepositoryId());
+
+		return localRepository.addFileEntry(
+			userId, folderId, fileName, mimeType, fileName, StringPool.BLANK,
+			StringPool.BLANK, file, serviceContext);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -217,8 +230,11 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 					_repositoryProvider.getLocalRepository(repositoryId);
 
 				try {
+<<<<<<< HEAD
 					DLAppHelperThreadLocal.setEnabled(false);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					return localRepository.getFolder(
 						parentFolderId, folderName);
 				}
@@ -768,11 +784,15 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 			Class<?> clazz, UnsafeSupplier<T, E> unsafeSupplier)
 		throws E {
 
+<<<<<<< HEAD
 		boolean dlAppHelperEnabled = DLAppHelperThreadLocal.isEnabled();
 
 		try {
 			DLAppHelperThreadLocal.setEnabled(false);
 
+=======
+		try {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			if (clazz != null) {
 				SystemEventHierarchyEntryThreadLocal.push(clazz);
 			}
@@ -783,8 +803,11 @@ public class PortletFileRepositoryImpl implements PortletFileRepository {
 			if (clazz != null) {
 				SystemEventHierarchyEntryThreadLocal.pop(clazz);
 			}
+<<<<<<< HEAD
 
 			DLAppHelperThreadLocal.setEnabled(dlAppHelperEnabled);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 

@@ -29,6 +29,7 @@ import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClass
 )
 public interface FreeMarkerEngineConfiguration {
 
+<<<<<<< HEAD
 	@Meta.AD(deflt = "0", name = "async-render-timeout", required = false)
 	public long asyncRenderTimeout();
 
@@ -49,6 +50,8 @@ public interface FreeMarkerEngineConfiguration {
 	)
 	public int asyncRenderThreadPoolMaxQueueSize();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Meta.AD(deflt = "false", name = "localized-lookup", required = false)
 	public boolean localizedLookup();
 

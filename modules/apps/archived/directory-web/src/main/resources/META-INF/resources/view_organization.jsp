@@ -22,7 +22,10 @@ long organizationId = ParamUtil.getLong(request, "organizationId");
 Organization organization = OrganizationServiceUtil.fetchOrganization(organizationId);
 
 request.setAttribute(WebKeys.ORGANIZATION, organization);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 request.setAttribute("addresses.className", Organization.class.getName());
 request.setAttribute("addresses.classPK", organizationId);
 request.setAttribute("emailAddresses.className", Organization.class.getName());

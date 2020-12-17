@@ -884,7 +884,11 @@ public interface CountryPersistence extends BasePersistence<Country> {
 	 * @return the matching country
 	 * @throws NoSuchCountryException if a matching country could not be found
 	 */
+<<<<<<< HEAD
 	public Country findByC_Name(long companyId, String name)
+=======
+	public Country findByC_N(long companyId, String name)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws NoSuchCountryException;
 
 	/**
@@ -894,7 +898,11 @@ public interface CountryPersistence extends BasePersistence<Country> {
 	 * @param name the name
 	 * @return the matching country, or <code>null</code> if a matching country could not be found
 	 */
+<<<<<<< HEAD
 	public Country fetchByC_Name(long companyId, String name);
+=======
+	public Country fetchByC_N(long companyId, String name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * Returns the country where companyId = &#63; and name = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
@@ -904,7 +912,11 @@ public interface CountryPersistence extends BasePersistence<Country> {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching country, or <code>null</code> if a matching country could not be found
 	 */
+<<<<<<< HEAD
 	public Country fetchByC_Name(
+=======
+	public Country fetchByC_N(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		long companyId, String name, boolean useFinderCache);
 
 	/**
@@ -914,7 +926,11 @@ public interface CountryPersistence extends BasePersistence<Country> {
 	 * @param name the name
 	 * @return the country that was removed
 	 */
+<<<<<<< HEAD
 	public Country removeByC_Name(long companyId, String name)
+=======
+	public Country removeByC_N(long companyId, String name)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws NoSuchCountryException;
 
 	/**
@@ -924,6 +940,7 @@ public interface CountryPersistence extends BasePersistence<Country> {
 	 * @param name the name
 	 * @return the number of matching countries
 	 */
+<<<<<<< HEAD
 	public int countByC_Name(long companyId, String name);
 
 	/**
@@ -1319,6 +1336,9 @@ public interface CountryPersistence extends BasePersistence<Country> {
 	 */
 	public int countByC_A_S(
 		long companyId, boolean active, boolean shippingAllowed);
+=======
+	public int countByC_N(long companyId, String name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * Caches the country in the entity cache if it is enabled.

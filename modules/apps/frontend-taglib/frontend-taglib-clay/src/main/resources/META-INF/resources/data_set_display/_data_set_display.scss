@@ -179,11 +179,18 @@
 }
 
 .tooltip-table {
+<<<<<<< HEAD
 	color: white;
+=======
+	background: transparent;
+	border: none;
+	border-collapse: collapse;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	font-weight: 600;
 	width: 100%;
 
 	td {
+<<<<<<< HEAD
 		border: none;
 
 		&:first-child {
@@ -202,16 +209,45 @@
 
 		&::after {
 			border-top: 1px solid rgba(255, 255, 255, 0.1);
+=======
+		background-color: transparent !important;
+		border: none;
+		padding-bottom: map-get($spacers, 1) / 2 !important;
+		padding-top: map-get($spacers, 1) / 2 !important;
+
+		&:first-child {
+			color: darken(white, 10%);
+			padding-left: 0 !important;
+		}
+
+		&:last-child {
+			color: white;
+			padding-right: 0 !important;
+		}
+	}
+
+	tr:last-child td {
+		color: white;
+		font-size: 1rem;
+		padding-top: map-get($spacers, 2) !important;
+		position: relative;
+
+		&::after {
+			border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			content: '';
 			left: 0;
 			position: absolute;
 			right: 0;
 			top: map-get($spacers, 1);
 		}
+<<<<<<< HEAD
 	}
 
 	tr.highlighted td {
 		font-size: 1rem;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		&:last-child {
 			color: $error-l1;

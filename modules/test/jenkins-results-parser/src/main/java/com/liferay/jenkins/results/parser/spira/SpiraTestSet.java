@@ -82,6 +82,7 @@ public class SpiraTestSet extends PathSpiraArtifact {
 			parentSpiraTestSetFolder.getID());
 	}
 
+<<<<<<< HEAD
 	public SpiraTestSetTestCase assignSpiraTestCaseObject(
 		SpiraTestCaseObject spiraTestCaseObject) {
 
@@ -128,6 +129,8 @@ public class SpiraTestSet extends PathSpiraArtifact {
 		return null;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public SpiraTestSetFolder getParentSpiraTestSetFolder() {
 		if (_parentSpiraTestSetFolder != null) {
 			return _parentSpiraTestSetFolder;
@@ -160,6 +163,7 @@ public class SpiraTestSet extends PathSpiraArtifact {
 			String.valueOf(getID()), ".aspx");
 	}
 
+<<<<<<< HEAD
 	public static class SpiraTestSetTestCase extends BaseSpiraArtifact {
 
 		@Override
@@ -187,6 +191,8 @@ public class SpiraTestSet extends PathSpiraArtifact {
 
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static enum Status {
 
 		BLOCKED(4), COMPLETED(3), DEFERRED(5), IN_PROGRESS(2), NOT_STARTED(1);
@@ -245,6 +251,55 @@ public class SpiraTestSet extends PathSpiraArtifact {
 			searchParameters);
 	}
 
+<<<<<<< HEAD
+=======
+	protected SpiraTestSetTestCase assignSpiraTestCaseObject(
+		SpiraTestCaseObject spiraTestCaseObject) {
+
+		if (_spiraTestSetTestCases.containsKey(spiraTestCaseObject.getID())) {
+			return _spiraTestSetTestCases.get(spiraTestCaseObject.getID());
+		}
+
+		Map<String, String> urlPathReplacements = new HashMap<>();
+
+		SpiraProject spiraProject = getSpiraProject();
+
+		urlPathReplacements.put(
+			"project_id", String.valueOf(spiraProject.getID()));
+
+		urlPathReplacements.put(
+			"test_case_id", String.valueOf(spiraTestCaseObject.getID()));
+
+		urlPathReplacements.put("test_set_id", String.valueOf(getID()));
+
+		JSONArray requestJSONArray = new JSONArray();
+
+		try {
+			JSONArray responseJSONArray = SpiraRestAPIUtil.requestJSONArray(
+				"projects/{project_id}/test-sets/{test_set_id}" +
+					"/test-case-mapping/{test_case_id}",
+				null, urlPathReplacements, HttpRequestMethod.POST,
+				requestJSONArray.toString());
+
+			for (int i = 0; i < responseJSONArray.length(); i++) {
+				SpiraTestSetTestCase spiraTestSetTestCase =
+					new SpiraTestSetTestCase(
+						responseJSONArray.getJSONObject(i));
+
+				_spiraTestSetTestCases.put(
+					spiraTestSetTestCase.getTestCaseID(), spiraTestSetTestCase);
+
+				return spiraTestSetTestCase;
+			}
+		}
+		catch (IOException ioException) {
+			throw new RuntimeException(ioException);
+		}
+
+		return null;
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Override
 	protected PathSpiraArtifact getParentSpiraArtifact() {
 		return getParentSpiraTestSetFolder();
@@ -254,6 +309,36 @@ public class SpiraTestSet extends PathSpiraArtifact {
 
 	protected static final String KEY_ID = "TestSetId";
 
+<<<<<<< HEAD
+=======
+	protected static class SpiraTestSetTestCase extends BaseSpiraArtifact {
+
+		@Override
+		public String getURL() {
+			SpiraTestCaseObject spiraTestCaseObject = getSpiraTestCaseObject();
+
+			return spiraTestCaseObject.getURL();
+		}
+
+		protected SpiraTestCaseObject getSpiraTestCaseObject() {
+			SpiraProject spiraProject = getSpiraProject();
+
+			return spiraProject.getSpiraTestCaseObjectByID(getTestCaseID());
+		}
+
+		protected Integer getTestCaseID() {
+			return jsonObject.getInt(SpiraTestCaseObject.KEY_ID);
+		}
+
+		protected static final String KEY_ID = "TestSetTestCaseId";
+
+		private SpiraTestSetTestCase(JSONObject jsonObject) {
+			super(jsonObject);
+		}
+
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static SpiraTestSet _createSpiraTestSet(
 		SpiraProject spiraProject, String testSetName,
 		String testSetDescription, Integer parentTestSetFolderID) {

@@ -1,6 +1,11 @@
 @component-name = "portal-wcm"
 definition {
 
+<<<<<<< HEAD
+=======
+	property osgi.module.configuration.file.names = "com.liferay.layout.content.page.editor.web.internal.configuration.FFLayoutContentPageEditorConfiguration.config";
+	property osgi.module.configurations = "adaptiveMediaEnabled=&quot;true&quot;";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Fragments";
@@ -74,8 +79,28 @@ definition {
 
 			PageEditor.viewFragmentEditableImage(
 				id = "image-square",
+<<<<<<< HEAD
 				imageDescription = "",
 				imageFileName = "high_resolution_photo.jpg");
+=======
+				imageDescription = "Responsive Image",
+				imageFileName = "high_resolution_photo.jpg");
+
+			Refresh();
+
+			PageEditor.assertFragmentSidebarLoaded();
+
+			PageEditor.clickEditableField(
+				fragmentName = "Image",
+				id = "image-square");
+
+			AssertClick(
+				key_navItem = "Image Source",
+				locator1 = "PageEditor#NAV_ITEM_BUTTON",
+				value1 = "Image Source");
+
+			Pause(locator1 = "3000");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Take down the File Size of image resolution") {
@@ -97,8 +122,13 @@ definition {
 		}
 
 		task ("Take down the Width and File Size of image resolution") {
+<<<<<<< HEAD
 			var fileSizeManual = PageEditor.getFileSizeOfSelectedImageResolution();
 			var widthManual = PageEditor.getWidthOfSelectedImageResolution();
+=======
+			var widthManual = PageEditor.getWidthOfSelectedImageResolution();
+			var fileSizeManual = PageEditor.getFileSizeOfSelectedImageResolution();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the Width and File Size of image resolution equal with orignal image") {
@@ -135,18 +165,43 @@ definition {
 
 			PageEditor.viewFragmentEditableImage(
 				id = "image-square",
+<<<<<<< HEAD
 				imageDescription = "",
 				imageFileName = "high_resolution_photo.jpg");
 
 			WaitForElementPresent(
 				key_resolutionLabel = "File Size",
 				locator1 = "PageEditor#IMAGE_RESOLUTION_LABEL");
+=======
+				imageDescription = "Responsive Image",
+				imageFileName = "high_resolution_photo.jpg");
+
+			Refresh();
+
+			PageEditor.assertFragmentSidebarLoaded();
+
+			PageEditor.clickEditableField(
+				fragmentName = "Image",
+				id = "image-square");
+
+			AssertClick(
+				key_navItem = "Image Source",
+				locator1 = "PageEditor#NAV_ITEM_BUTTON",
+				value1 = "Image Source");
+
+			Pause(locator1 = "3000");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Change to the Tablet viewport") {
 			Click(
 				key_deviceType = "Tablet",
 				locator1 = "PageEditor#DEVICE_TYPE");
+<<<<<<< HEAD
+=======
+
+			Pause(locator1 = "3000");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Take down the File Size of image resolution") {
@@ -168,8 +223,13 @@ definition {
 		}
 
 		task ("Take down the Width and File Size of image resolution") {
+<<<<<<< HEAD
 			var fileSizeManual = PageEditor.getFileSizeOfSelectedImageResolution();
 			var widthManual = PageEditor.getWidthOfSelectedImageResolution();
+=======
+			var widthManual = PageEditor.getWidthOfSelectedImageResolution();
+			var fileSizeManual = PageEditor.getFileSizeOfSelectedImageResolution();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the Width and File Size of image resolution equal with orignal image") {
@@ -185,6 +245,7 @@ definition {
 		}
 	}
 
+<<<<<<< HEAD
 	@description = "This is a test for LPS-122822. View auto image resolution for image mapped to web content."
 	@priority = "5"
 	test ViewAutoImageResolutionForImageMappedToWebContent {
@@ -281,6 +342,8 @@ definition {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "This is a test for LPS-113806. View auto image resolution when image resolution is greater than original image and original image is greater than viewport."
 	@priority = "4"
 	test ViewAutoImageResolutionWhenImageResolutionIsGreaterThanOriginalImageAndOriginalImageIsGreaterThanViewport {
@@ -302,12 +365,17 @@ definition {
 
 			PageEditor.viewFragmentEditableImage(
 				id = "image-square",
+<<<<<<< HEAD
 				imageDescription = "",
 				imageFileName = "analytics-cloud-hero-image.png");
 
 			WaitForElementPresent(
 				key_resolutionLabel = "File Size",
 				locator1 = "PageEditor#IMAGE_RESOLUTION_LABEL");
+=======
+				imageDescription = "Responsive Image",
+				imageFileName = "analytics-cloud-hero-image.png");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Change to the Landscape Phone viewport") {
@@ -326,8 +394,13 @@ definition {
 		}
 
 		task ("Take down the Width and File Size of image resolution in Landscape Phone viewport") {
+<<<<<<< HEAD
 			var fileSizeLandscapePhone = PageEditor.getFileSizeOfSelectedImageResolution();
 			var widthLandscapePhone = PageEditor.getWidthOfSelectedImageResolution();
+=======
+			var widthLandscapePhone = PageEditor.getWidthOfSelectedImageResolution();
+			var fileSizeLandscapePhone = PageEditor.getFileSizeOfSelectedImageResolution();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the Width of image resolution equal with orignal image") {
@@ -365,12 +438,17 @@ definition {
 
 			PageEditor.viewFragmentEditableImage(
 				id = "image-square",
+<<<<<<< HEAD
 				imageDescription = "",
 				imageFileName = "analytics-cloud-hero-image.png");
 
 			WaitForElementPresent(
 				key_resolutionLabel = "File Size",
 				locator1 = "PageEditor#IMAGE_RESOLUTION_LABEL");
+=======
+				imageDescription = "Responsive Image",
+				imageFileName = "analytics-cloud-hero-image.png");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Change to the Tablet viewport") {
@@ -389,8 +467,13 @@ definition {
 		}
 
 		task ("Take down the Width and File Size of image resolution in Tablet viewport") {
+<<<<<<< HEAD
 			var fileSizeTablet = PageEditor.getFileSizeOfSelectedImageResolution();
 			var widthTablet = PageEditor.getWidthOfSelectedImageResolution();
+=======
+			var widthTablet = PageEditor.getWidthOfSelectedImageResolution();
+			var fileSizeTablet = PageEditor.getFileSizeOfSelectedImageResolution();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the Width of image resolution equal with orignal image") {
@@ -441,7 +524,11 @@ definition {
 
 			PageEditor.viewFragmentEditableImage(
 				id = "image-square",
+<<<<<<< HEAD
 				imageDescription = "",
+=======
+				imageDescription = "Responsive Image",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				imageFileName = "Commerce_White.jpg");
 		}
 
@@ -465,8 +552,13 @@ definition {
 		}
 
 		task ("Take down the Width and File Size of image resolution in Tablet viewport") {
+<<<<<<< HEAD
 			var fileSizeTablet = PageEditor.getFileSizeOfSelectedImageResolution();
 			var widthTablet = PageEditor.getWidthOfSelectedImageResolution();
+=======
+			var widthTablet = PageEditor.getWidthOfSelectedImageResolution();
+			var fileSizeTablet = PageEditor.getFileSizeOfSelectedImageResolution();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the Width of selected image resolution is 800px") {
@@ -503,12 +595,17 @@ definition {
 
 			PageEditor.viewFragmentEditableImage(
 				id = "image-square",
+<<<<<<< HEAD
 				imageDescription = "",
 				imageFileName = "high_resolution_photo.jpg");
 
 			WaitForElementPresent(
 				key_resolutionLabel = "File Size",
 				locator1 = "PageEditor#IMAGE_RESOLUTION_LABEL");
+=======
+				imageDescription = "Responsive Image",
+				imageFileName = "high_resolution_photo.jpg");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert Auto image resolution is selected") {
@@ -519,8 +616,13 @@ definition {
 		}
 
 		task ("Take down the Width and File Size of image resolution") {
+<<<<<<< HEAD
 			var fileSize = PageEditor.getFileSizeOfSelectedImageResolution();
 			var width = PageEditor.getWidthOfSelectedImageResolution();
+=======
+			var width = PageEditor.getWidthOfSelectedImageResolution();
+			var fileSize = PageEditor.getFileSizeOfSelectedImageResolution();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the Width and File Size of image resolution equal with orignal image") {
@@ -566,12 +668,17 @@ definition {
 
 			PageEditor.viewFragmentEditableImage(
 				id = "image-square",
+<<<<<<< HEAD
 				imageDescription = "",
 				imageFileName = "Document_2.jpg");
 
 			WaitForElementPresent(
 				key_resolutionLabel = "File Size",
 				locator1 = "PageEditor#IMAGE_RESOLUTION_LABEL");
+=======
+				imageDescription = "Responsive Image",
+				imageFileName = "Document_2.jpg");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Change to the Tablet viewport") {
@@ -590,8 +697,13 @@ definition {
 		}
 
 		task ("Take down the Width and File Size of image resolution in Tablet viewport") {
+<<<<<<< HEAD
 			var fileSizeTablet = PageEditor.getFileSizeOfSelectedImageResolution();
 			var widthTablet = PageEditor.getWidthOfSelectedImageResolution();
+=======
+			var widthTablet = PageEditor.getWidthOfSelectedImageResolution();
+			var fileSizeTablet = PageEditor.getFileSizeOfSelectedImageResolution();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the Width of image resolution equal with orignal image") {
@@ -640,12 +752,17 @@ definition {
 
 			PageEditor.viewFragmentEditableImage(
 				id = "image-square",
+<<<<<<< HEAD
 				imageDescription = "",
 				imageFileName = "analytics-cloud-hero-image.png");
 
 			WaitForElementPresent(
 				key_resolutionLabel = "File Size",
 				locator1 = "PageEditor#IMAGE_RESOLUTION_LABEL");
+=======
+				imageDescription = "Responsive Image",
+				imageFileName = "analytics-cloud-hero-image.png");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Change to the Tablet viewport") {
@@ -664,8 +781,13 @@ definition {
 		}
 
 		task ("Take down the Width and File Size of image resolution in Tablet viewport") {
+<<<<<<< HEAD
 			var fileSizeTablet = PageEditor.getFileSizeOfSelectedImageResolution();
 			var widthTablet = PageEditor.getWidthOfSelectedImageResolution();
+=======
+			var widthTablet = PageEditor.getWidthOfSelectedImageResolution();
+			var fileSizeTablet = PageEditor.getFileSizeOfSelectedImageResolution();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		task ("Assert the Width of image resolution equal with orignal image") {

@@ -14,7 +14,10 @@
 
 package com.liferay.commerce.catalog.web.internal.frontend;
 
+<<<<<<< HEAD
 import com.liferay.commerce.catalog.web.internal.frontend.constants.CommerceCatalogDataSetConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.catalog.web.internal.model.Channel;
 import com.liferay.commerce.product.model.CommerceCatalog;
 import com.liferay.commerce.product.model.CommerceChannel;

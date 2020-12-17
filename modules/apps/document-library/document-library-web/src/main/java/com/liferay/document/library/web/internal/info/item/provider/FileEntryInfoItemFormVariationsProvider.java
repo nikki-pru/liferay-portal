@@ -94,16 +94,24 @@ public class FileEntryInfoItemFormVariationsProvider
 	private long[] _getCurrentAndAncestorSiteGroupIds(long groupId)
 		throws PortalException {
 
+<<<<<<< HEAD
 		DepotEntryLocalService depotEntryLocalService = _depotEntryLocalService;
 
 		if (depotEntryLocalService == null) {
+=======
+		if (_depotEntryLocalService == null) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return _portal.getCurrentAndAncestorSiteGroupIds(groupId);
 		}
 
 		return ArrayUtil.append(
 			_portal.getCurrentAndAncestorSiteGroupIds(groupId),
 			ListUtil.toLongArray(
+<<<<<<< HEAD
 				depotEntryLocalService.getGroupConnectedDepotEntries(
+=======
+				_depotEntryLocalService.getGroupConnectedDepotEntries(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					groupId, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
 				DepotEntry::getGroupId));
 	}
@@ -112,7 +120,11 @@ public class FileEntryInfoItemFormVariationsProvider
 		cardinality = ReferenceCardinality.OPTIONAL,
 		policyOption = ReferencePolicyOption.GREEDY
 	)
+<<<<<<< HEAD
 	private volatile DepotEntryLocalService _depotEntryLocalService;
+=======
+	private DepotEntryLocalService _depotEntryLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Reference
 	private DLFileEntryTypeLocalService _dlFileEntryTypeLocalService;

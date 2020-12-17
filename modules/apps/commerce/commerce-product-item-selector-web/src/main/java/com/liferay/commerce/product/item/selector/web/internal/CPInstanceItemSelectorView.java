@@ -100,7 +100,14 @@ public class CPInstanceItemSelectorView
 
 	private static final List<ItemSelectorReturnType>
 		_supportedItemSelectorReturnTypes = Collections.unmodifiableList(
+<<<<<<< HEAD
 			ListUtil.fromArray(new UUIDItemSelectorReturnType()));
+=======
+			ListUtil.fromArray(
+				new ItemSelectorReturnType[] {
+					new UUIDItemSelectorReturnType()
+				}));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Reference
 	private CPInstanceService _cpInstanceService;

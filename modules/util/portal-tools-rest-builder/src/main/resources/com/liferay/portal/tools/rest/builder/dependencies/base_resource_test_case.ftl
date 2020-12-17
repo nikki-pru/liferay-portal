@@ -994,6 +994,7 @@ public abstract class Base${schemaName}ResourceTestCase {
 
 					_beanUtilsBean.copyProperties(expectedPatch${schemaName}, randomPatch${schemaName});
 
+<<<<<<< HEAD
 					${schemaName} get${schemaName} = ${schemaVarName}Resource.get${javaMethodSignature.methodName?remove_beginning("patch")}(
 						<#if (javaMethodSignature.javaMethodParameters?size != 0) &&
 							 stringUtil.equals(javaMethodSignature.javaMethodParameters[0].parameterName, "externalReferenceCode")>
@@ -1008,6 +1009,9 @@ public abstract class Base${schemaName}ResourceTestCase {
 							null
 						</#if>
 					);
+=======
+					${schemaName} get${schemaName} = ${schemaVarName}Resource.get${schemaName}(patch${schemaName}.getId());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 					assertEquals(expectedPatch${schemaName}, get${schemaName});
 					assertValid(get${schemaName});
@@ -1532,6 +1536,7 @@ public abstract class Base${schemaName}ResourceTestCase {
 				}
 
 				protected ${relatedSchemaName} test${javaMethodSignature.methodName?cap_first}_add${relatedSchemaName}(long ${schemaVarName}Id, ${relatedSchemaName} ${relatedSchemaVarName}) throws Exception {
+<<<<<<< HEAD
 					<#if freeMarkerTool.hasJavaMethodSignature(javaMethodSignatures, javaMethodSignature.methodName?replace("get", "post"))>
 						return ${schemaVarName}Resource.${javaMethodSignature.methodName?replace("get", "post")}(${schemaVarName}Id, ${relatedSchemaVarName});
 					<#else>
@@ -1570,6 +1575,9 @@ public abstract class Base${schemaName}ResourceTestCase {
 					<#else>
 						throw new UnsupportedOperationException("This method needs to be implemented");
 					</#if>
+=======
+					return ${schemaVarName}Resource.${javaMethodSignature.methodName?replace("get", "post")}(${schemaVarName}Id, ${relatedSchemaVarName});
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				}
 			<#elseif freeMarkerTool.hasHTTPMethod(javaMethodSignature, "post") && javaMethodSignature.returnType?ends_with("." + relatedSchemaName)>
 				@Test

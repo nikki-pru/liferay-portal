@@ -70,8 +70,12 @@ public class OrganizationImporter {
 
 		String twoLetterISOCode = jsonObject.getString("twoLetterISOCode");
 
+<<<<<<< HEAD
 		Country country = _countryService.getCountryByA2(
 			serviceContext.getCompanyId(), twoLetterISOCode);
+=======
+		Country country = _countryService.getCountryByA2(twoLetterISOCode);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		organization = _organizationLocalService.addOrganization(
 			serviceContext.getUserId(), parentOrganizationId, name,

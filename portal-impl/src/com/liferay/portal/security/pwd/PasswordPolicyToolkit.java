@@ -196,7 +196,11 @@ public class PasswordPolicyToolkit extends BasicToolkit {
 				!user.isPasswordReset()) {
 
 				throw new UserPasswordException.MustNotBeChangedYet(
+<<<<<<< HEAD
 					user, new Date(passwordModifiedDate.getTime() + minAge));
+=======
+					userId, new Date(passwordModifiedDate.getTime() + minAge));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 		}
 

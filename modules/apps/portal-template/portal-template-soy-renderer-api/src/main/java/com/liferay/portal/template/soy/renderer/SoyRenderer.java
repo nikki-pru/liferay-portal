@@ -26,9 +26,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Iván Zaera Avellón
+<<<<<<< HEAD
  * @deprecated As of Cavanaugh (7.4.x), with no direct replacement
  */
 @Deprecated
+=======
+ */
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 public interface SoyRenderer {
 
 	public void renderSoy(

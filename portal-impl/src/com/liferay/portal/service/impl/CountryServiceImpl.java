@@ -20,11 +20,21 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.security.auth.PrincipalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.ServiceContext;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.service.base.CountryServiceBaseImpl;
 import com.liferay.portal.util.PortalInstances;
 
 import java.util.List;
+=======
+import com.liferay.portal.service.base.CountryServiceBaseImpl;
+import com.liferay.portal.util.PortalInstances;
+import com.liferay.portal.util.PropsValues;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Brian Wing Shun Chan
@@ -36,19 +46,31 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 			String a2, String a3, boolean active, boolean billingAllowed,
 			String idd, String name, String number, double position,
 			boolean shippingAllowed, boolean subjectToVAT, boolean zipRequired,
+<<<<<<< HEAD
 			ServiceContext serviceContext)
 		throws PortalException {
 
 		PermissionChecker permissionChecker = getPermissionChecker();
 
 		if (!permissionChecker.isOmniadmin()) {
+=======
+			Map<String, String> titleMap, ServiceContext serviceContext)
+		throws PortalException {
+
+		if (!getPermissionChecker().isOmniadmin()) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			throw new PrincipalException.MustBeOmniadmin(
 				getPermissionChecker());
 		}
 
 		return countryLocalService.addCountry(
 			a2, a3, active, billingAllowed, idd, name, number, position,
+<<<<<<< HEAD
 			shippingAllowed, subjectToVAT, zipRequired, serviceContext);
+=======
+			shippingAllowed, subjectToVAT, zipRequired, titleMap,
+			serviceContext);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -70,10 +92,15 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 
 		return addCountry(
 			a2, a3, active, true, idd, name, number, 0, true, false, true,
+<<<<<<< HEAD
+=======
+			Collections.singletonMap(PropsValues.COMPANY_DEFAULT_LOCALE, name),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			serviceContext);
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void deleteCountry(long countryId) throws PortalException {
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -175,10 +202,38 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 	public List<Country> getCountries(boolean active) {
 		return getCompanyCountries(
 			PortalInstances.getDefaultCompanyId(), active);
+=======
+	public Country fetchCountry(long countryId) {
+		return countryPersistence.fetchByPrimaryKey(countryId);
+	}
+
+	@Override
+	public Country fetchCountryByA2(String a2) {
+		return countryPersistence.fetchByC_A2(
+			PortalInstances.getDefaultCompanyId(), a2);
+	}
+
+	@Override
+	public Country fetchCountryByA3(String a3) {
+		return countryPersistence.fetchByC_A3(
+			PortalInstances.getDefaultCompanyId(), a3);
+	}
+
+	@Override
+	public List<Country> getCountries() {
+		return countryPersistence.findAll();
+	}
+
+	@AccessControlled(guestAccessEnabled = true)
+	@Override
+	public List<Country> getCountries(boolean active) {
+		return countryPersistence.findByActive(active);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
 	public Country getCountry(long countryId) throws PortalException {
+<<<<<<< HEAD
 		return countryLocalService.getCountry(countryId);
 	}
 
@@ -284,6 +339,27 @@ public class CountryServiceImpl extends CountryServiceBaseImpl {
 
 		return countryLocalService.updateGroupFilterEnabled(
 			countryId, groupFilterEnabled);
+=======
+		return countryPersistence.findByPrimaryKey(countryId);
+	}
+
+	@Override
+	public Country getCountryByA2(String a2) throws PortalException {
+		return countryPersistence.findByC_A2(
+			PortalInstances.getDefaultCompanyId(), a2);
+	}
+
+	@Override
+	public Country getCountryByA3(String a3) throws PortalException {
+		return countryPersistence.findByC_A3(
+			PortalInstances.getDefaultCompanyId(), a3);
+	}
+
+	@Override
+	public Country getCountryByName(String name) throws PortalException {
+		return countryPersistence.findByC_N(
+			PortalInstances.getDefaultCompanyId(), name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 }

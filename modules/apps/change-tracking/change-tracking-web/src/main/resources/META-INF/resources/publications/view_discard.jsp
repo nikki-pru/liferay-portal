@@ -20,7 +20,10 @@
 ViewDiscardDisplayContext viewDiscardDisplayContext = (ViewDiscardDisplayContext)request.getAttribute(CTWebKeys.VIEW_DISCARD_DISPLAY_CONTEXT);
 
 portletDisplay.setURLBack(viewDiscardDisplayContext.getRedirectURL());
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 portletDisplay.setShowBackIcon(true);
 
 renderResponse.setTitle(LanguageUtil.get(request, "discard-changes"));

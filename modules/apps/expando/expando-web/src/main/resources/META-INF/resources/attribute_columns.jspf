@@ -89,6 +89,10 @@
 </liferay-ui:search-container-column-text>
 
 <liferay-ui:search-container-column-jsp
+<<<<<<< HEAD
 	cssClass="autofit-col"
+=======
+	cssClass="list-group-item-field"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	path="/expando_action.jsp"
 />

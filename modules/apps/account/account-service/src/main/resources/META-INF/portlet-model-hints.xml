@@ -51,9 +51,14 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+<<<<<<< HEAD
 		<field name="defaultAccountGroup" type="boolean" />
 		<field name="description" type="String" />
 		<field name="name" type="String" />
+=======
+		<field name="name" type="String" />
+		<field name="description" type="String" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	</model>
 	<model name="com.liferay.account.model.AccountGroupAccountEntryRel">
 		<field name="mvccVersion" type="long" />

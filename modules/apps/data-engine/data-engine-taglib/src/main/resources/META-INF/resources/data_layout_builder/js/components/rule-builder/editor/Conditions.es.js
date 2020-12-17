@@ -238,7 +238,11 @@ export function Conditions({
 							readOnly={!left.value}
 							right={right}
 						/>
+<<<<<<< HEAD
 						{right && right.type && (
+=======
+						{right && (
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							<FieldRight
 								fields={fields}
 								left={left}

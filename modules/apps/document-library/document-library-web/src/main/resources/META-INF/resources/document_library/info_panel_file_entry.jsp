@@ -438,14 +438,27 @@ long assetClassPK = DLAssetHelperUtil.getAssetClassPK(fileEntry, fileVersion);
 						for (DDMStructure ddmStructure : ddmStructures) {
 							DDMFormValues ddmFormValues = null;
 
+<<<<<<< HEAD
 							try {
 								ddmFormValues = dlViewFileVersionDisplayContext.getDDMFormValues(ddmStructure);
+=======
+							List<DDMFormFieldValue> ddmFormFieldValues = new ArrayList<DDMFormFieldValue>();
+
+							try {
+								ddmFormValues = dlViewFileVersionDisplayContext.getDDMFormValues(ddmStructure);
+
+								ddmFormFieldValues = ddmFormValues.getDDMFormFieldValues();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							}
 							catch (Exception e) {
 							}
 					%>
 
+<<<<<<< HEAD
 							<c:if test="<%= ddmFormValues != null %>">
+=======
+							<c:if test="<%= !ddmFormFieldValues.isEmpty() %>">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 								<liferay-ui:panel
 									collapsible="<%= true %>"
 									cssClass="metadata"
@@ -456,12 +469,24 @@ long assetClassPK = DLAssetHelperUtil.getAssetClassPK(fileEntry, fileVersion);
 									persistState="<%= true %>"
 									title="<%= HtmlUtil.escape(ddmStructure.getName(locale)) %>"
 								>
+<<<<<<< HEAD
 									<liferay-data-engine:data-layout-renderer
 										containerId='<%= liferayPortletResponse.getNamespace() + "dataEngineLayoutRenderer" + ddmStructure.getStructureId() %>'
 										dataDefinitionId="<%= ddmStructure.getStructureId() %>"
 										dataRecordValues="<%= DataRecordValuesUtil.getDataRecordValues(ddmFormValues, ddmStructure) %>"
 										namespace="<%= liferayPortletResponse.getNamespace() + ddmStructure.getStructureId() %>"
 										readOnly="<%= true %>"
+=======
+									<liferay-ddm:html
+										classNameId="<%= PortalUtil.getClassNameId(com.liferay.dynamic.data.mapping.model.DDMStructure.class) %>"
+										classPK="<%= ddmStructure.getPrimaryKey() %>"
+										ddmFormValues="<%= ddmFormValues %>"
+										fieldsNamespace="<%= String.valueOf(ddmStructure.getPrimaryKey()) %>"
+										groupId="<%= fileVersion.getGroupId() %>"
+										readOnly="<%= true %>"
+										requestedLocale="<%= locale %>"
+										showEmptyFieldLabel="<%= false %>"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 									/>
 								</liferay-ui:panel>
 							</c:if>
@@ -523,12 +548,24 @@ long assetClassPK = DLAssetHelperUtil.getAssetClassPK(fileEntry, fileVersion);
 								persistState="<%= true %>"
 								title='<%= "metadata." + ddmStructure.getStructureKey() %>'
 							>
+<<<<<<< HEAD
 								<liferay-data-engine:data-layout-renderer
 									containerId='<%= liferayPortletResponse.getNamespace() + "dataEngineLayoutRenderer" + ddmStructure.getStructureId() %>'
 									dataDefinitionId="<%= ddmStructure.getStructureId() %>"
 									dataRecordValues="<%= DataRecordValuesUtil.getDataRecordValues(ddmFormValues, ddmStructure) %>"
 									namespace="<%= liferayPortletResponse.getNamespace() + ddmStructure.getStructureId() %>"
 									readOnly="<%= true %>"
+=======
+								<liferay-ddm:html
+									classNameId="<%= PortalUtil.getClassNameId(com.liferay.dynamic.data.mapping.model.DDMStructure.class) %>"
+									classPK="<%= ddmStructure.getPrimaryKey() %>"
+									ddmFormValues="<%= ddmFormValues %>"
+									fieldsNamespace="<%= String.valueOf(ddmStructure.getPrimaryKey()) %>"
+									groupId="<%= fileVersion.getGroupId() %>"
+									readOnly="<%= true %>"
+									requestedLocale="<%= ddmFormValues.getDefaultLocale() %>"
+									showEmptyFieldLabel="<%= false %>"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 								/>
 							</liferay-ui:panel>
 

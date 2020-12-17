@@ -29,7 +29,11 @@ page import="com.liferay.commerce.currency.exception.CommerceCurrencyFractionDig
 page import="com.liferay.commerce.currency.exception.CommerceCurrencyNameException" %><%@
 page import="com.liferay.commerce.currency.model.CommerceCurrency" %><%@
 page import="com.liferay.commerce.currency.web.internal.display.context.CommerceCurrenciesDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.currency.web.internal.servlet.taglib.ui.constants.CommerceCurrencyScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.currency.web.internal.servlet.taglib.ui.CommerceCurrencyScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@

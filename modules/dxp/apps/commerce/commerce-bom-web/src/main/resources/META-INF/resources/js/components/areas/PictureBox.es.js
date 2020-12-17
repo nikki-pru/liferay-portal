@@ -78,7 +78,10 @@ export function PartDetail(props) {
 		>
 			<a
 				className="part-detail__number"
+<<<<<<< HEAD
 				data-senna-off="true"
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				href={product.url && state.app.basePathUrl + product.url}
 				onMouseOut={() => actions.highlightDetail(null)}
 				onMouseOver={() => actions.highlightDetail(props.number)}

@@ -26,7 +26,10 @@ import com.liferay.headless.delivery.dto.v1_0.DocumentFolder;
 import com.liferay.headless.delivery.dto.v1_0.KnowledgeBaseArticle;
 import com.liferay.headless.delivery.dto.v1_0.KnowledgeBaseAttachment;
 import com.liferay.headless.delivery.dto.v1_0.KnowledgeBaseFolder;
+<<<<<<< HEAD
 import com.liferay.headless.delivery.dto.v1_0.Language;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.headless.delivery.dto.v1_0.MessageBoardAttachment;
 import com.liferay.headless.delivery.dto.v1_0.MessageBoardMessage;
 import com.liferay.headless.delivery.dto.v1_0.MessageBoardSection;
@@ -51,7 +54,10 @@ import com.liferay.headless.delivery.resource.v1_0.DocumentResource;
 import com.liferay.headless.delivery.resource.v1_0.KnowledgeBaseArticleResource;
 import com.liferay.headless.delivery.resource.v1_0.KnowledgeBaseAttachmentResource;
 import com.liferay.headless.delivery.resource.v1_0.KnowledgeBaseFolderResource;
+<<<<<<< HEAD
 import com.liferay.headless.delivery.resource.v1_0.LanguageResource;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.headless.delivery.resource.v1_0.MessageBoardAttachmentResource;
 import com.liferay.headless.delivery.resource.v1_0.MessageBoardMessageResource;
 import com.liferay.headless.delivery.resource.v1_0.MessageBoardSectionResource;
@@ -197,6 +203,7 @@ public class Query {
 			knowledgeBaseFolderResourceComponentServiceObjects;
 	}
 
+<<<<<<< HEAD
 	public static void setLanguageResourceComponentServiceObjects(
 		ComponentServiceObjects<LanguageResource>
 			languageResourceComponentServiceObjects) {
@@ -205,6 +212,8 @@ public class Query {
 			languageResourceComponentServiceObjects;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static void setMessageBoardAttachmentResourceComponentServiceObjects(
 		ComponentServiceObjects<MessageBoardAttachmentResource>
 			messageBoardAttachmentResourceComponentServiceObjects) {
@@ -1379,6 +1388,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+<<<<<<< HEAD
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {assetLibraryLanguages(assetLibraryId: ___){items {__}, page, pageSize, totalCount}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves the asset libraries languages.")
@@ -1414,6 +1424,8 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {messageBoardAttachment(messageBoardAttachmentId: ___){contentUrl, contentValue, encodingFormat, fileExtension, id, sizeInBytes, title}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField(description = "Retrieves the message board attachment.")
@@ -4005,6 +4017,7 @@ public class Query {
 
 	}
 
+<<<<<<< HEAD
 	@GraphQLName("LanguagePage")
 	public class LanguagePage {
 
@@ -4043,6 +4056,8 @@ public class Query {
 
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@GraphQLName("MessageBoardAttachmentPage")
 	public class MessageBoardAttachmentPage {
 
@@ -4821,6 +4836,7 @@ public class Query {
 		knowledgeBaseFolderResource.setRoleLocalService(_roleLocalService);
 	}
 
+<<<<<<< HEAD
 	private void _populateResourceContext(LanguageResource languageResource)
 		throws Exception {
 
@@ -4834,6 +4850,8 @@ public class Query {
 		languageResource.setRoleLocalService(_roleLocalService);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private void _populateResourceContext(
 			MessageBoardAttachmentResource messageBoardAttachmentResource)
 		throws Exception {
@@ -5015,8 +5033,11 @@ public class Query {
 		_knowledgeBaseAttachmentResourceComponentServiceObjects;
 	private static ComponentServiceObjects<KnowledgeBaseFolderResource>
 		_knowledgeBaseFolderResourceComponentServiceObjects;
+<<<<<<< HEAD
 	private static ComponentServiceObjects<LanguageResource>
 		_languageResourceComponentServiceObjects;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static ComponentServiceObjects<MessageBoardAttachmentResource>
 		_messageBoardAttachmentResourceComponentServiceObjects;
 	private static ComponentServiceObjects<MessageBoardMessageResource>

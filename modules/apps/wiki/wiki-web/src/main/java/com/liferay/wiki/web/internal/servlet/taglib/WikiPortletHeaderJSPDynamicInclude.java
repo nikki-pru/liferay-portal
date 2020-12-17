@@ -57,7 +57,10 @@ public class WikiPortletHeaderJSPDynamicInclude extends BaseJSPDynamicInclude {
 
 		if (Validator.isNotNull(mvcRenderCommandName) &&
 			!mvcRenderCommandName.equals("/wiki/view") &&
+<<<<<<< HEAD
 			!mvcRenderCommandName.equals("/wiki/view_page") &&
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			!mvcRenderCommandName.equals("/wiki/view_pages") &&
 			!mvcRenderCommandName.equals("/wiki/view_categorized_pages") &&
 			!mvcRenderCommandName.equals("/wiki/view_draft_pages") &&

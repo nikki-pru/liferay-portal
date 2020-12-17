@@ -64,8 +64,15 @@ public class ReferenceAnnotationCheck extends BaseCheck {
 		DetailAST classDefinitionDetailAST, DetailAST methodDefinitionDetailAST,
 		String methodName, String defaultUnbindMethodName) {
 
+<<<<<<< HEAD
 		Matcher matcher = _referenceMethodContentPattern.matcher(
 			StringUtil.trim(_getMethodBody(methodDefinitionDetailAST)));
+=======
+		String methodBody = _getMethodBody(methodDefinitionDetailAST);
+
+		Matcher matcher = _referenceMethodContentPattern.matcher(
+			StringUtil.trim(methodBody));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (!matcher.find()) {
 			if (!_containsMethod(

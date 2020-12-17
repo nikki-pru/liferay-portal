@@ -4,7 +4,11 @@
 	<checkstyle>
 		<suppress checks="CamelCaseNameCheck" files="commerce-google-merchant/src/main/java/com/liferay/commerce/google/merchant/internal/sftp/SftpUploader\.java" />
 		<suppress checks="ChainingCheck" files="commerce-frontend-impl/src/main/java/com/liferay/commerce/frontend/internal/account/CommerceAccountResource\.java" />
+<<<<<<< HEAD
 		<suppress checks="MVCCommandNameCheck" files=".*" />
+=======
+		<suppress checks="ListUtilCheck" files=".*" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<suppress checks="OperatorOperandCheck" files=".*" />
 		<suppress checks="VariableDeclarationAsUsedCheck" files=".*" />
 		<suppress checks="VariableNameCheck" files="commerce-google-merchant/src/main/java/com/liferay/commerce/google/merchant/internal/jsch/FingerprintHostKeyRepository\.java" />
@@ -21,7 +25,13 @@
 		<suppress checks="BNDExportsCheck" files="commerce-shipping-web/bnd\.bnd" />
 		<suppress checks="CopyrightCheck" files="commerce-theme-minium/commerce-theme-minium/src/js/intersection-observer\.js" />
 		<suppress checks="CopyrightCheck" files="commerce-theme-speedwell/commerce-theme-speedwell/src/js/intersection-observer\.js" />
+<<<<<<< HEAD
 		<suppress checks="GradleDependencyArtifactsCheck" files=".*" />
+=======
+		<suppress checks="GradleDependenciesCheck" files=".*" />
+		<suppress checks="GradleDependencyArtifactsCheck" files=".*" />
+		<suppress checks="GradleTestDependencyVersionCheck" files=".*" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<suppress checks="JavaAPISignatureCheck" files="commerce-account-api/src/main/java/com/liferay/commerce/account/util/CommerceAccountHelper\.java" />
 		<suppress checks="JavaAPISignatureCheck" files="commerce-account-api/src/main/java/com/liferay/commerce/account/util/CommerceAccountRoleHelper\.java" />
 		<suppress checks="JavaAPISignatureCheck" files="commerce-api/src/main/java/com/liferay/commerce/context/CommerceContextFactory\.java" />
@@ -74,6 +84,11 @@
 		<suppress checks="JavaHelperUtilCheck" files="commerce-frontend-impl/src/main/java/com/liferay/commerce/frontend/internal/cart/CommerceCartResourceUtil\.java" />
 		<suppress checks="JavaHelperUtilCheck" files="commerce-frontend-impl/src/main/java/com/liferay/commerce/frontend/internal/search/util/CommerceSearchUtil\.java" />
 		<suppress checks="JavaHelperUtilCheck" files="commerce-product-asset-categories-web/src/main/java/com/liferay/commerce/product/asset/categories/web/internal/util/CPAssetCategoryWebPortletUtil\.java" />
+<<<<<<< HEAD
+=======
+		<suppress checks="JavaInternalPackageCheck" files="commerce-product-service/.*" />
+		<suppress checks="JavaInternalPackageCheck" files="commerce-service/.*" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<suppress checks="JavaPackagePathCheck" files=".*" />
 		<suppress checks="JavaUpgradeVersionCheck" files="commerce-product-type-virtual-service/src/main/java/com/liferay/commerce/product/type/virtual/internal/upgrade/CommerceProductTypeVirtualUpgradeStepRegistrator\.java" />
 		<suppress checks="JavaUpgradeVersionCheck" files="commerce-shipping-engine-fixed-service/src/main/java/com/liferay/commerce/shipping/engine/fixed/internal/upgrade/CommerceShippingEngineFixedUpgradeStepRegistrator\.java" />
@@ -84,6 +99,10 @@
 		<suppress checks="JSONPackageJSONCheck" files="commerce-product-content-web/package\.json" />
 		<suppress checks="JSONPackageJSONCheck" files="commerce-product-options-web/package\.json" />
 		<suppress checks="JSONPackageJSONCheck" files="commerce-theme-minium/commerce-theme-minium-impl/package\.json" />
+<<<<<<< HEAD
+=======
+		<suppress checks="JSONPackageJSONDependencyVersionCheck" files=".*" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<suppress checks="PropertiesLiferayPluginPackageLiferayVersionsCheck" files="commerce-theme-minium/commerce-theme-minium/src/WEB-INF/liferay-plugin-package\.properties" />
 		<suppress checks="PropertiesLiferayPluginPackageLiferayVersionsCheck" files="commerce-theme-speedwell/commerce-theme-speedwell/src/WEB-INF/liferay-plugin-package\.properties" />
 		<suppress checks="StringMethodsCheck" files="commerce-discount-web/src/main/java/com/liferay/commerce/discount/web/internal/display/context/CommerceDiscountDisplayContext\.java" />

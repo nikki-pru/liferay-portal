@@ -1,6 +1,10 @@
 Bundle-Name: Liferay Gradle Plugins
 Bundle-SymbolicName: com.liferay.gradle.plugins
+<<<<<<< HEAD
 Bundle-Version: 13.0.5
+=======
+Bundle-Version: 13.0.3
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 Export-Package:\
 	com.liferay.gradle.plugins,\
 	com.liferay.gradle.plugins.extensions,\

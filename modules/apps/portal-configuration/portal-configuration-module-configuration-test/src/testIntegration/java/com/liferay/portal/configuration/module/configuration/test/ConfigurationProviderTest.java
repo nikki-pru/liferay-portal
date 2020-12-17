@@ -295,8 +295,14 @@ public class ConfigurationProviderTest {
 		_properties.put("key1", "value1");
 		_properties.put("key2", "value2");
 
+<<<<<<< HEAD
 		ConfigurationTestUtil.saveConfiguration(
 			_getConfiguration(pid), _properties);
+=======
+		Configuration configuration = _getConfiguration(pid);
+
+		ConfigurationTestUtil.saveConfiguration(configuration, _properties);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private Configuration _configuration;

@@ -36,8 +36,11 @@ definition {
 
 		User.tearDownCP();
 
+<<<<<<< HEAD
 		Workflow.tearDownWorkflowDefinitions();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		var testPortalInstance = PropsUtil.get("test.portal.instance");
 
 		if ("${testPortalInstance}" == "true") {
@@ -425,6 +428,7 @@ definition {
 		Navigator.closeWindow();
 	}
 
+<<<<<<< HEAD
 	@description = "LRQA-63247 - Automate LPS-112672: As an App Admin, I want to create a new Form View for an existing Object in the Workflow App creation UX"
 	@priority = "5"
 	test CreateFormViewThroughWorkflowAppBuilder {
@@ -457,6 +461,8 @@ definition {
 			positionNumber = "1");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "LRQA-60385 - Automate LPS-110981: As an App Admin, I want to deploy an App with multiple workflow steps and one same Form View"
 	@priority = "5"
 	test CreateNewStepSecondaryActionAndAssignee {
@@ -486,6 +492,7 @@ definition {
 			step = "2");
 	}
 
+<<<<<<< HEAD
 	@description = "LRQA-63174 - Automate LPS-111511: As an App Admin, I want to create a new Object and Form during the Workflow App creation experience"
 	@priority = "5"
 	test CreateObjectAndForm {
@@ -561,6 +568,8 @@ definition {
 			positionNumber = "1");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "Create an App through the 'Apps' portlet"
 	@priority = "5"
 	test CreateStandardApp {
@@ -674,6 +683,7 @@ definition {
 		AppBuilderAdmin.validateItemNameOnTable(itemName = "Content Test 2");
 	}
 
+<<<<<<< HEAD
 	@description = "LRQA-63304 - Automate LPS-112673: As an App Admin, I want to create a new Table View for an existing Object in the Workflow App creation UX"
 	@priority = "5"
 	test CreateTableViewThroughWorkflowAppBuilder {
@@ -711,6 +721,8 @@ definition {
 		AppBuilderWorkflow.assertTableViewSelected(tableViewName = "My Table View");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "LRQA-60710 - Automate LPS-112665: As an App Admin, I want to define more than one Form View for one same step (concatenation of Forms)"
 	@priority = "4"
 	test DefineFormViewExceptions {
@@ -838,6 +850,7 @@ definition {
 			info = "Completed");
 	}
 
+<<<<<<< HEAD
 	@description = "LRQA-63476 - Automate LPS-111683: As an App Admin, I want to view and edit existing Form and Table Views during my App creation experience"
 	@priority = "5"
 	test EditFormAndTableView {
@@ -908,6 +921,8 @@ definition {
 			tableViewName = "Table Edit");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "Filter and order the apps created using App Builder"
 	@priority = "5"
 	test FilterAndOrderStandardApps {
@@ -1075,6 +1090,7 @@ definition {
 		AppBuilderAdmin.validateItemNameOnTable(itemName = "Fourth App");
 	}
 
+<<<<<<< HEAD
 	@description = "LRQA-63083 - Automate LPS-105493: As an App Adm, I want create the workflow process of my App during the App deployment"
 	@priority = "5"
 	test GoToWorkflowPageThroughStandardAppSetup {
@@ -1214,6 +1230,8 @@ definition {
 			info = "Approved");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "Validete Form View in 'Read-Only' and 'Editable' mode'"
 	@priority = "4"
 	test ValidateFormViewModes {

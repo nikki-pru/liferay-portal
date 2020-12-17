@@ -61,7 +61,10 @@ import org.osgi.service.component.annotations.Reference;
 @Component(enabled = false, service = ActionHelper.class)
 public class ActionHelperImpl implements ActionHelper {
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPAttachmentFileEntry> getCPAttachmentFileEntries(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -84,7 +87,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpAttachmentFileEntries;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CPAttachmentFileEntry getCPAttachmentFileEntry(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -114,7 +120,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpAttachmentFileEntry;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CPDefinition getCPDefinition(PortletRequest portletRequest)
 		throws PortalException {
 
@@ -137,7 +146,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinition;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CPDefinitionLink getCPDefinitionLink(PortletRequest portletRequest)
 		throws PortalException {
 
@@ -165,7 +177,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitionLink;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPDefinitionLink> getCPDefinitionLinks(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -184,7 +199,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitionLinks;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CPDefinitionOptionRel getCPDefinitionOptionRel(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -224,7 +242,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitionOptionRel;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPDefinitionOptionRel> getCPDefinitionOptionRels(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -243,7 +264,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitionOptionRels;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CPDefinitionOptionValueRel getCPDefinitionOptionValueRel(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -275,7 +299,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitionOptionValueRel;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPDefinitionOptionValueRel> getCPDefinitionOptionValueRels(
 			long cpDefinitionOptionRelId)
 		throws PortalException {
@@ -288,7 +315,10 @@ public class ActionHelperImpl implements ActionHelper {
 			getCPDefinitionOptionValueRels(cpDefinitionOptionRelId, 0, total);
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPDefinitionOptionValueRel> getCPDefinitionOptionValueRels(
 			PortletRequest portletRequest)
 		throws PortalException {
@@ -311,7 +341,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitionOptionValueRels;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPDefinition> getCPDefinitions(PortletRequest portletRequest)
 		throws PortalException {
 
@@ -328,7 +361,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitions;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CPDefinitionSpecificationOptionValue
 			getCPDefinitionSpecificationOptionValue(
 				PortletRequest portletRequest)
@@ -363,7 +399,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitionSpecificationOptionValue;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPDefinitionSpecificationOptionValue>
 			getCPDefinitionSpecificationOptionValues(
 				PortletRequest portletRequest)
@@ -387,7 +426,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpDefinitionSpecificationOptionValues;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CPInstance getCPInstance(PortletRequest portletRequest)
 		throws PortalException {
 
@@ -411,7 +453,10 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpInstance;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPInstance> getCPInstances(PortletRequest portletRequest)
 		throws PortalException {
 
@@ -427,17 +472,26 @@ public class ActionHelperImpl implements ActionHelper {
 		return cpInstances;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CPType getCPType(String name) {
 		return _cpTypeServicesTracker.getCPType(name);
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPType> getCPTypes() {
 		return _cpTypeServicesTracker.getCPTypes();
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<CPDefinitionOptionRel> getSkuContributorCPDefinitionOptionRels(
 			long cpDefinitionId)
 		throws PortalException {
@@ -446,7 +500,10 @@ public class ActionHelperImpl implements ActionHelper {
 			cpDefinitionId, true);
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void writeJSON(
 			PortletRequest portletRequest, ActionResponse actionResponse,
 			Object object)

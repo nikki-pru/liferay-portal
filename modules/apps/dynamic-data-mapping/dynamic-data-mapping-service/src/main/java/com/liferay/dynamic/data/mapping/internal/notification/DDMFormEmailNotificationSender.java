@@ -59,6 +59,10 @@ import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.template.soy.data.SoyDataFactory;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.util.PrefsPropsUtil;
 
 import java.io.Writer;
@@ -135,7 +139,11 @@ public class DDMFormEmailNotificationSender {
 		throws PortalException {
 
 		Template template = TemplateManagerUtil.getTemplate(
+<<<<<<< HEAD
 			TemplateConstants.LANG_TYPE_FTL,
+=======
+			TemplateConstants.LANG_TYPE_SOY,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			getTemplateResource(_TEMPLATE_PATH), false);
 
 		populateParameters(
@@ -281,7 +289,11 @@ public class DDMFormEmailNotificationSender {
 		Map<String, Object> fieldMap = new HashMap<>();
 
 		fieldMap.put("label", labelString);
+<<<<<<< HEAD
 		fieldMap.put("value", sb.toString());
+=======
+		fieldMap.put("value", _soyDataFactory.createSoyRawData(sb.toString()));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return fieldMap;
 	}
@@ -500,6 +512,11 @@ public class DDMFormEmailNotificationSender {
 	protected String render(Template template) throws TemplateException {
 		Writer writer = new UnsyncStringWriter();
 
+<<<<<<< HEAD
+=======
+		template.put(TemplateConstants.NAMESPACE, _NAMESPACE);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		template.processTemplate(writer);
 
 		return writer.toString();
@@ -537,8 +554,15 @@ public class DDMFormEmailNotificationSender {
 		_userLocalService = userLocalService;
 	}
 
+<<<<<<< HEAD
 	private static final String _TEMPLATE_PATH =
 		"/META-INF/resources/notification/form_entry_add_body.ftl";
+=======
+	private static final String _NAMESPACE = "form.form_entry";
+
+	private static final String _TEMPLATE_PATH =
+		"/META-INF/resources/notification/form_entry_add_body.soy";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		DDMFormEmailNotificationSender.class);
@@ -553,6 +577,12 @@ public class DDMFormEmailNotificationSender {
 	@Reference
 	private Portal _portal;
 
+<<<<<<< HEAD
+=======
+	@Reference
+	private SoyDataFactory _soyDataFactory;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private UserLocalService _userLocalService;
 
 }

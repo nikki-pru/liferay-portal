@@ -19,7 +19,10 @@ import com.liferay.commerce.currency.service.CommerceCurrencyLocalService;
 import com.liferay.commerce.frontend.model.LabelField;
 import com.liferay.commerce.inventory.engine.CommerceInventoryEngine;
 import com.liferay.commerce.price.CommerceProductPriceCalculation;
+<<<<<<< HEAD
 import com.liferay.commerce.product.definitions.web.internal.frontend.constants.CommerceProductDataSetConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.product.definitions.web.internal.model.Sku;
 import com.liferay.commerce.product.model.CPDefinition;
 import com.liferay.commerce.product.model.CPInstance;

@@ -141,6 +141,7 @@ public class FreeMarkerTemplate extends BaseTemplate {
 			TemplateResource templateResource, Writer writer)
 		throws Exception {
 
+<<<<<<< HEAD
 		_freeMarkerManager.render(
 			templateResource.getTemplateId(), writer, isRestricted(),
 			() -> {
@@ -165,6 +166,25 @@ public class FreeMarkerTemplate extends BaseTemplate {
 
 				return null;
 			});
+=======
+		TemplateResourceThreadLocal.setTemplateResource(
+			TemplateConstants.LANG_TYPE_FTL, templateResource);
+
+		try {
+			Template template = _configuration.getTemplate(
+				getTemplateResourceUUID(templateResource),
+				TemplateConstants.DEFAUT_ENCODING);
+
+			template.setObjectWrapper(_beansWrapper);
+
+			template.process(
+				new CachableDefaultMapAdapter(context, _beansWrapper), writer);
+		}
+		finally {
+			TemplateResourceThreadLocal.setTemplateResource(
+				TemplateConstants.LANG_TYPE_FTL, null);
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -277,7 +297,10 @@ public class FreeMarkerTemplate extends BaseTemplate {
 
 			_map = map;
 			_objectWrapper = objectWrapper;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_wrappedValueMap = new HashMap<>();
 		}
 

@@ -22,10 +22,18 @@ import com.liferay.jenkins.results.parser.JenkinsResultsParserUtil.HttpRequestMe
 import java.io.IOException;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+=======
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -48,10 +56,27 @@ public class SpiraTestCaseObject extends PathSpiraArtifact {
 		SpiraTestCaseType spiraTestCaseType,
 		List<SpiraCustomPropertyValue> spiraCustomPropertyValues) {
 
+<<<<<<< HEAD
 		List<SpiraTestCaseObject> spiraTestCaseObjects =
 			_getSpiraTestCaseObjects(
 				spiraProject, testCasePath, spiraTestCaseType,
 				spiraCustomPropertyValues);
+=======
+		Set<SpiraCustomPropertyValue> spiraCustomPropertyValueSet =
+			new HashSet<>();
+
+		if (spiraCustomPropertyValues != null) {
+			spiraCustomPropertyValueSet.addAll(spiraCustomPropertyValues);
+		}
+
+		spiraCustomPropertyValueSet.add(
+			_getExecutionTypeSpiraCustomPropertyValue(spiraProject));
+
+		List<SpiraTestCaseObject> spiraTestCaseObjects =
+			_getSpiraTestCaseObjects(
+				spiraProject, testCasePath, spiraTestCaseType,
+				new ArrayList<>(spiraCustomPropertyValueSet));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (!spiraTestCaseObjects.isEmpty()) {
 			SpiraTestCaseObject targetSpiraTestCaseObject = null;
@@ -110,7 +135,11 @@ public class SpiraTestCaseObject extends PathSpiraArtifact {
 		JSONArray customPropertiesJSONArray = new JSONArray();
 
 		for (SpiraCustomPropertyValue spiraCustomPropertyValue :
+<<<<<<< HEAD
 				spiraCustomPropertyValues) {
+=======
+				spiraCustomPropertyValueSet) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			customPropertiesJSONArray.put(
 				spiraCustomPropertyValue.getCustomPropertyJSONObject());
@@ -443,6 +472,7 @@ public class SpiraTestCaseObject extends PathSpiraArtifact {
 		_updateJSONObject(jsonObject);
 	}
 
+<<<<<<< HEAD
 	public void updateSpiraCustomPropertyValues(
 		SpiraCustomPropertyValue... spiraCustomPropertyValues) {
 
@@ -450,6 +480,8 @@ public class SpiraTestCaseObject extends PathSpiraArtifact {
 			Arrays.asList(spiraCustomPropertyValues));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void updateSpiraTestCaseComponents(
 		List<SpiraTestCaseComponent> spiraTestCaseComponents) {
 
@@ -610,6 +642,22 @@ public class SpiraTestCaseObject extends PathSpiraArtifact {
 
 	protected static final String KEY_ID = "TestCaseId";
 
+<<<<<<< HEAD
+=======
+	private static SpiraCustomPropertyValue
+		_getExecutionTypeSpiraCustomPropertyValue(SpiraProject spiraProject) {
+
+		SpiraCustomProperty spiraCustomProperty =
+			SpiraCustomProperty.createSpiraCustomProperty(
+				spiraProject, SpiraTestCaseObject.class,
+				_CUSTOM_FIELD_EXECUTION_TYPE_KEY,
+				SpiraCustomProperty.Type.LIST);
+
+		return SpiraCustomPropertyValue.createSpiraCustomPropertyValue(
+			spiraCustomProperty, "Automatic");
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static List<SpiraTestCaseObject> _getSpiraTestCaseObjects(
 		SpiraProject spiraProject, String testCasePath,
 		SpiraTestCaseType spiraTestCaseType,
@@ -640,6 +688,7 @@ public class SpiraTestCaseObject extends PathSpiraArtifact {
 					"TestCaseTypeId", spiraTestCaseType.getID()));
 		}
 
+<<<<<<< HEAD
 		if (spiraCustomPropertyValues != null) {
 			for (SpiraCustomPropertyValue spiraCustomPropertyValue :
 					spiraCustomPropertyValues) {
@@ -647,6 +696,23 @@ public class SpiraTestCaseObject extends PathSpiraArtifact {
 				searchParameters.add(
 					new SearchQuery.SearchParameter(spiraCustomPropertyValue));
 			}
+=======
+		Set<SpiraCustomPropertyValue> spiraCustomPropertyValueSet =
+			new HashSet<>();
+
+		if (spiraCustomPropertyValues != null) {
+			spiraCustomPropertyValueSet.addAll(spiraCustomPropertyValues);
+		}
+
+		spiraCustomPropertyValueSet.add(
+			_getExecutionTypeSpiraCustomPropertyValue(spiraProject));
+
+		for (SpiraCustomPropertyValue spiraCustomPropertyValue :
+				spiraCustomPropertyValueSet) {
+
+			searchParameters.add(
+				new SearchQuery.SearchParameter(spiraCustomPropertyValue));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return getSpiraTestCaseObjects(
@@ -773,6 +839,12 @@ public class SpiraTestCaseObject extends PathSpiraArtifact {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	private static final String _CUSTOM_FIELD_EXECUTION_TYPE_KEY =
+		"Execution Type";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static final String _CUSTOM_FIELD_FILE_PATH_KEY = "File Path";
 
 	private SpiraTestCaseFolder _parentSpiraTestCaseFolder;

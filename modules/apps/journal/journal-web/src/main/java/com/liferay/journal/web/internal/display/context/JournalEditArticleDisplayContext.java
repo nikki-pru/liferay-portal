@@ -14,7 +14,10 @@
 
 package com.liferay.journal.web.internal.display.context;
 
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.form.values.factory.DDMFormValuesFactory;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalServiceUtil;
@@ -206,11 +209,15 @@ public class JournalEditArticleDisplayContext {
 		}
 
 		if (_article == null) {
+<<<<<<< HEAD
 			DDMFormValuesFactory ddmFormValuesFactory =
 				_getDDMFormValuesFactory();
 
 			return ddmFormValuesFactory.create(
 				_httpServletRequest, ddmStructure.getDDMForm());
+=======
+			return _ddmFormValues;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		String content = _article.getContent();
@@ -656,11 +663,14 @@ public class JournalEditArticleDisplayContext {
 		return false;
 	}
 
+<<<<<<< HEAD
 	private DDMFormValuesFactory _getDDMFormValuesFactory() {
 		return (DDMFormValuesFactory)_httpServletRequest.getAttribute(
 			DDMFormValuesFactory.class.getName());
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private long _getInheritedWorkflowDDMStructuresFolderId()
 		throws PortalException {
 

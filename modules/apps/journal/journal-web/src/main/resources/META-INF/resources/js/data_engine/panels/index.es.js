@@ -15,17 +15,36 @@
 import React from 'react';
 
 import BasicInfoPanel from './BasicInfoPanel.es';
+<<<<<<< HEAD
+=======
+import {Component} from './PluginContext.es';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * Entry-point for "Properties" (sidebar pane) functionality.
  */
 export default class {
+<<<<<<< HEAD
 	constructor({panel}) {
+=======
+	constructor({app, panel}) {
+		this.Component = Component(app);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		this.title = panel.label;
 		this.url = panel.url;
 	}
 
 	renderSidebar() {
+<<<<<<< HEAD
 		return <BasicInfoPanel url={this.url} />;
+=======
+		const {Component} = this;
+
+		return (
+			<Component>
+				<BasicInfoPanel url={this.url} />
+			</Component>
+		);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 }

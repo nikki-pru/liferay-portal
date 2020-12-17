@@ -88,10 +88,13 @@ public class DDMFormFieldValue implements Serializable {
 
 		DDMFormField ddmFormField = getDDMFormField();
 
+<<<<<<< HEAD
 		if (ddmFormField == null) {
 			return _name;
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		return ddmFormField.getFieldReference();
 	}
 

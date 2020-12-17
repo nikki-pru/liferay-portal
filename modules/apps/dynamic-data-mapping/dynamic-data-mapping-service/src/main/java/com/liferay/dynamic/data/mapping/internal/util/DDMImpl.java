@@ -31,7 +31,10 @@ import com.liferay.dynamic.data.mapping.io.DDMFormValuesSerializerSerializeRespo
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldOptions;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.DDMFormLayout;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayoutColumn;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayoutPage;
@@ -117,6 +120,29 @@ import org.osgi.service.component.annotations.Reference;
 @Component(immediate = true, service = DDM.class)
 public class DDMImpl implements DDM {
 
+<<<<<<< HEAD
+=======
+	public static final String FIELDS_DISPLAY_NAME = "_fieldsDisplay";
+
+	public static final String INSTANCE_SEPARATOR = "_INSTANCE_";
+
+	public static final String TYPE_CHECKBOX = "checkbox";
+
+	public static final String TYPE_DDM_DATE = "ddm-date";
+
+	public static final String TYPE_DDM_DOCUMENTLIBRARY = "ddm-documentlibrary";
+
+	public static final String TYPE_DDM_IMAGE = "ddm-image";
+
+	public static final String TYPE_DDM_LINK_TO_PAGE = "ddm-link-to-page";
+
+	public static final String TYPE_DDM_TEXT_HTML = "ddm-text-html";
+
+	public static final String TYPE_RADIO = "radio";
+
+	public static final String TYPE_SELECT = "select";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Override
 	public DDMForm getDDMForm(long classNameId, long classPK)
 		throws PortalException {
@@ -275,11 +301,19 @@ public class DDMImpl implements DDM {
 			ThemeDisplay themeDisplay, Serializable fieldValue, String type)
 		throws Exception {
 
+<<<<<<< HEAD
 		if (type.equals(DDMFormFieldType.DATE)) {
 			fieldValue = DateUtil.formatDate(
 				"yyyy-MM-dd", fieldValue.toString(), themeDisplay.getLocale());
 		}
 		else if (type.equals(DDMFormFieldType.CHECKBOX)) {
+=======
+		if (type.equals(DDMImpl.TYPE_DDM_DATE)) {
+			fieldValue = DateUtil.formatDate(
+				"yyyy-MM-dd", fieldValue.toString(), themeDisplay.getLocale());
+		}
+		else if (type.equals(DDMImpl.TYPE_CHECKBOX)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			Boolean valueBoolean = (Boolean)fieldValue;
 
 			if (valueBoolean) {
@@ -289,7 +323,11 @@ public class DDMImpl implements DDM {
 				fieldValue = LanguageUtil.get(themeDisplay.getLocale(), "no");
 			}
 		}
+<<<<<<< HEAD
 		else if (type.equals(DDMFormFieldType.DOCUMENT_LIBRARY)) {
+=======
+		else if (type.equals(DDMImpl.TYPE_DDM_DOCUMENTLIBRARY)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			if (Validator.isNull(fieldValue)) {
 				return StringPool.BLANK;
 			}
@@ -309,7 +347,11 @@ public class DDMImpl implements DDM {
 				fileEntry, fileEntry.getFileVersion(), null, StringPool.BLANK,
 				false, true);
 		}
+<<<<<<< HEAD
 		else if (type.equals(DDMFormFieldType.LINK_TO_PAGE)) {
+=======
+		else if (type.equals(DDMImpl.TYPE_DDM_LINK_TO_PAGE)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			if (Validator.isNull(fieldValue)) {
 				return StringPool.BLANK;
 			}
@@ -328,7 +370,11 @@ public class DDMImpl implements DDM {
 
 			fieldValue = _portal.getLayoutFriendlyURL(layout, themeDisplay);
 		}
+<<<<<<< HEAD
 		else if (type.equals(DDMFormFieldType.SELECT)) {
+=======
+		else if (type.equals(DDMImpl.TYPE_SELECT)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String valueString = String.valueOf(fieldValue);
 
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(valueString);
@@ -458,7 +504,11 @@ public class DDMImpl implements DDM {
 
 			fieldValue = dateFormat.format(valueDate);
 		}
+<<<<<<< HEAD
 		else if (type.equals(DDMFormFieldType.SELECT)) {
+=======
+		else if (type.equals(DDMImpl.TYPE_SELECT)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String valueString = (String)fieldValue;
 
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(valueString);
@@ -614,7 +664,11 @@ public class DDMImpl implements DDM {
 			propertyValue = localizedValue.getString(defaultLocale);
 		}
 
+<<<<<<< HEAD
 		if (type.equals(DDMFormFieldType.SELECT) &&
+=======
+		if (type.equals(DDMImpl.TYPE_SELECT) &&
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			propertyName.equals("predefinedValue")) {
 
 			try {
@@ -637,8 +691,13 @@ public class DDMImpl implements DDM {
 
 		String type = ddmFormField.getType();
 
+<<<<<<< HEAD
 		if (!(type.equals(DDMFormFieldType.RADIO) ||
 			  type.equals(DDMFormFieldType.SELECT))) {
+=======
+		if (!(type.equals(DDMImpl.TYPE_RADIO) ||
+			  type.equals(DDMImpl.TYPE_SELECT))) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return;
 		}
@@ -1011,7 +1070,11 @@ public class DDMImpl implements DDM {
 					serviceContext.getLocale());
 			}
 
+<<<<<<< HEAD
 			if (fieldType.equals(DDMFormFieldType.CHECKBOX) &&
+=======
+			if (fieldType.equals(DDMImpl.TYPE_CHECKBOX) &&
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				Validator.isNull(fieldValue)) {
 
 				fieldValue = "false";
@@ -1066,7 +1129,11 @@ public class DDMImpl implements DDM {
 				return null;
 			}
 
+<<<<<<< HEAD
 			if (DDMFormFieldType.SELECT.equals(fieldType)) {
+=======
+			if (DDMImpl.TYPE_SELECT.equals(fieldType)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				String predefinedValueString = predefinedValue.getString(
 					serviceContext.getLocale());
 

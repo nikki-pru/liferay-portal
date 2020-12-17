@@ -39,12 +39,21 @@ public class CountryServiceUtil {
 			String a2, String a3, boolean active, boolean billingAllowed,
 			String idd, String name, String number, double position,
 			boolean shippingAllowed, boolean subjectToVAT, boolean zipRequired,
+<<<<<<< HEAD
+=======
+			java.util.Map<String, String> titleMap,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().addCountry(
 			a2, a3, active, billingAllowed, idd, name, number, position,
+<<<<<<< HEAD
 			shippingAllowed, subjectToVAT, zipRequired, serviceContext);
+=======
+			shippingAllowed, subjectToVAT, zipRequired, titleMap,
+			serviceContext);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -59,12 +68,15 @@ public class CountryServiceUtil {
 		return getService().addCountry(name, a2, a3, number, idd, active);
 	}
 
+<<<<<<< HEAD
 	public static void deleteCountry(long countryId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		getService().deleteCountry(countryId);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static com.liferay.portal.kernel.model.Country fetchCountry(
 		long countryId) {
 
@@ -72,6 +84,7 @@ public class CountryServiceUtil {
 	}
 
 	public static com.liferay.portal.kernel.model.Country fetchCountryByA2(
+<<<<<<< HEAD
 		long companyId, String a2) {
 
 		return getService().fetchCountryByA2(companyId, a2);
@@ -82,12 +95,15 @@ public class CountryServiceUtil {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.Country fetchCountryByA2(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String a2) {
 
 		return getService().fetchCountryByA2(a2);
 	}
 
 	public static com.liferay.portal.kernel.model.Country fetchCountryByA3(
+<<<<<<< HEAD
 		long companyId, String a3) {
 
 		return getService().fetchCountryByA3(companyId, a3);
@@ -98,12 +114,15 @@ public class CountryServiceUtil {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.Country fetchCountryByA3(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String a3) {
 
 		return getService().fetchCountryByA3(a3);
 	}
 
 	public static java.util.List<com.liferay.portal.kernel.model.Country>
+<<<<<<< HEAD
 		getCompanyCountries(long companyId) {
 
 		return getService().getCompanyCountries(companyId);
@@ -148,15 +167,20 @@ public class CountryServiceUtil {
 	 */
 	@Deprecated
 	public static java.util.List<com.liferay.portal.kernel.model.Country>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		getCountries() {
 
 		return getService().getCountries();
 	}
 
+<<<<<<< HEAD
 	/**
 	 * @deprecated As of Cavanaugh (7.4.x)
 	 */
 	@Deprecated
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static java.util.List<com.liferay.portal.kernel.model.Country>
 		getCountries(boolean active) {
 
@@ -171,6 +195,7 @@ public class CountryServiceUtil {
 	}
 
 	public static com.liferay.portal.kernel.model.Country getCountryByA2(
+<<<<<<< HEAD
 			long companyId, String a2)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -182,6 +207,8 @@ public class CountryServiceUtil {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.Country getCountryByA2(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String a2)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -189,6 +216,7 @@ public class CountryServiceUtil {
 	}
 
 	public static com.liferay.portal.kernel.model.Country getCountryByA3(
+<<<<<<< HEAD
 			long companyId, String a3)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -200,6 +228,8 @@ public class CountryServiceUtil {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.Country getCountryByA3(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String a3)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -207,6 +237,7 @@ public class CountryServiceUtil {
 	}
 
 	public static com.liferay.portal.kernel.model.Country getCountryByName(
+<<<<<<< HEAD
 			long companyId, String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -218,12 +249,15 @@ public class CountryServiceUtil {
 	 */
 	@Deprecated
 	public static com.liferay.portal.kernel.model.Country getCountryByName(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			String name)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return getService().getCountryByName(name);
 	}
 
+<<<<<<< HEAD
 	public static com.liferay.portal.kernel.model.Country getCountryByNumber(
 			long companyId, String number)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -231,6 +265,8 @@ public class CountryServiceUtil {
 		return getService().getCountryByNumber(companyId, number);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -240,6 +276,7 @@ public class CountryServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+<<<<<<< HEAD
 	public static com.liferay.portal.kernel.model.Country updateActive(
 			long countryId, boolean active)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -266,6 +303,8 @@ public class CountryServiceUtil {
 			countryId, groupFilterEnabled);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static CountryService getService() {
 		if (_service == null) {
 			_service = (CountryService)PortalBeanLocatorUtil.locate(

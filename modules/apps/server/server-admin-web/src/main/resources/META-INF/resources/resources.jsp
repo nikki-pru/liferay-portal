@@ -22,7 +22,10 @@ String[] installedPatches = PatcherUtil.getInstalledPatches();
 Date modifiedDate = PortalUtil.getUptime();
 
 long uptimeDiff = System.currentTimeMillis() - modifiedDate.getTime();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 long days = uptimeDiff / Time.DAY;
 long hours = (uptimeDiff / Time.HOUR) % 24;
 long minutes = (uptimeDiff / Time.MINUTE) % 60;
@@ -31,7 +34,10 @@ long seconds = (uptimeDiff / Time.SECOND) % 60;
 Runtime runtime = Runtime.getRuntime();
 
 long totalMemory = runtime.totalMemory();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 long usedMemory = totalMemory - runtime.freeMemory();
 %>
 

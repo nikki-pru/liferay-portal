@@ -20,6 +20,11 @@ import com.liferay.dynamic.data.mapping.storage.Fields;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.xml.Document;
 
+<<<<<<< HEAD
+=======
+import java.util.Locale;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -29,6 +34,17 @@ import org.osgi.annotation.versioning.ProviderType;
 @ProviderType
 public interface JournalConverter {
 
+<<<<<<< HEAD
+=======
+	/**
+	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
+	 *             #getContent(DDMStructure, Fields, long)}
+	 */
+	@Deprecated
+	public String getContent(DDMStructure ddmStructure, Fields ddmFields)
+		throws Exception;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getContent(
 			DDMStructure ddmStructure, Fields ddmFields, long groupId)
 		throws Exception;
@@ -43,4 +59,26 @@ public interface JournalConverter {
 			DDMStructure ddmStructure, Fields fields)
 		throws PortalException;
 
+<<<<<<< HEAD
+=======
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	public String getDDMXSD(String journalXSD) throws Exception;
+
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	public String getDDMXSD(String journalXSD, Locale defaultLocale)
+		throws Exception;
+
+	/**
+	 * @deprecated As of Judson (7.1.x), with no direct replacement
+	 */
+	@Deprecated
+	public String getJournalXSD(String ddmXSD) throws Exception;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

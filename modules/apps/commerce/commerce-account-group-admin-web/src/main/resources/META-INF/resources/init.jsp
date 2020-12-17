@@ -30,7 +30,11 @@ page import="com.liferay.commerce.account.exception.CommerceAccountGroupNameExce
 page import="com.liferay.commerce.account.exception.NoSuchAccountGroupCommerceAccountRelException" %><%@
 page import="com.liferay.commerce.account.exception.NoSuchAccountGroupException" %><%@
 page import="com.liferay.commerce.account.group.admin.web.internal.display.context.CommerceAccountGroupAdminDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.account.group.admin.web.internal.servlet.taglib.ui.constants.CommerceAccountGroupScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.account.group.admin.web.internal.servlet.taglib.ui.CommerceAccountGroupScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.account.model.CommerceAccount" %><%@
 page import="com.liferay.commerce.account.model.CommerceAccountGroup" %><%@
 page import="com.liferay.commerce.account.model.CommerceAccountGroupCommerceAccountRel" %><%@

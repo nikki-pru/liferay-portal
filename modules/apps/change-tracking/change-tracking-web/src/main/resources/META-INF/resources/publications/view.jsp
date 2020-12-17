@@ -58,6 +58,7 @@ SearchContainer<CTCollection> searchContainer = publicationsDisplayContext.getSe
 							<%= ctCollection.getName() %>
 						</div>
 
+<<<<<<< HEAD
 						<c:if test="<%= Validator.isNotNull(ctCollection.getDescription()) %>">
 							<div class="publication-description <%= (publicationsDisplayContext.getCtCollectionId() == ctCollection.getCtCollectionId()) ? "font-italic" : StringPool.BLANK %>">
 								<%= ctCollection.getDescription() %>
@@ -68,6 +69,11 @@ SearchContainer<CTCollection> searchContainer = publicationsDisplayContext.getSe
 							displayType="<%= publicationsDisplayContext.getStatusStyle(ctCollection.getStatus()) %>"
 							label="<%= publicationsDisplayContext.getStatusLabel(ctCollection.getStatus()) %>"
 						/>
+=======
+						<div class="publication-description <%= (publicationsDisplayContext.getCtCollectionId() == ctCollection.getCtCollectionId()) ? "font-italic" : StringPool.BLANK %>">
+							<%= ctCollection.getDescription() %>
+						</div>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					</liferay-ui:search-container-column-text>
 				</c:when>
 				<c:otherwise>
@@ -108,6 +114,7 @@ SearchContainer<CTCollection> searchContainer = publicationsDisplayContext.getSe
 					</liferay-ui:search-container-column-text>
 
 					<liferay-ui:search-container-column-text
+<<<<<<< HEAD
 						cssClass="table-cell-expand-smaller"
 						name="status"
 					>
@@ -118,6 +125,8 @@ SearchContainer<CTCollection> searchContainer = publicationsDisplayContext.getSe
 					</liferay-ui:search-container-column-text>
 
 					<liferay-ui:search-container-column-text
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						cssClass="table-cell-expand-smallest text-center"
 						name="owner"
 					>
@@ -154,6 +163,7 @@ SearchContainer<CTCollection> searchContainer = publicationsDisplayContext.getSe
 			searchContainer="<%= searchContainer %>"
 		/>
 	</liferay-ui:search-container>
+<<<<<<< HEAD
 </clay:container-fluid>
 
 <liferay-ui:error exception="<%= CTLocalizedException.class %>">
@@ -172,3 +182,6 @@ SearchContainer<CTCollection> searchContainer = publicationsDisplayContext.getSe
 		});
 	</aui:script>
 </liferay-ui:error>
+=======
+</clay:container-fluid>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

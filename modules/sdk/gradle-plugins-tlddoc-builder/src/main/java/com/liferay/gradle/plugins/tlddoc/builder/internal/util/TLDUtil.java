@@ -152,8 +152,14 @@ public class TLDUtil {
 					continue;
 				}
 
+<<<<<<< HEAD
 				File curDefinitionFile = _portalDefinitions.get(
 					_getFileName(schemaLocation));
+=======
+				String fileName = _getFileName(schemaLocation);
+
+				File curDefinitionFile = _portalDefinitions.get(fileName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 				if (curDefinitionFile == null) {
 					continue;
@@ -185,8 +191,14 @@ public class TLDUtil {
 					continue;
 				}
 
+<<<<<<< HEAD
 				File curDefinitionFile = _portalDefinitions.get(
 					_getFileName(schemaLocation));
+=======
+				String fileName = _getFileName(schemaLocation);
+
+				File curDefinitionFile = _portalDefinitions.get(fileName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 				if (curDefinitionFile == null) {
 					continue;

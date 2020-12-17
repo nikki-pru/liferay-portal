@@ -26,9 +26,13 @@ String runNowButton = "runNowButton" + row.getRowId();
 
 <span aria-hidden="true" class="<%= "hide icon-spinner icon-spin dispatch-check-row-icon-spinner" + row.getRowId() %>"></span>
 
+<<<<<<< HEAD
 <c:if test="<%= DispatchTriggerPermission.contains(permissionChecker, dispatchTrigger, ActionKeys.UPDATE) %>">
 	<aui:button cssClass="btn-lg" name="<%= runNowButton %>" type="cancel" value="run-now" />
 </c:if>
+=======
+<aui:button cssClass="btn-lg" name="<%= runNowButton %>" type="cancel" value="run-now" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 <aui:script use="aui-io-request,aui-parse-content,liferay-notification">
 	A.one('#<portlet:namespace /><%= runNowButton %>').on('click', function (

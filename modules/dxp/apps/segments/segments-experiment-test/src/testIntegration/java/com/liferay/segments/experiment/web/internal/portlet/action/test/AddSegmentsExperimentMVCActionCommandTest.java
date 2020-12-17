@@ -200,8 +200,15 @@ public class AddSegmentsExperimentMVCActionCommandTest {
 		MockLiferayPortletActionRequest mockLiferayPortletActionRequest =
 			new MockLiferayPortletActionRequest();
 
+<<<<<<< HEAD
 		mockLiferayPortletActionRequest.setAttribute(
 			WebKeys.THEME_DISPLAY, _getThemeDisplay());
+=======
+		ThemeDisplay themeDisplay = _getThemeDisplay();
+
+		mockLiferayPortletActionRequest.setAttribute(
+			WebKeys.THEME_DISPLAY, themeDisplay);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		mockLiferayPortletActionRequest.setParameter(
 			"classNameId", String.valueOf(segmentsExperience.getClassNameId()));

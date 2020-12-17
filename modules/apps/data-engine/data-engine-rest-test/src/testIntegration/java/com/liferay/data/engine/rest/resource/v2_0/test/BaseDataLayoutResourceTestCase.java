@@ -822,6 +822,7 @@ public abstract class BaseDataLayoutResourceTestCase {
 				continue;
 			}
 
+<<<<<<< HEAD
 			if (Objects.equals("dataLayoutFields", additionalAssertFieldName)) {
 				if (dataLayout.getDataLayoutFields() == null) {
 					valid = false;
@@ -830,6 +831,8 @@ public abstract class BaseDataLayoutResourceTestCase {
 				continue;
 			}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			if (Objects.equals("dataLayoutKey", additionalAssertFieldName)) {
 				if (dataLayout.getDataLayoutKey() == null) {
 					valid = false;
@@ -1003,6 +1006,7 @@ public abstract class BaseDataLayoutResourceTestCase {
 				continue;
 			}
 
+<<<<<<< HEAD
 			if (Objects.equals("dataLayoutFields", additionalAssertFieldName)) {
 				if (!equals(
 						(Map)dataLayout1.getDataLayoutFields(),
@@ -1014,6 +1018,8 @@ public abstract class BaseDataLayoutResourceTestCase {
 				continue;
 			}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			if (Objects.equals("dataLayoutKey", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						dataLayout1.getDataLayoutKey(),
@@ -1219,11 +1225,14 @@ public abstract class BaseDataLayoutResourceTestCase {
 				"Invalid entity field " + entityFieldName);
 		}
 
+<<<<<<< HEAD
 		if (entityFieldName.equals("dataLayoutFields")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (entityFieldName.equals("dataLayoutKey")) {
 			sb.append("'");
 			sb.append(String.valueOf(dataLayout.getDataLayoutKey()));

@@ -109,12 +109,17 @@ definition {
 		Click(locator1 = "FormViewBuilder#DELETE_OBJECT_LABEL_CANCEL_BUTTON");
 	}
 
+<<<<<<< HEAD
 	macro cancelFieldSet {
 		Click(locator1 = "FormViewBuilder#RULE_OR_FIELD_SET_BUILDER_CANCEL_BUTTON");
 	}
 
 	macro cancelRule {
 		Click(locator1 = "FormViewBuilder#RULE_OR_FIELD_SET_BUILDER_CANCEL_BUTTON");
+=======
+	macro cancelRule {
+		Click(locator1 = "FormViewBuilder#RULE_BUILDER_CANCEL_BUTTON");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	macro checkSwitcher {
@@ -263,6 +268,7 @@ definition {
 			value1 = "${label}");
 	}
 
+<<<<<<< HEAD
 	macro editFieldSetEntry {
 		var key_RowNumber = "${rowNumber}";
 
@@ -273,6 +279,8 @@ definition {
 			locator1 = "FormViewBuilder#FIELD_ELLIPSIS_ACTION");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro editOptionsRow {
 		var key_rowNumber = "${rowNumber}";
 
@@ -366,6 +374,7 @@ definition {
 		Click(locator1 = "FormViewBuilder#FIELD_SETS_TAB");
 	}
 
+<<<<<<< HEAD
 	macro gotoFirstFieldset {
 		var key_fieldLabel = "${fieldLabel}";
 
@@ -374,6 +383,8 @@ definition {
 			value1 = "${fieldLabel}");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro gotoRules {
 		Click(locator1 = "FormViewBuilder#RULES_TAB");
 	}
@@ -502,6 +513,7 @@ definition {
 			value1 = "${ruleName}");
 	}
 
+<<<<<<< HEAD
 	macro setUpFieldSet {
 		var key_fieldType = "${fieldType}";
 		var key_fieldSetName = "${fieldSetName}";
@@ -524,6 +536,8 @@ definition {
 		Click(locator1 = "FormViewBuilder#FIELD_SET_SAVE_BUTTON");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro setUpFieldSetOptions {
 		var key_fieldType = "${fieldType}";
 		var key_fieldSetName = "${fieldSetName}";
@@ -600,6 +614,7 @@ definition {
 			locator1 = "FormViewBuilder#LOCALIZATION_LIST");
 	}
 
+<<<<<<< HEAD
 	macro switchLocalizationForFieldSets {
 		Click(
 			key_symbolName = "${symbolName}",
@@ -615,6 +630,8 @@ definition {
 			locator1 = "FormViewBuilder#LOCALIZATION_LIST_FIELD_SET");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro switchToAdvancedTab {
 		Click(locator1 = "FormViewBuilder#SIDEBAR_ADVANCED_TAB");
 	}
@@ -671,12 +688,15 @@ definition {
 			locator1 = "FormViewBuilder#BUTTON_LOCALIZATION");
 	}
 
+<<<<<<< HEAD
 	macro validateLocalizationForFieldSet {
 		AssertElementPresent(
 			key_symbolName = "${symbolName}",
 			locator1 = "FormViewBuilder#BUTTON_LOCALIZATION_FIELD_SET");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro validateNoFieldLabel {
 		AssertElementNotPresent(
 			locator1 = "FormViewBuilder#FIELD_LABEL",
@@ -779,6 +799,7 @@ definition {
 			value1 = "${optionValue}");
 	}
 
+<<<<<<< HEAD
 	macro validateTranslatedField {
 		var key_fieldLabel = "${fieldLabel}";
 
@@ -787,6 +808,8 @@ definition {
 			value1 = "${fieldLabel}");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro validateUsedFormView {
 		AssertElementPresent(locator1 = "FormViewBuilder#VALIDATE_USED_FORM_VIEW");
 	}

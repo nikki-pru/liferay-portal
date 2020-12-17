@@ -37,12 +37,17 @@ public class AccountGroupDisplay {
 			AccountGroupLocalServiceUtil.fetchAccountGroup(accountGroupId));
 	}
 
+<<<<<<< HEAD
 	public String getAccountEntriesCount() {
 		if (_accountEntriesCount < 0) {
 			return StringPool.DOUBLE_DASH;
 		}
 
 		return String.valueOf(_accountEntriesCount);
+=======
+	public long getAccountEntriesCount() {
+		return _accountEntriesCount;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public long getAccountGroupId() {
@@ -57,6 +62,7 @@ public class AccountGroupDisplay {
 		return _name;
 	}
 
+<<<<<<< HEAD
 	public boolean isDefaultAccountGroup() {
 		return _defaultAccountGroup;
 	}
@@ -65,6 +71,11 @@ public class AccountGroupDisplay {
 		_accountEntriesCount = 0;
 		_accountGroupId = 0;
 		_defaultAccountGroup = false;
+=======
+	private AccountGroupDisplay() {
+		_accountEntriesCount = 0;
+		_accountGroupId = 0;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_description = StringPool.BLANK;
 		_name = StringPool.BLANK;
 	}
@@ -72,16 +83,22 @@ public class AccountGroupDisplay {
 	private AccountGroupDisplay(AccountGroup accountGroup) {
 		_accountEntriesCount = _getAccountEntriesCount(accountGroup);
 		_accountGroupId = accountGroup.getAccountGroupId();
+<<<<<<< HEAD
 		_defaultAccountGroup = accountGroup.isDefaultAccountGroup();
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_description = accountGroup.getDescription();
 		_name = accountGroup.getName();
 	}
 
 	private long _getAccountEntriesCount(AccountGroup accountGroup) {
+<<<<<<< HEAD
 		if (accountGroup.isDefaultAccountGroup()) {
 			return -1;
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		return AccountGroupAccountEntryRelLocalServiceUtil.
 			getAccountGroupAccountEntryRelsCountByAccountGroupId(
 				accountGroup.getAccountGroupId());
@@ -92,7 +109,10 @@ public class AccountGroupDisplay {
 
 	private final long _accountEntriesCount;
 	private final long _accountGroupId;
+<<<<<<< HEAD
 	private final boolean _defaultAccountGroup;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private final String _description;
 	private final String _name;
 

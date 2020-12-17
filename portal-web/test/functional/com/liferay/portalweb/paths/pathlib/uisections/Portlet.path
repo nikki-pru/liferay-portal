@@ -109,6 +109,14 @@
 	<td></td>
 </tr>
 <tr>
+<<<<<<< HEAD
+=======
+	<td>PORTLET_TOPPER</td>
+	<td>//header[@class='portlet-topper'][contains(.,'${key_portletName}')]</td>
+	<td></td>
+</tr>
+<tr>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td>SEARCH_FIELD</td>
 	<td>//div[*[normalize-space()='${key_portletName}']]//input[contains(@name,'keywords')]</td>
 	<td></td>

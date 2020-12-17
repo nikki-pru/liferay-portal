@@ -17,8 +17,12 @@
 <%@ taglib uri="http://liferay.com/tld/comment" prefix="liferay-comment" %><%@
 taglib uri="http://liferay.com/tld/frontend" prefix="liferay-frontend" %>
 
+<<<<<<< HEAD
 <%@ page import="com.liferay.journal.constants.JournalArticleConstants" %><%@
 page import="com.liferay.journal.content.asset.addon.entry.comments.internal.CommentsContentMetadataAssetAddonEntry" %><%@
+=======
+<%@ page import="com.liferay.journal.content.asset.addon.entry.comments.internal.CommentsContentMetadataAssetAddonEntry" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.journal.model.JournalArticle" %><%@
 page import="com.liferay.journal.model.JournalArticleDisplay" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@

@@ -46,6 +46,7 @@ definition {
 
 			Click(locator1 = "AlloyEditor#CONTENT_ADD_MENUBAR_VIDEO");
 
+<<<<<<< HEAD
 			if ("${navTab}" == "Documents and Media") {
 				ItemSelector.addVideoFromDM(
 					depotName = "${depotName}",
@@ -57,6 +58,12 @@ definition {
 					navTab = "${navTab}",
 					videoSourceURL = "${embedVideo}");
 			}
+=======
+			ItemSelector.addFromURL(
+				embedVideo = "${embedVideo}",
+				navTab = "${navTab}",
+				type = "Video");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 

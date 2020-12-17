@@ -50,11 +50,18 @@ public class StyleBookVerticalCard
 
 		super(baseModel, rowChecker);
 
+<<<<<<< HEAD
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
 
 		_styleBookEntry = (StyleBookEntry)baseModel;
 
+=======
+		_styleBookEntry = (StyleBookEntry)baseModel;
+		_renderRequest = renderRequest;
+		_renderResponse = renderResponse;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 	}

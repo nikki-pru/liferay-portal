@@ -150,7 +150,11 @@ public class CTCollectionServiceSoap {
 
 	public static com.liferay.change.tracking.model.CTCollectionSoap[]
 			getCTCollections(
+<<<<<<< HEAD
 				long companyId, int[] statuses, int start, int end,
+=======
+				long companyId, int status, int start, int end,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				com.liferay.portal.kernel.util.OrderByComparator
 					<com.liferay.change.tracking.model.CTCollection>
 						orderByComparator)
@@ -159,7 +163,11 @@ public class CTCollectionServiceSoap {
 		try {
 			java.util.List<com.liferay.change.tracking.model.CTCollection>
 				returnValue = CTCollectionServiceUtil.getCTCollections(
+<<<<<<< HEAD
 					companyId, statuses, start, end, orderByComparator);
+=======
+					companyId, status, start, end, orderByComparator);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return com.liferay.change.tracking.model.CTCollectionSoap.
 				toSoapModels(returnValue);
@@ -173,8 +181,12 @@ public class CTCollectionServiceSoap {
 
 	public static com.liferay.change.tracking.model.CTCollectionSoap[]
 			getCTCollections(
+<<<<<<< HEAD
 				long companyId, int[] statuses, String keywords, int start,
 				int end,
+=======
+				long companyId, int status, String keywords, int start, int end,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				com.liferay.portal.kernel.util.OrderByComparator
 					<com.liferay.change.tracking.model.CTCollection>
 						orderByComparator)
@@ -183,8 +195,12 @@ public class CTCollectionServiceSoap {
 		try {
 			java.util.List<com.liferay.change.tracking.model.CTCollection>
 				returnValue = CTCollectionServiceUtil.getCTCollections(
+<<<<<<< HEAD
 					companyId, statuses, keywords, start, end,
 					orderByComparator);
+=======
+					companyId, status, keywords, start, end, orderByComparator);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return com.liferay.change.tracking.model.CTCollectionSoap.
 				toSoapModels(returnValue);
@@ -197,12 +213,20 @@ public class CTCollectionServiceSoap {
 	}
 
 	public static int getCTCollectionsCount(
+<<<<<<< HEAD
 			long companyId, int[] statuses, String keywords)
+=======
+			long companyId, int status, String keywords)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws RemoteException {
 
 		try {
 			int returnValue = CTCollectionServiceUtil.getCTCollectionsCount(
+<<<<<<< HEAD
 				companyId, statuses, keywords);
+=======
+				companyId, status, keywords);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return returnValue;
 		}

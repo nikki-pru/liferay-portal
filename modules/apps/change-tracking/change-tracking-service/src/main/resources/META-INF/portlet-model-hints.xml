@@ -21,7 +21,10 @@
 		<field name="userId" type="long" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+<<<<<<< HEAD
 		<field name="schemaVersionId" type="long" />
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<field name="name" type="String" />
 		<field name="description" type="String">
 			<hint-collection name="TEXTAREA" />
@@ -71,10 +74,13 @@
 		<field name="ctCollectionId" type="long" />
 		<field name="backgroundTaskId" type="long" />
 	</model>
+<<<<<<< HEAD
 	<model name="com.liferay.change.tracking.model.CTSchemaVersion">
 		<field name="mvccVersion" type="long" />
 		<field name="schemaVersionId" type="long" />
 		<field name="companyId" type="long" />
 		<field name="schemaContext" type="Map" />
 	</model>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 </model-hints>

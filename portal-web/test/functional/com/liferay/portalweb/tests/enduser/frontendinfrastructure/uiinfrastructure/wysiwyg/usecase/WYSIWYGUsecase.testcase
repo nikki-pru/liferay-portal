@@ -259,7 +259,11 @@ definition {
 
 		ItemSelector.gotoItemSelectorViaCKEditor();
 
+<<<<<<< HEAD
 		ItemSelector.addImageFromURL(
+=======
+		ItemSelector.addFromURL(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			imageSourceURL = "https://raw.githubusercontent.com/liferay/liferay-portal/master/portal-web/test/functional/com/liferay/portalweb/dependencies/Document_1.jpg",
 			navTab = "URL");
 

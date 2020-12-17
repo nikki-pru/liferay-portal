@@ -149,7 +149,12 @@ definition {
 
 	@priority = "5"
 	test AddDocumentTypeAndMetadata {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
+=======
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		property testray.component.names = "Training";
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
@@ -189,12 +194,21 @@ definition {
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 
 		DMDocument.addCP(
+<<<<<<< HEAD
 			dateValue = "01/01/2022",
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			dmDocumentDescription = "DM Document Type Contract Description",
 			dmDocumentFile = "Document_1.doc",
 			dmDocumentTitle = "DM Document Type Contract Title",
 			dmDocumentTypeName = "DM Document Type Name",
+<<<<<<< HEAD
 			numericField = "123");
+=======
+			fieldName = "Date",
+			fieldValue = "01/01/2022",
+			numberField = "123");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
 

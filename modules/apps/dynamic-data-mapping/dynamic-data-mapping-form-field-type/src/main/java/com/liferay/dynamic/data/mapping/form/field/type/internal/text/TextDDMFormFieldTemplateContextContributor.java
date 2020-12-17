@@ -170,7 +170,11 @@ public class TextDDMFormFieldTemplateContextContributor
 			ddmFormFieldRenderingContext.getProperty("value"));
 
 		if (ddmFormFieldRenderingContext.isViewMode()) {
+<<<<<<< HEAD
 			value = HtmlUtil.escape(value);
+=======
+			value = HtmlUtil.extractText(value);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return value;

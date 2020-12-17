@@ -445,7 +445,13 @@ public class JavadocFormatter {
 		List<Element> fieldElements = classElement.elements("field");
 
 		for (Element fieldElement : fieldElements) {
+<<<<<<< HEAD
 			fieldElementsMap.put(_getFieldKey(fieldElement), fieldElement);
+=======
+			String fieldKey = _getFieldKey(fieldElement);
+
+			fieldElementsMap.put(fieldKey, fieldElement);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		List<JavaField> javaFields = javaClass.getFields();
@@ -1604,8 +1610,14 @@ public class JavadocFormatter {
 			JavaExecutable javaExecutable, String indent)
 		throws Exception {
 
+<<<<<<< HEAD
 		Element executableElement = executableElementsMap.get(
 			_getExecutableKey(javaExecutable));
+=======
+		String executableKey = _getExecutableKey(javaExecutable);
+
+		Element executableElement = executableElementsMap.get(executableKey);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (executableElement == null) {
 			return null;
@@ -1673,7 +1685,13 @@ public class JavadocFormatter {
 			String indent)
 		throws Exception {
 
+<<<<<<< HEAD
 		Element fieldElement = fieldElementsMap.get(_getFieldKey(javaField));
+=======
+		String fieldKey = _getFieldKey(javaField);
+
+		Element fieldElement = fieldElementsMap.get(fieldKey);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (fieldElement == null) {
 			return null;

@@ -54,7 +54,10 @@
 
 		<!-- Other fields -->
 
+<<<<<<< HEAD
 		<column name="schemaVersionId" type="long" />
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<column name="name" type="String" />
 		<column name="description" type="String" />
 		<column name="status" type="int" />
@@ -72,12 +75,18 @@
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
+<<<<<<< HEAD
 		<finder name="SchemaVersionId" return-type="Collection">
 			<finder-column name="schemaVersionId" />
 		</finder>
 		<finder name="C_S" return-type="Collection">
 			<finder-column name="companyId" />
 			<finder-column arrayable-operator="OR" name="status" />
+=======
+		<finder name="C_S" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="status" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		</finder>
 
 		<!-- References -->
@@ -220,6 +229,7 @@
 		<reference entity="CTCollection" package-path="com.liferay.change.tracking" />
 		<reference entity="Company" package-path="com.liferay.portal" />
 	</entity>
+<<<<<<< HEAD
 	<entity local-service="true" name="CTSchemaVersion" remote-service="false" trash-enabled="false" uuid="false">
 
 		<!-- PK fields -->
@@ -250,10 +260,16 @@
 
 		<reference entity="Release" package-path="com.liferay.portal" />
 	</entity>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<exceptions>
 		<exception>CTCollectionDescription</exception>
 		<exception>CTCollectionName</exception>
 		<exception>CTEnclosure</exception>
+<<<<<<< HEAD
 		<exception>CTLocalized</exception>
+=======
+		<exception>DuplicateCTEntry</exception>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	</exceptions>
 </service-builder>

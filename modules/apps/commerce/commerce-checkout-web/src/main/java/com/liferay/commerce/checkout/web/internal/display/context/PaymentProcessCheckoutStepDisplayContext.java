@@ -45,13 +45,21 @@ public class PaymentProcessCheckoutStepDisplayContext {
 		CommerceOrder commerceOrder, HttpServletRequest httpServletRequest,
 		Portal portal) {
 
+<<<<<<< HEAD
+=======
+		_commerceCheckoutRequestHelper = new CommerceCheckoutRequestHelper(
+			httpServletRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_commerceCheckoutStepServicesTracker =
 			commerceCheckoutStepServicesTracker;
 		_commerceOrder = commerceOrder;
 		_portal = portal;
+<<<<<<< HEAD
 
 		_commerceCheckoutRequestHelper = new CommerceCheckoutRequestHelper(
 			httpServletRequest);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getPaymentServletUrl() throws Exception {

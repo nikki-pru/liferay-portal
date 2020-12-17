@@ -17,7 +17,10 @@ package com.liferay.commerce.product.definitions.web.internal.frontend;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
+<<<<<<< HEAD
 import com.liferay.commerce.product.definitions.web.internal.frontend.constants.CommerceProductDataSetConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.product.definitions.web.internal.model.ProductOptionValue;
 import com.liferay.commerce.product.model.CPDefinitionOptionRel;
 import com.liferay.commerce.product.model.CPDefinitionOptionValueRel;

@@ -46,12 +46,19 @@ public class RSSFeed {
 		SyndFeed syndFeed = getSyndFeed();
 
 		if (syndFeed == null) {
+<<<<<<< HEAD
 			_title = title;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_baseURL = StringPool.BLANK;
 			_syndFeedImageLink = StringPool.BLANK;
 			_syndFeedImageURL = StringPool.BLANK;
 			_syndFeedLink = StringPool.BLANK;
+<<<<<<< HEAD
+=======
+			_title = title;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return;
 		}
@@ -101,12 +108,19 @@ public class RSSFeed {
 			}
 		}
 
+<<<<<<< HEAD
 		_title = title;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_baseURL = baseURL;
 		_syndFeedImageLink = syndFeedImageLink;
 		_syndFeedImageURL = syndFeedImageURL;
 		_syndFeedLink = syndFeedLink;
+<<<<<<< HEAD
+=======
+		_title = title;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getBaseURL() {

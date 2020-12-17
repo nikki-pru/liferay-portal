@@ -26,7 +26,11 @@ import com.liferay.portal.kernel.util.JavaConstants;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.Validator;
 
+<<<<<<< HEAD
 import javax.portlet.PortletResponse;
+=======
+import javax.portlet.RenderResponse;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -69,7 +73,11 @@ public class DataLayoutRendererTag extends BaseDataLayoutRendererTag {
 			dataLayoutRendererContext.setHttpServletRequest(httpServletRequest);
 			dataLayoutRendererContext.setHttpServletResponse(
 				PortalUtil.getHttpServletResponse(
+<<<<<<< HEAD
 					(PortletResponse)httpServletRequest.getAttribute(
+=======
+					(RenderResponse)httpServletRequest.getAttribute(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						JavaConstants.JAVAX_PORTLET_RESPONSE)));
 			dataLayoutRendererContext.setPortletNamespace(getNamespace());
 			dataLayoutRendererContext.setReadOnly(getReadOnly());

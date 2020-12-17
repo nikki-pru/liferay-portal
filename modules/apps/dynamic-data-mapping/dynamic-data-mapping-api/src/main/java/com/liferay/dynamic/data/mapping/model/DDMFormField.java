@@ -216,10 +216,13 @@ public class DDMFormField implements Serializable {
 		return null;
 	}
 
+<<<<<<< HEAD
 	public DDMFormLayout getDDMFormLayout() {
 		return _ddmFormLayout;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getFieldNamespace() {
 		return MapUtil.getString(_properties, "fieldNamespace");
 	}
@@ -402,10 +405,13 @@ public class DDMFormField implements Serializable {
 		_properties.put("validation", ddmFormFieldValidation);
 	}
 
+<<<<<<< HEAD
 	public void setDDMFormLayout(DDMFormLayout ddmFormLayout) {
 		_ddmFormLayout = ddmFormLayout;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void setFieldNamespace(String fieldNamespace) {
 		_properties.put("fieldNamespace", fieldNamespace);
 	}
@@ -482,7 +488,10 @@ public class DDMFormField implements Serializable {
 
 	private DDMForm _ddmForm;
 	private final List<DDMFormFieldRule> _ddmFormFieldRules;
+<<<<<<< HEAD
 	private DDMFormLayout _ddmFormLayout;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private List<DDMFormField> _nestedDDMFormFields;
 	private final Map<String, Object> _properties;
 

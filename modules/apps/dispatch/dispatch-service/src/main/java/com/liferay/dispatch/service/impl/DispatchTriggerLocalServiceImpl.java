@@ -27,14 +27,20 @@ import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.GroupConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.scheduler.SchedulerException;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.Portal;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.PortalRunMode;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -80,8 +86,13 @@ public class DispatchTriggerLocalServiceImpl
 		dispatchTrigger = dispatchTriggerPersistence.update(dispatchTrigger);
 
 		resourceLocalService.addResources(
+<<<<<<< HEAD
 			user.getCompanyId(), GroupConstants.DEFAULT_LIVE_GROUP_ID,
 			user.getUserId(), DispatchTrigger.class.getName(),
+=======
+			user.getCompanyId(), 0, user.getUserId(),
+			DispatchTrigger.class.getName(),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			dispatchTrigger.getDispatchTriggerId(), false, true, true);
 
 		return dispatchTrigger;
@@ -93,7 +104,11 @@ public class DispatchTriggerLocalServiceImpl
 			DispatchTrigger dispatchTrigger)
 		throws PortalException {
 
+<<<<<<< HEAD
 		if (dispatchTrigger.isSystem() && !PortalRunMode.isTestMode()) {
+=======
+		if (dispatchTrigger.isSystem()) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return dispatchTrigger;
 		}
 

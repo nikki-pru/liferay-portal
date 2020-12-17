@@ -75,6 +75,7 @@ definition {
 			PortletEntry.inputDescription(description = "${dmDocumentDescription}");
 		}
 
+<<<<<<< HEAD
 		if (isSet(dateValue)) {
 			if (!(isSet(dateFieldLabel))) {
 				var dateFieldLabel = "Date";
@@ -84,6 +85,12 @@ definition {
 				key_fieldFieldLabel = "${dateFieldLabel}",
 				locator1 = "WCEditWebContent#DATE_INPUT",
 				value1 = "${dateValue}");
+=======
+		if ("${fieldName}" == "Date") {
+			FormFields.editDate(
+				fieldName = "${fieldName}",
+				fieldValue = "${fieldValue}");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		if (isSet(dmDocumentFileName)) {
@@ -115,12 +122,21 @@ definition {
 				value1 = "${textField}");
 		}
 
+<<<<<<< HEAD
 		if (isSet(numericField)) {
 			var key_fieldName = "Numeric";
 
 			Type(
 				locator1 = "TextInput#NUMERIC",
 				value1 = "${numericField}");
+=======
+		if (isSet(numberField)) {
+			var key_fieldLabel = "Numeric";
+
+			Type(
+				locator1 = "TextInput#GENERIC_TEXT_INPUT",
+				value1 = "${numberField}");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		if (isSet(validationError)) {
@@ -1228,7 +1244,11 @@ definition {
 	macro linkImage {
 		ItemSelector.gotoItemSelectorViaAlloyEditor();
 
+<<<<<<< HEAD
 		ItemSelector.addImageFromURL(
+=======
+		ItemSelector.addFromURL(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			imageSourceURL = "${dmDocumentURL}",
 			navTab = "${navTab}");
 

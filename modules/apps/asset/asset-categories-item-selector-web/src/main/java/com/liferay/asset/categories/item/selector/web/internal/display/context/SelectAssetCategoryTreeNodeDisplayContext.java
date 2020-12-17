@@ -15,36 +15,55 @@
 package com.liferay.asset.categories.item.selector.web.internal.display.context;
 
 import com.liferay.asset.categories.item.selector.AssetCategoryTreeNodeItemSelectorReturnType;
+<<<<<<< HEAD
 import com.liferay.asset.categories.item.selector.web.internal.constants.AssetCategoryTreeNodeConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetVocabulary;
 import com.liferay.asset.kernel.service.AssetCategoryServiceUtil;
 import com.liferay.asset.kernel.service.AssetVocabularyServiceUtil;
+<<<<<<< HEAD
 import com.liferay.petra.string.StringPool;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.portlet.PortletURLUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.servlet.taglib.ui.BreadcrumbEntry;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.JavaConstants;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.ListUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Iterator;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+<<<<<<< HEAD
 import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
+=======
+import javax.portlet.PortletRequest;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import javax.portlet.PortletURL;
 
 import javax.servlet.http.HttpServletRequest;
@@ -66,6 +85,7 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 			WebKeys.THEME_DISPLAY);
 	}
 
+<<<<<<< HEAD
 	public SearchContainer<AssetCategory> getAssetCategorySearchContainer()
 		throws PortalException {
 
@@ -77,6 +97,16 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 
 		searchContainer.setResults(assetCategories);
 		searchContainer.setTotal(assetCategories.size());
+=======
+	public SearchContainer<AssetCategory> getAssetCategorySearchContainer() {
+		SearchContainer<AssetCategory> searchContainer = new SearchContainer<>(
+			_getPortletRequest(), _portletURL, null, "no-items-to-display");
+
+		List<AssetCategory> assetVocabularies = _getAssetCategories();
+
+		searchContainer.setResults(assetVocabularies);
+		searchContainer.setTotal(assetVocabularies.size());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return searchContainer;
 	}
@@ -93,6 +123,7 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 	}
 
 	public String getAssetCategoryTreeNodeName() throws PortalException {
+<<<<<<< HEAD
 		String assetCategoryTreeNodeType = getAssetCategoryTreeNodeType();
 
 		if (assetCategoryTreeNodeType.equals(
@@ -116,11 +147,20 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 			if (assetVocabulary != null) {
 				return assetVocabulary.getName();
 			}
+=======
+		AssetVocabulary assetVocabulary =
+			AssetVocabularyServiceUtil.fetchVocabulary(
+				getAssetCategoryTreeNodeId());
+
+		if (assetVocabulary != null) {
+			return assetVocabulary.getName();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return null;
 	}
 
+<<<<<<< HEAD
 	public String getAssetCategoryTreeNodeType() {
 		if (_assetCategoryTreeNodeType != null) {
 			return _assetCategoryTreeNodeType;
@@ -143,11 +183,17 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 	public List<BreadcrumbEntry> getBreadcrumbEntries()
 		throws PortalException, PortletException {
 
+=======
+	public List<BreadcrumbEntry> getBreadcrumbEntries() throws PortalException {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		List<BreadcrumbEntry> breadcrumbEntries = new ArrayList<>();
 
 		breadcrumbEntries.add(_getAssetVocabulariesBreadcrumbEntry());
 		breadcrumbEntries.add(_getAssetVocabularyBreadcrumbEntry());
+<<<<<<< HEAD
 		breadcrumbEntries.addAll(_getAssetCategoryBreadcrumbEntries());
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return breadcrumbEntries;
 	}
@@ -183,6 +229,7 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 		};
 	}
 
+<<<<<<< HEAD
 	private List<AssetCategory> _getAssetCategories() throws PortalException {
 		String assetCategoryTreeNodeType = getAssetCategoryTreeNodeType();
 
@@ -274,6 +321,15 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 			"assetCategoryTreeNodeType", assetCategoryTreeNodeType);
 
 		return portletURL.toString();
+=======
+	private List<AssetCategory> _getAssetCategories() {
+		int count = AssetCategoryServiceUtil.getVocabularyRootCategoriesCount(
+			_themeDisplay.getScopeGroupId(), getAssetCategoryTreeNodeId());
+
+		return AssetCategoryServiceUtil.getVocabularyRootCategories(
+			_themeDisplay.getScopeGroupId(), getAssetCategoryTreeNodeId(), 0,
+			count, null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private BreadcrumbEntry _getAssetVocabulariesBreadcrumbEntry() {
@@ -289,6 +345,7 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 	}
 
 	private BreadcrumbEntry _getAssetVocabularyBreadcrumbEntry()
+<<<<<<< HEAD
 		throws PortalException, PortletException {
 
 		long assetCategoryTreeNodeId = getAssetCategoryTreeNodeId();
@@ -315,6 +372,17 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 				_getAssetCategoryTreeNodeURL(
 					assetVocabularyId,
 					AssetCategoryTreeNodeConstants.TYPE_ASSET_VOCABULARY));
+=======
+		throws PortalException {
+
+		AssetVocabulary assetVocabulary =
+			AssetVocabularyServiceUtil.fetchVocabulary(
+				getAssetCategoryTreeNodeId());
+
+		if (assetVocabulary != null) {
+			return _createBreadcrumbEntry(
+				assetVocabulary.getTitle(_themeDisplay.getLocale()), null);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return null;
@@ -326,7 +394,10 @@ public class SelectAssetCategoryTreeNodeDisplayContext {
 	}
 
 	private Long _assetCategoryTreeNodeId;
+<<<<<<< HEAD
 	private String _assetCategoryTreeNodeType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private final HttpServletRequest _httpServletRequest;
 	private final String _itemSelectedEventName;
 	private final PortletURL _portletURL;

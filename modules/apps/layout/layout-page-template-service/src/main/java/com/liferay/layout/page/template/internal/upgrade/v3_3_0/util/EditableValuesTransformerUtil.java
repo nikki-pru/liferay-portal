@@ -166,6 +166,7 @@ public class EditableValuesTransformerUtil {
 		JSONObject jsonObject, long segmentsExperienceId) {
 
 		if (!jsonObject.has(_ID_PREFIX + segmentsExperienceId)) {
+<<<<<<< HEAD
 			JSONObject newJSONObject = JSONFactoryUtil.createJSONObject();
 
 			Iterator<String> valueKeysIterator = jsonObject.keys();
@@ -179,6 +180,9 @@ public class EditableValuesTransformerUtil {
 			}
 
 			return newJSONObject;
+=======
+			return JSONFactoryUtil.createJSONObject();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return jsonObject.getJSONObject(_ID_PREFIX + segmentsExperienceId);

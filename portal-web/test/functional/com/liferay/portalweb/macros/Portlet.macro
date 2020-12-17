@@ -269,6 +269,7 @@ definition {
 				Click(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
 			}
 			else {
+<<<<<<< HEAD
 				MouseOver.mouseOverInvisible(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
 
 				while (IsNotVisible(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON")) {
@@ -276,6 +277,9 @@ definition {
 
 					MouseOver.mouseOverInvisible(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
 				}
+=======
+				MouseOver.mouseOverNotVisible(locator1 = "Portlet#PORTLET_TOPPER");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 				Click.waitForMenuToggleJSClick(locator1 = "Portlet#SPECIFIC_BORDERLESS_ELLIPSIS_ICON");
 			}

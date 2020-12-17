@@ -35,7 +35,11 @@ public class ResourceBundleInfoLocalizedValue
 	implements InfoLocalizedValue<String> {
 
 	public ResourceBundleInfoLocalizedValue(Class<?> clazz, String valueKey) {
+<<<<<<< HEAD
 		_clazz = clazz;
+=======
+		_class = clazz;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_valueKey = valueKey;
 
 		_symbolicName = null;
@@ -47,7 +51,11 @@ public class ResourceBundleInfoLocalizedValue
 		_symbolicName = symbolicName;
 		_valueKey = valueKey;
 
+<<<<<<< HEAD
 		_clazz = null;
+=======
+		_class = null;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -87,8 +95,13 @@ public class ResourceBundleInfoLocalizedValue
 		ResourceBundle resourceBundle = null;
 
 		try {
+<<<<<<< HEAD
 			if (_clazz != null) {
 				resourceBundle = ResourceBundleUtil.getBundle(locale, _clazz);
+=======
+			if (_class != null) {
+				resourceBundle = ResourceBundleUtil.getBundle(locale, _class);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 			else {
 				resourceBundle = ResourceBundleUtil.getBundle(
@@ -117,7 +130,11 @@ public class ResourceBundleInfoLocalizedValue
 	private static final Log _log = LogFactoryUtil.getLog(
 		ResourceBundleInfoLocalizedValue.class);
 
+<<<<<<< HEAD
 	private final Class<?> _clazz;
+=======
+	private final Class<?> _class;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private final String _symbolicName;
 	private final String _valueKey;
 

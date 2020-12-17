@@ -40,6 +40,7 @@ import org.json.JSONObject;
  */
 public abstract class BaseSpiraArtifact implements SpiraArtifact {
 
+<<<<<<< HEAD
 	public static String fixStringForJSON(String string) {
 		int maxJSONStringSize = 2048;
 
@@ -53,6 +54,8 @@ public abstract class BaseSpiraArtifact implements SpiraArtifact {
 		return string;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static int getArtifactTypeID(
 		Class<? extends SpiraArtifact> spiraArtifactClass) {
 
@@ -71,11 +74,14 @@ public abstract class BaseSpiraArtifact implements SpiraArtifact {
 		return (String)_getClassField(spiraArtifactClass, "KEY_ID");
 	}
 
+<<<<<<< HEAD
 	public static String toDateString(Calendar calendar) {
 		return JenkinsResultsParserUtil.combine(
 			"/Date(", String.valueOf(calendar.getTimeInMillis()), ")/");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Override
 	public boolean equals(Object object) {
 		if (!Objects.equals(getClass(), object.getClass())) {
@@ -105,11 +111,14 @@ public abstract class BaseSpiraArtifact implements SpiraArtifact {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public String getKeyID() {
 		return getKeyID(getClass());
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getName() {
 		return jsonObject.getString("Name");
 	}
@@ -120,7 +129,10 @@ public abstract class BaseSpiraArtifact implements SpiraArtifact {
 			getSpiraProject(), getClass());
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public SpiraCustomPropertyValue getSpiraCustomPropertyValue(
 		String spiraCustomPropertyName) {
 
@@ -377,6 +389,14 @@ public abstract class BaseSpiraArtifact implements SpiraArtifact {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	protected static String toDateString(Calendar calendar) {
+		return JenkinsResultsParserUtil.combine(
+			"/Date(", String.valueOf(calendar.getTimeInMillis()), ")/");
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected BaseSpiraArtifact(JSONObject jsonObject) {
 		this.jsonObject = jsonObject;
 	}

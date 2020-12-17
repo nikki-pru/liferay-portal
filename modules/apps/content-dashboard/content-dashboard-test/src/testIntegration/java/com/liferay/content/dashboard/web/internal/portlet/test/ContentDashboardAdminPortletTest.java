@@ -169,12 +169,22 @@ public class ContentDashboardAdminPortletTest {
 				},
 				new String[0], new long[0], null);
 
+<<<<<<< HEAD
+=======
+			MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+				_getMockLiferayPortletRenderRequest();
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			Assert.assertEquals(
 				String.format(
 					"Content per %s and %s",
 					assetVocabulary.getTitle(LocaleUtil.US),
 					childAssetVocabulary.getTitle(LocaleUtil.US)),
+<<<<<<< HEAD
 				_getAuditGraphTitle(_getMockLiferayPortletRenderRequest()));
+=======
+				_getAuditGraphTitle(mockLiferayPortletRenderRequest));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 		finally {
 			_assetCategoryLocalService.deleteAssetCategory(assetCategory);
@@ -188,9 +198,17 @@ public class ContentDashboardAdminPortletTest {
 
 		JournalTestUtil.addArticle(_user.getUserId(), _group.getGroupId(), 0);
 
+<<<<<<< HEAD
 		Assert.assertEquals(
 			"Content",
 			_getAuditGraphTitle(_getMockLiferayPortletRenderRequest()));
+=======
+		MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+			_getMockLiferayPortletRenderRequest();
+
+		Assert.assertEquals(
+			"Content", _getAuditGraphTitle(mockLiferayPortletRenderRequest));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -220,10 +238,20 @@ public class ContentDashboardAdminPortletTest {
 				new long[] {assetCategory.getCategoryId()}, new String[0],
 				new long[0], null);
 
+<<<<<<< HEAD
 			Assert.assertEquals(
 				String.format(
 					"Content per %s", assetVocabulary.getTitle(LocaleUtil.US)),
 				_getAuditGraphTitle(_getMockLiferayPortletRenderRequest()));
+=======
+			MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+				_getMockLiferayPortletRenderRequest();
+
+			Assert.assertEquals(
+				String.format(
+					"Content per %s", assetVocabulary.getTitle(LocaleUtil.US)),
+				_getAuditGraphTitle(mockLiferayPortletRenderRequest));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 		finally {
 			_assetCategoryLocalService.deleteAssetCategory(assetCategory);
@@ -232,8 +260,15 @@ public class ContentDashboardAdminPortletTest {
 
 	@Test
 	public void testGetContextWithLtrLanguageDirection() throws Exception {
+<<<<<<< HEAD
 		Map<String, Object> data = _getData(
 			_getMockLiferayPortletRenderRequest());
+=======
+		MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+			_getMockLiferayPortletRenderRequest();
+
+		Map<String, Object> data = _getData(mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Map<String, Object> context = (Map<String, Object>)data.get("context");
 
@@ -319,8 +354,16 @@ public class ContentDashboardAdminPortletTest {
 				},
 				new String[0], new long[0], null);
 
+<<<<<<< HEAD
 			Map<String, Object> data = _getData(
 				_getMockLiferayPortletRenderRequest());
+=======
+			MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+				_getMockLiferayPortletRenderRequest();
+
+			Map<String, Object> data = _getData(
+				mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Map<String, Object> props = (Map<String, Object>)data.get("props");
 
@@ -398,8 +441,16 @@ public class ContentDashboardAdminPortletTest {
 			JournalTestUtil.addArticle(
 				_user.getUserId(), _group.getGroupId(), 0);
 
+<<<<<<< HEAD
 			Map<String, Object> data = _getData(
 				_getMockLiferayPortletRenderRequest());
+=======
+			MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+				_getMockLiferayPortletRenderRequest();
+
+			Map<String, Object> data = _getData(
+				mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Map<String, Object> props = (Map<String, Object>)data.get("props");
 
@@ -455,8 +506,16 @@ public class ContentDashboardAdminPortletTest {
 				new long[] {childAssetCategory.getCategoryId()}, new String[0],
 				new long[0], null);
 
+<<<<<<< HEAD
 			Map<String, Object> data = _getData(
 				_getMockLiferayPortletRenderRequest());
+=======
+			MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+				_getMockLiferayPortletRenderRequest();
+
+			Map<String, Object> data = _getData(
+				mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Map<String, Object> props = (Map<String, Object>)data.get("props");
 
@@ -493,8 +552,15 @@ public class ContentDashboardAdminPortletTest {
 
 		JournalTestUtil.addArticle(_user.getUserId(), _group.getGroupId(), 0);
 
+<<<<<<< HEAD
 		Map<String, Object> data = _getData(
 			_getMockLiferayPortletRenderRequest());
+=======
+		MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+			_getMockLiferayPortletRenderRequest();
+
+		Map<String, Object> data = _getData(mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Map<String, Object> props = (Map<String, Object>)data.get("props");
 
@@ -532,8 +598,16 @@ public class ContentDashboardAdminPortletTest {
 				new long[] {assetCategory.getCategoryId()}, new String[0],
 				new long[0], null);
 
+<<<<<<< HEAD
 			Map<String, Object> data = _getData(
 				_getMockLiferayPortletRenderRequest());
+=======
+			MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+				_getMockLiferayPortletRenderRequest();
+
+			Map<String, Object> data = _getData(
+				mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Map<String, Object> props = (Map<String, Object>)data.get("props");
 
@@ -837,8 +911,16 @@ public class ContentDashboardAdminPortletTest {
 		JournalArticle journalArticle2 = JournalTestUtil.addArticle(
 			_user.getUserId(), _group.getGroupId(), 0);
 
+<<<<<<< HEAD
 		SearchContainer<Object> searchContainer = _getSearchContainer(
 			_getMockLiferayPortletRenderRequest());
+=======
+		MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+			_getMockLiferayPortletRenderRequest();
+
+		SearchContainer<Object> searchContainer = _getSearchContainer(
+			mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Assert.assertEquals(2, searchContainer.getTotal());
 
@@ -971,8 +1053,16 @@ public class ContentDashboardAdminPortletTest {
 				_user.getUserId(), _group.getGroupId(), 0);
 		}
 
+<<<<<<< HEAD
 		SearchContainer<Object> searchContainer = _getSearchContainer(
 			_getMockLiferayPortletRenderRequest());
+=======
+		MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+			_getMockLiferayPortletRenderRequest();
+
+		SearchContainer<Object> searchContainer = _getSearchContainer(
+			mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Assert.assertEquals(
 			SearchContainer.DEFAULT_DELTA + 1, searchContainer.getTotal());
@@ -1170,8 +1260,16 @@ public class ContentDashboardAdminPortletTest {
 				journalArticle, RandomTestUtil.randomString(),
 				journalArticle.getContent(), true, false, serviceContext);
 
+<<<<<<< HEAD
 			SearchContainer<Object> searchContainer = _getSearchContainer(
 				_getMockLiferayPortletRenderRequest());
+=======
+			MockLiferayPortletRenderRequest mockLiferayPortletRenderRequest =
+				_getMockLiferayPortletRenderRequest();
+
+			SearchContainer<Object> searchContainer = _getSearchContainer(
+				mockLiferayPortletRenderRequest);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Assert.assertEquals(1, searchContainer.getTotal());
 

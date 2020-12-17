@@ -26,13 +26,18 @@ const Switcher = ({
 	onChange,
 	required,
 	showLabel,
+<<<<<<< HEAD
 	showMaximumRepetitionsInfo,
 	spritemap,
 	systemSettingsURL,
+=======
+	spritemap,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }) => {
 	const [checked, setChecked] = useState(initialChecked);
 
 	return (
+<<<<<<< HEAD
 		<>
 			<label className="ddm-toggle-switch toggle-switch">
 				<input
@@ -86,6 +91,40 @@ const Switcher = ({
 				</div>
 			)}
 		</>
+=======
+		<label className="ddm-toggle-switch toggle-switch">
+			<input
+				checked={checked}
+				className="toggle-switch-check"
+				disabled={disabled}
+				name={name}
+				onChange={(event) => {
+					setChecked(event.target.checked);
+					onChange(event, event.target.checked);
+				}}
+				type="checkbox"
+				value={true}
+			/>
+
+			<span aria-hidden="true" className="toggle-switch-bar">
+				<span className="toggle-switch-handle"></span>
+
+				{(showLabel || required) && (
+					<span className="toggle-switch-text toggle-switch-text-right">
+						{showLabel && label}
+
+						{required && (
+							<ClayIcon
+								className="reference-mark"
+								spritemap={spritemap}
+								symbol="asterisk"
+							/>
+						)}
+					</span>
+				)}
+			</span>
+		</label>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	);
 };
 
@@ -132,9 +171,13 @@ const Main = ({
 	required,
 	showAsSwitcher = true,
 	showLabel = true,
+<<<<<<< HEAD
 	showMaximumRepetitionsInfo = false,
 	spritemap,
 	systemSettingsURL,
+=======
+	spritemap,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	value,
 	...otherProps
 }) => {
@@ -157,9 +200,13 @@ const Main = ({
 				onChange={onChange}
 				required={required}
 				showLabel={showLabel}
+<<<<<<< HEAD
 				showMaximumRepetitionsInfo={showMaximumRepetitionsInfo}
 				spritemap={spritemap}
 				systemSettingsURL={systemSettingsURL}
+=======
+				spritemap={spritemap}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			/>
 		</FieldBase>
 	);

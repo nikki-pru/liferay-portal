@@ -680,7 +680,11 @@
 </tr>
 <tr>
 	<td>TRANSLATIONS_LOCALIZATION</td>
+<<<<<<< HEAD
 	<td>//div[contains(@class,'dropdown')]//button[contains(@class,'dropdown-toggle')]//*[name()='svg'][contains(@class,'lexicon-icon-${key_currentLocale}')]</td>
+=======
+	<td>//div[contains(@class,'dropdown')]//button[contains(@class,'dropdown-toggle')]//span[*[name()='svg'][contains(@class,'lexicon-icon-${key_currentLocale}')]]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>

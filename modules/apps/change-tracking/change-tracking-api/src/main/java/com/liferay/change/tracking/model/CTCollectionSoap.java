@@ -39,7 +39,10 @@ public class CTCollectionSoap implements Serializable {
 		soapModel.setUserId(model.getUserId());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+<<<<<<< HEAD
 		soapModel.setSchemaVersionId(model.getSchemaVersionId());
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		soapModel.setName(model.getName());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setStatus(model.getStatus());
@@ -146,6 +149,7 @@ public class CTCollectionSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+<<<<<<< HEAD
 	public long getSchemaVersionId() {
 		return _schemaVersionId;
 	}
@@ -154,6 +158,8 @@ public class CTCollectionSoap implements Serializable {
 		_schemaVersionId = schemaVersionId;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getName() {
 		return _name;
 	}
@@ -200,7 +206,10 @@ public class CTCollectionSoap implements Serializable {
 	private long _userId;
 	private Date _createDate;
 	private Date _modifiedDate;
+<<<<<<< HEAD
 	private long _schemaVersionId;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private String _name;
 	private String _description;
 	private int _status;

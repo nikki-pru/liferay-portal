@@ -29,15 +29,23 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.product.navigation.control.menu.constants.ProductNavigationControlMenuPortletKeys;
+<<<<<<< HEAD
 import com.liferay.segments.SegmentsEntryRetriever;
 import com.liferay.segments.constants.SegmentsEntryConstants;
 import com.liferay.segments.context.RequestContextMapper;
+=======
+import com.liferay.segments.constants.SegmentsEntryConstants;
+import com.liferay.segments.constants.SegmentsWebKeys;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 
+<<<<<<< HEAD
 import javax.servlet.http.HttpServletRequest;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -70,9 +78,12 @@ public class AddCollectionItemMVCActionCommand extends BaseMVCActionCommand {
 
 		hideDefaultSuccessMessage(actionRequest);
 
+<<<<<<< HEAD
 		HttpServletRequest httpServletRequest = _portal.getHttpServletRequest(
 			actionRequest);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if ((assetListEntry.getType() ==
 				AssetListEntryTypeConstants.TYPE_MANUAL) &&
 			Validator.isNotNull(className) && (classPK > 0)) {
@@ -84,7 +95,11 @@ public class AddCollectionItemMVCActionCommand extends BaseMVCActionCommand {
 				actionRequest);
 
 			long[] segmentsEntryIds = GetterUtil.getLongValues(
+<<<<<<< HEAD
 				_getSegmentsEntryIds(httpServletRequest),
+=======
+				actionRequest.getAttribute(SegmentsWebKeys.SEGMENTS_ENTRY_IDS),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				new long[] {SegmentsEntryConstants.ID_DEFAULT});
 
 			for (long segmentsEntryId : segmentsEntryIds) {
@@ -94,11 +109,18 @@ public class AddCollectionItemMVCActionCommand extends BaseMVCActionCommand {
 			}
 		}
 
+<<<<<<< HEAD
 		SessionMessages.add(httpServletRequest, "collectionItemAdded");
+=======
+		SessionMessages.add(
+			_portal.getHttpServletRequest(actionRequest),
+			"collectionItemAdded");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		sendRedirect(actionRequest, actionResponse);
 	}
 
+<<<<<<< HEAD
 	private long[] _getSegmentsEntryIds(HttpServletRequest httpServletRequest)
 		throws Exception {
 
@@ -108,6 +130,8 @@ public class AddCollectionItemMVCActionCommand extends BaseMVCActionCommand {
 			_requestContextMapper.map(httpServletRequest));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Reference
 	private AssetEntryService _assetEntryService;
 
@@ -117,10 +141,13 @@ public class AddCollectionItemMVCActionCommand extends BaseMVCActionCommand {
 	@Reference
 	private Portal _portal;
 
+<<<<<<< HEAD
 	@Reference
 	private RequestContextMapper _requestContextMapper;
 
 	@Reference
 	private SegmentsEntryRetriever _segmentsEntryRetriever;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

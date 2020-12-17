@@ -59,6 +59,7 @@ public class LayoutSetPrototypeLocalServiceWrapper
 				java.util.Map<java.util.Locale, java.lang.String>
 					descriptionMap,
 				boolean active, boolean layoutsUpdateable,
+<<<<<<< HEAD
 				boolean readyForPropagation, ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -75,6 +76,8 @@ public class LayoutSetPrototypeLocalServiceWrapper
 				java.util.Map<java.util.Locale, java.lang.String>
 					descriptionMap,
 				boolean active, boolean layoutsUpdateable,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -460,6 +463,7 @@ public class LayoutSetPrototypeLocalServiceWrapper
 				java.util.Map<java.util.Locale, java.lang.String>
 					descriptionMap,
 				boolean active, boolean layoutsUpdateable,
+<<<<<<< HEAD
 				boolean readyForPropagation, ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -476,6 +480,8 @@ public class LayoutSetPrototypeLocalServiceWrapper
 				java.util.Map<java.util.Locale, java.lang.String>
 					descriptionMap,
 				boolean active, boolean layoutsUpdateable,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 

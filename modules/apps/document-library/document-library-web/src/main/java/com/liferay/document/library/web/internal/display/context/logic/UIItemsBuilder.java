@@ -1099,8 +1099,19 @@ public class UIItemsBuilder {
 			return _currentURL;
 		}
 
+<<<<<<< HEAD
 		PortletURL portletURL = PortletURLUtil.getCurrent(
 			_getLiferayPortletRequest(), _getLiferayPortletResponse());
+=======
+		LiferayPortletRequest liferayPortletRequest =
+			_getLiferayPortletRequest();
+
+		LiferayPortletResponse liferayPortletResponse =
+			_getLiferayPortletResponse();
+
+		PortletURL portletURL = PortletURLUtil.getCurrent(
+			liferayPortletRequest, liferayPortletResponse);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		_currentURL = portletURL.toString();
 

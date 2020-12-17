@@ -70,8 +70,11 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portlet.PortletPreferencesImpl;
+<<<<<<< HEAD
 import com.liferay.segments.SegmentsEntryRetriever;
 import com.liferay.segments.context.RequestContextMapper;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,8 +154,12 @@ public class AssetPublisherConfigurationAction
 				assetListAssetEntryProvider, assetPublisherCustomizer,
 				assetPublisherHelper, assetPublisherWebConfiguration,
 				assetPublisherWebHelper, infoListProviderTracker, itemSelector,
+<<<<<<< HEAD
 				renderRequest, renderResponse, renderRequest.getPreferences(),
 				requestContextMapper, segmentsEntryRetriever);
+=======
+				renderRequest, renderResponse, renderRequest.getPreferences());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		httpServletRequest.setAttribute(
 			AssetPublisherWebKeys.ASSET_PUBLISHER_DISPLAY_CONTEXT,
@@ -861,12 +868,15 @@ public class AssetPublisherConfigurationAction
 	protected Portal portal;
 
 	@Reference
+<<<<<<< HEAD
 	protected RequestContextMapper requestContextMapper;
 
 	@Reference
 	protected SegmentsEntryRetriever segmentsEntryRetriever;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected Staging staging;
 
 	private AssetPublisherPortletInstanceConfiguration

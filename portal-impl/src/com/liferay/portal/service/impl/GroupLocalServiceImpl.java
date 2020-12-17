@@ -254,6 +254,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
+<<<<<<< HEAD
 		if (site && (PropsValues.DATA_LIMIT_MAX_SITE_COUNT > 0) &&
 			(groupPersistence.countByC_S(user.getCompanyId(), site) >=
 				PropsValues.DATA_LIMIT_MAX_SITE_COUNT)) {
@@ -262,6 +263,8 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				"Unable to exceed maximum number of allowed sites");
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		className = GetterUtil.getString(className);
 
 		long classNameId = classNameLocalService.getClassNameId(className);
@@ -975,10 +978,14 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 			// Expando
 
+<<<<<<< HEAD
 			expandoRowLocalService.deleteRows(
 				group.getCompanyId(),
 				classNameLocalService.getClassNameId(Group.class.getName()),
 				group.getGroupId());
+=======
+			expandoRowLocalService.deleteRows(group.getGroupId());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			// Social
 

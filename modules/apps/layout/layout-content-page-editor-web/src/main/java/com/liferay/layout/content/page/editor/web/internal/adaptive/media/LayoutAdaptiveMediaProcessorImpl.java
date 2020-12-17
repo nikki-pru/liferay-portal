@@ -68,6 +68,13 @@ public class LayoutAdaptiveMediaProcessorImpl
 
 	@Override
 	public String processAdaptiveMediaContent(String content) {
+<<<<<<< HEAD
+=======
+		if (!_ffLayoutContentPageEditorConfiguration.adaptiveMediaEnabled()) {
+			return content;
+		}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String processedContent = _contentTransformerHandler.transform(
 			ContentTransformerContentTypes.HTML, content);
 
@@ -253,7 +260,11 @@ public class LayoutAdaptiveMediaProcessorImpl
 		LayoutAdaptiveMediaProcessorImpl.class);
 
 	private static final Pattern _cssPropertyPattern = Pattern.compile(
+<<<<<<< HEAD
 		"--background-image-file-entry-id:\\s*(\\d+);");
+=======
+		"--background-image-file-entry-id:(\\d+);");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Reference
 	private AMImageConfigurationHelper _amImageConfigurationHelper;

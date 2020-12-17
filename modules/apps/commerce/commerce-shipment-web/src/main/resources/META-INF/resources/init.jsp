@@ -44,7 +44,11 @@ page import="com.liferay.commerce.model.CommerceShipmentItem" %><%@
 page import="com.liferay.commerce.product.model.CommerceChannel" %><%@
 page import="com.liferay.commerce.shipment.web.internal.display.context.CommerceShipmentDisplayContext" %><%@
 page import="com.liferay.commerce.shipment.web.internal.display.context.CommerceShipmentItemDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.shipment.web.internal.servlet.taglib.ui.constants.CommerceShipmentScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.shipment.web.internal.servlet.taglib.ui.CommerceShipmentScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.util.CalendarFactoryUtil" %><%@

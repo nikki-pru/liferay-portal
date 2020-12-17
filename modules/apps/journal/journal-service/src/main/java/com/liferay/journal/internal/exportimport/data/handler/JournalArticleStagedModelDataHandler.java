@@ -16,10 +16,13 @@ package com.liferay.journal.internal.exportimport.data.handler;
 
 import com.liferay.asset.display.page.model.AssetDisplayPageEntry;
 import com.liferay.asset.display.page.service.AssetDisplayPageEntryLocalService;
+<<<<<<< HEAD
 import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetTag;
 import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.asset.kernel.service.AssetTagLocalService;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.changeset.model.ChangesetCollection;
 import com.liferay.changeset.service.ChangesetCollectionLocalService;
 import com.liferay.changeset.service.ChangesetEntryLocalService;
@@ -32,7 +35,10 @@ import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
 import com.liferay.exportimport.content.processor.ExportImportContentProcessor;
 import com.liferay.exportimport.data.handler.base.BaseStagedModelDataHandler;
 import com.liferay.exportimport.kernel.exception.ExportImportRuntimeException;
+<<<<<<< HEAD
 import com.liferay.exportimport.kernel.lar.ExportImportClassedModelUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.exportimport.kernel.lar.ExportImportPathUtil;
 import com.liferay.exportimport.kernel.lar.ExportImportThreadLocal;
 import com.liferay.exportimport.kernel.lar.PortletDataContext;
@@ -1106,6 +1112,7 @@ public class JournalArticleStagedModelDataHandler
 		}
 	}
 
+<<<<<<< HEAD
 	@Override
 	protected void exportAssetCategories(
 			PortletDataContext portletDataContext, JournalArticle stagedModel)
@@ -1139,6 +1146,8 @@ public class JournalArticleStagedModelDataHandler
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected JournalArticle fetchExistingArticle(
 		String articleResourceUuid, long groupId, String articleId,
 		String newArticleId, boolean preloaded) {
@@ -1413,6 +1422,7 @@ public class JournalArticleStagedModelDataHandler
 		}
 	}
 
+<<<<<<< HEAD
 	private long _getClassPK(JournalArticle article) {
 		if (article.isScheduled() &&
 			(article.getVersion() != JournalArticleConstants.VERSION_DEFAULT)) {
@@ -1423,6 +1433,8 @@ public class JournalArticleStagedModelDataHandler
 		return article.getResourcePrimKey();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private void _importAssetDisplayPage(
 			PortletDataContext portletDataContext, JournalArticle article,
 			JournalArticle importedArticle)
@@ -1715,16 +1727,22 @@ public class JournalArticleStagedModelDataHandler
 		JournalArticleStagedModelDataHandler.class);
 
 	@Reference
+<<<<<<< HEAD
 	private AssetCategoryLocalService _assetCategoryLocalService;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private AssetDisplayPageEntryLocalService
 		_assetDisplayPageEntryLocalService;
 
 	@Reference
+<<<<<<< HEAD
 	private AssetTagLocalService _assetTagLocalService;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private ChangesetCollectionLocalService _changesetCollectionLocalService;
 
 	@Reference

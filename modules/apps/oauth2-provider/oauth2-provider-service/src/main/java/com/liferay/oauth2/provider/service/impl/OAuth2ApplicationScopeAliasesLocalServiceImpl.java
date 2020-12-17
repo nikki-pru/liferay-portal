@@ -224,10 +224,18 @@ public class OAuth2ApplicationScopeAliasesLocalServiceImpl
 					getOAuth2ApplicationScopeAliasesId(),
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
+<<<<<<< HEAD
 		Map<LiferayOAuth2Scope, List<String>> liferayOAuth2ScopesScopeAliases =
 			_getLiferayOAuth2ScopesScopeAliases(
 				oAuth2ApplicationScopeAliases.getCompanyId(),
 				_getScopeAliasesList(oAuth2ScopeGrants));
+=======
+		List<String> scopeAliasesList = _getScopeAliasesList(oAuth2ScopeGrants);
+
+		Map<LiferayOAuth2Scope, List<String>> liferayOAuth2ScopesScopeAliases =
+			_getLiferayOAuth2ScopesScopeAliases(
+				oAuth2ApplicationScopeAliases.getCompanyId(), scopeAliasesList);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (_hasUpToDateScopeGrants(
 				oAuth2ScopeGrants, liferayOAuth2ScopesScopeAliases)) {
@@ -258,7 +266,10 @@ public class OAuth2ApplicationScopeAliasesLocalServiceImpl
 				simpleEntryScopeAliases) {
 
 			_simpleEntryScopeAliases = simpleEntryScopeAliases;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_scopes = new ArrayList<>();
 			_scopeAliases = new ArrayList<>();
 		}

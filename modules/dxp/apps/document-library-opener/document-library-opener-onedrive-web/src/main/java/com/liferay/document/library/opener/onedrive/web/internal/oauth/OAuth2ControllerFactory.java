@@ -150,23 +150,36 @@ public class OAuth2ControllerFactory {
 	private static class OAuth2Result {
 
 		public OAuth2Result(JSONObject responseJSONObject) {
+<<<<<<< HEAD
 			_responseJSONObject = responseJSONObject;
 
 			_portalException = null;
+=======
+			_portalException = null;
+			_responseJSONObject = responseJSONObject;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_redirectURL = null;
 		}
 
 		public OAuth2Result(PortalException portalException) {
 			_portalException = portalException;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_responseJSONObject = null;
 			_redirectURL = null;
 		}
 
 		public OAuth2Result(String redirectURL) {
+<<<<<<< HEAD
 			_redirectURL = redirectURL;
 
 			_portalException = null;
+=======
+			_portalException = null;
+			_redirectURL = redirectURL;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_responseJSONObject = null;
 		}
 

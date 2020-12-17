@@ -15,6 +15,7 @@
 import ClayForm, {ClaySelectWithOption} from '@clayui/form';
 import React, {useState} from 'react';
 
+<<<<<<< HEAD
 import {BACKGROUND_IMAGE_FRAGMENT_ENTRY_PROCESSOR} from '../../../../app/config/constants/backgroundImageFragmentEntryProcessor';
 import {EDITABLE_FRAGMENT_ENTRY_PROCESSOR} from '../../../../app/config/constants/editableFragmentEntryProcessor';
 import {EDITABLE_TYPES} from '../../../../app/config/constants/editableTypes';
@@ -33,6 +34,13 @@ import {ImageSelector} from '../../../../common/components/ImageSelector';
 import {ImageSelectorDescription} from '../../../../common/components/ImageSelectorDescription';
 import {ImageSelectorSize} from '../../../../common/components/ImageSelectorSize';
 import {getEditableItemPropTypes} from '../../../../prop-types/index';
+=======
+import {useSelector} from '../../../../app/store/index';
+import isMapped from '../../../../app/utils/isMapped';
+import {useId} from '../../../../app/utils/useId';
+import getEditableItemPropTypes from '../../../../prop-types/getEditableItemPropTypes';
+import {ImagePropertiesPanel} from './ImagePropertiesPanel';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import {MappingPanel} from './MappingPanel';
 
 const SOURCE_OPTIONS = {
@@ -50,10 +58,13 @@ export default function ImageSourcePanel({item}) {
 	const fragmentEntryLinks = useSelector((state) => state.fragmentEntryLinks);
 	const sourceSelectionInputId = useId();
 
+<<<<<<< HEAD
 	const selectedViewportSize = useSelector(
 		(state) => state.selectedViewportSize
 	);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	const editableValue =
 		fragmentEntryLinks[item.fragmentEntryLinkId].editableValues[
 			item.editableValueNamespace
@@ -65,6 +76,7 @@ export default function ImageSourcePanel({item}) {
 			: SOURCE_OPTIONS.direct.value
 	);
 
+<<<<<<< HEAD
 	let ConfigurationPanel = DirectImagePanel;
 
 	if (source === SOURCE_OPTIONS.mapping.value) {
@@ -97,6 +109,32 @@ export default function ImageSourcePanel({item}) {
 			)}
 
 			{ConfigurationPanel && <ConfigurationPanel item={item} />}
+=======
+	const ConfigurationPanel =
+		source === SOURCE_OPTIONS.direct.value
+			? ImagePropertiesPanel
+			: MappingPanel;
+
+	return (
+		<>
+			<ClayForm>
+				<ClayForm.Group>
+					<label htmlFor={sourceSelectionInputId}>
+						{Liferay.Language.get('source-selection')}
+					</label>
+
+					<ClaySelectWithOption
+						className="form-control form-control-sm mb-3"
+						id={sourceSelectionInputId}
+						onChange={(event) => setSource(event.target.value)}
+						options={Object.values(SOURCE_OPTIONS)}
+						value={source}
+					/>
+				</ClayForm.Group>
+			</ClayForm>
+
+			<ConfigurationPanel item={item} />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		</>
 	);
 }
@@ -104,6 +142,7 @@ export default function ImageSourcePanel({item}) {
 ImageSourcePanel.propTypes = {
 	item: getEditableItemPropTypes().isRequired,
 };
+<<<<<<< HEAD
 
 function DirectImagePanel({item}) {
 	const {editableId, fragmentEntryLinkId, type} = item;
@@ -282,3 +321,5 @@ function DirectImagePanel({item}) {
 DirectImagePanel.propTypes = {
 	item: getEditableItemPropTypes().isRequired,
 };
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

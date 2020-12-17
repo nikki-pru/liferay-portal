@@ -12,6 +12,10 @@
  * details.
  */
 
+<<<<<<< HEAD
+=======
+import getJsModule from '../utilities/modules';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import ActionsLinkRenderer from './ActionLinkRenderer';
 import ActionsDropdownRenderer from './ActionsDropdownRenderer';
 import BooleanRenderer from './BooleanRenderer';
@@ -24,7 +28,11 @@ import LinkRenderer from './LinkRenderer';
 import ListRenderer from './ListRenderer';
 import QuantitySelectorRenderer from './QuantitySelectorRenderer';
 import StatusRenderer from './StatusRenderer';
+<<<<<<< HEAD
 import TooltipSummaryRenderer from './TooltipSummaryRenderer';
+=======
+import TooltipPriceRenderer from './TooltipPriceRenderer';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 const dataRenderers = {
 	actionLink: ActionsLinkRenderer,
@@ -39,7 +47,40 @@ const dataRenderers = {
 	list: ListRenderer,
 	quantitySelector: QuantitySelectorRenderer,
 	status: StatusRenderer,
+<<<<<<< HEAD
 	tooltipSummary: TooltipSummaryRenderer,
 };
 
 export default dataRenderers;
+=======
+	tooltipPrice: TooltipPriceRenderer,
+};
+
+export function getDataRendererById(id) {
+	return dataRenderers[id] || DefaultRenderer;
+}
+
+export const fetchedContentRenderers = [];
+
+export function getDataRendererByURL(url) {
+	return new Promise((resolve, reject) => {
+		const addedDataRenderer = fetchedContentRenderers.find(
+			(cr) => cr.url === url
+		);
+		if (addedDataRenderer) {
+			resolve(addedDataRenderer.component);
+		}
+
+		return getJsModule(url)
+			.then((fetchedComponent) => {
+				fetchedContentRenderers.push({
+					component: fetchedComponent,
+					url,
+				});
+
+				return resolve(fetchedComponent);
+			})
+			.catch(reject);
+	});
+}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381

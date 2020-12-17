@@ -351,6 +351,7 @@
 			<finder-column name="companyId" />
 			<finder-column name="active" />
 		</finder>
+<<<<<<< HEAD
 		<finder name="C_Name" return-type="Country" unique="true">
 			<finder-column name="companyId" />
 			<finder-column name="name" />
@@ -375,6 +376,15 @@
 		<reference entity="Address" package-path="com.liferay.portal" />
 		<reference entity="Organization" package-path="com.liferay.portal" />
 		<reference entity="Region" package-path="com.liferay.portal" />
+=======
+		<finder name="C_N" return-type="Country" unique="true">
+			<finder-column name="companyId" />
+			<finder-column name="name" />
+		</finder>
+
+		<!-- References -->
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<reference entity="User" package-path="com.liferay.portal" />
 	</entity>
 	<entity local-service="true" name="EmailAddress" remote-service="true" uuid="true">
@@ -2149,9 +2159,13 @@
 
 		<!-- References -->
 
+<<<<<<< HEAD
 		<reference entity="Address" package-path="com.liferay.portal" />
 		<reference entity="Country" package-path="com.liferay.portal" />
 		<reference entity="Organization" package-path="com.liferay.portal" />
+=======
+		<reference entity="Country" package-path="com.liferay.portal" />
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<reference entity="User" package-path="com.liferay.portal" />
 	</entity>
 	<entity local-service="true" name="Release" remote-service="false">
@@ -2650,9 +2664,12 @@
 
 		<!-- Finder methods -->
 
+<<<<<<< HEAD
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
 		</finder>

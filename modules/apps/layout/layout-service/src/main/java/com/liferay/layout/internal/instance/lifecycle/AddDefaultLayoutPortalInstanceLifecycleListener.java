@@ -29,15 +29,21 @@ import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.model.LayoutTemplate;
 import com.liferay.portal.kernel.model.LayoutTypePortlet;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.role.RoleConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.module.framework.ModuleServiceLifecycle;
 import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.LayoutSetLocalService;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.service.RoleLocalService;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -50,8 +56,11 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.util.PropsUtil;
 import com.liferay.portal.util.PropsValues;
 
+<<<<<<< HEAD
 import java.util.List;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
@@ -79,15 +88,24 @@ public class AddDefaultLayoutPortalInstanceLifecycleListener
 	protected void addDefaultGuestPublicLayoutByProperties(Group group)
 		throws PortalException {
 
+<<<<<<< HEAD
 		User user = _getUser(group.getCompanyId());
 
+=======
+		long defaultUserId = _userLocalService.getDefaultUserId(
+			group.getCompanyId());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String friendlyURL = FriendlyURLNormalizerUtil.normalizeWithEncoding(
 			PropsValues.DEFAULT_GUEST_PUBLIC_LAYOUT_FRIENDLY_URL);
 
 		ServiceContext serviceContext = new ServiceContext();
 
 		Layout layout = _layoutLocalService.addLayout(
+<<<<<<< HEAD
 			user.getUserId(), group.getGroupId(), false,
+=======
+			defaultUserId, group.getGroupId(), false,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID,
 			PropsValues.DEFAULT_GUEST_PUBLIC_LAYOUT_NAME, StringPool.BLANK,
 			StringPool.BLANK, LayoutConstants.TYPE_CONTENT, false, friendlyURL,
@@ -108,6 +126,7 @@ public class AddDefaultLayoutPortalInstanceLifecycleListener
 
 			layout = _layoutCopyHelper.copyLayout(draftLayout, layout);
 
+<<<<<<< HEAD
 			LayoutTypePortlet layoutTypePortlet =
 				(LayoutTypePortlet)layout.getLayoutType();
 
@@ -130,6 +149,8 @@ public class AddDefaultLayoutPortalInstanceLifecycleListener
 				layout.getGroupId(), layout.isPrivateLayout(),
 				layout.getLayoutId(), layout.getTypeSettings());
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_layoutLocalService.updatePriority(
 				layout.getPlid(), LayoutConstants.FIRST_PRIORITY);
 
@@ -140,6 +161,7 @@ public class AddDefaultLayoutPortalInstanceLifecycleListener
 			_layoutLocalService.updateStatus(
 				layout.getUserId(), draftLayout.getPlid(),
 				WorkflowConstants.STATUS_APPROVED, serviceContext);
+<<<<<<< HEAD
 
 			boolean updateLayoutSet = false;
 
@@ -175,6 +197,64 @@ public class AddDefaultLayoutPortalInstanceLifecycleListener
 		finally {
 			PrincipalThreadLocal.setName(currentName);
 			ServiceContextThreadLocal.pushServiceContext(currentServiceContext);
+=======
+		}
+		catch (Exception exception) {
+			throw new PortalException(exception);
+		}
+		finally {
+			PrincipalThreadLocal.setName(currentName);
+			ServiceContextThreadLocal.pushServiceContext(currentServiceContext);
+		}
+
+		LayoutTypePortlet layoutTypePortlet =
+			(LayoutTypePortlet)layout.getLayoutType();
+
+		layoutTypePortlet.setLayoutTemplateId(
+			0, PropsValues.DEFAULT_GUEST_PUBLIC_LAYOUT_TEMPLATE_ID, false);
+
+		LayoutTemplate layoutTemplate = layoutTypePortlet.getLayoutTemplate();
+
+		for (String columnId : layoutTemplate.getColumns()) {
+			String keyPrefix = PropsKeys.DEFAULT_GUEST_PUBLIC_LAYOUT_PREFIX;
+
+			String portletIds = PropsUtil.get(keyPrefix.concat(columnId));
+
+			layoutTypePortlet.addPortletIds(
+				0, StringUtil.split(portletIds), columnId, false);
+		}
+
+		_layoutLocalService.updateLayout(
+			layout.getGroupId(), layout.isPrivateLayout(), layout.getLayoutId(),
+			layout.getTypeSettings());
+
+		boolean updateLayoutSet = false;
+
+		LayoutSet layoutSet = layout.getLayoutSet();
+
+		if (Validator.isNotNull(
+				PropsValues.DEFAULT_GUEST_PUBLIC_LAYOUT_REGULAR_THEME_ID)) {
+
+			layoutSet.setThemeId(
+				PropsValues.DEFAULT_GUEST_PUBLIC_LAYOUT_REGULAR_THEME_ID);
+
+			updateLayoutSet = true;
+		}
+
+		if (Validator.isNotNull(
+				PropsValues.
+					DEFAULT_GUEST_PUBLIC_LAYOUT_REGULAR_COLOR_SCHEME_ID)) {
+
+			layoutSet.setColorSchemeId(
+				PropsValues.
+					DEFAULT_GUEST_PUBLIC_LAYOUT_REGULAR_COLOR_SCHEME_ID);
+
+			updateLayoutSet = true;
+		}
+
+		if (updateLayoutSet) {
+			_layoutSetLocalService.updateLayoutSet(layoutSet);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 
@@ -191,6 +271,7 @@ public class AddDefaultLayoutPortalInstanceLifecycleListener
 		ModuleServiceLifecycle moduleServiceLifecycle) {
 	}
 
+<<<<<<< HEAD
 	private User _getUser(long companyId) throws PortalException {
 		Role role = _roleLocalService.fetchRole(
 			companyId, RoleConstants.ADMINISTRATOR);
@@ -209,6 +290,8 @@ public class AddDefaultLayoutPortalInstanceLifecycleListener
 		return adminUsers.get(0);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Reference
 	private DefaultLayoutDefinitionImporter _defaultLayoutDefinitionImporter;
 
@@ -228,9 +311,12 @@ public class AddDefaultLayoutPortalInstanceLifecycleListener
 	private Portal _portal;
 
 	@Reference
+<<<<<<< HEAD
 	private RoleLocalService _roleLocalService;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private UserLocalService _userLocalService;
 
 }

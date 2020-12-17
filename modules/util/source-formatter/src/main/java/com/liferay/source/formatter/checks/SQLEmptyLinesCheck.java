@@ -41,8 +41,14 @@ public class SQLEmptyLinesCheck extends BaseFileCheck {
 			}
 
 			String previousSQLCommand = _getSQLCommand(previousLine);
+<<<<<<< HEAD
 
 			if (!previousSQLCommand.equals(_getSQLCommand(line))) {
+=======
+			String sqlCommand = _getSQLCommand(line);
+
+			if (!previousSQLCommand.equals(sqlCommand)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				return StringUtil.replace(
 					content, previousLine + "\n" + line,
 					previousLine + "\n\n" + line);

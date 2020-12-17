@@ -7,7 +7,11 @@
 
 .app-builder-root {
 	@import 'pages/edit_app';
+<<<<<<< HEAD
 	@import 'pages/edit_app_entry';
+=======
+	@import 'pages/edit_entry';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@import 'pages/form_view';
 	@import 'pages/table_view';
 	@import 'pages/view_entry';

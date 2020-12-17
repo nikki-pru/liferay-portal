@@ -14,7 +14,10 @@
 
 package com.liferay.commerce.price.list.web.internal.frontend;
 
+<<<<<<< HEAD
 import com.liferay.commerce.price.list.web.internal.frontend.constants.CommercePriceListDataSetConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.frontend.taglib.clay.data.set.ClayDataSetDisplayView;
 import com.liferay.frontend.taglib.clay.data.set.view.table.BaseTableClayDataSetDisplayView;
 import com.liferay.frontend.taglib.clay.data.set.view.table.ClayTableSchema;

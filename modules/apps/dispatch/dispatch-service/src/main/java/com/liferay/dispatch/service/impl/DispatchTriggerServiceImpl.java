@@ -15,24 +15,37 @@
 package com.liferay.dispatch.service.impl;
 
 import com.liferay.dispatch.constants.DispatchActionKeys;
+<<<<<<< HEAD
 import com.liferay.dispatch.constants.DispatchConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dispatch.executor.DispatchTaskClusterMode;
 import com.liferay.dispatch.model.DispatchTrigger;
 import com.liferay.dispatch.service.base.DispatchTriggerServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.GroupConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
+=======
+import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.UnicodeProperties;
 
 import java.util.List;
 
 import org.osgi.service.component.annotations.Component;
+<<<<<<< HEAD
 import org.osgi.service.component.annotations.Reference;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Alessio Antonio Rendina
@@ -52,9 +65,14 @@ public class DispatchTriggerServiceImpl extends DispatchTriggerServiceBaseImpl {
 			UnicodeProperties taskSettingsUnicodeProperties)
 		throws PortalException {
 
+<<<<<<< HEAD
 		_portletResourcePermission.check(
 			getPermissionChecker(), GroupConstants.DEFAULT_LIVE_GROUP_ID,
 			DispatchActionKeys.ADD_DISPATCH_TRIGGER);
+=======
+		PortalPermissionUtil.check(
+			getPermissionChecker(), DispatchActionKeys.ADD_DISPATCH_TRIGGER);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return dispatchTriggerLocalService.addDispatchTrigger(
 			userId, name, false, taskExecutorType,
@@ -140,9 +158,12 @@ public class DispatchTriggerServiceImpl extends DispatchTriggerServiceBaseImpl {
 				"_dispatchTriggerModelResourcePermission",
 				DispatchTrigger.class);
 
+<<<<<<< HEAD
 	@Reference(
 		target = "(resource.name=" + DispatchConstants.RESOURCE_NAME + ")"
 	)
 	private PortletResourcePermission _portletResourcePermission;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

@@ -27,7 +27,10 @@ import com.liferay.dynamic.data.mapping.io.DDMFormLayoutSerializer;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutSerializerSerializeRequest;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutSerializerSerializeResponse;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.DDMFormLayout;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayoutColumn;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayoutPage;
@@ -41,6 +44,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -51,6 +55,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+=======
+import com.liferay.portal.kernel.util.ListUtil;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -86,8 +97,11 @@ public class DataLayoutUtil {
 
 		return new DataLayout() {
 			{
+<<<<<<< HEAD
 				dataLayoutFields = _toDataLayoutFields(
 					ddmFormLayout.getDDMFormFields());
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				dataLayoutPages = _toDataLayoutPages(
 					ddmFormLayout.getDDMFormLayoutPages());
 				dataRules = _toDataRules(
@@ -133,8 +147,11 @@ public class DataLayoutUtil {
 
 		DDMFormLayout ddmFormLayout = new DDMFormLayout();
 
+<<<<<<< HEAD
 		ddmFormLayout.setDDMFormFields(
 			_toDDMFormFields(dataLayout.getDataLayoutFields()));
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		ddmFormLayout.setDDMFormLayoutPages(
 			_toDDMFormLayoutPages(
 				dataLayout.getDataLayoutPages(), ddmForm.getDefaultLocale()));
@@ -199,6 +216,7 @@ public class DataLayoutUtil {
 		);
 	}
 
+<<<<<<< HEAD
 	private static Map<String, Object> _toDataLayoutFields(
 		List<DDMFormField> ddmFormFields) {
 
@@ -214,6 +232,8 @@ public class DataLayoutUtil {
 		return dataLayoutFields;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static DataLayoutPage _toDataLayoutPage(
 		DDMFormLayoutPage ddmFormLayoutPage) {
 
@@ -323,6 +343,7 @@ public class DataLayoutUtil {
 		return dataRules;
 	}
 
+<<<<<<< HEAD
 	private static List<DDMFormField> _toDDMFormFields(
 		Map<String, Object> dataLayoutFields) {
 
@@ -349,6 +370,8 @@ public class DataLayoutUtil {
 		return ddmFormFields;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static DDMFormLayoutColumn _toDDMFormLayoutColumn(
 		DataLayoutColumn dataLayoutColumn) {
 

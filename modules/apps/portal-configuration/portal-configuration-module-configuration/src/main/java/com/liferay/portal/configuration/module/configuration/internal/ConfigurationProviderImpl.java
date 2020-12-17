@@ -55,18 +55,34 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 	public <T> void deleteCompanyConfiguration(Class<T> clazz, long companyId)
 		throws ConfigurationException {
 
+<<<<<<< HEAD
 		_deleteFactoryConfiguration(
 			_getConfigurationPid(clazz),
 			ExtendedObjectClassDefinition.Scope.COMPANY, companyId);
+=======
+		String configurationPid = _getConfigurationPid(clazz);
+
+		_deleteFactoryConfiguration(
+			configurationPid, ExtendedObjectClassDefinition.Scope.COMPANY,
+			companyId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
 	public <T> void deleteGroupConfiguration(Class<T> clazz, long groupId)
 		throws ConfigurationException {
 
+<<<<<<< HEAD
 		_deleteFactoryConfiguration(
 			_getConfigurationPid(clazz),
 			ExtendedObjectClassDefinition.Scope.GROUP, groupId);
+=======
+		String configurationPid = _getConfigurationPid(clazz);
+
+		_deleteFactoryConfiguration(
+			configurationPid, ExtendedObjectClassDefinition.Scope.GROUP,
+			groupId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -74,8 +90,15 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 			Class<T> clazz, String portletId)
 		throws ConfigurationException {
 
+<<<<<<< HEAD
 		_deleteFactoryConfiguration(
 			_getConfigurationPid(clazz),
+=======
+		String configurationPid = _getConfigurationPid(clazz);
+
+		_deleteFactoryConfiguration(
+			configurationPid,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ExtendedObjectClassDefinition.Scope.PORTLET_INSTANCE, portletId);
 	}
 
@@ -83,7 +106,13 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 	public <T> void deleteSystemConfiguration(Class<T> clazz)
 		throws ConfigurationException {
 
+<<<<<<< HEAD
 		_deleteConfiguration(_getConfigurationPid(clazz));
+=======
+		String configurationPid = _getConfigurationPid(clazz);
+
+		_deleteConfiguration(configurationPid);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -167,9 +196,17 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 			Dictionary<String, Object> properties)
 		throws ConfigurationException {
 
+<<<<<<< HEAD
 		_saveFactoryConfiguration(
 			_getConfigurationPid(clazz),
 			ExtendedObjectClassDefinition.Scope.COMPANY, companyId, properties);
+=======
+		String configurationPid = _getConfigurationPid(clazz);
+
+		_saveFactoryConfiguration(
+			configurationPid, ExtendedObjectClassDefinition.Scope.COMPANY,
+			companyId, properties);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -177,9 +214,17 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 			Class<T> clazz, long groupId, Dictionary<String, Object> properties)
 		throws ConfigurationException {
 
+<<<<<<< HEAD
 		_saveFactoryConfiguration(
 			_getConfigurationPid(clazz),
 			ExtendedObjectClassDefinition.Scope.GROUP, groupId, properties);
+=======
+		String configurationPid = _getConfigurationPid(clazz);
+
+		_saveFactoryConfiguration(
+			configurationPid, ExtendedObjectClassDefinition.Scope.GROUP,
+			groupId, properties);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -188,8 +233,15 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 			Dictionary<String, Object> properties)
 		throws ConfigurationException {
 
+<<<<<<< HEAD
 		_saveFactoryConfiguration(
 			_getConfigurationPid(clazz),
+=======
+		String configurationPid = _getConfigurationPid(clazz);
+
+		_saveFactoryConfiguration(
+			configurationPid,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			ExtendedObjectClassDefinition.Scope.PORTLET_INSTANCE, portletId,
 			properties);
 	}
@@ -199,7 +251,13 @@ public class ConfigurationProviderImpl implements ConfigurationProvider {
 			Class<T> clazz, Dictionary<String, Object> properties)
 		throws ConfigurationException {
 
+<<<<<<< HEAD
 		_saveConfiguration(_getConfigurationPid(clazz), properties);
+=======
+		String configurationPid = _getConfigurationPid(clazz);
+
+		_saveConfiguration(configurationPid, properties);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private void _deleteConfiguration(String pid)

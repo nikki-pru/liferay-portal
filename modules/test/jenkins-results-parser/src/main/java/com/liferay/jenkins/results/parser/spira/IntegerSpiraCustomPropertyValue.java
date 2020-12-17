@@ -23,6 +23,7 @@ public class IntegerSpiraCustomPropertyValue
 	extends SpiraCustomPropertyValue<Integer> {
 
 	@Override
+<<<<<<< HEAD
 	public JSONObject getCustomPropertyJSONObject() {
 		JSONObject customPropertyJSONObject =
 			super.getCustomPropertyJSONObject();
@@ -33,6 +34,8 @@ public class IntegerSpiraCustomPropertyValue
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public Integer getValue() {
 		return jsonObject.optInt("IntegerValue");
 	}
@@ -53,6 +56,19 @@ public class IntegerSpiraCustomPropertyValue
 	}
 
 	@Override
+<<<<<<< HEAD
+=======
+	protected JSONObject getCustomPropertyJSONObject() {
+		JSONObject customPropertyJSONObject =
+			super.getCustomPropertyJSONObject();
+
+		customPropertyJSONObject.put("IntegerValue", getValue());
+
+		return customPropertyJSONObject;
+	}
+
+	@Override
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected JSONObject getFilterJSONObject() {
 		JSONObject filterJSONObject = super.getFilterJSONObject();
 

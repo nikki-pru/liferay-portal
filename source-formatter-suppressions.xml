@@ -139,7 +139,10 @@
 		<suppress checks="BNDSuiteCheck" files="modules/apps/bookmarks/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/journal-properties-transformer-listener/app\.bnd" />
 		<suppress checks="BNDSuiteCheck" files="modules/apps/microblogs/app\.bnd" />
+<<<<<<< HEAD
 		<suppress checks="BNDSuiteCheck" files="modules/apps/polls/app\.bnd" />
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		<!-- Temporary suppressions for portal -->
 

@@ -63,12 +63,20 @@ public class RankingJSONBuilder {
 			WebKeys.THEME_DISPLAY);
 
 		_dlAppLocalService = dlAppLocalService;
+<<<<<<< HEAD
 		_fastDateFormatFactory = fastDateFormatFactory;
 		_resourceActions = resourceActions;
 
 		_dlConfiguration = ConfigurableUtil.createConfigurable(
 			DLConfiguration.class, new HashMap<String, Object>());
 		_locale = themeDisplay.getLocale();
+=======
+		_dlConfiguration = ConfigurableUtil.createConfigurable(
+			DLConfiguration.class, new HashMap<String, Object>());
+		_fastDateFormatFactory = fastDateFormatFactory;
+		_locale = themeDisplay.getLocale();
+		_resourceActions = resourceActions;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_themeDisplay = themeDisplay;
 	}
 

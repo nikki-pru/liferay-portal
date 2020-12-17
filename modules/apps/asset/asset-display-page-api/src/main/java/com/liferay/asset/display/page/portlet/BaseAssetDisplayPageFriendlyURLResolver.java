@@ -151,10 +151,19 @@ public abstract class BaseAssetDisplayPageFriendlyURLResolver
 			Map<String, Object> requestContext)
 		throws PortalException {
 
+<<<<<<< HEAD
 		LayoutDisplayPageObjectProvider<?> layoutDisplayPageObjectProvider =
 			_getLayoutDisplayPageObjectProvider(
 				_getLayoutDisplayPageProvider(friendlyURL), groupId,
 				friendlyURL);
+=======
+		LayoutDisplayPageProvider<?> layoutDisplayPageProvider =
+			_getLayoutDisplayPageProvider(friendlyURL);
+
+		LayoutDisplayPageObjectProvider<?> layoutDisplayPageObjectProvider =
+			_getLayoutDisplayPageObjectProvider(
+				layoutDisplayPageProvider, groupId, friendlyURL);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (layoutDisplayPageObjectProvider == null) {
 			throw new PortalException();

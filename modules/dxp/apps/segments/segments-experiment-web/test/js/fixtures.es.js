@@ -27,6 +27,10 @@ export const segmentsExperiment = {
 	editable: true,
 	goal: {
 		label: 'Bounce Rate',
+<<<<<<< HEAD
+=======
+		target: '',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		value: 'bounce-rate',
 	},
 	name: 'Experiment 1',

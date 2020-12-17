@@ -7,6 +7,10 @@
 		<permissions>
 			<supports>
 				<action-key>ADD_COMMUNITY</action-key>
+<<<<<<< HEAD
+=======
+				<action-key>ADD_DISPATCH_TRIGGER</action-key>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				<action-key>ADD_GENERAL_ANNOUNCEMENTS</action-key>
 				<action-key>ADD_LAYOUT_PROTOTYPE</action-key>
 				<action-key>ADD_LAYOUT_SET_PROTOTYPE</action-key>
@@ -24,7 +28,13 @@
 			</supports>
 			<site-member-defaults />
 			<guest-defaults />
+<<<<<<< HEAD
 			<guest-unsupported />
+=======
+			<guest-unsupported>
+				<action-key>ADD_DISPATCH_TRIGGER</action-key>
+			</guest-unsupported>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		</permissions>
 	</portlet-resource>
 	<model-resource>

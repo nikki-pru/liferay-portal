@@ -1012,6 +1012,19 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 					import com.liferay.jenkins.results.parser.test.clazz.group.SegmentTestClassGroup;
 					import com.liferay.jenkins.results.parser.test.clazz.group.TestClassGroupFactory;
 
+<<<<<<< HEAD
+=======
+					public BatchTestClassGroup.BuildProfile getBatchBuildProfile() {
+						String buildProfile = project.getProperty("build.profile");
+
+						if ((buildProfile != null) && buildProfile.equals("dxp")) {
+							return BatchTestClassGroup.BuildProfile.DXP;
+						}
+
+						return BatchTestClassGroup.BuildProfile.PORTAL;
+					}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					public String getBranchName() {
 						String branchName = project.getProperty("env.TEST_PORTAL_BRANCH_NAME");
 
@@ -1022,7 +1035,11 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 						return branchName;
 					}
 
+<<<<<<< HEAD
 					public Job.BuildProfile getBuildProfile() {
+=======
+					public Job.BuildProfile getJobBuildProfile() {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						String buildProfile = project.getProperty("build.profile");
 
 						if ((buildProfile != null) && buildProfile.equals("dxp")) {
@@ -1080,9 +1097,15 @@ jdbc.counter.connectionProperties=oracle.jdbc.ReadTimeout=0;oracle.net.CONNECT_T
 						return topLevelJobName;
 					}
 
+<<<<<<< HEAD
 					Job job = JobFactory.newJob(getTopLevelJobName(), getTestSuite(), getBranchName(), getRepositoryName(), getBuildProfile());
 
 					BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), job);
+=======
+					Job job = JobFactory.newJob(getTopLevelJobName(), getTestSuite(), getBranchName(), getRepositoryName(), getJobBuildProfile());
+
+					BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), getBatchBuildProfile(), job);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 					if (job.isSegmentEnabled()) {
 						SegmentTestClassGroup segmentTestClassGroup = batchTestClassGroup.getSegmentTestClassGroup(getSegmentID());
@@ -2535,12 +2558,15 @@ jdbc.default.password=${database.password}</echo>
 		</sequential>
 	</macrodef>
 
+<<<<<<< HEAD
 	<macrodef name="prepare-portal-template-freemarker-osgi-configuration">
 		<sequential>
 			<echo file="${liferay.home}/osgi/configs/com.liferay.portal.template.freemarker.configuration.FreeMarkerEngineConfiguration.config">asyncRenderTimeout=L"7200000"</echo>
 		</sequential>
 	</macrodef>
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<macrodef name="prepare-safari-driver">
 		<sequential>
 			<if>
@@ -3206,6 +3232,7 @@ ${tomcat-gc-log}
 					import com.liferay.jenkins.results.parser.test.clazz.group.NPMTestBatchTestClassGroup;
 					import com.liferay.jenkins.results.parser.test.clazz.group.TestClassGroupFactory;
 
+<<<<<<< HEAD
 					public Job.BuildProfile getBuildProfile() {
 						String testPortalBuildProfile = project.getProperty("build.profile");
 
@@ -3220,6 +3247,20 @@ ${tomcat-gc-log}
 						Job job = JobFactory.newJob(project.getProperty("top.level.job.name"), null, null, null, getBuildProfile());
 
 						BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), job);
+=======
+					try {
+						Job job = JobFactory.newJob(project.getProperty("top.level.job.name"));
+
+						BatchTestClassGroup.BuildProfile buildProfile = BatchTestClassGroup.BuildProfile.PORTAL;
+
+						String testPortalBuildProfile = project.getProperty("build.profile");
+
+						if ((testPortalBuildProfile != null) && testPortalBuildProfile.equals("dxp")) {
+							buildProfile = BatchTestClassGroup.BuildProfile.DXP;
+						}
+
+						BatchTestClassGroup batchTestClassGroup = TestClassGroupFactory.newBatchTestClassGroup(project.getProperty("test.batch.name"), buildProfile, job);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 						if (batchTestClassGroup instanceof JUnitBatchTestClassGroup ||
 							batchTestClassGroup instanceof NPMTestBatchTestClassGroup) {
@@ -6800,6 +6841,7 @@ go</echo>
 
 				<ant dir="portal-kernel" target="install-portal-snapshot" />
 
+<<<<<<< HEAD
 				<gradle-execute dir="modules/apps/analytics/analytics-demo-data-creator-api" task="deploy">
 					<arg value="clean" />
 				</gradle-execute>
@@ -6807,6 +6849,17 @@ go</echo>
 				<gradle-execute dir="modules/apps/analytics/analytics-demo-data-creator-impl" task="deploy">
 					<arg value="clean" />
 				</gradle-execute>
+=======
+				<mirrors-get
+					dest="${app.server.parent.dir}/osgi/modules/com.liferay.analytics.demo.data.creator.api.jar"
+					src="${baseline.jar.url}/com/liferay/com.liferay.analytics.demo.data.creator.api/${analytics.cloud.faro.data.creator.api}/com.liferay.analytics.demo.data.creator.api-${analytics.cloud.faro.data.creator.api}.jar"
+				/>
+
+				<mirrors-get
+					dest="${app.server.parent.dir}/osgi/modules/com.liferay.analytics.demo.data.creator.impl.jar"
+					src="${baseline.jar.url}/com/liferay/com.liferay.analytics.demo.data.creator.impl/${analytics.cloud.faro.data.creator.impl}/com.liferay.analytics.demo.data.creator.impl-${analytics.cloud.faro.data.creator.impl}.jar"
+				/>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 				<property location="${analytics.cloud.faro.data.csv}" name="analytics.cloud.faro.data.csv.file.path" />
 
@@ -8672,8 +8725,11 @@ osb.lcs.portlet.oauth.consumer.secret=${osb.lcs.portlet.oauth.consumer.secret}</
 		<prepare-portal-elasticsearch-osgi-configuration />
 
 		<prepare-portal-search-osgi-configuration/>
+<<<<<<< HEAD
 
 		<prepare-portal-template-freemarker-osgi-configuration />
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	</target>
 
 	<target name="prepare-patching-tool">

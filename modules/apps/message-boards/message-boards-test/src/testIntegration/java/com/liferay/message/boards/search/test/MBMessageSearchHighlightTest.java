@@ -134,7 +134,13 @@ public class MBMessageSearchHighlightTest {
 
 	private Document _search(String searchTerm) {
 		try {
+<<<<<<< HEAD
 			Hits hits = _indexer.search(_getSearchContext(searchTerm));
+=======
+			SearchContext searchContext = _getSearchContext(searchTerm);
+
+			Hits hits = _indexer.search(searchContext);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return _getSingleDocument(searchTerm, hits);
 		}

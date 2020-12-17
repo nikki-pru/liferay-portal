@@ -28,14 +28,21 @@ public class PortalPreferencesWrapperCacheUtil {
 		PortalPreferencesWrapperCacheUtil.class.getName();
 
 	public static PortalPreferencesWrapper get(long ownerId, int ownerType) {
+<<<<<<< HEAD
 		return _portalPreferencesWrapperPortalCache.get(
 			_getCacheKey(ownerId, ownerType));
+=======
+		String cacheKey = _getCacheKey(ownerId, ownerType);
+
+		return _portalPreferencesWrapperPortalCache.get(cacheKey);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public static void put(
 		long ownerId, int ownerType,
 		PortalPreferencesWrapper portalPreferencesWrapper) {
 
+<<<<<<< HEAD
 		PortalCacheHelperUtil.putWithoutReplicator(
 			_portalPreferencesWrapperPortalCache,
 			_getCacheKey(ownerId, ownerType), portalPreferencesWrapper);
@@ -44,6 +51,19 @@ public class PortalPreferencesWrapperCacheUtil {
 	public static void remove(long ownerId, int ownerType) {
 		_portalPreferencesWrapperPortalCache.remove(
 			_getCacheKey(ownerId, ownerType));
+=======
+		String cacheKey = _getCacheKey(ownerId, ownerType);
+
+		PortalCacheHelperUtil.putWithoutReplicator(
+			_portalPreferencesWrapperPortalCache, cacheKey,
+			portalPreferencesWrapper);
+	}
+
+	public static void remove(long ownerId, int ownerType) {
+		String cacheKey = _getCacheKey(ownerId, ownerType);
+
+		_portalPreferencesWrapperPortalCache.remove(cacheKey);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private static String _getCacheKey(long ownerId, int ownerType) {

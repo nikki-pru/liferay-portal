@@ -22,7 +22,10 @@ CommerceAccountDisplayContext commerceAccountDisplayContext = (CommerceAccountDi
 CommerceAccount commerceAccount = commerceAccountDisplayContext.getCurrentCommerceAccount();
 CommerceAddress billingAddress = commerceAccountDisplayContext.getDefaultBillingCommerceAddress();
 CommerceAddress shippingAddress = commerceAccountDisplayContext.getDefaultShippingCommerceAddress();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 PortletURL portletURL = commerceAccountDisplayContext.getPortletURL();
 
 portletURL.setParameter("mvcRenderCommandName", "viewCommerceAccount");

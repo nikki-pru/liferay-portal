@@ -95,9 +95,13 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.rss.util.RSSUtil;
+<<<<<<< HEAD
 import com.liferay.segments.SegmentsEntryRetriever;
 import com.liferay.segments.constants.SegmentsWebKeys;
 import com.liferay.segments.context.RequestContextMapper;
+=======
+import com.liferay.segments.constants.SegmentsWebKeys;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.io.Serializable;
 
@@ -148,9 +152,13 @@ public class AssetPublisherDisplayContext {
 			InfoListProviderTracker infoListProviderTracker,
 			ItemSelector itemSelector, PortletRequest portletRequest,
 			PortletResponse portletResponse,
+<<<<<<< HEAD
 			PortletPreferences portletPreferences,
 			RequestContextMapper requestContextMapper,
 			SegmentsEntryRetriever segmentsEntryRetriever)
+=======
+			PortletPreferences portletPreferences)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws ConfigurationException {
 
 		_assetEntryActionRegistry = assetEntryActionRegistry;
@@ -165,8 +173,11 @@ public class AssetPublisherDisplayContext {
 		_portletRequest = portletRequest;
 		_portletResponse = portletResponse;
 		_portletPreferences = portletPreferences;
+<<<<<<< HEAD
 		_requestContextMapper = requestContextMapper;
 		_segmentsEntryRetriever = segmentsEntryRetriever;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		_themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
@@ -2136,10 +2147,15 @@ public class AssetPublisherDisplayContext {
 	}
 
 	private long[] _getSegmentsEntryIds() {
+<<<<<<< HEAD
 		return _segmentsEntryRetriever.getSegmentsEntryIds(
 			_themeDisplay.getScopeGroupId(), _themeDisplay.getUserId(),
 			_requestContextMapper.map(
 				PortalUtil.getHttpServletRequest(_portletRequest)));
+=======
+		return GetterUtil.getLongValues(
+			_portletRequest.getAttribute(SegmentsWebKeys.SEGMENTS_ENTRY_IDS));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private boolean _isShowRelatedAssets() {
@@ -2215,13 +2231,19 @@ public class AssetPublisherDisplayContext {
 	private String _portletResource;
 	private final PortletResponse _portletResponse;
 	private long[] _referencedModelsGroupIds;
+<<<<<<< HEAD
 	private final RequestContextMapper _requestContextMapper;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private Integer _rssDelta;
 	private String _rssDisplayStyle;
 	private String _rssFeedType;
 	private String _rssName;
 	private SearchContainer<AssetEntry> _searchContainer;
+<<<<<<< HEAD
 	private final SegmentsEntryRetriever _segmentsEntryRetriever;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private String _selectionStyle;
 	private Boolean _showAddContentButton;
 	private Boolean _showAssetTitle;

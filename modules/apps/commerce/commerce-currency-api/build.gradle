@@ -5,6 +5,11 @@ dependencies {
 	compileOnly group: "org.osgi", name: "org.osgi.core", version: "5.0.0"
 	compileOnly project(":apps:static:portal-configuration:portal-configuration-metatype-api")
 	compileOnly project(":apps:static:portal-configuration:portal-configuration-persistence-api")
+<<<<<<< HEAD
 	compileOnly project(":core:petra:petra-sql-dsl-api")
 	compileOnly project(":core:petra:petra-string")
+=======
+	compileOnly project(":core:petra:petra-string")
+	compileOnly project(":core:petra:petra-sql-dsl-api")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

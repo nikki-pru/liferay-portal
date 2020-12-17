@@ -2,12 +2,17 @@
 <!DOCTYPE resource-action-mapping PUBLIC "-//Liferay//DTD Resource Action Mapping 7.0.0//EN" "http://www.liferay.com/dtd/liferay-resource-action-mapping_7_0_0.dtd">
 
 <resource-action-mapping>
+<<<<<<< HEAD
 	<model-resource>
 		<model-name>com.liferay.dispatch</model-name>
 		<portlet-ref>
 			<portlet-name>com_liferay_dispatch_web_internal_portlet_DispatchPortlet</portlet-name>
 		</portlet-ref>
 		<root>true</root>
+=======
+	<portlet-resource>
+		<portlet-name>90</portlet-name>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<permissions>
 			<supports>
 				<action-key>ADD_DISPATCH_TRIGGER</action-key>
@@ -18,7 +23,11 @@
 				<action-key>ADD_DISPATCH_TRIGGER</action-key>
 			</guest-unsupported>
 		</permissions>
+<<<<<<< HEAD
 	</model-resource>
+=======
+	</portlet-resource>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<model-resource>
 		<model-name>com.liferay.dispatch.model.DispatchTrigger</model-name>
 		<portlet-ref>

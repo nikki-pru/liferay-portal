@@ -222,6 +222,7 @@ public abstract class BaseCheck extends AbstractCheck {
 			StringPool.PERIOD + typeName;
 	}
 
+<<<<<<< HEAD
 	protected CommonHiddenStreamToken getHiddenAfter(DetailAST detailAST) {
 		CommonASTWithHiddenTokens commonASTWithHiddenTokens =
 			(CommonASTWithHiddenTokens)detailAST;
@@ -229,6 +230,8 @@ public abstract class BaseCheck extends AbstractCheck {
 		return commonASTWithHiddenTokens.getHiddenAfter();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected CommonHiddenStreamToken getHiddenBefore(DetailAST detailAST) {
 		CommonASTWithHiddenTokens commonASTWithHiddenTokens =
 			(CommonASTWithHiddenTokens)detailAST;
@@ -903,6 +906,7 @@ public abstract class BaseCheck extends AbstractCheck {
 		return false;
 	}
 
+<<<<<<< HEAD
 	protected boolean isMethodNameDetailAST(DetailAST identDetailAST) {
 		DetailAST parentDetailAST = identDetailAST.getParent();
 
@@ -925,6 +929,8 @@ public abstract class BaseCheck extends AbstractCheck {
 		return false;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected static final int ALL_TYPES = DetailASTUtil.ALL_TYPES;
 
 	protected static final int[] ARITHMETIC_OPERATOR_TOKEN_TYPES = {
@@ -971,7 +977,11 @@ public abstract class BaseCheck extends AbstractCheck {
 			detailAST, true, TokenTypes.IDENT);
 
 		for (DetailAST identDetailAST : identDetailASTList) {
+<<<<<<< HEAD
 			if (isMethodNameDetailAST(identDetailAST) ||
+=======
+			if (_isMethodNameDetailAST(identDetailAST) ||
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				dependentIdentDetailASTList.contains(identDetailAST)) {
 
 				continue;
@@ -1055,7 +1065,11 @@ public abstract class BaseCheck extends AbstractCheck {
 			detailAST, true, TokenTypes.IDENT);
 
 		for (DetailAST identDetailAST : identDetailASTList) {
+<<<<<<< HEAD
 			if (isMethodNameDetailAST(identDetailAST)) {
+=======
+			if (_isMethodNameDetailAST(identDetailAST)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				continue;
 			}
 
@@ -1152,6 +1166,31 @@ public abstract class BaseCheck extends AbstractCheck {
 		return false;
 	}
 
+<<<<<<< HEAD
+=======
+	private boolean _isMethodNameDetailAST(DetailAST identDetailAST) {
+		DetailAST parentDetailAST = identDetailAST.getParent();
+
+		if (parentDetailAST.getType() == TokenTypes.METHOD_CALL) {
+			return true;
+		}
+
+		if (parentDetailAST.getType() != TokenTypes.DOT) {
+			return false;
+		}
+
+		parentDetailAST = parentDetailAST.getParent();
+
+		if ((parentDetailAST.getType() == TokenTypes.METHOD_CALL) &&
+			(identDetailAST.getNextSibling() == null)) {
+
+			return true;
+		}
+
+		return false;
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private JSONObject _attributesJSONObject = new JSONObjectImpl();
 	private final Map<String, String> _attributeValueMap =
 		new ConcurrentHashMap<>();

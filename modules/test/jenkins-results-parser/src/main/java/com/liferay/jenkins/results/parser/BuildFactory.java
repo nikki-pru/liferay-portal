@@ -130,11 +130,14 @@ public class BuildFactory {
 				url, (TopLevelBuild)parentBuild);
 		}
 
+<<<<<<< HEAD
 		if (jobName.equals("test-portal-app-release")) {
 			return new PortalAppReleaseTopLevelBuild(
 				url, (TopLevelBuild)parentBuild);
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (jobName.equals("test-portal-fixpack-release")) {
 			return new PortalFixpackReleasePortalTopLevelBuild(
 				url, (TopLevelBuild)parentBuild);

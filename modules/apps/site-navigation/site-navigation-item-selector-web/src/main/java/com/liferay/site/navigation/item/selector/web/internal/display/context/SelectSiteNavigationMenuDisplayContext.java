@@ -197,8 +197,12 @@ public class SelectSiteNavigationMenuDisplayContext {
 
 		SearchContainer<SiteNavigationMenuEntry> searchContainer =
 			new SearchContainer<>(
+<<<<<<< HEAD
 				_getPortletRequest(), _portletURL, null,
 				"there-are-no-items-to-display");
+=======
+				_getPortletRequest(), _portletURL, null, "no-items-to-display");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		List<SiteNavigationMenuEntry> siteNavigationMenuItems =
 			_getSiteNavigationMenuItems();

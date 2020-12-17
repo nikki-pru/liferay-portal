@@ -26,14 +26,21 @@ definition {
 		BlogsNavigator.gotoAddEntry();
 
 		BlogsEntry.addEntryContent(
+<<<<<<< HEAD
 			depotName = "${depotName}",
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			embedVideo = "${embedVideo}",
 			entryContent = "${entryContent}",
 			entrySubtitle = "${entrySubtitle}",
 			entryTitle = "${entryTitle}",
 			navTab = "${navTab}",
+<<<<<<< HEAD
 			videoService = "${videoService}",
 			videoShortcutTitle = "${videoShortcutTitle}");
+=======
+			videoService = "${videoService}");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (isSet(readingTime)) {
 			var key_readingTime = "${readingTime}";

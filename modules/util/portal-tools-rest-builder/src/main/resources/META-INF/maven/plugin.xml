@@ -7,7 +7,11 @@
 	<description/>
 	<groupId>com.liferay</groupId>
 	<artifactId>com.liferay.portal.tools.rest.builder</artifactId>
+<<<<<<< HEAD
 	<version>1.0.142</version>
+=======
+	<version>1.0.139</version>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<goalPrefix>rest-builder</goalPrefix>
 	<isolatedRealm>false</isolatedRealm>
 	<inheritedByDefault>true</inheritedByDefault>

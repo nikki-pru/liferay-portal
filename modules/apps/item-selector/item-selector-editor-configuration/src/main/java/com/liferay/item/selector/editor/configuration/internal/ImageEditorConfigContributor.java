@@ -49,8 +49,12 @@ public class ImageEditorConfigContributor extends BaseEditorConfigContributor {
 
 		boolean allowBrowseDocuments = GetterUtil.getBoolean(
 			inputEditorTaglibAttributes.get(
+<<<<<<< HEAD
 				"liferay-ui:input-editor:allowBrowseDocuments"),
 			true);
+=======
+				"liferay-ui:input-editor:allowBrowseDocuments"));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (allowBrowseDocuments) {
 			itemSelectorCriteria.add(new ImageItemSelectorCriterion());

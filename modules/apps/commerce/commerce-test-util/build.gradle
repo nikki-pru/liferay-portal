@@ -12,6 +12,10 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-price-list-api")
 	compileOnly project(":apps:commerce:commerce-product-api")
 	compileOnly project(":apps:commerce:commerce-product-test-util")
+<<<<<<< HEAD
+=======
+	compileOnly project(":apps:commerce:commerce-product-test-util")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":apps:commerce:commerce-shipping-engine-fixed-api")
 	compileOnly project(":apps:commerce:commerce-tax-api")
 	compileOnly project(":apps:commerce:commerce-tax-engine-fixed-api")

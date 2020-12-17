@@ -76,8 +76,12 @@ public class AccountGroupModelImpl
 		{"accountGroupId", Types.BIGINT}, {"companyId", Types.BIGINT},
 		{"userId", Types.BIGINT}, {"userName", Types.VARCHAR},
 		{"createDate", Types.TIMESTAMP}, {"modifiedDate", Types.TIMESTAMP},
+<<<<<<< HEAD
 		{"defaultAccountGroup", Types.BOOLEAN}, {"description", Types.VARCHAR},
 		{"name", Types.VARCHAR}
+=======
+		{"name", Types.VARCHAR}, {"description", Types.VARCHAR}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	};
 
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP =
@@ -92,6 +96,7 @@ public class AccountGroupModelImpl
 		TABLE_COLUMNS_MAP.put("userName", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
+<<<<<<< HEAD
 		TABLE_COLUMNS_MAP.put("defaultAccountGroup", Types.BOOLEAN);
 		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
@@ -99,6 +104,14 @@ public class AccountGroupModelImpl
 
 	public static final String TABLE_SQL_CREATE =
 		"create table AccountGroup (mvccVersion LONG default 0 not null,externalReferenceCode VARCHAR(75) null,accountGroupId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,defaultAccountGroup BOOLEAN,description VARCHAR(75) null,name VARCHAR(75) null)";
+=======
+		TABLE_COLUMNS_MAP.put("name", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("description", Types.VARCHAR);
+	}
+
+	public static final String TABLE_SQL_CREATE =
+		"create table AccountGroup (mvccVersion LONG default 0 not null,externalReferenceCode VARCHAR(75) null,accountGroupId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description VARCHAR(75) null)";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	public static final String TABLE_SQL_DROP = "drop table AccountGroup";
 
@@ -124,6 +137,7 @@ public class AccountGroupModelImpl
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link #getColumnBitmask(String)
 	 */
 	@Deprecated
+<<<<<<< HEAD
 	public static final long DEFAULTACCOUNTGROUP_COLUMN_BITMASK = 2L;
 
 	/**
@@ -131,13 +145,20 @@ public class AccountGroupModelImpl
 	 */
 	@Deprecated
 	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 4L;
+=======
+	public static final long EXTERNALREFERENCECODE_COLUMN_BITMASK = 2L;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), replaced by {@link
 	 *		#getColumnBitmask(String)
 	 */
 	@Deprecated
+<<<<<<< HEAD
 	public static final long ACCOUNTGROUPID_COLUMN_BITMASK = 8L;
+=======
+	public static final long ACCOUNTGROUPID_COLUMN_BITMASK = 4L;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * @deprecated As of Athanasius (7.3.x), with no direct replacement
@@ -176,9 +197,14 @@ public class AccountGroupModelImpl
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
+<<<<<<< HEAD
 		model.setDefaultAccountGroup(soapModel.isDefaultAccountGroup());
 		model.setDescription(soapModel.getDescription());
 		model.setName(soapModel.getName());
+=======
+		model.setName(soapModel.getName());
+		model.setDescription(soapModel.getDescription());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return model;
 	}
@@ -366,20 +392,29 @@ public class AccountGroupModelImpl
 		attributeSetterBiConsumers.put(
 			"modifiedDate",
 			(BiConsumer<AccountGroup, Date>)AccountGroup::setModifiedDate);
+<<<<<<< HEAD
 		attributeGetterFunctions.put(
 			"defaultAccountGroup", AccountGroup::getDefaultAccountGroup);
 		attributeSetterBiConsumers.put(
 			"defaultAccountGroup",
 			(BiConsumer<AccountGroup, Boolean>)
 				AccountGroup::setDefaultAccountGroup);
+=======
+		attributeGetterFunctions.put("name", AccountGroup::getName);
+		attributeSetterBiConsumers.put(
+			"name", (BiConsumer<AccountGroup, String>)AccountGroup::setName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		attributeGetterFunctions.put(
 			"description", AccountGroup::getDescription);
 		attributeSetterBiConsumers.put(
 			"description",
 			(BiConsumer<AccountGroup, String>)AccountGroup::setDescription);
+<<<<<<< HEAD
 		attributeGetterFunctions.put("name", AccountGroup::getName);
 		attributeSetterBiConsumers.put(
 			"name", (BiConsumer<AccountGroup, String>)AccountGroup::setName);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		_attributeGetterFunctions = Collections.unmodifiableMap(
 			attributeGetterFunctions);
@@ -560,6 +595,7 @@ public class AccountGroupModelImpl
 
 	@JSON
 	@Override
+<<<<<<< HEAD
 	public boolean getDefaultAccountGroup() {
 		return _defaultAccountGroup;
 	}
@@ -572,10 +608,24 @@ public class AccountGroupModelImpl
 
 	@Override
 	public void setDefaultAccountGroup(boolean defaultAccountGroup) {
+=======
+	public String getName() {
+		if (_name == null) {
+			return "";
+		}
+		else {
+			return _name;
+		}
+	}
+
+	@Override
+	public void setName(String name) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (_columnOriginalValues == Collections.EMPTY_MAP) {
 			_setColumnOriginalValues();
 		}
 
+<<<<<<< HEAD
 		_defaultAccountGroup = defaultAccountGroup;
 	}
 
@@ -587,6 +637,9 @@ public class AccountGroupModelImpl
 	public boolean getOriginalDefaultAccountGroup() {
 		return GetterUtil.getBoolean(
 			this.<Boolean>getColumnOriginalValue("defaultAccountGroup"));
+=======
+		_name = name;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@JSON
@@ -609,6 +662,7 @@ public class AccountGroupModelImpl
 		_description = description;
 	}
 
+<<<<<<< HEAD
 	@JSON
 	@Override
 	public String getName() {
@@ -629,6 +683,8 @@ public class AccountGroupModelImpl
 		_name = name;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public long getColumnBitmask() {
 		if (_columnBitmask > 0) {
 			return _columnBitmask;
@@ -691,9 +747,14 @@ public class AccountGroupModelImpl
 		accountGroupImpl.setUserName(getUserName());
 		accountGroupImpl.setCreateDate(getCreateDate());
 		accountGroupImpl.setModifiedDate(getModifiedDate());
+<<<<<<< HEAD
 		accountGroupImpl.setDefaultAccountGroup(isDefaultAccountGroup());
 		accountGroupImpl.setDescription(getDescription());
 		accountGroupImpl.setName(getName());
+=======
+		accountGroupImpl.setName(getName());
+		accountGroupImpl.setDescription(getDescription());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		accountGroupImpl.resetOriginalValues();
 
@@ -820,7 +881,17 @@ public class AccountGroupModelImpl
 			accountGroupCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
+<<<<<<< HEAD
 		accountGroupCacheModel.defaultAccountGroup = isDefaultAccountGroup();
+=======
+		accountGroupCacheModel.name = getName();
+
+		String name = accountGroupCacheModel.name;
+
+		if ((name != null) && (name.length() == 0)) {
+			accountGroupCacheModel.name = null;
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		accountGroupCacheModel.description = getDescription();
 
@@ -830,6 +901,7 @@ public class AccountGroupModelImpl
 			accountGroupCacheModel.description = null;
 		}
 
+<<<<<<< HEAD
 		accountGroupCacheModel.name = getName();
 
 		String name = accountGroupCacheModel.name;
@@ -838,6 +910,8 @@ public class AccountGroupModelImpl
 			accountGroupCacheModel.name = null;
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		return accountGroupCacheModel;
 	}
 
@@ -920,9 +994,14 @@ public class AccountGroupModelImpl
 	private Date _createDate;
 	private Date _modifiedDate;
 	private boolean _setModifiedDate;
+<<<<<<< HEAD
 	private boolean _defaultAccountGroup;
 	private String _description;
 	private String _name;
+=======
+	private String _name;
+	private String _description;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	public <T> T getColumnValue(String columnName) {
 		Function<AccountGroup, Object> function = _attributeGetterFunctions.get(
@@ -960,9 +1039,14 @@ public class AccountGroupModelImpl
 		_columnOriginalValues.put("userName", _userName);
 		_columnOriginalValues.put("createDate", _createDate);
 		_columnOriginalValues.put("modifiedDate", _modifiedDate);
+<<<<<<< HEAD
 		_columnOriginalValues.put("defaultAccountGroup", _defaultAccountGroup);
 		_columnOriginalValues.put("description", _description);
 		_columnOriginalValues.put("name", _name);
+=======
+		_columnOriginalValues.put("name", _name);
+		_columnOriginalValues.put("description", _description);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private transient Map<String, Object> _columnOriginalValues;
@@ -992,12 +1076,19 @@ public class AccountGroupModelImpl
 
 		columnBitmasks.put("modifiedDate", 128L);
 
+<<<<<<< HEAD
 		columnBitmasks.put("defaultAccountGroup", 256L);
 
 		columnBitmasks.put("description", 512L);
 
 		columnBitmasks.put("name", 1024L);
 
+=======
+		columnBitmasks.put("name", 256L);
+
+		columnBitmasks.put("description", 512L);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_columnBitmasks = Collections.unmodifiableMap(columnBitmasks);
 	}
 

@@ -42,11 +42,16 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalServiceImpl;
 import com.liferay.portal.kernel.service.PersistedModelLocalServiceRegistry;
 import com.liferay.portal.kernel.service.RegionLocalService;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.service.persistence.AddressPersistence;
 import com.liferay.portal.kernel.service.persistence.BasePersistence;
 import com.liferay.portal.kernel.service.persistence.CountryPersistence;
 import com.liferay.portal.kernel.service.persistence.OrganizationFinder;
 import com.liferay.portal.kernel.service.persistence.OrganizationPersistence;
+=======
+import com.liferay.portal.kernel.service.persistence.BasePersistence;
+import com.liferay.portal.kernel.service.persistence.CountryPersistence;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.service.persistence.RegionPersistence;
 import com.liferay.portal.kernel.service.persistence.UserFinder;
 import com.liferay.portal.kernel.service.persistence.UserPersistence;
@@ -137,11 +142,18 @@ public abstract class RegionLocalServiceBaseImpl
 	 *
 	 * @param region the region
 	 * @return the region that was removed
+<<<<<<< HEAD
 	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public Region deleteRegion(Region region) throws PortalException {
+=======
+	 */
+	@Indexable(type = IndexableType.DELETE)
+	@Override
+	public Region deleteRegion(Region region) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		return regionPersistence.remove(region);
 	}
 
@@ -523,6 +535,7 @@ public abstract class RegionLocalServiceBaseImpl
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the address local service.
 	 *
 	 * @return the address local service
@@ -564,6 +577,8 @@ public abstract class RegionLocalServiceBaseImpl
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the country local service.
 	 *
 	 * @return the country local service
@@ -605,6 +620,7 @@ public abstract class RegionLocalServiceBaseImpl
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the organization local service.
 	 *
 	 * @return the organization local service
@@ -666,6 +682,8 @@ public abstract class RegionLocalServiceBaseImpl
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the user local service.
 	 *
 	 * @return the user local service
@@ -788,6 +806,7 @@ public abstract class RegionLocalServiceBaseImpl
 		counterLocalService;
 
 	@BeanReference(
+<<<<<<< HEAD
 		type = com.liferay.portal.kernel.service.AddressLocalService.class
 	)
 	protected com.liferay.portal.kernel.service.AddressLocalService
@@ -797,6 +816,8 @@ public abstract class RegionLocalServiceBaseImpl
 	protected AddressPersistence addressPersistence;
 
 	@BeanReference(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		type = com.liferay.portal.kernel.service.CountryLocalService.class
 	)
 	protected com.liferay.portal.kernel.service.CountryLocalService
@@ -806,6 +827,7 @@ public abstract class RegionLocalServiceBaseImpl
 	protected CountryPersistence countryPersistence;
 
 	@BeanReference(
+<<<<<<< HEAD
 		type = com.liferay.portal.kernel.service.OrganizationLocalService.class
 	)
 	protected com.liferay.portal.kernel.service.OrganizationLocalService
@@ -818,6 +840,8 @@ public abstract class RegionLocalServiceBaseImpl
 	protected OrganizationFinder organizationFinder;
 
 	@BeanReference(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		type = com.liferay.portal.kernel.service.UserLocalService.class
 	)
 	protected com.liferay.portal.kernel.service.UserLocalService

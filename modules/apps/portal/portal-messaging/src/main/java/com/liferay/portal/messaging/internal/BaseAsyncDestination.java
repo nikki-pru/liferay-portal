@@ -191,15 +191,19 @@ public abstract class BaseAsyncDestination extends BaseDestination {
 		this.userLocalService = userLocalService;
 	}
 
+<<<<<<< HEAD
 	/**
 	 *   @deprecated As of Cavanaugh (7.4.x), replaced by {@link
 	 *          #setWorkersSize(int, int)}
 	 */
 	@Deprecated
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void setWorkersCoreSize(int workersCoreSize) {
 		_workersCoreSize = workersCoreSize;
 
 		if (_noticeableThreadPoolExecutor != null) {
+<<<<<<< HEAD
 			_noticeableThreadPoolExecutor.setCorePoolSize(workersCoreSize);
 		}
 	}
@@ -209,6 +213,12 @@ public abstract class BaseAsyncDestination extends BaseDestination {
 	 *          #setWorkersSize(int, int)}
 	 */
 	@Deprecated
+=======
+			_noticeableThreadPoolExecutor.setCorePoolSize(_workersMaxSize);
+		}
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void setWorkersMaxSize(int workersMaxSize) {
 		_workersMaxSize = workersMaxSize;
 
@@ -217,6 +227,7 @@ public abstract class BaseAsyncDestination extends BaseDestination {
 		}
 	}
 
+<<<<<<< HEAD
 	public void setWorkersSize(int workersCoreSize, int workersMaxSize) {
 		if (workersCoreSize < 1) {
 			throw new IllegalArgumentException(
@@ -239,6 +250,8 @@ public abstract class BaseAsyncDestination extends BaseDestination {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected abstract void dispatch(
 		Set<MessageListener> messageListeners, Message message);
 

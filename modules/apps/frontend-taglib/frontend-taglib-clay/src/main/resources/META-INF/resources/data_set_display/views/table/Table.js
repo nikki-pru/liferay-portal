@@ -21,12 +21,19 @@ import DataSetDisplayContext from '../../DataSetDisplayContext';
 import ActionsDropdownRenderer from '../../data_renderers/ActionsDropdownRenderer';
 import CheckboxRenderer from '../../data_renderers/CheckboxRenderer';
 import CommentRenderer from '../../data_renderers/CommentRenderer';
+<<<<<<< HEAD
 import DefaultRenderer from '../../data_renderers/DefaultRenderer';
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import RadioRenderer from '../../data_renderers/RadioRenderer';
 import {
 	getDataRendererById,
 	getDataRendererByURL,
+<<<<<<< HEAD
 } from '../../utilities/dataRenderers';
+=======
+} from '../../data_renderers/index';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import {getValueFromItem} from '../../utilities/index';
 import ViewsContext from '../ViewsContext';
 import TableHeadRow from './TableHeadRow';
@@ -40,6 +47,7 @@ function CustomTableCell({
 	value,
 	view,
 }) {
+<<<<<<< HEAD
 	let dataRenderer = DefaultRenderer;
 
 	if (view.contentRenderer) {
@@ -55,6 +63,14 @@ function CustomTableCell({
 		Component: dataRenderer,
 	});
 
+=======
+	const [currentView, updateCurrentView] = useState({
+		...view,
+		Component: view.contentRendererModuleURL
+			? null
+			: getDataRendererById(view.contentRenderer),
+	});
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {

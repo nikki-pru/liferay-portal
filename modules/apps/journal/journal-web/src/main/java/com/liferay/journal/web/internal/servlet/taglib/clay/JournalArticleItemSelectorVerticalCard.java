@@ -45,7 +45,10 @@ public class JournalArticleItemSelectorVerticalCard implements VerticalCard {
 		JournalArticle article, RenderRequest renderRequest) {
 
 		_article = article;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_httpServletRequest = PortalUtil.getHttpServletRequest(renderRequest);
 
 		_themeDisplay = (ThemeDisplay)renderRequest.getAttribute(

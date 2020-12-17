@@ -21,5 +21,9 @@ launcher('mini_cart', 'mini-cart-root-id', {
 		checkoutURL: 'http://localhost:8080',
 		orderDetailURL: 'http://localhost:8080?commerceOrderUuid=12323',
 	},
+<<<<<<< HEAD
 	spritemap: './assets/clay/icons.svg',
+=======
+	spritemap: './assets/icons.svg',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 });

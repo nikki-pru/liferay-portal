@@ -104,9 +104,12 @@ Format dateFormat = FastDateFormatFactoryUtil.getDate(DateFormat.MEDIUM, locale,
 			/>
 
 			<commerce-ui:info-box
+<<<<<<< HEAD
 				actionLabel='<%= LanguageUtil.get(request, "edit") %>'
 				actionTargetId="edit-address-modal"
 				actionUrl="<%= editCommerceShipmentAddressURL %>"
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				title='<%= LanguageUtil.get(request, "shipping-address") %>'
 			>
 				<div class="item">

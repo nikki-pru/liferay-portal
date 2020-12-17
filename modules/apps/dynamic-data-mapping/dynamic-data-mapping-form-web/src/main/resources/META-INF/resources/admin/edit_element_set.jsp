@@ -22,7 +22,10 @@ String redirect = ParamUtil.getString(request, "redirect");
 DDMStructure structure = ddmFormAdminDisplayContext.getDDMStructure();
 
 long groupId = BeanParamUtil.getLong(structure, request, "groupId", scopeGroupId);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 long structureId = ParamUtil.getLong(request, "structureId");
 
 if (structure != null) {
@@ -51,7 +54,11 @@ renderResponse.setTitle((structure == null) ? LanguageUtil.get(request, "new-ele
 
 	<nav class="management-bar management-bar-light navbar navbar-expand-md toolbar-group-field">
 		<clay:container-fluid
+<<<<<<< HEAD
 			cssClass="d-flex justify-content-between toolbar"
+=======
+			cssClass="toolbar"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		>
 			<ul class="navbar-nav toolbar-group-field"></ul>
 			<ul class="navbar-nav toolbar-group-field">

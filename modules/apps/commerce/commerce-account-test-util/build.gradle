@@ -1,7 +1,13 @@
 dependencies {
+<<<<<<< HEAD
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.test", version: "default"
 	compileOnly group: "junit", name: "junit", version: "4.13.1"
+=======
+	compileOnly group: "junit", name: "junit", version: "4.13.1"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.test", version: "default"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":apps:commerce:commerce-account-api")
 	compileOnly project(":core:petra:petra-string")
 }

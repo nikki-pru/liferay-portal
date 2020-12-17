@@ -98,8 +98,14 @@ public class JournalArticleInfoItemFormProviderTest {
 				_infoItemServiceTracker.getFirstInfoItemService(
 					InfoItemFormProvider.class, JournalArticle.class.getName());
 
+<<<<<<< HEAD
 		InfoForm infoForm = infoItemFormProvider.getInfoForm(
 			_getJournalArticle());
+=======
+		JournalArticle journalArticle = _getJournalArticle();
+
+		InfoForm infoForm = infoItemFormProvider.getInfoForm(journalArticle);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		List<InfoField> infoFields = infoForm.getAllInfoFields();
 

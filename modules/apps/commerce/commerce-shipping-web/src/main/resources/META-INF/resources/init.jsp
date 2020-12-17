@@ -29,7 +29,11 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 page import="com.liferay.commerce.model.CommerceShippingMethod" %><%@
 page import="com.liferay.commerce.shipping.web.internal.display.context.CommerceShippingMethodsDisplayContext" %><%@
 page import="com.liferay.commerce.shipping.web.internal.frontend.CommerceShippingRestrictionsPageClayTable" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.shipping.web.internal.servlet.taglib.ui.constants.CommerceShippingScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.shipping.web.internal.servlet.taglib.ui.CommerceShippingScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.bean.BeanParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@

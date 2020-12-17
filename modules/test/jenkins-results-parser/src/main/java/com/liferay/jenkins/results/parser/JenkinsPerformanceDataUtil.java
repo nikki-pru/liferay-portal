@@ -168,11 +168,18 @@ public class JenkinsPerformanceDataUtil {
 		}
 
 		public Result(String jobName, JSONObject sourceJSONObject) {
+<<<<<<< HEAD
 			_jobName = jobName;
 
 			_axis = "";
 			_className = "";
 			_duration = sourceJSONObject.getInt("duration") / 1000;
+=======
+			_axis = "";
+			_className = "";
+			_duration = sourceJSONObject.getInt("duration") / 1000;
+			_jobName = jobName;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			_name = sourceJSONObject.getString("fullDisplayName");
 			_status = sourceJSONObject.getString("result");
 			_url = sourceJSONObject.getString("url");

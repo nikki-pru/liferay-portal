@@ -6,7 +6,11 @@ import org.gradle.util.GUtil
 
 buildscript {
 	dependencies {
+<<<<<<< HEAD
 		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.defaults", version: "7.0.8"
+=======
+		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.defaults", version: "7.0.6"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.maven.plugin.builder", version: "1.2.3"
 		classpath group: "de.undercouch", name: "gradle-download-task", version: "3.3.0"
 		classpath group: "gradle.plugin.org.ysb33r.gradle", name: "gradletest", version: "1.1"

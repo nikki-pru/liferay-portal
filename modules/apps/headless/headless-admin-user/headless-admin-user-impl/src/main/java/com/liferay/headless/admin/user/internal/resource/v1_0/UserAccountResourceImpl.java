@@ -350,8 +350,12 @@ public class UserAccountResourceImpl
 					postalAddresses,
 					_postalAddress ->
 						ServiceBuilderAddressUtil.toServiceBuilderAddress(
+<<<<<<< HEAD
 							contextCompany.getCompanyId(), _postalAddress,
 							ListTypeConstants.CONTACT_ADDRESS)),
+=======
+							_postalAddress, ListTypeConstants.CONTACT_ADDRESS)),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				Objects::nonNull)
 		).orElse(
 			Collections.emptyList()

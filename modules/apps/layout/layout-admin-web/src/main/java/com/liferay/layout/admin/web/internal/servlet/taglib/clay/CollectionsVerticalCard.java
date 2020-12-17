@@ -54,9 +54,14 @@ public class CollectionsVerticalCard extends BaseVerticalCard {
 
 		_assetListEntry = assetListEntry;
 		_groupId = groupId;
+<<<<<<< HEAD
 		_renderResponse = renderResponse;
 
 		_httpServletRequest = PortalUtil.getHttpServletRequest(renderRequest);
+=======
+		_httpServletRequest = PortalUtil.getHttpServletRequest(renderRequest);
+		_renderResponse = renderResponse;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

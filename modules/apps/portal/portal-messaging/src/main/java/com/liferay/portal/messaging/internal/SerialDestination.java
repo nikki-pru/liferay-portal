@@ -37,7 +37,12 @@ import java.util.Set;
 public class SerialDestination extends BaseAsyncDestination {
 
 	public SerialDestination() {
+<<<<<<< HEAD
 		setWorkersSize(_WORKERS_CORE_SIZE, _WORKERS_MAX_SIZE);
+=======
+		setWorkersCoreSize(_WORKERS_CORE_SIZE);
+		setWorkersMaxSize(_WORKERS_MAX_SIZE);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

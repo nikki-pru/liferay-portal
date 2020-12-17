@@ -129,10 +129,13 @@ components:
                 dataDefinitionId:
                     format: int64
                     type: integer
+<<<<<<< HEAD
                 dataLayoutFields:
                     additionalProperties:
                         type: object
                     type: object
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
                 dataLayoutKey:
                     type: string
                 dataLayoutPages:

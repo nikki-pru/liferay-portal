@@ -18,7 +18,10 @@ import com.liferay.commerce.account.constants.CommerceAccountActionKeys;
 import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.account.service.CommerceAccountService;
 import com.liferay.commerce.account.web.internal.display.context.CommerceAccountDisplayContext;
+<<<<<<< HEAD
 import com.liferay.commerce.account.web.internal.servlet.taglib.ui.constants.CommerceAccountScreenNavigationConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.service.CommerceAddressService;
 import com.liferay.commerce.service.CommerceCountryService;
 import com.liferay.commerce.service.CommerceRegionService;

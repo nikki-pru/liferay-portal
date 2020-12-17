@@ -19,11 +19,20 @@ import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.render.DDMFormFieldRenderingContext;
 import com.liferay.petra.string.StringPool;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.template.soy.data.SoyDataFactory;
+import com.liferay.portal.template.soy.util.SoyRawData;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.util.Collections;
 import java.util.Map;
 
 import org.osgi.service.component.annotations.Component;
+<<<<<<< HEAD
+=======
+import org.osgi.service.component.annotations.Reference;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Marcellus Tavares
@@ -43,8 +52,15 @@ public class ParagraphDDMFormFieldTemplateContextContributor
 		DDMFormField ddmFormField,
 		DDMFormFieldRenderingContext ddmFormFieldRenderingContext) {
 
+<<<<<<< HEAD
 		return Collections.singletonMap(
 			"text", getText(ddmFormField, ddmFormFieldRenderingContext));
+=======
+		SoyRawData soyRawData = _soyDataFactory.createSoyRawData(
+			getText(ddmFormField, ddmFormFieldRenderingContext));
+
+		return Collections.singletonMap("text", soyRawData.getValue());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected String getText(
@@ -60,4 +76,10 @@ public class ParagraphDDMFormFieldTemplateContextContributor
 		return text.getString(ddmFormFieldRenderingContext.getLocale());
 	}
 
+<<<<<<< HEAD
+=======
+	@Reference
+	private SoyDataFactory _soyDataFactory;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

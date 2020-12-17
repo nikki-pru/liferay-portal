@@ -13,8 +13,13 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-inventory-api")
 	compileOnly project(":apps:portal:portal-dao-orm-custom-sql-api")
 	compileOnly project(":apps:portal:portal-spring-extender-api")
+<<<<<<< HEAD
 	compileOnly project(":apps:static:portal-configuration:portal-configuration-metatype-api")
 	compileOnly project(":apps:static:portal:portal-upgrade-api")
+=======
+	compileOnly project(":apps:static:portal:portal-upgrade-api")
+	compileOnly project(":apps:static:portal-configuration:portal-configuration-metatype-api")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":core:osgi-service-tracker-collections")
 	compileOnly project(":core:petra:petra-lang")
 	compileOnly project(":core:petra:petra-sql-dsl-api")

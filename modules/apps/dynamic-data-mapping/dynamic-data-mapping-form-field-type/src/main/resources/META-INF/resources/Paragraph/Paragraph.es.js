@@ -25,7 +25,11 @@ const Paragraph = ({name, text, ...otherProps}) => (
 			<div
 				className="liferay-ddm-form-field-paragraph-text"
 				dangerouslySetInnerHTML={{
+<<<<<<< HEAD
 					__html: text,
+=======
+					__html: typeof text === 'object' ? text.content : text,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				}}
 			/>
 		</div>

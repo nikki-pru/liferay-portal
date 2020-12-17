@@ -23,6 +23,11 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.template.soy.data.SoyDataFactory;
+import com.liferay.portal.template.soy.util.SoyRawData;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.taglib.servlet.PageContextFactoryUtil;
 import com.liferay.taglib.servlet.PipingServletResponse;
 
@@ -34,6 +39,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
 import org.osgi.service.component.annotations.Component;
+<<<<<<< HEAD
+=======
+import org.osgi.service.component.annotations.Reference;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Bruno Basto
@@ -62,7 +71,13 @@ public class CaptchaDDMFormFieldTemplateContextContributor
 			_log.error(exception, exception);
 		}
 
+<<<<<<< HEAD
 		return Collections.singletonMap("html", html);
+=======
+		SoyRawData soyRawData = _soyDataFactory.createSoyRawData(html);
+
+		return Collections.singletonMap("html", soyRawData.getValue());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected String renderCaptchaTag(
@@ -96,4 +111,10 @@ public class CaptchaDDMFormFieldTemplateContextContributor
 	private static final Log _log = LogFactoryUtil.getLog(
 		CaptchaDDMFormFieldTemplateContextContributor.class);
 
+<<<<<<< HEAD
+=======
+	@Reference
+	private SoyDataFactory _soyDataFactory;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

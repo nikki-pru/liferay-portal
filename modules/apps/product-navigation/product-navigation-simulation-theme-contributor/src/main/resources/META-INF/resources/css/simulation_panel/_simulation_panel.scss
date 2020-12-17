@@ -226,7 +226,11 @@
 	overflow: auto;
 	position: fixed;
 	right: 320px;
+<<<<<<< HEAD
 	top: 56px;
+=======
+	top: 68px;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	z-index: 500;
 
 	.modal-content {
@@ -237,7 +241,11 @@
 		position: absolute;
 
 		&.autosize {
+<<<<<<< HEAD
 			margin-top: 56px;
+=======
+			margin-top: 68px;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			position: fixed;
 		}
 	}

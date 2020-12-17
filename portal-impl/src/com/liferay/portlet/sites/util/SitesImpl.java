@@ -1137,6 +1137,7 @@ public class SitesImpl implements Sites {
 			return false;
 		}
 
+<<<<<<< HEAD
 		UnicodeProperties layoutSetPrototypeSettingsUnicodeProperties =
 			layoutSetPrototype.getSettingsProperties();
 
@@ -1157,6 +1158,16 @@ public class SitesImpl implements Sites {
 
 		int mergeFailCount = GetterUtil.getInteger(
 			layoutSetPrototypeLayoutSetSettingsUnicodeProperties.getProperty(
+=======
+		LayoutSet layoutSetPrototypeLayoutSet =
+			layoutSetPrototype.getLayoutSet();
+
+		UnicodeProperties layoutSetPrototypeSettingsUnicodeProperties =
+			layoutSetPrototypeLayoutSet.getSettingsProperties();
+
+		int mergeFailCount = GetterUtil.getInteger(
+			layoutSetPrototypeSettingsUnicodeProperties.getProperty(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				MERGE_FAIL_COUNT));
 
 		if (mergeFailCount >

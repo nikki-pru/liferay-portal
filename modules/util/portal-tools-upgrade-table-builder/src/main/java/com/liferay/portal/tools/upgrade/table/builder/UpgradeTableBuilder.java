@@ -167,8 +167,14 @@ public class UpgradeTableBuilder {
 
 		String author = _getAuthor(content);
 
+<<<<<<< HEAD
 		String[] addIndexes = _getAddIndexes(
 			_getIndexesFilePath(upgradeFileVersion), tableName);
+=======
+		Path indexesFilePath = _getIndexesFilePath(upgradeFileVersion);
+
+		String[] addIndexes = _getAddIndexes(indexesFilePath, tableName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		content = _getContent(
 			packagePath, className, upgradeFileContent, author, addIndexes);

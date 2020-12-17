@@ -103,8 +103,11 @@ public class ElasticsearchSortFieldTranslator
 					GeoPoint[]::new
 				));
 
+<<<<<<< HEAD
 		geoDistanceSortBuilder.order(translate(geoDistanceSort.getSortOrder()));
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (geoDistanceSort.getDistanceUnit() != null) {
 			geoDistanceSortBuilder.unit(
 				_distanceUnitTranslator.translate(
@@ -133,10 +136,14 @@ public class ElasticsearchSortFieldTranslator
 
 	@Override
 	public SortBuilder<?> visit(ScoreSort scoreSort) {
+<<<<<<< HEAD
 		return SortBuilders.scoreSort(
 		).order(
 			translate(scoreSort.getSortOrder())
 		);
+=======
+		return SortBuilders.scoreSort();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -164,8 +171,11 @@ public class ElasticsearchSortFieldTranslator
 			scriptSortBuilder.sortMode(translate(scriptSort.getSortMode()));
 		}
 
+<<<<<<< HEAD
 		scriptSortBuilder.order(translate(scriptSort.getSortOrder()));
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		return scriptSortBuilder;
 	}
 

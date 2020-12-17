@@ -101,10 +101,13 @@ const JournalArticleSelector = ({
 					</ClayInput.GroupItem>
 				)}
 			</ClayInput.Group>
+<<<<<<< HEAD
 
 			{article.message && (
 				<div className="form-feedback-item">{article.message}</div>
 			)}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		</ClayForm.Group>
 	);
 };

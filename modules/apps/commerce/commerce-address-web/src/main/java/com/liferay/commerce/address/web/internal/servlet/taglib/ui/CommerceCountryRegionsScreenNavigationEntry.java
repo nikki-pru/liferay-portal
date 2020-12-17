@@ -16,7 +16,10 @@ package com.liferay.commerce.address.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.address.web.internal.display.context.CommerceRegionsDisplayContext;
 import com.liferay.commerce.address.web.internal.portlet.action.ActionHelper;
+<<<<<<< HEAD
 import com.liferay.commerce.address.web.internal.servlet.taglib.ui.constants.CommerceCountryScreenNavigationConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.model.CommerceCountry;
 import com.liferay.commerce.service.CommerceRegionService;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;

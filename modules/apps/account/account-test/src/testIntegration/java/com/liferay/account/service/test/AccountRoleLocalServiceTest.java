@@ -528,8 +528,14 @@ public class AccountRoleLocalServiceTest {
 			_accountEntry1.getAccountEntryId(), accountRole.getAccountRoleId(),
 			user.getUserId());
 
+<<<<<<< HEAD
 		Assert.assertTrue(
 			ArrayUtil.contains(_getRoleIds(user), accountRole.getRoleId()));
+=======
+		long[] roleIds = _getRoleIds(user);
+
+		Assert.assertTrue(ArrayUtil.contains(roleIds, accountRole.getRoleId()));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		deleteAccountRoleFunction.apply(accountRole);
 

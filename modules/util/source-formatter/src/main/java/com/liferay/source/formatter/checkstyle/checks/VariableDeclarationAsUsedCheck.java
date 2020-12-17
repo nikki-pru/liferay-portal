@@ -24,7 +24,10 @@ import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Objects;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Hugo Huijser
@@ -54,8 +57,12 @@ public class VariableDeclarationAsUsedCheck extends BaseCheck {
 		List<DetailAST> dependentIdentDetailASTList) {
 
 		if ((assignMethodCallDetailAST == null) ||
+<<<<<<< HEAD
 			!variableName.equals(identDetailAST.getText()) ||
 			_isInsideMockitoMethodCall(identDetailAST)) {
+=======
+			!variableName.equals(identDetailAST.getText())) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return;
 		}
@@ -438,6 +445,7 @@ public class VariableDeclarationAsUsedCheck extends BaseCheck {
 		return false;
 	}
 
+<<<<<<< HEAD
 	private boolean _isInsideMockitoMethodCall(DetailAST detailAST) {
 		DetailAST methodCallDetailAST = getParentWithTokenType(
 			detailAST, TokenTypes.METHOD_CALL);
@@ -458,6 +466,8 @@ public class VariableDeclarationAsUsedCheck extends BaseCheck {
 		return false;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private boolean _isInsideStatementClause(DetailAST detailAST) {
 		DetailAST parentDetailAST = detailAST.getParent();
 
@@ -508,7 +518,11 @@ public class VariableDeclarationAsUsedCheck extends BaseCheck {
 
 		String methodName = getMethodName(assignMethodCallDetailAST);
 
+<<<<<<< HEAD
 		if (methodName.matches("(?i)_?get" + variableName)) {
+=======
+		if (methodName.matches("(?i)get" + variableName)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return true;
 		}
 
@@ -534,7 +548,11 @@ public class VariableDeclarationAsUsedCheck extends BaseCheck {
 
 		methodName = getMethodName(parentDetailAST);
 
+<<<<<<< HEAD
 		if (methodName.matches("(?i)_?set" + variableName)) {
+=======
+		if (methodName.matches("(?i)set" + variableName)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			return true;
 		}
 

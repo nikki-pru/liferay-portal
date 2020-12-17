@@ -48,7 +48,10 @@ public class CTCollectionWrapper
 		attributes.put("userId", getUserId());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+<<<<<<< HEAD
 		attributes.put("schemaVersionId", getSchemaVersionId());
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		attributes.put("name", getName());
 		attributes.put("description", getDescription());
 		attributes.put("status", getStatus());
@@ -96,12 +99,15 @@ public class CTCollectionWrapper
 			setModifiedDate(modifiedDate);
 		}
 
+<<<<<<< HEAD
 		Long schemaVersionId = (Long)attributes.get("schemaVersionId");
 
 		if (schemaVersionId != null) {
 			setSchemaVersionId(schemaVersionId);
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String name = (String)attributes.get("name");
 
 		if (name != null) {
@@ -214,6 +220,7 @@ public class CTCollectionWrapper
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns the schema version ID of this ct collection.
 	 *
 	 * @return the schema version ID of this ct collection
@@ -224,6 +231,8 @@ public class CTCollectionWrapper
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Returns the status of this ct collection.
 	 *
 	 * @return the status of this ct collection
@@ -379,6 +388,7 @@ public class CTCollectionWrapper
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Sets the schema version ID of this ct collection.
 	 *
 	 * @param schemaVersionId the schema version ID of this ct collection
@@ -389,6 +399,8 @@ public class CTCollectionWrapper
 	}
 
 	/**
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * Sets the status of this ct collection.
 	 *
 	 * @param status the status of this ct collection

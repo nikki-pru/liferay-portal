@@ -1,6 +1,9 @@
 dependencies {
 	compileOnly group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
+<<<<<<< HEAD
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.util.bridges", version: "default"
 	compileOnly group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "default"
@@ -17,6 +20,9 @@ dependencies {
 	compileOnly project(":core:petra:petra-lang")
 	compileOnly project(":core:petra:petra-process")
 	compileOnly project(":core:petra:petra-string")
+<<<<<<< HEAD
 
 	testRuntimeOnly ext: "zip", group: "com.liferay.etl", name: "etl-talend-context-printer-sample", version: "1.0"
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

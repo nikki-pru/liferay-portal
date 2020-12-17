@@ -72,6 +72,7 @@ public class LayoutSetPrototypeServiceSoap {
 				String[] nameMapLanguageIds, String[] nameMapValues,
 				String[] descriptionMapLanguageIds,
 				String[] descriptionMapValues, boolean active,
+<<<<<<< HEAD
 				boolean layoutsUpdateable, boolean readyForPropagation,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
@@ -103,6 +104,8 @@ public class LayoutSetPrototypeServiceSoap {
 				String[] nameMapLanguageIds, String[] nameMapValues,
 				String[] descriptionMapLanguageIds,
 				String[] descriptionMapValues, boolean active,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				boolean layoutsUpdateable,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
@@ -209,6 +212,7 @@ public class LayoutSetPrototypeServiceSoap {
 				long layoutSetPrototypeId, String[] nameMapLanguageIds,
 				String[] nameMapValues, String[] descriptionMapLanguageIds,
 				String[] descriptionMapValues, boolean active,
+<<<<<<< HEAD
 				boolean layoutsUpdateable, boolean readyForPropagation,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {
@@ -240,6 +244,8 @@ public class LayoutSetPrototypeServiceSoap {
 				long layoutSetPrototypeId, String[] nameMapLanguageIds,
 				String[] nameMapValues, String[] descriptionMapLanguageIds,
 				String[] descriptionMapValues, boolean active,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				boolean layoutsUpdateable,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws RemoteException {

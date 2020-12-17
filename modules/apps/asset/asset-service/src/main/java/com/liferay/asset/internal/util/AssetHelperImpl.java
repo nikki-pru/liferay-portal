@@ -28,7 +28,10 @@ import com.liferay.asset.kernel.service.AssetTagLocalService;
 import com.liferay.asset.kernel.service.persistence.AssetEntryQuery;
 import com.liferay.asset.util.AssetHelper;
 import com.liferay.asset.util.AssetPublisherAddItemHolder;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.dynamic.data.mapping.util.DDMIndexer;
@@ -645,7 +648,11 @@ public class AssetHelperImpl implements AssetHelper {
 
 			String suffix = "String";
 
+<<<<<<< HEAD
 			if (!fieldType.equals(DDMFormFieldType.DATE) &&
+=======
+			if (!fieldType.equals("ddm-date") &&
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				((sortType == Sort.DOUBLE_TYPE) ||
 				 (sortType == Sort.FLOAT_TYPE) || (sortType == Sort.INT_TYPE) ||
 				 (sortType == Sort.LONG_TYPE))) {
@@ -748,6 +755,7 @@ public class AssetHelperImpl implements AssetHelper {
 	private int _getSortType(String fieldType) {
 		int sortType = Sort.STRING_TYPE;
 
+<<<<<<< HEAD
 		if (fieldType.equals(DDMFormFieldType.DATE) ||
 			fieldType.equals(Field.CREATE_DATE) ||
 			fieldType.equals(Field.EXPIRATION_DATE) ||
@@ -763,6 +771,22 @@ public class AssetHelperImpl implements AssetHelper {
 			sortType = Sort.DOUBLE_TYPE;
 		}
 		else if (fieldType.equals(DDMFormFieldType.INTEGER) ||
+=======
+		if (fieldType.equals(Field.CREATE_DATE) ||
+			fieldType.equals(Field.EXPIRATION_DATE) ||
+			fieldType.equals(Field.PUBLISH_DATE) ||
+			fieldType.equals("ddm-date") || fieldType.equals("modifiedDate")) {
+
+			sortType = Sort.LONG_TYPE;
+		}
+		else if (fieldType.equals(Field.PRIORITY) ||
+				 fieldType.equals("ddm-decimal") ||
+				 fieldType.equals("ddm-number")) {
+
+			sortType = Sort.DOUBLE_TYPE;
+		}
+		else if (fieldType.equals("ddm-integer") ||
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				 fieldType.equals("viewCount")) {
 
 			sortType = Sort.INT_TYPE;

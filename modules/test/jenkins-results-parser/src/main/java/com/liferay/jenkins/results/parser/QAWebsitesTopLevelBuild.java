@@ -14,9 +14,12 @@
 
 package com.liferay.jenkins.results.parser;
 
+<<<<<<< HEAD
 import java.util.Arrays;
 import java.util.List;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 /**
  * @author Michael Hashimoto
  */
@@ -40,12 +43,15 @@ public class QAWebsitesTopLevelBuild
 		return _portalMasterBranchInformation;
 	}
 
+<<<<<<< HEAD
 	public List<String> getProjectNames() {
 		String projectNames = getParameterValue("PROJECT_NAMES");
 
 		return Arrays.asList(projectNames.split(","));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Override
 	public BranchInformation getQAWebsitesBranchInformation() {
 		return getBranchInformation("qa.websites");

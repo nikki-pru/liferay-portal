@@ -31,7 +31,10 @@ import com.liferay.portal.search.engine.adapter.document.BulkDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.IndexDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.UpdateByQueryDocumentRequest;
 import com.liferay.portal.search.engine.adapter.document.UpdateDocumentRequest;
+<<<<<<< HEAD
 import com.liferay.portal.search.query.BooleanQuery;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.search.query.Queries;
 import com.liferay.portal.search.query.Query;
 import com.liferay.portal.search.script.Scripts;
@@ -172,14 +175,21 @@ public abstract class BaseWorkflowMetricsIndexer {
 	}
 
 	protected void updateDocuments(
+<<<<<<< HEAD
 		long companyId, Map<String, Object> fieldsMap, Query filterQuery) {
+=======
+		long companyId, Map<String, Object> fieldsMap, Query query) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (searchEngineAdapter == null) {
 			return;
 		}
 
+<<<<<<< HEAD
 		BooleanQuery booleanQuery = queries.booleanQuery();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		StringBundler sb = new StringBundler("");
 
 		fieldsMap.forEach(
@@ -224,8 +234,12 @@ public abstract class BaseWorkflowMetricsIndexer {
 
 		UpdateByQueryDocumentRequest updateByQueryDocumentRequest =
 			new UpdateByQueryDocumentRequest(
+<<<<<<< HEAD
 				booleanQuery.addFilterQueryClauses(filterQuery),
 				scripts.script(sb.toString()), getIndexName(companyId));
+=======
+				query, scripts.script(sb.toString()), getIndexName(companyId));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (PortalRunMode.isTestMode()) {
 			updateByQueryDocumentRequest.setRefresh(true);

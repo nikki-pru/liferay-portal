@@ -41,8 +41,14 @@ public class TagDynamicIncludeUtil {
 	public static List<TagDynamicInclude> getTagDynamicIncludes(
 		String tagClassName, String tagDynamicId, String tagPoint) {
 
+<<<<<<< HEAD
 		return _tagDynamicIncludeUtil._tagDynamicIncludes.getService(
 			_getKey(tagClassName, tagDynamicId, tagPoint));
+=======
+		String key = _getKey(tagClassName, tagDynamicId, tagPoint);
+
+		return _tagDynamicIncludeUtil._tagDynamicIncludes.getService(key);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public static boolean hasTagDynamicInclude(

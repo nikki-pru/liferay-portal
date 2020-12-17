@@ -301,9 +301,12 @@ public class ViewChangesDisplayContext {
 				return discardURL.toString();
 			}
 		).put(
+<<<<<<< HEAD
 			"expired",
 			_ctCollection.getStatus() == WorkflowConstants.STATUS_EXPIRED
 		).put(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			"models",
 			() -> {
 				JSONObject modelsJSONObject =
@@ -452,6 +455,26 @@ public class ViewChangesDisplayContext {
 		return StringPool.BLANK;
 	}
 
+<<<<<<< HEAD
+=======
+	public String getStatusLabel(int status) {
+		if (status == WorkflowConstants.STATUS_APPROVED) {
+			return "published";
+		}
+		else if (status == WorkflowConstants.STATUS_DRAFT) {
+			return "in-progress";
+		}
+		else if (status == WorkflowConstants.STATUS_DENIED) {
+			return "failed";
+		}
+		else if (status == WorkflowConstants.STATUS_SCHEDULED) {
+			return "scheduled";
+		}
+
+		return StringPool.BLANK;
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean hasChanges() {
 		return _hasChanges;
 	}
@@ -562,10 +585,13 @@ public class ViewChangesDisplayContext {
 			if (_ctCollection.getCtCollectionId() != _activeCTCollectionId) {
 				jsonArray.put(
 					JSONUtil.put(
+<<<<<<< HEAD
 						"disabled",
 						_ctCollection.getStatus() ==
 							WorkflowConstants.STATUS_EXPIRED
 					).put(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						"href",
 						PublicationsPortletURLUtil.getHref(
 							_renderResponse.createActionURL(),

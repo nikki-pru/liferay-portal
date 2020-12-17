@@ -41,8 +41,13 @@ page import="com.liferay.commerce.subscription.web.internal.display.context.CPDe
 page import="com.liferay.commerce.subscription.web.internal.display.context.CPInstanceSubscriptionInfoDisplayContext" %><%@
 page import="com.liferay.commerce.subscription.web.internal.display.context.CommerceSubscriptionContentDisplayContext" %><%@
 page import="com.liferay.commerce.subscription.web.internal.display.context.CommerceSubscriptionEntryDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.subscription.web.internal.frontend.constants.CommerceSubscriptionDataSetConstants" %><%@
 page import="com.liferay.commerce.subscription.web.internal.servlet.taglib.ui.constants.CommerceSubscriptionEntryScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.subscription.web.internal.frontend.CommerceSubscriptionDataSetConstants" %><%@
+page import="com.liferay.commerce.subscription.web.internal.servlet.taglib.ui.CommerceSubscriptionEntryScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@

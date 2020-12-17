@@ -23,9 +23,13 @@ public class UpgradeFragmentEntry extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
+<<<<<<< HEAD
 		if (hasIndex("FragmentEntry", "IX_62913C70")) {
 			runSQL("drop index IX_62913C70 on FragmentEntry");
 		}
+=======
+		runSQL("drop index IX_62913C70 on FragmentEntry");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 }

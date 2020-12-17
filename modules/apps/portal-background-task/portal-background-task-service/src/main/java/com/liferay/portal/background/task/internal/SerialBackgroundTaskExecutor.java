@@ -36,7 +36,10 @@ public class SerialBackgroundTaskExecutor
 		super(backgroundTaskExecutor);
 
 		_lockManager = lockManager;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_backgroundTaskLockHelper = new BackgroundTaskLockHelper(lockManager);
 	}
 

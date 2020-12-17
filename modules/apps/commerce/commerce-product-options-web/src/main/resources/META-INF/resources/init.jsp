@@ -48,8 +48,13 @@ page import="com.liferay.commerce.product.options.web.internal.display.context.C
 page import="com.liferay.commerce.product.options.web.internal.display.context.CPSpecificationOptionDisplayContext" %><%@
 page import="com.liferay.commerce.product.options.web.internal.security.permission.resource.CPOptionCategoryPermission" %><%@
 page import="com.liferay.commerce.product.options.web.internal.security.permission.resource.CPSpecificationOptionPermission" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.product.options.web.internal.servlet.taglib.ui.constants.CPOptionCategoryFormNavigatorConstants" %><%@
 page import="com.liferay.commerce.product.options.web.internal.servlet.taglib.ui.constants.CPSpecificationOptionFormNavigatorConstants" %><%@
+=======
+page import="com.liferay.commerce.product.options.web.internal.servlet.taglib.ui.CPOptionCategoryFormNavigatorConstants" %><%@
+page import="com.liferay.commerce.product.options.web.internal.servlet.taglib.ui.CPSpecificationOptionFormNavigatorConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldType" %><%@
 page import="com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.NavigationItem" %><%@

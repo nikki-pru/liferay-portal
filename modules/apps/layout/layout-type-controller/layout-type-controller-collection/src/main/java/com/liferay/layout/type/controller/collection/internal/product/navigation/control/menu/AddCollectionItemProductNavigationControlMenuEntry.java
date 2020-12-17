@@ -49,8 +49,12 @@ import com.liferay.product.navigation.control.menu.BaseJSPProductNavigationContr
 import com.liferay.product.navigation.control.menu.ProductNavigationControlMenuEntry;
 import com.liferay.product.navigation.control.menu.constants.ProductNavigationControlMenuCategoryKeys;
 import com.liferay.product.navigation.control.menu.constants.ProductNavigationControlMenuPortletKeys;
+<<<<<<< HEAD
 import com.liferay.segments.SegmentsEntryRetriever;
 import com.liferay.segments.context.RequestContextMapper;
+=======
+import com.liferay.segments.constants.SegmentsWebKeys;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.io.IOException;
 
@@ -108,12 +112,22 @@ public class AddCollectionItemProductNavigationControlMenuEntry
 		long collectionPK = GetterUtil.getLong(
 			layout.getTypeSettingsProperty("collectionPK"));
 
+<<<<<<< HEAD
+=======
+		long[] segmentEntryIds = GetterUtil.getLongValues(
+			httpServletRequest.getAttribute(
+				SegmentsWebKeys.SEGMENTS_ENTRY_IDS));
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		try {
 			AssetListEntry assetListEntry =
 				_assetListEntryService.getAssetListEntry(collectionPK);
 
+<<<<<<< HEAD
 			long[] segmentEntryIds = _getSegmentsEntryIds(httpServletRequest);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			AssetEntryQuery assetEntryQuery =
 				_assetListAssetEntryProvider.getAssetEntryQuery(
 					assetListEntry, segmentEntryIds);
@@ -265,6 +279,7 @@ public class AddCollectionItemProductNavigationControlMenuEntry
 				PRODUCT_NAVIGATION_CONTROL_MENU);
 	}
 
+<<<<<<< HEAD
 	private long[] _getSegmentsEntryIds(HttpServletRequest httpServletRequest)
 		throws Exception {
 
@@ -274,6 +289,8 @@ public class AddCollectionItemProductNavigationControlMenuEntry
 			_requestContextMapper.map(httpServletRequest));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Reference
 	private AssetHelper _assetHelper;
 
@@ -298,10 +315,13 @@ public class AddCollectionItemProductNavigationControlMenuEntry
 	@Reference
 	private PortletPreferencesLocalService _portletPreferencesLocalService;
 
+<<<<<<< HEAD
 	@Reference
 	private RequestContextMapper _requestContextMapper;
 
 	@Reference
 	private SegmentsEntryRetriever _segmentsEntryRetriever;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

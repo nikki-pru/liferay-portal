@@ -1113,10 +1113,17 @@ public class CountryUtil {
 	 * @return the matching country
 	 * @throws NoSuchCountryException if a matching country could not be found
 	 */
+<<<<<<< HEAD
 	public static Country findByC_Name(long companyId, String name)
 		throws com.liferay.portal.kernel.exception.NoSuchCountryException {
 
 		return getPersistence().findByC_Name(companyId, name);
+=======
+	public static Country findByC_N(long companyId, String name)
+		throws com.liferay.portal.kernel.exception.NoSuchCountryException {
+
+		return getPersistence().findByC_N(companyId, name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -1126,8 +1133,13 @@ public class CountryUtil {
 	 * @param name the name
 	 * @return the matching country, or <code>null</code> if a matching country could not be found
 	 */
+<<<<<<< HEAD
 	public static Country fetchByC_Name(long companyId, String name) {
 		return getPersistence().fetchByC_Name(companyId, name);
+=======
+	public static Country fetchByC_N(long companyId, String name) {
+		return getPersistence().fetchByC_N(companyId, name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -1138,10 +1150,17 @@ public class CountryUtil {
 	 * @param useFinderCache whether to use the finder cache
 	 * @return the matching country, or <code>null</code> if a matching country could not be found
 	 */
+<<<<<<< HEAD
 	public static Country fetchByC_Name(
 		long companyId, String name, boolean useFinderCache) {
 
 		return getPersistence().fetchByC_Name(companyId, name, useFinderCache);
+=======
+	public static Country fetchByC_N(
+		long companyId, String name, boolean useFinderCache) {
+
+		return getPersistence().fetchByC_N(companyId, name, useFinderCache);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -1151,10 +1170,17 @@ public class CountryUtil {
 	 * @param name the name
 	 * @return the country that was removed
 	 */
+<<<<<<< HEAD
 	public static Country removeByC_Name(long companyId, String name)
 		throws com.liferay.portal.kernel.exception.NoSuchCountryException {
 
 		return getPersistence().removeByC_Name(companyId, name);
+=======
+	public static Country removeByC_N(long companyId, String name)
+		throws com.liferay.portal.kernel.exception.NoSuchCountryException {
+
+		return getPersistence().removeByC_N(companyId, name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -1164,6 +1190,7 @@ public class CountryUtil {
 	 * @param name the name
 	 * @return the number of matching countries
 	 */
+<<<<<<< HEAD
 	public static int countByC_Name(long companyId, String name) {
 		return getPersistence().countByC_Name(companyId, name);
 	}
@@ -1641,6 +1668,10 @@ public class CountryUtil {
 
 		return getPersistence().countByC_A_S(
 			companyId, active, shippingAllowed);
+=======
+	public static int countByC_N(long companyId, String name) {
+		return getPersistence().countByC_N(companyId, name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**

@@ -589,6 +589,14 @@
 	<td></td>
 </tr>
 <tr>
+<<<<<<< HEAD
+=======
+	<td>SPECIFIC_FIELD_REQUIRED_ALERT</td>
+	<td>//div[@data-fieldname='${key_fieldName}']//div[@class='required']</td>
+	<td></td>
+</tr>
+<tr>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td>STREET_1</td>
 	<td>//div[label[contains(.,'Street 1')]]//input[@type='text']</td>
 	<td></td>
@@ -650,7 +658,11 @@
 </tr>
 <tr>
 	<td>VIDEO_URL</td>
+<<<<<<< HEAD
 	<td>//input[contains(@id,'VideoExternalShortcutURL')]</td>
+=======
+	<td>//input[contains(@id,'VideoURL')]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>

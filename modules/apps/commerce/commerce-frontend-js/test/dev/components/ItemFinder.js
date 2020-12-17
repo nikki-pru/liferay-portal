@@ -110,6 +110,10 @@ launcher('itemFinder', 'item-finder-root-id', {
 			fieldName: 'key',
 		},
 	],
+<<<<<<< HEAD
 	spritemap: './assets/clay/icons.svg',
+=======
+	spritemap: './assets/icons.svg',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	titleLabel: 'Select an existing specification',
 });

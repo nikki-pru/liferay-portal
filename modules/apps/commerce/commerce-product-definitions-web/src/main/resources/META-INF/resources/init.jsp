@@ -50,8 +50,13 @@ page import="com.liferay.commerce.product.definitions.web.internal.display.conte
 page import="com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionSpecificationOptionValueDisplayContext" %><%@
 page import="com.liferay.commerce.product.definitions.web.internal.display.context.CPDefinitionsDisplayContext" %><%@
 page import="com.liferay.commerce.product.definitions.web.internal.display.context.CPInstanceDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.product.definitions.web.internal.frontend.CommerceProductDisplayPageClayTable" %><%@
 page import="com.liferay.commerce.product.definitions.web.internal.frontend.constants.CommerceProductDataSetConstants" %><%@
+=======
+page import="com.liferay.commerce.product.definitions.web.internal.frontend.CommerceProductDataSetConstants" %><%@
+page import="com.liferay.commerce.product.definitions.web.internal.frontend.CommerceProductDisplayPageClayTable" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.product.definitions.web.internal.security.permission.resource.CommerceCatalogPermission" %><%@
 page import="com.liferay.commerce.product.exception.CPAttachmentFileEntryExpirationDateException" %><%@
 page import="com.liferay.commerce.product.exception.CPDefinitionExpirationDateException" %><%@

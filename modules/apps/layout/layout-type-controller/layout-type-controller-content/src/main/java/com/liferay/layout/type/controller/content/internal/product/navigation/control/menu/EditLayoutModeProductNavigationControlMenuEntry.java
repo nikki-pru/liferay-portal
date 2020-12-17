@@ -43,11 +43,15 @@ import com.liferay.product.navigation.control.menu.constants.ProductNavigationCo
 
 import java.util.Collections;
 import java.util.Locale;
+<<<<<<< HEAD
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+=======
+import java.util.Objects;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -137,6 +141,7 @@ public class EditLayoutModeProductNavigationControlMenuEntry
 				redirect = _portal.getLayoutFullURL(draftLayout, themeDisplay);
 			}
 
+<<<<<<< HEAD
 			redirect = _removeAssetCategoryParameters(
 				httpServletRequest, redirect);
 
@@ -144,6 +149,10 @@ public class EditLayoutModeProductNavigationControlMenuEntry
 				redirect, "p_l_back_url",
 				_removeAssetCategoryParameters(
 					httpServletRequest, themeDisplay.getURLCurrent()));
+=======
+			redirect = _http.setParameter(
+				redirect, "p_l_back_url", themeDisplay.getURLCurrent());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return _http.setParameter(redirect, "p_l_mode", Constants.EDIT);
 		}
@@ -213,6 +222,7 @@ public class EditLayoutModeProductNavigationControlMenuEntry
 		return false;
 	}
 
+<<<<<<< HEAD
 	private String _removeAssetCategoryParameters(
 		HttpServletRequest httpServletRequest, String url) {
 
@@ -236,6 +246,8 @@ public class EditLayoutModeProductNavigationControlMenuEntry
 		return url;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Reference
 	private Http _http;
 

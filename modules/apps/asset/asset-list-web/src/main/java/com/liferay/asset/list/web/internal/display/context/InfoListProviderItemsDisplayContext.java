@@ -67,10 +67,19 @@ public class InfoListProviderItemsDisplayContext {
 			return _infoItemFieldValuesProvider;
 		}
 
+<<<<<<< HEAD
 		_infoItemFieldValuesProvider =
 			_infoItemServiceTracker.getFirstInfoItemService(
 				InfoItemFieldValuesProvider.class,
 				GenericUtil.getGenericClassName(_getInfoListProvider()));
+=======
+		InfoListProvider<?> infoListProvider = _getInfoListProvider();
+
+		_infoItemFieldValuesProvider =
+			_infoItemServiceTracker.getFirstInfoItemService(
+				InfoItemFieldValuesProvider.class,
+				GenericUtil.getGenericClassName(infoListProvider));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return _infoItemFieldValuesProvider;
 	}
@@ -84,7 +93,13 @@ public class InfoListProviderItemsDisplayContext {
 			className = PortalUtil.getClassName(assetEntry.getClassNameId());
 		}
 		else {
+<<<<<<< HEAD
 			className = GenericUtil.getGenericClassName(_getInfoListProvider());
+=======
+			InfoListProvider<?> infoListProvider = _getInfoListProvider();
+
+			className = GenericUtil.getGenericClassName(infoListProvider);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return ResourceActionsUtil.getModelResource(
@@ -96,8 +111,15 @@ public class InfoListProviderItemsDisplayContext {
 			return _infoListProviderClassName;
 		}
 
+<<<<<<< HEAD
 		_infoListProviderClassName = GenericUtil.getGenericClassName(
 			_getInfoListProvider());
+=======
+		InfoListProvider<?> infoListProvider = _getInfoListProvider();
+
+		_infoListProviderClassName = GenericUtil.getGenericClassName(
+			infoListProvider);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return _infoListProviderClassName;
 	}
@@ -142,8 +164,15 @@ public class InfoListProviderItemsDisplayContext {
 			return _infoListProvider;
 		}
 
+<<<<<<< HEAD
 		_infoListProvider = _infoItemServiceTracker.getInfoItemService(
 			InfoListProvider.class, _getInfoListProviderKey());
+=======
+		String infoListProviderKey = _getInfoListProviderKey();
+
+		_infoListProvider = _infoItemServiceTracker.getInfoItemService(
+			InfoListProvider.class, infoListProviderKey);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return _infoListProvider;
 	}

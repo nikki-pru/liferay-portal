@@ -137,7 +137,10 @@ ImportDisplayContext importDisplayContext = new ImportDisplayContext(request, re
 
 						<%
 						total = notImportedLayoutPageTemplatesImporterResultEntries.size();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						viewTotal = (total > 10) ? 10 : total;
 
 						for (int i = 0; i < viewTotal; i++) {

@@ -11,6 +11,10 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-cart-taglib")
 	compileOnly project(":apps:commerce:commerce-currency-api")
 	compileOnly project(":apps:commerce:commerce-frontend-taglib")
+<<<<<<< HEAD
+=======
+	compileOnly project(":apps:commerce:commerce-frontend-taglib")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":apps:commerce:commerce-product-api")
 	compileOnly project(":apps:commerce:commerce-product-content-api")
 	compileOnly project(":apps:commerce:commerce-wish-list-api")

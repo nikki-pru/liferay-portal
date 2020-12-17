@@ -33,7 +33,11 @@ SelectAssetCategoryTreeNodeDisplayContext selectAssetCategoryTreeNodeDisplayCont
 		<clay:button
 			cssClass="asset-category-tree-node-selector"
 			data-category-tree-node-id="<%= selectAssetCategoryTreeNodeDisplayContext.getAssetCategoryTreeNodeId() %>"
+<<<<<<< HEAD
 			data-category-tree-node-type="<%= selectAssetCategoryTreeNodeDisplayContext.getAssetCategoryTreeNodeType() %>"
+=======
+			data-category-tree-node-type="Vocabulary"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			data-title="<%= selectAssetCategoryTreeNodeDisplayContext.getAssetCategoryTreeNodeName() %>"
 			displayType="primary"
 			label='<%= LanguageUtil.get(resourceBundle, "select-this-level") %>'
@@ -60,9 +64,13 @@ SelectAssetCategoryTreeNodeDisplayContext selectAssetCategoryTreeNodeDisplayCont
 					icon="categories"
 				/>
 
+<<<<<<< HEAD
 				<a href="<%= selectAssetCategoryTreeNodeDisplayContext.getAssetCategoryURL(assetCategory.getCategoryId()) %>">
 					<b><%= HtmlUtil.escape(assetCategory.getName()) %></b>
 				</a>
+=======
+				<%= assetCategory.getName() %>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			</liferay-ui:search-container-column-text>
 		</liferay-ui:search-container-row>
 

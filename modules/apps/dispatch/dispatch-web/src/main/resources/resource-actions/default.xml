@@ -10,12 +10,24 @@
 				<action-key>CONFIGURATION</action-key>
 				<action-key>VIEW</action-key>
 			</supports>
+<<<<<<< HEAD
 			<site-member-defaults />
 			<guest-defaults />
 			<guest-unsupported>
 				<action-key>ACCESS_IN_CONTROL_PANEL</action-key>
 				<action-key>CONFIGURATION</action-key>
 				<action-key>VIEW</action-key>
+=======
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported>
+				<action-key>ACCESS_IN_CONTROL_PANEL</action-key>
+				<action-key>CONFIGURATION</action-key>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			</guest-unsupported>
 		</permissions>
 	</portlet-resource>

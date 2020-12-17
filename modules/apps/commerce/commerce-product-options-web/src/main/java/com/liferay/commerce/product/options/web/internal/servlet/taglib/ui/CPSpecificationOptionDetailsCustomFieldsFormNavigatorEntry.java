@@ -15,7 +15,10 @@
 package com.liferay.commerce.product.options.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.product.model.CPSpecificationOption;
+<<<<<<< HEAD
 import com.liferay.commerce.product.options.web.internal.servlet.taglib.ui.constants.CPSpecificationOptionFormNavigatorConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.frontend.taglib.form.navigator.BaseJSPFormNavigatorEntry;
 import com.liferay.frontend.taglib.form.navigator.FormNavigatorEntry;
 import com.liferay.portal.kernel.language.LanguageUtil;

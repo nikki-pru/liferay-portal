@@ -24,7 +24,10 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.ViewTypeItem;
 import com.liferay.petra.string.CharPool;
+<<<<<<< HEAD
 import com.liferay.petra.string.StringBundler;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -86,7 +89,13 @@ public class ManagementToolbarTag extends BaseClayTag {
 		if (searchFormMethod.equals("GET") &&
 			Validator.isNotNull(searchActionURL)) {
 
+<<<<<<< HEAD
 			putValue("searchData", _getSearchData(searchActionURL));
+=======
+			Map<String, Object> searchData = _getSearchData(searchActionURL);
+
+			putValue("searchData", searchData);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			String contentRenderer = GetterUtil.getString(
 				context.get("contentRenderer"),
@@ -141,6 +150,7 @@ public class ManagementToolbarTag extends BaseClayTag {
 			}
 		}
 
+<<<<<<< HEAD
 		String id = (String)context.get("id");
 
 		if (Validator.isNull(id)) {
@@ -155,6 +165,8 @@ public class ManagementToolbarTag extends BaseClayTag {
 
 		context.put("__placeholder__", _getPlaceholder(id));
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		return super.doStartTag();
 	}
 
@@ -452,6 +464,7 @@ public class ManagementToolbarTag extends BaseClayTag {
 		}
 	}
 
+<<<<<<< HEAD
 	private String _getPlaceholder(String id) {
 		StringBundler sb = new StringBundler(4);
 
@@ -463,6 +476,8 @@ public class ManagementToolbarTag extends BaseClayTag {
 		return sb.toString();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private Map<String, Object> _getSearchData(String searchActionURL) {
 		Map<String, Object> searchData = new HashMap<>();
 

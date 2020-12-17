@@ -33,7 +33,10 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.base.TeamLocalServiceBaseImpl;
+<<<<<<< HEAD
 import com.liferay.portal.util.PropsValues;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -53,6 +56,7 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 
 		User user = userPersistence.findByPrimaryKey(userId);
 
+<<<<<<< HEAD
 		if ((PropsValues.DATA_LIMIT_MAX_TEAM_COUNT > 0) &&
 			(teamPersistence.countByCompanyId(user.getCompanyId()) >=
 				PropsValues.DATA_LIMIT_MAX_TEAM_COUNT)) {
@@ -61,6 +65,8 @@ public class TeamLocalServiceImpl extends TeamLocalServiceBaseImpl {
 				"Unable to exceed maximum number of allowed teams");
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		validate(0, groupId, name);
 
 		long teamId = counterLocalService.increment();

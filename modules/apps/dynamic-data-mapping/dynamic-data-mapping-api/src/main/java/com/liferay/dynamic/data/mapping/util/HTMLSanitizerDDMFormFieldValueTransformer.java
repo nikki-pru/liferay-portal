@@ -14,7 +14,10 @@
 
 package com.liferay.dynamic.data.mapping.util;
 
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -40,7 +43,11 @@ public class HTMLSanitizerDDMFormFieldValueTransformer
 
 	@Override
 	public String getFieldType() {
+<<<<<<< HEAD
 		return DDMFormFieldType.TEXT_HTML;
+=======
+		return "ddm-text-html";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

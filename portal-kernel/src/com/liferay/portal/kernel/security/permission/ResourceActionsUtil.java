@@ -15,7 +15,10 @@
 package com.liferay.portal.kernel.security.permission;
 
 import com.liferay.portal.kernel.exception.NoSuchResourceActionException;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.exception.ResourceActionsException;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.model.Role;
@@ -277,6 +280,7 @@ public class ResourceActionsUtil {
 		return getResourceActions().isRootModelResource(modelResource);
 	}
 
+<<<<<<< HEAD
 	public static void populatePortletResource(
 			Portlet portlet, ClassLoader classLoader, String... sources)
 		throws ResourceActionsException {
@@ -285,6 +289,8 @@ public class ResourceActionsUtil {
 			portlet, classLoader, sources);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static void read(ClassLoader classLoader, String source)
 		throws Exception {
 

@@ -39,7 +39,11 @@ definition {
 
 		ItemSelector.gotoItemSelectorViaAlloyEditor();
 
+<<<<<<< HEAD
 		ItemSelector.addImageFromURL(
+=======
+		ItemSelector.addFromURL(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			imageSourceURL = "https://raw.githubusercontent.com/liferay/liferay-portal/master/portal-web/test/functional/com/liferay/portalweb/dependencies/Document_1.png",
 			navTab = "URL");
 
@@ -441,6 +445,7 @@ definition {
 		Pagination.viewResults(results = "Showing 21 to 30 of 30 entries.");
 	}
 
+<<<<<<< HEAD
 	@description = "This ensures that a message is displayed in the preview section of the item selector when pasting an invalid URL."
 	@priority = "5"
 	test PreviewInvalidVideos {
@@ -517,6 +522,8 @@ definition {
 		ItemSelector.previewEmbeddedVideo(validURL = "https://player.vimeo.com");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@description = "This ensures that users can preview the SVG image in item selector."
 	@priority = "5"
 	test PreviewSVG {

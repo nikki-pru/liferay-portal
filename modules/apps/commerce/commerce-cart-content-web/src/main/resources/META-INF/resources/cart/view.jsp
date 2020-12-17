@@ -136,6 +136,7 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 						</c:if>
 					</liferay-ui:search-container-column-text>
 
+<<<<<<< HEAD
 					<liferay-ui:search-container-column-text
 						name="price"
 					>
@@ -159,14 +160,33 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 
 					<liferay-ui:search-container-column-text
 						name="discount"
+=======
+					<%
+					String commercePriceDisplayType = commerceCartContentDisplayContext.getCommercePriceDisplayType();
+					%>
+
+					<liferay-ui:search-container-column-text
+						name="list-price"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					>
 						<c:if test="<%= commerceCartContentDisplayContext.hasViewPricePermission() %>">
 
 							<%
+<<<<<<< HEAD
 							CommerceMoney discountAmountCommerceMoney = commerceCartContentDisplayContext.getDiscountAmountCommerceMoney(commerceOrderItem);
 							%>
 
 							<%= HtmlUtil.escape(discountAmountCommerceMoney.format(locale)) %>
+=======
+							CommerceMoney unitPriceCommerceMoney = commerceOrderItem.getUnitPriceMoney();
+
+							if (commercePriceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+								unitPriceCommerceMoney = commerceOrderItem.getUnitPriceWithTaxAmountMoney();
+							}
+							%>
+
+							<%= HtmlUtil.escape(unitPriceCommerceMoney.format(locale)) %>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						</c:if>
 					</liferay-ui:search-container-column-text>
 
@@ -186,7 +206,15 @@ Map<Long, List<CommerceOrderValidatorResult>> commerceOrderValidatorResultMap = 
 						<c:if test="<%= commerceCartContentDisplayContext.hasViewPricePermission() %>">
 
 							<%
+<<<<<<< HEAD
 							CommerceMoney finalPriceCommerceMoney = commerceCartContentDisplayContext.getFinalPriceCommerceMoney(commerceOrderItem);
+=======
+							CommerceMoney finalPriceCommerceMoney = commerceOrderItem.getFinalPriceMoney();
+
+							if (commercePriceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
+								finalPriceCommerceMoney = commerceOrderItem.getFinalPriceWithTaxAmountMoney();
+							}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							%>
 
 							<%= HtmlUtil.escape(finalPriceCommerceMoney.format(locale)) %>

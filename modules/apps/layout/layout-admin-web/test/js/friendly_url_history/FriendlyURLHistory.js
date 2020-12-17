@@ -29,7 +29,10 @@ const defaultProps = {
 	defaultLanguageId: 'en_US',
 	deleteFriendlyURLEntryLocalizationURL: '/delete/friendly_url_history',
 	friendlyURLEntryLocalizationsURL: '/get/friendly_url_history',
+<<<<<<< HEAD
 	portletNamespace: 'portletNamespace',
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	restoreFriendlyURLEntryLocalizationURL: '/restore/friendly_url_history',
 };
 

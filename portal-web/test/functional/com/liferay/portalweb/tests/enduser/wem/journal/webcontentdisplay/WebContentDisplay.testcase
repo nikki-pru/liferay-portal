@@ -41,6 +41,12 @@ definition {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	// Ignore for LPS-123072
+
+	@ignore = "true"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@priority = "5"
 	test AddAudioViaWebContent {
 		property custom.properties = "xuggler.enabled=true";
@@ -170,6 +176,12 @@ definition {
 			webContentTitle = "Web Content Title");
 	}
 
+<<<<<<< HEAD
+=======
+	// Ignore for LPS-123072
+
+	@ignore = "true"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@priority = "5"
 	test AddImageToWebContentViaItemSelector {
 		property portal.acceptance = "true";
@@ -700,7 +712,11 @@ Welcome to Liferay Community Edition Portal 7.4.0 CE GA1''';
 			webContentContent = "世界您好 Content",
 			webContentTitle = "世界您好 Title");
 
+<<<<<<< HEAD
 		PortletEntry.publish();
+=======
+		Button.clickPublish();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Navigator.gotoSitePage(
 			pageName = "Web Content Display Page",

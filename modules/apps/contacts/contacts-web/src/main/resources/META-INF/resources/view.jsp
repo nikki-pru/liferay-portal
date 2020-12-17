@@ -52,14 +52,20 @@ if (userPublicPage) {
 	List<User> users = UserLocalServiceUtil.getSocialUsers(scopeGroup.getClassPK(), SocialRelationConstants.TYPE_BI_CONNECTION, StringPool.EQUAL, 0, ContactsConstants.MAX_RESULT_COUNT, new UserLastNameComparator(true));
 
 	contacts = new ArrayList<BaseModel<?>>(users);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	contactsCount = UserLocalServiceUtil.getSocialUsersCount(scopeGroup.getClassPK(), SocialRelationConstants.TYPE_BI_CONNECTION, StringPool.EQUAL);
 }
 else if (showOnlySiteMembers || !filterBy.equals(ContactsConstants.FILTER_BY_DEFAULT)) {
 	List<User> users = UserLocalServiceUtil.search(company.getCompanyId(), name, WorkflowConstants.STATUS_APPROVED, params, 0, ContactsConstants.MAX_RESULT_COUNT, new UserLastNameComparator(true));
 
 	contacts = new ArrayList<BaseModel<?>>(users);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	contactsCount = UserLocalServiceUtil.searchCount(themeDisplay.getCompanyId(), name, WorkflowConstants.STATUS_APPROVED, params);
 }
 else {
@@ -90,7 +96,11 @@ portletURL.setWindowState(WindowState.NORMAL);
 			<aui:input name="type" type="hidden" value="" />
 
 			<clay:row>
+<<<<<<< HEAD
 				<aui:col cssClass="d-flex justify-content-between toolbar" width="<%= 100 %>">
+=======
+				<aui:col cssClass="toolbar" width="<%= 100 %>">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					<div class="filter-container">
 						<clay:row>
 							<aui:col cssClass="contact-group-filter form-inline">

@@ -100,6 +100,7 @@ public class WorkflowLogSerDes {
 			sb.append("\"");
 		}
 
+<<<<<<< HEAD
 		if (workflowLog.getDescription() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -114,6 +115,8 @@ public class WorkflowLogSerDes {
 			sb.append("\"");
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (workflowLog.getId() != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -262,6 +265,7 @@ public class WorkflowLogSerDes {
 				liferayToJSONDateFormat.format(workflowLog.getDateCreated()));
 		}
 
+<<<<<<< HEAD
 		if (workflowLog.getDescription() == null) {
 			map.put("description", null);
 		}
@@ -270,6 +274,8 @@ public class WorkflowLogSerDes {
 				"description", String.valueOf(workflowLog.getDescription()));
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (workflowLog.getId() == null) {
 			map.put("id", null);
 		}
@@ -378,11 +384,14 @@ public class WorkflowLogSerDes {
 						toDate((String)jsonParserFieldValue));
 				}
 			}
+<<<<<<< HEAD
 			else if (Objects.equals(jsonParserFieldName, "description")) {
 				if (jsonParserFieldValue != null) {
 					workflowLog.setDescription((String)jsonParserFieldValue);
 				}
 			}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			else if (Objects.equals(jsonParserFieldName, "id")) {
 				if (jsonParserFieldValue != null) {
 					workflowLog.setId(

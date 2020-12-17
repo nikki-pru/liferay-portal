@@ -273,6 +273,7 @@ public abstract class TopLevelBuild extends BaseBuild {
 		return displayName;
 	}
 
+<<<<<<< HEAD
 	public AxisBuild getDownstreamAxisBuild(String axisName) {
 		if (_downstreamAxisBuilds.containsKey(axisName)) {
 			return _downstreamAxisBuilds.get(axisName);
@@ -298,6 +299,9 @@ public abstract class TopLevelBuild extends BaseBuild {
 			return axisBuilds;
 		}
 
+=======
+	public List<AxisBuild> getDownstreamAxisBuilds() {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		List<AxisBuild> downstreamAxisBuilds = new ArrayList<>();
 
 		for (BatchBuild downstreamBatchBuild : getDownstreamBatchBuilds()) {
@@ -305,6 +309,7 @@ public abstract class TopLevelBuild extends BaseBuild {
 				downstreamBatchBuild.getDownstreamAxisBuilds());
 		}
 
+<<<<<<< HEAD
 		if (isCompleted()) {
 			for (AxisBuild downstreamAxisBuild : downstreamAxisBuilds) {
 				_downstreamAxisBuilds.put(
@@ -312,12 +317,15 @@ public abstract class TopLevelBuild extends BaseBuild {
 			}
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Collections.sort(
 			downstreamAxisBuilds, new BaseBuild.BuildDisplayNameComparator());
 
 		return downstreamAxisBuilds;
 	}
 
+<<<<<<< HEAD
 	public BatchBuild getDownstreamBatchBuild(String jobVariant) {
 		if (_downstreamBatchBuilds.containsKey(jobVariant)) {
 			return _downstreamBatchBuilds.get(jobVariant);
@@ -343,6 +351,9 @@ public abstract class TopLevelBuild extends BaseBuild {
 			return batchBuilds;
 		}
 
+=======
+	public List<BatchBuild> getDownstreamBatchBuilds() {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		List<BatchBuild> downstreamBatchBuilds = new ArrayList<>();
 
 		List<Build> downstreamBuilds = getDownstreamBuilds(null);
@@ -355,6 +366,7 @@ public abstract class TopLevelBuild extends BaseBuild {
 			downstreamBatchBuilds.add((BatchBuild)downstreamBuild);
 		}
 
+<<<<<<< HEAD
 		if (isCompleted()) {
 			for (BatchBuild batchBuild : downstreamBatchBuilds) {
 				_downstreamBatchBuilds.put(
@@ -362,6 +374,8 @@ public abstract class TopLevelBuild extends BaseBuild {
 			}
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Collections.sort(
 			downstreamBatchBuilds, new BaseBuild.BuildDisplayNameComparator());
 
@@ -1739,10 +1753,13 @@ public abstract class TopLevelBuild extends BaseBuild {
 
 	private boolean _compareToUpstream;
 	private Build _controllerBuild;
+<<<<<<< HEAD
 	private final Map<String, AxisBuild> _downstreamAxisBuilds =
 		new HashMap<>();
 	private final Map<String, BatchBuild> _downstreamBatchBuilds =
 		new HashMap<>();
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private long _lastDownstreamBuildsListingTimestamp = -1L;
 	private String _metricsHostName;
 	private int _metricsHostPort;

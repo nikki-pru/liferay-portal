@@ -23,7 +23,10 @@ import com.liferay.dynamic.data.mapping.io.DDMFormSerializerSerializeRequest;
 import com.liferay.dynamic.data.mapping.io.DDMFormSerializerSerializeResponse;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.DDMTemplate;
 import com.liferay.dynamic.data.mapping.service.DDMTemplateLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -149,8 +152,13 @@ public class DDMFormTemplateSynchonizer {
 
 		String fieldType = structureDDMFormField.getType();
 
+<<<<<<< HEAD
 		if (fieldType.equals(DDMFormFieldType.SELECT) ||
 			fieldType.equals(DDMFormFieldType.RADIO)) {
+=======
+		if (fieldType.equals(DDMImpl.TYPE_SELECT) ||
+			fieldType.equals(DDMImpl.TYPE_RADIO)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			templateDDMFormField.setDDMFormFieldOptions(
 				structureDDMFormField.getDDMFormFieldOptions());

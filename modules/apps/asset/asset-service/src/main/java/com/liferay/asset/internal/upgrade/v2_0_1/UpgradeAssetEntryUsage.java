@@ -23,9 +23,13 @@ public class UpgradeAssetEntryUsage extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
+<<<<<<< HEAD
 		if (hasIndex("AssetEntryUsage", "IX_71A0231C")) {
 			runSQL("drop index IX_71A0231C on AssetEntryUsage");
 		}
+=======
+		runSQL("drop index IX_71A0231C on AssetEntryUsage");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 }

@@ -36,6 +36,11 @@ definition {
 
 	@priority = "5"
 	test ConflictingPublicationsAutomaticallyResolved {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "Publications#ConflictingPublicationsAutomaticallyResolved";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -121,6 +126,11 @@ definition {
 
 	@priority = "4"
 	test ConflictingPublicationsNeedManualResolution {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "Publications#ConflictingPublicationsNeedManualResolution";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -266,6 +276,11 @@ definition {
 
 	@priority = "4"
 	test DiscardSubsetsofChangesInPublication {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "Publications#DiscardSubsetsofChangesInPublication";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
 		Navigator.openURL();
@@ -381,6 +396,11 @@ definition {
 
 	@priority = "5"
 	test PublishParallelPublications {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "Publications#PublishParallelPublications";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -462,6 +482,11 @@ definition {
 
 	@priority = "5"
 	test RescheduleAndCancelScheduledPublication {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "Publications#RescheduleAndCancelScheduledPublication";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
 		Navigator.openURL();
@@ -493,6 +518,11 @@ definition {
 
 	@priority = "5"
 	test RevertPublicationAndPublishNow {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "Publications#RevertPublicationAndPublishNow";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
 		Navigator.openURL();
@@ -558,6 +588,11 @@ definition {
 
 	@priority = "5"
 	test SchedulePublication {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "Publications#SchedulePublication";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name 1");
 
 		Navigator.openURL();
@@ -631,6 +666,11 @@ definition {
 
 	@priority = "5"
 	test SearchPublishedPublications {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "Publications#SearchPublishedPublications";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Apple");
 
 		Publications.createNewPublication(publicationsName = "Banana");

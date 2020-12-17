@@ -5,8 +5,11 @@ definition {
 
 		App.selectTableView(tableViewName = "${tableViewName}");
 
+<<<<<<< HEAD
 		Button.clickNext();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		AppBuilderAdmin.setName(title = "${appTitle}");
 
 		App.toggleDeploy(deployOption = "${deployOption}");
@@ -30,8 +33,11 @@ definition {
 		Click(locator1 = "AppBuilderStandardApp#BACK_BUTTON");
 	}
 
+<<<<<<< HEAD
 	macro clickOnManageWorkflows {
 		Button.click(button = "Manage Workflows");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

@@ -10,7 +10,10 @@
 	<short-name>soy</short-name>
 	<uri>http://liferay.com/tld/soy</uri>
 	<tag>
+<<<<<<< HEAD
 		<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<name>component-renderer</name>
 		<tag-class>com.liferay.frontend.taglib.soy.servlet.taglib.ComponentRendererTag</tag-class>
 		<body-content>empty</body-content>
@@ -65,7 +68,10 @@
 		</attribute>
 	</tag>
 	<tag>
+<<<<<<< HEAD
 		<description>Deprecated as of 7.4.0, with no direct replacement.</description>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<name>template-renderer</name>
 		<tag-class>com.liferay.frontend.taglib.soy.servlet.taglib.TemplateRendererTag</tag-class>
 		<body-content>empty</body-content>

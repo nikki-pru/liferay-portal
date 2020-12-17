@@ -501,7 +501,11 @@ class Form extends Component {
 					/>
 				</LayoutProviderTag>
 
+<<<<<<< HEAD
 				<div class="container container-fluid-1280">
+=======
+				<div class="container-fluid-1280">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					{!this.isFormBuilderView() && (
 						<div class="button-holder ddm-form-builder-buttons">
 							<button

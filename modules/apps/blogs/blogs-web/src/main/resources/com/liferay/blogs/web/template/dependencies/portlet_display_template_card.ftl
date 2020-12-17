@@ -21,7 +21,10 @@
 									<#assign viewEntryPortletURL = renderResponse.createRenderURL() />
 
 									${viewEntryPortletURL.setParameter("mvcRenderCommandName", "/blogs/view_entry")}
+<<<<<<< HEAD
 									${viewEntryPortletURL.setParameter("redirect", currentURL)}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 									<#if validator.isNotNull(curBlogEntry.getUrlTitle())>
 										${viewEntryPortletURL.setParameter("urlTitle", curBlogEntry.getUrlTitle())}

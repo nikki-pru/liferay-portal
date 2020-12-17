@@ -70,7 +70,11 @@ page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceP
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommercePricingClassPriceListDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.display.context.CommerceTierCommercePriceEntryDisplayContext" %><%@
 page import="com.liferay.commerce.pricing.web.internal.frontend.constants.CommercePricingDataSetConstants" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.pricing.web.internal.servlet.taglib.ui.constants.CommercePriceListScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.pricing.web.internal.servlet.taglib.ui.CommercePriceListScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.product.exception.NoSuchCatalogException" %><%@
 page import="com.liferay.commerce.product.model.CPDefinition" %><%@
 page import="com.liferay.commerce.product.model.CProduct" %><%@

@@ -98,7 +98,10 @@ else {
 						String tabName = StringUtil.appendParentheticalSuffix(LanguageUtil.get(request, "web-content"), journalDisplayContext.getTotalItems());
 
 						tabsNames = ArrayUtil.append(tabsNames, tabName);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						tabsValues = ArrayUtil.append(tabsValues, "web-content");
 					}
 
@@ -106,7 +109,10 @@ else {
 						String tabName = StringUtil.appendParentheticalSuffix(LanguageUtil.get(request, "versions"), journalDisplayContext.getVersionsTotal());
 
 						tabsNames = ArrayUtil.append(tabsNames, tabName);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						tabsValues = ArrayUtil.append(tabsValues, "versions");
 					}
 
@@ -114,7 +120,10 @@ else {
 						String tabName = StringUtil.appendParentheticalSuffix(LanguageUtil.get(request, "comments"), journalDisplayContext.getCommentsTotal());
 
 						tabsNames = ArrayUtil.append(tabsNames, tabName);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						tabsValues = ArrayUtil.append(tabsValues, "comments");
 					}
 					%>

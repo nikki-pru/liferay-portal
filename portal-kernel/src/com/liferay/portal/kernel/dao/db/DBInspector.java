@@ -30,7 +30,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+<<<<<<< HEAD
 import java.util.Objects;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -235,6 +238,7 @@ public class DBInspector {
 		return name;
 	}
 
+<<<<<<< HEAD
 	protected boolean hasIndex(String tableName, String indexName)
 		throws Exception {
 
@@ -257,6 +261,8 @@ public class DBInspector {
 		return false;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private Integer _getColumnDataType(String columnType) {
 		Matcher matcher = _columnTypePattern.matcher(columnType);
 

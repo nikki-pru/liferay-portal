@@ -24,13 +24,19 @@ public class OrderList {
 	public OrderList(List<Order> orders, int count) {
 		_orders = orders;
 		_count = count;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_success = true;
 	}
 
 	public OrderList(String[] errorMessages) {
 		_errorMessages = errorMessages;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_success = false;
 	}
 

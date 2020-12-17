@@ -52,10 +52,17 @@ public class ServiceConfigurationInitializer {
 		_classLoader = classLoader;
 		_portletConfiguration = portletConfiguration;
 		_serviceConfiguration = serviceConfiguration;
+<<<<<<< HEAD
 		_resourceActions = resourceActions;
 		_serviceComponentLocalService = serviceComponentLocalService;
 
 		_serviceComponentConfiguration = new ModuleResourceLoader(bundle);
+=======
+
+		_serviceComponentConfiguration = new ModuleResourceLoader(bundle);
+		_resourceActions = resourceActions;
+		_serviceComponentLocalService = serviceComponentLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public void stop() {

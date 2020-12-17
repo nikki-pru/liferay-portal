@@ -37,7 +37,10 @@ if (commerceOrderPrice != null) {
 	subtotalCommerceMoney = commerceOrderPrice.getSubtotal();
 	subtotalCommerceDiscountValue = commerceOrderPrice.getSubtotalDiscountValue();
 	taxValueCommerceMoney = commerceOrderPrice.getTaxValue();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	totalCommerceDiscountValue = commerceOrderPrice.getTotalDiscountValue();
 	totalOrderCommerceMoney = commerceOrderPrice.getTotal();
 
@@ -155,6 +158,7 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 					</div>
 				</liferay-ui:search-container-column-text>
 
+<<<<<<< HEAD
 				<liferay-ui:search-container-column-text
 					name="price"
 				>
@@ -175,6 +179,20 @@ request.setAttribute("view.jsp-portletURL", portletURL);
 						</c:choose>
 					</c:if>
 				</liferay-ui:search-container-column-text>
+=======
+				<c:if test="<%= commerceCartContentMiniDisplayContext.hasViewPricePermission() %>">
+
+					<%
+					CommerceMoney unitPriceCommerceMoney = commerceOrderItem.getUnitPriceMoney();
+					%>
+
+					<liferay-ui:search-container-column-text>
+						<div class="mt-3">
+							<%= HtmlUtil.escape(unitPriceCommerceMoney.format(locale)) %>
+						</div>
+					</liferay-ui:search-container-column-text>
+				</c:if>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			</liferay-ui:search-container-row>
 
 			<liferay-ui:search-iterator

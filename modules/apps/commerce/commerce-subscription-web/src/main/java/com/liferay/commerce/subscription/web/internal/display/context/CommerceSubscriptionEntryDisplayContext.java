@@ -65,8 +65,12 @@ public class CommerceSubscriptionEntryDisplayContext {
 	public CommerceSubscriptionEntryDisplayContext(
 		CommercePaymentMethodGroupRelLocalService
 			commercePaymentMethodGroupRelLocalService,
+<<<<<<< HEAD
 		CommerceSubscriptionEntryLocalService
 			commerceSubscriptionEntryLocalService,
+=======
+		CommerceSubscriptionEntryLocalService commerceSubscriptionEntryService,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		CommerceOrderItemLocalService commerceOrderItemLocalService,
 		CPSubscriptionTypeJSPContributorRegistry
 			cpSubscriptionTypeJSPContributorRegistry,
@@ -76,7 +80,11 @@ public class CommerceSubscriptionEntryDisplayContext {
 		_commercePaymentMethodGroupRelLocalService =
 			commercePaymentMethodGroupRelLocalService;
 		_commerceSubscriptionEntryLocalService =
+<<<<<<< HEAD
 			commerceSubscriptionEntryLocalService;
+=======
+			commerceSubscriptionEntryService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_commerceOrderItemLocalService = commerceOrderItemLocalService;
 		_cpSubscriptionTypeJSPContributorRegistry =
 			cpSubscriptionTypeJSPContributorRegistry;

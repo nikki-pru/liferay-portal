@@ -24,6 +24,10 @@ import {
 	DELETE_DATA_LAYOUT_RULE,
 	EDIT_CUSTOM_OBJECT_FIELD,
 	SET_FORM_RENDERER_CUSTOM_FIELDS,
+<<<<<<< HEAD
+=======
+	SWITCH_SIDEBAR_PANEL,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	UPDATE_APP_PROPS,
 	UPDATE_CONFIG,
 	UPDATE_DATA_DEFINITION,
@@ -340,6 +344,18 @@ const createReducer = (dataLayoutBuilder) => {
 					customFields: action.payload,
 				};
 			}
+<<<<<<< HEAD
+=======
+			case SWITCH_SIDEBAR_PANEL: {
+				const {sidebarOpen, sidebarPanelId} = action.payload;
+
+				return {
+					...state,
+					sidebarOpen,
+					sidebarPanelId,
+				};
+			}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			case UPDATE_APP_PROPS: {
 				return {
 					...state,

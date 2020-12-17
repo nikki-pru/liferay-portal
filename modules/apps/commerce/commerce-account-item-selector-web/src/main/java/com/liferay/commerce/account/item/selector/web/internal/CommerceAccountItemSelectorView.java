@@ -104,8 +104,15 @@ public class CommerceAccountItemSelectorView
 	private static final List<ItemSelectorReturnType>
 		_supportedItemSelectorReturnTypes = Collections.unmodifiableList(
 			ListUtil.fromArray(
+<<<<<<< HEAD
 				new Base64ItemSelectorReturnType(),
 				new UUIDItemSelectorReturnType()));
+=======
+				new ItemSelectorReturnType[] {
+					new Base64ItemSelectorReturnType(),
+					new UUIDItemSelectorReturnType()
+				}));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Reference
 	private CommerceAccountService _commerceAccountService;

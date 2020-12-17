@@ -72,6 +72,7 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void deleteRegion(long regionId) throws PortalException {
 		PermissionChecker permissionChecker = getPermissionChecker();
 
@@ -84,6 +85,8 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 	}
 
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public Region fetchRegion(long regionId) {
 		return regionPersistence.fetchByPrimaryKey(regionId);
 	}
@@ -130,6 +133,7 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 			_getOrderByComparator(countryId));
 	}
 
+<<<<<<< HEAD
 	@AccessControlled(guestAccessEnabled = true)
 	@Override
 	public List<Region> getRegions(
@@ -191,6 +195,8 @@ public class RegionServiceImpl extends RegionServiceBaseImpl {
 			regionId, active, name, position, regionCode);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private OrderByComparator<Region> _getOrderByComparator(long countryId) {
 		Country country = countryService.fetchCountry(countryId);
 

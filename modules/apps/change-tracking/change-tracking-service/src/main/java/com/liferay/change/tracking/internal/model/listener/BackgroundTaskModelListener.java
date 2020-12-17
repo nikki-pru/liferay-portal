@@ -17,7 +17,10 @@ package com.liferay.change.tracking.internal.model.listener;
 import com.liferay.change.tracking.internal.background.task.CTPublishBackgroundTaskExecutor;
 import com.liferay.change.tracking.model.CTCollection;
 import com.liferay.change.tracking.service.CTCollectionLocalService;
+<<<<<<< HEAD
 import com.liferay.change.tracking.service.CTSchemaVersionLocalService;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.background.task.model.BackgroundTask;
 import com.liferay.portal.kernel.backgroundtask.constants.BackgroundTaskConstants;
 import com.liferay.portal.kernel.model.BaseModelListener;
@@ -52,6 +55,7 @@ public class BackgroundTaskModelListener
 					Long.valueOf(backgroundTask.getName()));
 
 			if (ctCollection != null) {
+<<<<<<< HEAD
 				int status = WorkflowConstants.STATUS_DRAFT;
 
 				if (!_ctSchemaVersionLocalService.isLatestCTSchemaVersion(
@@ -61,6 +65,9 @@ public class BackgroundTaskModelListener
 				}
 
 				ctCollection.setStatus(status);
+=======
+				ctCollection.setStatus(WorkflowConstants.STATUS_DRAFT);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 				_ctCollectionLocalService.updateCTCollection(ctCollection);
 			}
@@ -70,7 +77,10 @@ public class BackgroundTaskModelListener
 	@Reference
 	private CTCollectionLocalService _ctCollectionLocalService;
 
+<<<<<<< HEAD
 	@Reference
 	private CTSchemaVersionLocalService _ctSchemaVersionLocalService;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

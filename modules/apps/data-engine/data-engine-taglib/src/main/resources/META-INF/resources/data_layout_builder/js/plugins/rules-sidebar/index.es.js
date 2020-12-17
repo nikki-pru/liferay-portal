@@ -14,17 +14,36 @@
 
 import React from 'react';
 
+<<<<<<< HEAD
+=======
+import {Component} from '../PluginContext.es';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import RulesSidebar from './components/RulesSidebar.es';
 
 /**
  * Entry-point for "RulesSidebar" (sidebar panel) functionality.
  */
 export default class {
+<<<<<<< HEAD
 	constructor({panel}) {
+=======
+	constructor({app, panel}) {
+		this.Component = Component(app);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		this.title = panel.label;
 	}
 
 	renderSidebar() {
+<<<<<<< HEAD
 		return <RulesSidebar title={this.title} />;
+=======
+		const {Component} = this;
+
+		return (
+			<Component>
+				<RulesSidebar title={this.title} />
+			</Component>
+		);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 }

@@ -15,7 +15,10 @@
 package com.liferay.commerce.shipping.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.model.CommerceShippingMethod;
+<<<<<<< HEAD
 import com.liferay.commerce.shipping.web.internal.servlet.taglib.ui.constants.CommerceShippingScreenNavigationConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;
 import com.liferay.frontend.taglib.servlet.taglib.util.JSPRenderer;

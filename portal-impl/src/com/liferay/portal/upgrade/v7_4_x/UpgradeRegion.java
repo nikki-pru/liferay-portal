@@ -14,7 +14,11 @@
 
 package com.liferay.portal.upgrade.v7_4_x;
 
+<<<<<<< HEAD
 import com.liferay.portal.dao.orm.common.SQLTransformer;
+=======
+import com.liferay.petra.string.StringPool;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.dao.jdbc.AutoBatchPreparedStatementUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.LoggingTimer;
@@ -40,6 +44,7 @@ public class UpgradeRegion extends UpgradeProcess {
 		String sql = StringBundler.concat(
 			"select User_.companyId, User_.userId from User_ join Company on ",
 			"User_.companyId = Company.companyId where User_.defaultUser = ",
+<<<<<<< HEAD
 			"[$TRUE$] and Company.webId = ",
 			StringUtil.quote(PropsValues.COMPANY_DEFAULT_WEB_ID));
 
@@ -50,6 +55,20 @@ public class UpgradeRegion extends UpgradeProcess {
 			if (rs.next()) {
 				defaultCompanyId = rs.getLong(1);
 				defaultUserId = rs.getLong(2);
+=======
+			"true and Company.webId = ",
+			StringUtil.quote(
+				PropsValues.COMPANY_DEFAULT_WEB_ID, StringPool.QUOTE));
+
+		try (PreparedStatement ps = connection.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+				defaultCompanyId = rs.getLong(1);
+				defaultUserId = rs.getLong(2);
+
+				break;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 		}
 

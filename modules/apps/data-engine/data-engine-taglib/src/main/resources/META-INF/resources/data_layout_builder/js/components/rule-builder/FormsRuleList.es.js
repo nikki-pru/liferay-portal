@@ -100,7 +100,11 @@ const Operand = ({field, left, type, value}) => {
 			case 'option':
 				return left.field.options.find(
 					(option) => value === option.value
+<<<<<<< HEAD
 				)?.label;
+=======
+				).label;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			case 'field':
 				return field.label;
 			case 'list':

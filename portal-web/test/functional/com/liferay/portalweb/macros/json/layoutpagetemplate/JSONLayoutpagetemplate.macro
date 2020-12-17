@@ -184,7 +184,11 @@ definition {
 	macro deleteLayoutPageTemplateEntry {
 		Variables.assertDefined(parameterList = "${groupName},${layoutPageTemplateEntryName}");
 
+<<<<<<< HEAD
 		var groupId = JSONLayoutpagetemplateSetter.setGroupId(groupKey = "${groupName}",site = "${site}");
+=======
+		var groupId = JSONLayoutpagetemplateSetter.setGroupId(groupName = "${groupName}",site = "${site}");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		var layoutPageTemplateEntryId = JSONLayoutpagetemplateSetter.setLayoutPageTemplateEntryId(
 			groupId = "${groupId}",

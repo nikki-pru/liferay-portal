@@ -50,7 +50,10 @@ import org.osgi.service.component.annotations.Reference;
 public class PunchOutAccessTokenProviderImpl
 	implements PunchOutAccessTokenProvider {
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public PunchOutAccessToken generatePunchOutAccessToken(
 		long groupId, long commerceAccountId, String currencyCode,
 		String userEmailAddress, String commerceOrderUuid,
@@ -82,7 +85,10 @@ public class PunchOutAccessTokenProviderImpl
 		return punchOutAccessToken;
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public PunchOutAccessToken getPunchOutAccessToken(String token) {
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {
@@ -105,7 +111,10 @@ public class PunchOutAccessTokenProviderImpl
 		}
 	}
 
+<<<<<<< HEAD
 	@Override
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public PunchOutAccessToken removePunchOutAccessToken(String token) {
 		if (!_clusterMasterExecutor.isEnabled() ||
 			_clusterMasterExecutor.isMaster()) {

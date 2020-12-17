@@ -57,7 +57,10 @@ public class LayoutSetPrototypeServiceHttp {
 				java.util.Map<java.util.Locale, String> nameMap,
 				java.util.Map<java.util.Locale, String> descriptionMap,
 				boolean active, boolean layoutsUpdateable,
+<<<<<<< HEAD
 				boolean readyForPropagation,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
@@ -68,6 +71,7 @@ public class LayoutSetPrototypeServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, nameMap, descriptionMap, active, layoutsUpdateable,
+<<<<<<< HEAD
 				readyForPropagation, serviceContext);
 
 			Object returnObj = null;
@@ -115,6 +119,8 @@ public class LayoutSetPrototypeServiceHttp {
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, nameMap, descriptionMap, active, layoutsUpdateable,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				serviceContext);
 
 			Object returnObj = null;
@@ -153,7 +159,11 @@ public class LayoutSetPrototypeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				LayoutSetPrototypeServiceUtil.class, "deleteLayoutSetPrototype",
+<<<<<<< HEAD
 				_deleteLayoutSetPrototypeParameterTypes2);
+=======
+				_deleteLayoutSetPrototypeParameterTypes1);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, layoutSetPrototypeId);
@@ -190,7 +200,11 @@ public class LayoutSetPrototypeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				LayoutSetPrototypeServiceUtil.class, "fetchLayoutSetPrototype",
+<<<<<<< HEAD
 				_fetchLayoutSetPrototypeParameterTypes3);
+=======
+				_fetchLayoutSetPrototypeParameterTypes2);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, layoutSetPrototypeId);
@@ -232,7 +246,11 @@ public class LayoutSetPrototypeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				LayoutSetPrototypeServiceUtil.class, "getLayoutSetPrototype",
+<<<<<<< HEAD
 				_getLayoutSetPrototypeParameterTypes4);
+=======
+				_getLayoutSetPrototypeParameterTypes3);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, layoutSetPrototypeId);
@@ -277,7 +295,11 @@ public class LayoutSetPrototypeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				LayoutSetPrototypeServiceUtil.class, "search",
+<<<<<<< HEAD
 				_searchParameterTypes5);
+=======
+				_searchParameterTypes4);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, companyId, active, orderByComparator);
@@ -317,6 +339,7 @@ public class LayoutSetPrototypeServiceHttp {
 				java.util.Map<java.util.Locale, String> nameMap,
 				java.util.Map<java.util.Locale, String> descriptionMap,
 				boolean active, boolean layoutsUpdateable,
+<<<<<<< HEAD
 				boolean readyForPropagation,
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
@@ -365,13 +388,19 @@ public class LayoutSetPrototypeServiceHttp {
 				java.util.Map<java.util.Locale, String> nameMap,
 				java.util.Map<java.util.Locale, String> descriptionMap,
 				boolean active, boolean layoutsUpdateable,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				com.liferay.portal.kernel.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		try {
 			MethodKey methodKey = new MethodKey(
 				LayoutSetPrototypeServiceUtil.class, "updateLayoutSetPrototype",
+<<<<<<< HEAD
 				_updateLayoutSetPrototypeParameterTypes7);
+=======
+				_updateLayoutSetPrototypeParameterTypes5);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, layoutSetPrototypeId, nameMap, descriptionMap,
@@ -415,7 +444,11 @@ public class LayoutSetPrototypeServiceHttp {
 		try {
 			MethodKey methodKey = new MethodKey(
 				LayoutSetPrototypeServiceUtil.class, "updateLayoutSetPrototype",
+<<<<<<< HEAD
 				_updateLayoutSetPrototypeParameterTypes8);
+=======
+				_updateLayoutSetPrototypeParameterTypes6);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			MethodHandler methodHandler = new MethodHandler(
 				methodKey, layoutSetPrototypeId, settings);
@@ -455,6 +488,7 @@ public class LayoutSetPrototypeServiceHttp {
 	private static final Class<?>[] _addLayoutSetPrototypeParameterTypes0 =
 		new Class[] {
 			java.util.Map.class, java.util.Map.class, boolean.class,
+<<<<<<< HEAD
 			boolean.class, boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
@@ -481,12 +515,32 @@ public class LayoutSetPrototypeServiceHttp {
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 	private static final Class<?>[] _updateLayoutSetPrototypeParameterTypes7 =
+=======
+			boolean.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _deleteLayoutSetPrototypeParameterTypes1 =
+		new Class[] {long.class};
+	private static final Class<?>[] _fetchLayoutSetPrototypeParameterTypes2 =
+		new Class[] {long.class};
+	private static final Class<?>[] _getLayoutSetPrototypeParameterTypes3 =
+		new Class[] {long.class};
+	private static final Class<?>[] _searchParameterTypes4 = new Class[] {
+		long.class, Boolean.class,
+		com.liferay.portal.kernel.util.OrderByComparator.class
+	};
+	private static final Class<?>[] _updateLayoutSetPrototypeParameterTypes5 =
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		new Class[] {
 			long.class, java.util.Map.class, java.util.Map.class, boolean.class,
 			boolean.class,
 			com.liferay.portal.kernel.service.ServiceContext.class
 		};
+<<<<<<< HEAD
 	private static final Class<?>[] _updateLayoutSetPrototypeParameterTypes8 =
+=======
+	private static final Class<?>[] _updateLayoutSetPrototypeParameterTypes6 =
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		new Class[] {long.class, String.class};
 
 }

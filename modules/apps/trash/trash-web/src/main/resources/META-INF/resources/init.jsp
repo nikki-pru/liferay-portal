@@ -89,7 +89,10 @@ String trashEntriesMaxAgeTimeDescription = LanguageUtil.getTimeDescription(local
 String description = LanguageUtil.get(request, "javax.portlet.description.com_liferay_trash_web_portlet_TrashPortlet") + LanguageUtil.format(request, "entries-that-have-been-in-the-recycle-bin-for-more-than-x-are-automatically-deleted", StringUtil.toLowerCase(trashEntriesMaxAgeTimeDescription), false);
 
 portletDisplay.setDescription(description);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 portletDisplay.setShowStagingIcon(false);
 %>
 

@@ -14,7 +14,10 @@
 
 package com.liferay.journal.web.internal.portlet.action;
 
+<<<<<<< HEAD
 import com.liferay.data.engine.field.type.util.LocalizedValueUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.data.engine.rest.dto.v2_0.DataDefinition;
 import com.liferay.data.engine.rest.dto.v2_0.DataLayout;
 import com.liferay.data.engine.rest.resource.exception.DataDefinitionValidationException;
@@ -24,6 +27,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.BaseTransactionalMVCActionC
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -31,6 +35,11 @@ import com.liferay.portal.kernel.util.WebKeys;
 import java.util.Locale;
 import java.util.Map;
 
+=======
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletException;
@@ -69,8 +78,13 @@ public class AddDataDefinitionMVCActionCommand
 							portletException.getCause();
 
 				SessionErrors.add(
+<<<<<<< HEAD
 					actionRequest, dataDefinitionValidationException.getClass(),
 					dataDefinitionValidationException);
+=======
+					actionRequest,
+					dataDefinitionValidationException.getClass());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 			else {
 				throw portletException;
@@ -88,12 +102,18 @@ public class AddDataDefinitionMVCActionCommand
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
+<<<<<<< HEAD
+=======
+		long groupId = ParamUtil.getLong(actionRequest, "groupId");
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		DataDefinitionResource dataDefinitionResource =
 			DataDefinitionResource.builder(
 			).user(
 				themeDisplay.getUser()
 			).build();
 
+<<<<<<< HEAD
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 
 		String dataDefinitionSring = ParamUtil.getString(
@@ -115,6 +135,24 @@ public class AddDataDefinitionMVCActionCommand
 
 		dataDefinitionResource.postSiteDataDefinitionByContentType(
 			groupId, "journal", dataDefinition);
+=======
+		DataDefinition dataDefinition = DataDefinition.toDTO(
+			ParamUtil.getString(actionRequest, "dataDefinition"));
+
+		dataDefinition.setDefaultDataLayout(
+			DataLayout.toDTO(ParamUtil.getString(actionRequest, "dataLayout")));
+
+		try {
+			dataDefinitionResource.postSiteDataDefinitionByContentType(
+				groupId, "journal", dataDefinition);
+		}
+		catch (DataDefinitionValidationException
+					dataDefinitionValidationException) {
+
+			SessionErrors.add(
+				actionRequest, dataDefinitionValidationException.getClass());
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 }

@@ -150,12 +150,19 @@ public class SearchQuery<T extends SpiraArtifact> {
 			if ((_value instanceof String) && _name.equals("Path")) {
 				String stringValue = (String)_value;
 
+<<<<<<< HEAD
 				String[] stringValues = stringValue.split("(?<!\\\\)/");
 
 				stringValue = stringValues[stringValues.length - 1];
 
 				stringValue = stringValue.replaceAll("\\[", "[[]");
 
+=======
+				stringValue = stringValue.replaceAll("\\[", "[[]");
+
+				stringValue = stringValue.replaceAll(".*/([^/]+)", "$1");
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				JSONObject filterJSONObject = new JSONObject();
 
 				filterJSONObject.put("PropertyName", "Name");

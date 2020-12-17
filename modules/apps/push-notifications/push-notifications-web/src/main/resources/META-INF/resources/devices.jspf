@@ -16,7 +16,10 @@
 
 <%
 String displayStyle = ParamUtil.getString(request, "displayStyle", "list");
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String orderByCol = ParamUtil.getString(request, "orderByCol", "platform");
 String orderByType = ParamUtil.getString(request, "orderByType", "asc");
 
@@ -101,7 +104,11 @@ ResourceBundleLoaderProvider resourceBundleLoaderProvider = (ResourceBundleLoade
 			/>
 
 			<liferay-ui:search-container-column-jsp
+<<<<<<< HEAD
 				cssClass="autofit-col"
+=======
+				cssClass="list-group-item-field"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				path="/push_notifications_device_action.jsp"
 			/>
 		</liferay-ui:search-container-row>

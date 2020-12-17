@@ -41,11 +41,18 @@ public class JavaConstructorParametersCheck extends BaseJavaTermCheck {
 
 		if (!parameters.isEmpty()) {
 			_checkConstructorParameterOrder(fileName, javaTerm, parameters);
+<<<<<<< HEAD
 
 			String content = _sortAssignCalls(
 				javaTerm.getContent(), parameters);
 
 			return _fixIncorrectEmptyLines(content, parameters);
+=======
+		}
+
+		if (parameters.size() > 1) {
+			return _fixIncorrectEmptyLines(javaTerm.getContent(), parameters);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return javaTerm.getContent();
@@ -141,6 +148,7 @@ public class JavaConstructorParametersCheck extends BaseJavaTermCheck {
 		return content;
 	}
 
+<<<<<<< HEAD
 	private int _getIndex(
 		String name, String value, List<JavaParameter> parameters) {
 
@@ -161,6 +169,8 @@ public class JavaConstructorParametersCheck extends BaseJavaTermCheck {
 		return parameters.size();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private int _getOccurenceCount(String content, String name) {
 		int count = 0;
 
@@ -175,6 +185,7 @@ public class JavaConstructorParametersCheck extends BaseJavaTermCheck {
 		return count;
 	}
 
+<<<<<<< HEAD
 	private String _sortAssignCalls(
 		String content, List<JavaParameter> parameters) {
 
@@ -232,4 +243,6 @@ public class JavaConstructorParametersCheck extends BaseJavaTermCheck {
 	private static final Pattern _assignCallPattern = Pattern.compile(
 		"\t(_|this\\.)(\\w+) (=[^;]+;)\n");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

@@ -53,10 +53,16 @@ public class FileEntryInfoItemItemSelectorReturnTypeResolver
 		JSONObject fileEntryJSONObject = JSONUtil.put(
 			"className", FileEntry.class.getName()
 		).put(
+<<<<<<< HEAD
 			"classNameId",
 			String.valueOf(_portal.getClassNameId(FileEntry.class.getName()))
 		).put(
 			"classPK", String.valueOf(fileEntry.getFileEntryId())
+=======
+			"classNameId", _portal.getClassNameId(FileEntry.class.getName())
+		).put(
+			"classPK", fileEntry.getFileEntryId()
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		).put(
 			"title", fileEntry.getTitle()
 		);

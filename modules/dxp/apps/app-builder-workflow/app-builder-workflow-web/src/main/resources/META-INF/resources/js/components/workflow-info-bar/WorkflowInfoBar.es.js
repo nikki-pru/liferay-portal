@@ -12,7 +12,10 @@
 import ClayLabel from '@clayui/label';
 import {ClayTooltipProvider} from '@clayui/tooltip';
 import {concatValues} from 'app-builder-web/js/utils/utils.es';
+<<<<<<< HEAD
 import classNames from 'classnames';
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import React from 'react';
 
 import '../../../css/WorkflowInfoBar.scss';
@@ -20,7 +23,10 @@ import '../../../css/WorkflowInfoBar.scss';
 export default function WorkflowInfo({
 	assignees = [],
 	appVersion,
+<<<<<<< HEAD
 	className,
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	completed,
 	hideColumns = [],
 	taskNames = [],
@@ -89,7 +95,11 @@ export default function WorkflowInfo({
 
 	return (
 		<ClayTooltipProvider>
+<<<<<<< HEAD
 			<div className={classNames('workflow-info-bar', className)}>
+=======
+			<div className="workflow-info-bar">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				{items.map(
 					({label, show, tooltip = {}, value}, index) =>
 						show && (

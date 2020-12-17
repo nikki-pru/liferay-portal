@@ -40,10 +40,16 @@ import org.gradle.util.ConfigureUtil;
 public class DependencyCheckerExtension {
 
 	public DependencyCheckerExtension(Project project) {
+<<<<<<< HEAD
 		_project = project;
 
 		_ignoreFailures = GradleUtil.getProperty(
 			project, "dependencyCheckerIgnoreFailures", true);
+=======
+		_ignoreFailures = GradleUtil.getProperty(
+			project, "dependencyCheckerIgnoreFailures", true);
+		_project = project;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public void check(

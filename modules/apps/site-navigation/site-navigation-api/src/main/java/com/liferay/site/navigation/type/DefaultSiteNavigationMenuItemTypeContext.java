@@ -31,9 +31,14 @@ public class DefaultSiteNavigationMenuItemTypeContext
 	}
 
 	public DefaultSiteNavigationMenuItemTypeContext(Group group) {
+<<<<<<< HEAD
 		_group = group;
 
 		_company = CompanyLocalServiceUtil.fetchCompany(group.getCompanyId());
+=======
+		_company = CompanyLocalServiceUtil.fetchCompany(group.getCompanyId());
+		_group = group;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

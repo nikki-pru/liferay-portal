@@ -14,7 +14,10 @@
 
 package com.liferay.commerce.product.options.web.internal.servlet.taglib.ui;
 
+<<<<<<< HEAD
 import com.liferay.commerce.product.options.web.internal.servlet.taglib.ui.constants.CPOptionCategoryFormNavigatorConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.frontend.taglib.form.navigator.FormNavigatorCategory;
 import com.liferay.portal.kernel.language.LanguageUtil;
 

@@ -35,9 +35,15 @@ page import="com.liferay.document.library.web.internal.display.context.DLViewFil
 page import="com.liferay.document.library.web.internal.display.context.FolderActionDisplayContext" %><%@
 page import="com.liferay.document.library.web.internal.search.DDMStructureRowChecker" %><%@
 page import="com.liferay.document.library.web.internal.util.DLAssetHelperUtil" %><%@
+<<<<<<< HEAD
 page import="com.liferay.document.library.web.internal.util.DataRecordValuesUtil" %><%@
 page import="com.liferay.document.library.web.internal.util.RepositoryClassDefinitionUtil" %><%@
 page import="com.liferay.dynamic.data.mapping.exception.RequiredStructureException" %><%@
+=======
+page import="com.liferay.document.library.web.internal.util.RepositoryClassDefinitionUtil" %><%@
+page import="com.liferay.dynamic.data.mapping.exception.RequiredStructureException" %><%@
+page import="com.liferay.dynamic.data.mapping.service.DDMStructureServiceUtil" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.dynamic.data.mapping.util.DDMFormValuesToMapConverter" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList" %><%@
 page import="com.liferay.portal.kernel.lock.Lock" %><%@

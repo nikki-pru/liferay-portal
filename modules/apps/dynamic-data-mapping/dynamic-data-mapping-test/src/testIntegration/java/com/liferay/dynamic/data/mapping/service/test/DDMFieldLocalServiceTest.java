@@ -18,7 +18,10 @@ import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.dynamic.data.mapping.model.DDMForm;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldOptions;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.DDMFormInstance;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
@@ -99,12 +102,21 @@ public class DDMFieldLocalServiceTest {
 
 		ddmFormFields.add(
 			_createDDMFormField(
+<<<<<<< HEAD
 				locale, ddmForm, "Page", DDMFormFieldType.LINK_TO_PAGE,
 				"link-to-page", "ddm", null));
 		ddmFormFields.add(
 			_createDDMFormField(
 				locale, ddmForm, "Number", DDMFormFieldType.NUMBER, "number",
 				"ddm", null));
+=======
+				locale, ddmForm, "Page", "ddm-link-to-page", "link-to-page",
+				"ddm", null));
+		ddmFormFields.add(
+			_createDDMFormField(
+				locale, ddmForm, "Number", "ddm-number", "number", "ddm",
+				null));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		DDMFormFieldOptions ddmFormFieldOptions = new DDMFormFieldOptions();
 
@@ -154,7 +166,11 @@ public class DDMFieldLocalServiceTest {
 		Assert.assertEquals(
 			1,
 			_ddmFieldLocalService.getDDMFormValuesCount(
+<<<<<<< HEAD
 				_group.getCompanyId(), DDMFormFieldType.LINK_TO_PAGE,
+=======
+				_group.getCompanyId(), "ddm-link-to-page",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				HashMapBuilder.<String, Object>put(
 					"groupId", _group.getGroupId()
 				).put(

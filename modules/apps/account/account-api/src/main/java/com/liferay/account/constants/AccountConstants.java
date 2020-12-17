@@ -42,8 +42,11 @@ public class AccountConstants {
 		ACCOUNT_ENTRY_TYPE_BUSINESS, ACCOUNT_ENTRY_TYPE_PERSON
 	};
 
+<<<<<<< HEAD
 	public static final String ACCOUNT_GROUP_NAME_GUEST = "Guest";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static final long PARENT_ACCOUNT_ENTRY_ID_DEFAULT = 0;
 
 	public static final String RESOURCE_NAME = "com.liferay.account";

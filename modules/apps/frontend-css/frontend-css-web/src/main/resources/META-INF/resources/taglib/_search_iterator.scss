@@ -136,7 +136,11 @@
 	}
 
 	.lfr-asset-item {
+<<<<<<< HEAD
 		width: 100%;
+=======
+		width: 50%;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		@include media-breakpoint-up(sm) {
 			width: 33%;

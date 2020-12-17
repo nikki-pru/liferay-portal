@@ -81,11 +81,14 @@
 </tr>
 <!--TOOLBAR-->
 <tr>
+<<<<<<< HEAD
 	<td>TOOLBAR_AUDIO_BUTTON</td>
 	<td>//a[contains(@class,'cke_button') and contains(@class,'audio')]</td>
 	<td></td>
 </tr>
 <tr>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td>TOOLBAR_IMAGE_BUTTON</td>
 	<td>//a[contains(@class,'cke_button') and contains(@class,'image')]</td>
 	<td></td>

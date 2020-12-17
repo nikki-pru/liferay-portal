@@ -53,11 +53,18 @@
 </#macro>
 
 <#macro insertDDMContent
+<<<<<<< HEAD
 	_currentIndex = -1
 	_ddmStorageLinkId
 	_ddmStructureId
 	_ddmStructureVersionId = 0
 	_entry
+=======
+	_ddmStorageLinkId
+	_ddmStructureId
+	_entry
+	_currentIndex = -1
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 >
 	<#if _currentIndex = -1>
 		<#local ddmStorageLinkModel = dataFactory.newDDMStorageLinkModel(_entry, _ddmStorageLinkId, _ddmStructureId)>
@@ -66,7 +73,11 @@
 
 		<#local ddmFieldAttributeModels = dataFactory.newDDMFieldAttributeModels(_entry, ddmFieldModels, ddmStorageLinkModel)>
 	<#else>
+<<<<<<< HEAD
 		<#local ddmStorageLinkModel = dataFactory.newDDMStorageLinkModel(_entry, _ddmStorageLinkId, _ddmStructureId, _ddmStructureVersionId)>
+=======
+		<#local ddmStorageLinkModel = dataFactory.newDDMStorageLinkModel(_entry, _ddmStorageLinkId, _ddmStructureId)>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		<#local ddmFieldModels = dataFactory.newDDMFieldModels(_currentIndex, _entry, ddmStorageLinkModel)>
 

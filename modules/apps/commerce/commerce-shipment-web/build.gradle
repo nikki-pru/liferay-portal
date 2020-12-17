@@ -17,7 +17,13 @@ dependencies {
 	compileOnly project(":apps:expando:expando-taglib")
 	compileOnly project(":apps:frontend-taglib:frontend-taglib")
 	compileOnly project(":apps:frontend-taglib:frontend-taglib-clay")
+<<<<<<< HEAD
 	compileOnly project(":core:petra:petra-function")
 	compileOnly project(":core:petra:petra-lang")
 	compileOnly project(":core:petra:petra-string")
+=======
+	compileOnly project(":core:petra:petra-lang")
+	compileOnly project(":core:petra:petra-string")
+	compileOnly project(":core:petra:petra-function")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

@@ -30,6 +30,7 @@ definition {
 			locator1 = "Header#H2_TITLE");
 	}
 
+<<<<<<< HEAD
 	macro viewPkiPG {
 		SelectFrame.selectFrameNoLoading(locator1 = "IFrame#ELASTICSEARCH_MONITORING");
 
@@ -44,4 +45,6 @@ definition {
 			locator1 = "Header#H2_TITLE");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

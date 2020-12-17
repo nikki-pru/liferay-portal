@@ -14,8 +14,11 @@
 
 package com.liferay.source.formatter.checkstyle.checks;
 
+<<<<<<< HEAD
 import antlr.CommonHiddenStreamToken;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -166,7 +169,10 @@ public class MissingEmptyLineCheck extends BaseCheck {
 			nextSiblingDetailAST = nextSiblingDetailAST.getNextSibling();
 
 			if ((nextSiblingDetailAST == null) ||
+<<<<<<< HEAD
 				_hasPrecedingPlaceholder(nextSiblingDetailAST) ||
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				((nextSiblingDetailAST.getType() != TokenTypes.EXPR) &&
 				 (nextSiblingDetailAST.getType() != TokenTypes.VARIABLE_DEF))) {
 
@@ -394,9 +400,13 @@ public class MissingEmptyLineCheck extends BaseCheck {
 		}
 
 		for (DetailAST identDetailAST : identDetailASTList) {
+<<<<<<< HEAD
 			if (!isMethodNameDetailAST(identDetailAST) &&
 				variableName.equals(identDetailAST.getText())) {
 
+=======
+			if (variableName.equals(identDetailAST.getText())) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				return true;
 			}
 		}
@@ -453,6 +463,7 @@ public class MissingEmptyLineCheck extends BaseCheck {
 				continue;
 			}
 
+<<<<<<< HEAD
 			if (nextStartLineNumber == (endLineNumber + 1)) {
 				return nextSiblingDetailAST;
 			}
@@ -462,6 +473,11 @@ public class MissingEmptyLineCheck extends BaseCheck {
 			}
 
 			if (allowDividingEmptyLine) {
+=======
+			if (allowDividingEmptyLine ||
+				(nextStartLineNumber == (endLineNumber + 1))) {
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				return nextSiblingDetailAST;
 			}
 
@@ -509,6 +525,7 @@ public class MissingEmptyLineCheck extends BaseCheck {
 		return null;
 	}
 
+<<<<<<< HEAD
 	private boolean _hasPrecedingPlaceholder(DetailAST detailAST) {
 		CommonHiddenStreamToken commonHiddenStreamToken = getHiddenBefore(
 			detailAST);
@@ -531,6 +548,8 @@ public class MissingEmptyLineCheck extends BaseCheck {
 		return text.contains("PLACEHOLDER");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private boolean _hasPrecedingVariableDef(
 		DetailAST variableDefinitionDetailAST) {
 

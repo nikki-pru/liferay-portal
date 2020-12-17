@@ -2,7 +2,10 @@ let content = null;
 let videoContainer = null;
 let errorMessage = null;
 let loadingIndicator = null;
+<<<<<<< HEAD
 let videoMask = null;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 const height = configuration.videoHeight
 	? configuration.videoHeight.replace('px', '')
@@ -37,10 +40,13 @@ function showVideo() {
 	errorMessage.parentElement.removeChild(errorMessage);
 	loadingIndicator.parentElement.removeChild(loadingIndicator);
 
+<<<<<<< HEAD
 	if (!document.body.classList.contains('has-edit-mode-menu')) {
 		videoMask.parentElement.removeChild(videoMask);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	window.addEventListener('resize', resize);
 
 	resize();
@@ -174,7 +180,10 @@ function main() {
 	videoContainer = content.querySelector('.video-container');
 	errorMessage = content.querySelector('.error-message');
 	loadingIndicator = content.querySelector('.loading-animation');
+<<<<<<< HEAD
 	videoMask = content.querySelector('.video-mask');
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	window.removeEventListener('resize', resize);
 

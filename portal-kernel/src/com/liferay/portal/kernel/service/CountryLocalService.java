@@ -26,10 +26,15 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.Country;
 import com.liferay.portal.kernel.model.CountryLocalization;
 import com.liferay.portal.kernel.model.PersistedModel;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.SystemEventConstants;
 import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.systemevent.SystemEvent;
+=======
+import com.liferay.portal.kernel.search.Indexable;
+import com.liferay.portal.kernel.search.IndexableType;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -83,7 +88,11 @@ public interface CountryLocalService
 			String a2, String a3, boolean active, boolean billingAllowed,
 			String idd, String name, String number, double position,
 			boolean shippingAllowed, boolean subjectToVAT, boolean zipRequired,
+<<<<<<< HEAD
 			ServiceContext serviceContext)
+=======
+			Map<String, String> titleMap, ServiceContext serviceContext)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws PortalException;
 
 	/**
@@ -114,7 +123,10 @@ public interface CountryLocalService
 	 * @return the country that was removed
 	 */
 	@Indexable(type = IndexableType.DELETE)
+<<<<<<< HEAD
 	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public Country deleteCountry(Country country);
 
 	/**
@@ -210,6 +222,7 @@ public interface CountryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country fetchCountry(long countryId);
 
+<<<<<<< HEAD
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country fetchCountryByA2(long companyId, String a2);
 
@@ -222,6 +235,8 @@ public interface CountryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country fetchCountryByNumber(long companyId, String number);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the country with the matching UUID and company.
 	 *
@@ -243,6 +258,7 @@ public interface CountryLocalService
 	public List<Country> getCompanyCountries(long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+<<<<<<< HEAD
 	public List<Country> getCompanyCountries(long companyId, boolean active);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -261,6 +277,10 @@ public interface CountryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getCompanyCountriesCount(long companyId, boolean active);
 
+=======
+	public int getCompanyCountriesCount(long companyId);
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns a range of all the countries.
 	 *
@@ -293,6 +313,7 @@ public interface CountryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country getCountry(long countryId) throws PortalException;
 
+<<<<<<< HEAD
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country getCountryByA2(long companyId, String a2)
 		throws PortalException;
@@ -309,6 +330,8 @@ public interface CountryLocalService
 	public Country getCountryByNumber(long companyId, String number)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the country with the matching UUID and company.
 	 *
@@ -351,9 +374,12 @@ public interface CountryLocalService
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException;
 
+<<<<<<< HEAD
 	public Country updateActive(long countryId, boolean active)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Updates the country in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	 *
@@ -367,12 +393,15 @@ public interface CountryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Country updateCountry(Country country);
 
+<<<<<<< HEAD
 	public Country updateCountry(
 			long countryId, String a2, String a3, boolean active,
 			boolean billingAllowed, String idd, String name, String number,
 			double position, boolean shippingAllowed, boolean subjectToVAT)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CountryLocalization updateCountryLocalization(
 			Country country, String languageId, String title)
 		throws PortalException;
@@ -381,8 +410,11 @@ public interface CountryLocalService
 			Country country, Map<String, String> titleMap)
 		throws PortalException;
 
+<<<<<<< HEAD
 	public Country updateGroupFilterEnabled(
 			long countryId, boolean groupFilterEnabled)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

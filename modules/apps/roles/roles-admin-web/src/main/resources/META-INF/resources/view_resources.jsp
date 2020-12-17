@@ -26,7 +26,10 @@ Role role = RoleServiceUtil.fetchRole(roleId);
 String portletResource = ParamUtil.getString(request, "portletResource");
 
 request.setAttribute("edit_role_permissions.jsp-portletResource", portletResource);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 request.setAttribute("edit_role_permissions.jsp-role", role);
 %>
 

@@ -15,15 +15,22 @@
 package com.liferay.portal.minifier;
 
 import com.liferay.petra.string.StringBundler;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.ProxyFactory;
 import com.liferay.portal.util.PropsUtil;
+=======
+import com.liferay.portal.kernel.util.ProxyFactory;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.registry.BasicRegistryImpl;
 import com.liferay.registry.Registry;
 import com.liferay.registry.RegistryUtil;
 
+<<<<<<< HEAD
 import org.junit.After;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,11 +42,14 @@ public class MinifierUtilTest {
 
 	@Before
 	public void setUp() {
+<<<<<<< HEAD
 		_minifierEnabled = GetterUtil.getBoolean(
 			PropsUtil.get(PropsKeys.MINIFIER_ENABLED));
 
 		PropsUtil.set(PropsKeys.MINIFIER_ENABLED, "true");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Registry registry = new BasicRegistryImpl();
 
 		RegistryUtil.setRegistry(registry);
@@ -49,12 +59,15 @@ public class MinifierUtilTest {
 			ProxyFactory.newDummyInstance(JavaScriptMinifier.class));
 	}
 
+<<<<<<< HEAD
 	@After
 	public void tearDown() {
 		PropsUtil.set(
 			PropsKeys.MINIFIER_ENABLED, String.valueOf(_minifierEnabled));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Test
 	public void testProcessMinifiedCssWithDataImageUrl() {
 		String minifiedCss = MinifierUtil.minifyCss(
@@ -108,6 +121,9 @@ public class MinifierUtilTest {
 			minifiedCss);
 	}
 
+<<<<<<< HEAD
 	private static boolean _minifierEnabled;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

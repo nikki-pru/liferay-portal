@@ -403,7 +403,11 @@ public class WikiAttachmentsTest {
 		if (restore) {
 			_wikiPageLocalService.restorePageAttachmentFromTrash(
 				TestPropsValues.getUserId(), _page.getNodeId(),
+<<<<<<< HEAD
 				_page.getTitle(), fileEntry.getFileName());
+=======
+				_page.getTitle(), fileName);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Assert.assertEquals(
 				initialNotInTrashCount + 1,

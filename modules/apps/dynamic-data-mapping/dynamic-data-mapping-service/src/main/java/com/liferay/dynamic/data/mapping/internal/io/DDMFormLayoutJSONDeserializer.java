@@ -14,8 +14,11 @@
 
 package com.liferay.dynamic.data.mapping.internal.io;
 
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.dynamic.data.mapping.internal.io.util.DDMFormFieldDeserializerUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutDeserializer;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutDeserializerDeserializeRequest;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutDeserializerDeserializeResponse;
@@ -26,8 +29,13 @@ import com.liferay.dynamic.data.mapping.model.DDMFormLayoutRow;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.util.LocalizedValueUtil;
 import com.liferay.portal.kernel.json.JSONArray;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
+=======
+import com.liferay.portal.kernel.json.JSONException;
+import com.liferay.portal.kernel.json.JSONFactory;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -36,7 +44,10 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Optional;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -66,6 +77,7 @@ public class DDMFormLayoutJSONDeserializer
 			JSONObject jsonObject = _jsonFactory.createJSONObject(
 				ddmFormLayoutDeserializerDeserializeRequest.getContent());
 
+<<<<<<< HEAD
 			ddmFormLayout.setDDMFormFields(
 				DDMFormFieldDeserializerUtil.deserialize(
 					_ddmFormFieldTypeServicesTracker,
@@ -76,6 +88,8 @@ public class DDMFormLayoutJSONDeserializer
 					),
 					_jsonFactory));
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			if (Validator.isNotNull(
 					jsonObject.getString("definitionSchemaVersion"))) {
 
@@ -104,12 +118,21 @@ public class DDMFormLayoutJSONDeserializer
 
 			return builder.build();
 		}
+<<<<<<< HEAD
 		catch (Exception exception) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(exception, exception);
 			}
 
 			builder = builder.exception(exception);
+=======
+		catch (JSONException jsonException) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(jsonException, jsonException);
+			}
+
+			builder = builder.exception(jsonException);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		return builder.build();
@@ -215,6 +238,7 @@ public class DDMFormLayoutJSONDeserializer
 		return ddmFormLayoutRows;
 	}
 
+<<<<<<< HEAD
 	@Reference(unbind = "-")
 	protected void setDDMFormFieldTypeServicesTracker(
 		DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker) {
@@ -222,6 +246,8 @@ public class DDMFormLayoutJSONDeserializer
 		_ddmFormFieldTypeServicesTracker = ddmFormFieldTypeServicesTracker;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected void setDDMFormLayouColumnFieldNames(
 		JSONArray jsonArray, DDMFormLayoutColumn ddmFormLayoutColumn) {
 
@@ -308,7 +334,10 @@ public class DDMFormLayoutJSONDeserializer
 	private static final Log _log = LogFactoryUtil.getLog(
 		DDMFormLayoutJSONDeserializer.class);
 
+<<<<<<< HEAD
 	private DDMFormFieldTypeServicesTracker _ddmFormFieldTypeServicesTracker;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private JSONFactory _jsonFactory;
 
 }

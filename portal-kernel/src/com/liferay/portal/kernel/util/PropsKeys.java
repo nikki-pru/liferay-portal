@@ -658,6 +658,7 @@ public interface PropsKeys {
 	public static final String CUSTOM_SQL_FUNCTION_ISNULL =
 		"custom.sql.function.isnull";
 
+<<<<<<< HEAD
 	public static final String DATA_LIMIT_MAX_ORGANIZATION_COUNT =
 		"data.limit.max.organization.count";
 
@@ -673,6 +674,8 @@ public interface PropsKeys {
 	public static final String DATA_LIMIT_MAX_USER_COUNT =
 		"data.limit.max.user.count";
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static final String DATABASE_IN_MAX_PARAMETERS =
 		"database.in.max.parameters";
 

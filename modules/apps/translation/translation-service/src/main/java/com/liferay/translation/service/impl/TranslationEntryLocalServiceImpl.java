@@ -183,7 +183,11 @@ public class TranslationEntryLocalServiceImpl
 			translationEntryPersistence.findByPrimaryKey(translationEntryId);
 
 		if (status == WorkflowConstants.STATUS_APPROVED) {
+<<<<<<< HEAD
 			_updateInfoItem(translationEntry);
+=======
+			return _updateInfoItem(translationEntry);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		translationEntry.setStatus(status);
@@ -199,7 +203,11 @@ public class TranslationEntryLocalServiceImpl
 		return translationEntryPersistence.update(translationEntry);
 	}
 
+<<<<<<< HEAD
 	private void _updateInfoItem(TranslationEntry translationEntry)
+=======
+	private TranslationEntry _updateInfoItem(TranslationEntry translationEntry)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws PortalException {
 
 		try {
@@ -226,6 +234,11 @@ public class TranslationEntryLocalServiceImpl
 							translationEntry.getClassPK()),
 						new ByteArrayInputStream(
 							content.getBytes(StandardCharsets.UTF_8))));
+<<<<<<< HEAD
+=======
+
+			return translationEntry;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 		catch (PortalException | RuntimeException exception) {
 			throw exception;

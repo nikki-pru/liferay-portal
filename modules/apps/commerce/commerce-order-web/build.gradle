@@ -13,14 +13,20 @@ dependencies {
 	compileOnly project(":apps:commerce:commerce-frontend-api")
 	compileOnly project(":apps:commerce:commerce-frontend-taglib")
 	compileOnly project(":apps:commerce:commerce-inventory-api")
+<<<<<<< HEAD
 	compileOnly project(":apps:commerce:commerce-notification-api")
 	compileOnly project(":apps:commerce:commerce-payment-api")
+=======
+	compileOnly project(":apps:commerce:commerce-payment-api")
+	compileOnly project(":apps:commerce:commerce-notification-api")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":apps:commerce:commerce-product-api")
 	compileOnly project(":apps:commerce:commerce-product-item-selector-api")
 	compileOnly project(":apps:commerce:commerce-service")
 	compileOnly project(":apps:commerce:commerce-taglib")
 	compileOnly project(":apps:expando:expando-taglib")
 	compileOnly project(":apps:frontend-taglib:frontend-taglib")
+<<<<<<< HEAD
 	compileOnly project(":apps:frontend-taglib:frontend-taglib-clay")
 	compileOnly project(":apps:frontend-taglib:frontend-taglib-form-navigator")
 	compileOnly project(":apps:frontend-taglib:frontend-taglib-soy")
@@ -28,4 +34,13 @@ dependencies {
 	compileOnly project(":core:petra:petra-lang")
 	compileOnly project(":core:petra:petra-sql-dsl-api")
 	compileOnly project(":core:petra:petra-string")
+=======
+	compileOnly project(":apps:frontend-taglib:frontend-taglib-form-navigator")
+	compileOnly project(":apps:frontend-taglib:frontend-taglib-clay")
+	compileOnly project(":apps:frontend-taglib:frontend-taglib-soy")
+	compileOnly project(":core:petra:petra-lang")
+	compileOnly project(":core:petra:petra-sql-dsl-api")
+	compileOnly project(":core:petra:petra-string")
+	compileOnly project(":core:petra:petra-function")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

@@ -19,7 +19,10 @@ import com.liferay.commerce.account.model.CommerceAccount;
 import com.liferay.commerce.cart.content.web.internal.display.context.util.CommerceCartContentRequestHelper;
 import com.liferay.commerce.cart.content.web.internal.portlet.configuration.CommerceCartContentPortletInstanceConfiguration;
 import com.liferay.commerce.context.CommerceContext;
+<<<<<<< HEAD
 import com.liferay.commerce.currency.model.CommerceMoney;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
 import com.liferay.commerce.order.CommerceOrderValidatorRegistry;
@@ -35,7 +38,10 @@ import com.liferay.commerce.product.service.CommerceChannelLocalService;
 import com.liferay.commerce.product.util.CPDefinitionHelper;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CommerceOrderItemService;
+<<<<<<< HEAD
 import com.liferay.commerce.util.CommerceBigDecimalUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -48,12 +54,18 @@ import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 
+<<<<<<< HEAD
 import java.math.BigDecimal;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+=======
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletURL;
@@ -193,6 +205,7 @@ public class CommerceCartContentDisplayContext {
 		return portletURL.toString();
 	}
 
+<<<<<<< HEAD
 	public CommerceMoney getDiscountAmountCommerceMoney(
 			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
@@ -207,6 +220,8 @@ public class CommerceCartContentDisplayContext {
 		return commerceOrderItem.getDiscountAmountMoney();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String getDisplayStyle() {
 		return _commerceCartContentPortletInstanceConfiguration.displayStyle();
 	}
@@ -228,6 +243,7 @@ public class CommerceCartContentDisplayContext {
 		return _displayStyleGroupId;
 	}
 
+<<<<<<< HEAD
 	public CommerceMoney getFinalPriceCommerceMoney(
 			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
@@ -242,6 +258,8 @@ public class CommerceCartContentDisplayContext {
 		return commerceOrderItem.getFinalPriceMoney();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public List<KeyValuePair> getKeyValuePairs(
 			long cpDefinitionId, String json, Locale locale)
 		throws PortalException {
@@ -306,6 +324,7 @@ public class CommerceCartContentDisplayContext {
 		return _searchContainer;
 	}
 
+<<<<<<< HEAD
 	public CommerceMoney getUnitPriceCommerceMoney(
 			CommerceOrderItem commerceOrderItem)
 		throws PortalException {
@@ -334,6 +353,8 @@ public class CommerceCartContentDisplayContext {
 		return commerceOrderItem.getPromoPriceMoney();
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean hasPermission(String actionId) throws PortalException {
 		if (_commerceOrder == null) {
 			return false;
@@ -363,6 +384,7 @@ public class CommerceCartContentDisplayContext {
 			CPActionKeys.VIEW_PRICE);
 	}
 
+<<<<<<< HEAD
 	public boolean isUnitPromoPriceActive(CommerceOrderItem commerceOrderItem)
 		throws PortalException {
 
@@ -384,6 +406,8 @@ public class CommerceCartContentDisplayContext {
 		return false;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public boolean isValidCommerceOrder() throws PortalException {
 		CommerceOrder commerceOrder = getCommerceOrder();
 

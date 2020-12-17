@@ -77,7 +77,11 @@ public class CTCollectionCacheModel
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		StringBundler sb = new StringBundler(25);
+=======
+		StringBundler sb = new StringBundler(23);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -91,8 +95,11 @@ public class CTCollectionCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+<<<<<<< HEAD
 		sb.append(", schemaVersionId=");
 		sb.append(schemaVersionId);
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		sb.append(", name=");
 		sb.append(name);
 		sb.append(", description=");
@@ -131,8 +138,11 @@ public class CTCollectionCacheModel
 			ctCollectionImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+<<<<<<< HEAD
 		ctCollectionImpl.setSchemaVersionId(schemaVersionId);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (name == null) {
 			ctCollectionImpl.setName("");
 		}
@@ -173,8 +183,11 @@ public class CTCollectionCacheModel
 		userId = objectInput.readLong();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+<<<<<<< HEAD
 
 		schemaVersionId = objectInput.readLong();
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		name = objectInput.readUTF();
 		description = objectInput.readUTF();
 
@@ -196,8 +209,11 @@ public class CTCollectionCacheModel
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+<<<<<<< HEAD
 		objectOutput.writeLong(schemaVersionId);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (name == null) {
 			objectOutput.writeUTF("");
 		}
@@ -224,7 +240,10 @@ public class CTCollectionCacheModel
 	public long userId;
 	public long createDate;
 	public long modifiedDate;
+<<<<<<< HEAD
 	public long schemaVersionId;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public String name;
 	public String description;
 	public int status;

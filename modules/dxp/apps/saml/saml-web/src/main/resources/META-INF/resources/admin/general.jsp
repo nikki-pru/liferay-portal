@@ -25,7 +25,10 @@ GeneralTabDefaultViewDisplayContext.X509CertificateStatus x509CertificateStatus 
 
 boolean keystoreException = x509CertificateStatus.getStatus() == GeneralTabDefaultViewDisplayContext.X509CertificateStatus.Status.SAML_KEYSTORE_EXCEPTION;
 boolean keystoreIncorrectPassword = x509CertificateStatus.getStatus() == GeneralTabDefaultViewDisplayContext.X509CertificateStatus.Status.SAML_KEYSTORE_PASSWORD_INCORRECT;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, samlProviderConfiguration.role());
 boolean samlRoleIdpOptionDisabled = StringUtil.equalsIgnoreCase(samlProviderConfiguration.role(), SamlProviderConfigurationKeys.SAML_ROLE_SP) && !generalTabDefaultViewDisplayContext.isRoleIdPAvailable();
 

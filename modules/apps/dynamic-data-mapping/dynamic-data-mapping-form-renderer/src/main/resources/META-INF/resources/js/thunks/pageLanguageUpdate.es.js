@@ -44,7 +44,11 @@ const formatDataRecord = (languageId, pages, preserveValue) => {
 
 		if (localizable) {
 			const edited =
+<<<<<<< HEAD
 				!!localizedValue[languageId] ||
+=======
+				localizedValue[languageId] ||
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				(localizedValueEdited && localizedValueEdited[languageId]);
 
 			if (!dataRecordValues[fieldName]) {
@@ -54,12 +58,17 @@ const formatDataRecord = (languageId, pages, preserveValue) => {
 						[languageId]: [],
 					};
 				}
+<<<<<<< HEAD
 				else if (!repeatable && edited) {
+=======
+				else if (edited) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					dataRecordValues[fieldName] = {
 						[languageId]: [],
 						...localizedValue,
 					};
 				}
+<<<<<<< HEAD
 				else if (repeatable) {
 					Object.keys(localizedValue).forEach((key) => {
 						dataRecordValues[fieldName] = {
@@ -82,6 +91,12 @@ const formatDataRecord = (languageId, pages, preserveValue) => {
 						);
 					}
 				});
+=======
+			}
+
+			if (repeatable) {
+				dataRecordValues[fieldName][languageId].push(_value);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 			else if (edited) {
 				dataRecordValues[fieldName] = {
@@ -187,6 +202,7 @@ export default function pageLanguageUpdate({
 		)
 			.then((response) => response.json())
 			.then((response) => {
+<<<<<<< HEAD
 				let previousField;
 				let repeatableIndex = 0;
 
@@ -202,6 +218,11 @@ export default function pageLanguageUpdate({
 							repeatableIndex = 0;
 						}
 
+=======
+				const visitor = new PagesVisitor(response.pages);
+				const newPages = visitor.mapFields(
+					(field, index) => {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						if (!field.localizedValue) {
 							field.localizedValue = {};
 						}
@@ -216,12 +237,19 @@ export default function pageLanguageUpdate({
 									[key]:
 										newDataRecordValues[field.fieldName][
 											key
+<<<<<<< HEAD
 										][repeatableIndex],
 								};
 							});
 							field.localizedValue = values;
 
 							repeatableIndex++;
+=======
+										][index],
+								};
+							});
+							field.localizedValue = values;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						}
 						else if (newDataRecordValues[field.fieldName]) {
 							field.localizedValue = {
@@ -229,8 +257,11 @@ export default function pageLanguageUpdate({
 							};
 						}
 
+<<<<<<< HEAD
 						previousField = field;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						return {
 							...field,
 							...getLocalizedValueEdited(field.fieldName, pages),

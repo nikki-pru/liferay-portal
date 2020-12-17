@@ -156,8 +156,12 @@ SearchContainer<AssetEntry> searchContainer = assetPublisherDisplayContext.getSe
 </c:if>
 
 <aui:script sandbox="<%= true %>">
+<<<<<<< HEAD
 	var assetEntryId =
 		'<%= HtmlUtil.escape(assetPublisherDisplayContext.getAssetEntryId()) %>';
+=======
+	var assetEntryId = '<%= assetPublisherDisplayContext.getAssetEntryId() %>';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	if (assetEntryId) {
 		window.location.hash = assetEntryId;

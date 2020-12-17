@@ -9,9 +9,16 @@
  * distribution rights of the Software.
  */
 
+<<<<<<< HEAD
 import ClayButton, {ClayButtonWithIcon} from '@clayui/button';
 import {ClayInput} from '@clayui/form';
 import ClayIcon from '@clayui/icon';
+=======
+import ClayButton from '@clayui/button';
+import ClayIcon from '@clayui/icon';
+import ClayLayout from '@clayui/layout';
+import ClayLink from '@clayui/link';
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import {ClayTooltipProvider} from '@clayui/tooltip';
 import classNames from 'classnames';
 import {useEventListener} from 'frontend-js-react-web';
@@ -98,7 +105,11 @@ function ClickGoalPicker({allowEdit = true, onSelectClickGoalTarget, target}) {
 	}
 
 	const scrollIntoView = (event) => {
+<<<<<<< HEAD
 		const target = document.getElementById(state.selectedTarget);
+=======
+		const target = document.querySelector(state.selectedTarget);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (target) {
 			target.scrollIntoView();
@@ -125,6 +136,7 @@ function ClickGoalPicker({allowEdit = true, onSelectClickGoalTarget, target}) {
 					/>
 				</h4>
 
+<<<<<<< HEAD
 				<div className="c-mb-2 text-secondary">
 					{Liferay.Language.get('click-goal-description')}
 				</div>
@@ -139,16 +151,67 @@ function ClickGoalPicker({allowEdit = true, onSelectClickGoalTarget, target}) {
 							'an-element-needs-to-be-selected'
 						)}
 					</div>
+=======
+				{state.selectedTarget && (
+					<ClayLayout.ContentRow containerElement="dl">
+						<ClayLayout.ContentCol containerElement="dt">
+							{Liferay.Language.get('element')}:
+						</ClayLayout.ContentCol>
+
+						<ClayLayout.ContentCol
+							className="mb-0 ml-2 text-truncate-inline"
+							containerElement="dd"
+							expand
+						>
+							<ClayLink
+								className="text-truncate"
+								href={state.selectedTarget}
+								onClick={scrollIntoView}
+								title={state.selectedTarget}
+							>
+								{state.selectedTarget}
+							</ClayLink>
+						</ClayLayout.ContentCol>
+					</ClayLayout.ContentRow>
+				)}
+
+				{!state.selectedTarget && (
+					<dl>
+						<dt className="d-inline">
+							{Liferay.Language.get('element')}:
+						</dt>
+						<dd className="d-inline ml-2 text-secondary">
+							{Liferay.Language.get(
+								'a-clickable-element-on-the-page-must-be-selected-to-be-measured'
+							)}
+							{errors.clickTargetError && (
+								<div className="font-weight-bold mt-2 text-danger">
+									<ClayIcon
+										className="mr-2"
+										symbol="exclamation-full"
+									/>
+									{Liferay.Language.get(
+										'an-element-needs-to-be-set'
+									)}
+								</div>
+							)}
+						</dd>
+					</dl>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				)}
 
 				{allowEdit && (
 					<ClayButton
+<<<<<<< HEAD
 						className="c-mb-2"
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						displayType="secondary"
 						onClick={() => dispatch({type: 'activate'})}
 						small
 					>
 						{state.selectedTarget
+<<<<<<< HEAD
 							? Liferay.Language.get('change-clickable-element')
 							: Liferay.Language.get('select-clickable-element')}
 					</ClayButton>
@@ -195,6 +258,13 @@ function ClickGoalPicker({allowEdit = true, onSelectClickGoalTarget, target}) {
 					</ClayInput.GroupItem>
 				</ClayInput.Group>
 
+=======
+							? Liferay.Language.get('edit-element')
+							: Liferay.Language.get('set-element')}
+					</ClayButton>
+				)}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				{state.mode === 'active' ? (
 					<ClickGoalPicker.OverlayContainer
 						allowEdit={allowEdit}
@@ -352,7 +422,18 @@ function Overlay({allowEdit, root, targetableElements}) {
 		<div className="lfr-segments-experiment-click-goal-root">
 			{targetableElements
 				.filter((element) => {
+<<<<<<< HEAD
 					return allowEdit || element.id === selectedTarget;
+=======
+					if (allowEdit === true) {
+						return true;
+					}
+					if ('#' + element.id === selectedTarget) {
+						return true;
+					}
+
+					return false;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				})
 				.map((element) => {
 					const selector = `#${element.id}`;
@@ -586,7 +667,11 @@ function TargetPopover({selector}) {
 
 	const handleClick = () => {
 		dispatch({
+<<<<<<< HEAD
 			selector: selector.substring(1),
+=======
+			selector,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			type: 'selectTarget',
 		});
 	};

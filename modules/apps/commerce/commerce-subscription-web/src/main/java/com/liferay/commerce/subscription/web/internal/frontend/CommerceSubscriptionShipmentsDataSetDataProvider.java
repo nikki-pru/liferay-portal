@@ -26,7 +26,10 @@ import com.liferay.commerce.service.CommerceOrderItemService;
 import com.liferay.commerce.service.CommerceShipmentItemService;
 import com.liferay.commerce.service.CommerceShipmentService;
 import com.liferay.commerce.service.CommerceSubscriptionEntryLocalService;
+<<<<<<< HEAD
 import com.liferay.commerce.subscription.web.internal.frontend.constants.CommerceSubscriptionDataSetConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.subscription.web.internal.model.Label;
 import com.liferay.commerce.subscription.web.internal.model.Link;
 import com.liferay.commerce.subscription.web.internal.model.Shipment;

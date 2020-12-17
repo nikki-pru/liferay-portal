@@ -41,9 +41,14 @@ public class ClassNameModelResourceComparator extends OrderByComparator<Long> {
 	public ClassNameModelResourceComparator(boolean ascending, Locale locale) {
 		_ascending = ascending;
 
+<<<<<<< HEAD
 		_locale = locale;
 
 		_collator = CollatorUtil.getInstance(locale);
+=======
+		_collator = CollatorUtil.getInstance(locale);
+		_locale = locale;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

@@ -157,7 +157,11 @@ definition {
 	}
 
 	@priority = "4"
+<<<<<<< HEAD
 	test EditStructureDefaultValuesForFieldsets {
+=======
+	test EditSubstructureDefaultValues {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		property testray.component.names = "Web Content Administration";
 
 		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
@@ -166,11 +170,19 @@ definition {
 
 		WebContentStructures.addCP(
 			structureDescription = "WC Structure Description",
+<<<<<<< HEAD
 			structureName = "WC Structure 1");
 
 		DataEngine.addFields(fieldNameList = "Text,Rich Text,Image,Upload");
 
 		WebContentStructures.saveCP(structureName = "WC Structure 1");
+=======
+			structureName = "WC Structure Name1");
+
+		DataEngine.addFields(fieldNameList = "Text,Rich Text,Image,Upload");
+
+		WebContentStructures.saveCP(structureName = "WC Structure Name1");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
 
@@ -178,27 +190,45 @@ definition {
 
 		LexiconEntry.gotoAdd();
 
+<<<<<<< HEAD
 		WebContentStructures.addName(structureName = "WC Structure 2");
+=======
+		WebContentStructures.addName(structureName = "2");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Navigator.gotoSidebarTab(tabName = "Properties");
 
 		PortletEntry.inputDescriptionTextInput(description = "WC Structure Description");
 
+<<<<<<< HEAD
 		DataEngine.addFieldsets(
 			fieldsetsLabel = "WC Structure 1",
 			fieldsetsName = "WC Structure 1");
+=======
+		WebContentStructures.addSubstructure(
+			parentStructureName = "WC Structure Name1",
+			structureName = "2");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		DataEngine.addField(
 			fieldFieldLabel = "Numeric",
 			fieldName = "Numeric");
 
+<<<<<<< HEAD
 		WebContentStructures.saveCP(structureName = "WC Structure 1");
+=======
+		WebContentStructures.saveCP(structureName = "WC Structure Name1");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		WebContentNavigator.openWebContentAdmin(siteURLKey = "test-site-name");
 
 		NavItem.gotoStructures();
 
+<<<<<<< HEAD
 		WebContentStructures.editStructureDefaultValuesCP(structureName = "WC Structure 2");
+=======
+		WebContentStructures.editStructureDefaultValuesCP(structureName = "2");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		WebContent.addWithStructureCP(webContentText = "Edited Text Field");
 

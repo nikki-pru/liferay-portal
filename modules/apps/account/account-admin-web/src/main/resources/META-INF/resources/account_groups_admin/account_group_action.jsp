@@ -29,6 +29,7 @@ AccountGroupDisplay accountGroupDisplay = (AccountGroupDisplay)row.getObject();
 	message="<%= StringPool.BLANK %>"
 	showWhenSingleIcon="<%= true %>"
 >
+<<<<<<< HEAD
 	<c:if test="<%= !accountGroupDisplay.isDefaultAccountGroup() %>">
 		<portlet:renderURL var="editAccountGroupURL">
 			<portlet:param name="mvcRenderCommandName" value="/account_admin/edit_account_group" />
@@ -50,4 +51,25 @@ AccountGroupDisplay accountGroupDisplay = (AccountGroupDisplay)row.getObject();
 			url="<%= deleteAccountGroupURL %>"
 		/>
 	</c:if>
+=======
+	<portlet:renderURL var="editAccountGroupURL">
+		<portlet:param name="mvcRenderCommandName" value="/account_admin/edit_account_group" />
+		<portlet:param name="backURL" value="<%= currentURL %>" />
+		<portlet:param name="accountGroupId" value="<%= String.valueOf(accountGroupDisplay.getAccountGroupId()) %>" />
+	</portlet:renderURL>
+
+	<liferay-ui:icon
+		message="edit"
+		url="<%= editAccountGroupURL %>"
+	/>
+
+	<portlet:actionURL name="/account_admin/delete_account_groups" var="deleteAccountGroupURL">
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+		<portlet:param name="accountGroupIds" value="<%= String.valueOf(accountGroupDisplay.getAccountGroupId()) %>" />
+	</portlet:actionURL>
+
+	<liferay-ui:icon-delete
+		url="<%= deleteAccountGroupURL %>"
+	/>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 </liferay-ui:icon-menu>

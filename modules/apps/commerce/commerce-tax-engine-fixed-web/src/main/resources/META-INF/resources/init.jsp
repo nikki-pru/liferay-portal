@@ -32,7 +32,11 @@ page import="com.liferay.commerce.tax.engine.fixed.model.CommerceTaxFixedRateAdd
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.display.context.CommerceTaxFixedRateAddressRelsDisplayContext" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.display.context.CommerceTaxFixedRatesDisplayContext" %><%@
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.frontend.CommerceTaxRateClayTable" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.tax.engine.fixed.web.internal.frontend.constants.CommerceTaxRateSettingDataSetConstants" %><%@
+=======
+page import="com.liferay.commerce.tax.engine.fixed.web.internal.frontend.CommerceTaxRateSettingDataSetConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.tax.model.CommerceTaxMethod" %><%@
 page import="com.liferay.petra.string.StringPool" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@

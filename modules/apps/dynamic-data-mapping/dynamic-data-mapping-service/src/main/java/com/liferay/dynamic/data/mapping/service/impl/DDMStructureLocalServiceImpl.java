@@ -2042,17 +2042,26 @@ public class DDMStructureLocalServiceImpl
 	}
 
 	private long[] _getAncestorSiteAndDepotGroupIds(long groupId) {
+<<<<<<< HEAD
 		DepotEntryLocalService depotEntryLocalService = _depotEntryLocalService;
 
 		try {
 			if (depotEntryLocalService == null) {
+=======
+		try {
+			if (_depotEntryLocalService == null) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				return _portal.getAncestorSiteGroupIds(groupId);
 			}
 
 			return ArrayUtil.append(
 				_portal.getAncestorSiteGroupIds(groupId),
 				ListUtil.toLongArray(
+<<<<<<< HEAD
 					depotEntryLocalService.getGroupConnectedDepotEntries(
+=======
+					_depotEntryLocalService.getGroupConnectedDepotEntries(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						groupId, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS),
 					DepotEntry::getGroupId));
 		}
@@ -2109,7 +2118,11 @@ public class DDMStructureLocalServiceImpl
 		cardinality = ReferenceCardinality.OPTIONAL,
 		policyOption = ReferencePolicyOption.GREEDY
 	)
+<<<<<<< HEAD
 	private volatile DepotEntryLocalService _depotEntryLocalService;
+=======
+	private DepotEntryLocalService _depotEntryLocalService;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Reference(target = "(ddm.form.deserializer.type=json)")
 	private DDMFormDeserializer _jsonDDMFormDeserializer;

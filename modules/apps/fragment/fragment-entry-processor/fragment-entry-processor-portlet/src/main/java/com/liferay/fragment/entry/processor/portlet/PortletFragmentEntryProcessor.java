@@ -37,7 +37,10 @@ import com.liferay.portal.kernel.model.Portlet;
 import com.liferay.portal.kernel.portlet.PortletIdCodec;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.service.PortletLocalService;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.service.PortletPreferenceValueLocalService;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.service.PortletPreferencesLocalService;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -49,7 +52,10 @@ import com.liferay.portlet.PortletPreferencesImpl;
 
 import java.util.HashSet;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Objects;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -244,7 +250,13 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 	public void validateFragmentEntryHTML(String html, String configuration)
 		throws PortalException {
 
+<<<<<<< HEAD
 		_validateFragmentEntryHTMLDocument(_getDocument(html));
+=======
+		Document document = _getDocument(html);
+
+		_validateFragmentEntryHTMLDocument(document);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private boolean _checkNoninstanceablePortletUsed(
@@ -308,10 +320,18 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 	private String _getPortletId(
 		String portletName, String namespace, String id) {
 
+<<<<<<< HEAD
 		return PortletIdCodec.encode(
 			PortletIdCodec.decodePortletName(portletName),
 			PortletIdCodec.decodeUserId(portletName),
 			_getInstanceId(namespace, id));
+=======
+		String instanceId = _getInstanceId(namespace, id);
+
+		return PortletIdCodec.encode(
+			PortletIdCodec.decodePortletName(portletName),
+			PortletIdCodec.decodeUserId(portletName), instanceId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	private String _getPortletName(String tagName) {
@@ -419,6 +439,7 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 			plid = portletPreferencesImpl.getPlid();
 		}
 
+<<<<<<< HEAD
 		String portletPreferencesXML = PortletPreferencesFactoryUtil.toXML(
 			jxPortletPreferences);
 
@@ -435,6 +456,12 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 						currentPortletPreferences),
 					portletPreferencesXML)) {
 
+=======
+		for (com.liferay.portal.kernel.model.PortletPreferences
+				portletPreferencesImpl : portletPreferencesList) {
+
+			if (plid != portletPreferencesImpl.getPlid()) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				continue;
 			}
 
@@ -538,10 +565,13 @@ public class PortletFragmentEntryProcessor implements FragmentEntryProcessor {
 	private PortletPreferencesLocalService _portletPreferencesLocalService;
 
 	@Reference
+<<<<<<< HEAD
 	private PortletPreferenceValueLocalService
 		_portletPreferenceValueLocalService;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private PortletRegistry _portletRegistry;
 
 	private final ResourceBundle _resourceBundle = ResourceBundleUtil.getBundle(

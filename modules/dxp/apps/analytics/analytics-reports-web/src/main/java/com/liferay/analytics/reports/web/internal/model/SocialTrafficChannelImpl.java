@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
 import java.util.Collections;
+<<<<<<< HEAD
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -30,6 +31,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+=======
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.ResourceBundle;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.stream.Stream;
 
 /**
@@ -40,12 +47,17 @@ public class SocialTrafficChannelImpl implements TrafficChannel {
 	public SocialTrafficChannelImpl(boolean error) {
 		_error = error;
 
+<<<<<<< HEAD
 		_referringSocialMediaList = Collections.emptyList();
+=======
+		_referringSocialMedia = Collections.emptyList();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_trafficAmount = 0;
 		_trafficShare = 0;
 	}
 
 	public SocialTrafficChannelImpl(
+<<<<<<< HEAD
 		List<ReferringSocialMedia> referringSocialMediaList, long trafficAmount,
 		double trafficShare) {
 
@@ -59,6 +71,12 @@ public class SocialTrafficChannelImpl implements TrafficChannel {
 		).collect(
 			Collectors.toList()
 		);
+=======
+		List<ReferringSocialMedia> referringSocialMedia, long trafficAmount,
+		double trafficShare) {
+
+		_referringSocialMedia = referringSocialMedia;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_trafficAmount = trafficAmount;
 		_trafficShare = trafficShare;
 
@@ -84,8 +102,13 @@ public class SocialTrafficChannelImpl implements TrafficChannel {
 				socialTrafficChannelImpl.getHelpMessageKey()) &&
 			Objects.equals(getName(), socialTrafficChannelImpl.getName()) &&
 			Objects.equals(
+<<<<<<< HEAD
 				_referringSocialMediaList,
 				socialTrafficChannelImpl._referringSocialMediaList) &&
+=======
+				_referringSocialMedia,
+				socialTrafficChannelImpl._referringSocialMedia) &&
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			Objects.equals(
 				_trafficAmount, socialTrafficChannelImpl._trafficAmount) &&
 			Objects.equals(
@@ -108,8 +131,13 @@ public class SocialTrafficChannelImpl implements TrafficChannel {
 		return "social";
 	}
 
+<<<<<<< HEAD
 	public List<ReferringSocialMedia> getReferringSocialMediaList() {
 		return _referringSocialMediaList;
+=======
+	public List<ReferringSocialMedia> getReferringSocialMedia() {
+		return _referringSocialMedia;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -139,7 +167,11 @@ public class SocialTrafficChannelImpl implements TrafficChannel {
 			getName(), ResourceBundleUtil.getString(resourceBundle, getName()),
 			_trafficAmount, _trafficShare);
 
+<<<<<<< HEAD
 		if (ListUtil.isNotEmpty(_referringSocialMediaList)) {
+=======
+		if (ListUtil.isNotEmpty(_referringSocialMedia)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			jsonObject.put(
 				"referringSocialMedia",
 				_getReferringSocialMediaJSONArray(resourceBundle));
@@ -159,6 +191,7 @@ public class SocialTrafficChannelImpl implements TrafficChannel {
 	private JSONArray _getReferringSocialMediaJSONArray(
 		ResourceBundle resourceBundle) {
 
+<<<<<<< HEAD
 		if (ListUtil.isEmpty(_referringSocialMediaList)) {
 			return JSONFactoryUtil.createJSONArray();
 		}
@@ -173,13 +206,27 @@ public class SocialTrafficChannelImpl implements TrafficChannel {
 			stream.sorted(
 				comparator.reversed()
 			).map(
+=======
+		if (ListUtil.isEmpty(_referringSocialMedia)) {
+			return JSONFactoryUtil.createJSONArray();
+		}
+
+		Stream<ReferringSocialMedia> stream = _referringSocialMedia.stream();
+
+		return JSONUtil.putAll(
+			stream.map(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				referringSocialMedia -> referringSocialMedia.toJSONObject(
 					resourceBundle)
 			).toArray());
 	}
 
 	private final boolean _error;
+<<<<<<< HEAD
 	private final List<ReferringSocialMedia> _referringSocialMediaList;
+=======
+	private final List<ReferringSocialMedia> _referringSocialMedia;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private final long _trafficAmount;
 	private final double _trafficShare;
 

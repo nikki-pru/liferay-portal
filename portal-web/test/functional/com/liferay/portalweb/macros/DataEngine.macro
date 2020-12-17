@@ -189,6 +189,7 @@ definition {
 		}
 	}
 
+<<<<<<< HEAD
 	macro addFieldsets {
 		if (IsElementNotPresent(key_tabName = "Builder", locator1 = "Sidebar#ACTIVE_TAB")) {
 			Navigator.gotoSidebarTab(tabName = "Builder");
@@ -226,6 +227,8 @@ definition {
 		Click(locator1 = "Sidebar#BACK");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro addRepeatableField {
 		var key_fieldName = "${fieldName}";
 
@@ -279,6 +282,7 @@ definition {
 		Click(locator1 = "Sidebar#BACK");
 	}
 
+<<<<<<< HEAD
 	macro editFieldSearchable {
 		AssertClick.assertPartialTextClickAt(
 			key_fieldFieldLabel = "${fieldFieldLabel}",
@@ -297,6 +301,8 @@ definition {
 		Click(locator1 = "Sidebar#BACK");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro editFieldsGroupRepeatable {
 		if (!(isSet(fieldsGroupLabel))) {
 			var fieldsGroupLabel = "Fields Group";

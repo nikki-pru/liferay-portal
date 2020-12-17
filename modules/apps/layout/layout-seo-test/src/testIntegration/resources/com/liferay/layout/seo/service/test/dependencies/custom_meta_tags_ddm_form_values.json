@@ -19,11 +19,19 @@
 			"value": "property1"
 		},
 		{
+<<<<<<< HEAD
 			"instanceId": "axyj",
 			"name": "property",
 			"nestedFieldValues": [
 				{
 					"instanceId": "jrvx",
+=======
+			"instanceId": "wxey",
+			"name": "property",
+			"nestedFieldValues": [
+				{
+					"instanceId": "ozcs",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					"name": "content",
 					"value": {
 						"en_US": "content2"

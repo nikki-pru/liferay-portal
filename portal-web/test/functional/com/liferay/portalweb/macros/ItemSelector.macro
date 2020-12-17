@@ -1,5 +1,6 @@
 definition {
 
+<<<<<<< HEAD
 	macro addAudioFromURL {
 		var key_navTab = "${navTab}";
 
@@ -31,6 +32,9 @@ definition {
 	}
 
 	macro addImageFromURL {
+=======
+	macro addFromURL {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		var key_imageSourceURL = "${imageSourceURL}";
 		var key_navTab = "${navTab}";
 
@@ -52,6 +56,7 @@ definition {
 			key_text = "Add",
 			locator1 = "Button#ANY_DISABLED");
 
+<<<<<<< HEAD
 		Type(
 			locator1 = "TextInput#URL",
 			value1 = "${imageSourceURL}");
@@ -126,6 +131,40 @@ definition {
 			AssertElementPresent.pauseAssertVisible(
 				key_text = "Add",
 				locator1 = "Button#ANY_ENABLED");
+=======
+		if (isSet(embedVideo)) {
+			Type(
+				locator1 = "TextInput#VIDEO_URL",
+				value1 = "${embedVideo}");
+		}
+		else {
+			Type(
+				locator1 = "TextInput#URL",
+				value1 = "${imageSourceURL}");
+
+			AssertTextEquals(
+				locator1 = "TextInput#URL",
+				value1 = "${imageSourceURL}");
+		}
+
+		if (("${type}" == "Audio") || ("${type}" == "Video")) {
+			AssertElementPresent.pauseAssertVisible(
+				key_text = "Add",
+				locator1 = "Button#ANY_ENABLED");
+
+			Button.clickAdd();
+		}
+		else {
+			AssertElementPresent.pauseAssertVisible(locator1 = "ItemSelector#URL_IMAGE_SOURCE");
+
+			if (IsElementPresent(locator1 = "ItemSelector#URL_IMAGE_EXAMPLE")) {
+				Click(locator1 = "ItemSelector#URL_IMAGE_EXAMPLE");
+			}
+
+			MouseOver(
+				key_text = "Add",
+				locator1 = "Button#ANY");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Button.clickAdd();
 		}
@@ -186,6 +225,7 @@ definition {
 
 		Click(locator1 = "AlloyEditor#CONTENT_ADD_BUTTON");
 
+<<<<<<< HEAD
 		if (isSet(video)) {
 			Click(locator1 = "AlloyEditor#CONTENT_ADD_MENUBAR_VIDEO");
 		}
@@ -205,6 +245,15 @@ definition {
 
 			SelectFrame(value1 = "relative=top");
 		}
+=======
+		Click.clickNoMouseOver(locator1 = "AlloyEditor#CONTENT_ADD_MENUBAR_IMAGE");
+	}
+
+	macro gotoItemSelectorViaCKEditor {
+		Click(locator1 = "CKEditor#TOOLBAR_IMAGE_BUTTON");
+
+		SelectFrame(value1 = "relative=top");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	macro gotoItemSelectorViaSelectButton {
@@ -222,6 +271,7 @@ definition {
 		Click(locator1 = "Icon#EYE_PREVIEW");
 	}
 
+<<<<<<< HEAD
 	macro previewEmbeddedVideo {
 		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
 
@@ -268,6 +318,8 @@ definition {
 		SelectFrameTop(value1 = "relative=top");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro searchBlogImages {
 		var key_imageFileName = "${imageFileName}";
 
@@ -567,6 +619,7 @@ definition {
 			locator1 = "ItemSelector#SELECT_FILE_IMAGE_CARD");
 	}
 
+<<<<<<< HEAD
 	macro viewExternalVideoInDifferentViews {
 		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
 
@@ -599,6 +652,8 @@ definition {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro viewLocationInfoViaBlogs {
 		SelectFrame(locator1 = "ItemSelector#ITEM_SELECTOR_IFRAME");
 

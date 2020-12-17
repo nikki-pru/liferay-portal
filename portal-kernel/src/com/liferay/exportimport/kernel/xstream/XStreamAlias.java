@@ -20,19 +20,31 @@ package com.liferay.exportimport.kernel.xstream;
 public class XStreamAlias {
 
 	public XStreamAlias(Class<?> clazz, String name) {
+<<<<<<< HEAD
 		_clazz = clazz;
+=======
+		_class = clazz;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_name = name;
 	}
 
 	public Class<?> getClazz() {
+<<<<<<< HEAD
 		return _clazz;
+=======
+		return _class;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public String getName() {
 		return _name;
 	}
 
+<<<<<<< HEAD
 	private final Class<?> _clazz;
+=======
+	private final Class<?> _class;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private final String _name;
 
 }

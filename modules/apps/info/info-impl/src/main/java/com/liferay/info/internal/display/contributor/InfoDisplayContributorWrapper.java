@@ -19,7 +19,10 @@ import com.liferay.asset.kernel.model.AssetEntry;
 import com.liferay.asset.kernel.model.ClassType;
 import com.liferay.asset.kernel.service.AssetEntryLocalService;
 import com.liferay.document.library.kernel.model.DLFileEntry;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.info.display.contributor.InfoDisplayContributor;
 import com.liferay.info.display.contributor.InfoDisplayField;
 import com.liferay.info.display.contributor.InfoDisplayObjectProvider;
@@ -368,8 +371,12 @@ public class InfoDisplayContributorWrapper
 		if (Objects.equals(
 				infoDisplayFieldType,
 				InfoDisplayContributorFieldType.IMAGE.getValue()) ||
+<<<<<<< HEAD
 			Objects.equals(infoDisplayFieldType, DDMFormFieldType.IMAGE) ||
 			Objects.equals(infoDisplayFieldType, "image")) {
+=======
+			Objects.equals(infoDisplayFieldType, "ddm-image")) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			return ImageInfoFieldType.INSTANCE;
 		}

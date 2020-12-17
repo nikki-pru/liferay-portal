@@ -27,9 +27,14 @@ public class RoleRecipient extends Recipient {
 		super(RecipientType.ROLE);
 
 		_roleId = roleId;
+<<<<<<< HEAD
 		_roleType = roleType;
 
 		_roleName = null;
+=======
+		_roleName = null;
+		_roleType = roleType;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public RoleRecipient(String roleName, String roleType) {

@@ -23,7 +23,10 @@ import com.liferay.dynamic.data.mapping.configuration.DDMWebConfiguration;
 import com.liferay.dynamic.data.mapping.exception.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.exception.NoSuchTemplateException;
 import com.liferay.dynamic.data.mapping.exception.StorageFieldRequiredException;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.form.values.factory.DDMFormValuesFactory;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.util.DDMFormValuesToMapConverter;
 import com.liferay.dynamic.data.mapping.util.DDMTemplateHelper;
 import com.liferay.exportimport.kernel.exception.ExportImportContentValidationException;
@@ -158,8 +161,11 @@ public class JournalPortlet extends MVCPortlet {
 		}
 
 		renderRequest.setAttribute(
+<<<<<<< HEAD
 			DDMFormValuesFactory.class.getName(), _ddmFormValuesFactory);
 		renderRequest.setAttribute(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			DDMFormValuesToMapConverter.class.getName(),
 			_ddmFormValuesToMapConverter);
 		renderRequest.setAttribute(
@@ -316,9 +322,12 @@ public class JournalPortlet extends MVCPortlet {
 		_assetDisplayPageFriendlyURLProvider;
 
 	@Reference
+<<<<<<< HEAD
 	private DDMFormValuesFactory _ddmFormValuesFactory;
 
 	@Reference
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private DDMFormValuesToMapConverter _ddmFormValuesToMapConverter;
 
 	@Reference

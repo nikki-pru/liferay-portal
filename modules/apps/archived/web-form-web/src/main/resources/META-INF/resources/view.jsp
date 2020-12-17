@@ -52,7 +52,10 @@ String successURL = portletPreferences.getValue("successURL", StringPool.BLANK);
 		String fieldName = "field" + i;
 		String fieldLabel = LocalizationUtil.getPreferencesValue(portletPreferences, "fieldLabel" + i, themeDisplay.getLanguageId());
 		boolean fieldOptional = PrefsParamUtil.getBoolean(portletPreferences, request, "fieldOptional" + i, false);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String fieldValue = ParamUtil.getString(request, fieldName);
 
 		while ((i == 1) || Validator.isNotNull(fieldLabel)) {

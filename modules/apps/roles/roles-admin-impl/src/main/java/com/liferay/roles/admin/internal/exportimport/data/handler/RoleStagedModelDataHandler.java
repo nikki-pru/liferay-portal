@@ -30,7 +30,10 @@ import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.ResourcePermission;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.adapter.ModelAdapterUtil;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionConversionFilter;
 import com.liferay.portal.kernel.security.permission.PermissionConverterUtil;
@@ -43,7 +46,10 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.xml.Element;
+<<<<<<< HEAD
 import com.liferay.site.model.adapter.StagedGroup;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.util.List;
 
@@ -154,6 +160,7 @@ public class RoleStagedModelDataHandler
 
 		Element roleElement = portletDataContext.getExportDataElement(role);
 
+<<<<<<< HEAD
 		for (Group group : _groupLocalService.getRoleGroups(role.getRoleId())) {
 			portletDataContext.addReferenceElement(
 				role, roleElement,
@@ -161,6 +168,8 @@ public class RoleStagedModelDataHandler
 				PortletDataContext.REFERENCE_TYPE_WEAK, true);
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		portletDataContext.addClassedModel(
 			roleElement, ExportImportPathUtil.getModelPath(role), role);
 	}
@@ -224,6 +233,7 @@ public class RoleStagedModelDataHandler
 			}
 		}
 
+<<<<<<< HEAD
 		List<Element> groupElements = portletDataContext.getReferenceElements(
 			role, StagedGroup.class);
 
@@ -241,6 +251,8 @@ public class RoleStagedModelDataHandler
 			}
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		portletDataContext.importClassedModel(role, importedRole);
 	}
 

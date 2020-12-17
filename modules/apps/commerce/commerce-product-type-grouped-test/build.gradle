@@ -1,8 +1,15 @@
 dependencies {
+<<<<<<< HEAD
+=======
+	testIntegrationCompile group: "com.liferay", name: "com.liferay.arquillian.extension.junit.bridge", version: "1.0.19"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	testIntegrationCompile group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "default"
 	testIntegrationCompile project(":apps:commerce:commerce-product-api")
 	testIntegrationCompile project(":apps:commerce:commerce-product-test-util")
 	testIntegrationCompile project(":apps:commerce:commerce-product-type-grouped-api")
 	testIntegrationCompile project(":apps:commerce:commerce-product-type-grouped-service")
+<<<<<<< HEAD
 	testIntegrationCompile project(":test:arquillian-extension-junit-bridge")
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

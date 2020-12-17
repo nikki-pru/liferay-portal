@@ -14,15 +14,26 @@
 
 package com.liferay.portal.bootstrap;
 
+<<<<<<< HEAD
 import com.liferay.petra.string.CharPool;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.util.PropsValues;
 
+<<<<<<< HEAD
 import java.io.InputStream;
 
 import java.net.URI;
+=======
+import java.io.IOException;
+import java.io.InputStream;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -61,6 +72,7 @@ public class ModuleReadHookImpl implements ModuleReadHook {
 
 		try {
 			if (location.startsWith("file")) {
+<<<<<<< HEAD
 				String jarLocation = _normalizePath(location);
 
 				if (jarLocation.startsWith(
@@ -74,6 +86,14 @@ public class ModuleReadHookImpl implements ModuleReadHook {
 					}
 
 					Files.copy(Paths.get(new URI(location)), path);
+=======
+				String jarLocation = _getSourceJarLocation(location);
+
+				if (jarLocation.startsWith(
+						PropsValues.MODULE_FRAMEWORK_BASE_DIR)) {
+
+					Files.copy(Paths.get(jarLocation), path);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				}
 			}
 			else {
@@ -81,7 +101,11 @@ public class ModuleReadHookImpl implements ModuleReadHook {
 
 				if (matcher.find()) {
 					try (ZipFile zipFile = new ZipFile(
+<<<<<<< HEAD
 							_normalizePath(matcher.group(2)));
+=======
+							_getSourceJarLocation(matcher.group(2)));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						InputStream inputStream = zipFile.getInputStream(
 							zipFile.getEntry(matcher.group(1)))) {
 
@@ -93,6 +117,7 @@ public class ModuleReadHookImpl implements ModuleReadHook {
 				}
 			}
 		}
+<<<<<<< HEAD
 		catch (Exception exception) {
 			_log.error(
 				StringBundler.concat(
@@ -131,6 +156,27 @@ public class ModuleReadHookImpl implements ModuleReadHook {
 		catch (Exception exception) {
 			throw new IllegalArgumentException(
 				"Unable to parse location " + location, exception);
+=======
+		catch (IOException ioException) {
+			_log.error(
+				StringBundler.concat(
+					"Unable to copy from ", location, " to ", path),
+				ioException);
+		}
+	}
+
+	private String _getSourceJarLocation(String location) {
+		try {
+			URI uri = new URI(location);
+
+			uri = uri.normalize();
+
+			return uri.getPath();
+		}
+		catch (URISyntaxException uriSyntaxException) {
+			throw new IllegalArgumentException(
+				"Unable to parse location " + location, uriSyntaxException);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 

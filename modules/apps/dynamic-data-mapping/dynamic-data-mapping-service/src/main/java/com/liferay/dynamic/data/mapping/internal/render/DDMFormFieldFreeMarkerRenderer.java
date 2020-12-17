@@ -391,7 +391,11 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 			sb.append(
 				processFTL(
 					httpServletRequest, httpServletResponse,
+<<<<<<< HEAD
 					ddmFormField.getFieldNamespace(), _toType(ddmFormField),
+=======
+					ddmFormField.getFieldNamespace(), ddmFormField.getType(),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					mode, readOnly, freeMarkerContext));
 
 			fieldRepetition--;
@@ -600,9 +604,13 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 		return classLoader.getResource(name);
 	}
 
+<<<<<<< HEAD
 	protected TemplateResource getTemplateResource(String resource)
 		throws Exception {
 
+=======
+	protected TemplateResource getTemplateResource(String resource) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Class<?> clazz = getClass();
 
 		try {
@@ -616,9 +624,15 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 			_log.error(
 				"Unable to find template resource " + resource,
 				templateException);
+<<<<<<< HEAD
 
 			throw new Exception("Unable to load template resource " + resource);
 		}
+=======
+		}
+
+		return null;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected String processFTL(
@@ -655,11 +669,36 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 		String templateName = StringUtil.replaceFirst(
 			type, fieldNamespace.concat(StringPool.DASH), StringPool.BLANK);
 
+<<<<<<< HEAD
 		Template template = TemplateManagerUtil.getTemplate(
 			TemplateConstants.LANG_TYPE_FTL,
 			_updateTemplateResource(
 				fieldNamespace, templateName, templateResource),
 			false);
+=======
+		StringBundler sb = new StringBundler(5);
+
+		sb.append(_TPL_PATH);
+		sb.append(StringUtil.toLowerCase(fieldNamespace));
+		sb.append(CharPool.SLASH);
+		sb.append(templateName);
+		sb.append(_TPL_EXT);
+
+		String resource = sb.toString();
+
+		URL url = getResource(resource);
+
+		if (url != null) {
+			templateResource = getTemplateResource(resource);
+		}
+
+		if (templateResource == null) {
+			throw new Exception("Unable to load template resource " + resource);
+		}
+
+		Template template = TemplateManagerUtil.getTemplate(
+			TemplateConstants.LANG_TYPE_FTL, templateResource, false);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		for (Map.Entry<String, Object> entry : freeMarkerContext.entrySet()) {
 			template.put(entry.getKey(), entry.getValue());
@@ -716,6 +755,7 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 		return iterator.next();
 	}
 
+<<<<<<< HEAD
 	private String _toType(DDMFormField ddmFormField) {
 		if (Objects.equals(ddmFormField.getProperty("dataType"), "double")) {
 			return "decimal";
@@ -762,6 +802,8 @@ public class DDMFormFieldFreeMarkerRenderer implements DDMFormFieldRenderer {
 		return templateResource;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static final String _DEFAULT_NAMESPACE = "alloy";
 
 	private static final String _DEFAULT_READ_ONLY_NAMESPACE = "readonly";

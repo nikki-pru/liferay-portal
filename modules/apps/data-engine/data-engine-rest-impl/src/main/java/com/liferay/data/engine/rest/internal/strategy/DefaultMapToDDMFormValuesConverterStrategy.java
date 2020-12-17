@@ -47,6 +47,7 @@ public class DefaultMapToDDMFormValuesConverterStrategy
 		DDMFormValues ddmFormValues, Locale locale) {
 
 		Map<String, DDMFormField> ddmFormFields = ddmForm.getDDMFormFieldsMap(
+<<<<<<< HEAD
 			false);
 
 		for (Map.Entry<String, DDMFormField> entry : ddmFormFields.entrySet()) {
@@ -94,6 +95,25 @@ public class DefaultMapToDDMFormValuesConverterStrategy
 	}
 
 	private List<DDMFormFieldValue> _createDDMFormFieldValues(
+=======
+			true);
+
+		for (Map.Entry<String, DDMFormField> entry : ddmFormFields.entrySet()) {
+			if (dataRecordValues.containsKey(entry.getKey())) {
+				List<DDMFormFieldValue> ddmFormFieldValues =
+					createDDMFormFieldValues(
+						dataRecordValues, entry.getValue(),
+						ddmForm.getDefaultLocale(), locale);
+
+				Stream<DDMFormFieldValue> stream = ddmFormFieldValues.stream();
+
+				stream.forEach(ddmFormValues::addDDMFormFieldValue);
+			}
+		}
+	}
+
+	protected List<DDMFormFieldValue> createDDMFormFieldValues(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Map<String, Object> dataRecordValues, DDMFormField ddmFormField,
 		Locale defaultLocale, Locale locale) {
 
@@ -139,7 +159,11 @@ public class DefaultMapToDDMFormValuesConverterStrategy
 						ddmFormField.getNestedDDMFormFields()) {
 
 					List<DDMFormFieldValue> nestedDDMFormFieldValues =
+<<<<<<< HEAD
 						_createDDMFormFieldValues(
+=======
+						createDDMFormFieldValues(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 							(Map<String, Object>)fieldSetInstanceValues.get(
 								ddmFormFieldValue.getInstanceId()),
 							nestedDDMFormField, defaultLocale, locale);
@@ -223,6 +247,12 @@ public class DefaultMapToDDMFormValuesConverterStrategy
 		return ListUtil.fromArray(ddmFormFieldValue);
 	}
 
+<<<<<<< HEAD
+=======
+	private DefaultMapToDDMFormValuesConverterStrategy() {
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static DefaultMapToDDMFormValuesConverterStrategy
 		_defaultMapToDDMFormValuesConverterStrategy =
 			new DefaultMapToDDMFormValuesConverterStrategy();

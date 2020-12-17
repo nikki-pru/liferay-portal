@@ -254,9 +254,13 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributor
 		Group group = _groupLocalService.fetchGroup(groupId);
 
 		if (group == null) {
+<<<<<<< HEAD
 			ThemeDisplay themeDisplay = getThemeDisplay(httpServletRequest);
 
 			group = themeDisplay.getScopeGroup();
+=======
+			return StringPool.BLANK;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		FileItemSelectorCriterion fileItemSelectorCriterion =

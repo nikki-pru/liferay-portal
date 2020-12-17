@@ -3200,8 +3200,13 @@ public class CountryPersistenceImpl
 	private static final String _FINDER_COLUMN_C_ACTIVE_ACTIVE_2 =
 		"country.active = ?";
 
+<<<<<<< HEAD
 	private FinderPath _finderPathFetchByC_Name;
 	private FinderPath _finderPathCountByC_Name;
+=======
+	private FinderPath _finderPathFetchByC_N;
+	private FinderPath _finderPathCountByC_N;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	/**
 	 * Returns the country where companyId = &#63; and name = &#63; or throws a <code>NoSuchCountryException</code> if it could not be found.
@@ -3212,10 +3217,17 @@ public class CountryPersistenceImpl
 	 * @throws NoSuchCountryException if a matching country could not be found
 	 */
 	@Override
+<<<<<<< HEAD
 	public Country findByC_Name(long companyId, String name)
 		throws NoSuchCountryException {
 
 		Country country = fetchByC_Name(companyId, name);
+=======
+	public Country findByC_N(long companyId, String name)
+		throws NoSuchCountryException {
+
+		Country country = fetchByC_N(companyId, name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (country == null) {
 			StringBundler sb = new StringBundler(6);
@@ -3248,8 +3260,13 @@ public class CountryPersistenceImpl
 	 * @return the matching country, or <code>null</code> if a matching country could not be found
 	 */
 	@Override
+<<<<<<< HEAD
 	public Country fetchByC_Name(long companyId, String name) {
 		return fetchByC_Name(companyId, name, true);
+=======
+	public Country fetchByC_N(long companyId, String name) {
+		return fetchByC_N(companyId, name, true);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -3261,7 +3278,11 @@ public class CountryPersistenceImpl
 	 * @return the matching country, or <code>null</code> if a matching country could not be found
 	 */
 	@Override
+<<<<<<< HEAD
 	public Country fetchByC_Name(
+=======
+	public Country fetchByC_N(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		long companyId, String name, boolean useFinderCache) {
 
 		name = Objects.toString(name, "");
@@ -3276,7 +3297,11 @@ public class CountryPersistenceImpl
 
 		if (useFinderCache) {
 			result = FinderCacheUtil.getResult(
+<<<<<<< HEAD
 				_finderPathFetchByC_Name, finderArgs);
+=======
+				_finderPathFetchByC_N, finderArgs);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		if (result instanceof Country) {
@@ -3294,17 +3319,29 @@ public class CountryPersistenceImpl
 
 			sb.append(_SQL_SELECT_COUNTRY_WHERE);
 
+<<<<<<< HEAD
 			sb.append(_FINDER_COLUMN_C_NAME_COMPANYID_2);
+=======
+			sb.append(_FINDER_COLUMN_C_N_COMPANYID_2);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			boolean bindName = false;
 
 			if (name.isEmpty()) {
+<<<<<<< HEAD
 				sb.append(_FINDER_COLUMN_C_NAME_NAME_3);
+=======
+				sb.append(_FINDER_COLUMN_C_N_NAME_3);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 			else {
 				bindName = true;
 
+<<<<<<< HEAD
 				sb.append(_FINDER_COLUMN_C_NAME_NAME_2);
+=======
+				sb.append(_FINDER_COLUMN_C_N_NAME_2);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 
 			String sql = sb.toString();
@@ -3329,7 +3366,11 @@ public class CountryPersistenceImpl
 				if (list.isEmpty()) {
 					if (useFinderCache) {
 						FinderCacheUtil.putResult(
+<<<<<<< HEAD
 							_finderPathFetchByC_Name, finderArgs, list);
+=======
+							_finderPathFetchByC_N, finderArgs, list);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					}
 				}
 				else {
@@ -3364,10 +3405,17 @@ public class CountryPersistenceImpl
 	 * @return the country that was removed
 	 */
 	@Override
+<<<<<<< HEAD
 	public Country removeByC_Name(long companyId, String name)
 		throws NoSuchCountryException {
 
 		Country country = findByC_Name(companyId, name);
+=======
+	public Country removeByC_N(long companyId, String name)
+		throws NoSuchCountryException {
+
+		Country country = findByC_N(companyId, name);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return remove(country);
 	}
@@ -3380,10 +3428,17 @@ public class CountryPersistenceImpl
 	 * @return the number of matching countries
 	 */
 	@Override
+<<<<<<< HEAD
 	public int countByC_Name(long companyId, String name) {
 		name = Objects.toString(name, "");
 
 		FinderPath finderPath = _finderPathCountByC_Name;
+=======
+	public int countByC_N(long companyId, String name) {
+		name = Objects.toString(name, "");
+
+		FinderPath finderPath = _finderPathCountByC_N;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Object[] finderArgs = new Object[] {companyId, name};
 
@@ -3394,17 +3449,29 @@ public class CountryPersistenceImpl
 
 			sb.append(_SQL_COUNT_COUNTRY_WHERE);
 
+<<<<<<< HEAD
 			sb.append(_FINDER_COLUMN_C_NAME_COMPANYID_2);
+=======
+			sb.append(_FINDER_COLUMN_C_N_COMPANYID_2);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			boolean bindName = false;
 
 			if (name.isEmpty()) {
+<<<<<<< HEAD
 				sb.append(_FINDER_COLUMN_C_NAME_NAME_3);
+=======
+				sb.append(_FINDER_COLUMN_C_N_NAME_3);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 			else {
 				bindName = true;
 
+<<<<<<< HEAD
 				sb.append(_FINDER_COLUMN_C_NAME_NAME_2);
+=======
+				sb.append(_FINDER_COLUMN_C_N_NAME_2);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 
 			String sql = sb.toString();
@@ -3439,6 +3506,7 @@ public class CountryPersistenceImpl
 		return count.intValue();
 	}
 
+<<<<<<< HEAD
 	private static final String _FINDER_COLUMN_C_NAME_COMPANYID_2 =
 		"country.companyId = ? AND ";
 
@@ -4864,6 +4932,16 @@ public class CountryPersistenceImpl
 	private static final String _FINDER_COLUMN_C_A_S_SHIPPINGALLOWED_2 =
 		"country.shippingAllowed = ?";
 
+=======
+	private static final String _FINDER_COLUMN_C_N_COMPANYID_2 =
+		"country.companyId = ? AND ";
+
+	private static final String _FINDER_COLUMN_C_N_NAME_2 = "country.name = ?";
+
+	private static final String _FINDER_COLUMN_C_N_NAME_3 =
+		"(country.name IS NULL OR country.name = '')";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public CountryPersistenceImpl() {
 		Map<String, String> dbColumnNames = new HashMap<String, String>();
 
@@ -4901,6 +4979,7 @@ public class CountryPersistenceImpl
 			new Object[] {country.getCompanyId(), country.getA3()}, country);
 
 		FinderCacheUtil.putResult(
+<<<<<<< HEAD
 			_finderPathFetchByC_Name,
 			new Object[] {country.getCompanyId(), country.getName()}, country);
 
@@ -4908,6 +4987,10 @@ public class CountryPersistenceImpl
 			_finderPathFetchByC_Number,
 			new Object[] {country.getCompanyId(), country.getNumber()},
 			country);
+=======
+			_finderPathFetchByC_N,
+			new Object[] {country.getCompanyId(), country.getName()}, country);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -4991,6 +5074,7 @@ public class CountryPersistenceImpl
 			countryModelImpl.getCompanyId(), countryModelImpl.getName()
 		};
 
+<<<<<<< HEAD
 		FinderCacheUtil.putResult(
 			_finderPathCountByC_Name, args, Long.valueOf(1));
 		FinderCacheUtil.putResult(
@@ -5004,6 +5088,11 @@ public class CountryPersistenceImpl
 			_finderPathCountByC_Number, args, Long.valueOf(1));
 		FinderCacheUtil.putResult(
 			_finderPathFetchByC_Number, args, countryModelImpl);
+=======
+		FinderCacheUtil.putResult(_finderPathCountByC_N, args, Long.valueOf(1));
+		FinderCacheUtil.putResult(
+			_finderPathFetchByC_N, args, countryModelImpl);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	/**
@@ -5582,6 +5671,7 @@ public class CountryPersistenceImpl
 			new String[] {Long.class.getName(), Boolean.class.getName()},
 			new String[] {"companyId", "active_"}, false);
 
+<<<<<<< HEAD
 		_finderPathFetchByC_Name = new FinderPath(
 			FINDER_CLASS_NAME_ENTITY, "fetchByC_Name",
 			new String[] {Long.class.getName(), String.class.getName()},
@@ -5651,6 +5741,17 @@ public class CountryPersistenceImpl
 				Boolean.class.getName()
 			},
 			new String[] {"companyId", "active_", "shippingAllowed"}, false);
+=======
+		_finderPathFetchByC_N = new FinderPath(
+			FINDER_CLASS_NAME_ENTITY, "fetchByC_N",
+			new String[] {Long.class.getName(), String.class.getName()},
+			new String[] {"companyId", "name"}, true);
+
+		_finderPathCountByC_N = new FinderPath(
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_N",
+			new String[] {Long.class.getName(), String.class.getName()},
+			new String[] {"companyId", "name"}, false);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public void destroy() {

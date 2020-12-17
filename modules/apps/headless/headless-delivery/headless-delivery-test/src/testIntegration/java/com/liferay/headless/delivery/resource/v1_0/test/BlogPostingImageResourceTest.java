@@ -50,6 +50,7 @@ public class BlogPostingImageResourceTest
 
 		BlogPostingImage blogPostingImage = randomBlogPostingImage();
 
+<<<<<<< HEAD
 		try {
 			testPostSiteBlogPostingImage_addBlogPostingImage(
 				blogPostingImage,
@@ -64,6 +65,13 @@ public class BlogPostingImageResourceTest
 						return tempFile;
 					}
 				).build());
+=======
+		blogPostingImage.setTitle("*,?");
+
+		try {
+			testPostSiteBlogPostingImage_addBlogPostingImage(
+				blogPostingImage, getMultipartFiles());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			Assert.fail();
 		}

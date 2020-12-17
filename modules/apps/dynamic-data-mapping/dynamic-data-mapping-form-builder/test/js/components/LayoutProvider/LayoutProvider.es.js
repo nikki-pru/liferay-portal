@@ -696,7 +696,10 @@ describe('LayoutProvider', () => {
 
 				const changedFocusedField = {
 					...mockFieldType,
+<<<<<<< HEAD
 					fieldName: 'text1',
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 					settingsContext: {
 						...mockFieldType.settingsContext,
 						pages: changeField(mockFieldType, 'required', false),

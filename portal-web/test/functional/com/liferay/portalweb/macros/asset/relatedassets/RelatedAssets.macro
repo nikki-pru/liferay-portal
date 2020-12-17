@@ -64,6 +64,7 @@ definition {
 		else {
 			var key_assetTitle = "${assetTitle}";
 
+<<<<<<< HEAD
 			if (isSet(depotName)) {
 				AssertClick(
 					key_breadcrumbName = "Sites and Libraries",
@@ -78,6 +79,8 @@ definition {
 				LexiconCard.clickCard(card = "${depotName}");
 			}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			Click(
 				key_assetTitle = "${assetTitle}",
 				locator1 = "AssetRelatedAssets#ASSET_TABLE_CHECKBOX");

@@ -28,11 +28,17 @@ definition {
 		}
 	}
 
+<<<<<<< HEAD
 	@description = "This is a test for LPS-122082 and LPS-122641. Can not edit and export react fragment. View react fragment has a visual marker in vertical card."
 	@priority = "5"
 	test CannotEditAndExportReactFragment {
 		property portal.acceptance = "true";
 
+=======
+	@description = "This is a test for LPS-122082. Can not edit and export react fragment."
+	@priority = "5"
+	test CannotEditAndExportReactFragment {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		task ("Navigate to fragments admin") {
 			FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "test-site-name");
 		}
@@ -47,12 +53,15 @@ definition {
 			FragmentsAdmin.viewEntryPresent(entry = "React Fragment Example");
 		}
 
+<<<<<<< HEAD
 		task ("Assert react fragment has a visual marker in vertical card") {
 			LexiconCard.viewCardSticker(
 				card = "React Fragment Example",
 				icon = "react");
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		task ("Assert the react fragment is not editable") {
 			AssertElementNotPresent(
 				key_card = "React Fragment Example",

@@ -38,6 +38,7 @@ export function isLink(target, onClick) {
 export function handleAction(
 	{
 		event,
+<<<<<<< HEAD
 		itemId,
 		method,
 		onClick,
@@ -47,6 +48,17 @@ export function handleAction(
 		target,
 		title,
 		url,
+=======
+		itemId = '',
+		method,
+		onClick = '',
+		setLoading = () => {},
+		size = '',
+		target = '',
+		title = '',
+		successMessage,
+		url = '',
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	},
 	{executeAsyncItemAction, highlightItems, openModal, openSidePanel}
 ) {
@@ -112,11 +124,17 @@ function ActionItem({
 	handleAction,
 	href,
 	icon,
+<<<<<<< HEAD
 	itemId,
 	label,
 	method,
 	onClick,
 	setLoading,
+=======
+	label,
+	method,
+	onClick,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	size,
 	target,
 	title,
@@ -129,10 +147,15 @@ function ActionItem({
 		handleAction(
 			{
 				event,
+<<<<<<< HEAD
 				itemId,
 				method,
 				onClick,
 				setLoading,
+=======
+				method,
+				onClick,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				size: size || 'lg',
 				successMessage: data?.successMessage,
 				target,
@@ -284,10 +307,15 @@ function ActionsDropdownRenderer({actions, itemData, itemId}) {
 					closeMenu={() => setActive(false)}
 					handleAction={handleAction}
 					href={item.href && formatActionURL(item.href, itemData)}
+<<<<<<< HEAD
 					itemId={itemId}
 					key={i}
 					method={item.method ?? item.data?.method}
 					setLoading={setLoading}
+=======
+					key={i}
+					method={item.method ?? item.data?.method}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				/>
 			);
 		});

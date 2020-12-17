@@ -173,9 +173,13 @@ export default function SocialDetail({
 							>
 								<ClayList.ItemField style={{width: '70px'}}>
 									<ClayList.ItemText>
+<<<<<<< HEAD
 										<span className="c-mr-2 text-secondary">
 											{title}
 										</span>
+=======
+										<span className="c-mr-2">{title}</span>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 									</ClayList.ItemText>
 								</ClayList.ItemField>
 								<ClayList.ItemField
@@ -193,7 +197,11 @@ export default function SocialDetail({
 									/>
 								</ClayList.ItemField>
 								<ClayList.ItemField className="align-self-center">
+<<<<<<< HEAD
 									<span className="align-self-end c-ml-2 font-weight-semi-bold text-dark">
+=======
+									<span className="align-self-end c-ml-2">
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 										{numberFormat(
 											languageTag,
 											trafficAmount

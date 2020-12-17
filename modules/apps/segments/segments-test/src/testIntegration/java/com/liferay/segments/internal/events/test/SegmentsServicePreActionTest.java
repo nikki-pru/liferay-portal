@@ -132,6 +132,12 @@ public class SegmentsServicePreActionTest {
 
 		Assert.assertNotNull(
 			mockHttpServletRequest.getAttribute(
+<<<<<<< HEAD
+=======
+				SegmentsWebKeys.SEGMENTS_ENTRY_IDS));
+		Assert.assertNotNull(
+			mockHttpServletRequest.getAttribute(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				SegmentsWebKeys.SEGMENTS_EXPERIENCE_IDS));
 	}
 
@@ -154,6 +160,12 @@ public class SegmentsServicePreActionTest {
 
 		lifecycleAction.processLifecycleEvent(lifecycleEvent);
 
+<<<<<<< HEAD
+=======
+		Assert.assertNotNull(
+			mockHttpServletRequest.getAttribute(
+				SegmentsWebKeys.SEGMENTS_ENTRY_IDS));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Assert.assertNull(
 			mockHttpServletRequest.getAttribute(
 				SegmentsWebKeys.SEGMENTS_EXPERIENCE_IDS));
@@ -176,6 +188,12 @@ public class SegmentsServicePreActionTest {
 
 		Assert.assertNull(
 			mockHttpServletRequest.getAttribute(
+<<<<<<< HEAD
+=======
+				SegmentsWebKeys.SEGMENTS_ENTRY_IDS));
+		Assert.assertNull(
+			mockHttpServletRequest.getAttribute(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				SegmentsWebKeys.SEGMENTS_EXPERIENCE_IDS));
 	}
 

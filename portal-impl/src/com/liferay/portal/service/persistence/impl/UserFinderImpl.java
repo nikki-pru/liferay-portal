@@ -1167,8 +1167,12 @@ public class UserFinderImpl extends UserFinderBaseImpl implements UserFinder {
 				params2.remove("usersGroups");
 
 				if (PropsValues.ORGANIZATIONS_MEMBERSHIP_STRICT) {
+<<<<<<< HEAD
 					params2.put(
 						"usersOrgs", organizationIds.toArray(new Long[0]));
+=======
+					params2.put("usersOrgs", organizationIds);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				}
 				else {
 					Map<Serializable, Organization> organizations =

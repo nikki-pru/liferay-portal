@@ -250,7 +250,11 @@
 </tr>
 <tr>
 	<td>INFO_EXTERNAL_VIDEO_PREVIEW</td>
+<<<<<<< HEAD
 	<td>//div[contains(@class,'video-preview-placeholder-text')]</td>
+=======
+	<td>//div[contains(@class,'external-video-preview-placeholder-text')]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>

@@ -13,6 +13,10 @@ dependencies {
 	compileOnly group: "org.osgi", name: "osgi.core", version: "6.0.0"
 	compileOnly project(":apps:dynamic-data-mapping:dynamic-data-mapping-api")
 	compileOnly project(":apps:frontend-js:frontend-js-loader-modules-extender-api")
+<<<<<<< HEAD
+=======
+	compileOnly project(":apps:portal-template:portal-template-soy-api")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":apps:portal-template:portal-template-soy-renderer-api")
 	compileOnly project(":core:petra:petra-io")
 	compileOnly project(":core:petra:petra-reflect")

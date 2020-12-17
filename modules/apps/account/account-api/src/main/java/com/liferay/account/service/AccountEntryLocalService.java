@@ -330,6 +330,7 @@ public interface AccountEntryLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+<<<<<<< HEAD
 	public List<AccountEntry> getUserAccountEntries(
 			long userId, Long parentAccountEntryId, String keywords,
 			String[] types, int start, int end)
@@ -354,6 +355,8 @@ public interface AccountEntryLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public BaseModelSearchResult<AccountEntry> search(
 		long companyId, String keywords, LinkedHashMap<String, Object> params,
 		int cur, int delta, String orderByField, boolean reverse);

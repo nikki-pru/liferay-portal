@@ -14,7 +14,10 @@
 
 package com.liferay.commerce.account.group.admin.web.internal.servlet.taglib.ui;
 
+<<<<<<< HEAD
 import com.liferay.commerce.account.group.admin.web.internal.servlet.taglib.ui.constants.CommerceAccountGroupScreenNavigationConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.account.model.CommerceAccountGroup;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationCategory;
 import com.liferay.frontend.taglib.servlet.taglib.ScreenNavigationEntry;

@@ -77,7 +77,11 @@ public class AccountGroupCacheModel
 
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 		StringBundler sb = new StringBundler(23);
+=======
+		StringBundler sb = new StringBundler(21);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		sb.append("{mvccVersion=");
 		sb.append(mvccVersion);
@@ -95,12 +99,19 @@ public class AccountGroupCacheModel
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+<<<<<<< HEAD
 		sb.append(", defaultAccountGroup=");
 		sb.append(defaultAccountGroup);
 		sb.append(", description=");
 		sb.append(description);
 		sb.append(", name=");
 		sb.append(name);
+=======
+		sb.append(", name=");
+		sb.append(name);
+		sb.append(", description=");
+		sb.append(description);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		sb.append("}");
 
 		return sb.toString();
@@ -144,6 +155,7 @@ public class AccountGroupCacheModel
 			accountGroupImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+<<<<<<< HEAD
 		accountGroupImpl.setDefaultAccountGroup(defaultAccountGroup);
 
 		if (description == null) {
@@ -158,6 +170,20 @@ public class AccountGroupCacheModel
 		}
 		else {
 			accountGroupImpl.setName(name);
+=======
+		if (name == null) {
+			accountGroupImpl.setName("");
+		}
+		else {
+			accountGroupImpl.setName(name);
+		}
+
+		if (description == null) {
+			accountGroupImpl.setDescription("");
+		}
+		else {
+			accountGroupImpl.setDescription(description);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		accountGroupImpl.resetOriginalValues();
@@ -178,10 +204,15 @@ public class AccountGroupCacheModel
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+<<<<<<< HEAD
 
 		defaultAccountGroup = objectInput.readBoolean();
 		description = objectInput.readUTF();
 		name = objectInput.readUTF();
+=======
+		name = objectInput.readUTF();
+		description = objectInput.readUTF();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override
@@ -211,6 +242,7 @@ public class AccountGroupCacheModel
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
+<<<<<<< HEAD
 		objectOutput.writeBoolean(defaultAccountGroup);
 
 		if (description == null) {
@@ -225,6 +257,20 @@ public class AccountGroupCacheModel
 		}
 		else {
 			objectOutput.writeUTF(name);
+=======
+		if (name == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(name);
+		}
+
+		if (description == null) {
+			objectOutput.writeUTF("");
+		}
+		else {
+			objectOutput.writeUTF(description);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 	}
 
@@ -236,8 +282,13 @@ public class AccountGroupCacheModel
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+<<<<<<< HEAD
 	public boolean defaultAccountGroup;
 	public String description;
 	public String name;
+=======
+	public String name;
+	public String description;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 }

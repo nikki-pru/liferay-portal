@@ -182,6 +182,7 @@ definition {
 			locator1 = "CommerceAccelerators#ADD_TO_CART_BUTTON_DISABLED");
 	}
 
+<<<<<<< HEAD
 	macro viewDiscountedProductDetailsPage {
 		AssertTextEquals.assertPartialText(
 			locator1 = "CommerceAccelerators#PRODUCT_DETAILS_LIST_PRICE_INACTIVE",
@@ -196,6 +197,8 @@ definition {
 			value1 = "${productDiscountedPrice}");
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	macro viewEnabledAddToCartButton {
 		AssertElementPresent(
 			key_productName = "${productName}",

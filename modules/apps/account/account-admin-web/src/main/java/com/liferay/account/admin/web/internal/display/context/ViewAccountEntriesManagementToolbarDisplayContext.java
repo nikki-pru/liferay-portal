@@ -322,20 +322,31 @@ public class ViewAccountEntriesManagementToolbarDisplayContext
 
 		filterDropdownItemsGroup.setDropdownItems(
 			getDropdownItems(
+<<<<<<< HEAD
 				getDefaultEntriesMap(getFilterByTypeKeys()), getPortletURL(),
 				"type", getType()));
+=======
+				getDefaultEntriesMap(
+					ArrayUtil.append(
+						new String[] {"all"},
+						AccountConstants.ACCOUNT_ENTRY_TYPES)),
+				getPortletURL(), "type", getType()));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		filterDropdownItemsGroup.setLabel(
 			LanguageUtil.get(httpServletRequest, "filter-by-type"));
 
 		filterDropdownItems.add(1, filterDropdownItemsGroup);
 	}
 
+<<<<<<< HEAD
 	protected String[] getFilterByTypeKeys() {
 		return ArrayUtil.append(
 			new String[] {"all"}, AccountConstants.ACCOUNT_ENTRY_TYPES,
 			new String[] {"guest"});
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Override
 	protected String getNavigation() {
 		return ParamUtil.getString(

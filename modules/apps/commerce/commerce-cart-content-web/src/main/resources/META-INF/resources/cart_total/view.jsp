@@ -33,7 +33,10 @@ CommerceOrderPrice commerceOrderPrice = commerceCartContentTotalDisplayContext.g
 
 if (commerceOrderPrice != null) {
 	subtotalCommerceMoney = commerceOrderPrice.getSubtotal();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	subtotalCommerceDiscountValue = commerceOrderPrice.getSubtotalDiscountValue();
 
 	if (subtotalCommerceDiscountValue != null) {
@@ -42,7 +45,10 @@ if (commerceOrderPrice != null) {
 
 	taxValueCommerceMoney = commerceOrderPrice.getTaxValue();
 	totalOrderCommerceMoney = commerceOrderPrice.getTotal();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	totalCommerceDiscountValue = commerceOrderPrice.getTotalDiscountValue();
 
 	if (totalCommerceDiscountValue != null) {
@@ -51,7 +57,10 @@ if (commerceOrderPrice != null) {
 
 	if (priceDisplayType.equals(CommercePricingConstants.TAX_INCLUDED_IN_PRICE)) {
 		subtotalCommerceMoney = commerceOrderPrice.getSubtotalWithTaxAmount();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		subtotalCommerceDiscountValue = commerceOrderPrice.getSubtotalDiscountValueWithTaxAmount();
 
 		if (subtotalCommerceDiscountValue != null) {
@@ -59,7 +68,10 @@ if (commerceOrderPrice != null) {
 		}
 
 		totalOrderCommerceMoney = commerceOrderPrice.getTotalWithTaxAmount();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		totalCommerceDiscountValue = commerceOrderPrice.getTotalDiscountValueWithTaxAmount();
 
 		if (totalCommerceDiscountValue != null) {
@@ -96,7 +108,11 @@ SearchContainer<CommerceOrderItem> commerceOrderItemSearchContainer = commerceCa
 				</c:if>
 
 				<div class="col-auto">
+<<<<<<< HEAD
 					<h3 class="h4"><liferay-ui:message key="subtotal" /></h3>
+=======
+					<h3 class="h4"><liferay-ui:message key="subtotalCommerceMoney" /></h3>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				</div>
 
 				<div class="col text-right">

@@ -38,6 +38,7 @@ function getFields(pages) {
 	const fields = [];
 	const visitor = new PagesVisitor(pages);
 
+<<<<<<< HEAD
 	visitor.mapFields(
 		(field, fieldIndex, columnIndex, rowIndex, pageIndex) => {
 			if (field.type != 'fieldset') {
@@ -51,6 +52,17 @@ function getFields(pages) {
 		true,
 		true
 	);
+=======
+	visitor.mapFields((field, fieldIndex, columnIndex, rowIndex, pageIndex) => {
+		if (field.type != 'fieldset') {
+			fields.push({
+				...field,
+				pageIndex,
+				value: field.fieldName,
+			});
+		}
+	});
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	return fields;
 }

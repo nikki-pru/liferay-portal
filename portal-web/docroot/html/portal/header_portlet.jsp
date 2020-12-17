@@ -140,11 +140,17 @@ BufferCacheServletResponse bufferCacheServletResponse = new BufferCacheServletRe
 LiferayHeaderRequest liferayHeaderRequest = HeaderRequestFactory.create(request, portlet, invokerPortlet, portletCtx, windowState, portletMode, portletPreferences, plid);
 
 PortletRequest portletRequest = liferayHeaderRequest;
+<<<<<<< HEAD
 
 LiferayHeaderResponse liferayHeaderResponse = HeaderResponseFactory.create(liferayHeaderRequest, bufferCacheServletResponse);
 
 liferayHeaderRequest.defineObjects(portletConfig, liferayHeaderResponse);
 
+=======
+LiferayHeaderResponse liferayHeaderResponse = HeaderResponseFactory.create(liferayHeaderRequest, bufferCacheServletResponse);
+
+liferayHeaderRequest.defineObjects(portletConfig, liferayHeaderResponse);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 String responseContentType = liferayHeaderRequest.getResponseContentType();
 
 String portletResource = ParamUtil.getString(request, "portletResource");

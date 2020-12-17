@@ -102,9 +102,14 @@ public class ViewScheduledDisplayContext {
 		List<CTCollection> ctCollections =
 			_ctCollectionService.getCTCollections(
 				_themeDisplay.getCompanyId(),
+<<<<<<< HEAD
 				new int[] {WorkflowConstants.STATUS_SCHEDULED},
 				displayTerms.getKeywords(), QueryUtil.ALL_POS,
 				QueryUtil.ALL_POS, _getOrderByComparator());
+=======
+				WorkflowConstants.STATUS_SCHEDULED, displayTerms.getKeywords(),
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, _getOrderByComparator());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		searchContainer.setTotal(ctCollections.size());
 

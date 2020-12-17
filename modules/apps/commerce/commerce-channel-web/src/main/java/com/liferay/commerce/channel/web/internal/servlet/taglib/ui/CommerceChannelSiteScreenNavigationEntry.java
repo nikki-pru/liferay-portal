@@ -15,7 +15,10 @@
 package com.liferay.commerce.channel.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.channel.web.internal.display.context.SiteCommerceChannelTypeDisplayContext;
+<<<<<<< HEAD
 import com.liferay.commerce.channel.web.internal.servlet.taglib.ui.constants.CommerceChannelScreenNavigationConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.commerce.currency.service.CommerceCurrencyService;
 import com.liferay.commerce.payment.method.CommercePaymentMethodRegistry;
 import com.liferay.commerce.product.channel.CommerceChannelHealthStatusRegistry;

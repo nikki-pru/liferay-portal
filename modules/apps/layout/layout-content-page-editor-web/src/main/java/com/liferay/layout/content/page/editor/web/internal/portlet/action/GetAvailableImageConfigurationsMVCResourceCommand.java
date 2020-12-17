@@ -14,6 +14,7 @@
 
 package com.liferay.layout.content.page.editor.web.internal.portlet.action;
 
+<<<<<<< HEAD
 import com.liferay.adaptive.media.image.configuration.AMImageConfigurationEntry;
 import com.liferay.adaptive.media.image.configuration.AMImageConfigurationHelper;
 import com.liferay.adaptive.media.image.media.query.Condition;
@@ -29,6 +30,14 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.image.ImageToolUtil;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONObject;
+=======
+import com.liferay.adaptive.media.image.model.AMImageEntry;
+import com.liferay.adaptive.media.image.service.AMImageEntryLocalService;
+import com.liferay.document.library.kernel.service.DLAppService;
+import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
+import com.liferay.portal.kernel.image.ImageToolUtil;
+import com.liferay.portal.kernel.json.JSONArray;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Image;
@@ -40,12 +49,16 @@ import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 
+<<<<<<< HEAD
 import java.net.URI;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+=======
+import java.util.List;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
@@ -93,6 +106,7 @@ public class GetAvailableImageConfigurationsMVCResourceCommand
 				"width", image.getWidth()
 			));
 
+<<<<<<< HEAD
 		Map<String, String> mediaQueriesMap = new HashMap<>();
 
 		List<MediaQuery> mediaQueries = _mediaQueryProvider.getMediaQueries(
@@ -118,6 +132,8 @@ public class GetAvailableImageConfigurationsMVCResourceCommand
 			mediaQueriesMap.put(mediaQuery.getSrc(), sb.toString());
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		FileVersion fileVersion = fileEntry.getFileVersion();
 
 		List<AMImageEntry> amImageEntries =
@@ -125,6 +141,7 @@ public class GetAvailableImageConfigurationsMVCResourceCommand
 				fileVersion.getFileVersionId());
 
 		for (AMImageEntry amImageEntry : amImageEntries) {
+<<<<<<< HEAD
 			JSONObject jsonObject = JSONUtil.put(
 				"label", amImageEntry.getConfigurationUuid()
 			).put(
@@ -156,6 +173,18 @@ public class GetAvailableImageConfigurationsMVCResourceCommand
 			}
 
 			jsonArray.put(jsonObject);
+=======
+			jsonArray.put(
+				JSONUtil.put(
+					"label", amImageEntry.getConfigurationUuid()
+				).put(
+					"size", amImageEntry.getSize() / 1000
+				).put(
+					"value", amImageEntry.getConfigurationUuid()
+				).put(
+					"width", amImageEntry.getWidth()
+				));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		JSONPortletResponseUtil.writeJSON(
@@ -163,6 +192,7 @@ public class GetAvailableImageConfigurationsMVCResourceCommand
 	}
 
 	@Reference
+<<<<<<< HEAD
 	private AMImageConfigurationHelper _amImageConfigurationHelper;
 
 	@Reference
@@ -178,6 +208,14 @@ public class GetAvailableImageConfigurationsMVCResourceCommand
 	private MediaQueryProvider _mediaQueryProvider;
 
 	@Reference
+=======
+	private AMImageEntryLocalService _amImageEntryLocalService;
+
+	@Reference
+	private DLAppService _dlAppService;
+
+	@Reference
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private Portal _portal;
 
 }

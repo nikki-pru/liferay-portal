@@ -58,7 +58,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+<<<<<<< HEAD
 import org.mockito.ArgumentMatcher;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -252,6 +255,7 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 		Assert.assertEquals("New Title", parameters.get("fileEntryTitle"));
 	}
 
+<<<<<<< HEAD
 	@Test
 	public void testGetParametersWithNullGroupShouldContainItemSelectorURL() {
 		mockGroupLocalServiceFetchGroup(null);
@@ -286,6 +290,8 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 				"param_folderId=" + _PRIVATE_FOLDER_ID));
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected DDMFormFieldRenderingContext
 		createDDMFormFieldRenderingContext() {
 
@@ -315,18 +321,30 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 			PowerMockito.spy(
 				_documentLibraryDDMFormFieldTemplateContextContributor);
 
+<<<<<<< HEAD
 		PowerMockitoStubber powerMockitoStubber = PowerMockito.doReturn(
 			_resourceBundle);
 
 		powerMockitoStubber.when(
+=======
+		PowerMockitoStubber stubber = PowerMockito.doReturn(_resourceBundle);
+
+		stubber.when(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			spy
 		).getResourceBundle(
 			Matchers.any(Locale.class)
 		);
 
+<<<<<<< HEAD
 		powerMockitoStubber = PowerMockito.doReturn(themeDisplay);
 
 		powerMockitoStubber.when(
+=======
+		stubber = PowerMockito.doReturn(themeDisplay);
+
+		stubber.when(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			spy
 		).getThemeDisplay(
 			Matchers.any(HttpServletRequest.class)
@@ -347,6 +365,7 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 		return folder;
 	}
 
+<<<<<<< HEAD
 	protected void mockGroupLocalServiceFetchGroup(Group group) {
 		PowerMockito.when(
 			_groupLocalService.fetchGroup(_GROUP_ID)
@@ -355,6 +374,8 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 		);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected Repository mockRepository() {
 		Repository repository = mock(Repository.class);
 
@@ -478,7 +499,15 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 			_groupLocalService
 		);
 
+<<<<<<< HEAD
 		mockGroupLocalServiceFetchGroup(_group);
+=======
+		Mockito.when(
+			_groupLocalService.fetchGroup(_GROUP_ID)
+		).thenReturn(
+			_group
+		);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected void setUpHtml() throws Exception {
@@ -500,6 +529,7 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 
 		PowerMockito.when(
 			_itemSelector.getItemSelectorURL(
+<<<<<<< HEAD
 				Mockito.eq(_requestBackedPortletURLFactory),
 				Mockito.argThat(
 					new ArgumentMatcher<Group>() {
@@ -516,6 +546,9 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 						}
 
 					}),
+=======
+				Mockito.eq(_requestBackedPortletURLFactory), Mockito.eq(_group),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				Mockito.eq(_GROUP_ID),
 				Mockito.eq(_PORTLET_NAMESPACE + "selectDocumentLibrary"),
 				Mockito.any(FileItemSelectorCriterion.class))
@@ -653,9 +686,12 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributorTest
 	private ResourceBundle _resourceBundle;
 
 	@Mock
+<<<<<<< HEAD
 	private Group _scopeGroup;
 
 	@Mock
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private UserLocalService _userLocalService;
 
 }

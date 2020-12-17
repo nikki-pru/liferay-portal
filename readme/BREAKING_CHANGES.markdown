@@ -311,6 +311,7 @@ The first recommendation is to use the updated CSS classes from Clay `.container
 
 This change was made to remove deprecated legacy code from Portal and improve the code consistency and performance
 
+<<<<<<< HEAD
 ---------------------------------------
 
 ### Runtime minification of CSS and JS resources is now disabled by default
@@ -439,4 +440,6 @@ away from Soy:
 > hit the performance we wanted and more importantly, it always felt like we
 > were the only people using this technology.
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 ---------------------------------------

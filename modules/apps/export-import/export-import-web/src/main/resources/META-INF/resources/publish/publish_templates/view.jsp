@@ -44,14 +44,20 @@ exportImportConfigurationSearchContainer.setOrderByComparator(new ExportImportCo
 exportImportConfigurationSearchContainer.setOrderByType("asc");
 
 List<ExportImportConfiguration> exportImportConfigurations = ExportImportConfigurationLocalServiceUtil.getExportImportConfigurations(company.getCompanyId(), groupId, keywords, exportImportConfigurationType, exportImportConfigurationSearchContainer.getStart(), exportImportConfigurationSearchContainer.getEnd(), exportImportConfigurationSearchContainer.getOrderByComparator());
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 int exportImportConfigurationsCount = ExportImportConfigurationLocalServiceUtil.getExportImportConfigurationsCount(company.getCompanyId(), groupId, keywords, exportImportConfigurationType);
 
 exportImportConfigurationSearchContainer.setResults(exportImportConfigurations);
 exportImportConfigurationSearchContainer.setTotal(exportImportConfigurationsCount);
 
 PortletURL clearResultsURL = PortletURLUtil.clone(currentURLObj, renderResponse);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 clearResultsURL.setParameter("keywords", StringPool.BLANK);
 %>
 

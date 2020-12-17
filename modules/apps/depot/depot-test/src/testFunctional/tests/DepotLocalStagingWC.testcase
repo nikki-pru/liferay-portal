@@ -1,6 +1,11 @@
 @component-name = "portal-document-management"
 definition {
 
+<<<<<<< HEAD
+=======
+	property osgi.module.configuration.file.names = "com.liferay.depot.web.internal.configuration.FFDepotStagingConfiguration.config";
+	property osgi.module.configurations = "enabled=B&quot;true&quot;";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Depot";
@@ -54,10 +59,13 @@ definition {
 			PortalInstances.tearDownCP();
 		}
 		else {
+<<<<<<< HEAD
 			Site.tearDownCP();
 
 			Depot.tearDownCP();
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			User.logoutPG();
 		}
 	}
@@ -142,7 +150,11 @@ definition {
 
 		SelectFrame(locator1 = "IFrame#MODAL_BODY");
 
+<<<<<<< HEAD
 		AssertNotVisible(
+=======
+		AssertElementNotPresent(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			key_imageTitle = "Document_2.jpg",
 			locator1 = "WCPreview#PREVIEW_IMAGE");
 	}

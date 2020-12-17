@@ -108,6 +108,7 @@ public class RegionServiceSoap {
 		}
 	}
 
+<<<<<<< HEAD
 	public static void deleteRegion(long regionId) throws RemoteException {
 		try {
 			RegionServiceUtil.deleteRegion(regionId);
@@ -119,6 +120,8 @@ public class RegionServiceSoap {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public static com.liferay.portal.kernel.model.RegionSoap fetchRegion(
 			long regionId)
 		throws RemoteException {
@@ -262,6 +265,7 @@ public class RegionServiceSoap {
 		}
 	}
 
+<<<<<<< HEAD
 	public static com.liferay.portal.kernel.model.RegionSoap[] getRegions(
 			long countryId, boolean active, int start, int end,
 			com.liferay.portal.kernel.util.OrderByComparator
@@ -389,6 +393,8 @@ public class RegionServiceSoap {
 		}
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static Log _log = LogFactoryUtil.getLog(RegionServiceSoap.class);
 
 }

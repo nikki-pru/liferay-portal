@@ -255,9 +255,12 @@ public interface AccountGroupLocalService
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+<<<<<<< HEAD
 	public AccountGroup getDefaultAccountGroup(long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
 
 	/**
@@ -276,9 +279,12 @@ public interface AccountGroupLocalService
 		throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+<<<<<<< HEAD
 	public boolean hasDefaultAccountGroup(long companyId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public BaseModelSearchResult<AccountGroup> searchAccountGroups(
 		long companyId, String keywords, int start, int end,
 		OrderByComparator<AccountGroup> orderByComparator);

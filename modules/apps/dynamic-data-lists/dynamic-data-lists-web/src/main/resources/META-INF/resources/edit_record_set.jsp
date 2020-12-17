@@ -210,7 +210,10 @@ if (recordSet != null) {
 	portletURL.setParameter("recordSetId", String.valueOf(recordSet.getRecordSetId()));
 
 	PortalUtil.addPortletBreadcrumbEntry(request, recordSet.getName(locale), portletURL.toString());
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "edit"), currentURL);
 }
 else {

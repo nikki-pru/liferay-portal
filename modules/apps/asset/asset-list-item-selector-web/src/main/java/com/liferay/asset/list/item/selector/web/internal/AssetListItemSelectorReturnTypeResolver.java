@@ -51,7 +51,11 @@ public class AssetListItemSelectorReturnTypeResolver
 		return JSONUtil.put(
 			"classNameId", _portal.getClassNameId(AssetListEntry.class)
 		).put(
+<<<<<<< HEAD
 			"classPK", String.valueOf(assetListEntry.getAssetListEntryId())
+=======
+			"classPK", assetListEntry.getAssetListEntryId()
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		).put(
 			"title", assetListEntry.getTitle()
 		).toString();

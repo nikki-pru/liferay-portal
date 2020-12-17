@@ -1005,6 +1005,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 		// User
 
+<<<<<<< HEAD
 		if ((PropsValues.DATA_LIMIT_MAX_USER_COUNT > 0) &&
 			(userPersistence.countByCompanyId(companyId) >=
 				PropsValues.DATA_LIMIT_MAX_USER_COUNT)) {
@@ -1013,6 +1014,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				"Unable to exceed maximum number of allowed users");
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Company company = companyPersistence.findByPrimaryKey(companyId);
 		screenName = getLogin(screenName);
 

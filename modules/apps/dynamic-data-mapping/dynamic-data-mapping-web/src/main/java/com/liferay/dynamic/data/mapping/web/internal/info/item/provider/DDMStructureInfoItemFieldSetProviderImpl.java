@@ -18,7 +18,10 @@ import com.liferay.dynamic.data.mapping.exception.NoSuchStructureException;
 import com.liferay.dynamic.data.mapping.info.field.converter.DDMFormFieldInfoFieldConverter;
 import com.liferay.dynamic.data.mapping.info.item.provider.DDMStructureInfoItemFieldSetProvider;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
 import com.liferay.info.field.InfoFieldSet;
@@ -96,12 +99,18 @@ public class DDMStructureInfoItemFieldSetProviderImpl
 	}
 
 	private static final String[] _SELECTABLE_DDM_STRUCTURE_FIELDS = {
+<<<<<<< HEAD
 		DDMFormFieldType.CHECKBOX, DDMFormFieldType.DATE,
 		DDMFormFieldType.DECIMAL, DDMFormFieldType.IMAGE,
 		DDMFormFieldType.INTEGER, DDMFormFieldType.NUMBER,
 		DDMFormFieldType.TEXT_HTML, DDMFormFieldType.RADIO,
 		DDMFormFieldType.SELECT, DDMFormFieldType.TEXT,
 		DDMFormFieldType.TEXT_AREA, "image", "rich_text"
+=======
+		"checkbox", "ddm-date", "ddm-decimal", "ddm-image", "ddm-integer",
+		"ddm-number", "ddm-text-html", "image", "radio", "rich_text", "select",
+		"text", "textarea"
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	};
 
 	@Reference

@@ -58,12 +58,20 @@ public class AssetDisplayPageUsagesDisplayContext {
 		RenderResponse renderResponse) {
 
 		_httpServletRequest = httpServletRequest;
+<<<<<<< HEAD
 		_renderRequest = renderRequest;
 		_renderResponse = renderResponse;
 
 		_infoItemServiceTracker =
 			(InfoItemServiceTracker)httpServletRequest.getAttribute(
 				InfoDisplayWebKeys.INFO_ITEM_SERVICE_TRACKER);
+=======
+		_infoItemServiceTracker =
+			(InfoItemServiceTracker)httpServletRequest.getAttribute(
+				InfoDisplayWebKeys.INFO_ITEM_SERVICE_TRACKER);
+		_renderRequest = renderRequest;
+		_renderResponse = renderResponse;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public long getClassNameId() {

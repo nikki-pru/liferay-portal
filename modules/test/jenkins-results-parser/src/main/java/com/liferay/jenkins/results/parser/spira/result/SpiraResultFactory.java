@@ -14,21 +14,28 @@
 
 package com.liferay.jenkins.results.parser.spira.result;
 
+<<<<<<< HEAD
 import com.liferay.jenkins.results.parser.TopLevelBuild;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.jenkins.results.parser.test.clazz.group.AxisTestClassGroup;
 import com.liferay.jenkins.results.parser.test.clazz.group.FunctionalAxisTestClassGroup;
 import com.liferay.jenkins.results.parser.test.clazz.group.FunctionalBatchTestClassGroup;
 import com.liferay.jenkins.results.parser.test.clazz.group.JUnitAxisTestClassGroup;
 import com.liferay.jenkins.results.parser.test.clazz.group.TestClassGroup;
 
+<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 /**
  * @author Peter Yoo
  */
 public class SpiraResultFactory {
 
+<<<<<<< HEAD
 	public static SpiraBuildResult newSpiraBuildResult(
 		TopLevelBuild topLevelBuild) {
 
@@ -59,11 +66,20 @@ public class SpiraResultFactory {
 		if (axisTestClassGroup instanceof FunctionalAxisTestClassGroup) {
 			return new FunctionalAxisSpiraTestResult(
 				spiraBuildResult,
+=======
+	public static SpiraResult newSpiraResult(
+		AxisTestClassGroup axisTestClassGroup,
+		TestClassGroup.TestClass testClass) {
+
+		if (axisTestClassGroup instanceof FunctionalAxisTestClassGroup) {
+			return new FunctionalSpiraResult(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				(FunctionalAxisTestClassGroup)axisTestClassGroup,
 				(FunctionalBatchTestClassGroup.FunctionalTestClass)testClass);
 		}
 
 		if (axisTestClassGroup instanceof JUnitAxisTestClassGroup) {
+<<<<<<< HEAD
 			return new JUnitAxisSpiraTestResult(
 				spiraBuildResult, (JUnitAxisTestClassGroup)axisTestClassGroup,
 				testClass);
@@ -118,4 +134,13 @@ public class SpiraResultFactory {
 	private static final Map<String, SpiraBuildResult> _spiraBuildResults =
 		new HashMap<>();
 
+=======
+			return new JUnitSpiraResult(
+				(JUnitAxisTestClassGroup)axisTestClassGroup, testClass);
+		}
+
+		return new BatchSpiraResult(axisTestClassGroup);
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

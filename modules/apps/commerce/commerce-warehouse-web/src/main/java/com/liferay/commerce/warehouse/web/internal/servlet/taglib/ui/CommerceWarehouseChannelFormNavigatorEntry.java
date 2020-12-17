@@ -15,7 +15,10 @@
 package com.liferay.commerce.warehouse.web.internal.servlet.taglib.ui;
 
 import com.liferay.commerce.inventory.model.CommerceInventoryWarehouse;
+<<<<<<< HEAD
 import com.liferay.commerce.warehouse.web.internal.servlet.taglib.ui.constants.CommerceInventoryWarehouseFormNavigatorConstants;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.frontend.taglib.form.navigator.BaseJSPFormNavigatorEntry;
 import com.liferay.frontend.taglib.form.navigator.FormNavigatorEntry;
 import com.liferay.portal.kernel.language.LanguageUtil;

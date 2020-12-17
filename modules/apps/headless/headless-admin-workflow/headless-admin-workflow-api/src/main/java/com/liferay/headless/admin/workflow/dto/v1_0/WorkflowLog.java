@@ -148,6 +148,7 @@ public class WorkflowLog implements Serializable {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected Date dateCreated;
 
+<<<<<<< HEAD
 	@Schema(description = "The log's description.")
 	public String getDescription() {
 		return description;
@@ -176,6 +177,8 @@ public class WorkflowLog implements Serializable {
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
 	protected String description;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Schema(description = "The log's ID.")
 	public Long getId() {
 		return id;
@@ -504,6 +507,7 @@ public class WorkflowLog implements Serializable {
 			sb.append("\"");
 		}
 
+<<<<<<< HEAD
 		if (description != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");
@@ -518,6 +522,8 @@ public class WorkflowLog implements Serializable {
 			sb.append("\"");
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		if (id != null) {
 			if (sb.length() > 1) {
 				sb.append(", ");

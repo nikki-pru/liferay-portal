@@ -802,6 +802,7 @@ definition {
 			userPassword = PropsUtil.get("email.password.4"),
 			windowTitle = "New Google Drive Shortcut - ${siteName}");
 
+<<<<<<< HEAD
 		GoogleDrive.selectDocument(
 			googleDocName = "liferay.txt",
 			googleDocTitle = "liferay");
@@ -813,6 +814,17 @@ definition {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
 		DMDocument.deletePG(dmDocumentTitle = "liferay");
+=======
+		GoogleDrive.selectDocument(googleDocName = "liferay.txt");
+
+		PortletEntry.publish();
+
+		DMDocument.viewPG(dmDocumentTitle = "liferay.txt");
+
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		DMDocument.deletePG(dmDocumentTitle = "liferay.txt");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@priority = "5"
@@ -1146,9 +1158,13 @@ definition {
 			userPassword = PropsUtil.get("email.password.4"),
 			windowTitle = "New Google Drive Shortcut - ${siteName}");
 
+<<<<<<< HEAD
 		GoogleDrive.selectDocument(
 			googleDocName = "liferay.txt",
 			googleDocTitle = "liferay");
+=======
+		GoogleDrive.selectDocument(googleDocName = "liferay.txt");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		PortletEntry.publish();
 
@@ -1160,18 +1176,30 @@ definition {
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 
 		DMDocument.moveToFolderPG(
+<<<<<<< HEAD
 			dmDocumentTitle = "liferay",
+=======
+			dmDocumentTitle = "liferay.txt",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			dmFolderName = "DM Folder Name");
 
 		DMNavigator.gotoFolder(dmFolderName = "DM Folder Name");
 
+<<<<<<< HEAD
 		DMDocument.viewPG(dmDocumentTitle = "liferay");
+=======
+		DMDocument.viewPG(dmDocumentTitle = "liferay.txt");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@priority = "5"
 	test RemovePortlet {
+<<<<<<< HEAD
 		property portal.acceptance = "quarantine";
 		property portal.upstream = "quarantine";
+=======
+		property portal.acceptance = "true";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Navigator.gotoPage(pageName = "Documents and Media Page");
 

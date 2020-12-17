@@ -63,7 +63,10 @@ import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.AggregateResourceBundle;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.CookieKeys;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -531,6 +534,7 @@ public class DDMFormDisplayContext {
 		return false;
 	}
 
+<<<<<<< HEAD
 	public boolean isRememberMe() {
 		String rememberMe = CookieKeys.getCookie(
 			PortalUtil.getHttpServletRequest(_renderRequest),
@@ -543,6 +547,8 @@ public class DDMFormDisplayContext {
 		return false;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public Boolean isRequireAuthentication() throws PortalException {
 		DDMFormInstance ddmFormInstance = getFormInstance();
 

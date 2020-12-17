@@ -140,6 +140,10 @@ page import="com.liferay.dynamic.data.mapping.kernel.StructureDuplicateElementEx
 page import="com.liferay.dynamic.data.mapping.kernel.StructureNameException" %><%@
 page import="com.liferay.dynamic.data.mapping.service.DDMStorageLinkLocalServiceUtil" %><%@
 page import="com.liferay.dynamic.data.mapping.service.DDMStructureLocalServiceUtil" %><%@
+<<<<<<< HEAD
+=======
+page import="com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.dynamic.data.mapping.storage.DDMFormValues" %><%@
 page import="com.liferay.dynamic.data.mapping.storage.StorageType" %><%@
 page import="com.liferay.frontend.taglib.clay.servlet.taglib.util.JSPDropdownItemList" %><%@

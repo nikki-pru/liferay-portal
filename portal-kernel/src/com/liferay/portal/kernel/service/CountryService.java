@@ -22,9 +22,15 @@ import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.util.OrderByComparator;
 
 import java.util.List;
+=======
+
+import java.util.List;
+import java.util.Map;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import org.osgi.annotation.versioning.ProviderType;
 
@@ -55,7 +61,11 @@ public interface CountryService extends BaseService {
 			String a2, String a3, boolean active, boolean billingAllowed,
 			String idd, String name, String number, double position,
 			boolean shippingAllowed, boolean subjectToVAT, boolean zipRequired,
+<<<<<<< HEAD
 			ServiceContext serviceContext)
+=======
+			Map<String, String> titleMap, ServiceContext serviceContext)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		throws PortalException;
 
 	/**
@@ -67,12 +77,16 @@ public interface CountryService extends BaseService {
 			boolean active)
 		throws PortalException;
 
+<<<<<<< HEAD
 	public void deleteCountry(long countryId) throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Country fetchCountry(long countryId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+<<<<<<< HEAD
 	public Country fetchCountryByA2(long companyId, String a2);
 
 	/**
@@ -127,6 +141,17 @@ public interface CountryService extends BaseService {
 	 */
 	@AccessControlled(guestAccessEnabled = true)
 	@Deprecated
+=======
+	public Country fetchCountryByA2(String a2);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Country fetchCountryByA3(String a3);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Country> getCountries();
+
+	@AccessControlled(guestAccessEnabled = true)
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Country> getCountries(boolean active);
 
@@ -134,6 +159,7 @@ public interface CountryService extends BaseService {
 	public Country getCountry(long countryId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+<<<<<<< HEAD
 	public Country getCountryByA2(long companyId, String a2)
 		throws PortalException;
 
@@ -170,6 +196,16 @@ public interface CountryService extends BaseService {
 	public Country getCountryByNumber(long companyId, String number)
 		throws PortalException;
 
+=======
+	public Country getCountryByA2(String a2) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Country getCountryByA3(String a3) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Country getCountryByName(String name) throws PortalException;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	/**
 	 * Returns the OSGi service identifier.
 	 *
@@ -177,6 +213,7 @@ public interface CountryService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+<<<<<<< HEAD
 	public Country updateActive(long countryId, boolean active)
 		throws PortalException;
 
@@ -190,4 +227,6 @@ public interface CountryService extends BaseService {
 			long countryId, boolean groupFilterEnabled)
 		throws PortalException;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

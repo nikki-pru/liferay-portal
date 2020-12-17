@@ -110,7 +110,10 @@ String assetTagName = ParamUtil.getString(request, "tag");
 				long viewCount = (kbArticle != null) ? kbArticle.getViewCount() : 0;
 
 				buffer.append(viewCount);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				buffer.append(StringPool.SPACE);
 				buffer.append((viewCount == 1) ? LanguageUtil.get(request, "view") : LanguageUtil.get(request, "views"));
 				%>

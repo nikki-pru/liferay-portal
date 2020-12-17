@@ -14,6 +14,7 @@
 
 package com.liferay.portal.service.impl;
 
+<<<<<<< HEAD
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.RegionCodeException;
@@ -30,6 +31,17 @@ import com.liferay.portal.service.base.RegionLocalServiceBaseImpl;
 
 import java.util.List;
 
+=======
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.RegionCodeException;
+import com.liferay.portal.kernel.exception.RegionNameException;
+import com.liferay.portal.kernel.model.Region;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.service.base.RegionLocalServiceBaseImpl;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 /**
  * @author Brian Wing Shun Chan
  */
@@ -70,6 +82,7 @@ public class RegionLocalServiceImpl extends RegionLocalServiceBaseImpl {
 		regionPersistence.removeByCountryId(countryId);
 	}
 
+<<<<<<< HEAD
 	@Override
 	public Region deleteRegion(long regionId) throws PortalException {
 		Region region = regionPersistence.findByPrimaryKey(regionId);
@@ -190,6 +203,8 @@ public class RegionLocalServiceImpl extends RegionLocalServiceBaseImpl {
 		return regionPersistence.update(region);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected void validate(String name, String regionCode)
 		throws PortalException {
 

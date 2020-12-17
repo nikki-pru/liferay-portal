@@ -45,6 +45,10 @@ import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortletIdCodec;
 import com.liferay.portal.kernel.portlet.PortletInstanceFactory;
 import com.liferay.portal.kernel.security.permission.ResourceActions;
+<<<<<<< HEAD
+=======
+import com.liferay.portal.kernel.security.permission.ResourceActionsUtil;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.PortletLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
@@ -373,10 +377,13 @@ public class PortletTracker
 
 			portletBagFactory.create(portletModel, portlet, true);
 
+<<<<<<< HEAD
 			_resourceActions.populatePortletResource(
 				portletModel, bundleClassLoader,
 				serviceRegistrations.getSources());
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			deployPortlet(serviceReference, portletModel);
 
 			portletModel.setReady(true);
@@ -1311,6 +1318,26 @@ public class PortletTracker
 		return serviceRegistrations;
 	}
 
+<<<<<<< HEAD
+=======
+	protected void readResourceActions(
+		Configuration configuration, ClassLoader classLoader) {
+
+		Properties properties = configuration.getProperties();
+
+		try {
+			ResourceActionsUtil.read(
+				classLoader,
+				StringUtil.split(
+					properties.getProperty(
+						PropsKeys.RESOURCE_ACTIONS_CONFIGS)));
+		}
+		catch (Exception exception) {
+			_log.error(exception, exception);
+		}
+	}
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	@Reference(unbind = "-")
 	protected void setHttpServiceRuntime(
 		HttpServiceRuntime httpServiceRuntime, Map<String, Object> properties) {
@@ -1483,10 +1510,13 @@ public class PortletTracker
 			_serviceReferences.add(serviceReference);
 		}
 
+<<<<<<< HEAD
 		public synchronized String[] getSources() {
 			return _sources;
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		public synchronized void removeServiceReference(
 			ServiceReference<Portlet> serviceReference) {
 
@@ -1518,10 +1548,14 @@ public class PortletTracker
 					ConfigurationFactoryUtil.getConfiguration(
 						classLoader, "portlet");
 
+<<<<<<< HEAD
 				Properties properties = configuration.getProperties();
 
 				_sources = StringUtil.split(
 					properties.getProperty(PropsKeys.RESOURCE_ACTIONS_CONFIGS));
+=======
+				readResourceActions(configuration, classLoader);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 		}
 
@@ -1537,7 +1571,10 @@ public class PortletTracker
 		private PortletApp _portletApp;
 		private final List<ServiceReference<Portlet>> _serviceReferences =
 			new ArrayList<>();
+<<<<<<< HEAD
 		private String[] _sources;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	}
 

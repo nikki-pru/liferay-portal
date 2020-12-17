@@ -19,7 +19,11 @@ import {useEffect, useRef, useState} from 'react';
  * value, only update the internal value with the new initial value if the
  * values are different and when the value is not changed for more than ms.
  */
+<<<<<<< HEAD
 export const useSyncValue = (newValue, isDelay = true, forceValue) => {
+=======
+export const useSyncValue = (newValue, isDelay = true) => {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	// Maintains the reference of the last value to check in later renderings if the
 	// value is new or keeps the same, it covers cases where the value typed by
@@ -48,11 +52,14 @@ export const useSyncValue = (newValue, isDelay = true, forceValue) => {
 		};
 	}, [isDelay, newValue, value]);
 
+<<<<<<< HEAD
 	useEffect(() => {
 		if (forceValue) {
 			previousValueRef.current = null;
 		}
 	}, [forceValue]);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	return [value, setValue];
 };

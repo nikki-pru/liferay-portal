@@ -50,9 +50,17 @@ public class ExportImportConfigurationFactory {
 		boolean privateLayout = ParamUtil.getBoolean(
 			portletRequest, "privateLayout");
 
+<<<<<<< HEAD
 		return buildDefaultLocalPublishingExportImportConfiguration(
 			themeDisplay.getUser(), sourceGroupId, targetGroupId, privateLayout,
 			_getParameterMap(portletRequest));
+=======
+		Map<String, String[]> parameterMap = _getParameterMap(portletRequest);
+
+		return buildDefaultLocalPublishingExportImportConfiguration(
+			themeDisplay.getUser(), sourceGroupId, targetGroupId, privateLayout,
+			parameterMap);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public static ExportImportConfiguration
@@ -108,10 +116,19 @@ public class ExportImportConfigurationFactory {
 			portletRequest, "secureConnection");
 		long remoteGroupId = ParamUtil.getLong(portletRequest, "remoteGroupId");
 
+<<<<<<< HEAD
 		return buildDefaultRemotePublishingExportImportConfiguration(
 			themeDisplay.getUser(), sourceGroupId, privateLayout, remoteAddress,
 			remotePort, remotePathContext, secureConnection, remoteGroupId,
 			_getParameterMap(portletRequest));
+=======
+		Map<String, String[]> parameterMap = _getParameterMap(portletRequest);
+
+		return buildDefaultRemotePublishingExportImportConfiguration(
+			themeDisplay.getUser(), sourceGroupId, privateLayout, remoteAddress,
+			remotePort, remotePathContext, secureConnection, remoteGroupId,
+			parameterMap);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public static ExportImportConfiguration

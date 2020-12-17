@@ -24,7 +24,10 @@ WikiPortletInstanceConfiguration wikiPortletInstanceConfiguration = wikiRequestH
 boolean followRedirect = ParamUtil.getBoolean(request, "followRedirect", true);
 
 WikiNode node = (WikiNode)request.getAttribute(WikiWebKeys.WIKI_NODE);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 WikiPage wikiPage = (WikiPage)request.getAttribute(WikiWebKeys.WIKI_PAGE);
 
 WikiPage originalPage = null;
@@ -417,7 +420,10 @@ if (portletTitleBasedNavigation) {
 						description = StringUtil.shorten(description, 200);
 
 						PortalUtil.setPageDescription(description, request);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						PortalUtil.setPageKeywords(assetHelper.getAssetKeywords(WikiPage.class.getName(), wikiPage.getResourcePrimKey()), request);
 					}
 

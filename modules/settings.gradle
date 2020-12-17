@@ -1,5 +1,6 @@
 buildscript {
 	apply from: "build-buildscript.gradle", to: buildscript
+<<<<<<< HEAD
 
 	File buildFile = gradle.startParameter.buildFile
 
@@ -8,6 +9,8 @@ buildscript {
 			classpath group: "org.apache.maven", name: "maven-model", version: "3.0.4"
 		}
 	}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }
 
 apply plugin: "com.liferay.settings.plugin"

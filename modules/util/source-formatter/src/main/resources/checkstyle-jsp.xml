@@ -297,6 +297,7 @@
 			<message key="diamond.operator.missing" value="Missing diamond operator ''&lt;&gt;'' for type ''{0}''" />
 			<message key="generic.types.missing" value="Missing generic types ''{0}'' for type ''{1}''" />
 		</module>
+<<<<<<< HEAD
 		<module name="com.liferay.source.formatter.checkstyle.checks.MissingEmptyLineCheck">
 			<property name="category" value="Styling" />
 			<property name="description" value="Checks for missing line breaks around variable declarations." />
@@ -307,6 +308,8 @@
 			<message key="empty.line.missing.before.variable.assign" value="There should be an empty line before assigning value to variable ''{0}''" />
 			<message key="empty.line.missing.before.variable.use" value="There should be an empty line between assigning and using variable ''{0}''" />
 		</module>
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		<module name="com.liferay.source.formatter.checkstyle.checks.MissingParenthesesCheck">
 			<property name="category" value="Styling" />
 			<property name="description" value="Finds missing parentheses in conditional statement." />

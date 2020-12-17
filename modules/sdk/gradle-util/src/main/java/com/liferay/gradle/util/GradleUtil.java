@@ -530,9 +530,15 @@ public class GradleUtil {
 		while (iterator.hasNext()) {
 			Dependency dependency = iterator.next();
 
+<<<<<<< HEAD
 			if (ArrayUtil.contains(
 					dependencyNotations, _getDependencyNotation(dependency))) {
 
+=======
+			String dependencyNotation = _getDependencyNotation(dependency);
+
+			if (ArrayUtil.contains(dependencyNotations, dependencyNotation)) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				iterator.remove();
 			}
 		}

@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.TransactionalTestRule;
+<<<<<<< HEAD
 import com.liferay.portal.util.PropsValues;
 import com.liferay.social.kernel.model.SocialRelationConstants;
 import com.liferay.social.kernel.service.SocialRelationLocalService;
@@ -47,6 +48,11 @@ import com.liferay.social.kernel.service.SocialRelationLocalService;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+=======
+import com.liferay.social.kernel.model.SocialRelationConstants;
+import com.liferay.social.kernel.service.SocialRelationLocalService;
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,14 +81,18 @@ public class UserFinderTest {
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
+<<<<<<< HEAD
 		_organizationsMembershipStrict =
 			PropsValues.ORGANIZATIONS_MEMBERSHIP_STRICT;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_group = GroupTestUtil.addGroup();
 		_groupUser = UserTestUtil.addUser();
 
 		_groupLocalService.addUserGroup(_groupUser.getUserId(), _group);
 
+<<<<<<< HEAD
 		_organization1 = OrganizationTestUtil.addOrganization(true);
 		_organizationUser1 = UserTestUtil.addUser();
 
@@ -94,6 +104,13 @@ public class UserFinderTest {
 
 		_organizationLocalService.addUserOrganization(
 			_organizationUser2.getUserId(), _organization2);
+=======
+		_organization = OrganizationTestUtil.addOrganization(true);
+		_organizationUser = UserTestUtil.addUser();
+
+		_organizationLocalService.addUserOrganization(
+			_organizationUser.getUserId(), _organization);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		_socialUser = UserTestUtil.addUser();
 
@@ -113,11 +130,17 @@ public class UserFinderTest {
 		_groupLocalService.deleteGroup(_group);
 		_userLocalService.deleteUser(_groupUser);
 
+<<<<<<< HEAD
 		_userLocalService.deleteUser(_organizationUser1);
 		_userLocalService.deleteUser(_organizationUser2);
 
 		_organizationLocalService.deleteOrganization(_organization1);
 		_organizationLocalService.deleteOrganization(_organization2);
+=======
+		_userLocalService.deleteUser(_organizationUser);
+
+		_organizationLocalService.deleteOrganization(_organization);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		_userLocalService.deleteUser(_socialUser);
 		_userLocalService.deleteUser(_userGroupUser);
@@ -127,14 +150,21 @@ public class UserFinderTest {
 
 	@Before
 	public void setUp() throws Exception {
+<<<<<<< HEAD
 		_setOrganizationsMembershipStrict(_organizationsMembershipStrict);
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_inheritedUserGroupsParams = LinkedHashMapBuilder.<String, Object>put(
 			"inherit", Boolean.TRUE
 		).put(
 			"usersGroups",
 			new Long[] {
+<<<<<<< HEAD
 				_group.getGroupId(), _organization1.getGroupId(),
+=======
+				_group.getGroupId(), _organization.getGroupId(),
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				_userGroup.getGroupId()
 			}
 		).build();
@@ -157,7 +187,11 @@ public class UserFinderTest {
 		_roleLocalService.deleteRole(_roleId);
 
 		_groupLocalService.clearOrganizationGroups(
+<<<<<<< HEAD
 			_organization1.getOrganizationId());
+=======
+			_organization.getOrganizationId());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_groupLocalService.clearUserGroupGroups(_userGroup.getUserGroupId());
 	}
 
@@ -173,7 +207,11 @@ public class UserFinderTest {
 		Assert.assertEquals(2, (int)counts.get(groupId));
 
 		_groupLocalService.addOrganizationGroup(
+<<<<<<< HEAD
 			_organization1.getOrganizationId(), groupId);
+=======
+			_organization.getOrganizationId(), groupId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		counts = _userFinder.countByGroups(
 			TestPropsValues.getCompanyId(), WorkflowConstants.STATUS_APPROVED,
@@ -192,7 +230,11 @@ public class UserFinderTest {
 		Assert.assertEquals(counts.toString(), 1, counts.size());
 		Assert.assertEquals(4, (int)counts.get(groupId));
 
+<<<<<<< HEAD
 		long organizationGroupId = _organization1.getGroupId();
+=======
+		long organizationGroupId = _organization.getGroupId();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		counts = _userFinder.countByGroups(
 			TestPropsValues.getCompanyId(), WorkflowConstants.STATUS_APPROVED,
@@ -217,7 +259,11 @@ public class UserFinderTest {
 			TestPropsValues.getCompanyId(), null,
 			WorkflowConstants.STATUS_APPROVED, _inheritedUserRolesParams);
 
+<<<<<<< HEAD
 		_roleLocalService.addGroupRole(_organization1.getGroupId(), _roleId);
+=======
+		_roleLocalService.addGroupRole(_organization.getGroupId(), _roleId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_roleLocalService.addGroupRole(_userGroup.getGroupId(), _roleId);
 
 		int count = _userFinder.countByKeywords(
@@ -236,7 +282,11 @@ public class UserFinderTest {
 			WorkflowConstants.STATUS_APPROVED, _inheritedUserRolesParams);
 
 		_groupLocalService.addOrganizationGroup(
+<<<<<<< HEAD
 			_organization1.getOrganizationId(), _group);
+=======
+			_organization.getOrganizationId(), _group);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_groupLocalService.addUserGroupGroup(
 			_userGroup.getUserGroupId(), _group);
 
@@ -261,6 +311,7 @@ public class UserFinderTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testFindByKeywordsOrganizationsMembershipStrict()
 		throws Exception {
 
@@ -274,11 +325,14 @@ public class UserFinderTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testFindByKeywordsOrganizationUsers() throws Exception {
 		List<User> users = _userFinder.findByKeywords(
 			TestPropsValues.getCompanyId(), null,
 			WorkflowConstants.STATUS_APPROVED,
 			LinkedHashMapBuilder.<String, Object>put(
+<<<<<<< HEAD
 				"usersOrgs", _organization1.getOrganizationId()
 			).build(),
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -286,6 +340,13 @@ public class UserFinderTest {
 		Assert.assertTrue(users.toString(), users.contains(_organizationUser1));
 		Assert.assertFalse(
 			users.toString(), users.contains(_organizationUser2));
+=======
+				"usersOrgs", _organization.getOrganizationId()
+			).build(),
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+
+		Assert.assertTrue(users.toString(), users.contains(_organizationUser));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -309,9 +370,13 @@ public class UserFinderTest {
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 		Assert.assertTrue(users.toString(), users.contains(_groupUser));
+<<<<<<< HEAD
 		Assert.assertTrue(users.toString(), users.contains(_organizationUser1));
 		Assert.assertFalse(
 			users.toString(), users.contains(_organizationUser2));
+=======
+		Assert.assertTrue(users.toString(), users.contains(_organizationUser));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Assert.assertTrue(users.toString(), users.contains(_userGroupUser));
 		Assert.assertTrue(
 			users.toString(), users.contains(TestPropsValues.getUser()));
@@ -326,7 +391,11 @@ public class UserFinderTest {
 			WorkflowConstants.STATUS_APPROVED, _inheritedUserRolesParams,
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
+<<<<<<< HEAD
 		_roleLocalService.addGroupRole(_organization1.getGroupId(), _roleId);
+=======
+		_roleLocalService.addGroupRole(_organization.getGroupId(), _roleId);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_roleLocalService.addGroupRole(_userGroup.getGroupId(), _roleId);
 
 		List<User> users = _userFinder.findByKeywords(
@@ -335,7 +404,11 @@ public class UserFinderTest {
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 		Assert.assertTrue(users.toString(), users.contains(_groupUser));
+<<<<<<< HEAD
 		Assert.assertTrue(users.toString(), users.contains(_organizationUser1));
+=======
+		Assert.assertTrue(users.toString(), users.contains(_organizationUser));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Assert.assertTrue(users.toString(), users.contains(_userGroupUser));
 		Assert.assertTrue(
 			users.toString(), users.contains(TestPropsValues.getUser()));
@@ -353,7 +426,11 @@ public class UserFinderTest {
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 		_groupLocalService.addOrganizationGroup(
+<<<<<<< HEAD
 			_organization1.getOrganizationId(), _group);
+=======
+			_organization.getOrganizationId(), _group);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_groupLocalService.addUserGroupGroup(
 			_userGroup.getUserGroupId(), _group);
 
@@ -363,7 +440,11 @@ public class UserFinderTest {
 			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 		Assert.assertTrue(users.toString(), users.contains(_groupUser));
+<<<<<<< HEAD
 		Assert.assertTrue(users.toString(), users.contains(_organizationUser1));
+=======
+		Assert.assertTrue(users.toString(), users.contains(_organizationUser));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Assert.assertTrue(users.toString(), users.contains(_userGroupUser));
 		Assert.assertTrue(
 			users.toString(), users.contains(TestPropsValues.getUser()));
@@ -382,6 +463,7 @@ public class UserFinderTest {
 		Assert.assertEquals(users.toString(), 1, users.size());
 	}
 
+<<<<<<< HEAD
 	private void _setOrganizationsMembershipStrict(boolean strict)
 		throws Exception {
 
@@ -404,21 +486,31 @@ public class UserFinderTest {
 			organizationsMembershipStrict.getModifiers() | Modifier.FINAL);
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static Group _group;
 
 	@Inject
 	private static GroupLocalService _groupLocalService;
 
 	private static User _groupUser;
+<<<<<<< HEAD
 	private static Organization _organization1;
 	private static Organization _organization2;
+=======
+	private static Organization _organization;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Inject
 	private static OrganizationLocalService _organizationLocalService;
 
+<<<<<<< HEAD
 	private static boolean _organizationsMembershipStrict;
 	private static User _organizationUser1;
 	private static User _organizationUser2;
+=======
+	private static User _organizationUser;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 	@Inject
 	private static SocialRelationLocalService _socialRelationLocalService;

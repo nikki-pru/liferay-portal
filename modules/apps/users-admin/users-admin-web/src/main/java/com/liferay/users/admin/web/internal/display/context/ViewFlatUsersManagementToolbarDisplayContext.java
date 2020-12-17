@@ -56,11 +56,18 @@ public class ViewFlatUsersManagementToolbarDisplayContext
 			liferayPortletRequest.getHttpServletRequest(),
 			liferayPortletRequest, liferayPortletResponse, searchContainer);
 
+<<<<<<< HEAD
 		_showDeleteButton = showDeleteButton;
 		_showRestoreButton = showRestoreButton;
 
 		_navigation = ParamUtil.getString(
 			liferayPortletRequest, "navigation", "active");
+=======
+		_navigation = ParamUtil.getString(
+			liferayPortletRequest, "navigation", "active");
+		_showDeleteButton = showDeleteButton;
+		_showRestoreButton = showRestoreButton;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Override

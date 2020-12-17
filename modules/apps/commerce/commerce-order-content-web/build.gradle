@@ -23,8 +23,15 @@ dependencies {
 	compileOnly project(":apps:journal:journal-api")
 	compileOnly project(":apps:portlet-display-template:portlet-display-template-api")
 	compileOnly project(":apps:static:portal-configuration:portal-configuration-metatype-api")
+<<<<<<< HEAD
 	compileOnly project(":core:petra:petra-function")
 	compileOnly project(":core:petra:petra-lang")
 	compileOnly project(":core:petra:petra-sql-dsl-api")
 	compileOnly project(":core:petra:petra-string")
+=======
+	compileOnly project(":core:petra:petra-lang")
+	compileOnly project(":core:petra:petra-sql-dsl-api")
+	compileOnly project(":core:petra:petra-string")
+	compileOnly project(":core:petra:petra-function")
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 }

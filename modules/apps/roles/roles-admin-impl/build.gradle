@@ -8,7 +8,10 @@ dependencies {
 	compileOnly project(":apps:export-import:export-import-api")
 	compileOnly project(":apps:portal-search:portal-search-spi")
 	compileOnly project(":apps:roles:roles-admin-api")
+<<<<<<< HEAD
 	compileOnly project(":apps:site:site-api")
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	compileOnly project(":apps:xstream:xstream-configurator-api")
 	compileOnly project(":core:osgi-service-tracker-collections")
 }

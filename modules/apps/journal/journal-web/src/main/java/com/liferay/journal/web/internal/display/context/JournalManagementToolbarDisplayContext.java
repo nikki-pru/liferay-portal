@@ -629,6 +629,7 @@ public class JournalManagementToolbarDisplayContext
 	}
 
 	private String _getStatusLabel(int status) {
+<<<<<<< HEAD
 		String label = null;
 
 		if (status == WorkflowConstants.STATUS_APPROVED) {
@@ -640,6 +641,13 @@ public class JournalManagementToolbarDisplayContext
 		else {
 			label = WorkflowConstants.getStatusLabel(status);
 		}
+=======
+		String label = WorkflowConstants.getStatusLabel(status);
+
+		if (status == WorkflowConstants.STATUS_EXPIRED) {
+			label = "with-expired-versions";
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		return LanguageUtil.get(httpServletRequest, label);
 	}

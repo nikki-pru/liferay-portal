@@ -132,8 +132,11 @@ public class CTCollectionPersistenceTest {
 
 		newCTCollection.setModifiedDate(RandomTestUtil.nextDate());
 
+<<<<<<< HEAD
 		newCTCollection.setSchemaVersionId(RandomTestUtil.nextLong());
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		newCTCollection.setName(RandomTestUtil.randomString());
 
 		newCTCollection.setDescription(RandomTestUtil.randomString());
@@ -167,9 +170,12 @@ public class CTCollectionPersistenceTest {
 			Time.getShortTimestamp(existingCTCollection.getModifiedDate()),
 			Time.getShortTimestamp(newCTCollection.getModifiedDate()));
 		Assert.assertEquals(
+<<<<<<< HEAD
 			existingCTCollection.getSchemaVersionId(),
 			newCTCollection.getSchemaVersionId());
 		Assert.assertEquals(
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			existingCTCollection.getName(), newCTCollection.getName());
 		Assert.assertEquals(
 			existingCTCollection.getDescription(),
@@ -192,6 +198,7 @@ public class CTCollectionPersistenceTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testCountBySchemaVersionId() throws Exception {
 		_persistence.countBySchemaVersionId(RandomTestUtil.nextLong());
 
@@ -199,6 +206,8 @@ public class CTCollectionPersistenceTest {
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testCountByC_S() throws Exception {
 		_persistence.countByC_S(
 			RandomTestUtil.nextLong(), RandomTestUtil.nextInt());
@@ -207,12 +216,15 @@ public class CTCollectionPersistenceTest {
 	}
 
 	@Test
+<<<<<<< HEAD
 	public void testCountByC_SArrayable() throws Exception {
 		_persistence.countByC_S(
 			RandomTestUtil.nextLong(), new int[] {RandomTestUtil.nextInt(), 0});
 	}
 
 	@Test
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public void testFindByPrimaryKeyExisting() throws Exception {
 		CTCollection newCTCollection = addCTCollection();
 
@@ -239,9 +251,14 @@ public class CTCollectionPersistenceTest {
 		return OrderByComparatorFactoryUtil.create(
 			"CTCollection", "mvccVersion", true, "ctCollectionId", true,
 			"companyId", true, "userId", true, "createDate", true,
+<<<<<<< HEAD
 			"modifiedDate", true, "schemaVersionId", true, "name", true,
 			"description", true, "status", true, "statusByUserId", true,
 			"statusDate", true);
+=======
+			"modifiedDate", true, "name", true, "description", true, "status",
+			true, "statusByUserId", true, "statusDate", true);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@Test
@@ -472,8 +489,11 @@ public class CTCollectionPersistenceTest {
 
 		ctCollection.setModifiedDate(RandomTestUtil.nextDate());
 
+<<<<<<< HEAD
 		ctCollection.setSchemaVersionId(RandomTestUtil.nextLong());
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		ctCollection.setName(RandomTestUtil.randomString());
 
 		ctCollection.setDescription(RandomTestUtil.randomString());

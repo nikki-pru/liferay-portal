@@ -121,17 +121,29 @@
 </tr>
 <tr>
 	<td>SHARED_CONTENT_CONTENT_TITLE</td>
+<<<<<<< HEAD
 	<td>//tbody/tr/td[contains(@class,'lfr-title-column')]/a[contains(.,'${key_contentTitle}')]</td>
+=======
+	<td>//tbody/tr/td[contains(@class,'table-cell-content')]/a[contains(.,'${key_contentTitle}')]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>
 	<td>SHARED_CONTENT_CONTENT_TITLE_2</td>
+<<<<<<< HEAD
 	<td>//tbody/tr[2]/td[contains(@class,'lfr-title-column')]/a[contains(.,'${key_contentTitle}')]</td>
+=======
+	<td>//tbody/tr[2]/td[contains(@class,'table-cell-content')]/a[contains(.,'${key_contentTitle}')]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>
 	<td>SHARED_CONTENT_CONTENT_TITLE_3</td>
+<<<<<<< HEAD
 	<td>//tbody/tr[3]/td[contains(@class,'lfr-title-column')]/a[contains(.,'${key_contentTitle}')]</td>
+=======
+	<td>//tbody/tr[3]/td[contains(@class,'table-cell-content')]/a[contains(.,'${key_contentTitle}')]</td>
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	<td></td>
 </tr>
 <tr>

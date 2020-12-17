@@ -149,7 +149,10 @@ public class AutoDeployDir {
 		_interval = interval;
 
 		_autoDeployListeners = new CopyOnWriteArrayList<>(autoDeployListeners);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_blacklistFileTimestamps = new HashMap<>();
 	}
 

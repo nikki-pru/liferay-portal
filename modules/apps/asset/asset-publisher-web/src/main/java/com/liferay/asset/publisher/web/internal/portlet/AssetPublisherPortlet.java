@@ -52,8 +52,11 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.WebKeys;
+<<<<<<< HEAD
 import com.liferay.segments.SegmentsEntryRetriever;
 import com.liferay.segments.context.RequestContextMapper;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -242,8 +245,12 @@ public class AssetPublisherPortlet extends MVCPortlet {
 					assetPublisherHelper, assetPublisherWebConfiguration,
 					assetPublisherWebHelper, infoListProviderTracker,
 					itemSelector, resourceRequest, resourceResponse,
+<<<<<<< HEAD
 					resourceRequest.getPreferences(), requestContextMapper,
 					segmentsEntryRetriever);
+=======
+					resourceRequest.getPreferences());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			resourceRequest.setAttribute(
 				AssetPublisherWebKeys.ASSET_PUBLISHER_DISPLAY_CONTEXT,
@@ -341,8 +348,12 @@ public class AssetPublisherPortlet extends MVCPortlet {
 					assetPublisherHelper, assetPublisherWebConfiguration,
 					assetPublisherWebHelper, infoListProviderTracker,
 					itemSelector, renderRequest, renderResponse,
+<<<<<<< HEAD
 					renderRequest.getPreferences(), requestContextMapper,
 					segmentsEntryRetriever);
+=======
+					renderRequest.getPreferences());
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			renderRequest.setAttribute(
 				AssetPublisherWebKeys.ASSET_PUBLISHER_DISPLAY_CONTEXT,
@@ -419,12 +430,15 @@ public class AssetPublisherPortlet extends MVCPortlet {
 	)
 	protected Release release;
 
+<<<<<<< HEAD
 	@Reference
 	protected RequestContextMapper requestContextMapper;
 
 	@Reference
 	protected SegmentsEntryRetriever segmentsEntryRetriever;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private static final Log _log = LogFactoryUtil.getLog(
 		AssetPublisherPortlet.class);
 

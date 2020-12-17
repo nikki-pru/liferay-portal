@@ -279,7 +279,13 @@ public class JournalArticleExportImportContentProcessor
 		}
 
 		for (Field field : fields) {
+<<<<<<< HEAD
 			if (!Objects.equals(field.getType(), "journal_article")) {
+=======
+			if (!Objects.equals(
+					field.getType(), DDMFormFieldType.JOURNAL_ARTICLE)) {
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				continue;
 			}
 
@@ -377,8 +383,12 @@ public class JournalArticleExportImportContentProcessor
 			}
 		}
 
+<<<<<<< HEAD
 		return _journalConverter.getContent(
 			ddmStructure, fields, ddmStructure.getGroupId());
+=======
+		return _journalConverter.getContent(ddmStructure, fields);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected String replaceImportJournalArticleReferences(
@@ -387,7 +397,13 @@ public class JournalArticleExportImportContentProcessor
 		throws Exception {
 
 		for (Field field : fields) {
+<<<<<<< HEAD
 			if (!Objects.equals(field.getType(), "journal_article")) {
+=======
+			if (!Objects.equals(
+					field.getType(), DDMFormFieldType.JOURNAL_ARTICLE)) {
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 				continue;
 			}
 
@@ -450,8 +466,12 @@ public class JournalArticleExportImportContentProcessor
 			}
 		}
 
+<<<<<<< HEAD
 		return _journalConverter.getContent(
 			ddmStructure, fields, ddmStructure.getGroupId());
+=======
+		return _journalConverter.getContent(ddmStructure, fields);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	protected void validateJournalArticleReferences(String content)
@@ -463,8 +483,12 @@ public class JournalArticleExportImportContentProcessor
 			Document document = SAXReaderUtil.read(content);
 
 			XPath xPath = SAXReaderUtil.createXPath(
+<<<<<<< HEAD
 				"//dynamic-element[@type='" + DDMFormFieldType.JOURNAL_ARTICLE +
 					"']");
+=======
+				"//dynamic-element[@type='ddm-journal-article']");
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			List<Node> ddmJournalArticleNodes = xPath.selectNodes(document);
 

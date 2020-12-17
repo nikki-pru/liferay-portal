@@ -62,9 +62,14 @@ public class ModifiedFacetDisplayBuilder implements Serializable {
 
 		_calendarFactory = calendarFactory;
 		_dateFormatFactory = dateFormatFactory;
+<<<<<<< HEAD
 		_http = http;
 
 		_dateRangeFactory = new DateRangeFactory(dateFormatFactory);
+=======
+		_dateRangeFactory = new DateRangeFactory(dateFormatFactory);
+		_http = http;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		_themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);

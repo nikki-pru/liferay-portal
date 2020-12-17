@@ -22,6 +22,7 @@ import org.json.JSONObject;
 public class ListSpiraCustomPropertyValue
 	extends SpiraCustomPropertyValue<SpiraCustomListValue> {
 
+<<<<<<< HEAD
 	@Override
 	public JSONObject getCustomPropertyJSONObject() {
 		JSONObject customPropertyJSONObject =
@@ -32,6 +33,8 @@ public class ListSpiraCustomPropertyValue
 		return customPropertyJSONObject;
 	}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	public SpiraCustomList getSpiraCustomList() {
 		if (_spiraCustomList != null) {
 			return _spiraCustomList;
@@ -89,6 +92,19 @@ public class ListSpiraCustomPropertyValue
 	}
 
 	@Override
+<<<<<<< HEAD
+=======
+	protected JSONObject getCustomPropertyJSONObject() {
+		JSONObject customPropertyJSONObject =
+			super.getCustomPropertyJSONObject();
+
+		customPropertyJSONObject.put("IntegerValue", _getIntegerValue());
+
+		return customPropertyJSONObject;
+	}
+
+	@Override
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	protected JSONObject getFilterJSONObject() {
 		JSONObject filterJSONObject = super.getFilterJSONObject();
 

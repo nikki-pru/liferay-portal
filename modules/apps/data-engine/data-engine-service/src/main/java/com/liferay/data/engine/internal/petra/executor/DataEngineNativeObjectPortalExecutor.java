@@ -23,8 +23,11 @@ import com.liferay.data.engine.rest.resource.v2_0.DataDefinitionResource;
 import com.liferay.data.engine.rest.resource.v2_0.DataLayoutResource;
 import com.liferay.data.engine.rest.resource.v2_0.DataRecordCollectionResource;
 import com.liferay.dynamic.data.mapping.exception.NoSuchStructureException;
+<<<<<<< HEAD
 import com.liferay.dynamic.data.mapping.service.DDMStructureLayoutLocalService;
 import com.liferay.dynamic.data.mapping.service.DDMStructureLocalService;
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 import com.liferay.dynamic.data.mapping.storage.StorageType;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
@@ -209,6 +212,7 @@ public class DataEngineNativeObjectPortalExecutor {
 
 	private final DataEngineNativeObjectObserver
 		_dataEngineNativeObjectObserver = new DataEngineNativeObjectObserver();
+<<<<<<< HEAD
 
 	@Reference
 	private DDMStructureLayoutLocalService _ddmStructureLayoutLocalService;
@@ -216,6 +220,8 @@ public class DataEngineNativeObjectPortalExecutor {
 	@Reference
 	private DDMStructureLocalService _ddmStructureLocalService;
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	private NoticeableExecutorService _noticeableExecutorService;
 
 	@Reference
@@ -267,6 +273,10 @@ public class DataEngineNativeObjectPortalExecutor {
 						availableLanguageIds = new String[] {defaultLanguageId};
 						dataDefinitionKey =
 							dataEngineNativeObject.getClassName();
+<<<<<<< HEAD
+=======
+						defaultDataLayout = new DataLayout();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 						storageType = StorageType.DEFAULT.getValue();
 					}
 				};
@@ -296,6 +306,7 @@ public class DataEngineNativeObjectPortalExecutor {
 				).build());
 
 			if (Validator.isNull(dataDefinition.getId())) {
+<<<<<<< HEAD
 				dataDefinition =
 					dataDefinitionResource.postSiteDataDefinitionByContentType(
 						_portal.getSiteGroupId(company.getGroupId()),
@@ -315,6 +326,11 @@ public class DataEngineNativeObjectPortalExecutor {
 
 				dataLayoutResource.postDataDefinitionDataLayout(
 					dataDefinition.getId(), dataLayout);
+=======
+				dataDefinitionResource.postSiteDataDefinitionByContentType(
+					_portal.getSiteGroupId(company.getGroupId()),
+					"native-object", dataDefinition);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			}
 			else {
 				dataDefinitionResource.putDataDefinition(

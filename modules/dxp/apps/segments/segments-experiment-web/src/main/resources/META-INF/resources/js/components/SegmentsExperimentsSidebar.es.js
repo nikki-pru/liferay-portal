@@ -364,7 +364,11 @@ function SegmentsExperimentsSidebar({
 		const body = {
 			description: experiment.description,
 			goal: experiment.goal.value,
+<<<<<<< HEAD
 			goalTarget: selector && `#${selector}`,
+=======
+			goalTarget: selector,
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			name: experiment.name,
 			segmentsExperimentId: experiment.segmentsExperimentId,
 		};

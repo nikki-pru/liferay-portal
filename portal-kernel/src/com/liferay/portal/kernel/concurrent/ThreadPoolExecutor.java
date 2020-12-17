@@ -79,7 +79,10 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
 		_rejectedExecutionHandler = rejectedExecutionHandler;
 		_threadFactory = threadFactory;
 		_threadPoolHandler = threadPoolHandler;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		_taskQueue = new TaskQueue<>(maxQueueSize);
 		_workerTasks = new HashSet<>();
 	}

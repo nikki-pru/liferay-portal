@@ -27,7 +27,11 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.commerce.address.web.internal.display.context.CommerceCountriesDisplayContext" %><%@
 page import="com.liferay.commerce.address.web.internal.display.context.CommerceRegionsDisplayContext" %><%@
+<<<<<<< HEAD
 page import="com.liferay.commerce.address.web.internal.servlet.taglib.ui.constants.CommerceCountryScreenNavigationConstants" %><%@
+=======
+page import="com.liferay.commerce.address.web.internal.servlet.taglib.ui.CommerceCountryScreenNavigationConstants" %><%@
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 page import="com.liferay.commerce.constants.CommerceActionKeys" %><%@
 page import="com.liferay.commerce.exception.CommerceCountryAlreadyExistsException" %><%@
 page import="com.liferay.commerce.exception.CommerceCountryNameException" %><%@

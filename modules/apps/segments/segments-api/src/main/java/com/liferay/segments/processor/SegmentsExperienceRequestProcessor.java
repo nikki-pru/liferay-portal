@@ -40,6 +40,7 @@ public interface SegmentsExperienceRequestProcessor {
 	 * @param  groupId the primary key of the group
 	 * @param  classNameId the entity's class name ID
 	 * @param  classPK the primary key of the entity
+<<<<<<< HEAD
 	 * @param  segmentsExperienceIds the primary keys of the user's active
 	 *         segment experiences
 	 * @return the processed IDs of segments experiences that will be actually
@@ -61,6 +62,8 @@ public interface SegmentsExperienceRequestProcessor {
 	 * @param  groupId the primary key of the group
 	 * @param  classNameId the entity's class name ID
 	 * @param  classPK the primary key of the entity
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	 * @param  segmentsEntryIds the primary keys of the user's active segment
 	 *         entries
 	 * @param  segmentsExperienceIds the primary keys of the user's active

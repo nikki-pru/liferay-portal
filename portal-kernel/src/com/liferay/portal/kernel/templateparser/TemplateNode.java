@@ -194,9 +194,15 @@ public class TemplateNode extends LinkedHashMap<String, Object> {
 			return StringPool.BLANK;
 		}
 
+<<<<<<< HEAD
 		long layoutGroupId = 0;
 		long layoutId = 0;
 		String layoutType = StringPool.BLANK;
+=======
+		long layoutGroupId = getLayoutGroupId();
+		long layoutId = getLayoutId();
+		String layoutType = getLayoutType();
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		String data = (String)get("data");
 
@@ -222,11 +228,14 @@ public class TemplateNode extends LinkedHashMap<String, Object> {
 				return StringPool.BLANK;
 			}
 		}
+<<<<<<< HEAD
 		else {
 			layoutGroupId = getLayoutGroupId();
 			layoutId = getLayoutId();
 			layoutType = getLayoutType();
 		}
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		if (Validator.isNull(layoutType)) {
 			return StringPool.BLANK;
@@ -470,12 +479,15 @@ public class TemplateNode extends LinkedHashMap<String, Object> {
 			return getUrl();
 		}
 
+<<<<<<< HEAD
 		String data = (String)get("data");
 
 		if (JSONUtil.isValid(data)) {
 			return getUrl();
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String layoutType = getLayoutType();
 
 		if (Validator.isNull(layoutType)) {

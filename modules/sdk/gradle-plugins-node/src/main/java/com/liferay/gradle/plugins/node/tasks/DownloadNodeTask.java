@@ -168,9 +168,15 @@ public class DownloadNodeTask extends DefaultTask {
 		}
 
 		String digest = _getDigest();
+<<<<<<< HEAD
 
 		FileUtil.write(
 			_getDigestFile(), digest.getBytes(StandardCharsets.UTF_8));
+=======
+		File digestFile = _getDigestFile();
+
+		FileUtil.write(digestFile, digest.getBytes(StandardCharsets.UTF_8));
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	@OutputDirectory

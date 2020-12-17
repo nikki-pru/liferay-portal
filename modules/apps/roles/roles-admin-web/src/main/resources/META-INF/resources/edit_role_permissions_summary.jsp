@@ -74,7 +74,10 @@ for (int i = 0; i < permissions.size(); i++) {
 	}
 	else {
 		curModelName = resource.getName();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		curModelLabel = ResourceActionsUtil.getModelResource(request, curModelName);
 
 		List<String> portletResources = ResourceActionsUtil.getModelPortletResources(curModelName);

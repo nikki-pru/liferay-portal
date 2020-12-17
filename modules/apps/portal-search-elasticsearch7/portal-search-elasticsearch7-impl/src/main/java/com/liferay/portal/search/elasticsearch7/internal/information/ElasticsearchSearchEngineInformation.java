@@ -80,10 +80,16 @@ public class ElasticsearchSearchEngineInformation
 		List<ConnectionInformation> connectionInformationList =
 			new LinkedList<>();
 
+<<<<<<< HEAD
 		ElasticsearchConnection elasticsearchConnection =
 			elasticsearchConnectionManager.getElasticsearchConnection();
 
 		addMainConnection(elasticsearchConnection, connectionInformationList);
+=======
+		addMainConnection(
+			elasticsearchConnectionManager.getElasticsearchConnection(),
+			connectionInformationList);
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		String filterString = String.format(
 			"(&(service.factoryPid=%s)(active=%s)",
@@ -101,6 +107,7 @@ public class ElasticsearchSearchEngineInformation
 						remoteClusterConnectionId()));
 		}
 
+<<<<<<< HEAD
 		ElasticsearchConnection localClusterElasticsearchConnection =
 			elasticsearchConnectionManager.getElasticsearchConnection(true);
 
@@ -116,6 +123,22 @@ public class ElasticsearchSearchEngineInformation
 				String.format(
 					"(!(connectionId=%s))",
 					localClusterElasticsearchConnection.getConnectionId()));
+=======
+		if (operationModeResolver.isProductionModeEnabled() &&
+			elasticsearchConnectionManager.isCrossClusterReplicationEnabled()) {
+
+			addCCRConnection(
+				elasticsearchConnectionManager.getElasticsearchConnection(true),
+				connectionInformationList);
+
+			String connectionId =
+				elasticsearchConnectionManager.getLocalClusterConnectionId();
+
+			if (!Validator.isBlank(connectionId)) {
+				filterString = filterString.concat(
+					String.format("(!(connectionId=%s))", connectionId));
+			}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		}
 
 		filterString = filterString.concat(")");
@@ -280,10 +303,14 @@ public class ElasticsearchSearchEngineInformation
 		String[] labels = {"read", "write"};
 
 		if (operationModeResolver.isProductionModeEnabled() &&
+<<<<<<< HEAD
 			elasticsearchConnectionManager.isCrossClusterReplicationEnabled() &&
 			!elasticsearchConnection.equals(
 				elasticsearchConnectionManager.getElasticsearchConnection(
 					true))) {
+=======
+			elasticsearchConnectionManager.isCrossClusterReplicationEnabled()) {
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 			labels = new String[] {"write"};
 		}

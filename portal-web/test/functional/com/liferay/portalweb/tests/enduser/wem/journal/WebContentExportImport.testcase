@@ -761,9 +761,15 @@ definition {
 
 		Button.clickPublish();
 
+<<<<<<< HEAD
 		AssertTextEquals(
 			key_fieldFieldLabel = "Text",
 			locator1 = "WCEditWebContent#FIELD_REQUIRED_ALERT",
+=======
+		AssertTextEquals.assertPartialText(
+			key_fieldName = "Text",
+			locator1 = "TextInput#SPECIFIC_FIELD_REQUIRED_ALERT",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			value1 = "This field is required.");
 	}
 

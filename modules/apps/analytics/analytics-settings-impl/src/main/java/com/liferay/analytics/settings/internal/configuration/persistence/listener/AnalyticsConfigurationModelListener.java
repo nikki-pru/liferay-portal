@@ -46,6 +46,7 @@ public class AnalyticsConfigurationModelListener
 			"previousSyncAllContacts",
 			analyticsConfiguration.syncAllContacts());
 
+<<<<<<< HEAD
 		String[] syncedContactFieldNames =
 			analyticsConfiguration.syncedContactFieldNames();
 
@@ -54,6 +55,8 @@ public class AnalyticsConfigurationModelListener
 				"previousSyncedContactFieldNames", syncedContactFieldNames);
 		}
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		String[] syncedUserFieldNames =
 			analyticsConfiguration.syncedUserFieldNames();
 

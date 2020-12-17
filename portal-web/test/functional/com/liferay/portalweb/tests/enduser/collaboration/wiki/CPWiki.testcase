@@ -114,7 +114,11 @@ definition {
 
 		ItemSelector.gotoItemSelectorViaCKEditor();
 
+<<<<<<< HEAD
 		ItemSelector.addImageFromURL(
+=======
+		ItemSelector.addFromURL(
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			imageSourceURL = "http://localhost:8080/webdav/guest/document_library/Document_2.jpg",
 			navTab = "URL",
 			wikiAdmin = "true");
@@ -132,7 +136,12 @@ definition {
 
 	@priority = "5"
 	test CKEditorSmoke {
+<<<<<<< HEAD
 		property portal.acceptance = "true";
+=======
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		property test.name.skip.portal.instance = "CPWiki#CKEditorSmoke";
 
 		ApplicationsMenu.gotoPortlet(

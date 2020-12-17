@@ -2,7 +2,11 @@
 definition {
 
 	property portal.release = "true";
+<<<<<<< HEAD
 	property portal.upstream = "true";
+=======
+	property portal.upstream = "quarantine";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	property testray.main.component.name = "Commerce";
 
 	setUp {
@@ -20,6 +24,7 @@ definition {
 		else {
 			Navigator.openURL();
 
+<<<<<<< HEAD
 			CommerceConfiguration.commerceAdminTearDown();
 
 			CommerceConfiguration.commerceInitializersTearDown();
@@ -94,11 +99,32 @@ definition {
 		AssertTextEquals.assertPartialText(
 			locator1 = "CommerceAccelerators#PRODUCT_DETAILS_LIST_PRICE",
 			value1 = "24.00");
+=======
+			CommerceNavigator.gotoPortlet(
+				category = "Pricing",
+				portlet = "Discounts");
+
+			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				CommerceEntry.deleteCommerceEntry();
+			}
+
+			CommerceNavigator.gotoPortlet(
+				category = "Store Management",
+				portlet = "Channels");
+
+			if (IsElementNotPresent(locator1 = "CommerceNavigation#EMPTY_SEARCH_CONTAINER")) {
+				CommerceEntry.deleteCommerceEntry();
+			}
+		}
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	test CreateNewDiscount {
 		property portal.acceptance = "quarantine";
+<<<<<<< HEAD
 		property portal.upstream = "quarantine";
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		property test.name.skip.portal.instance = "CPCommerceDiscounts#CreateNewDiscount";
 
 		CommerceNavigator.gotoPortlet(
@@ -120,16 +146,23 @@ definition {
 		Click(locator1 = "Button#PLUS");
 
 		CommerceEntry.addNewDiscountsEntry(
+<<<<<<< HEAD
+=======
+			channelsEligibility = "Test Channel",
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 			discountAmount = "15",
 			discountName = "Test Discount",
 			discountTarget = "Products",
 			discountType = "Percentage",
 			maximumDiscountAmount = "10");
 
+<<<<<<< HEAD
 		CommerceEntry.gotoMenuTab(menuTab = "Eligibility");
 
 		CommerceEntry.setEntryEligibility(channelsEligibility = "Test Channel");
 
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		AssertElementPresent(locator1 = "Message#SUCCESS");
 
 		CommerceNavigator.gotoPortlet(

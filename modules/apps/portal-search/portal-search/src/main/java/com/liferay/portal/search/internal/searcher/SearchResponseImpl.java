@@ -52,9 +52,14 @@ import java.util.stream.Stream;
 public class SearchResponseImpl implements SearchResponse, Serializable {
 
 	public SearchResponseImpl(SearchContext searchContext) {
+<<<<<<< HEAD
 		_searchContext = searchContext;
 
 		_facetContextImpl = new FacetContextImpl(searchContext);
+=======
+		_facetContextImpl = new FacetContextImpl(searchContext);
+		_searchContext = searchContext;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 	}
 
 	public void addFederatedSearchResponse(SearchResponse searchResponse) {

@@ -15,12 +15,18 @@
 package com.liferay.portal.kernel.exception;
 
 import com.liferay.petra.string.StringPool;
+<<<<<<< HEAD
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.util.TimeZoneUtil;
 
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+=======
+
+import java.util.Date;
+import java.util.List;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 /**
  * @author Brian Wing Shun Chan
@@ -197,11 +203,14 @@ public class UserPasswordException extends PortalException {
 
 	public static class MustNotBeChangedYet extends UserPasswordException {
 
+<<<<<<< HEAD
 		/**
 		 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
 		 *             #MustNotBeChangedYet(User, Date)}
 		 */
 		@Deprecated
+=======
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		public MustNotBeChangedYet(long userId, Date changeableDate) {
 			super(
 				String.format(
@@ -210,6 +219,7 @@ public class UserPasswordException extends PortalException {
 
 			this.userId = userId;
 			this.changeableDate = changeableDate;
+<<<<<<< HEAD
 
 			TimeZone timeZone = TimeZoneUtil.getDefault();
 
@@ -230,6 +240,11 @@ public class UserPasswordException extends PortalException {
 
 		public final Date changeableDate;
 		public String timeZoneId;
+=======
+		}
+
+		public final Date changeableDate;
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		public long userId;
 
 	}

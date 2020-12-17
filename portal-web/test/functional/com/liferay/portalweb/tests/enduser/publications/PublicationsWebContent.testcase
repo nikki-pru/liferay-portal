@@ -36,6 +36,11 @@ definition {
 
 	@priority = "4"
 	test PublishExpiredWebContentViaWCD {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsWebContent#PublishExpiredWebContentViaWCD";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
 		Navigator.openURL();
@@ -99,6 +104,11 @@ definition {
 
 	@priority = "4"
 	test PublishWebContentWithCategory {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsWebContent#PublishWebContentWithCategory";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
 		Navigator.openURL();
@@ -153,6 +163,10 @@ definition {
 	@priority = "4"
 	test PublishWebContentWithDMAndImageFields {
 		property test.assert.warning.exceptions = "true";
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsWebContent#PublishWebContentWithDMAndImageFields";
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
@@ -267,6 +281,11 @@ definition {
 
 	@priority = "4"
 	test PublishWebContentWithFriendlyURL {
+<<<<<<< HEAD
+=======
+		property test.name.skip.portal.instance = "PublicationsWebContent#PublishWebContentWithFriendlyURL";
+
+>>>>>>> 3e5a7f2ba2444ba916b81b8bf4103e85fab48381
 		Publications.createNewPublication(publicationsName = "Publication Name");
 
 		Navigator.openURL();
