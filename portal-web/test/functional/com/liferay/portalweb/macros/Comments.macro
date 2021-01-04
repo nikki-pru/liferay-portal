@@ -168,8 +168,14 @@ definition {
 			value1 = "${userFullName}");
 
 		AssertTextEquals(
+			locator1 = "Comments#COMMENT_BODY",
+			value1 = "${entryComment}");
+
+/*
+		AssertTextEquals(
 			locator1 = "Comments#COMMENT_BODY_SPECIFIC",
 			value1 = "${entryComment}");
+*/
 	}
 
 	macro viewSubscribedPG {
