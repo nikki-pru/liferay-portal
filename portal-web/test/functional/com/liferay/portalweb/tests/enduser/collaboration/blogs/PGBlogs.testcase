@@ -73,29 +73,34 @@ definition {
 
 	@priority = "4"
 	test AddBlogsEntryComment {
-		JSONBlog.addEntry(
-			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
 
-		Navigator.gotoPage(pageName = "Blogs Page");
+        JSONBlog.addEntry(
+            entryContent = "Blogs Entry Content",
+            entryTitle = "Blogs Entry Title");
 
-		Pause(locator1 = "3000");
+        Navigator.gotoPage(pageName = "Blogs Page");
 
-		Comments.addPG(entryComment = "Blogs Entry Comment");
+        BlogsNavigator.gotoEntryPG(
+            entryContent = "Blogs Entry Content",
+            entryTitle = "Blogs Entry Title");
 
-		Navigator.gotoPage(pageName = "Blogs Page");
+        Pause(locator1 = "3000");
 
-		BlogsNavigator.gotoEntryPG(
-			entryContent = "Blogs Entry Content",
-			entryTitle = "Blogs Entry Title");
+        Comments.addPG(entryComment = "Blogs Entry Comment");
 
-		Comments.viewPG(
-			commentCount = "1",
-			entryComment = "Blogs Entry Comment",
-			userFullName = "Test Test (You)");
+        Navigator.gotoPage(pageName = "Blogs Page");
+
+        BlogsNavigator.gotoEntryPG(
+            entryContent = "Blogs Entry Content",
+            entryTitle = "Blogs Entry Title");
+
+        Comments.viewPG(
+            commentCount = "1",
+            entryComment = "Blogs Entry Comment",
+            userFullName = "Test Test (You)");
 	}
-
-	@priority = "4"
+		
+		@priority = "4"
 	test AddBlogsEntryContentNull {
 		Blogs.addWithInvalidContent(
 			entryInvalidContent = "",
