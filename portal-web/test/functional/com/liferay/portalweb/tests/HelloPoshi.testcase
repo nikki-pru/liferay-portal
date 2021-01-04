@@ -1,0 +1,32 @@
+definition {
+
+	property testray.main.component.name = "Blogs";
+
+	setUp{
+		User.firstLoginPG();
+	}
+
+	test AddBlogsEntry {
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			panel = "Site Administration",
+			portlet = "Blogs");
+
+		Blogs.addEntry(
+			entryContent = "Blogs Content",
+			entryTitle = "Blogs Title");
+	}
+
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		if ("${testPortalInstance}" == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			JSONGroup.deleteGroupByName(groupName = "Test Site Name");
+		}
+	}
+
+}

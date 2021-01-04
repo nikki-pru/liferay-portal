@@ -1,0 +1,5 @@
+<value><![CDATA[LIFERAY_ERROR: Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.]]></value>
+<value><![CDATA[LIFERAY_ERROR: Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.]]></value>
+<value><![CDATA[LIFERAY_ERROR: Email test@domain.invalid will be ignored because it is included in mail.send.blacklist]]></value>
+<value><![CDATA[LIFERAY_ERROR: Skipping email because the sender is not specified]]></value>
+<value><![CDATA[LIFERAY_ERROR: Conversion failed: 6","7; <--- java.lang.NumberFormatException: For input string: "6","7"]]></value>

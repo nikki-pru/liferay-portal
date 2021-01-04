@@ -78,9 +78,17 @@ definition {
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
+		BlogsNavigator.gotoEntryPG( 
+			entryContent = "Blogs Entry Content",
+			entryTitle = "Blogs Entry Title");
+
 		Pause(locator1 = "3000");
 
-		Comments.addPG(entryComment = "Blogs Entry Comment");
+		Click(locator1 = "Comments#PANEL_HEADING");
+		CKEditor.addContent(content = "Blogs Entry Comment");
+		Click(locator1= "Button#REPLY");
+		
+		//Comments.addPG(entryComment = "Blogs Entry Comment");
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -92,6 +100,7 @@ definition {
 			commentCount = "1",
 			entryComment = "Blogs Entry Comment",
 			userFullName = "Test Test (You)");
+			
 	}
 
 	@priority = "4"
