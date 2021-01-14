@@ -2,6 +2,20 @@
 	margin-top: 0.325rem;
 }
 
+.multiple-select-filter-dropdown {
+	max-width: 308px;
+
+	.dropdown-search {
+		padding: 8px 10px;
+	}
+
+	.dropdown-select-all {
+		display: flex;
+		justify-content: space-between;
+		padding: 8px 20px;
+	}
+}
+
 .dropdown-footer {
 	box-shadow: 0 -5px 5px -5px rgba($blackColor, 0.3);
 }

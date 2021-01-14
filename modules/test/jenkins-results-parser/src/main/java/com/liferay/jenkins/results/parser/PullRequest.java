@@ -591,8 +591,12 @@ public class PullRequest {
 	}
 
 	public Comment updateComment(String body, String id) {
+		JSONObject jsonObject = new JSONObject();
+
 		body = body.replaceAll("(\\>)\\s+(\\<)", "$1$2");
 		body = body.replace("&quot;", "\\&quot;");
+
+		jsonObject.put("body", body);
 
 		try {
 			String editCommentURL = _jsonObject.getString("issue_url");
@@ -604,7 +608,7 @@ public class PullRequest {
 				JenkinsResultsParserUtil.toJSONObject(
 					JenkinsResultsParserUtil.combine(
 						editCommentURL, "/comments/", id),
-					false, HttpRequestMethod.PATCH));
+					false, HttpRequestMethod.PATCH, jsonObject.toString()));
 		}
 		catch (IOException ioException) {
 			throw new RuntimeException(
@@ -721,14 +725,14 @@ public class PullRequest {
 		throws IOException {
 
 		return JenkinsResultsParserUtil.toString(
-			url, true, 10, httpRequestMethod, null, 30, 5000, null);
+			url, true, 10, httpRequestMethod, null, 30, 5000, null, false);
 	}
 
 	private static String _toString(String url, String postContent)
 		throws IOException {
 
 		return JenkinsResultsParserUtil.toString(
-			url, false, 10, null, postContent, 30, 5000, null);
+			url, false, 10, null, postContent, 30, 5000, null, false);
 	}
 
 	private static final String _NAME_TEST_SUITE_DEFAULT = "default";

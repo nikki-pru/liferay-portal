@@ -383,6 +383,8 @@ public class ElasticsearchIndexSearcher extends BaseIndexSearcher {
 			baseSearchResponse.getSearchResponseString()
 		).statsResponseMap(
 			baseSearchResponse.getStatsResponseMap()
+		).searchTimeValue(
+			baseSearchResponse.getSearchTimeValue()
 		);
 	}
 

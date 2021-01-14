@@ -17,6 +17,7 @@ package com.liferay.dynamic.data.mapping.internal.report;
 import com.liferay.dynamic.data.mapping.constants.DDMFormInstanceReportConstants;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstance;
 import com.liferay.dynamic.data.mapping.model.DDMFormInstanceRecord;
+import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.report.DDMFormFieldTypeReportProcessor;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
@@ -32,8 +33,12 @@ import com.liferay.portal.kernel.util.Validator;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -60,7 +65,7 @@ public class NumericDDMFormFieldTypeReportProcessor
 			ddmFormFieldValue, fieldJSONObject, formInstanceRecordId,
 			ddmFormInstanceReportEvent);
 
-		BigDecimal valueBigDecimal = _getValueBigDecimal(ddmFormFieldValue);
+		BigDecimal valueBigDecimal = getValueBigDecimal(ddmFormFieldValue);
 
 		if (valueBigDecimal == null) {
 			return jsonObject;
@@ -214,16 +219,35 @@ public class NumericDDMFormFieldTypeReportProcessor
 		return sb.toString();
 	}
 
-	private BigDecimal _getValueBigDecimal(
+	protected BigDecimal getValueBigDecimal(
 		DDMFormFieldValue ddmFormFieldValue) {
 
-		String value = getValue(ddmFormFieldValue);
+		try {
+			Value value = ddmFormFieldValue.getValue();
 
-		if (Validator.isNull(value)) {
+			Locale defaultLocale = value.getDefaultLocale();
+
+			String valueString = value.getString(defaultLocale);
+
+			if (Validator.isNull(valueString)) {
+				return null;
+			}
+
+			DecimalFormat decimalFormat =
+				(DecimalFormat)NumberFormat.getNumberInstance(defaultLocale);
+
+			decimalFormat.setParseBigDecimal(true);
+
+			return new BigDecimal(
+				String.valueOf(decimalFormat.parse(valueString)));
+		}
+		catch (Exception exception) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(exception, exception);
+			}
+
 			return null;
 		}
-
-		return new BigDecimal(value);
 	}
 
 	private Stream<BigDecimal> _getValueBigDecimalsStream(
@@ -246,7 +270,7 @@ public class NumericDDMFormFieldTypeReportProcessor
 						ddmFormFieldValues.stream();
 
 					return ddmFormFieldValuesStream.map(
-						ddmFormFieldValue -> _getValueBigDecimal(
+						ddmFormFieldValue -> getValueBigDecimal(
 							ddmFormFieldValue)
 					).findFirst(
 					).get();

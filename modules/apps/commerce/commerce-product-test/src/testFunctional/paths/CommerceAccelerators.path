@@ -236,8 +236,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>CHECKOUT_CHECK_SHIPPING_ADDRESS_LABEL</td>
-	<td>//div[@class='multi-step-indicator-label' and contains(.,'Shipping Address')]</td>
+	<td>CHECKOUT_MULTI_STEP_INDICATOR_LABEL</td>
+	<td>//div[@class='multi-step-indicator-label' and contains(.,'${key_label}')]</td>
 	<td></td>
 </tr>
 <!--MINICART-->

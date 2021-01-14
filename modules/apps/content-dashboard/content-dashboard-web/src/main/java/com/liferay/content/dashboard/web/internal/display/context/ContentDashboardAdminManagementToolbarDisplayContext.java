@@ -26,7 +26,6 @@ import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemList;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemListBuilder;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.LabelItemListBuilder;
-import com.liferay.info.item.InfoItemReference;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -214,38 +213,18 @@ public class ContentDashboardAdminManagementToolbarDisplayContext
 		List<? extends ContentDashboardItemType> contentDashboardItemTypes =
 			_contentDashboardAdminDisplayContext.getContentDashboardItemTypes();
 
-		for (ContentDashboardItemType contentDashboardItemType :
-				contentDashboardItemTypes) {
+		if (ListUtil.isNotEmpty(contentDashboardItemTypes)) {
+			Stream<? extends ContentDashboardItemType>
+				contentDashboardItemTypesStream =
+					contentDashboardItemTypes.stream();
 
 			labelItemListWrapper.add(
 				labelItem -> {
 					PortletURL portletURL = PortletURLUtil.clone(
 						currentURLObj, liferayPortletResponse);
 
-					InfoItemReference infoItemReference =
-						contentDashboardItemType.getInfoItemReference();
-					Stream<? extends ContentDashboardItemType> stream =
-						contentDashboardItemTypes.stream();
-
 					portletURL.setParameter(
-						"contentDashboardItemTypePayload",
-						stream.filter(
-							curContentDashboardItemType -> {
-								InfoItemReference curInfoItemReference =
-									curContentDashboardItemType.
-										getInfoItemReference();
-
-								return !Objects.equals(
-									curInfoItemReference.getClassPK(),
-									infoItemReference.getClassPK());
-							}
-						).map(
-							curContentDashboardItemType ->
-								curContentDashboardItemType.toJSONString(
-									_locale)
-						).toArray(
-							String[]::new
-						));
+						"contentDashboardItemTypePayload", (String)null);
 
 					labelItem.putData(
 						"removeLabelURL",
@@ -255,31 +234,32 @@ public class ContentDashboardAdminManagementToolbarDisplayContext
 					labelItem.setLabel(
 						StringBundler.concat(
 							LanguageUtil.get(httpServletRequest, "subtype"),
-							": ",
-							contentDashboardItemType.getFullLabel(_locale)));
+							StringPool.COLON,
+							contentDashboardItemTypesStream.map(
+								contentDashboardItemType ->
+									contentDashboardItemType.getFullLabel(
+										_locale)
+							).map(
+								String::valueOf
+							).collect(
+								Collectors.joining(
+									StringPool.COMMA + StringPool.SPACE)
+							)));
 				});
 		}
 
 		List<Long> authorIds =
 			_contentDashboardAdminDisplayContext.getAuthorIds();
 
-		for (Long authorId : authorIds) {
+		if (ListUtil.isNotEmpty(authorIds)) {
+			Stream<Long> authorIdsStream = authorIds.stream();
+
 			labelItemListWrapper.add(
 				labelItem -> {
 					PortletURL portletURL = PortletURLUtil.clone(
 						currentURLObj, liferayPortletResponse);
 
-					Stream<Long> stream = authorIds.stream();
-
-					portletURL.setParameter(
-						"authorIds",
-						stream.filter(
-							id -> id != authorId
-						).map(
-							String::valueOf
-						).toArray(
-							String[]::new
-						));
+					portletURL.setParameter("authorIds", (String)null);
 
 					labelItem.putData(
 						"removeLabelURL",
@@ -290,15 +270,20 @@ public class ContentDashboardAdminManagementToolbarDisplayContext
 						StringBundler.concat(
 							LanguageUtil.get(httpServletRequest, "author"),
 							StringPool.COLON,
-							LanguageUtil.get(
-								httpServletRequest,
-								Optional.ofNullable(
+							authorIdsStream.map(
+								authorId -> Optional.ofNullable(
 									_userLocalService.fetchUser(authorId)
 								).map(
 									User::getFullName
 								).orElse(
 									StringPool.BLANK
-								))));
+								)
+							).map(
+								String::valueOf
+							).collect(
+								Collectors.joining(
+									StringPool.COMMA + StringPool.SPACE)
+							)));
 				});
 		}
 

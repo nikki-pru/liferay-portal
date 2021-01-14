@@ -21,8 +21,6 @@ Liferay-JS-Submodules-Bridge:\
 	metal-multimap,\
 	metal-pagination,\
 	metal-path-parser,\
-	metal-position,\
-	metal-promise,\
 	metal-router,\
 	metal-scrollspy,\
 	metal-soy,\
@@ -30,12 +28,10 @@ Liferay-JS-Submodules-Bridge:\
 	metal-state,\
 	metal-storage,\
 	metal-structs,\
-	metal-throttle,\
 	metal-toggler,\
 	metal-uri,\
 	metal-useragent
 Provide-Capability:\
 	soy;\
-		type="metal";\
 		version:Version="1.0.0"
 Web-ContextPath: /frontend-js-metal-web

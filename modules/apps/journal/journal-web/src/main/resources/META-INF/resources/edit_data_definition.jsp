@@ -50,7 +50,7 @@ else {
 editDDMStructureURL.setParameter("mvcPath", "/edit_data_definition.jsp");
 %>
 
-<aui:form action="<%= editDDMStructureURL.toString() %>" cssClass="edit-article-form" enctype="multipart/form-data" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + liferayPortletResponse.getNamespace() + "saveDDMStructure();" %>'>
+<aui:form action="<%= editDDMStructureURL.toString() %>" cssClass="edit-article-form" enctype="multipart/form-data" method="post" name="fm" onSubmit="event.preventDefault();">
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="groupId" type="hidden" value="<%= groupId %>" />
 	<aui:input name="dataDefinition" type="hidden" />
@@ -144,6 +144,19 @@ editDDMStructureURL.setParameter("mvcPath", "/edit_data_definition.jsp");
 	function <portlet:namespace />saveDDMStructure() {
 		Liferay.componentReady('<portlet:namespace />dataLayoutBuilder').then(
 			function (dataLayoutBuilder) {
+				const nameInput = document.getElementById(
+					'<portlet:namespace />name'
+				);
+
+				if (!nameInput.value) {
+					Liferay.Util.openToast({
+						message:
+							'<liferay-ui:message key="please-enter-a-valid-name" />',
+						title: '<liferay-ui:message key="error" />',
+						type: 'danger',
+					});
+				}
+
 				var description = <portlet:namespace />getInputLocalizedValues(
 					'description'
 				);
@@ -169,5 +182,18 @@ editDDMStructureURL.setParameter("mvcPath", "/edit_data_definition.jsp");
 				});
 			}
 		);
+	}
+
+	const form = document.getElementById('<portlet:namespace />fm');
+
+	if (form) {
+		form.addEventListener('submit', <portlet:namespace />saveDDMStructure);
+
+		Liferay.once('destroyPortlet', function () {
+			form.removeEventListener(
+				'submit',
+				<portlet:namespace />saveDDMStructure
+			);
+		});
 	}
 </aui:script>

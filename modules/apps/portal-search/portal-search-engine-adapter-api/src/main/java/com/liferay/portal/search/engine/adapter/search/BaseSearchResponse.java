@@ -15,6 +15,7 @@
 package com.liferay.portal.search.engine.adapter.search;
 
 import com.liferay.portal.search.aggregation.AggregationResult;
+import com.liferay.portal.search.searcher.SearchTimeValue;
 import com.liferay.portal.search.stats.StatsResponse;
 
 import java.util.Collections;
@@ -62,6 +63,10 @@ public abstract class BaseSearchResponse implements SearchResponse {
 		return _searchResponseString;
 	}
 
+	public SearchTimeValue getSearchTimeValue() {
+		return _searchTimeValue;
+	}
+
 	public Map<String, StatsResponse> getStatsResponseMap() {
 		return Collections.unmodifiableMap(_statsResponseMap);
 	}
@@ -94,6 +99,10 @@ public abstract class BaseSearchResponse implements SearchResponse {
 		_searchResponseString = searchResponseString;
 	}
 
+	public void setSearchTimeValue(SearchTimeValue searchTimeValue) {
+		_searchTimeValue = searchTimeValue;
+	}
+
 	public void setTerminatedEarly(boolean terminatedEarly) {
 		_terminatedEarly = terminatedEarly;
 	}
@@ -109,6 +118,7 @@ public abstract class BaseSearchResponse implements SearchResponse {
 	private long _executionTime;
 	private String _searchRequestString;
 	private String _searchResponseString;
+	private SearchTimeValue _searchTimeValue;
 	private final Map<String, StatsResponse> _statsResponseMap =
 		new LinkedHashMap<>();
 	private boolean _terminatedEarly;

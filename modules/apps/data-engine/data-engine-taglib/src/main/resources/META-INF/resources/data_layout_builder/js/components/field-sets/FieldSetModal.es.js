@@ -153,17 +153,15 @@ const ModalContent = ({
 	}, [fieldSet]);
 
 	useEffect(() => {
-		if (contentType === 'app-builder') {
-			dispatch({
-				payload: {
-					config: {
-						...appConfig,
-						allowFieldSets: false,
-					},
+		dispatch({
+			payload: {
+				config: {
+					...appConfig,
+					allowFieldSets: false,
 				},
-				type: UPDATE_CONFIG,
-			});
-		}
+			},
+			type: UPDATE_CONFIG,
+		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [contentType, dispatch]);
 
@@ -224,7 +222,10 @@ const ModalContent = ({
 								'untitled-fieldset'
 							)}
 							type="text"
-							value={name[editingLanguageId] || ''}
+							value={
+								name[editingLanguageId] ||
+								name[defaultLanguageId]
+							}
 						/>
 					</ClayInput.GroupItem>
 				</ClayInput.Group>
@@ -236,6 +237,7 @@ const ModalContent = ({
 						dataLayoutBuilderId={`${appProps.dataLayoutBuilderId}_2`}
 						setChildrenContext={setChildrenContext}
 						{...childrenAppProps}
+						defaultLanguageId={defaultLanguageId}
 					/>
 				</div>
 			</ClayModal.Body>

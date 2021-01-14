@@ -25,22 +25,17 @@
 </tr>
 <tr>
 	<td>COLUMN_VALUE_IN_PRODUCTION</td>
-	<td>//td[contains(@class,'publications-diff-td')][1]//td[contains(.,'${key_columnName}')]//following-sibling::td[contains(.,'${key_columnValueInProduction}')]</td>
+	<td>//td[contains(@class,'publications-key-td') and contains(.,'${key_columnName}')]//following-sibling::td[contains(.,'${key_columnValueInProduction}')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>COLUMN_VALUE_IN_PUBLICATION</td>
-	<td>//td[contains(@class,'publications-diff-td')][2]//td[contains(.,'${key_columnName}')]//following-sibling::td[contains(.,'${key_columnValueInPublication}')]</td>
+	<td>//td[contains(@class,'publications-key-td') and contains(.,'${key_columnName}')]//following-sibling::td[contains(.,'${key_columnValueInPublication}')]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>CONFLICTING_CHANGES_CONTENT_LINK</td>
 	<td>//div[contains(@class,'autofit-col-expand') and contains(.,'${key_entryTitle}')]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>CONFLICTING_CHANGES_DIFF_IFRAME</td>
-	<td>//iframe[contains(@title,'view_diff')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -64,8 +59,28 @@
 	<td></td>
 </tr>
 <tr>
+	<td>CURRENT_DIFF_DISPLAY_ICON</td>
+	<td>//span[contains(@class, 'inline-item inline-item-after')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>CURRENT_DIFF_DISPLAY_ITEM</td>
+	<td>//button[contains(@class,'dropdown-toggle') and contains(.,'${key_displayItem}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>DELETE_THE_ENTERED_TIME_BUTTON</td>
 	<td>//button[contains(@aria-label,'Delete the entered time')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DIFF_ADDED_VALUE</td>
+	<td>//td[contains(@class,'publications-key-td') and contains(.,'${key_columnName}')]//following-sibling::td//span[contains(@class,'diff-html-added')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DIFF_REMOVED_VALUE</td>
+	<td>//td[contains(@class,'publications-key-td') and contains(.,'${key_columnName}')]//following-sibling::td//span[contains(@class,'diff-html-removed')]</td>
 	<td></td>
 </tr>
 <tr>

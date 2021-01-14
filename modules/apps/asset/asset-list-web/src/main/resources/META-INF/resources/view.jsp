@@ -97,11 +97,11 @@ AssetListManagementToolbarDisplayContext assetListManagementToolbarDisplayContex
 								AssetRendererFactory<?> assetRendererFactory = AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(assetListEntry.getAssetEntryType());
 
 								if ((assetRendererFactory != null) && assetRendererFactory.isSupportsClassTypes()) {
-									ClassTypeReader classTypeReader = assetRendererFactory.getClassTypeReader();
+									ClassType classType = assetListDisplayContext.getClassType(assetRendererFactory.getClassTypeReader(), classTypeId);
 
-									ClassType classType = classTypeReader.getClassType(classTypeId, locale);
-
-									assetEntryTypeLabel = assetEntryTypeLabel + " - " + classType.getName();
+									if (classType != null) {
+										assetEntryTypeLabel = assetEntryTypeLabel + " - " + classType.getName();
+									}
 								}
 							}
 							%>

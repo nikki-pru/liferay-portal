@@ -23,6 +23,7 @@ import com.liferay.portal.search.internal.searcher.SearchResponseImpl;
 import com.liferay.portal.search.searcher.SearchRequest;
 import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.portal.search.searcher.SearchResponseBuilder;
+import com.liferay.portal.search.searcher.SearchTimeValue;
 import com.liferay.portal.search.stats.StatsResponse;
 
 import java.io.Serializable;
@@ -137,6 +138,17 @@ public class SearchResponseBuilderImpl implements SearchResponseBuilder {
 	public SearchResponseBuilder searchHits(SearchHits searchHits) {
 		withSearchResponseImpl(
 			searchResponseImpl -> searchResponseImpl.setSearchHits(searchHits));
+
+		return this;
+	}
+
+	@Override
+	public SearchResponseBuilder searchTimeValue(
+		SearchTimeValue searchTimeValue) {
+
+		withSearchResponseImpl(
+			searchResponseImpl -> searchResponseImpl.setSearchTimeValue(
+				searchTimeValue));
 
 		return this;
 	}

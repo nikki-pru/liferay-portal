@@ -198,40 +198,26 @@ const Options = ({
 	});
 
 	useEffect(() => {
-		const localizedOptions = value[editingLanguageId];
+		const availableLanguageIds = Object.getOwnPropertyNames(value);
 
-		if (localizedOptions && localizedOptions.length > 0) {
-			const firstOption = localizedOptions[0];
+		availableLanguageIds.forEach((languageId) => {
+			normalizedValue[languageId] = value[languageId].map((option) => {
+				if (option.edited) {
+					return option;
+				}
 
-			if (firstOption.value) {
-				const availableLanguageIds = Object.getOwnPropertyNames(value);
+				const {label} = value[defaultLanguageId].find(
+					(defaultOption) => defaultOption.value === option.value
+				);
 
-				availableLanguageIds.forEach((languageId) => {
-					normalizedValue[languageId] = value[languageId].map(
-						(option) => {
-							if (option.edited) {
-								return option;
-							}
+				return {
+					...option,
+					label,
+				};
+			});
+		});
 
-							const {label} = value[defaultLanguageId].find(
-								(defaultOption) =>
-									defaultOption.value === option.value
-							);
-
-							return {
-								...option,
-								label,
-							};
-						}
-					);
-				});
-			}
-		}
-
-		const options =
-			normalizedValue[editingLanguageId] ||
-			normalizedValue[defaultLanguageId] ||
-			[];
+		const options = normalizedValue[editingLanguageId] || [];
 
 		setFields(
 			refreshFields(
@@ -498,8 +484,8 @@ const Options = ({
 };
 
 const Main = ({
-	defaultLanguageId = themeDisplay.getLanguageId(),
-	editingLanguageId = themeDisplay.getLanguageId(),
+	defaultLanguageId = themeDisplay.getDefaultLanguageId(),
+	editingLanguageId = themeDisplay.getDefaultLanguageId(),
 	generateOptionValueUsingOptionLabel = false,
 	onChange,
 	keywordReadOnly,

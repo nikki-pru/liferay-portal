@@ -18,7 +18,6 @@ import FormBuilderWithLayoutProvider, {
 	FieldSupport,
 } from 'dynamic-data-mapping-form-builder';
 import {PagesVisitor} from 'dynamic-data-mapping-form-renderer';
-import core from 'metal';
 import React from 'react';
 
 import {
@@ -516,7 +515,7 @@ class DataLayoutBuilder extends React.Component {
 								const newValue = {};
 
 								Object.keys(value).forEach((locale) => {
-									newValue[locale] = value[locale].filter(
+									newValue[locale] = value[locale]?.filter(
 										(localizedValue) =>
 											localizedValue.value !== ''
 									);
@@ -772,14 +771,14 @@ class DataLayoutBuilder extends React.Component {
 				description = description === null ? '' : description;
 				title = title === null ? '' : title;
 
-				if (!core.isString(description)) {
+				if (typeof description !== 'string') {
 					description = description[defaultLanguageId];
 					localizedDescription = {
 						[defaultLanguageId]: description,
 					};
 				}
 
-				if (!core.isString(title)) {
+				if (typeof title !== 'string') {
 					title = title[defaultLanguageId];
 					localizedTitle = {
 						[defaultLanguageId]: title,

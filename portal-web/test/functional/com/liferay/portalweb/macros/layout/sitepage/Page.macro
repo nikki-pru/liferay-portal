@@ -80,34 +80,16 @@ definition {
 		if ("${locale}" == "zh") {
 			var zhAlternate = '''" hreflang="zh-CN" rel="alternate" />''';
 
-			var hrefURL = selenium.getAttribute("//link[contains(@rel,'alternate')][contains(@hreflang,'zh-CN')]@href");
-
-			var hrefURLNoPortalURL = StringUtil.replace("${hrefURL}", "${portalURL}/zh", "");
-
-			var pageSource = StringUtil.add("${HTML}", "${portalURL}/zh${zhAlternate}","");
-
-			var pageSourceAlternate = StringUtil.add("${HTML}", "${portalURL}/zh/web/guest${zhAlternate}","");
+			var pageSource = StringUtil.add("${HTML}", "${portalURL}/zh/web/guest${zhAlternate}","");
 		}
 
 		else if ("${locale}" == "es") {
 			var esAlternate = '''" hreflang="es-ES" rel="alternate" />''';
 
-			var hrefURL = selenium.getAttribute("//link[contains(@rel,'alternate')][contains(@hreflang,'es-ES')]@href");
-
-			var hrefURLNoPortalURL = StringUtil.replace("${hrefURL}", "${portalURL}/es", "");
-
-			var pageSource = StringUtil.add("${HTML}", "${portalURL}/es${esAlternate}","");
-
-			var pageSourceAlternate = StringUtil.add("${HTML}", "${portalURL}/es/web/guest${esAlternate}","");
+			var pageSource = StringUtil.add("${HTML}", "${portalURL}/es/web/guest${esAlternate}","");
 		}
-		echo("${hrefURL}");
 
-		if ("${hrefURLNoPortalURL}" == "/web/guest") {
-			AssertHTMLSourceTextPresent(value1 = "${pageSourceAlternate}");
-		}
-		else {
-			AssertHTMLSourceTextPresent(value1 = "${pageSource}");
-		}
+		AssertHTMLSourceTextPresent(value1 = "${pageSource}");
 	}
 
 	macro assertCannotDeleteOnlyPage {
@@ -122,49 +104,29 @@ definition {
 		var HTML = '''<link data-senna-track="temporary" href="''';
 		var HTML2 = '''" rel="canonical" />''';
 
-		if (isSet(pageName)) {
-			var pageNameURL = StringUtil.lowerCase("${pageName}");
-
-			var pageNameURL = StringUtil.replace("${pageNameURL}", " ", "-");
-
-			var hrefURL = selenium.getAttribute("//link[contains(@rel,'canonical')]@href");
-
-			var hrefURLNoPageName = StringUtil.replace("${hrefURL}", "/${pageNameURL}", "");
-
-			var hrefURLNoPortalURL = StringUtil.replace("${hrefURLNoPageName}", "${portalURL}", "");
-
-			var pageSource = StringUtil.add("${HTML}", "${portalURL}/${pageNameURL}${HTML2}","");
-
-			var pageSourceAlternate = StringUtil.add("${HTML}", "${portalURL}/web/guest/${pageNameURL}${HTML2}","");
+		if (isSet(customCanonicalURL)) {
+			var portalURL = "${customCanonicalURL}";
 		}
 
 		else if (isSet(locale)) {
-			var hrefURL = selenium.getAttribute("//link[contains(@rel,'canonical')]@href");
+			var portalURL = "${portalURL}/${locale}/web/guest";
+		}
+		else {
+			var portalURL = "${portalURL}/web/guest";
+		}
 
-			var hrefURLNoPortalURL = StringUtil.replace("${hrefURL}", "${portalURL}/${locale}", "");
+		if (isSet(pageName)) {
+			var pageName = StringUtil.lowerCase("${pageName}");
+			var pageNameURL = StringUtil.replace("${pageName}", " ", "-");
 
-			var pageSource = StringUtil.add("${HTML}", "${portalURL}/${locale}${HTML2}","");
-
-			var pageSourceAlternate = StringUtil.add("${HTML}", "${portalURL}/${locale}/web/guest${HTML2}","");
+			var pageSource = StringUtil.add("${HTML}", "${portalURL}/${pageNameURL}${HTML2}","");
 		}
 
 		else {
-			var hrefURL = selenium.getAttribute("//link[contains(@rel,'canonical')]@href");
-
-			var hrefURLNoPortalURL = StringUtil.replace("${hrefURL}", "${portalURL}", "");
-
 			var pageSource = StringUtil.add("${HTML}", "${portalURL}${HTML2}","");
+		}
 
-			var pageSourceAlternate = StringUtil.add("${HTML}", "${portalURL}/web/guest${HTML2}","");
-		}
-		echo("${hrefURL}");
-
-		if ("${hrefURLNoPortalURL}" == "/web/guest") {
-			AssertHTMLSourceTextPresent(value1 = "${pageSourceAlternate}");
-		}
-		else {
-			AssertHTMLSourceTextPresent(value1 = "${pageSource}");
-		}
+		AssertHTMLSourceTextPresent(value1 = "${pageSource}");
 	}
 
 	macro assertNodePortPG {

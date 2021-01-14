@@ -84,6 +84,9 @@ public interface SearchResponseBuilder {
 
 	public SearchResponseBuilder searchHits(SearchHits searchHits);
 
+	public SearchResponseBuilder searchTimeValue(
+		SearchTimeValue searchTimeValue);
+
 	/**
 	 * Sets the map containing the metrics aggregations computed by the search
 	 * engine.

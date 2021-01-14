@@ -86,6 +86,8 @@ public interface SearchResponse {
 
 	public SearchHits getSearchHits();
 
+	public SearchTimeValue getSearchTimeValue();
+
 	/**
 	 * Returns the map containing the metrics aggregations computed by the
 	 * search engine.
