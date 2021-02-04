@@ -404,6 +404,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>LOCALIZATION_SUMMARY</td>
+	<td>//button[@id='_com_liferay_journal_web_portlet_JournalPortlet__com_liferay_journal_web_portlet_JournalPortlet_descriptionMapAsXMLMenu']</td>
+	<td></td>
+</tr>
+<tr>
 	<td>MAKE_DEFAULT</td>
 	<td>//button[contains(.,'Make Default') and contains(@data-value,'${key_language}')]</td>
 	<td></td>
