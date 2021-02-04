@@ -28,6 +28,15 @@ definition {
 		}
 	}
 
+	macro changeLocaleSummary {
+		
+			Click.clickNoMouseOver(locator1 = "Button#LOCALIZATION_SUMMARY");
+		
+			Click(
+				key_locale = StringUtil.replace("${locale}", "-", "_"),
+				locator1 = "Translation#LOCALIZATION_NAME");
+	}
+
 	macro clickEditFromEllipsis {
 		Click.waitForMenuToggleJSClick(locator1 = "Icon#BODY_VERTICAL_ELLIPSIS");
 
