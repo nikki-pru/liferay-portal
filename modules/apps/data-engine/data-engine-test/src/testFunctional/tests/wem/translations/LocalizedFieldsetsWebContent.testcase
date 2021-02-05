@@ -66,8 +66,53 @@ definition {
 	test CheckFieldsetSummaryLocalization {
 		property portal.acceptance = "false";
 
-		// TODO LPS-123539 CheckFieldsetSummaryLocalization pending implementation
+		ProductMenu.gotoPortlet(
+			category = "Content & Data",
+			portlet = "Web Content");
 
+		NavItem.gotoStructures();
+
+		WebContentStructures.addCP(
+			structureDescription = "Structure Description Test",
+			structureName = "Structure FieldSet Test");
+
+		DataEngine.addField(
+			fieldFieldLabel = "Text Test",
+			fieldName = "Text");
+
+		WebContentStructures.saveCP(structureName = "Structure Name Test");
+
+		WebContentStructures.addCP(
+			structureDescription = "Structure Description Test",
+			structureName = "Structure Name Test");
+
+		DataEngine.addFieldsets(
+			fieldsetLabel = "Structure FieldSet Test",
+			fieldsetName = "Structure FieldSet Test");
+
+		WebContentStructures.saveCP(structureName = "Structure Name Test");
+
+		NavItem.click(navItem = "Web Content");
+
+		WebContentNavigator.gotoAddWithStructureCP(structureName = "Structure Name Test");
+
+		PortletEntry.inputTitle(title = "WC Title Test");
+
+		PortletEntry.inputText(
+			fieldLabel = "Text",
+			text = "Text test");
+
+		PortletEntry.changeLocaleSummary(locale = "pt_BR");
+
+		PortletEntry.viewLocale(locale = "pt-BR");
+
+		Pause(locator1 = "5000");
+
+		PortletEntry.changeLocale(locale = "es_ES");
+
+		PortletEntry.viewLocale(locale = "es-ES");
+
+		Pause(locator1 = "5000");
 	}
 
 	@description = "This is a test for LPS-123539. As Content Creator, I want to leverage the structures’ translations with fildset when creating a new Web Content"
@@ -197,6 +242,7 @@ definition {
 		property portal.acceptance = "false";
 
 		// TODO LPS-123539 CheckTranslationOfDuplicatedFieldsetOnWebContent pending implementation
+
 	}
 
 	@description = "This is a test for LPS-123539. As Content Creator, I want to leverage the structures’ translations with fildset when creating a new Web Content"
