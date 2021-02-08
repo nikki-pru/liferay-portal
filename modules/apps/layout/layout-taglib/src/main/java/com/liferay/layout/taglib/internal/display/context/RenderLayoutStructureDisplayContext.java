@@ -26,6 +26,7 @@ import com.liferay.info.field.InfoFieldValue;
 import com.liferay.info.item.ClassPKInfoItemIdentifier;
 import com.liferay.info.item.InfoItemDetails;
 import com.liferay.info.item.InfoItemIdentifier;
+import com.liferay.info.item.InfoItemReference;
 import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.info.item.provider.InfoItemObjectProvider;
@@ -627,9 +628,24 @@ public class RenderLayoutStructureDisplayContext {
 			styleSB.append(");");
 		}
 
+		long fileEntryId = 0;
+
 		if (backgroundImageJSONObject.has("fileEntryId")) {
+			fileEntryId = backgroundImageJSONObject.getLong("fileEntryId");
+		}
+		else if (backgroundImageJSONObject.has("classNameId") &&
+				 backgroundImageJSONObject.has("classPK") &&
+				 backgroundImageJSONObject.has("fieldId")) {
+
+			fileEntryId = _getFileEntryId(
+				backgroundImageJSONObject.getLong("classNameId"),
+				backgroundImageJSONObject.getLong("classPK"),
+				backgroundImageJSONObject.getString("fieldId"));
+		}
+
+		if (fileEntryId != 0) {
 			styleSB.append("--background-image-file-entry-id:");
-			styleSB.append(backgroundImageJSONObject.getLong("fileEntryId"));
+			styleSB.append(fileEntryId);
 			styleSB.append(StringPool.SEMICOLON);
 		}
 
@@ -932,6 +948,76 @@ public class RenderLayoutStructureDisplayContext {
 		}
 
 		return StringPool.BLANK;
+	}
+
+	private long _getFileEntryId(long classNameId, long classPK, String fieldId)
+		throws Exception {
+
+		InfoItemIdentifier infoItemIdentifier = new ClassPKInfoItemIdentifier(
+			classPK);
+
+		InfoItemObjectProvider<Object> infoItemObjectProvider =
+			_infoItemServiceTracker.getFirstInfoItemService(
+				InfoItemObjectProvider.class,
+				PortalUtil.getClassName(classNameId),
+				infoItemIdentifier.getInfoItemServiceFilter());
+
+		if (infoItemObjectProvider == null) {
+			return 0;
+		}
+
+		Object object = infoItemObjectProvider.getInfoItem(infoItemIdentifier);
+
+		if (object == null) {
+			return 0;
+		}
+
+		InfoItemFieldValuesProvider<Object> infoItemFieldValuesProvider =
+			_infoItemServiceTracker.getFirstInfoItemService(
+				InfoItemFieldValuesProvider.class,
+				PortalUtil.getClassName(classNameId));
+
+		if (infoItemFieldValuesProvider == null) {
+			return 0;
+		}
+
+		InfoFieldValue<Object> infoFieldValue =
+			infoItemFieldValuesProvider.getInfoItemFieldValue(object, fieldId);
+
+		Object value = StringPool.BLANK;
+
+		if (infoFieldValue != null) {
+			value = infoFieldValue.getValue(
+				LocaleUtil.fromLanguageId(_themeDisplay.getLanguageId()));
+		}
+
+		if (!(value instanceof WebImage)) {
+			return 0;
+		}
+
+		WebImage webImage = (WebImage)value;
+
+		InfoItemReference infoItemReference = webImage.getInfoItemReference();
+
+		if (!Objects.equals(
+				infoItemReference.getClassName(), FileEntry.class.getName())) {
+
+			return 0;
+		}
+
+		InfoItemIdentifier fileEntryInfoItemIdentifier =
+			infoItemReference.getInfoItemIdentifier();
+
+		if (!(fileEntryInfoItemIdentifier instanceof
+				ClassPKInfoItemIdentifier)) {
+
+			return 0;
+		}
+
+		ClassPKInfoItemIdentifier classPKInfoItemIdentifier =
+			(ClassPKInfoItemIdentifier)fileEntryInfoItemIdentifier;
+
+		return classPKInfoItemIdentifier.getClassPK();
 	}
 
 	private JSONObject _getFrontendTokensJSONObject() throws Exception {

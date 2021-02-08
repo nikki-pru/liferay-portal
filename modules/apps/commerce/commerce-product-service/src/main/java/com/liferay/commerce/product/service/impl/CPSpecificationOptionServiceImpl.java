@@ -23,8 +23,8 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 
 import java.util.Locale;
 import java.util.Map;
@@ -42,8 +42,12 @@ public class CPSpecificationOptionServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(),
+		PortletResourcePermission portletResourcePermission =
+			_cpSpecificationOptionModelResourcePermission.
+				getPortletResourcePermission();
+
+		portletResourcePermission.check(
+			getPermissionChecker(), null,
 			CPActionKeys.ADD_COMMERCE_PRODUCT_SPECIFICATION_OPTION);
 
 		return cpSpecificationOptionLocalService.addCPSpecificationOption(

@@ -23,6 +23,7 @@ import com.liferay.data.engine.rest.dto.v2_0.DataLayoutPage;
 import com.liferay.data.engine.rest.dto.v2_0.DataLayoutRow;
 import com.liferay.data.engine.rest.dto.v2_0.DataRule;
 import com.liferay.dynamic.data.mapping.form.builder.rule.DDMFormRuleDeserializer;
+import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutSerializer;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutSerializerSerializeRequest;
 import com.liferay.dynamic.data.mapping.io.DDMFormLayoutSerializerSerializeResponse;
@@ -34,15 +35,15 @@ import com.liferay.dynamic.data.mapping.model.DDMFormLayoutPage;
 import com.liferay.dynamic.data.mapping.model.DDMFormLayoutRow;
 import com.liferay.dynamic.data.mapping.model.DDMFormRule;
 import com.liferay.dynamic.data.mapping.model.DDMStructureLayout;
+import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.spi.converter.SPIDDMFormRuleConverter;
 import com.liferay.dynamic.data.mapping.spi.converter.model.SPIDDMFormRule;
+import com.liferay.dynamic.data.mapping.util.SettingsDDMFormFieldsUtil;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.MapUtil;
 
@@ -64,13 +65,16 @@ public class DataLayoutUtil {
 
 	public static String serialize(
 			DataLayout dataLayout, DDMForm ddmForm,
+			DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
 			DDMFormLayoutSerializer ddmFormLayoutSerializer,
 			DDMFormRuleDeserializer ddmFormRuleDeserializer)
 		throws Exception {
 
 		DDMFormLayoutSerializerSerializeRequest.Builder builder =
 			DDMFormLayoutSerializerSerializeRequest.Builder.newBuilder(
-				toDDMFormLayout(dataLayout, ddmForm, ddmFormRuleDeserializer));
+				toDDMFormLayout(
+					dataLayout, ddmForm, ddmFormFieldTypeServicesTracker,
+					ddmFormRuleDeserializer));
 
 		DDMFormLayoutSerializerSerializeResponse
 			ddmFormLayoutSerializerSerializeResponse =
@@ -80,6 +84,7 @@ public class DataLayoutUtil {
 	}
 
 	public static DataLayout toDataLayout(
+			DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
 			DDMFormLayout ddmFormLayout,
 			SPIDDMFormRuleConverter spiDDMFormRuleConverter)
 		throws Exception {
@@ -87,7 +92,8 @@ public class DataLayoutUtil {
 		return new DataLayout() {
 			{
 				dataLayoutFields = _toDataLayoutFields(
-					ddmFormLayout.getDDMFormFields());
+					ddmFormLayout.getDDMFormFields(),
+					ddmFormFieldTypeServicesTracker);
 				dataLayoutPages = _toDataLayoutPages(
 					ddmFormLayout.getDDMFormLayoutPages());
 				dataRules = _toDataRules(
@@ -98,6 +104,7 @@ public class DataLayoutUtil {
 	}
 
 	public static DataLayout toDataLayout(
+			DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
 			DDMStructureLayout ddmStructureLayout,
 			SPIDDMFormRuleConverter spiDDMFormRuleConverter)
 		throws Exception {
@@ -107,6 +114,7 @@ public class DataLayoutUtil {
 		}
 
 		DataLayout dataLayout = toDataLayout(
+			ddmFormFieldTypeServicesTracker,
 			ddmStructureLayout.getDDMFormLayout(), spiDDMFormRuleConverter);
 
 		dataLayout.setDateCreated(ddmStructureLayout.getCreateDate());
@@ -128,13 +136,17 @@ public class DataLayoutUtil {
 
 	public static DDMFormLayout toDDMFormLayout(
 			DataLayout dataLayout, DDMForm ddmForm,
+			DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
 			DDMFormRuleDeserializer ddmFormRuleDeserializer)
 		throws Exception {
 
 		DDMFormLayout ddmFormLayout = new DDMFormLayout();
 
 		ddmFormLayout.setDDMFormFields(
-			_toDDMFormFields(dataLayout.getDataLayoutFields()));
+			_toDDMFormFields(
+				dataLayout.getDataLayoutFields(),
+				ddmForm.getDDMFormFieldsMap(true),
+				ddmFormFieldTypeServicesTracker));
 		ddmFormLayout.setDDMFormLayoutPages(
 			_toDDMFormLayoutPages(
 				dataLayout.getDataLayoutPages(), ddmForm.getDefaultLocale()));
@@ -200,16 +212,44 @@ public class DataLayoutUtil {
 	}
 
 	private static Map<String, Object> _toDataLayoutFields(
-		List<DDMFormField> ddmFormFields) {
+		List<DDMFormField> ddmFormFields,
+		DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker) {
 
 		Map<String, Object> dataLayoutFields = new HashMap<>();
 
 		ddmFormFields.forEach(
-			ddmFormField -> dataLayoutFields.put(
-				ddmFormField.getName(),
-				HashMapBuilder.<String, Object>put(
-					"required", ddmFormField.isRequired()
-				).build()));
+			ddmFormField -> {
+				Map<String, Object> properties = new HashMap<>();
+
+				Map<String, DDMFormField> settingsDDMFormFieldsMap =
+					SettingsDDMFormFieldsUtil.getSettingsDDMFormFields(
+						ddmFormFieldTypeServicesTracker,
+						ddmFormField.getType());
+
+				List<DDMFormField> visualPropertiesDDMFormFields =
+					ListUtil.filter(
+						new ArrayList<>(settingsDDMFormFieldsMap.values()),
+						DDMFormField::isVisualProperty);
+
+				visualPropertiesDDMFormFields.forEach(
+					visualProperty -> {
+						if (visualProperty.isLocalizable()) {
+							properties.put(
+								visualProperty.getName(),
+								LocalizedValueUtil.toLocalizedValuesMap(
+									(LocalizedValue)ddmFormField.getProperty(
+										visualProperty.getName())));
+						}
+						else {
+							properties.put(
+								visualProperty.getName(),
+								ddmFormField.getProperty(
+									visualProperty.getName()));
+						}
+					});
+
+				dataLayoutFields.put(ddmFormField.getName(), properties);
+			});
 
 		return dataLayoutFields;
 	}
@@ -324,7 +364,9 @@ public class DataLayoutUtil {
 	}
 
 	private static List<DDMFormField> _toDDMFormFields(
-		Map<String, Object> dataLayoutFields) {
+		Map<String, Object> dataLayoutFields,
+		Map<String, DDMFormField> ddmFormFieldsMap,
+		DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker) {
 
 		List<DDMFormField> ddmFormFields = new ArrayList<>();
 
@@ -338,10 +380,35 @@ public class DataLayoutUtil {
 
 				ddmFormField.setName(key);
 
-				Map<String, Object> properties = (Map<String, Object>)value;
+				Map<String, Object> properties = ddmFormField.getProperties();
 
-				ddmFormField.setRequired(
-					GetterUtil.getBoolean(properties.get("required")));
+				DDMFormField ddmFormDDMFormField = ddmFormFieldsMap.get(key);
+
+				Map<String, DDMFormField> settingsDDMFormFieldsMap =
+					SettingsDDMFormFieldsUtil.getSettingsDDMFormFields(
+						ddmFormFieldTypeServicesTracker,
+						ddmFormDDMFormField.getType());
+
+				Map<String, Object> dataLayoutField =
+					(Map<String, Object>)value;
+
+				dataLayoutField.forEach(
+					(keyProperty, valueProperty) -> {
+						DDMFormField settingsDDMFormField =
+							settingsDDMFormFieldsMap.get(keyProperty);
+
+						if (settingsDDMFormField.isLocalizable()) {
+							properties.put(
+								keyProperty,
+								LocalizedValueUtil.toLocalizedValue(
+									(Map<String, Object>)valueProperty));
+						}
+						else {
+							properties.put(keyProperty, valueProperty);
+						}
+					});
+
+				ddmFormField.setType(ddmFormDDMFormField.getType());
 
 				ddmFormFields.add(ddmFormField);
 			});

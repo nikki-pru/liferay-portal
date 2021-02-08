@@ -22,8 +22,8 @@ import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission;
 import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermissionFactory;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermission;
 import com.liferay.portal.kernel.service.ServiceContext;
-import com.liferay.portal.kernel.service.permission.PortalPermissionUtil;
 
 import java.util.List;
 
@@ -40,8 +40,12 @@ public class CommerceCatalogServiceImpl extends CommerceCatalogServiceBaseImpl {
 			ServiceContext serviceContext)
 		throws PortalException {
 
-		PortalPermissionUtil.check(
-			getPermissionChecker(), CPActionKeys.ADD_COMMERCE_CATALOG);
+		PortletResourcePermission portletResourcePermission =
+			_commerceCatalogModelResourcePermission.
+				getPortletResourcePermission();
+
+		portletResourcePermission.check(
+			getPermissionChecker(), null, CPActionKeys.ADD_COMMERCE_CATALOG);
 
 		return commerceCatalogLocalService.addCommerceCatalog(
 			name, commerceCurrencyCode, catalogDefaultLanguageId,

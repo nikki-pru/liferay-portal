@@ -12,29 +12,36 @@
  * details.
  */
 
-package com.liferay.commerce.product.internal.configuration.definition;
+package com.liferay.commerce.product.internal.security.permission.resource;
 
-import com.liferay.commerce.product.configuration.CPOptionConfiguration;
 import com.liferay.commerce.product.constants.CPConstants;
-import com.liferay.portal.kernel.settings.definition.ConfigurationPidMapping;
+import com.liferay.portal.kernel.security.permission.resource.PortletResourcePermissionLogic;
+import com.liferay.portal.kernel.security.permission.resource.definition.PortletResourcePermissionDefinition;
 
 import org.osgi.service.component.annotations.Component;
 
 /**
  * @author Alessio Antonio Rendina
  */
-@Component(enabled = false, service = ConfigurationPidMapping.class)
-public class CPOptionConfigurationPidMapping
-	implements ConfigurationPidMapping {
+@Component(
+	enabled = false, immediate = true,
+	service = PortletResourcePermissionDefinition.class
+)
+public class CommerceCatalogPortletResourcePermissionDefinition
+	implements PortletResourcePermissionDefinition {
 
 	@Override
-	public Class<?> getConfigurationBeanClass() {
-		return CPOptionConfiguration.class;
+	public PortletResourcePermissionLogic[]
+		getPortletResourcePermissionLogics() {
+
+		return new PortletResourcePermissionLogic[] {
+			new CommerceProductPortletResourcePermissionLogic()
+		};
 	}
 
 	@Override
-	public String getConfigurationPid() {
-		return CPConstants.SERVICE_NAME_CP_OPTION;
+	public String getResourceName() {
+		return CPConstants.RESOURCE_NAME_CATALOG;
 	}
 
 }

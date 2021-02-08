@@ -1492,7 +1492,8 @@ definition {
 	@description = "Validete Form View in 'Read-Only' and 'Editable' mode'"
 	@priority = "4"
 	test ValidateFormViewModes {
-		property portal.acceptance = "true";
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
 
 		var formViewName = "My Form View";
 		var tableViewName = "My Table View";
@@ -1797,7 +1798,8 @@ definition {
 	@description = "LRQA-60598 - Automate LPS-111001: As an App Admin, I want to Liferay to handle multiple running versions of my App every time I make an update on a existing App"
 	@priority = "5"
 	test ValidateMultipleRunningVersions {
-		property portal.acceptance = "true";
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
 
 		AppBuilderAdmin.addCustomObject(
 			customObjectName = "my custom object",

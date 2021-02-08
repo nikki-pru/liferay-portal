@@ -3209,7 +3209,8 @@ definition {
 	@description = "Update an existing deployment"
 	@priority = "5"
 	test UpdateDeployment {
-		property portal.acceptance = "true";
+		property portal.acceptance = "quarantine";
+		property portal.upstream = "quarantine";
 
 		AppBuilderAdmin.addCustomObject(
 			customObjectName = "my custom object",

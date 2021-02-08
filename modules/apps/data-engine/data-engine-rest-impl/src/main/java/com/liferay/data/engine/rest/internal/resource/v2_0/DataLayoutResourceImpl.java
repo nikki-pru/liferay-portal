@@ -218,7 +218,8 @@ public class DataLayoutResourceImpl
 						_ddmStructureLayoutLocalService,
 						_spiDDMFormRuleConverter),
 					_ddmFormFieldTypeServicesTracker),
-				_ddmFormLayoutSerializer, _ddmFormRuleDeserializer),
+				_ddmFormFieldTypeServicesTracker, _ddmFormLayoutSerializer,
+				_ddmFormRuleDeserializer),
 			dataLayout.getDataLayoutKey(), dataLayout.getDescription(),
 			dataLayout.getName());
 	}
@@ -312,7 +313,8 @@ public class DataLayoutResourceImpl
 						_ddmStructureLayoutLocalService,
 						_spiDDMFormRuleConverter),
 					_ddmFormFieldTypeServicesTracker),
-				_ddmFormLayoutSerializer, _ddmFormRuleDeserializer),
+				_ddmFormFieldTypeServicesTracker, _ddmFormLayoutSerializer,
+				_ddmFormRuleDeserializer),
 			dataLayout.getDescription(), dataLayout.getName());
 	}
 
@@ -375,7 +377,8 @@ public class DataLayoutResourceImpl
 			ddmStructureLayout.getGroupId());
 
 		return DataLayoutUtil.toDataLayout(
-			ddmStructureLayout, _spiDDMFormRuleConverter);
+			_ddmFormFieldTypeServicesTracker, ddmStructureLayout,
+			_spiDDMFormRuleConverter);
 	}
 
 	private void _deleteDataLayout(long dataLayoutId) throws Exception {
@@ -387,6 +390,7 @@ public class DataLayoutResourceImpl
 
 	private DataLayout _getDataLayout(long dataLayoutId) throws Exception {
 		return DataLayoutUtil.toDataLayout(
+			_ddmFormFieldTypeServicesTracker,
 			_ddmStructureLayoutLocalService.getDDMStructureLayout(dataLayoutId),
 			_spiDDMFormRuleConverter);
 	}
@@ -436,7 +440,8 @@ public class DataLayoutResourceImpl
 						_toOrderByComparator(
 							(Sort)ArrayUtil.getValue(sorts, 0))),
 					ddmStructureLayout -> DataLayoutUtil.toDataLayout(
-						ddmStructureLayout, _spiDDMFormRuleConverter)),
+						_ddmFormFieldTypeServicesTracker, ddmStructureLayout,
+						_spiDDMFormRuleConverter)),
 				pagination,
 				_ddmStructureLayoutLocalService.getStructureLayoutsCount(
 					ddmStructure.getGroupId(), ddmStructure.getClassNameId(),
@@ -462,6 +467,7 @@ public class DataLayoutResourceImpl
 					new long[] {ddmStructure.getGroupId()});
 			},
 			document -> DataLayoutUtil.toDataLayout(
+				_ddmFormFieldTypeServicesTracker,
 				_ddmStructureLayoutLocalService.getStructureLayout(
 					GetterUtil.getLong(document.get(Field.ENTRY_CLASS_PK))),
 				_spiDDMFormRuleConverter),
@@ -633,7 +639,8 @@ public class DataLayoutResourceImpl
 			ddmStructureLayout.getGroupId());
 
 		return DataLayoutUtil.toDataLayout(
-			ddmStructureLayout, _spiDDMFormRuleConverter);
+			_ddmFormFieldTypeServicesTracker, ddmStructureLayout,
+			_spiDDMFormRuleConverter);
 	}
 
 	private void _validate(DataLayout dataLayout, DDMStructure ddmStructure) {
@@ -641,6 +648,7 @@ public class DataLayoutResourceImpl
 			_ddmFormLayoutValidator.validate(
 				DataLayoutUtil.toDDMFormLayout(
 					dataLayout, ddmStructure.getFullHierarchyDDMForm(),
+					_ddmFormFieldTypeServicesTracker,
 					_ddmFormRuleDeserializer));
 		}
 		catch (DDMFormLayoutValidationException
