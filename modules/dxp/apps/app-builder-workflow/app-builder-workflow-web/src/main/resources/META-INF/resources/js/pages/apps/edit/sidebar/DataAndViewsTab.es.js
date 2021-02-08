@@ -199,44 +199,55 @@ export default function DataAndViewsTab({
 				successToast(
 					Liferay.Language.get('the-form-view-was-saved-successfully')
 				);
-
 				getFormViews(dataDefinitionId, defaultLanguageId).then(
 					(formViews) => {
+						const checkedFormViews = checkRequiredFields(
+							formViews,
+							dataDefinition
+						);
+
 						dispatchConfig({
 							listItems: {
 								fetching: false,
-								formViews: checkRequiredFields(
-									formViews,
-									dataDefinition
-								),
+								formViews: checkedFormViews,
 							},
 							type: UPDATE_LIST_ITEMS,
 						});
+
+						const currFormView = checkedFormViews.find(
+							({id}) => id === newFormView.id
+						);
+
+						if (
+							!(currFormView.nativeField && currFormView.missing)
+						) {
+							selectFormView({
+								...currFormView,
+								name: getLocalizedValue(
+									defaultLanguageId,
+									newFormView.name
+								),
+							});
+						}
+						else if (newFormView.id === app.dataLayoutId) {
+							updateFormView({});
+						}
 					}
 				);
-
-				selectFormView({
-					...newFormView,
-					name: getLocalizedValue(
-						defaultLanguageId,
-						newFormView.name
-					),
-				});
 			}
 		);
-
 		openModal({
 			onClose: () => event?.detach(),
 			title: dataLayoutId
 				? Liferay.Language.get('edit-form-view')
 				: Liferay.Language.get('new-form-view'),
-			url: Liferay.Util.PortletURL.createRenderURL(objectsPortletURL, {
+			url: `${Liferay.Util.PortletURL.createRenderURL(objectsPortletURL, {
 				dataDefinitionId,
 				dataLayoutId,
 				mvcRenderCommandName: '/app_builder/edit_form_view',
 				newCustomObject: true,
 				p_p_state: 'pop_up',
-			}),
+			})}`,
 		});
 	};
 

@@ -104,7 +104,9 @@ public class CucumberTestResult extends BaseTestResult {
 
 	@Override
 	public String getTestName() {
-		return _cucumberScenarioResult.getScenarioName();
+		return JenkinsResultsParserUtil.combine(
+			_cucumberFeatureResult.getName(), " > ",
+			_cucumberScenarioResult.getScenarioName());
 	}
 
 	@Override

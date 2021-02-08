@@ -52,7 +52,6 @@ public class KnowledgeBaseOSGiCommands {
 			dynamicQuery -> dynamicQuery.add(
 				RestrictionsFactoryUtil.eq(
 					"name", KBConstants.RESOURCE_NAME_ADMIN)));
-
 		actionableDynamicQuery.setPerformActionMethod(
 			(ResourcePermission resourcePermission) -> {
 				if (_hasResourceAction(

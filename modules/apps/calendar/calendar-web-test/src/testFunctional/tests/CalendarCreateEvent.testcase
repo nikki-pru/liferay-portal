@@ -217,6 +217,8 @@ definition {
 
 		Navigator.gotoPage(pageName = "Calendar Page");
 
+		Calendar.hideCurrentSiteCalendar();
+
 		CalendarEvent.addRSVP(
 			eventTitle = "Calendar Event All Day Title",
 			rsvp = "Yes");
@@ -798,6 +800,8 @@ definition {
 
 	@priority = "4"
 	test AddWithRelatedAssetViaAssetPublisher {
+		property portal.upstream = "quarantine";
+
 		var siteName = TestCase.getSiteName(siteName = "${siteName}");
 
 		ProductMenu.gotoPortlet(

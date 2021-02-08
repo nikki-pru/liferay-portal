@@ -242,8 +242,10 @@ public class DDMServiceUpgrade implements UpgradeStepRegistrator {
 
 		registry.register("2.0.9", "2.0.10", new DummyUpgradeStep());
 
+		registry.register("2.0.10", "2.0.11", new DummyUpgradeStep());
+
 		registry.register(
-			"2.0.10", "3.0.0",
+			"2.0.11", "3.0.0",
 			new BaseUpgradeSQLServerDatetime(
 				new Class<?>[] {
 					DDMContentTable.class, DDMDataProviderInstanceTable.class,
@@ -307,8 +309,10 @@ public class DDMServiceUpgrade implements UpgradeStepRegistrator {
 
 		registry.register("3.2.7", "3.2.8", new DummyUpgradeStep());
 
+		registry.register("3.2.8", "3.2.9", new DummyUpgradeStep());
+
 		registry.register(
-			"3.2.8", "3.3.0",
+			"3.2.9", "3.3.0",
 			new UpgradeCTModel(
 				"DDMStructure", "DDMStructureVersion", "DDMTemplate",
 				"DDMTemplateVersion"));
@@ -381,8 +385,10 @@ public class DDMServiceUpgrade implements UpgradeStepRegistrator {
 				UpgradeDDMStructure(
 					ddmFormJSONDeserializer, ddmFormSerializer));
 
+		registry.register("3.9.1", "3.9.2", new DummyUpgradeStep());
+
 		registry.register(
-			"3.9.1", "4.0.0",
+			"3.9.2", "4.0.0",
 			new UpgradeDDMField(
 				_jsonFactory, _jsonDDMFormDeserializer,
 				_jsonDDMFormValuesDeserializer));
@@ -401,6 +407,11 @@ public class DDMServiceUpgrade implements UpgradeStepRegistrator {
 			"4.2.0", "4.3.0", new UpgradeDLFileEntryTypeDDMFieldAttribute(),
 			new UpgradeDLFileEntryTypeDataDefinitionId(
 				_dlFileEntryTypeLocalService));
+
+		registry.register(
+			"4.3.0", "4.3.1",
+			new com.liferay.dynamic.data.mapping.internal.upgrade.v4_3_1.
+				UpgradeDDMFormInstance(_jsonFactory));
 	}
 
 	@Activate

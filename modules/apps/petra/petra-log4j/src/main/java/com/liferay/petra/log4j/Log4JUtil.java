@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ServerDetector;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -144,22 +145,38 @@ public class Log4JUtil {
 		return new HashMap<>(_customLogSettings);
 	}
 
-	public static String getOriginalLevel(String className) {
-		Level level = Level.ALL;
+	public static Map<String, String> getLogLevelStrings() {
+		Map<String, String> logLevelStrings = new HashMap<>();
 
 		Enumeration<Logger> enumeration = LogManager.getCurrentLoggers();
 
 		while (enumeration.hasMoreElements()) {
 			Logger logger = enumeration.nextElement();
 
-			if (className.equals(logger.getName())) {
-				level = logger.getLevel();
+			Level level = logger.getLevel();
 
-				break;
+			if (level != null) {
+				logLevelStrings.put(logger.getName(), level.toString());
 			}
 		}
 
-		return level.toString();
+		return logLevelStrings;
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), with no direct replacement
+	 */
+	@Deprecated
+	public static String getOriginalLevel(String className) {
+		Map<String, String> logLevelStrings = getLogLevelStrings();
+
+		String logLevelString = logLevelStrings.get(className);
+
+		if (Validator.isNull(logLevelString)) {
+			return String.valueOf(Level.ALL);
+		}
+
+		return logLevelString;
 	}
 
 	public static void initLog4J(

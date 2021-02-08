@@ -55,6 +55,8 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
+import com.liferay.portal.workflow.kaleo.service.KaleoDefinitionLocalService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -567,7 +569,8 @@ public class DDMFormInstanceLocalServiceImpl
 	}
 
 	protected DDMFormValues getFormInstanceSettingsFormValues(
-		String serializedSettingsDDMFormValues) {
+			String serializedSettingsDDMFormValues)
+		throws PortalException {
 
 		DDMForm ddmForm = DDMFormFactory.create(DDMFormInstanceSettings.class);
 
@@ -673,14 +676,24 @@ public class DDMFormInstanceLocalServiceImpl
 		String workflowDefinition = getWorkflowDefinition(
 			settingsDDMFormValues);
 
-		if (workflowDefinition.equals("no-workflow")) {
-			workflowDefinition = "";
+		String latestWorkflowDefinition = "";
+
+		if (Validator.isNotNull(workflowDefinition) &&
+			!workflowDefinition.equals("no-workflow")) {
+
+			KaleoDefinition kaleoDefinition =
+				_kaleoDefinitionLocalService.getKaleoDefinition(
+					workflowDefinition, serviceContext);
+
+			latestWorkflowDefinition =
+				workflowDefinition + StringPool.AT +
+					kaleoDefinition.getVersion();
 		}
 
 		workflowDefinitionLinkLocalService.updateWorkflowDefinitionLink(
 			serviceContext.getUserId(), serviceContext.getCompanyId(),
 			formInstance.getGroupId(), DDMFormInstance.class.getName(),
-			formInstance.getFormInstanceId(), 0, workflowDefinition);
+			formInstance.getFormInstanceId(), 0, latestWorkflowDefinition);
 	}
 
 	protected void validate(
@@ -748,6 +761,9 @@ public class DDMFormInstanceLocalServiceImpl
 
 	@Reference(target = "(ddm.form.values.serializer.type=json)")
 	private DDMFormValuesSerializer _jsonDDMFormValuesSerializer;
+
+	@Reference
+	private KaleoDefinitionLocalService _kaleoDefinitionLocalService;
 
 	@Reference
 	private MailService _mailService;

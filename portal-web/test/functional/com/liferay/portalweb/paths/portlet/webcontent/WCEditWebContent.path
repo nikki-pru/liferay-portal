@@ -10,7 +10,7 @@
 <tbody>
 <tr>
 	<td>ANY_TEXT_INPUT</td>
-	<td>xpath=(//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::input)[${index}]</td>
+	<td>xpath=(//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::input[not(contains(@type,'hidden'))])[${index}]</td>
 	<td></td>
 </tr>
 <tr>
@@ -51,6 +51,11 @@
 <tr>
 	<td>FIELDSET_REPEATABLE_BUTTON</td>
 	<td>//label[normalize-space(text())='${key_fieldsetLabel}']/parent::div/preceding-sibling::div[contains(@class,'repeatable-toolbar')]//button[contains(@class,'repeatable-add-button')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REPEATABLE_BUTTON</td>
+	<td>//div[contains(@data-field-name,'${fieldName}')][${i}]//button[contains(@class,'ddm-form-field-repeatable-add-button')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -252,6 +257,12 @@
 <tr>
 	<td>REPEATED_FIELD</td>
 	<td>xpath=(//div[contains(@class,'ddm-field')][contains(@data-field-name,'${key_fieldName}')][not(contains(@class,'container'))])[${key_index}]</td>
+	<td></td>
+</tr>
+<!--REPEATED FIELD BY INDEX-->
+<tr>
+	<td>REPEATED_FIELD_BY_INDEX</td>
+	<td>xpath=//div[contains(@class,'ddm-field') and contains(@data-field-name,'${key_fieldReference}')][${key_index}]</td>
 	<td></td>
 </tr>
 </tbody>

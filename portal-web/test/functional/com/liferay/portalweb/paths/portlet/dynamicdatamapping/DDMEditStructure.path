@@ -109,7 +109,12 @@
 </tr>
 <tr>
 	<td>SETTINGS_TEXT</td>
-	<td>//*[contains(.,'${key_fieldFieldLabel}')]//following-sibling::span[contains(@class,'form-text')]</td>
+	<td>//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::span[contains(@class,'form-text')] | //legend[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::span[contains(@class,'form-text')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SETTINGS_TEXT_ANY</td>
+	<td>xpath=(//label[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::span[contains(@class,'form-text')] | //legend[normalize-space(text())='${key_fieldFieldLabel}']//following-sibling::span[contains(@class,'form-text')])[${key_index}]</td>
 	<td></td>
 </tr>
 <tr>
@@ -164,6 +169,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>FORM_FIELD_CONTAINER_FIRST</td>
+	<td>xpath=(//div[contains(@class, 'ddm-field-container')])[1]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>FORM_FIELD_CONTAINER_LABEL</td>
 	<td>//label[normalize-space(text())='${key_fieldFieldLabel}'] | //legend[normalize-space(text())='${key_fieldFieldLabel}']</td>
 	<td></td>
@@ -174,13 +184,13 @@
 	<td></td>
 </tr>
 <tr>
-	<td>FORM_FIELD_SETS_COLLAPSE_BUTTON</td>
-	<td>//div[contains(@class,'fieldset')]//button[contains(@class,'collapse-icon')][//label[text()='${key_fieldsetLabel}']]</td>
+	<td>FORM_COLLAPSE_BUTTON</td>
+	<td>//button[contains(@class,'collapse-icon')][//label[normalize-space(text())='${key_label}']]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>FORM_FIELD_SETS_CONTAINER_LABEL</td>
-	<td>//div[contains(@class,'fieldset')]//label[text()='${key_fieldsetLabel}']</td>
+	<td>//div[contains(@class,'fieldset')]//label[normalize-space(text())='${key_fieldsetLabel}']</td>
 	<td></td>
 </tr>
 <tr>

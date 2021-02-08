@@ -123,6 +123,10 @@ definition {
 		AssertVisible(
 			key_imageFileName = "Document_1.svg",
 			locator1 = "Questions#QUESTIONS_IMAGE_NAME");
+
+		AssertTextEquals(
+			locator1 = "Questions#RELATED_QUESTIONS_EMPTY_TEXT",
+			value1 = "No related questions were found.");
 	}
 
 	@description = "Validate if the user can not create a question with the maximum of 6 tags with unexisting tag"
@@ -1209,6 +1213,35 @@ definition {
 		Questions.viewFilterResults(
 			lastQuestionTitle = "Question 1 Edit",
 			questionTitle = "Question 2");
+	}
+
+	@description = "Validate if the user can view the related question."
+	@priority = "4"
+	test ViewRelatedQuestion {
+		JSONMBMessage.addCategory(
+			categoryDescription = "Description",
+			categoryName = "Questions Test Category",
+			userEmailAddress = "test@liferay.com");
+
+		for (var titleField : list "What is your name,How about your experience") {
+			Navigator.gotoPage(pageName = "Questions Page");
+
+			Questions.gotoCategory(categoryName = "Questions Test Category");
+
+			Questions.askQuestionFillingTheMandatoryFields(
+				contentField = "Body AddQuestionForTestRelatedQuestion",
+				titleField = "${titleField}");
+		}
+
+		Questions.gotoDetails(
+			questionTabField = "Questions",
+			questionTitle = "How about your experience");
+
+		AssertElementPresent(
+			key_questionTitle = "What is your name",
+			locator1 = "Questions#RELATED_QUESTIONS_QUESTIONS_TITLE");
+
+		AssertElementNotPresent(locator1 = "Questions#RELATED_QUESTIONS_EMPTY_TEXT");
 	}
 
 }

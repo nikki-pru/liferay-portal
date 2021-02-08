@@ -243,6 +243,38 @@ definition {
 			positionNumber = "2");
 	}
 
+	@description = "LRQA-63715 Automate LPS-111511: As an App Admin, I want to create a new Object and Form during the Workflow App creation experience"
+	@priority = "4"
+	test CancelCreationOfObjectAndForm {
+		ApplicationsMenu.gotoPortlet(
+			category = "App Builder",
+			panel = "Applications",
+			portlet = "Apps");
+
+		AppBuilderAppAdmin.goToWorkflowPoweredTab();
+		AppBuilderAppAdmin.clickOnPlusButton();
+		AppBuilderWorkflow.selectDataAndViewsCard();
+		AppBuilderWorkflow.clickOnSelectObject();
+		AppBuilderWorkflow.clickOnAddNewCustomObjectButton();
+		AppBuilderWorkflow.assertButtonDisabled(buttonName = "Continue");
+		AppBuilderWorkflow.cancelCustomObjectCreation();
+
+		AppBuilderWorkflow.assertObjectSelected(objectName = "Select Object");
+
+		AppBuilderWorkflow.clickOnSelectObject();
+		AppBuilderWorkflow.addNewObject(objectName = "my custom object");
+		AppBuilderAdmin.cancel();
+
+		AppBuilderWorkflow.assertObjectSelected(objectName = "my custom object");
+		AppBuilderWorkflow.assertFormViewSelected(
+			formViewName = "Select a Form",
+			positionNumber = "1");
+
+		AppBuilderWorkflow.clickOnSelectFormView(positionNumber = "1");
+		AppBuilderWorkflow.clickToCreateFormView(positionNumber = "1");
+		AppBuilderWorkflow.assertButtonDisabled(buttonName = "Save");
+	}
+
 	@description = "Create a Basic Workflow App"
 	@priority = "5"
 	test CreateBasicWorkflowApp {
@@ -2026,6 +2058,7 @@ definition {
 	}
 
 	@description = "LRQA-61050 - Automate smoke tests from LPS-111006"
+	@ignore = "true"
 	@priority = "5"
 	test ViewWorkflowAppThroughNotifications {
 		property portal.acceptance = "true";
@@ -2136,6 +2169,7 @@ definition {
 	}
 
 	@description = "LRQA-61051 - Automate LPS-111006: As an App User, I want to my Workflowed App's notifications to redirect me to the App's entry (task) View instead of the "My Workflow Tasks""
+	@ignore = "true"
 	@priority = "4"
 	test ViewWorkflowAppThroughNotifications_SiteMenuAndOtherUser {
 		JSONLayout.addPublicLayout(

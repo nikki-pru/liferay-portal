@@ -94,8 +94,8 @@
 	<td></td>
 </tr>
 <tr>
-	<td>HISTORY_PUBLICATION_STATUS</td>
-	<td>//td[contains(.,'${key_publicationsName}')]//following-sibling::td/span[contains(@class,'label-success')]//span</td>
+	<td>LIST_PUBLICATION_ELLIPSIS</td>
+	<td>//li[@data-qa-id='row'][contains(.,'${key_publicationsName}')]//*[contains(@class,'lexicon-icon lexicon-icon-ellipsis-v')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -114,23 +114,28 @@
 	<td></td>
 </tr>
 <tr>
-	<td>PUBLICATION_NAME</td>
-	<td>//input[contains(@name,'name')]</td>
-	<td></td>
-</tr>
-<tr>
-	<td>LIST_PUBLICATION_ELLIPSIS</td>
-	<td>//li[@data-qa-id='row'][contains(.,'${key_publicationsName}')]//*[contains(@class,'lexicon-icon lexicon-icon-ellipsis-v')]</td>
-	<td></td>
-</tr>
-<tr>
 	<td>PUBLICATION_DESCRIPTION</td>
 	<td>//textarea[contains(@name,'description')]</td>
 	<td></td>
 </tr>
 <tr>
+	<td>PUBLICATION_NAME</td>
+	<td>//input[contains(@name,'name')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>PUBLICATION_NAME_IN_DIFF</td>
 	<td>//td[contains(@class,'publications-diff-td') and contains(.,'${key_publicationsName}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PUBLICATION_STATUS</td>
+	<td>//td[contains(.,'${key_publicationsName}')]//following-sibling::td/span/span[contains(.,'${key_publicationStatus}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PUBLICATIONS_PUBLISHED_BY</td>
+	<td>//td[contains(@class,'published-by')]/span[contains(@title,'${key_publicationPublishedBy}')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -141,6 +146,16 @@
 <tr>
 	<td>PUBLISH_DATE</td>
 	<td>//div[@class='date-picker']//input[contains(@class,'input-group-inset') and @type='text']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PUBLISH_DISABLED_NAV_BAR</td>
+	<td>//a[contains(@class,'btn-sm disabled') and contains(.,'Publish')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>PUBLISH_NAV_BAR</td>
+	<td>//li[contains(@class,'tbar-item')]/a[contains(.,'Publish')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -159,11 +174,6 @@
 	<td></td>
 </tr>
 <tr>
-	<td>PUBLICATIONS_PUBLISHED_BY</td>
-	<td>//td[contains(@class,'published-by')]/span[contains(@title,'${key_publicationPublishedBy}')]</td>
-	<td></td>
-</tr>
-<tr>
 	<td>RESCHEDULE_BUTTON</td>
 	<td>//*[contains(@class,'btn')][normalize-space(text())='Reschedule']</td>
 	<td></td>
@@ -171,6 +181,11 @@
 <tr>
 	<td>REVERT_BUTTON</td>
 	<td>//td[contains(.,'${key_publicationsName}')]//following-sibling::td[contains(.,'Revert')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>REVERT_DISABLED</td>
+	<td>//td[contains(.,'${key_publicationsName}')]//following-sibling::td//a[contains(@class, 'btn-sm disabled') and contains(.,'Revert')]</td>
 	<td></td>
 </tr>
 <tr>
@@ -186,6 +201,11 @@
 <tr>
 	<td>SCHEDULE_BUTTON</td>
 	<td>//*[contains(@class,'btn')][normalize-space(text())='Schedule']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>SCHEDULE_DISABLED_NAV_BAR</td>
+	<td>//a[contains(@class,'btn-sm disabled') and contains(.,'Schedule')]</td>
 	<td></td>
 </tr>
 <tr>

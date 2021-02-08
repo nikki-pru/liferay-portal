@@ -20,6 +20,7 @@ import com.liferay.jenkins.results.parser.PortalAWSJob;
 import com.liferay.jenkins.results.parser.PortalEnvironmentJob;
 import com.liferay.jenkins.results.parser.PortalTestClassJob;
 import com.liferay.jenkins.results.parser.QAWebsitesGitRepositoryJob;
+import com.liferay.jenkins.results.parser.RootCauseAnalysisToolJob;
 
 import java.io.File;
 
@@ -77,7 +78,31 @@ public class TestClassGroupFactory {
 			batchTestClassGroup = new EnvironmentFunctionalBatchTestClassGroup(
 				batchName, (PortalEnvironmentJob)job);
 		}
-		else if (job instanceof PortalTestClassJob) {
+
+		if ((batchTestClassGroup == null) &&
+			(job instanceof RootCauseAnalysisToolJob)) {
+
+			if (batchName.startsWith("functional-")) {
+				batchTestClassGroup = new FunctionalRCABatchTestClassGroup(
+					batchName, (RootCauseAnalysisToolJob)job);
+			}
+			else if (batchName.startsWith("integration-") ||
+					 batchName.startsWith("modules-integration-") ||
+					 batchName.startsWith("modules-unit-") ||
+					 batchName.startsWith("unit-")) {
+
+				batchTestClassGroup = new JUnitRCABatchTestClassGroup(
+					batchName, (RootCauseAnalysisToolJob)job);
+			}
+			else {
+				batchTestClassGroup = new RCABatchTestClassGroup(
+					batchName, (RootCauseAnalysisToolJob)job);
+			}
+		}
+
+		if ((batchTestClassGroup == null) &&
+			(job instanceof PortalTestClassJob)) {
+
 			PortalTestClassJob portalTestClassJob = (PortalTestClassJob)job;
 
 			if (batchName.contains("cucumber-")) {
@@ -91,23 +116,41 @@ public class TestClassGroupFactory {
 				batchTestClassGroup = new FunctionalBatchTestClassGroup(
 					batchName, portalTestClassJob);
 			}
-			else if (batchName.startsWith("integration-") ||
-					 batchName.startsWith("junit-test-") ||
-					 batchName.startsWith("subrepository-integration-") ||
-					 batchName.startsWith("subrepository-unit-") ||
-					 batchName.startsWith("unit-")) {
+			else if (batchName.startsWith("integration-")) {
+				batchTestClassGroup = new IntegrationJUnitBatchTestClassGroup(
+					batchName, portalTestClassJob);
+			}
+			else if (batchName.startsWith("junit-test-") ||
+					 batchName.startsWith(
+						 "modules-integration-project-templates-") ||
+					 batchName.startsWith("modules-unit-project-templates-")) {
 
 				batchTestClassGroup = new JUnitBatchTestClassGroup(
+					batchName, portalTestClassJob);
+			}
+			else if (batchName.startsWith("unit-")) {
+				batchTestClassGroup = new UnitJUnitBatchTestClassGroup(
 					batchName, portalTestClassJob);
 			}
 			else if (batchName.startsWith("modules-compile-")) {
 				batchTestClassGroup = new ModulesCompileBatchTestClassGroup(
 					batchName, portalTestClassJob);
 			}
-			else if (batchName.startsWith("modules-integration-") ||
-					 batchName.startsWith("modules-unit-")) {
+			else if ((batchName.startsWith("modules-integration-") &&
+					  !batchName.startsWith(
+						  "modules-integration-project-templates-")) ||
+					 batchName.startsWith("subrepository-integration-")) {
 
-				batchTestClassGroup = new ModulesJUnitBatchTestClassGroup(
+				batchTestClassGroup =
+					new ModulesIntegrationJUnitBatchTestClassGroup(
+						batchName, portalTestClassJob);
+			}
+			else if ((batchName.startsWith("modules-unit-") &&
+					  !batchName.startsWith(
+						  "modules-unit-project-templates-")) ||
+					 batchName.startsWith("subrepository-unit-")) {
+
+				batchTestClassGroup = new ModulesUnitJUnitBatchTestClassGroup(
 					batchName, portalTestClassJob);
 			}
 			else if (batchName.startsWith("modules-semantic-versioning-")) {
@@ -183,23 +226,22 @@ public class TestClassGroupFactory {
 				(QAWebsitesFunctionalBatchTestClassGroup)batchTestClassGroup);
 		}
 
-		if (batchTestClassGroup instanceof FunctionalBatchTestClassGroup) {
-			FunctionalBatchTestClassGroup functionalBatchTestClassGroup =
-				(FunctionalBatchTestClassGroup)batchTestClassGroup;
+		if (batchTestClassGroup instanceof FunctionalBatchTestClassGroup ||
+			batchTestClassGroup instanceof FunctionalRCABatchTestClassGroup) {
 
 			Job job = batchTestClassGroup.getJob();
 
 			if (job instanceof PortalAWSJob) {
 				return new AWSFunctionalSegmentTestClassGroup(
-					functionalBatchTestClassGroup);
+					batchTestClassGroup);
 			}
 
-			return new FunctionalSegmentTestClassGroup(
-				functionalBatchTestClassGroup);
+			return new FunctionalSegmentTestClassGroup(batchTestClassGroup);
 		}
-		else if (batchTestClassGroup instanceof JUnitBatchTestClassGroup) {
-			return new JUnitSegmentTestClassGroup(
-				(JUnitBatchTestClassGroup)batchTestClassGroup);
+		else if (batchTestClassGroup instanceof JUnitBatchTestClassGroup ||
+				 batchTestClassGroup instanceof JUnitRCABatchTestClassGroup) {
+
+			return new JUnitSegmentTestClassGroup(batchTestClassGroup);
 		}
 		else if (batchTestClassGroup instanceof PluginsBatchTestClassGroup) {
 			return new PluginsSegmentTestClassGroup(

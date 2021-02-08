@@ -39,11 +39,12 @@ import {getRetryDelay} from './utils/delay';
 class Client {
 	constructor(config = {}) {
 		this.attemptNumber = 1;
-		this.delay = this.initialDelay;
 		this.initialDelay = config.delay || FLUSH_INTERVAL;
 		this.processing = false;
 		this.projectId = config.projectId;
 		this.queues = [];
+
+		this.delay = this.initialDelay;
 
 		this._startsFlushLoop();
 	}
@@ -186,10 +187,10 @@ class Client {
 			return;
 		}
 
-		this.queues.reduce(
-			(previousPromise, {endpointUrl, instance: queue}) => {
-				return previousPromise.then(
-					() => {
+		this.queues
+			.reduce((previousPromise, {endpointUrl, instance: queue}) => {
+				return previousPromise
+					.then(() => {
 						if (!queue.hasMessages()) {
 							return Promise.resolve();
 						}
@@ -235,14 +236,14 @@ class Client {
 									return Promise.reject();
 								});
 						});
-					},
-					() => {
+					})
+					.catch(() => {
 						this.onRequestFail();
-					}
-				);
-			},
-			Promise.resolve()
-		);
+
+						return Promise.reject();
+					});
+			}, Promise.resolve())
+			.catch(() => {});
 	}
 
 	/**

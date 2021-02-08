@@ -12,22 +12,25 @@
  * details.
  */
 
-package com.liferay.account.internal.upgrade.v1_2_0;
+package com.liferay.jenkins.results.parser;
 
-import com.liferay.portal.kernel.upgrade.UpgradeProcess;
-import com.liferay.portal.kernel.util.StringUtil;
+import org.json.JSONObject;
 
 /**
- * @author Albert Lee
+ * @author Michael Hashimoto
  */
-public class UpgradeSchema extends UpgradeProcess {
+public class TestClassResultFactory {
 
-	@Override
-	protected void doUpgrade() throws Exception {
-		String template = StringUtil.read(
-			UpgradeSchema.class.getResourceAsStream("dependencies/update.sql"));
+	public static CucumberTestClassResult newCucumberTestClassResultTestResult(
+		Build build, CucumberScenarioResult cucumberScenarioResult) {
 
-		runSQLTemplateString(template, false);
+		return new CucumberTestClassResult(build, cucumberScenarioResult);
+	}
+
+	public static TestClassResult newTestClassResult(
+		Build build, JSONObject suiteJSONObject) {
+
+		return new DefaultTestClassResult(build, suiteJSONObject);
 	}
 
 }

@@ -12,18 +12,22 @@
  * details.
  */
 
-import {DefaultEventHandler} from 'frontend-js-web';
+package com.liferay.dispatch.internal.upgrade.v4_0_1;
 
-class OrganizationDropdownDefaultEventHandler extends DefaultEventHandler {
-	deleteGroupOrganizations(itemData) {
-		if (
-			confirm(
-				Liferay.Language.get('are-you-sure-you-want-to-delete-this')
-			)
-		) {
-			submitForm(document.hrefFm, itemData.deleteGroupOrganizationsURL);
-		}
+import com.liferay.dispatch.internal.upgrade.v4_0_1.util.DispatchTriggerTable;
+import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+
+/**
+ * @author Matija Petanjek
+ */
+public class DispatchTriggerUpgradeProcess extends UpgradeProcess {
+
+	@Override
+	protected void doUpgrade() throws Exception {
+		alter(
+			DispatchTriggerTable.class,
+			new AlterColumnType("dispatchTaskExecutorType", "VARCHAR(75) null"),
+			new AlterColumnType("dispatchTaskSettings", "TEXT null"));
 	}
-}
 
-export default OrganizationDropdownDefaultEventHandler;
+}
