@@ -642,6 +642,14 @@ public class RenderLayoutStructureDisplayContext {
 				backgroundImageJSONObject.getLong("classPK"),
 				backgroundImageJSONObject.getString("fieldId"));
 		}
+		else if (backgroundImageJSONObject.has("collectionFieldId")) {
+			fileEntryId = _getMappedCollectionFileEntryId(
+				backgroundImageJSONObject.getString("collectionFieldId"));
+		}
+		else if (backgroundImageJSONObject.has("mappedField")) {
+			fileEntryId = _getFileEntryId(
+				backgroundImageJSONObject.getString("mappedField"));
+		}
 
 		if (fileEntryId != 0) {
 			styleSB.append("--background-image-file-entry-id:");
@@ -972,17 +980,55 @@ public class RenderLayoutStructureDisplayContext {
 			return 0;
 		}
 
+		return _getFileEntryId(
+			PortalUtil.getClassName(classNameId), object, fieldId);
+	}
+
+	private long _getFileEntryId(String fieldId) throws Exception {
+		InfoItemDetails infoItemDetails =
+			(InfoItemDetails)_httpServletRequest.getAttribute(
+				InfoDisplayWebKeys.INFO_ITEM_DETAILS);
+
+		if (infoItemDetails == null) {
+			return 0;
+		}
+
+		InfoItemReference infoItemReference =
+			infoItemDetails.getInfoItemReference();
+
+		if (infoItemReference == null) {
+			return 0;
+		}
+
+		InfoItemIdentifier infoItemIdentifier =
+			infoItemReference.getInfoItemIdentifier();
+
+		if (!(infoItemIdentifier instanceof ClassPKInfoItemIdentifier)) {
+			return 0;
+		}
+
+		ClassPKInfoItemIdentifier classPKInfoItemIdentifier =
+			(ClassPKInfoItemIdentifier)infoItemIdentifier;
+
+		return _getFileEntryId(
+			PortalUtil.getClassNameId(infoItemReference.getClassName()),
+			classPKInfoItemIdentifier.getClassPK(), fieldId);
+	}
+
+	private long _getFileEntryId(
+		String className, Object displayObject, String fieldId) {
+
 		InfoItemFieldValuesProvider<Object> infoItemFieldValuesProvider =
 			_infoItemServiceTracker.getFirstInfoItemService(
-				InfoItemFieldValuesProvider.class,
-				PortalUtil.getClassName(classNameId));
+				InfoItemFieldValuesProvider.class, className);
 
 		if (infoItemFieldValuesProvider == null) {
 			return 0;
 		}
 
 		InfoFieldValue<Object> infoFieldValue =
-			infoItemFieldValuesProvider.getInfoItemFieldValue(object, fieldId);
+			infoItemFieldValuesProvider.getInfoItemFieldValue(
+				displayObject, fieldId);
 
 		Object value = StringPool.BLANK;
 
@@ -1158,6 +1204,20 @@ public class RenderLayoutStructureDisplayContext {
 		}
 
 		return _layoutStructure.getMainItemId();
+	}
+
+	private long _getMappedCollectionFileEntryId(String fieldId) {
+		Object displayObject = _httpServletRequest.getAttribute(
+			InfoDisplayWebKeys.INFO_LIST_DISPLAY_OBJECT);
+
+		if (!(displayObject instanceof ClassedModel)) {
+			return 0;
+		}
+
+		ClassedModel classedModel = (ClassedModel)displayObject;
+
+		return _getFileEntryId(
+			classedModel.getModelClassName(), displayObject, fieldId);
 	}
 
 	private String _getMappedCollectionValue(

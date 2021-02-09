@@ -4,6 +4,7 @@
 		"pt_BR"
 	],
 	"defaultLanguageId": "en_US",
+	"definitionSchemaVersion": "2.0",
 	"fields": [
 		{
 			"dataType": "string",
@@ -44,6 +45,99 @@
 				"en_US": ""
 			},
 			"type": "text"
+		},
+		{
+			"collapsible": false,
+			"ddmStructureId": "",
+			"ddmStructureLayoutId": "",
+			"label": {
+				"en_US": "Fields Group"
+			},
+			"localizable": false,
+			"name": "MyFieldsGroup",
+			"nestedFields": [
+				{
+					"autocomplete": false,
+					"dataType": "string",
+					"indexType": "keyword",
+					"label": {
+						"en_US": "MyNestedTextFieldNameLabel1"
+					},
+					"localizable": true,
+					"name": "MyNestedText1",
+					"placeholder": {
+						"en_US": ""
+					},
+					"predefinedValue": {
+						"en_US": ""
+					},
+					"readOnly": false,
+					"repeatable": true,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"en_US": ""
+					},
+					"tooltip": {
+						"en_US": ""
+					},
+					"type": "text"
+				},
+				{
+					"dataType": "",
+					"fieldReference": "MySeparator",
+					"label": {
+						"en_US": "Separator"
+					},
+					"localizable": true,
+					"name": "MySeparator",
+					"readOnly": false,
+					"repeatable": true,
+					"required": false,
+					"showLabel": true,
+					"style": {
+						"en_US": ""
+					},
+					"tip": {
+						"en_US": ""
+					},
+					"type": "separator"
+				},
+				{
+					"autocomplete": false,
+					"dataType": "string",
+					"indexType": "keyword",
+					"label": {
+						"en_US": "MyNestedTextFieldNameLabel2"
+					},
+					"localizable": true,
+					"name": "MyNestedText2",
+					"placeholder": {
+						"en_US": ""
+					},
+					"predefinedValue": {
+						"en_US": ""
+					},
+					"readOnly": false,
+					"repeatable": true,
+					"required": false,
+					"showLabel": true,
+					"tip": {
+						"en_US": ""
+					},
+					"tooltip": {
+						"en_US": ""
+					},
+					"type": "text"
+				}
+			],
+			"readOnly": false,
+			"repeatable": true,
+			"required": false,
+			"rows": "[{\"columns\":[{\"fields\":[\"MyNestedText1\"],\"size\":12}]},{\"columns\":[{\"fields\":[\"MyNestedText2\"],\"size\":12}]}]",
+			"showLabel": true,
+			"type": "fieldset",
+			"upgradedStructure": false
 		}
 	]
 }

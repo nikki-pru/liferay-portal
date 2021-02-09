@@ -165,6 +165,11 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributor
 			"maximumSubmissionLimitReached",
 			GetterUtil.getBoolean(
 				ddmFormField.getProperty("maximumSubmissionLimitReached")));
+		parameters.put(
+			"message",
+			_getMessage(
+				ddmFormFieldRenderingContext.getLocale(),
+				ddmFormFieldRenderingContext.getValue()));
 
 		String value = ddmFormFieldRenderingContext.getValue();
 
@@ -184,7 +189,9 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributor
 				valueJSONObject.getLong("groupId"));
 		}
 		catch (PortalException portalException) {
-			_log.error("Unable to retrieve file entry ", portalException);
+			if (_log.isDebugEnabled()) {
+				_log.debug("Unable to retrieve file entry ", portalException);
+			}
 
 			return null;
 		}
@@ -520,6 +527,34 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributor
 		return DLFolderConstants.DEFAULT_PARENT_FOLDER_ID;
 	}
 
+	private String _getMessage(Locale defaultLocale, String value) {
+		if (Validator.isNull(value)) {
+			return StringPool.BLANK;
+		}
+
+		JSONObject valueJSONObject = getValueJSONObject(value);
+
+		if ((valueJSONObject == null) || (valueJSONObject.length() <= 0)) {
+			return StringPool.BLANK;
+		}
+
+		FileEntry fileEntry = getFileEntry(valueJSONObject);
+
+		if (fileEntry == null) {
+			return LanguageUtil.get(
+				getResourceBundle(defaultLocale),
+				"the-selected-document-was-deleted");
+		}
+
+		if (fileEntry.isInTrash()) {
+			return LanguageUtil.get(
+				getResourceBundle(defaultLocale),
+				"the-selected-document-was-moved-to-the-recycle-bin");
+		}
+
+		return StringPool.BLANK;
+	}
+
 	private Folder _getPrivateUserFolder(
 		long repositoryId, long parentFolderId,
 		HttpServletRequest httpServletRequest, User user) {
@@ -581,6 +616,9 @@ public class DocumentLibraryDDMFormFieldTemplateContextContributor
 
 	@Reference
 	private ItemSelector _itemSelector;
+
+	@Reference
+	private Portal _portal;
 
 	@Reference
 	private PortletFileRepository _portletFileRepository;

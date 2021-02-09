@@ -80,6 +80,7 @@ const DocumentLibrary = ({
 	fileEntryTitle = '',
 	fileEntryURL = '',
 	id,
+	message,
 	name,
 	onClearButtonClicked,
 	onSelectButtonClicked,
@@ -154,6 +155,8 @@ const DocumentLibrary = ({
 				type="hidden"
 				value={getValue(value)}
 			/>
+
+			{message && <div className="form-feedback-item">{message}</div>}
 		</div>
 	);
 };
@@ -162,6 +165,7 @@ const GuestUploadFile = ({
 	fileEntryTitle = '',
 	fileEntryURL = '',
 	id,
+	message,
 	name,
 	onClearButtonClicked,
 	onUploadSelectButtonClicked,
@@ -236,6 +240,8 @@ const GuestUploadFile = ({
 			/>
 
 			{progress !== 0 && <ClayProgressBar value={progress} />}
+
+			{message && <div className="form-feedback-item">{message}</div>}
 		</div>
 	);
 };
@@ -252,6 +258,7 @@ const Main = ({
 	itemSelectorURL,
 	maximumRepetitions,
 	maximumSubmissionLimitReached,
+	message,
 	name,
 	onBlur,
 	onChange,
@@ -464,6 +471,7 @@ const Main = ({
 					fileEntryTitle={fileEntryTitle}
 					fileEntryURL={fileEntryURL}
 					id={id}
+					message={message}
 					name={name}
 					onClearButtonClicked={(event) => {
 						setCurrentValue(null);
@@ -483,6 +491,7 @@ const Main = ({
 					fileEntryTitle={fileEntryTitle}
 					fileEntryURL={fileEntryURL}
 					id={id}
+					message={message}
 					name={name}
 					onClearButtonClicked={(event) => {
 						setCurrentValue(null);

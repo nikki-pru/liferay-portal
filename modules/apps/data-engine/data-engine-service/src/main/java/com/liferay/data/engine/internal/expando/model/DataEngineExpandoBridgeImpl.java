@@ -19,11 +19,18 @@ import com.liferay.data.engine.rest.dto.v2_0.DataDefinitionField;
 import com.liferay.data.engine.rest.dto.v2_0.DataRecord;
 import com.liferay.data.engine.rest.resource.v2_0.DataDefinitionResource;
 import com.liferay.data.engine.rest.resource.v2_0.DataRecordResource;
+import com.liferay.data.engine.rest.strategy.util.DataRecordValueKeyUtil;
 import com.liferay.dynamic.data.lists.model.DDLRecord;
 import com.liferay.dynamic.data.lists.service.DDLRecordLocalServiceUtil;
 import com.liferay.dynamic.data.mapping.exception.NoSuchStructureException;
+import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
+import com.liferay.dynamic.data.mapping.model.DDMFormField;
+import com.liferay.dynamic.data.mapping.model.LocalizedValue;
 import com.liferay.dynamic.data.mapping.storage.StorageType;
+import com.liferay.dynamic.data.mapping.util.DDMFormFieldParameterNameUtil;
+import com.liferay.dynamic.data.mapping.util.SettingsDDMFormFieldsUtil;
 import com.liferay.expando.kernel.model.ExpandoBridge;
+import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.security.auth.GuestOrUserUtil;
@@ -56,12 +63,14 @@ public class DataEngineExpandoBridgeImpl implements ExpandoBridge {
 
 	public DataEngineExpandoBridgeImpl(
 			String className, long classPK, long companyId,
+			DDMFormFieldTypeServicesTracker ddmFormFieldTypeServicesTracker,
 			GroupLocalService groupLocalService)
 		throws Exception {
 
 		_className = className;
 		_classPK = classPK;
 		_companyId = companyId;
+		_ddmFormFieldTypeServicesTracker = ddmFormFieldTypeServicesTracker;
 
 		Group group = groupLocalService.fetchCompanyGroup(companyId);
 
@@ -237,7 +246,8 @@ public class DataEngineExpandoBridgeImpl implements ExpandoBridge {
 			Map<String, Object> dataRecordValues =
 				dataRecord.getDataRecordValues();
 
-			return (Serializable)dataRecordValues.get(name);
+			return (Serializable)dataRecordValues.get(
+				_findDataRecordValueKey(dataRecordValues, name));
 		}
 		catch (Exception exception) {
 			throw new RuntimeException(exception);
@@ -417,7 +427,10 @@ public class DataEngineExpandoBridgeImpl implements ExpandoBridge {
 
 				dataRecord.setDataRecordValues(
 					HashMapBuilder.<String, Object>put(
-						name, value
+						DataRecordValueKeyUtil.createDataRecordValueKey(
+							name, StringUtil.randomString(), StringPool.BLANK,
+							0),
+						value
 					).build());
 
 				dataRecord = _dataRecordResource.postDataDefinitionDataRecord(
@@ -438,7 +451,8 @@ public class DataEngineExpandoBridgeImpl implements ExpandoBridge {
 				Map<String, Object> dataRecordValues =
 					dataRecord.getDataRecordValues();
 
-				dataRecordValues.put(name, value);
+				dataRecordValues.put(
+					_findDataRecordValueKey(dataRecordValues, name), value);
 
 				_dataRecordResource.putDataRecord(
 					dataRecord.getId(), dataRecord);
@@ -551,6 +565,22 @@ public class DataEngineExpandoBridgeImpl implements ExpandoBridge {
 
 		DataDefinitionField dataDefinitionField = new DataDefinitionField();
 
+		Map<String, DDMFormField> settingsDDMFormFields =
+			SettingsDDMFormFieldsUtil.getSettingsDDMFormFields(
+				_ddmFormFieldTypeServicesTracker, fieldType);
+
+		DDMFormField settingsDDMFormField = settingsDDMFormFields.get(
+			"dataType");
+
+		LocalizedValue localizedValue =
+			settingsDDMFormField.getPredefinedValue();
+
+		dataDefinitionField.setCustomProperties(
+			HashMapBuilder.<String, Object>put(
+				"dataType",
+				localizedValue.getString(localizedValue.getDefaultLocale())
+			).build());
+
 		dataDefinitionField.setDefaultValue(
 			HashMapBuilder.<String, Object>put(
 				"en_US", defaultValue
@@ -559,6 +589,28 @@ public class DataEngineExpandoBridgeImpl implements ExpandoBridge {
 		dataDefinitionField.setName(name);
 
 		return dataDefinitionField;
+	}
+
+	private String _findDataRecordValueKey(
+		Map<String, Object> dataRecordValues, String name) {
+
+		for (Map.Entry<String, Object> entry : dataRecordValues.entrySet()) {
+			String[] dataRecordValueKeyParts =
+				DDMFormFieldParameterNameUtil.
+					getLastDDMFormFieldParameterNameParts(entry.getKey());
+
+			if (name.contains(
+					dataRecordValueKeyParts
+						[DDMFormFieldParameterNameUtil.
+							DDM_FORM_FIELD_NAME_INDEX])) {
+
+				name = entry.getKey();
+
+				break;
+			}
+		}
+
+		return name;
 	}
 
 	private DataDefinition _getDataDefinition() throws Exception {
@@ -580,5 +632,7 @@ public class DataEngineExpandoBridgeImpl implements ExpandoBridge {
 	private long _companyId;
 	private final DataDefinitionResource _dataDefinitionResource;
 	private final DataRecordResource _dataRecordResource;
+	private final DDMFormFieldTypeServicesTracker
+		_ddmFormFieldTypeServicesTracker;
 
 }

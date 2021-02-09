@@ -21,26 +21,26 @@ import FieldPreview, {
 } from '../../../../src/main/resources/META-INF/resources/js/pages/entry/FieldPreview.es';
 import {dataDefinitionWithAllTypes as dataDefinition} from '../../constants.es';
 
-const dataRecords = {
-	fieldDate: {
+const dataRecordValues = {
+	fieldDate$instanceId$0: {
 		en_US: '12/23/2020',
 	},
-	fieldNumber: {
+	fieldNumber$instanceId$0: {
 		en_US: '1234',
 	},
-	fieldRadio: {
+	fieldRadio$instanceId$0: {
 		en_US: 'Opo40716029',
 	},
-	fieldRegister: {
+	fieldRegister$instanceId$0: {
 		en_US: `{"fileEntryId":123,"folderId":123,"groupId":123,"title":"registration_file.pdf"}`,
 	},
-	fieldSchoolGrade: {
+	fieldSchoolGrade$instanceId$0: {
 		en_US: ['Opo72476108'],
 	},
-	fieldSchoolMark: {
+	fieldSchoolMark$instanceId$0: {
 		en_US: ['Opo17059431'],
 	},
-	fieldText: {
+	fieldText$instanceId$0: {
 		en_US: 'Liferay',
 	},
 };
@@ -49,7 +49,7 @@ const FieldPreviewWrapper = ({fieldName}) => (
 	<AppContextProvider userLanguageId="en_US">
 		<FieldPreview
 			dataDefinition={dataDefinition}
-			dataRecordValues={dataRecords}
+			dataRecordValues={dataRecordValues}
 			defaultLanguageId="en_US"
 			fieldName={fieldName}
 		/>
@@ -129,7 +129,7 @@ describe('EditEntry', () => {
 		expect(queryByText('Liferay')).toBeTruthy();
 
 		dataDefinition.dataDefinitionFields[1].localizable = false;
-		dataRecords.fieldText = 'Liferay School';
+		dataRecordValues.fieldText$instanceId$0 = 'Liferay School';
 
 		rerender(<FieldPreviewWrapper fieldName="fieldText" />);
 
@@ -155,13 +155,13 @@ describe('EditEntry', () => {
 		expect(queryByText('School Mark')).toBeTruthy();
 		expect(queryAllByText(/Logo/)).toHaveLength(1);
 
-		dataRecords.fieldSchoolMark.en_US.push('Logo B');
+		dataRecordValues.fieldSchoolMark$instanceId$0.en_US.push('Logo B');
 
 		rerender(<FieldPreviewWrapper fieldName="fieldSchoolMark" />);
 
 		expect(queryAllByText(/Logo/)).toHaveLength(2);
 
-		dataRecords.fieldSchoolMark.en_US.push('Logo C');
+		dataRecordValues.fieldSchoolMark$instanceId$0.en_US.push('Logo C');
 
 		expect(queryAllByText(/Logo/)).toHaveLength(2);
 		expect(asFragment()).toMatchSnapshot();
@@ -176,21 +176,32 @@ describe('EditEntry', () => {
 		expect(queryByText('Grade A')).toBeTruthy();
 
 		dataDefinition.dataDefinitionFields[2].repeatable = true;
-		dataRecords.fieldSchoolGrade.en_US = [['Opo72476108'], ['Opo58255447']];
+		dataRecordValues.fieldSchoolGrade$instanceId$1 = {
+			en_US: ['Opo58255447'],
+		};
 
 		rerender(<FieldPreviewWrapper fieldName="fieldSchoolGrade" />);
 
 		expect(queryByText('Grade A, Grade B')).toBeTruthy();
 
-		dataRecords.fieldSchoolGrade.en_US = ['[Opo72476108]', '[Opo58255447]'];
-
-		rerender(<FieldPreviewWrapper fieldName="fieldSchoolGrade" />);
-
-		expect(queryByText('Grade A, Grade B')).toBeTruthy();
-
-		dataRecords.fieldSchoolGrade.en_US = ['[Opo72476108]', '[Opo58255447]'];
-		dataDefinition.dataDefinitionFields[2].repeatable = true;
 		dataDefinition.dataDefinitionFields[2].customProperties.multiple = true;
+		dataRecordValues.fieldSchoolGrade$instanceId$0.en_US = ['Opo72476108'];
+		dataRecordValues.fieldSchoolGrade$instanceId$1 = {
+			en_US: ['Opo58255447'],
+		};
+
+		rerender(<FieldPreviewWrapper fieldName="fieldSchoolGrade" />);
+
+		expect(container.querySelectorAll('li')).toHaveLength(2);
+		expect(queryByText('Grade A')).toBeTruthy();
+		expect(queryByText('Grade B')).toBeTruthy();
+
+		dataDefinition.dataDefinitionFields[2].repeatable = false;
+		dataRecordValues.fieldSchoolGrade$instanceId$0.en_US = [
+			'Opo72476108',
+			'Opo58255447',
+		];
+		delete dataRecordValues.fieldSchoolGrade$instanceId$1;
 
 		rerender(<FieldPreviewWrapper fieldName="fieldSchoolGrade" />);
 
@@ -209,7 +220,8 @@ describe('EditEntry', () => {
 		expect(queryByText('Option A')).toBeTruthy();
 
 		dataDefinition.dataDefinitionFields[3].repeatable = true;
-		dataRecords.fieldRadio.en_US = ['Opo40716029', 'Opo72919976'];
+		dataRecordValues.fieldRadio$instanceId$0.en_US = 'Opo40716029';
+		dataRecordValues.fieldRadio$instanceId$1 = {en_US: 'Opo72919976'};
 
 		rerender(<FieldPreviewWrapper fieldName="fieldRadio" />);
 
@@ -228,7 +240,7 @@ describe('EditEntry', () => {
 			container.querySelector('.lexicon-icon-document-pdf')
 		).toBeTruthy();
 
-		dataRecords.fieldRegister.en_US = `{"fileEntryId":123,"folderId":123,"groupId":123,"title":"school_grades.doc"}`;
+		dataRecordValues.fieldRegister$instanceId$0.en_US = `{"fileEntryId":123,"folderId":123,"groupId":123,"title":"school_grades.doc"}`;
 
 		rerender(<FieldPreviewWrapper fieldName="fieldRegister" />);
 
@@ -237,7 +249,7 @@ describe('EditEntry', () => {
 			container.querySelector('.lexicon-icon-document-text')
 		).toBeTruthy();
 
-		dataRecords.fieldRegister.en_US = `{"fileEntryId":123,"folderId":123,"groupId":123,"title":"school_photo.jpg"}`;
+		dataRecordValues.fieldRegister$instanceId$0.en_US = `{"fileEntryId":123,"folderId":123,"groupId":123,"title":"school_photo.jpg"}`;
 
 		rerender(<FieldPreviewWrapper fieldName="fieldRegister" />);
 

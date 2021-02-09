@@ -568,15 +568,7 @@ definition {
 	}
 
 	macro createNewFieldset {
-		if (IsElementNotPresent(key_tabName = "Builder", locator1 = "Sidebar#ACTIVE_TAB")) {
-			Navigator.gotoSidebarTab(tabName = "Builder");
-		}
-
-		if (IsElementNotPresent(key_tab = "Fieldsets", locator1 = "NavTab#ACTIVE_TAB_LINK")) {
-			Navigator.gotoNavTab(navTab = "Fieldsets");
-		}
-
-		Click(locator1 = "FormViewBuilder#CREATE_NEW_FIELD_SETS");
+		DataEngine.gotoCreateNewFieldset();
 
 		Type(
 			locator1 = "FormViewBuilder#FIELD_SET_NAME",
@@ -1038,10 +1030,16 @@ definition {
 	}
 
 	macro editFieldTip {
-		AssertClick.assertPartialTextClickAt(
-			key_fieldFieldLabel = "${fieldFieldLabel}",
-			locator1 = "DDMEditStructure#FORM_FIELD_CONTAINER",
-			value1 = "${fieldFieldLabel}");
+		if (isSet(fieldsetModal)) {
+			Click(
+				key_fieldFieldLabel = "${fieldFieldLabel}",
+				locator1 = "DDMEditStructure#FORM_FIELD_CONTAINER_LABEL_IN_FIELDSET_MODAL");
+		}
+		else {
+			Click(
+				key_fieldFieldLabel = "${fieldFieldLabel}",
+				locator1 = "DDMEditStructure#FORM_FIELD_CONTAINER_LABEL");
+		}
 
 		if (isSet(fieldPlaceholder)) {
 			var key_fieldFieldLabel = "${fieldFieldLabel}";
@@ -1143,6 +1141,18 @@ definition {
 		Click(locator1 = "Sidebar#BACK");
 	}
 
+	macro gotoCreateNewFieldset {
+		if (IsElementNotPresent(key_tabName = "Builder", locator1 = "Sidebar#ACTIVE_TAB")) {
+			Navigator.gotoSidebarTab(tabName = "Builder");
+		}
+
+		if (IsElementNotPresent(key_tab = "Fieldsets", locator1 = "NavTab#ACTIVE_TAB_LINK")) {
+			Navigator.gotoNavTab(navTab = "Fieldsets");
+		}
+
+		Click(locator1 = "FormViewBuilder#CREATE_NEW_FIELD_SETS");
+	}
+
 	macro gotoFieldsetItemEllipsis {
 		if (IsElementNotPresent(key_tabName = "Builder", locator1 = "Sidebar#ACTIVE_TAB")) {
 			Navigator.gotoSidebarTab(tabName = "Builder");
@@ -1228,10 +1238,10 @@ definition {
 
 		Navigator.gotoNavTab(navTab = "Advanced");
 
-		AssertElementPresent(
+		AssertChecked.assertCheckedNotVisible(
 			key_fieldFieldLabel = "Searchable",
 			key_optionValue = "${searchableType}",
-			locator1 = "WCEditWebContent#SELECTION_OPTION_CHECKED");
+			locator1 = "WCEditWebContent#SELECTION_OPTION");
 	}
 
 	macro viewFieldsetTranslation {

@@ -112,7 +112,7 @@ const getValueForHidden = (value) => {
 		return moment(value).format('YYYY-MM-DD');
 	}
 
-	return null;
+	return '';
 };
 
 const DatePicker = ({
@@ -155,9 +155,16 @@ const DatePicker = ({
 				pipe: createAutoCorrectedDatePipe(dateMask.toLowerCase()),
 				showMask: true,
 			});
+
+			if (initialValueMemoized) {
+				inputRef.current.value = moment(initialValueMemoized).format(
+					dateMask.toUpperCase()
+				);
+			}
+
 			maskInstance.current.update(inputRef.current.value);
 		}
-	}, [inputMask, dateMask, inputRef]);
+	}, [dateMask, inputMask, inputRef, initialValueMemoized]);
 
 	const handleNavigation = (date) => {
 		const currentYear = date.getFullYear();
@@ -219,7 +226,7 @@ const DatePicker = ({
 };
 
 const Main = ({
-	locale,
+	locale = themeDisplay.getDefaultLanguageId(),
 	name,
 	onChange,
 	placeholder,

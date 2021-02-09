@@ -5,6 +5,9 @@
 	],
 	"dataDefinitionFields": [
 		{
+			"customProperties": {
+				"dataType": "string"
+			},
 			"fieldType": "text",
 			"label": {
 				"en_US": "Text",

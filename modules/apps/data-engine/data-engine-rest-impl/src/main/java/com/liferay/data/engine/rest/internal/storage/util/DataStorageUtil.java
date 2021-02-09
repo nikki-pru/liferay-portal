@@ -16,10 +16,13 @@ package com.liferay.data.engine.rest.internal.storage.util;
 
 import com.liferay.data.engine.rest.dto.v2_0.DataDefinition;
 import com.liferay.data.engine.rest.dto.v2_0.DataDefinitionField;
+import com.liferay.data.engine.rest.strategy.util.DataRecordValueKeyUtil;
+import com.liferay.dynamic.data.mapping.form.field.type.constants.DDMFormFieldTypeConstants;
 import com.liferay.dynamic.data.mapping.model.DDMFormField;
 import com.liferay.dynamic.data.mapping.model.DDMFormFieldType;
 import com.liferay.dynamic.data.mapping.model.DDMStructure;
 import com.liferay.dynamic.data.mapping.model.LocalizedValue;
+import com.liferay.dynamic.data.mapping.model.UnlocalizedValue;
 import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
@@ -33,9 +36,9 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -60,18 +63,29 @@ public class DataStorageUtil {
 			return Collections.emptyMap();
 		}
 
-		Map<String, DDMFormField> ddmFormFields =
-			ddmStructure.getFullHierarchyDDMFormFieldsMap(true);
-
 		_addMissingDDMFormFieldValues(
-			ListUtil.fromMapValues(ddmFormFields), ddmFormValues);
+			ddmStructure.getFullHierarchyDDMFormFieldsMap(false),
+			ddmFormValues);
 
-		Map<String, Object> values = new HashMap<>(ddmFormFields.size());
+		Map<String, Object> values = new HashMap<>();
+
+		String previousDDMFormFieldValueName = StringPool.BLANK;
+		Integer repeatableIndex = 0;
 
 		for (DDMFormFieldValue ddmFormFieldValue :
 				ddmFormValues.getDDMFormFieldValues()) {
 
-			_addValues(ddmFormFields, ddmFormFieldValue, values);
+			String ddmFormFieldValueName = ddmFormFieldValue.getName();
+
+			repeatableIndex = _updateRepeatableIndex(
+				ddmFormFieldValueName, previousDDMFormFieldValueName,
+				repeatableIndex);
+
+			previousDDMFormFieldValueName = ddmFormFieldValueName;
+
+			_addValues(
+				ddmStructure.getFullHierarchyDDMFormFieldsMap(true),
+				ddmFormFieldValue, StringPool.BLANK, repeatableIndex, values);
 		}
 
 		return values;
@@ -115,188 +129,154 @@ public class DataStorageUtil {
 	}
 
 	private static void _addMissingDDMFormFieldValues(
-		List<DDMFormField> ddmFormFields, DDMFormValues ddmFormValues) {
+		Map<String, DDMFormField> ddmFormFields, DDMFormValues ddmFormValues) {
 
-		Map<String, List<DDMFormFieldValue>> ddmFormFieldValues =
+		Map<String, List<DDMFormFieldValue>> ddmFormFieldValuesMap =
 			ddmFormValues.getDDMFormFieldValuesMap(false);
 
-		for (DDMFormField ddmFormField : ddmFormFields) {
-			if (!ddmFormFieldValues.containsKey(ddmFormField.getName()) &&
-				!_isFieldSet(ddmFormField)) {
+		List<DDMFormFieldValue> ddmFormFieldValues = new ArrayList<>();
 
-				Locale locale = ddmFormValues.getDefaultLocale();
-
-				DDMFormFieldValue ddmFormFieldValue = _createDDMFormFieldValue(
-					ddmFormField, locale);
-
-				ddmFormValues.addDDMFormFieldValue(ddmFormFieldValue);
-
-				if (ListUtil.isNotEmpty(
-						ddmFormField.getNestedDDMFormFields())) {
-
-					_addMissingDDMFormFieldValues(
-						ddmFormField.getNestedDDMFormFields(),
-						ddmFormFieldValues, locale, ddmFormFieldValue);
-				}
-			}
+		for (DDMFormField ddmFormField : ddmFormFields.values()) {
+			ddmFormFieldValues.addAll(
+				_getDDMFormFieldValues(
+					ddmFormField,
+					ddmFormFieldValuesMap.get(ddmFormField.getName()),
+					ddmFormValues.getDefaultLocale()));
 		}
+
+		ddmFormValues.setDDMFormFieldValues(ddmFormFieldValues);
 	}
 
-	private static void _addMissingDDMFormFieldValues(
-		List<DDMFormField> ddmFormFields,
-		Map<String, List<DDMFormFieldValue>> ddmFormFieldValues, Locale locale,
-		DDMFormFieldValue parentDDMFormFieldValue) {
+	private static void _addValues(
+		Map<String, DDMFormField> ddmFormFields,
+		DDMFormFieldValue ddmFormFieldValue, String parentDataRecordValueKey,
+		Integer repeatableIndex, Map<String, Object> values) {
 
-		for (DDMFormField ddmFormField : ddmFormFields) {
-			if (!ddmFormFieldValues.containsKey(ddmFormField.getName())) {
-				DDMFormFieldValue ddmFormFieldValue = _createDDMFormFieldValue(
-					ddmFormField, locale);
-
-				parentDDMFormFieldValue.addNestedDDMFormFieldValue(
-					ddmFormFieldValue);
-
-				if (ListUtil.isNotEmpty(
-						ddmFormField.getNestedDDMFormFields())) {
-
-					_addMissingDDMFormFieldValues(
-						ddmFormField.getNestedDDMFormFields(),
-						ddmFormFieldValues, locale, ddmFormFieldValue);
-				}
-			}
-		}
-	}
-
-	private static void _addValue(
-		DDMFormField ddmFormField, DDMFormFieldValue ddmFormFieldValue,
-		Map<String, Object> values) {
+		DDMFormField ddmFormField = ddmFormFields.get(
+			ddmFormFieldValue.getName());
 
 		if (ddmFormField == null) {
 			return;
 		}
 
-		String name = ddmFormField.getName();
+		String dataRecordValueKey =
+			DataRecordValueKeyUtil.createDataRecordValueKey(
+				ddmFormField.getName(), ddmFormFieldValue.getInstanceId(),
+				parentDataRecordValueKey, repeatableIndex);
 
-		Value value = ddmFormFieldValue.getValue();
+		if (StringUtil.equals(
+				ddmFormField.getType(), DDMFormFieldTypeConstants.FIELDSET)) {
 
-		if (value == null) {
-			values.put(name, null);
+			values.put(dataRecordValueKey, StringPool.BLANK);
 
-			return;
-		}
-
-		if (ddmFormField.isRepeatable()) {
-			if (ddmFormField.isLocalizable()) {
-				Map<String, Object> localizedValues =
-					(Map<String, Object>)values.getOrDefault(
-						name, new HashMap<>());
-
-				LocalizedValue localizedValue = (LocalizedValue)value;
-
-				Set<Locale> availableLocales =
-					localizedValue.getAvailableLocales();
-
-				for (Locale locale : availableLocales) {
-					String languageId = LanguageUtil.getLanguageId(locale);
-
-					List<Object> list =
-						(List<Object>)localizedValues.getOrDefault(
-							languageId, new ArrayList<>());
-
-					list.add(localizedValue.getString(locale));
-
-					localizedValues.put(languageId, list);
-				}
-
-				values.put(name, localizedValues);
-			}
-			else {
-				List<Object> list = (List<Object>)values.getOrDefault(
-					name, new ArrayList<>());
-
-				list.add(value.getString(value.getDefaultLocale()));
-
-				values.put(name, list);
-			}
-		}
-		else if (ddmFormField.isLocalizable()) {
-			values.put(
-				name,
-				_toLocalizedMap(ddmFormField.getType(), (LocalizedValue)value));
-		}
-		else {
-			values.put(name, value.getString(value.getDefaultLocale()));
-		}
-	}
-
-	private static void _addValues(
-		Map<String, DDMFormField> ddmFormFields,
-		DDMFormFieldValue ddmFormFieldValue, Map<String, Object> values) {
-
-		DDMFormField ddmFormField = ddmFormFields.get(
-			ddmFormFieldValue.getName());
-
-		if ((ddmFormField != null) &&
-			StringUtil.equals(ddmFormField.getType(), "fieldset")) {
-
-			if (ListUtil.isEmpty(
-					ddmFormFieldValue.getNestedDDMFormFieldValues())) {
-
-				return;
-			}
-
-			if (!values.containsKey(ddmFormField.getName())) {
-				values.put(ddmFormField.getName(), new HashMap<>());
-			}
-
-			Map<String, Object> fieldSetInstanceValues =
-				(Map<String, Object>)values.get(ddmFormField.getName());
-
-			if (!fieldSetInstanceValues.containsKey(
-					ddmFormFieldValue.getInstanceId())) {
-
-				fieldSetInstanceValues.put(
-					ddmFormFieldValue.getInstanceId(), new HashMap<>());
-			}
+			String previousNestedDDMFormFieldValueName = StringPool.BLANK;
+			Integer nestedRepeatableIndex = 0;
 
 			for (DDMFormFieldValue nestedDDMFormFieldValue :
 					ddmFormFieldValue.getNestedDDMFormFieldValues()) {
 
+				String nestedDDMFormFieldValueName =
+					nestedDDMFormFieldValue.getName();
+
+				nestedRepeatableIndex = _updateRepeatableIndex(
+					nestedDDMFormFieldValueName,
+					previousNestedDDMFormFieldValueName, nestedRepeatableIndex);
+
+				previousNestedDDMFormFieldValueName =
+					nestedDDMFormFieldValueName;
+
 				_addValues(
-					ddmFormFields, nestedDDMFormFieldValue,
-					(Map<String, Object>)fieldSetInstanceValues.get(
-						ddmFormFieldValue.getInstanceId()));
+					ddmFormFields, nestedDDMFormFieldValue, dataRecordValueKey,
+					nestedRepeatableIndex, values);
 			}
 		}
 		else {
-			_addValue(ddmFormField, ddmFormFieldValue, values);
+			Value value = ddmFormFieldValue.getValue();
+
+			if (value == null) {
+				values.put(dataRecordValueKey, null);
+			}
+			else {
+				if (ddmFormField.isLocalizable() &&
+					!ddmFormField.isTransient()) {
+
+					values.put(
+						dataRecordValueKey,
+						_toLocalizedMap(
+							ddmFormField.getType(), (LocalizedValue)value));
+				}
+				else {
+					values.put(
+						dataRecordValueKey,
+						GetterUtil.getString(
+							value.getString(value.getDefaultLocale())));
+				}
+			}
 		}
 	}
 
 	private static DDMFormFieldValue _createDDMFormFieldValue(
 		DDMFormField ddmFormField, Locale locale) {
 
-		LocalizedValue localizedValue = new LocalizedValue(locale);
-
-		localizedValue.addString(locale, StringPool.BLANK);
-
-		return new DDMFormFieldValue() {
+		DDMFormFieldValue ddmFormFieldValue = new DDMFormFieldValue() {
 			{
 				setInstanceId(StringUtil.randomString());
 				setName(ddmFormField.getName());
-				setValue(localizedValue);
 			}
 		};
-	}
 
-	private static boolean _isFieldSet(DDMFormField ddmFormField) {
-		if (GetterUtil.getBoolean(
-				ddmFormField.getProperty("upgradedStructure")) ||
-			Validator.isNotNull(ddmFormField.getProperty("ddmStructureId"))) {
+		if (ddmFormField.isLocalizable() && !ddmFormField.isTransient()) {
+			Value value = new LocalizedValue(locale);
 
-			return true;
+			value.addString(locale, StringPool.BLANK);
+
+			ddmFormFieldValue.setValue(value);
+		}
+		else {
+			ddmFormFieldValue.setValue(new UnlocalizedValue(StringPool.BLANK));
 		}
 
-		return false;
+		return ddmFormFieldValue;
+	}
+
+	private static List<DDMFormFieldValue> _getDDMFormFieldValues(
+		DDMFormField ddmFormField, List<DDMFormFieldValue> ddmFormFieldValues,
+		Locale locale) {
+
+		if (ListUtil.isEmpty(ddmFormFieldValues)) {
+			ddmFormFieldValues = Arrays.asList(
+				_createDDMFormFieldValue(ddmFormField, locale));
+		}
+
+		for (DDMFormFieldValue ddmFormFieldValue : ddmFormFieldValues) {
+			if (StringUtil.equals(
+					ddmFormField.getType(),
+					DDMFormFieldTypeConstants.FIELDSET)) {
+
+				List<DDMFormFieldValue> nestedDDMFormFieldValues =
+					new ArrayList<>();
+
+				for (DDMFormField nestedDDMFormField :
+						ddmFormField.getNestedDDMFormFields()) {
+
+					Map<String, List<DDMFormFieldValue>>
+						nestedDDMFormFieldValuesMap =
+							ddmFormFieldValue.getNestedDDMFormFieldValuesMap();
+
+					nestedDDMFormFieldValues.addAll(
+						_getDDMFormFieldValues(
+							nestedDDMFormField,
+							nestedDDMFormFieldValuesMap.get(
+								nestedDDMFormField.getName()),
+							locale));
+				}
+
+				ddmFormFieldValue.setNestedDDMFormFields(
+					nestedDDMFormFieldValues);
+			}
+		}
+
+		return ddmFormFieldValues;
 	}
 
 	private static Map<String, Object> _toLocalizedMap(
@@ -331,6 +311,19 @@ public class DataStorageUtil {
 		catch (JSONException jsonException) {
 			return Collections.emptyList();
 		}
+	}
+
+	private static Integer _updateRepeatableIndex(
+		String ddmFormFieldValueName, String previousDDMFormFieldValueName,
+		Integer repeatableIndex) {
+
+		if (!StringUtil.equals(
+				ddmFormFieldValueName, previousDDMFormFieldValueName)) {
+
+			return 0;
+		}
+
+		return ++repeatableIndex;
 	}
 
 }

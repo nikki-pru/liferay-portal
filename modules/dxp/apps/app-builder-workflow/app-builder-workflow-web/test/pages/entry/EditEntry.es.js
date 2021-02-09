@@ -58,6 +58,7 @@ jest.mock('dynamic-data-mapping-form-renderer', () => ({
 				{fieldName: 'Text2', value: 'text2'},
 			].map(callback),
 	})),
+	setDataRecord: jest.fn().mockImplementation((params) => params),
 }));
 
 jest.mock('frontend-js-web', () => ({
@@ -109,11 +110,7 @@ jest.mock('app-builder-web/js/utils/toast.es', () => ({
 
 describe('EditEntry', () => {
 	const dataRecord = JSON.stringify({
-		dataRecordValues: {
-			Text: {en_US: 'text'},
-			Text1: {en_US: ['text1']},
-			Text2: {en_US: ''},
-		},
+		dataRecordValues: {},
 	});
 
 	afterEach(cleanup);

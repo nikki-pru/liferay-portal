@@ -58,6 +58,34 @@ const getDocumentIcon = (fileName) => {
 	return 'document-default';
 };
 
+const DetailsViewOptionsRenderer = ({getOptionValue, repeatable, values}) => {
+	if (values.length === 0) {
+		values.push([]);
+	}
+
+	if (repeatable) {
+		return (
+			<ul>
+				{values.map((value, index) => (
+					<li key={index}>{value.map(getOptionValue).join(', ')}</li>
+				))}
+			</ul>
+		);
+	}
+
+	let index = 0;
+
+	return (
+		<ul>
+			{values.map((value) => {
+				return value.map((option) => (
+					<li key={index++}>{getOptionValue(option)}</li>
+				));
+			})}
+		</ul>
+	);
+};
+
 const DocumentRenderer = ({displayType, value = {}}) => {
 	let fileEntry = {};
 
@@ -128,54 +156,11 @@ const DocumentRenderer = ({displayType, value = {}}) => {
 	);
 };
 
-const getRepeatableOptionValues = (value = '') => {
-	if (Array.isArray(value)) {
-		return value;
-	}
-
-	return value
-		.substring(1, value.length - 1)
-		.split(',')
-		.map((v) => v.trim());
-};
-
-const OptionsRenderer = ({
-	dataDefinitionField,
-	displayType,
-	getOptionValue,
-	values = [],
-}) => {
-	const {repeatable} = dataDefinitionField;
-
-	const labels = values.map((value) => {
-		if (repeatable) {
-			let newValue = value;
-			newValue = getRepeatableOptionValues(newValue)
-				.map(getOptionValue)
-				.join(', ');
-
-			return newValue;
-		}
-
-		return getOptionValue(value);
-	});
-
-	if (displayType === 'list' || labels.length === 0) {
-		return <StringRenderer value={labels.join(', ')} />;
-	}
-
-	return (
-		<ul>
-			{labels.map((label, index) => (
-				<li key={index}>{label}</li>
-			))}
-		</ul>
-	);
-};
-
 const StringRenderer = ({value}) => (
 	<span className="d-block">
-		{(Array.isArray(value) ? value.join(', ') : value) || ' - '}
+		{(Array.isArray(value) && value.length > 0
+			? value.join(', ')
+			: value) || ' - '}
 	</span>
 );
 
@@ -222,7 +207,8 @@ export const SectionRenderer = ({
 const getFieldValueRenderer = (
 	dataDefinitionField,
 	displayType,
-	userLanguageId
+	userLanguageId,
+	values = []
 ) => {
 	const {
 		customProperties,
@@ -240,65 +226,69 @@ const getFieldValueRenderer = (
 			userLanguageId
 		);
 
-	const OptionsRendererWrapper = ({value}) => (
-		<OptionsRenderer
-			dataDefinitionField={dataDefinitionField}
-			displayType={displayType}
-			getOptionValue={getOptionValue}
-			values={value}
-		/>
-	);
-
 	if (fieldType === 'checkbox_multiple') {
-		return OptionsRendererWrapper;
+		if (displayType === 'list') {
+			return (
+				<StringRenderer
+					value={values.map((value) => {
+						if (value) {
+							return value.map(getOptionValue).join(', ');
+						}
+
+						return null;
+					})}
+				/>
+			);
+		}
+
+		return (
+			<DetailsViewOptionsRenderer
+				getOptionValue={getOptionValue}
+				repeatable={repeatable}
+				values={values}
+			/>
+		);
 	}
 
 	if (fieldType === 'document_library') {
-		return ({value}) => {
-			if (repeatable) {
-				return value.map((repeatableValue, key) => (
-					<DocumentRenderer
-						displayType={displayType}
-						key={key}
-						value={repeatableValue}
-					/>
-				));
-			}
-
-			return <DocumentRenderer displayType={displayType} value={value} />;
-		};
+		return values.map((value, key) => (
+			<DocumentRenderer
+				displayType={displayType}
+				key={key}
+				value={value}
+			/>
+		));
 	}
 
 	if (fieldType === 'radio') {
-		return ({value}) => {
-			let newValue = getOptionValue(value);
-
-			if (repeatable) {
-				newValue = getRepeatableOptionValues(value).map(getOptionValue);
-			}
-
-			return <StringRenderer value={newValue} />;
-		};
+		return <StringRenderer value={values.map(getOptionValue)} />;
 	}
 
 	if (fieldType === 'select') {
-		if (multiple) {
-			return OptionsRendererWrapper;
+		if (displayType === 'list' || !multiple) {
+			return (
+				<StringRenderer
+					value={values.map((value) => {
+						if (value) {
+							return value.map(getOptionValue).join(', ');
+						}
+
+						return null;
+					})}
+				/>
+			);
 		}
 
-		return ({value = []}) => {
-			let newValue = getOptionValue(value[0]);
-			if (repeatable) {
-				newValue = value
-					.map(getRepeatableOptionValues)
-					.map((value) => getOptionValue(value[0]));
-			}
-
-			return <StringRenderer value={newValue} />;
-		};
+		return (
+			<DetailsViewOptionsRenderer
+				getOptionValue={getOptionValue}
+				repeatable={repeatable}
+				values={values}
+			/>
+		);
 	}
 
-	return ({value}) => <StringRenderer value={value} />;
+	return <StringRenderer value={values} />;
 };
 
 export const FieldValuePreview = ({
@@ -313,20 +303,25 @@ export const FieldValuePreview = ({
 		dataDefinition,
 		fieldName
 	);
-	const Renderer = getFieldValueRenderer(
+
+	const dataRecordValuesKeys = Object.keys(dataRecordValues);
+
+	const values = dataRecordValuesKeys
+		.filter((key) => key.includes(fieldName))
+		.map((key) => {
+			if (typeof dataRecordValues[key] == 'object') {
+				return dataRecordValues[key][defaultLanguageId];
+			}
+
+			return dataRecordValues[key];
+		});
+
+	return getFieldValueRenderer(
 		dataDefinitionField,
 		displayType,
-		userLanguageId
+		userLanguageId,
+		values
 	);
-	const value = dataRecordValues[fieldName];
-
-	if (dataDefinitionField.localizable) {
-		return (
-			<Renderer value={value ? value[defaultLanguageId] : undefined} />
-		);
-	}
-
-	return <Renderer value={value} />;
 };
 
 export default ({

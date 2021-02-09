@@ -12,7 +12,7 @@
  * details.
  */
 
-import {PagesVisitor} from 'dynamic-data-mapping-form-renderer';
+import {PagesVisitor, setDataRecord} from 'dynamic-data-mapping-form-renderer';
 import React, {useCallback, useEffect, useState} from 'react';
 
 export function useDDMFormSubmit(ddmForm, onSubmit) {
@@ -25,11 +25,7 @@ export function useDDMFormSubmit(ddmForm, onSubmit) {
 	}, [ddmForm, onSubmit]);
 }
 
-export function useDDMFormValidation(
-	ddmForm,
-	languageId,
-	availableLanguageIds
-) {
+export function useDDMFormValidation(ddmForm, languageId) {
 	return useCallback(
 		(event) => {
 			return new Promise((resolve, reject) => {
@@ -46,58 +42,29 @@ export function useDDMFormValidation(
 							return reject();
 						}
 
-						const dataRecordValues = {};
-
 						const visitor = new PagesVisitor(
 							ddmReactForm.get('pages')
 						);
 
-						const setDataRecord = ({
-							fieldName,
-							repeatable,
-							type,
-							value,
-							visible,
-						}) => {
-							if (type === 'fieldset') {
-								return;
-							}
+						const dataRecordValues = {};
 
-							if (!visible) {
-								value = '';
-							}
-
-							if (!dataRecordValues[fieldName]) {
-								dataRecordValues[fieldName] = {
-									[languageId]: [],
-								};
-							}
-
-							if (repeatable) {
-								dataRecordValues[fieldName][languageId].push(
-									value
-								);
-							}
-							else {
-								dataRecordValues[fieldName] = {
-									[languageId]: value,
-								};
-							}
-
-							availableLanguageIds.forEach((key) => {
-								dataRecordValues[fieldName][key] =
-									dataRecordValues[fieldName][languageId];
-							});
-						};
-
-						visitor.mapFields(setDataRecord, true, true);
+						visitor.mapFields(
+							(field) =>
+								setDataRecord(
+									field,
+									dataRecordValues,
+									languageId
+								),
+							true,
+							true
+						);
 
 						resolve({dataRecordValues});
 					})
 					.catch(reject);
 			});
 		},
-		[availableLanguageIds, ddmForm.reactComponentRef, languageId]
+		[ddmForm.reactComponentRef, languageId]
 	);
 }
 

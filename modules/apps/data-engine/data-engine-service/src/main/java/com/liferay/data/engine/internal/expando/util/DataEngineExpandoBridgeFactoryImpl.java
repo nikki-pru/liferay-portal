@@ -18,6 +18,7 @@ import com.liferay.data.engine.internal.configuration.DataEngineConfiguration;
 import com.liferay.data.engine.internal.expando.model.DataEngineExpandoBridgeImpl;
 import com.liferay.data.engine.nativeobject.DataEngineNativeObject;
 import com.liferay.data.engine.nativeobject.tracker.DataEngineNativeObjectTracker;
+import com.liferay.dynamic.data.mapping.form.field.type.DDMFormFieldTypeServicesTracker;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactory;
 import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
@@ -54,7 +55,8 @@ public class DataEngineExpandoBridgeFactoryImpl
 
 			try {
 				return new DataEngineExpandoBridgeImpl(
-					className, 0, companyId, _groupLocalService);
+					className, 0, companyId, _ddmFormFieldTypeServicesTracker,
+					_groupLocalService);
 			}
 			catch (Exception exception) {
 				throw new RuntimeException(exception);
@@ -78,7 +80,8 @@ public class DataEngineExpandoBridgeFactoryImpl
 
 			try {
 				return new DataEngineExpandoBridgeImpl(
-					className, classPK, companyId, _groupLocalService);
+					className, classPK, companyId,
+					_ddmFormFieldTypeServicesTracker, _groupLocalService);
 			}
 			catch (Exception exception) {
 				throw new RuntimeException(exception);
@@ -99,6 +102,9 @@ public class DataEngineExpandoBridgeFactoryImpl
 
 	@Reference
 	private DataEngineNativeObjectTracker _dataEngineNativeObjectTracker;
+
+	@Reference
+	private DDMFormFieldTypeServicesTracker _ddmFormFieldTypeServicesTracker;
 
 	@Reference
 	private GroupLocalService _groupLocalService;

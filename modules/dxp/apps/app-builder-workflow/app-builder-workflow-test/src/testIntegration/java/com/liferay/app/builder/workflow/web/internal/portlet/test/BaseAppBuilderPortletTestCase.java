@@ -29,6 +29,7 @@ import com.liferay.app.builder.workflow.rest.dto.v1_0.AppWorkflowTransition;
 import com.liferay.app.builder.workflow.rest.resource.v1_0.AppWorkflowResource;
 import com.liferay.data.engine.model.DEDataListView;
 import com.liferay.data.engine.rest.dto.v2_0.DataRecord;
+import com.liferay.data.engine.rest.strategy.util.DataRecordValueKeyUtil;
 import com.liferay.data.engine.service.DEDataListViewLocalService;
 import com.liferay.dynamic.data.lists.constants.DDLRecordSetConstants;
 import com.liferay.dynamic.data.lists.model.DDLRecord;
@@ -365,13 +366,10 @@ public abstract class BaseAppBuilderPortletTestCase {
 			{
 				dataRecordCollectionId = app.getDataRecordCollectionId();
 				dataRecordValues = HashMapBuilder.<String, Object>put(
-					"MyText",
+					DataRecordValueKeyUtil.createDataRecordValueKey(
+						"MyText", "nIanTAmS", StringPool.BLANK, 0),
 					HashMapBuilder.put(
-						"en_US",
-						new String[] {
-							RandomTestUtil.randomString(),
-							RandomTestUtil.randomString()
-						}
+						"en_US", RandomTestUtil.randomString()
 					).build()
 				).build();
 			}

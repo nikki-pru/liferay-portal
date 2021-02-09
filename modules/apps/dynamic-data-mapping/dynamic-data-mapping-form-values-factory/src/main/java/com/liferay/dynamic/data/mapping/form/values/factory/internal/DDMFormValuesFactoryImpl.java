@@ -25,6 +25,8 @@ import com.liferay.dynamic.data.mapping.model.UnlocalizedValue;
 import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
+import com.liferay.dynamic.data.mapping.util.DDMFormFieldParameterNameUtil;
+import com.liferay.dynamic.data.mapping.util.DDMFormValuesFactoryUtil;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMap;
 import com.liferay.osgi.service.tracker.collections.map.ServiceTrackerMapFactory;
 import com.liferay.petra.string.StringBundler;
@@ -38,20 +40,13 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.portlet.PortletRequest;
 
@@ -180,14 +175,18 @@ public class DDMFormValuesFactoryImpl implements DDMFormValuesFactory {
 		DDMFormFieldValue ddmFormFieldValue = new DDMFormFieldValue();
 
 		String[] lastDDMFormFieldParameterNameParts =
-			getLastDDMFormFieldParameterNameParts(ddmFormFieldParameterName);
+			DDMFormFieldParameterNameUtil.getLastDDMFormFieldParameterNameParts(
+				ddmFormFieldParameterName);
 
-		String fieldName = getFieldName(lastDDMFormFieldParameterNameParts);
+		String fieldName = lastDDMFormFieldParameterNameParts
+			[DDMFormFieldParameterNameUtil.DDM_FORM_FIELD_NAME_INDEX];
 
 		ddmFormFieldValue.setName(fieldName);
 
 		ddmFormFieldValue.setInstanceId(
-			getFieldInstanceId(lastDDMFormFieldParameterNameParts));
+			lastDDMFormFieldParameterNameParts
+				[DDMFormFieldParameterNameUtil.
+					DDM_FORM_FIELD_INSTANCE_ID_INDEX]);
 
 		DDMFormField ddmFormField = ddmFormFieldsMap.get(fieldName);
 
@@ -296,10 +295,12 @@ public class DDMFormValuesFactoryImpl implements DDMFormValuesFactory {
 
 		for (String ddmFormFieldParameterName : ddmFormFieldParameterNames) {
 			String[] ddmFormFieldParameterNameParts =
-				getLastDDMFormFieldParameterNameParts(
-					ddmFormFieldParameterName);
+				DDMFormFieldParameterNameUtil.
+					getLastDDMFormFieldParameterNameParts(
+						ddmFormFieldParameterName);
 
-			String fieldName = getFieldName(ddmFormFieldParameterNameParts);
+			String fieldName = ddmFormFieldParameterNameParts
+				[DDMFormFieldParameterNameUtil.DDM_FORM_FIELD_NAME_INDEX];
 
 			if (fieldName.equals(ddmFormField.getName())) {
 				filteredDDMFormFieldParameterNames.add(
@@ -308,12 +309,6 @@ public class DDMFormValuesFactoryImpl implements DDMFormValuesFactory {
 		}
 
 		return filteredDDMFormFieldParameterNames;
-	}
-
-	protected String[] getDDMFormFieldParameterNameParts(
-		String ddmFormFieldParameterName) {
-
-		return StringUtil.split(ddmFormFieldParameterName, StringPool.DOLLAR);
 	}
 
 	protected Set<String> getDDMFormFieldParameterNames(
@@ -404,11 +399,6 @@ public class DDMFormValuesFactoryImpl implements DDMFormValuesFactory {
 			GetterUtil.getString(defaultDDMFormFieldParameterValue));
 	}
 
-	protected int getDDMFormFieldValueIndex(String ddmFormFieldParameterName) {
-		return getFieldIndex(
-			getLastDDMFormFieldParameterNameParts(ddmFormFieldParameterName));
-	}
-
 	protected DDMFormFieldValueRequestParameterRetriever
 		getDDMFormFieldValueRequestParameterRetriever(String fieldType) {
 
@@ -427,39 +417,8 @@ public class DDMFormValuesFactoryImpl implements DDMFormValuesFactory {
 			createDDMFormFieldValuesMap(
 				httpServletRequest, ddmForm, ddmFormValues);
 
-		return getDDMFormFieldValues(
+		return DDMFormValuesFactoryUtil.getDDMFormFieldValues(
 			ddmFormFieldValuesMap, ddmForm.getDDMFormFields());
-	}
-
-	protected List<DDMFormFieldValue> getDDMFormFieldValues(
-		Map<String, DDMFormFieldValue> ddmFormFieldValuesMap,
-		List<DDMFormField> ddmFormFields) {
-
-		List<DDMFormFieldValue> ddmFormFieldValues = new ArrayList<>();
-
-		int i = 0;
-
-		for (DDMFormField ddmFormField : ddmFormFields) {
-			Collection<String> entryKeys = _sort(
-				getEntryKeys(
-					ddmFormFieldValuesMap, StringPool.BLANK,
-					ddmFormField.getName()));
-
-			for (String entryKey : entryKeys) {
-				DDMFormFieldValue ddmFormFieldValue = ddmFormFieldValuesMap.get(
-					entryKey);
-
-				setNestedDDMFormFieldValues(
-					ddmFormFieldValuesMap,
-					ddmFormField.getNestedDDMFormFields(), ddmFormFieldValue,
-					entryKey);
-
-				setDDMFormFieldValueAtIndex(
-					ddmFormFieldValues, ddmFormFieldValue, i++);
-			}
-		}
-
-		return ddmFormFieldValues;
 	}
 
 	protected Locale getDefaultLocale(
@@ -481,82 +440,6 @@ public class DDMFormValuesFactoryImpl implements DDMFormValuesFactory {
 		}
 
 		return defaultLocale;
-	}
-
-	protected String getEntryKeyPrefix(
-		String parentEntryKey, String fieldNameFilter) {
-
-		if (Validator.isNull(parentEntryKey)) {
-			return StringPool.BLANK;
-		}
-
-		return StringBundler.concat(
-			parentEntryKey, DDMFormRendererConstants.DDM_FORM_FIELDS_SEPARATOR,
-			fieldNameFilter);
-	}
-
-	protected Set<String> getEntryKeys(
-		Map<String, DDMFormFieldValue> ddmFormFieldValuesMap,
-		String parentEntryKey, String fieldNameFilter) {
-
-		Set<String> entryKeys = new HashSet<>();
-
-		String entryKeyPrefix = getEntryKeyPrefix(
-			parentEntryKey, fieldNameFilter);
-
-		for (Map.Entry<String, DDMFormFieldValue> entry :
-				ddmFormFieldValuesMap.entrySet()) {
-
-			String key = entry.getKey();
-
-			DDMFormFieldValue ddmFormFieldValue = entry.getValue();
-
-			if ((key.startsWith(entryKeyPrefix) ||
-				 key.startsWith(fieldNameFilter)) &&
-				Objects.equals(ddmFormFieldValue.getName(), fieldNameFilter)) {
-
-				entryKeys.add(key);
-			}
-		}
-
-		return entryKeys;
-	}
-
-	protected int getFieldIndex(String[] ddmFormFieldParameterNameParts) {
-		return GetterUtil.getInteger(
-			ddmFormFieldParameterNameParts[_DDM_FORM_FIELD_INDEX_INDEX]);
-	}
-
-	protected String getFieldInstanceId(
-		String[] ddmFormFieldParameterNameParts) {
-
-		return ddmFormFieldParameterNameParts
-			[_DDM_FORM_FIELD_INSTANCE_ID_INDEX];
-	}
-
-	protected String getFieldName(String[] ddmFormFieldParameterNameParts) {
-		return ddmFormFieldParameterNameParts[_DDM_FORM_FIELD_NAME_INDEX];
-	}
-
-	protected String getLastDDMFormFieldParameterName(
-		String ddmFormFieldParameterName) {
-
-		String lastDDMFormFieldParameterName = StringUtil.extractLast(
-			ddmFormFieldParameterName,
-			DDMFormRendererConstants.DDM_FORM_FIELDS_SEPARATOR);
-
-		if (lastDDMFormFieldParameterName == null) {
-			return ddmFormFieldParameterName;
-		}
-
-		return lastDDMFormFieldParameterName;
-	}
-
-	protected String[] getLastDDMFormFieldParameterNameParts(
-		String ddmFormFieldParameterName) {
-
-		return getDDMFormFieldParameterNameParts(
-			getLastDDMFormFieldParameterName(ddmFormFieldParameterName));
 	}
 
 	protected boolean isDDMFormFieldParameter(String parameterName) {
@@ -587,19 +470,6 @@ public class DDMFormValuesFactoryImpl implements DDMFormValuesFactory {
 				defaultDDMFormFieldParameterName,
 				defaultDDMFormFieldParameterNames);
 		}
-	}
-
-	protected void setDDMFormFieldValueAtIndex(
-		List<DDMFormFieldValue> ddmFormFieldValues,
-		DDMFormFieldValue ddmFormFieldValue, int index) {
-
-		if (ddmFormFieldValues.size() < (index + 1)) {
-			for (int i = ddmFormFieldValues.size(); i <= index; i++) {
-				ddmFormFieldValues.add(new DDMFormFieldValue());
-			}
-		}
-
-		ddmFormFieldValues.set(index, ddmFormFieldValue);
 	}
 
 	protected void setDDMFormFieldValueLocalizedValue(
@@ -674,63 +544,6 @@ public class DDMFormValuesFactoryImpl implements DDMFormValuesFactory {
 				httpServletRequest, ddmForm.getDefaultLocale(),
 				ddmForm.getAvailableLocales()));
 	}
-
-	protected void setNestedDDMFormFieldValues(
-		Map<String, DDMFormFieldValue> ddmFormFieldValuesMap,
-		List<DDMFormField> nestedDDMFormFields,
-		DDMFormFieldValue parentDDMFormFieldValue, String parentEntryKey) {
-
-		int i = 0;
-
-		for (DDMFormField nestedDDMFormField : nestedDDMFormFields) {
-			Collection<String> entryKeys = _sort(
-				getEntryKeys(
-					ddmFormFieldValuesMap, parentEntryKey,
-					nestedDDMFormField.getName()));
-
-			for (String entryKey : entryKeys) {
-				DDMFormFieldValue ddmFormFieldValue = ddmFormFieldValuesMap.get(
-					entryKey);
-
-				setNestedDDMFormFieldValues(
-					ddmFormFieldValuesMap,
-					nestedDDMFormField.getNestedDDMFormFields(),
-					ddmFormFieldValue, entryKey);
-
-				setDDMFormFieldValueAtIndex(
-					parentDDMFormFieldValue.getNestedDDMFormFieldValues(),
-					ddmFormFieldValue, i++);
-			}
-		}
-	}
-
-	private Collection<String> _sort(Set<String> entryKeys) {
-		Stream<String> entryKeysStream = entryKeys.stream();
-
-		Map<Integer, String> entryKeysMap = entryKeysStream.collect(
-			Collectors.toMap(
-				this::getDDMFormFieldValueIndex, Function.identity()));
-
-		Set<Map.Entry<Integer, String>> set = entryKeysMap.entrySet();
-
-		Stream<Map.Entry<Integer, String>> stream = set.stream();
-
-		entryKeysMap = stream.sorted(
-			Map.Entry.comparingByKey()
-		).collect(
-			Collectors.toMap(
-				Map.Entry::getKey, Map.Entry::getValue,
-				(oldValue, newValue) -> oldValue, LinkedHashMap::new)
-		);
-
-		return entryKeysMap.values();
-	}
-
-	private static final int _DDM_FORM_FIELD_INDEX_INDEX = 2;
-
-	private static final int _DDM_FORM_FIELD_INSTANCE_ID_INDEX = 1;
-
-	private static final int _DDM_FORM_FIELD_NAME_INDEX = 0;
 
 	private final DDMFormFieldValueRequestParameterRetriever
 		_defaultDDMFormFieldValueRequestParameterRetriever =

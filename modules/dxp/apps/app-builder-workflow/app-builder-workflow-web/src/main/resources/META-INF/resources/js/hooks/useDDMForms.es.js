@@ -9,7 +9,7 @@
  * distribution rights of the Software.
  */
 
-import {PagesVisitor} from 'dynamic-data-mapping-form-renderer';
+import {PagesVisitor, setDataRecord} from 'dynamic-data-mapping-form-renderer';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 
 export function useDDMFormsSubmit(ddmForms, onSubmit) {
@@ -30,11 +30,7 @@ export function useDDMFormsSubmit(ddmForms, onSubmit) {
 	}, [ddmForms, onSubmit]);
 }
 
-export function useDDMFormsValidation(
-	ddmForms,
-	languageId,
-	availableLanguageIds
-) {
+export function useDDMFormsValidation(ddmForms, languageId) {
 	const getFormsValues = useCallback(
 		(ddmReactForms) => {
 			const dataRecordValues = {};
@@ -42,48 +38,17 @@ export function useDDMFormsValidation(
 			ddmReactForms.forEach((ddmReactForm) => {
 				const visitor = new PagesVisitor(ddmReactForm.get('pages'));
 
-				const setDataRecord = ({
-					fieldName,
-					repeatable,
-					type,
-					value,
-					visible,
-				}) => {
-					if (type === 'fieldset') {
-						return;
-					}
-
-					if (!visible) {
-						value = '';
-					}
-
-					if (!dataRecordValues[fieldName]) {
-						dataRecordValues[fieldName] = {
-							[languageId]: [],
-						};
-					}
-
-					if (repeatable) {
-						dataRecordValues[fieldName][languageId].push(value);
-					}
-					else {
-						dataRecordValues[fieldName] = {
-							[languageId]: value,
-						};
-					}
-
-					availableLanguageIds.forEach((key) => {
-						dataRecordValues[fieldName][key] =
-							dataRecordValues[fieldName][languageId];
-					});
-				};
-
-				visitor.mapFields(setDataRecord, true, true);
+				visitor.mapFields(
+					(field) =>
+						setDataRecord(field, dataRecordValues, languageId),
+					true,
+					true
+				);
 			});
 
 			return {dataRecordValues};
 		},
-		[availableLanguageIds, languageId]
+		[languageId]
 	);
 
 	const validateForms = (ddmReactForms) => {

@@ -42,9 +42,7 @@ export const EditEntry = ({
 		showFormView,
 		showTableView,
 	} = useContext(AppContext);
-	const {availableLanguageIds, defaultLanguageId} = useDataDefinition(
-		dataDefinitionId
-	);
+	const {defaultLanguageId} = useDataDefinition(dataDefinitionId);
 	const [submitting, setSubmitting] = useState(false);
 
 	const isFormViewOnly = showFormView && !showTableView;
@@ -65,11 +63,7 @@ export const EditEntry = ({
 		setSubmitting(false);
 	};
 
-	const validateForm = useDDMFormValidation(
-		ddmForm,
-		defaultLanguageId,
-		availableLanguageIds
-	);
+	const validateForm = useDDMFormValidation(ddmForm, defaultLanguageId);
 
 	const onSubmit = useCallback(
 		(event) => {

@@ -37,7 +37,6 @@ const PUBLIC_EVENTS = {
 
 const PRIVATE_EVENTS = {
 	ALL: 'all',
-	UPDATE_DATA_RECORD_VALUES: 'update_data_record_values',
 	UPDATE_PAGES: 'update_pages',
 };
 

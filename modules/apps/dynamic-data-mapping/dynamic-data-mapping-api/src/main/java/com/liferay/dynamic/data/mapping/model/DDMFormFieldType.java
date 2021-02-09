@@ -15,7 +15,7 @@
 package com.liferay.dynamic.data.mapping.model;
 
 /**
- * @author Marcellus Tavares
+ * @author     Marcellus Tavares
  * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
  *             com.liferay.dynamic.data.mapping.form.field.type.constants.DDMFormFieldTypeConstants}
  */

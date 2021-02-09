@@ -29,6 +29,7 @@ import com.liferay.data.engine.rest.client.problem.Problem;
 import com.liferay.data.engine.rest.client.resource.v2_0.DataDefinitionResource;
 import com.liferay.data.engine.rest.resource.v2_0.test.util.DataDefinitionTestUtil;
 import com.liferay.data.engine.rest.resource.v2_0.test.util.DataLayoutTestUtil;
+import com.liferay.data.engine.rest.strategy.util.DataRecordValueKeyUtil;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -320,7 +321,9 @@ public class DataLayoutResourceTest extends BaseDataLayoutResourceTestCase {
 					{
 						containerId = "testContainer";
 						dataRecordValues = HashMapBuilder.<String, Object>put(
-							"Text",
+							DataRecordValueKeyUtil.createDataRecordValueKey(
+								"Text", RandomTestUtil.randomString(),
+								StringPool.BLANK, 0),
 							HashMapBuilder.<String, Object>put(
 								"en_US", "value"
 							).put(
