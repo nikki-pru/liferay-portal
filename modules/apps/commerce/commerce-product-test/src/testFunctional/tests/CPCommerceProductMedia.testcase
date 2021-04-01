@@ -57,12 +57,25 @@ definition {
 	}
 
 	@description = "This is a test for COMMERCE-6025. AddAnImage"
-	@ignore = "true"
 	@priority = "3"
 	test AddAnImage {
 		property portal.acceptance = "false";
 
-		// TODO COMMERCE-6025 AddAnImage
+		CommerceNavigator.gotoPortlet(
+			category = "Product Management",
+			portlet = "Products");
+
+		CPCommerceCatalog.newProductsEntry(
+			productName = "Simple T-Shirt",
+			productType = "Simple");
+
+		CommerceEntry.gotoMenuTab(menuTab = "Media");
+
+		
+
+		CommerceProductImages.addProductImages(
+			imageTitles = "Black",
+			validationImage = "true");
 	}
 
 	@description = "This is a test for COMMERCE-6028. AddAnImageToAnOption"
