@@ -605,16 +605,6 @@ definition {
 		AssertElementPresent(locator1 = "CommerceEntry#DEFAULT_PRODUCT_IMAGE");
 	}
 
-	@description = "COMMERCE-5871. As a buyer, I want to view the availability of the product, if set and configured admin-side(product unavailable)"
-	@ignore = "true"
-	@priority = "3"
-	test AssertProductIsUnavailable {
-		property portal.acceptance = "false";
-
-		// TODO COMMERCE-5871 AssertProductIsUnavailable pending implementation
-
-	}
-
 	@description = "COMMERCE-5861. As a buyer, I want to view the product name with the correct localization"
 	@priority = "3"
 	test AssertProductNameIsTranslated {
