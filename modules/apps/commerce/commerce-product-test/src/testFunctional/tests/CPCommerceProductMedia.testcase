@@ -71,8 +71,6 @@ definition {
 
 		CommerceEntry.gotoMenuTab(menuTab = "Media");
 
-		
-
 		CommerceProductImages.addProductImages(
 			imageTitles = "Black",
 			validationImage = "true");
