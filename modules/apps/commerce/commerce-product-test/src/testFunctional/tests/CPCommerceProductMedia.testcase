@@ -62,8 +62,8 @@ definition {
 		property portal.acceptance = "false";
 
 		CommerceNavigator.gotoPortlet(
-		category = "Product Management",
-		portlet = "Products");
+			category = "Product Management",
+			portlet = "Products");
 
 		CPCommerceCatalog.newProductsEntry(
 			productName = "Simple T-Shirt",
@@ -74,7 +74,6 @@ definition {
 		CommerceProductImages.addProductImages(
 			imageTitles = "Black",
 			validationImage = "true");
-
 	}
 
 	@description = "This is a test for COMMERCE-6028. AddAnImageToAnOption"
