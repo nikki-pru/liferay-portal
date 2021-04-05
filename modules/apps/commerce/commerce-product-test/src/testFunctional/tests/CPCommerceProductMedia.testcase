@@ -70,7 +70,6 @@ definition {
 			productType = "Simple");
 
 		CommerceEntry.gotoMenuTab(menuTab = "Media");
-		
 
 		CommerceProductImages.addProductImages(
 			imageTitles = "Black",
