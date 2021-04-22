@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.data.engine.internal.content.type;
+package com.liferay.data.engine.taglib.internal.content.type;
 
 import com.liferay.data.engine.content.type.DataDefinitionContentType;
 import com.liferay.portal.kernel.util.Portal;
