@@ -12,33 +12,65 @@
  * details.
  */
 
-import React from 'react';
+import {useEventListener} from '@liferay/frontend-js-react-web';
+import React, {useEffect, useState} from 'react';
 
-import BasicInformation from './components/BasicInformation';
-import EmptyLayoutReports from './components/EmptyLayoutReports';
+import LayoutReports from './components/LayoutReports';
 
-export default function ({context}) {
-	const {
-		assetsPath,
-		canonicalURLs,
-		configureGooglePageSpeedURL,
-		defaultLanguageId,
-		validConnection,
-	} = context;
+export default function ({
+	isPanelStateOpen,
+	layoutReportsDataURL,
+	portletNamespace,
+}) {
+	const layoutReportsPanelToggle = document.getElementById(
+		`${portletNamespace}layoutReportsPanelToggleId`
+	);
+
+	useEffect(() => {
+		const sidenavInstance = Liferay.SideNavigation.initialize(
+			layoutReportsPanelToggle
+		);
+
+		sidenavInstance.on('open.lexicon.sidenav', () => {
+			Liferay.Util.Session.set(
+				'com.liferay.layout.reports.web_layoutReportsPanelState',
+				'open'
+			);
+		});
+
+		sidenavInstance.on('closed.lexicon.sidenav', () => {
+			Liferay.Util.Session.set(
+				'com.liferay.layout.reports.web_layoutReportsPanelState',
+				'closed'
+			);
+		});
+
+		Liferay.once('screenLoad', () => {
+			Liferay.SideNavigation.destroy(layoutReportsPanelToggle);
+		});
+	}, [layoutReportsPanelToggle, portletNamespace]);
+
+	const [eventTriggered, setEventTriggered] = useState(false);
+
+	useEventListener(
+		'mouseenter',
+		() => setEventTriggered(true),
+		{once: true},
+		layoutReportsPanelToggle
+	);
+
+	useEventListener(
+		'focus',
+		() => setEventTriggered(true),
+		{once: true},
+		layoutReportsPanelToggle
+	);
 
 	return (
-		<>
-			<BasicInformation
-				canonicalURLs={canonicalURLs}
-				defaultLanguageId={defaultLanguageId}
-			/>
-
-			{validConnection || (
-				<EmptyLayoutReports
-					assetsPath={assetsPath}
-					configureGooglePageSpeedURL={configureGooglePageSpeedURL}
-				/>
-			)}
-		</>
+		<LayoutReports
+			eventTriggered={eventTriggered}
+			isPanelStateOpen={isPanelStateOpen}
+			layoutReportsDataURL={layoutReportsDataURL}
+		/>
 	);
 }

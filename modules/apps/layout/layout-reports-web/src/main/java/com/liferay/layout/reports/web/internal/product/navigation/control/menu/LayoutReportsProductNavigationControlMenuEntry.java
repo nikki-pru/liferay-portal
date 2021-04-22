@@ -14,6 +14,7 @@
 
 package com.liferay.layout.reports.web.internal.product.navigation.control.menu;
 
+import com.liferay.frontend.js.loader.modules.extender.npm.NPMResolver;
 import com.liferay.layout.reports.web.internal.configuration.LayoutReportsGooglePageSpeedConfiguration;
 import com.liferay.layout.reports.web.internal.configuration.provider.LayoutReportsGooglePageSpeedConfigurationProvider;
 import com.liferay.layout.reports.web.internal.constants.LayoutReportsPortletKeys;
@@ -27,7 +28,6 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
-import com.liferay.portal.kernel.portlet.LiferayWindowState;
 import com.liferay.portal.kernel.portlet.PortalPreferences;
 import com.liferay.portal.kernel.portlet.PortletPreferencesFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletURLFactory;
@@ -40,6 +40,7 @@ import com.liferay.portal.kernel.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Html;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -49,11 +50,12 @@ import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.SessionClicks;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.template.react.renderer.ComponentDescriptor;
+import com.liferay.portal.template.react.renderer.ReactRenderer;
 import com.liferay.product.navigation.control.menu.BaseProductNavigationControlMenuEntry;
 import com.liferay.product.navigation.control.menu.ProductNavigationControlMenuEntry;
 import com.liferay.product.navigation.control.menu.constants.ProductNavigationControlMenuCategoryKeys;
 import com.liferay.taglib.aui.IconTag;
-import com.liferay.taglib.portletext.RuntimeTag;
 import com.liferay.taglib.util.BodyBottomTag;
 
 import java.io.IOException;
@@ -66,8 +68,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javax.portlet.RenderRequest;
-import javax.portlet.WindowStateException;
+import javax.portlet.PortletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -149,20 +150,9 @@ public class LayoutReportsProductNavigationControlMenuEntry
 
 		if (_isPanelStateOpen(httpServletRequest)) {
 			values.put("cssClass", "active");
-			values.put("layoutReportsPanelURL", StringPool.BLANK);
 		}
 		else {
 			values.put("cssClass", StringPool.BLANK);
-
-			try {
-				values.put(
-					"layoutReportsPanelURL",
-					_getLayoutReportsPanelURL(
-						httpServletRequest, _portal, _portletURLFactory));
-			}
-			catch (WindowStateException windowStateException) {
-				throw new IOException(windowStateException);
-			}
 		}
 
 		ResourceBundle resourceBundle = ResourceBundleUtil.getBundle(
@@ -242,21 +232,21 @@ public class LayoutReportsProductNavigationControlMenuEntry
 			LayoutReportsPortletKeys.LAYOUT_REPORTS);
 	}
 
-	private String _getLayoutReportsPanelURL(
-			HttpServletRequest httpServletRequest, Portal portal,
-			PortletURLFactory portletURLFactory)
-		throws WindowStateException {
+	private String _getLayoutReportsDataURL(
+		HttpServletRequest httpServletRequest) {
+
+		ThemeDisplay themeDisplay =
+			(ThemeDisplay)httpServletRequest.getAttribute(
+				WebKeys.THEME_DISPLAY);
 
 		return PortletURLBuilder.create(
-			portletURLFactory.create(
+			_portletURLFactory.create(
 				httpServletRequest, LayoutReportsPortletKeys.LAYOUT_REPORTS,
-				RenderRequest.RENDER_PHASE)
-		).setMVCRenderCommandName(
-			"/layout_reports/layout_reports_panel"
-		).setRedirect(
-			portal.getCurrentCompleteURL(httpServletRequest)
-		).setWindowState(
-			LiferayWindowState.EXCLUSIVE
+				PortletRequest.RESOURCE_PHASE)
+		).setParameter(
+			"plid", themeDisplay.getPlid()
+		).setParameter(
+			"p_p_resource_id", "/layout_reports/data"
 		).buildString();
 	}
 
@@ -362,29 +352,64 @@ public class LayoutReportsProductNavigationControlMenuEntry
 
 		JspWriter jspWriter = pageContext.getOut();
 
-		jspWriter.write("<div class=\"");
+		StringBundler sb = new StringBundler(21);
+
+		sb.append("<div class=\"");
 
 		if (_isPanelStateOpen(httpServletRequest)) {
-			jspWriter.write("lfr-has-layout-reports-panel open-admin-panel ");
+			sb.append("lfr-has-layout-reports-panel open-admin-panel ");
 		}
 
-		jspWriter.write(
-			StringBundler.concat(
-				"d-print-none lfr-admin-panel lfr-product-menu-panel ",
-				"lfr-layout-reports-panel sidenav-fixed sidenav-menu-slider ",
-				"sidenav-right\" id=\""));
-		jspWriter.write(_portletNamespace);
-		jspWriter.write("layoutReportsPanelId\">");
-		jspWriter.write(
-			"<div class=\"sidebar sidebar-light sidenav-menu sidebar-sm\">");
+		sb.append("d-print-none lfr-admin-panel lfr-product-menu-panel ");
+		sb.append("lfr-layout-reports-panel sidenav-fixed ");
+		sb.append("sidenav-menu-slider sidenav-right\" id=\"");
+		sb.append(_portletNamespace);
+		sb.append("layoutReportsPanelId\"><div class=\"sidebar sidebar-light ");
+		sb.append("sidenav-menu sidebar-sm\"><div class=\"sidebar-header\">");
+		sb.append("<div class=\"autofit-row autofit-row-center\"><div ");
+		sb.append("class=\"autofit-col autofit-col-expand\">");
+		sb.append("<h1 class=\"sr-only\">");
+		sb.append(_html.escape(_language.get(resourceBundle, "page-audit")));
+		sb.append("</h1><span>");
+		sb.append(_html.escape(_language.get(resourceBundle, "page-audit")));
+		sb.append("</span></div>");
+		sb.append("<div class=\"autofit-col\">");
 
-		RuntimeTag runtimeTag = new RuntimeTag();
+		IconTag iconTag = new IconTag();
 
-		runtimeTag.setPortletName(LayoutReportsPortletKeys.LAYOUT_REPORTS);
+		iconTag.setCssClass("icon-monospaced sidenav-close");
+		iconTag.setImage("times");
+		iconTag.setMarkupView("lexicon");
+		iconTag.setUrl("javascript:;");
 
-		runtimeTag.doTag(pageContext);
+		sb.append(iconTag.doTagAsString(pageContext));
 
-		jspWriter.write("</div></div>");
+		sb.append("</div></div></div><div class=\"p-3 sidebar-body\"><span ");
+		sb.append("aria-hidden=\"true\" class=\"loading-animation ");
+		sb.append("loading-animation-sm\"></span>");
+
+		try {
+			_reactRenderer.renderReact(
+				new ComponentDescriptor(
+					_npmResolver.resolveModuleName("layout-reports-web") +
+						"/js/LayoutReportsApp"),
+				HashMapBuilder.<String, Object>put(
+					"isPanelStateOpen", _isPanelStateOpen(httpServletRequest)
+				).put(
+					"layoutReportsDataURL",
+					_getLayoutReportsDataURL(httpServletRequest)
+				).put(
+					"portletNamespace", _portletNamespace
+				).build(),
+				httpServletRequest, jspWriter);
+		}
+		catch (Exception exception) {
+			throw new IOException(exception);
+		}
+
+		sb.append("</div></div></div>");
+
+		jspWriter.write(sb.toString());
 	}
 
 	private static final String _ICON_TMPL_CONTENT = StringUtil.read(
@@ -412,11 +437,17 @@ public class LayoutReportsProductNavigationControlMenuEntry
 		_layoutReportsGooglePageSpeedConfigurationProvider;
 
 	@Reference
+	private NPMResolver _npmResolver;
+
+	@Reference
 	private Portal _portal;
 
 	private String _portletNamespace;
 
 	@Reference
 	private PortletURLFactory _portletURLFactory;
+
+	@Reference
+	private ReactRenderer _reactRenderer;
 
 }

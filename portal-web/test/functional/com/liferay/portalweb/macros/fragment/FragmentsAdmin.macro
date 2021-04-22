@@ -50,6 +50,14 @@ definition {
 		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Export");
 	}
 
+	macro exportFragment {
+		FragmentsAdminNavigator.gotoCollection(collectionName = "${collectionName}");
+
+		FragmentsAdminNavigator.gotoEntryEllipsisItem(
+			entry = "${fragmentName}",
+			item = "Export");
+	}
+
 	macro exportMultipleCollections {
 		for (var collectionName : list "${collectionNameList}") {
 			Check(
@@ -94,6 +102,32 @@ definition {
 		UploadTempFile(
 			locator1 = "TextInput#FILE",
 			value1 = "${collectionsZipFileName}");
+
+		SelectFrameTop();
+
+		Button.clickImport();
+
+		SelectFrame.selectFrameNoLoading(locator1 = "IFrame#MODAL_IFRAME");
+
+		Alert.viewSuccessMessage();
+
+		SelectFrameTop();
+
+		IFrame.closeFrame();
+	}
+
+	macro importFragmentFromTempFolder {
+		WaitForLiferayEvent.initializeLiferayEventLog();
+
+		LexiconEntry.gotoEllipsisMenuItem(menuItem = "Import");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		var entriesZipFileName = TestCase.getDownloadedTempFileName(fileNamePattern = "entries-*.zip");
+
+		UploadTempFile(
+			locator1 = "TextInput#FILE",
+			value1 = "${entriesZipFileName}");
 
 		SelectFrameTop();
 

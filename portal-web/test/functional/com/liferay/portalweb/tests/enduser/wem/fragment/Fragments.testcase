@@ -805,12 +805,11 @@ definition {
 		}
 	}
 
-	// Ignored until LPS-120693 implement
-
 	@description = "This is a test for LPS-106776 and LPS-111657. Configure the Container and Grid elements."
-	@ignore = "true"
 	@priority = "5"
 	test ConfigureLayoutElements {
+		property osgi.module.configuration.file.names = "com.liferay.layout.content.page.editor.web.internal.configuration.FFLayoutContentPageEditorConfiguration.config";
+		property osgi.module.configurations = "containerItemFlexEnabled=&quot;true&quot;";
 		property portal.acceptance = "true";
 
 		task ("Add a content page") {
@@ -830,42 +829,61 @@ definition {
 				fragmentName = "Container");
 		}
 
-		task ("Add a Card fragment to Container") {
+		task ("Add a Heading fragment to Container") {
 			PageEditor.addElementToContainer(
 				collectionName = "Basic Components",
-				fragmentName = "Card",
+				fragmentName = "Heading",
 				navTab = "Fragments");
 		}
 
-		task ("Add a Heading below Card inside the Container") {
-			DragAndDrop.javaScriptDragAndDropObjectBelowTallNestedObject(
-				key_collectionName = "Basic Components",
-				key_fragmentName = "Heading",
-				locator1 = "PageEditor#FRAGMENTS_AND_WIDGETS_TAB_FRAGMENT",
-				locator2 = "//div[contains(@class,'page-editor__topper__bar') and contains(.,'Card')]//following-sibling::div[contains(@class,'page-editor__topper__content')]",
-				value1 = "");
+		task ("Add a Card below the Container") {
+			PageEditor.addFragment(
+				collectionName = "Basic Components",
+				fragmentName = "Card",
+				targetFragmentName = "Container");
+		}
+
+		task ("Move the Card to the top of Heading inside the Container via Selection Panel") {
+			PageEditor.gotoTab(tabName = "Selection");
+
+			Pause(locator1 = "3000");
+
+			Click(
+				key_nodeName = "Container",
+				locator1 = "Treeview#PAGE_STRUCTURE_TREE_NODE_COLLAPSED");
+
+			DragAndDrop.javaScriptDragAndDropToUp(
+				locator1 = "//div[contains(@class,'list-item__node')][contains(.,'Card')]//div[@role='button'][@draggable='true']",
+				locator2 = "//div[contains(@class,'list-item__node')][contains(.,'Heading')]//div[@role='button'][@draggable='true']");
+
+			Pause(locator1 = "3000");
 
 			AssertElementPresent(
-				key_elementHeader = "//li[contains(@class,'topper__title') and contains(.,'Heading')]",
+				key_elementHeader = "//li[contains(@class,'topper__title') and contains(.,'Card')]",
 				key_position = "1",
 				locator1 = "PageEditor#CONTAINER_CONTAINER_NESTED_ELEMENT");
+		}
 
-			PageEditor.waitForAutoSave();
+		task ("View the Container styles") {
+			AssertElementNotPresent(
+				key_contentDisplay = "",
+				key_position = "1",
+				locator1 = "PageEditor#CONTAINER_CONFIGURATION_CONTENT_DISPLAY");
+
+			PageEditor.viewContainerStyle(
+				containerWidth = "Fluid",
+				position = "1");
 		}
 
 		task ("Configure the Container styles") {
-			PageEditor.viewContainerStyle(
-				contentDisplay = "block",
-				position = "1");
-
 			PageEditor.editLayoutContainer(
+				alignItems = "Center",
 				backgroundColor = "Warning",
 				borderColor = "Danger",
 				borderRadius = "Border Radius Large",
-				borderWidth = "5",
 				boxShadow = "Box Shadow Large",
-				contentDisplay = "Flex",
-				horizontalAlign = "Center",
+				contentDisplay = "Flex Row",
+				justifyContent = "Center",
 				marginBottom = "2",
 				marginLeft = "2",
 				marginRight = "2",
@@ -875,20 +893,19 @@ definition {
 				paddingLeft = "2",
 				paddingRight = "2",
 				paddingTop = "2",
-				panel = "Styles",
-				verticalAlign = "Center");
+				panel = "Styles");
 		}
 
 		task ("View the Container styles") {
 			PageEditor.viewContainerStyle(
+				alignItems = "center",
 				backgroundColor = "warning",
 				borderColor = "danger",
 				borderRadius = "border-radius-lg",
-				borderWidth = "5",
 				boxShadow = "box-shadow-lg",
-				contentDisplay = "flex",
+				contentDisplay = "row",
 				dropShadow = "lg",
-				horizontalAlign = "center",
+				justifyContent = "center",
 				marginBottom = "2",
 				marginLeft = "2",
 				marginRight = "2",
@@ -898,8 +915,7 @@ definition {
 				paddingLeft = "2",
 				paddingRight = "2",
 				paddingTop = "2",
-				position = "1",
-				verticalAlign = "center");
+				position = "1");
 		}
 
 		task ("Duplicate the Container") {
@@ -1063,92 +1079,6 @@ definition {
 			locator1 = "Checkbox#ANY_CHECKBOX");
 
 		PortletEntry.publish();
-	}
-
-	@description = "This is a test for LPS-100540. Global fragments can be propagated to all pages of a site or sites that use the fragments"
-	@priority = "5"
-	test PropagateGlobalFragmentChanges {
-		property osgi.module.configuration.file.names = "com.liferay.fragment.web.internal.configuration.FragmentGlobalPanelAppConfiguration.config";
-		property osgi.module.configurations = "enabled=B&quot;true&quot;";
-		property portal.acceptance = "true";
-
-		task ("Add a fragment collection in Global site") {
-			JSONFragment.addFragmentCollection(
-				groupName = "Global",
-				name = "Global Collection Name");
-		}
-
-		task ("Add a section fragment to the fragment collection via JSON") {
-			JSONFragment.addSection(
-				collectionName = "Global Collection Name",
-				fragmentStatus = "Approved",
-				groupName = "Global",
-				name = "Global Fragment Name 1");
-		}
-
-		task ("Add a section fragment to the fragment collection via JSON") {
-			JSONFragment.addSection(
-				collectionName = "Global Collection Name",
-				fragmentStatus = "Approved",
-				groupName = "Global",
-				name = "Global Fragment Name 2");
-		}
-
-		JSONLayout.addPublicLayout(
-			groupName = "Test Site Name",
-			layoutName = "Content Page Name",
-			type = "content");
-
-		ContentPagesNavigator.openEditContentPage(
-			pageName = "Content Page Name",
-			siteName = "Test Site Name");
-
-		PageEditor.addFragment(
-			collectionName = "Global Collection Name",
-			fragmentName = "Global Fragment Name 1");
-
-		PageEditor.addFragment(
-			collectionName = "Global Collection Name",
-			fragmentName = "Global Fragment Name 2",
-			targetFragmentName = "Global Fragment Name 1");
-
-		PageEditor.clickPublish();
-
-		FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "global");
-
-		FragmentsAdminNavigator.gotoEntryEllipsisItem(
-			entry = "Global Fragment Name 1",
-			item = "Edit");
-
-		FragmentsEditor.typeFileContent(fileName = "fragment_button.html");
-
-		Button.clickPublish();
-
-		FragmentsAdminNavigator.openFragmentsAdmin(siteURLKey = "global");
-
-		FragmentsAdminNavigator.gotoEntryEllipsisItem(
-			entry = "Global Fragment Name 1",
-			item = "View Site Usages");
-
-		var key_siteName = "Test Site Name";
-
-		Check(locator1 = "Fragment#FRAGMENT_SITE_USAGE_CHECKBOX");
-
-		Click.clickNoMouseOver(locator1 = "Button#PROPAGATE");
-
-		Alert.viewSuccessMessage();
-
-		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/content-page-name");
-
-		for (var button : list "Submit,Cancel") {
-			Button.viewPresent(button = "${button}");
-		}
-
-		Navigator.openWithAppendToBaseURL(urlAppend = "web/test-site-name/content-page-name");
-
-		for (var button : list "Submit,Cancel") {
-			Button.viewPresent(button = "${button}");
-		}
 	}
 
 	@description = "Fragments can be renamed."

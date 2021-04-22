@@ -1,3 +1,53 @@
+task buildIBMS3StoreTest(type: Copy)
+
+buildIBMS3StoreTest {
+	doFirst {
+		delete "src/testIntegration/java/com/liferay/portal/store/s3/test/IBMS3StoreTest.java"
+	}
+
+	ext {
+		autoClean = false
+	}
+
+	filter {
+		String line ->
+
+		line.replace "@RunWith(Arquillian.class)", "@Generated(\"\")\n@RunWith(Arquillian.class)"
+	}
+
+	filter {
+		String line ->
+
+		line.replace "S3StoreTest", "IBMS3StoreTest"
+	}
+
+	filter {
+		String line ->
+
+		line.replace "s3.S3Store", "s3.IBMS3Store"
+	}
+
+	filter {
+		String line ->
+
+		line.replace "import org.junit.AfterClass;", "import javax.annotation.Generated;\n\nimport org.junit.AfterClass;"
+	}
+
+	from new File("src/testIntegration/java/com/liferay/portal/store/s3/test/S3StoreTest.java")
+	into "src/testIntegration/java/com/liferay/portal/store/s3/test"
+	rename {
+		"IBMS3StoreTest.java"
+	}
+}
+
+clean {
+	delete "src/testIntegration/java/com/liferay/portal/store/s3/test/IBMS3StoreTest.java"
+}
+
+compileJava {
+	dependsOn buildIBMS3StoreTest
+}
+
 dependencies {
 	testCompile group: "com.amazonaws", name: "aws-java-sdk-s3", version: "1.11.277"
 	testCompile group: "com.liferay.portal", name: "com.liferay.portal.impl", version: "default"

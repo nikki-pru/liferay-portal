@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.layout.reports.web.internal.display.context;
+package com.liferay.layout.reports.web.internal.portlet.action;
 
 import com.liferay.configuration.admin.constants.ConfigurationAdminPortletKeys;
 import com.liferay.info.constants.InfoDisplayWebKeys;
@@ -21,16 +21,25 @@ import com.liferay.info.item.InfoItemServiceTracker;
 import com.liferay.info.item.provider.InfoItemFieldValuesProvider;
 import com.liferay.layout.reports.web.internal.configuration.LayoutReportsGooglePageSpeedCompanyConfiguration;
 import com.liferay.layout.reports.web.internal.configuration.LayoutReportsGooglePageSpeedConfiguration;
+import com.liferay.layout.reports.web.internal.configuration.provider.LayoutReportsGooglePageSpeedConfigurationProvider;
+import com.liferay.layout.reports.web.internal.constants.LayoutReportsPortletKeys;
 import com.liferay.layout.reports.web.internal.data.provider.LayoutReportsDataProvider;
 import com.liferay.layout.seo.kernel.LayoutSEOLink;
 import com.liferay.layout.seo.kernel.LayoutSEOLinkManager;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.module.configuration.ConfigurationProvider;
+import com.liferay.portal.kernel.portlet.JSONPortletResponseUtil;
+import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCResourceCommand;
+import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.GroupLocalService;
@@ -38,83 +47,94 @@ import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
-import javax.portlet.RenderRequest;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
+
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
+import org.osgi.service.component.annotations.Reference;
 
 /**
- * @author Cristina González
+ * @author Alejandro Tardín
  */
-public class LayoutReportsDisplayContext {
+@Component(
+	configurationPid = "com.liferay.layout.reports.web.internal.configuration.LayoutReportsGooglePageSpeedConfiguration",
+	immediate = true,
+	property = {
+		"javax.portlet.name=" + LayoutReportsPortletKeys.LAYOUT_REPORTS,
+		"mvc.command.name=/layout_reports/data"
+	},
+	service = MVCResourceCommand.class
+)
+public class LayoutReportsDataMVCResourceCommand
+	extends BaseMVCResourceCommand {
 
-	public LayoutReportsDisplayContext(
-		GroupLocalService groupLocalService,
-		InfoItemServiceTracker infoItemServiceTracker,
-		LayoutLocalService layoutLocalService,
-		LayoutReportsDataProvider layoutReportsDataProvider,
-		LayoutSEOLinkManager layoutSEOLinkManager, Language language,
-		Portal portal, RenderRequest renderRequest) {
-
-		_groupLocalService = groupLocalService;
-		_infoItemServiceTracker = infoItemServiceTracker;
-		_layoutLocalService = layoutLocalService;
-		_layoutReportsDataProvider = layoutReportsDataProvider;
-		_layoutSEOLinkManager = layoutSEOLinkManager;
-		_language = language;
-		_portal = portal;
-		_renderRequest = renderRequest;
-
-		_themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+	@Activate
+	@Modified
+	protected void activate(Map<String, Object> properties) {
+		_layoutReportsGooglePageSpeedConfigurationProvider =
+			new LayoutReportsGooglePageSpeedConfigurationProvider(
+				_configurationProvider,
+				ConfigurableUtil.createConfigurable(
+					LayoutReportsGooglePageSpeedConfiguration.class,
+					properties));
 	}
 
-	public Map<String, Object> getData() {
-		if (_data != null) {
-			return _data;
-		}
+	@Override
+	protected void doServeResource(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws Exception {
 
 		Layout layout = _layoutLocalService.fetchLayout(
-			_themeDisplay.getPlid());
+			ParamUtil.getLong(resourceRequest, "plid"));
 
-		_data = Collections.singletonMap(
-			"context",
-			HashMapBuilder.<String, Object>put(
+		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		LayoutReportsDataProvider layoutReportsDataProvider =
+			new LayoutReportsDataProvider(
+				_layoutReportsGooglePageSpeedConfigurationProvider.getApiKey(
+					themeDisplay.getScopeGroup()));
+
+		JSONPortletResponseUtil.writeJSON(
+			resourceRequest, resourceResponse,
+			JSONUtil.put(
 				"assetsPath",
-				_portal.getPathContext(_renderRequest) + "/assets/"
+				_portal.getPathContext(resourceRequest) + "/assets/"
 			).put(
-				"canonicalURLs", _getCanonicalURLs(layout)
+				"canonicalURLs",
+				_getCanonicalURLsJSONArray(resourceRequest, layout)
 			).put(
 				"configureGooglePageSpeedURL",
-				_getConfigureGooglePageSpeedURL(_renderRequest)
+				_getConfigureGooglePageSpeedURL(resourceRequest)
 			).put(
 				"defaultLanguageId",
 				LocaleUtil.toW3cLanguageId(_getDefaultLocale(layout))
 			).put(
-				"validConnection",
-				_layoutReportsDataProvider.isValidConnection()
-			).build());
-
-		return _data;
+				"validConnection", layoutReportsDataProvider.isValidConnection()
+			));
 	}
 
 	private Map<Locale, String> _getAlternateURLs(
-		String currentCompleteURL, Layout layout) {
+		String currentCompleteURL, Layout layout, ThemeDisplay themeDisplay) {
 
 		try {
 			return _portal.getAlternateURLs(
-				currentCompleteURL, _themeDisplay, layout);
+				currentCompleteURL, themeDisplay, layout);
 		}
 		catch (PortalException portalException) {
 			_log.error(portalException, portalException);
@@ -123,10 +143,12 @@ public class LayoutReportsDisplayContext {
 		return Collections.emptyMap();
 	}
 
-	private String _getCanonicalURL(String currentCompleteURL, Layout layout) {
+	private String _getCanonicalURL(
+		String currentCompleteURL, Layout layout, ThemeDisplay themeDisplay) {
+
 		try {
 			return _portal.getCanonicalURL(
-				currentCompleteURL, _themeDisplay, layout, false, false);
+				currentCompleteURL, themeDisplay, layout, false, false);
 		}
 		catch (PortalException portalException) {
 			_log.error(portalException, portalException);
@@ -135,72 +157,84 @@ public class LayoutReportsDisplayContext {
 		return StringPool.BLANK;
 	}
 
-	private List<Map<String, Object>> _getCanonicalURLs(Layout layout) {
+	private JSONArray _getCanonicalURLsJSONArray(
+		PortletRequest portletRequest, Layout layout) {
+
 		Locale defaultLocale = _getDefaultLocale(layout);
 
-		String canonicalURL = _getCanonicalURL(_getCompleteURL(), layout);
+		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		String canonicalURL = _getCanonicalURL(
+			_getCompleteURL(portletRequest), layout, themeDisplay);
 
 		Map<Locale, String> alternateURLs = _getAlternateURLs(
-			canonicalURL, layout);
+			canonicalURL, layout, themeDisplay);
 
-		return Optional.ofNullable(
-			_groupLocalService.fetchGroup(layout.getGroupId())
-		).map(
-			Group::getGroupId
-		).map(
-			_language::getAvailableLocales
-		).orElseGet(
-			Collections::emptySet
-		).stream(
-		).sorted(
-			(locale1, locale2) -> {
-				if (Objects.equals(locale1, defaultLocale)) {
-					return -1;
+		return JSONUtil.putAll(
+			Optional.ofNullable(
+				_groupLocalService.fetchGroup(layout.getGroupId())
+			).map(
+				Group::getGroupId
+			).map(
+				_language::getAvailableLocales
+			).orElseGet(
+				Collections::emptySet
+			).stream(
+			).sorted(
+				(locale1, locale2) -> {
+					if (Objects.equals(locale1, defaultLocale)) {
+						return -1;
+					}
+
+					if (Objects.equals(locale2, defaultLocale)) {
+						return 1;
+					}
+
+					String languageId1 = LocaleUtil.toW3cLanguageId(locale1);
+					String languageId2 = LocaleUtil.toW3cLanguageId(locale2);
+
+					return languageId1.compareToIgnoreCase(languageId2);
 				}
+			).map(
+				locale -> HashMapBuilder.<String, Object>put(
+					"canonicalURL",
+					() -> {
+						LayoutSEOLink layoutSEOLink =
+							_layoutSEOLinkManager.getCanonicalLayoutSEOLink(
+								layout, locale, canonicalURL, alternateURLs);
 
-				if (Objects.equals(locale2, defaultLocale)) {
-					return 1;
-				}
-
-				String languageId1 = LocaleUtil.toW3cLanguageId(locale1);
-				String languageId2 = LocaleUtil.toW3cLanguageId(locale2);
-
-				return languageId1.compareToIgnoreCase(languageId2);
-			}
-		).map(
-			locale -> HashMapBuilder.<String, Object>put(
-				"canonicalURL",
-				() -> {
-					LayoutSEOLink layoutSEOLink =
-						_layoutSEOLinkManager.getCanonicalLayoutSEOLink(
-							layout, locale, canonicalURL, alternateURLs);
-
-					return layoutSEOLink.getHref();
-				}
-			).put(
-				"languageId", LocaleUtil.toW3cLanguageId(locale)
-			).put(
-				"title", _getTitle(layout, locale)
-			).build()
-		).collect(
-			Collectors.toList()
-		);
+						return layoutSEOLink.getHref();
+					}
+				).put(
+					"languageId", LocaleUtil.toW3cLanguageId(locale)
+				).put(
+					"title", _getTitle(portletRequest, layout, locale)
+				).build()
+			).toArray());
 	}
 
-	private String _getCompleteURL() {
+	private String _getCompleteURL(PortletRequest portletRequest) {
 		try {
-			return _portal.getLayoutURL(_themeDisplay);
+			ThemeDisplay themeDisplay =
+				(ThemeDisplay)portletRequest.getAttribute(
+					WebKeys.THEME_DISPLAY);
+
+			return _portal.getLayoutURL(themeDisplay);
 		}
 		catch (PortalException portalException) {
 			_log.error(portalException, portalException);
 
 			return _portal.getCurrentCompleteURL(
-				_portal.getHttpServletRequest(_renderRequest));
+				_portal.getHttpServletRequest(portletRequest));
 		}
 	}
 
 	private String _getConfigureGooglePageSpeedURL(
 		PortletRequest portletRequest) {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		if (_isOmniAdmin()) {
 			PortletURL portletURL = _portal.getControlPanelPortletURL(
@@ -210,7 +244,8 @@ public class LayoutReportsDisplayContext {
 			portletURL.setParameter(
 				"mvcRenderCommandName",
 				"/configuration_admin/edit_configuration");
-			portletURL.setParameter("redirect", _getCompleteURL());
+			portletURL.setParameter(
+				"redirect", _getCompleteURL(portletRequest));
 			portletURL.setParameter(
 				"factoryPid",
 				LayoutReportsGooglePageSpeedConfiguration.class.getName());
@@ -228,7 +263,8 @@ public class LayoutReportsDisplayContext {
 			portletURL.setParameter(
 				"mvcRenderCommandName",
 				"/configuration_admin/edit_configuration");
-			portletURL.setParameter("redirect", _getCompleteURL());
+			portletURL.setParameter(
+				"redirect", _getCompleteURL(portletRequest));
 			portletURL.setParameter(
 				"factoryPid",
 				LayoutReportsGooglePageSpeedCompanyConfiguration.class.
@@ -240,12 +276,11 @@ public class LayoutReportsDisplayContext {
 
 			return portletURL.toString();
 		}
-		else if (_isSiteAdmin()) {
+		else if (_isSiteAdmin(themeDisplay.getScopeGroupId())) {
 			try {
 				PortletURL portletURL = _portal.getControlPanelPortletURL(
 					portletRequest,
-					_groupLocalService.getGroup(
-						_themeDisplay.getScopeGroupId()),
+					_groupLocalService.getGroup(themeDisplay.getScopeGroupId()),
 					"com_liferay_site_admin_web_portlet_SiteSettingsPortlet", 0,
 					0, PortletRequest.RENDER_PHASE);
 
@@ -272,10 +307,12 @@ public class LayoutReportsDisplayContext {
 		}
 	}
 
-	private String _getTitle(Layout layout, Locale locale) {
+	private String _getTitle(
+		PortletRequest portletRequest, Layout layout, Locale locale) {
+
 		if (layout.isTypeAssetDisplay()) {
 			return Optional.ofNullable(
-				(InfoItemDetails)_renderRequest.getAttribute(
+				(InfoItemDetails)portletRequest.getAttribute(
 					InfoDisplayWebKeys.INFO_ITEM_DETAILS)
 			).map(
 				infoItemDetails ->
@@ -285,7 +322,7 @@ public class LayoutReportsDisplayContext {
 			).map(
 				infoItemFieldValuesProvider ->
 					infoItemFieldValuesProvider.getInfoItemFieldValue(
-						_renderRequest.getAttribute(
+						portletRequest.getAttribute(
 							InfoDisplayWebKeys.INFO_ITEM),
 						"title")
 			).map(
@@ -321,25 +358,38 @@ public class LayoutReportsDisplayContext {
 		return permissionChecker.isOmniadmin();
 	}
 
-	private boolean _isSiteAdmin() {
+	private boolean _isSiteAdmin(long groupId) {
 		PermissionChecker permissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
 
-		return permissionChecker.isGroupAdmin(_themeDisplay.getScopeGroupId());
+		return permissionChecker.isGroupAdmin(groupId);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		LayoutReportsDisplayContext.class);
+		LayoutReportsDataMVCResourceCommand.class);
 
-	private Map<String, Object> _data;
-	private final GroupLocalService _groupLocalService;
-	private final InfoItemServiceTracker _infoItemServiceTracker;
-	private final Language _language;
-	private final LayoutLocalService _layoutLocalService;
-	private final LayoutReportsDataProvider _layoutReportsDataProvider;
-	private final LayoutSEOLinkManager _layoutSEOLinkManager;
-	private final Portal _portal;
-	private final RenderRequest _renderRequest;
-	private final ThemeDisplay _themeDisplay;
+	@Reference
+	private ConfigurationProvider _configurationProvider;
+
+	@Reference
+	private GroupLocalService _groupLocalService;
+
+	@Reference
+	private InfoItemServiceTracker _infoItemServiceTracker;
+
+	@Reference
+	private Language _language;
+
+	@Reference
+	private LayoutLocalService _layoutLocalService;
+
+	private LayoutReportsGooglePageSpeedConfigurationProvider
+		_layoutReportsGooglePageSpeedConfigurationProvider;
+
+	@Reference
+	private LayoutSEOLinkManager _layoutSEOLinkManager;
+
+	@Reference
+	private Portal _portal;
 
 }
