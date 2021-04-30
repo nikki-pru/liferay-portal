@@ -83,6 +83,7 @@ definition {
 	@priority = "3"
 	test AddPriceListQualifier {
 		property portal.acceptance = "false";
+		property skip.portal.instance = "CPCommercePriceLists#AddPriceListQualifier";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(
 			siteName = "Site1",
