@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -59,8 +60,8 @@ definition {
 	@description = "This is a test for COMMERCE-6111. AddShippingOptionFlatRate"
 	@priority = "3"
 	test AddShippingOptionFlatRate {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceChannels#AddShippingOptionFlatRate";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceChannels#AddShippingOptionFlatRate";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 
@@ -137,8 +138,8 @@ definition {
 	@description = "This is a test for COMMERCE-6110. AddShippingOptionVariableRate"
 	@priority = "3"
 	test AddShippingOptionVariableRate {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceChannels#AddShippingOptionVariableRate";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceChannels#AddShippingOptionVariableRate";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 
@@ -213,8 +214,8 @@ definition {
 	}
 
 	test CreateNewChannel {
-		property portal.acceptance = "true";
-		property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewChannel";
+		//property portal.acceptance = "true";
+		//property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewChannel";
 
 		CommerceNavigator.gotoPortlet(
 			category = "Store Management",
@@ -252,8 +253,8 @@ definition {
 	}
 
 	test CreateNewNotificationTemplate {
-		property portal.acceptance = "quarantine";
-		property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewNotificationTemplate";
+		//property portal.acceptance = "quarantine";
+		//property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewNotificationTemplate";
 
 		CommerceNavigator.gotoPortlet(
 			category = "Store Management",
@@ -294,8 +295,8 @@ definition {
 	@description = "This is a test for COMMERCE-6109. EditAuthorizePaymentMethod"
 	@priority = "3"
 	test EditAuthorizePaymentMethod {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceChannels#EditAuthorizePaymentMethod";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceChannels#EditAuthorizePaymentMethod";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 
@@ -377,8 +378,8 @@ definition {
 	@description = "This is a test for COMMERCE-6107. EditMercanetPaymentMethod"
 	@priority = "3"
 	test EditMercanetPaymentMethod {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceChannels#EditMercanetPaymentMethod";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceChannels#EditMercanetPaymentMethod";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 
@@ -428,8 +429,8 @@ definition {
 	@description = "This is a test for COMMERCE-6105. EditMoneyOrderPaymentMethod"
 	@priority = "3"
 	test EditMoneyOrderPaymentMethod {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceChannels#EditMoneyOrderPaymentMethod";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceChannels#EditMoneyOrderPaymentMethod";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 
@@ -582,8 +583,8 @@ definition {
 	@description = "This is a test for COMMERCE-6101. UseSearchBar"
 	@priority = "3"
 	test UseSearchBar {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceChannels#UseSearchBar";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceChannels#UseSearchBar";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 

@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -50,8 +51,8 @@ definition {
 	@description = "This is a test for COMMERCE-6064. EditAProductRelations"
 	@priority = "3"
 	test EditAProductRelations {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceProductProductRelations#EditAProductRelations";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceProductProductRelations#EditAProductRelations";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 
@@ -96,8 +97,8 @@ definition {
 	@description = "This is a test for COMMERCE-6063. RemoveAProductRelations"
 	@priority = "3"
 	test RemoveAProductRelations {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceProductProductRelations#RemoveAProductRelations";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceProductProductRelations#RemoveAProductRelations";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 
