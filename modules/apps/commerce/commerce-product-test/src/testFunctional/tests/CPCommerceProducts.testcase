@@ -12,12 +12,12 @@ definition {
 
 		CommerceConfiguration.commerceStoreFrontSetUp();
 
-		ApplicationsMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "Search");
+		// ApplicationsMenu.gotoPortlet(
+		// 	category = "Configuration",
+		// 	panel = "Control Panel",
+		// 	portlet = "Search");
 
-		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+		// SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 	}
 
 	tearDown {
