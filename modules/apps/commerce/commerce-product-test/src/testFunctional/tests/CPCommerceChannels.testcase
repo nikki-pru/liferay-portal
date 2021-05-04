@@ -7,8 +7,6 @@ definition {
 	property testray.main.component.name = "Commerce";
 
 	setUp {
-		TestCase.setUpPortalInstance();
-
 		User.firstLoginPG();
 
 		ApplicationsMenu.gotoPortlet(
@@ -17,6 +15,8 @@ definition {
 			portlet = "Search");
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
+		TestCase.setUpPortalInstance();
 	}
 
 	tearDown {
