@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -10,14 +11,14 @@ definition {
 
 		User.firstLoginPG();
 
-		CommerceConfiguration.commerceStoreFrontSetUp();
-
 		ApplicationsMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
 			portlet = "Search");
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
+		CommerceConfiguration.commerceStoreFrontSetUp();
 	}
 
 	tearDown {
@@ -40,7 +41,8 @@ definition {
 	@description = "This is a test for COMMERCE-6021. AddASKU"
 	@priority = "3"
 	test AddASKU {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
+
 		property test.name.skip.portal.instance = "CPCommerceProductSKUs#AddASKU";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -78,7 +80,8 @@ definition {
 	@description = "This is a test for COMMERCE-6024. AddASKUWithSubscriptions"
 	@priority = "3"
 	test AddASKUWithSubscriptions {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
+
 		property test.name.skip.portal.instance = "CPCommerceProductSKUs#AddASKUWithSubscriptions";
 
 		CommerceNavigator.gotoPortlet(
@@ -144,7 +147,8 @@ definition {
 	@description = "This is a test for COMMERCE-6022. EditASKU"
 	@priority = "3"
 	test EditASKU {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
+
 		property test.name.skip.portal.instance = "CPCommerceProductSKUs#EditASKU";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");

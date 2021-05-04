@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -10,14 +11,14 @@ definition {
 
 		User.firstLoginPG();
 
-		CommerceConfiguration.commerceStoreFrontSetUp();
-
 		ApplicationsMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
 			portlet = "Search");
 
 		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
+		CommerceConfiguration.commerceStoreFrontSetUp();
 	}
 
 	tearDown {
@@ -86,7 +87,7 @@ definition {
 	@description = "This is a test for COMMERCE-6020. AssertProductBundleCanBeCreatedWithPriceTypeStaticAndDynamic"
 	@priority = "3"
 	test AssertProductBundleCanBeCreatedWithPriceTypeStaticAndDynamic {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProducts#AssertProductBundleCanBeCreatedWithPriceTypeStaticAndDynamic";
 
 		CommerceNavigator.gotoPortlet(
@@ -258,7 +259,7 @@ definition {
 	}
 
 	test CreateProductBundleWithPriceTypeDynamic {
-		property portal.acceptance = "true";
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CPCommerceProducts#CreateProductBundle";
 
 		CommerceNavigator.gotoPortlet(
@@ -345,7 +346,7 @@ definition {
 	@description = "This is a test for COMMERCE-6018. CreateProductBundleWithPriceTypeStatic"
 	@priority = "3"
 	test CreateProductBundleWithPriceTypeStatic {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProducts#CreateProductBundleWithPriceTypeStatic";
 
 		CommerceNavigator.gotoPortlet(
@@ -511,7 +512,7 @@ definition {
 	@description = "This is a test for COMMERCE-5808. EditAProduct"
 	@priority = "3"
 	test EditAProduct {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProducts#EditAProduct";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -547,7 +548,7 @@ definition {
 	@description = "This is a test for COMMERCE-5807. EditSkuAndDelete"
 	@priority = "3"
 	test EditSkuAndDelete {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProducts#EditSkuAndDelete";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -587,7 +588,8 @@ definition {
 
 	test ProductPublishing {
 		property environment.acceptance = "true";
-		property portal.acceptance = "true";
+
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CPCommerceProducts#ProductPublishing";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -663,7 +665,7 @@ definition {
 	}
 
 	test TranslateProductName {
-		property portal.acceptance = "true";
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CPCommerceProducts#TranslateProductName";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -725,7 +727,7 @@ definition {
 	@description = "This is a test for COMMERCE-5806. UseSkuSearchBarAndPagination"
 	@priority = "3"
 	test UseSkuSearchBarAndPagination {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProducts#UseSkuSearchBarAndPagination";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -750,7 +752,7 @@ definition {
 	@description = "This is a test for COMMERCE-5803. UseSortingByNameAndDate"
 	@priority = "3"
 	test UseSortingByNameAndDate {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProducts#UseSortingByNameAndDate";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
