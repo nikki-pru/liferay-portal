@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -10,12 +11,13 @@ definition {
 
 		User.firstLoginPG();
 
-		ApplicationsMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "Search");
+		//ApplicationsMenu.gotoPortlet(
+		//	category = "Configuration",
+		//	panel = "Control Panel",
+		//	portlet = "Search");
 
-		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+		//SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
 	}
 
 	tearDown {
@@ -44,7 +46,6 @@ definition {
 		property portal.acceptance = "false";
 
 		// TODO COMMERCE-6118 ActiveAllTaxCalculations
-
 	}
 
 	@description = "This is a test for COMMERCE-6116. AddShippingOptionFedEx"
@@ -59,7 +60,7 @@ definition {
 	@description = "This is a test for COMMERCE-6111. AddShippingOptionFlatRate"
 	@priority = "3"
 	test AddShippingOptionFlatRate {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceChannels#AddShippingOptionFlatRate";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -135,7 +136,7 @@ definition {
 	@description = "This is a test for COMMERCE-6110. AddShippingOptionVariableRate"
 	@priority = "3"
 	test AddShippingOptionVariableRate {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceChannels#AddShippingOptionVariableRate";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -209,7 +210,7 @@ definition {
 	}
 
 	test CreateNewChannel {
-		property portal.acceptance = "true";
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewChannel";
 
 		CommerceNavigator.gotoPortlet(
@@ -248,7 +249,7 @@ definition {
 	}
 
 	test CreateNewNotificationTemplate {
-		property portal.acceptance = "quarantine";
+		//property portal.acceptance = "quarantine";
 		property test.name.skip.portal.instance = "CPCommerceChannels#CreateNewNotificationTemplate";
 
 		CommerceNavigator.gotoPortlet(
@@ -290,7 +291,7 @@ definition {
 	@description = "This is a test for COMMERCE-6109. EditAuthorizePaymentMethod"
 	@priority = "3"
 	test EditAuthorizePaymentMethod {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceChannels#EditAuthorizePaymentMethod";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -371,7 +372,7 @@ definition {
 	@description = "This is a test for COMMERCE-6107. EditMercanetPaymentMethod"
 	@priority = "3"
 	test EditMercanetPaymentMethod {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceChannels#EditMercanetPaymentMethod";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -420,7 +421,7 @@ definition {
 	@description = "This is a test for COMMERCE-6105. EditMoneyOrderPaymentMethod"
 	@priority = "3"
 	test EditMoneyOrderPaymentMethod {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceChannels#EditMoneyOrderPaymentMethod";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -572,7 +573,7 @@ definition {
 	@description = "This is a test for COMMERCE-6101. UseSearchBar"
 	@priority = "3"
 	test UseSearchBar {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceChannels#UseSearchBar";
 
 		CommerceNavigator.gotoPortlet(

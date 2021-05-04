@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -12,12 +13,13 @@ definition {
 
 		CommerceConfiguration.commerceStoreFrontSetUp();
 
-		ApplicationsMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "Search");
+		//ApplicationsMenu.gotoPortlet(
+		//	category = "Configuration",
+		//	panel = "Control Panel",
+		//	portlet = "Search");
 
-		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+		//SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
 	}
 
 	tearDown {
@@ -44,13 +46,12 @@ definition {
 		property portal.acceptance = "false";
 
 		// TODO COMMERCE-6062 AddAProductRelations
-
 	}
 
 	@description = "This is a test for COMMERCE-6064. EditAProductRelations"
 	@priority = "3"
 	test EditAProductRelations {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProductProductRelations#EditAProductRelations";
 
 		CommerceNavigator.gotoPortlet(
@@ -94,7 +95,7 @@ definition {
 	@description = "This is a test for COMMERCE-6063. RemoveAProductRelations"
 	@priority = "3"
 	test RemoveAProductRelations {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProductProductRelations#RemoveAProductRelations";
 
 		CommerceNavigator.gotoPortlet(

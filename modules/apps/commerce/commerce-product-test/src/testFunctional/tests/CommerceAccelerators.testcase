@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -19,12 +20,13 @@ definition {
 
 		PortletEntry.save();
 
-		ApplicationsMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "Search");
+		//ApplicationsMenu.gotoPortlet(
+		//	category = "Configuration",
+		//	panel = "Control Panel",
+		//	portlet = "Search");
 
-		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+		//SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
 	}
 
 	tearDown {
@@ -46,7 +48,7 @@ definition {
 
 	@description = "This is a test for COMMERCE-4958."
 	test CheckoutWithOneShippingOption {
-		property portal.acceptance = "true";
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAccelerators#CheckoutWithOneShippingOption";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Speedwell");
@@ -100,7 +102,7 @@ definition {
 	}
 
 	test DeactivateCommerceAccount {
-		property portal.acceptance = "quarantine";
+		//property portal.acceptance = "quarantine";
 		property portal.upstream = "quarantine";
 		property test.name.skip.portal.instance = "CommerceAccelerators#DeactivateCommerceAccount";
 
@@ -183,7 +185,7 @@ definition {
 
 	@description = "This is a workaround for an issue with Minium's sidebar on CI"
 	test DeactivateCommerceAccountAdminLogOut {
-		property portal.acceptance = "true";
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAccelerators#DeactivateCommerceAccount";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -265,7 +267,8 @@ definition {
 
 	test InitializeNewMiniumSite {
 		property environment.acceptance = "true";
-		property portal.acceptance = "true";
+
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAccelerators#InitializeNewMiniumSite";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -321,7 +324,8 @@ definition {
 
 	test InitializeNewSpeedwellSite {
 		property environment.acceptance = "true";
-		property portal.acceptance = "true";
+
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAccelerators#InitializeNewSpeedwellSite";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Speedwell");
@@ -376,7 +380,7 @@ definition {
 	}
 
 	test MiniumSiteFullFlow {
-		property portal.acceptance = "quarantine";
+		//property portal.acceptance = "quarantine";
 		property portal.upstream = "quarantine";
 		property test.name.skip.portal.instance = "CommerceAccelerators#MiniumSiteFullFlow";
 
@@ -526,7 +530,7 @@ definition {
 
 	@description = "This is a workaround for an issue with Minium's sidebar on CI"
 	test MiniumSiteFullFlowCheckingOutViaOrderDetails {
-		property portal.acceptance = "true";
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAccelerators#MiniumSiteFullFlowCheckingOutViaOrderDetails";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -677,14 +681,13 @@ definition {
 	@ignore = "true"
 	@priority = "3"
 	test MiniumSiteFullFlowWithBuyerOrderApprovalWorkflow {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 
 		// TODO COMMERCE-6350 MiniumSiteFullFlowWithBuyerOrderApprovalWorkflow pending implementation
-
 	}
 
 	test SpeedwellSiteFullFlow {
-		property portal.acceptance = "true";
+		//property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "CommerceAccelerators#SpeedwellSiteFullFlow";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Speedwell");

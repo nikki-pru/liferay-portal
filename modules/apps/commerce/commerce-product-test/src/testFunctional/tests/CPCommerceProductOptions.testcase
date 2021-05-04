@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -12,12 +13,13 @@ definition {
 
 		CommerceConfiguration.commerceStoreFrontSetUp();
 
-		ApplicationsMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "Search");
+		//ApplicationsMenu.gotoPortlet(
+		//	category = "Configuration",
+		//	panel = "Control Panel",
+		//	portlet = "Search");
 
-		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+		//SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
+
 	}
 
 	tearDown {
@@ -40,7 +42,7 @@ definition {
 	@description = "This is a test for COMMERCE-6017. CreateAnOptionForAllTheFieldType"
 	@priority = "3"
 	test CreateAnOptionForAllTheFieldType {
-		property portal.acceptance = "false";
+		//property portal.acceptance = "false";
 		property test.name.skip.portal.instance = "CPCommerceProductOptions#CreateAnOptionForAllTheFieldType";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -101,7 +103,6 @@ definition {
 		property portal.acceptance = "false";
 
 		// TODO COMMERCE-6019 EditAndRemoveAnOptionWithValues
-
 	}
 
 }
