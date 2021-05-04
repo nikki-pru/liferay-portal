@@ -1,6 +1,7 @@
 @component-name = "portal-commerce"
 definition {
 
+	property portal.acceptance = "commerce-6586";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Commerce";
@@ -40,8 +41,8 @@ definition {
 	@description = "This is a test for COMMERCE-6017. CreateAnOptionForAllTheFieldType"
 	@priority = "3"
 	test CreateAnOptionForAllTheFieldType {
-		property portal.acceptance = "false";
-		property test.name.skip.portal.instance = "CPCommerceProductOptions#CreateAnOptionForAllTheFieldType";
+		//property portal.acceptance = "false";
+		//property test.name.skip.portal.instance = "CPCommerceProductOptions#CreateAnOptionForAllTheFieldType";
 
 		// TODO Fix Commerce tests that are skipping portal instances - COMMERCE-6586
 
