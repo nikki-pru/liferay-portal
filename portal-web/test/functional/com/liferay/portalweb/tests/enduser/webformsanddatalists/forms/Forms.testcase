@@ -419,6 +419,8 @@ definition {
 		ProductMenu.gotoPortlet(
 			category = "Content &amp; Data",
 			portlet = "Forms");
+		
+		//I hope this works
 
 		FormsAdmin.viewForm(
 			formDescription = "Created Form Description",
