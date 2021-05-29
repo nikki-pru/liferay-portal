@@ -29,7 +29,7 @@ definition {
 	@description = "COMMERCE-6169. As a buyer, I want to filter products using Category Facet widget and the results should be visible on the Search Results widget"
 	@priority = "3"
 	test AssertProductsAreFilteredByCategoryFacet {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CommerceFacets#AssertProductsAreFilteredByCategoryFacet";
 
 		// TODO Review

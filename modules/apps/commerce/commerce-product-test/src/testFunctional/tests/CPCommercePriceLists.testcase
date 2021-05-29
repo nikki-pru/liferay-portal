@@ -29,7 +29,7 @@ definition {
 	@description = "This is a test for COMMERCE-6226. Price Entry lifecycle"
 	@priority = "3"
 	test AddEditAndDeletePriceEntry {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		// TODO Review
 
@@ -607,7 +607,7 @@ definition {
 	@description = "This is a test for COMMERCE-6227. Tier Price Entry lifecycle"
 	@priority = "3"
 	test AddEditAndDeleteTierPriceEntry {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommercePriceLists#AddEditAndDeleteTierPriceEntry";
 
 		// TODO Review
@@ -1829,7 +1829,7 @@ definition {
 	@description = "This is a test for COMMERCE-6221. Price List expiration management"
 	@priority = "3"
 	test ViewExpiredPL {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommercePriceLists#ViewExpiredPL";
 
 		// TODO Review

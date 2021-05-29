@@ -115,7 +115,7 @@ definition {
 	@description = "This is a test for COMMERCE-6068. EditAProductGroup"
 	@priority = "3"
 	test EditAProductGroup {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceProductProductGroups#EditAProductGroup";
 
 		// TODO Review

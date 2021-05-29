@@ -111,7 +111,7 @@ definition {
 	@description = "COMMERCE-5929. As a buyer, I want to be able to select an order from the list (which is not the selected one), and have the selected order change to the newly selected order"
 	@priority = "3"
 	test ChangeActiveOrderFromOrdersList {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		// TODO Review
 

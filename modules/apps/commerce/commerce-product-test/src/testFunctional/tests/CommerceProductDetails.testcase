@@ -186,7 +186,7 @@ definition {
 	@description = "COMMERCE-6369. As a buyer, I want to be able to add a product to the cart in Product Details regardless of the availability, if back ordererabilty of that product is enabled"
 	@priority = "3"
 	test AssertProductCanBeAddedToCartFromProductDetailsIfBackOrderIsEnabled {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CommerceProductDetails#AssertProductCanBeAddedToCartFromProductDetailsIfBackOrderIsEnabled";
 
 		// TODO Review
@@ -429,7 +429,7 @@ definition {
 	@description = "COMMERCE-6370. As a buyer, I want to be able to select an option value, and add the product to cart in Product Details"
 	@priority = "3"
 	test SelectOptionValueAndAddProductToCart {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CommerceProductDetails#SelectOptionValueAndAddProductToCart";
 
 		// TODO Review
@@ -470,7 +470,7 @@ definition {
 	@description = "COMMERCE-6658. As a buyer, I want to be able to select an option value(Bundled Product) and I want to see product details updating(Price, SKU and Availability)"
 	@priority = "3"
 	test SelectOptionValueAndAssertBundledProductDetailsAreUpdated {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CommerceProductDetails#SelectOptionValueAndAssertBundledProductDetailsAreUpdated";
 
 		// TODO Review
@@ -729,7 +729,7 @@ definition {
 	@description = "COMMERCE-6371. As a buyer, I want to be able to select an option value(SKU contributor) and I want to see product details updating(Price, SKU and Availability)"
 	@priority = "3"
 	test SelectOptionValueAndAssertProductPriceIsUpdated {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CommerceProductDetails#SelectOptionValueAndAssertProductPriceIsUpdated";
 
 		// TODO Review

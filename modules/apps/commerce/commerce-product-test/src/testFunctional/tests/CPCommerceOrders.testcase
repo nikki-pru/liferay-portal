@@ -338,7 +338,7 @@ definition {
 	@description = "This is a test for COMMERCE-6216. Search Order from UI"
 	@priority = "3"
 	test SearchOrder {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceOrders#SearchOrder";
 
 		// TODO Review

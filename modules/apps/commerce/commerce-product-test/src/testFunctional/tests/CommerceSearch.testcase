@@ -29,7 +29,7 @@ definition {
 	@description = "COMMERCE-6664. I want to be able to disable Search Results widget pagination"
 	@priority = "3"
 	test DisableSearchResultsWidgetPagination {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CommerceSearch#DisableSearchResultsWidgetPagination";
 
 		// TODO Review
@@ -292,7 +292,7 @@ definition {
 	@description = "COMMERCE-6320. As a buyer, I want to be able to search an Accounts entry using Global Search and I want to be able to click on a suggested entry and get redirected to that account page"
 	@priority = "3"
 	test GlobalSearchSuggestedAccountsEntry {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		// TODO Review
 

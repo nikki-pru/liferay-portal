@@ -860,7 +860,7 @@ definition {
 	@ignore = "true"
 	@priority = "3"
 	test ViewFirstSelectableQuantityWhenMinimumOrderQuantityIsHigherThanMultipleOrderQuantity {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		// TODO Review
 

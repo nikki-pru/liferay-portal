@@ -398,7 +398,7 @@ definition {
 	@description = "This is a test for COMMERCE-6120. AddTaxRateSettingsByAddressTaxCalculation"
 	@priority = "3"
 	test AddTaxRateSettingsByAddressTaxCalculation {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		// TODO Review
 
@@ -680,7 +680,7 @@ definition {
 	@description = "This is a test for COMMERCE-6197. CreateProductDisplayPage"
 	@priority = "3"
 	test CreateProductDisplayPage {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceChannels#CreateProductDisplayPage";
 
 		// TODO Review
@@ -796,7 +796,7 @@ definition {
 	@description = "This is a test for COMMERCE-6119. EditAvalaraTaxCalculation"
 	@priority = "3"
 	test EditAvalaraTaxCalculation {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceChannels#EditAvalaraTaxCalculation";
 
 		// TODO Review
@@ -1006,7 +1006,7 @@ definition {
 	@description = "This is a test for COMMERCE-6122. EditConfigurationRemoteTaxCalculation"
 	@priority = "3"
 	test EditConfigurationRemoteTaxCalculation {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		// TODO Review
 
