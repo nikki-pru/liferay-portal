@@ -1141,7 +1141,7 @@ definition {
 	@description = "This is a test for COMMERCE-6276. EditNotificationTemplate"
 	@priority = "3"
 	test EditNotificationTemplate {
-		property portal.acceptance = "Intern Test";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceChannels#EditNotificationTemplate";
 
 		// TODO Review
@@ -1268,7 +1268,7 @@ definition {
 	@description = "This is a test for COMMERCE-6274. EditProductDisplayPage"
 	@priority = "3"
 	test EditProductDisplayPage {
-		property portal.acceptance = "Intern Test";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceChannels#EditProductDisplayPage";
 
 		// TODO Review

@@ -330,7 +330,7 @@ definition {
 	@description = "COMMERCE-5928. As a buyer, I want to be able to switch the account selector dropdown's view from the account list to the order list and I want to be able to see all the orders for the account I have selected"
 	@priority = "3"
 	test ViewAccountSelectorDropdownOrdersList {
-		property portal.acceptance = "Intern Test";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CommerceAccountSelector#ViewAccountSelectorDropdownOrdersList";
 
 		// TODO Review

@@ -29,7 +29,7 @@ definition {
 	@description = "This is a test for COMMERCE-5839. As a system admin i want to be able to create / update and delete a new currency"
 	@priority = "3"
 	test CreateAndUpdateNewCurrency {
-		property portal.acceptance = "Intern Test";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceCurrencies#CreateAndUpdateNewCurrency";
 
 		// TODO Review

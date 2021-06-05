@@ -269,7 +269,7 @@ definition {
 	@description = "This is a test for COMMERCE-6272. RemoveACatalog"
 	@priority = "3"
 	test RemoveACatalog {
-		property portal.acceptance = "Intern Test";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceCatalogs#RemoveACatalog";
 
 		// TODO Review
