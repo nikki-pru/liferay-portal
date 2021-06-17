@@ -81,7 +81,7 @@ definition {
 
 		Pause(locator1 = "3000");
 
-		Comments.addPG(entryComment = "Blogs Entry Comment");
+		Comments.addComment(entryComment = "Blogs Entry Comment");
 
 		Navigator.gotoPage(pageName = "Blogs Page");
 
@@ -89,7 +89,7 @@ definition {
 			entryContent = "Blogs Entry Content",
 			entryTitle = "Blogs Entry Title");
 
-		Comments.viewPG(
+		Comments.viewComment(
 			commentCount = "1",
 			entryComment = "Blogs Entry Comment",
 			userFullName = "Test Test (You)");

@@ -13,12 +13,39 @@ definition {
 
 		SelectFrame(value1 = "relative=top");
 
-
 		AssertClick(
 			locator1 = "Button#REPLY",
 			value1 = "Reply");
 
 		Alert.viewSuccessMessage();
+	}
+
+	macro viewComment {
+		var key_entryComment = "${entryComment}";
+
+		Pause(locator1 = "1000");
+
+		if (isSet(noAddPermissions)) {
+			AssertTextNotPresent(
+				locator1 = "Comments#ENTRY_COUNT_PANEL",
+				value1 = "${commentCount} COMMENT");
+		}
+
+		else {
+			AssertTextEquals.assertPartialText(
+				locator1 = "Comments#ENTRY_COUNT_PANEL",
+				value1 = "${commentCount} COMMENT");
+		}
+
+		var key_userFullName = "${userFullName}";
+
+		AssertTextEquals.assertPartialText(
+			locator1 = "Comments#USER_NAME",
+			value1 = "${userFullName}");
+
+		AssertTextEquals(
+			locator1 = "Comments#COMMENT_BODY",
+			value1 = "${entryComment}");
 	}
 
 	macro addPG {
