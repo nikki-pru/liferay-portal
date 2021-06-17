@@ -1,5 +1,26 @@
 definition {
 
+	macro addComment {
+		var entryComment = "${entryComment}";
+
+		Click(locator1 = "Comments#COMMENT_BUTTON");
+
+		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
+
+		Type(
+			locator1 = "CKEditor#BODY",
+			value1 = "${entryComment}");
+
+		SelectFrame(value1 = "relative=top");
+
+
+		AssertClick(
+			locator1 = "Button#REPLY",
+			value1 = "Reply");
+
+		Alert.viewSuccessMessage();
+	}
+
 	macro addPG {
 		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
 
