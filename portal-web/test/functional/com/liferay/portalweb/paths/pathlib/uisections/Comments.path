@@ -73,6 +73,11 @@
 	<td>//span[contains(@class,'workflow-status')]/strong</td>
 	<td></td>
 </tr>
+<tr>
+	<td>COMMENT_BUTTON</td>
+	<td>//a[contains(@title,'Comments')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
