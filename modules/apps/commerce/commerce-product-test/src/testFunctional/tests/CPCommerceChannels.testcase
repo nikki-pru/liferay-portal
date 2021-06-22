@@ -1458,7 +1458,7 @@ definition {
 	@description = "This is a test for COMMERCE-6270. RemoveNotificationQueue"
 	@priority = "3"
 	test RemoveNotificationQueue {
-		property portal.acceptance = "Intern Test";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceChannels#RemoveNotificationQueue";
 
 		// TODO Review
@@ -2115,7 +2115,7 @@ definition {
 	@description = "This is a test for COMMERCE-6266. VerifyNotificationQueue"
 	@priority = "3"
 	test VerifyNotificationQueue {
-		property portal.acceptance = "Intern Test";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceChannels#VerifyNotificationQueue";
 
 		// TODO Review
