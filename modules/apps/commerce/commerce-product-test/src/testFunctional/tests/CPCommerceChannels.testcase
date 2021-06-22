@@ -2118,7 +2118,7 @@ definition {
 		property portal.acceptance = "Intern Test";
 		property test.name.skip.portal.instance = "CPCommerceChannels#VerifyNotificationQueue";
 
-		//TODO Review
+		// TODO Review
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
