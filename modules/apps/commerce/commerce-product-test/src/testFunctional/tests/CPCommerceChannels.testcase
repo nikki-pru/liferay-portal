@@ -1461,7 +1461,7 @@ definition {
 		property portal.acceptance = "Intern Test";
 		property test.name.skip.portal.instance = "CPCommerceChannels#RemoveNotificationQueue";
 
-		//TODO Review
+		// TODO Review
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
@@ -1560,8 +1560,6 @@ definition {
 			locator1 = "CommerceEntry#DROPDOWN");
 
 		MenuItem.click(menuItem = "Delete");
-
-
 	}
 
 	@description = "This is a test for COMMERCE-6271. RemoveNotificationTemplate"
