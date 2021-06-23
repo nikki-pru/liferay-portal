@@ -29,7 +29,7 @@ definition {
 	@description = "COMMERCE-5866. As a buyer, I want to be able to add a product to my wish list, by clicking on an Add To Wish List button"
 	@priority = "3"
 	test AddProductToWishListFromProductCard {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
@@ -529,7 +529,7 @@ definition {
 	@description = "COMMERCE-5858. As a buyer, I want to view the catalog default product image if set"
 	@priority = "3"
 	test AssertProductCardShowsCatalogDefaultImage {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
@@ -588,7 +588,7 @@ definition {
 	@description = "COMMERCE-5872. As a buyer, I want to view the availability of the product, if set and configured admin-side(product available)"
 	@priority = "3"
 	test AssertProductIsAvailable {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 		ApplicationsMenu.gotoSite(site = "Minium");
@@ -943,7 +943,7 @@ definition {
 	@ignore = "true"
 	@priority = "3"
 	test CompareProductFromProductCard {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
@@ -991,7 +991,7 @@ definition {
 	@description = "COMMERCE-5867. As a buyer, I want to be able to remove a product from my wish list, by clicking on an Add To Wish List button, if already active"
 	@priority = "3"
 	test RemoveProductFromWishList {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
@@ -1209,7 +1209,7 @@ definition {
 	@description = "COMMERCE-5865. As a buyer, I want to view starting price on product card when product has different SKUs with different prices"
 	@priority = "3"
 	test ViewProductCardStartingPrice {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
