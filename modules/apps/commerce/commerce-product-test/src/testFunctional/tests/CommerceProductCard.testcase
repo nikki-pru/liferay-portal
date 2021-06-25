@@ -591,15 +591,18 @@ definition {
 		property portal.acceptance = "commerce-ci-run";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
+
 		ApplicationsMenu.gotoSite(site = "Minium");
+
 		CommerceAcceleratorsInitializer.changeProductsSorting(sortingType = "Name Ascending");
+
 		AssertTextEquals(
 			key_productName = "abs-sensor",
 			locator1 = "CommerceAccelerators#PRODUCT_CARD_AVAILABILITY_LABEL",
 			value1 = "Available");
 
 		ClickNoError(
-			key_productName = "Simple T-Shirt",
+			key_productName = "ABS Sensor",
 			locator1 = "CommerceAccelerators#PRODUCT_CARD_NAME");
 
 		AssertElementPresent(locator1 = "CommerceEntry#DEFAULT_PRODUCT_IMAGE");
