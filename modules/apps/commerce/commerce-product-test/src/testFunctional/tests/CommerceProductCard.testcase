@@ -45,9 +45,9 @@ definition {
 			key_menuItem = "My Lists",
 			locator1 = "CommerceAccelerators#MINIUM_SIDEBAR_MENU_ITEM");
 
-		AssertTextEquals(
-			locator1 = "AppBuilder#ITEM_ON_THE_TABLE",
-			value1 = "U-Joint");
+		AssertElementPresent(
+			key_tableEntry = "U-Joint",
+			locator1 = "LexiconTable#TABLE_ENTRY");
 	}
 
 	@description = "COMMERCE-5859. As a buyer, I want to view the product price with the default channel currency"
