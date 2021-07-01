@@ -212,7 +212,7 @@ definition {
 	@description = "This is a test for COMMERCE-6023. RemoveASKU"
 	@priority = "3"
 	test RemoveASKU {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceProductSKUs#RemoveASKU";
 
 		// TODO Review

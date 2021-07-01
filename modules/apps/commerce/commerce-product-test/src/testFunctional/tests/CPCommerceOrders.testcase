@@ -850,7 +850,7 @@ definition {
 	@description = "This is a test for COMMERCE-5982. As an order manager, I want to sort orders by ascending or descending order date"
 	@priority = "3"
 	test SortOrdersByOrderDate {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceOrders#SortOrdersByOrderDate";
 
 		// TODO Review
@@ -912,7 +912,7 @@ definition {
 	@description = "This is a test for COMMERCE-5845. As a product specialist I want to see if a SKU is on order"
 	@priority = "3"
 	test ViewOrderSKU {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceOrders#ViewOrderSKU";
 
 		// TODO Review

@@ -881,7 +881,7 @@ definition {
 	@description = "COMMERCE-5802. Use a filter always check that the results are correct"
 	@priority = "3"
 	test UseFilters {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceProducts#UseFilters";
 
 		// TODO Review
@@ -1058,7 +1058,7 @@ definition {
 	@description = "This is a test for COMMERCE-5805. UseSearchBarAndPagination"
 	@priority = "3"
 	test UseSearchBarAndPagination {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceProducts#UseSearchBarAndPagination";
 
 		// TODO Review
