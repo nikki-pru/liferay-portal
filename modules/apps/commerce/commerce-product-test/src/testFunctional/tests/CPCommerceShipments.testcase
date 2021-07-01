@@ -161,7 +161,7 @@ definition {
 	@description = "This is a test for COMMERCE-6248. It should not be possible to add non-shippable items to a shipment"
 	@priority = "3"
 	test AssertAddingNonShippableItemToShipmentNotPossible {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 

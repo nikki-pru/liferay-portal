@@ -296,7 +296,7 @@ definition {
 	@description = "This is a test for COMMERCE-5997. As an order manager, I want to filter orders by Channel, Account, Order Data Range and Order Status"
 	@priority = "3"
 	test FilterOrderByAccount {
-		property portal.acceptance = "Intern Test";
+		property portal.acceptance = "commerce-ci-run";
 		property test.name.skip.portal.instance = "CPCommerceOrders#FilterOrderByAccount";
 
 		// TODO Review
