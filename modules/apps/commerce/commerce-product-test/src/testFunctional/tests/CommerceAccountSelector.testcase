@@ -29,7 +29,15 @@ definition {
 	@description = "COMMERCE-5937. As a buyer, I want open Account Selector to close if I open the Global Search"
 	@priority = "3"
 	test AssertAccountSelectorIsClosedAfterGlobalSearchIsOpened {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-ci-run";
+		property test.name.skip.portal.instance = "CommerceAccountSelector#AssertAccountSelectorIsClosedAfterGlobalSearchIsOpened";
+
+		ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Search");
+
+		SearchAdministration.executeSearchActions(actionsDescription = "Reindex all search indexes.");
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
