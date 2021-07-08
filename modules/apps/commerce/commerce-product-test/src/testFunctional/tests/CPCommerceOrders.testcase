@@ -701,7 +701,9 @@ definition {
 
 		Button.click(button = "Review Order");
 
-		Button.click(button = "Submit");
+		Button.click(button = "View Details");
+
+		Button.click(button = "Checkout");
 
 		AssertElementPresent(
 			key_status = "Pending",
