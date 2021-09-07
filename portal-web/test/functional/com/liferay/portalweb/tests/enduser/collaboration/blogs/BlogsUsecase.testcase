@@ -72,7 +72,7 @@ definition {
 
 		BlogsEntry.viewEntryPG(
 			entryContent = "Liferay Portal provides an excellent platform for building web applications, websites, and portals, but it can additionally be used for a new category of web applications called social applications. The definition is simple: a social application is a web application that additionally leverages social identity, data, and features or services. In the left figure, the light blue squares represent a definition of a standard web application while the darker blue squares show the addition of social aspects.",
-			entryTitle = "Blog Entries Title");
+			entryTitle = "Blogs Entry Title");
 	}
 
 	@description = "This test checks that blog entry can be added with special charaters."
