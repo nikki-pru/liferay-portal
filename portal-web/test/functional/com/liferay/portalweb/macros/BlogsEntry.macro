@@ -904,6 +904,11 @@ definition {
 	macro viewEntryPG {
 		var key_entryTitle = "${entryTitle}";
 
+		BlogsNavigator.openToBlogEntry(
+		entryTitle = "${entryTitle}",
+		layoutName = "blogs-page",
+		siteURLKey = "guest");
+
 		AssertElementPresent(locator1 = "BlogsEntry#TITLE");
 
 		AssertTextEquals(
