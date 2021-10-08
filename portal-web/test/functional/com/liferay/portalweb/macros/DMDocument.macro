@@ -1436,7 +1436,7 @@ definition {
 			Click(locator1 = "Button#SAVE");
 		}
 		else {
-			Click(locator1 = "Button#CANCEL");
+			Click(locator1 = "Button#PUBLISH");
 		}
 
 		Alert.viewSuccessMessage();
