@@ -615,7 +615,7 @@ definition {
 
 		DMDocument.viewCP(
 			dmDocumentFileName = "Document_1.txt",
-			dmDocumentSize = "350 B",
+			dmDocumentSize = "259 B",
 			dmDocumentTitle = "DM Document Title");
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
