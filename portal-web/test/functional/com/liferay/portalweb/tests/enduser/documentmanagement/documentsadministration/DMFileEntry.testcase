@@ -630,7 +630,7 @@ definition {
 
 		DMDocument.viewEditCP(
 			dmDocumentFileName = "Document_1_Edit.txt",
-			dmDocumentTitleEdit = "DM Document Edit",
+			dmDocumentTitleEdit = "DM Document Title Edit",
 			dmDocumentVersionNumber = "1.5");
 	}
 
