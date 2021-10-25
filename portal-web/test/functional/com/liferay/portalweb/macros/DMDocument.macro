@@ -2397,6 +2397,8 @@ definition {
 	macro viewCP {
 		var key_dmDocumentTitle = "${dmDocumentTitle}";
 
+		DMNavigator.gotoDocumentCP(dmDocumentTitle = "${key_dmDocumentTitle}");
+
 		AssertTextEquals(
 			locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_TITLE",
 			value1 = "${dmDocumentTitle}");
