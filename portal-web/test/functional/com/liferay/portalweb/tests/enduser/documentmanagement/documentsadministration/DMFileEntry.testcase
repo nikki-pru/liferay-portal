@@ -611,8 +611,6 @@ definition {
 			dmDocumentFile = "Document_1.txt",
 			dmDocumentTitle = "DM Document Title");
 
-		DMNavigator.gotoDocumentCP(dmDocumentTitle = "DM Document Title");
-
 		DMDocument.viewCP(
 			dmDocumentFileName = "Document_1.txt",
 			dmDocumentSize = "259 B",
