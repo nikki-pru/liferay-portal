@@ -613,7 +613,7 @@ definition {
 
 		DMDocument.viewCP(
 			dmDocumentFileName = "Document_1.txt",
-			dmDocumentSize = "350 B",
+			dmDocumentSize = "259 B",
 			dmDocumentTitle = "DM Document Title");
 
 		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
@@ -628,8 +628,8 @@ definition {
 
 		DMDocument.viewEditCP(
 			dmDocumentFileName = "Document_1_Edit.txt",
-			dmDocumentTitleEdit = "DM Document Edit",
-			dmDocumentVersionNumber = "1.5");
+			dmDocumentTitleEdit = "DM Document Title Edit",
+			dmDocumentVersionNumber = "1.1");
 	}
 
 	@description = "This is a test for LPS-136825. It checks that a file entry can be imported with tags."
