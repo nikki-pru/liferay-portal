@@ -651,8 +651,6 @@ definition {
 			entrySubtitle = "Blogs Entry Subtitle",
 			entryTitle = "Blogs Entry Title");
 
-		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
-
 		BlogsNavigator.gotoEntryCP(
 			entryStatus = "Draft",
 			entryTitle = "Blogs Entry Title");
@@ -660,7 +658,7 @@ definition {
 		BlogsEntry.viewEntryCP(
 			entryContent = "Blogs Entry Content",
 			entrySubtitle = "Blogs Entry Subtitle",
-			entryTitle = "Blogs Entry Title");
+			entryTitle = "Blogs Entry");
 
 		BlogsNavigator.openBlogsAdmin(siteURLKey = "guest");
 
