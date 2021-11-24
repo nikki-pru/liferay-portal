@@ -1,0 +1,17 @@
+definition {
+
+    macro addingPunchOut2GotoOAuth {
+
+        Type(
+		key_fieldLabel = "Name",
+		locator1 = "TextInput#GENERIC_TEXT_INPUT",
+		value1 = "PunchOut2Go");
+
+		Type(
+		locator1 = "TextArea#ANY",
+		key_text = "_com_liferay_oauth2_provider_web_internal_portlet_OAuth2AdminPortlet_redirectURIs",
+		value1 = "http://localhost:8080/");
+
+	}
+
+}

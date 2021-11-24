@@ -1,0 +1,127 @@
+	@component-name = "portal-commerce"
+	definition {
+
+		property portal.release = "true";
+		property portal.upstream = "true";
+		property testray.main.component.name = "Product Info Management";
+
+		setUp {
+			TestCase.setUpPortalInstance();
+
+			User.firstLoginPG();
+
+		task ("Enable Punchout") {
+		
+		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
+
+		CommerceNavigator.gotoPortlet(
+			category = "Store Management",
+			portlet = "Channels");
+
+		CommerceNavigator.gotoEntry(entryName = "Minium Portal");
+        
+        CommerceEntry.gotoMenuTab(menuTab = "Punch Out");
+
+        Check.checkToggleSwitch(
+			key_toggleSwitchLabel = "Enabled",
+			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+        Type(
+			key_fieldLabel = "Punch Out Start URL",
+			locator1 = "TextInput#GENERIC_TEXT_INPUT",
+			value1 = "http://localhost:8080/group/minium");
+
+        Button.click(button = "Save");
+
+		CommerceNavigator.gotoPortlet(
+		category = "Store Management",
+		portlet = "Channels");
+
+		CommerceNavigator.gotoEntry(entryName = "Minium Portal");
+        
+        CommerceEntry.gotoMenuTab(menuTab = "Punch Out")Set token for;
+
+		AssertChecked.assertCheckedNotVisible(
+		key_toggleSwitchLabel = "Enabled",
+		locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+
+		}
+
+		task ("Set token for Punchout") {
+
+		ApplicationsMenu.gotoPortlet(
+		category = "Configuration",
+		panel = "Control Panel",
+		portlet = "System Settings");
+
+		Click(
+		key_text = "API Authentication",
+		locator1 = "Link#ANY");
+
+		Click.clickAtNotVisible(
+		checkboxName = "Enabled",
+		locator1 = "Checkbox#ANY_CHECKBOX");
+
+		Button.click(button = "Save");
+
+		AssertChecked.assertCheckedNotVisible(
+		checkboxName = "Enabled",
+		locator1 = "Checkbox#ANY_CHECKBOX_CHECKED");
+
+		}
+
+		task (" Add OAuth2 Administration") {
+
+		ApplicationsMenu.gotoPortlet(
+		category = "Security",
+		panel = "Control Panel",
+		portlet = "OAuth 2 Administration");
+
+		LexiconEntry.gotoAdd();
+
+	    Punchout2Go.addingPunchOut2GotoOAuth();
+
+		Click(locator1 = "ObjectAdmin#SELECT_OBJECT_RELATIONSHIP")
+
+		Click(
+		locator1 = "Select#GENERIC_SELECT_VALUE",
+		key_fieldLabel = "Client Profile",
+		key_value = "Headless Server");
+
+		Button.click(button = "Save");
+
+		}
+
+		task (" Add Scopes to OAuth2") {
+
+		CommerceEntry.gotoMenuTab(menuTab = "Scopes");
+
+		for (var options : list "Admin.Account,Admin.Catalog,Admin.Inventory") {
+ 			Click(locator1 = panel-title path
+			value1 = "Liferay.Headless.Commerce.${options}"
+		}
+		
+	}
+
+	tearDown {
+		Navigator.openURL();
+
+		if (IsElementPresent(locator1 = "UserBar#USER_AVATAR_IMAGE")) {
+			User.logoutPG();
+		}
+
+		User.firstLoginPG();
+
+		CommerceConfiguration.commerceAdminTearDown();
+
+		CommerceConfiguration.commerceInitializersTearDown();
+	}
+
+	@description = "This is a test for LRQA-71618. Create a user account for Punchout2Go"
+	@priority = "3"
+	test CanCreatePunchOutAccount {
+		property portal.acceptance = "true";
+
+		// TODO LRQA-71618 CanCreatePunchoutAccount pending implementation
+
+}

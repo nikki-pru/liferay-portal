@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>CommercePO2G</title>
+</head>
+
+<body>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr><td rowspan="1" colspan="3">CommercePO2G</td></tr>
+</thead>
+
+<tbody>
+<tr>
+	<td>HEADLESS_COMMERCE</td>
+	<td>//span[contains(@class,'panel-title') and contains(.,'${key_Headless.Commerce}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>WEB_APPLICATION</td>
+	<td>//button[contains(.,'Web Application') or contains(@class,'Web Application')]</td>
+	<td></td>
+</tr>
+</tbody>
+</table>
+</body>
+</html>
