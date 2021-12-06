@@ -279,6 +279,8 @@ definition {
 	@description = "COMMERCE-7695. As a buyer, I want to verify if I will be redirected to the product details when I click on the item in the minicart"
 	@priority = "3"
 	test ClickOnCartItemRedirectToProductDetails {
+		property portal.acceptance = "commerce-7659";
+
 		task ("Set up Commerce Minium Site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
@@ -343,7 +345,7 @@ definition {
 	@description = "COMMERCE-7751 As a buyer, I want to add a cart widget to the pending orders page and I want to view the product details and edit the quantity of an item in the cart widget"
 	@priority = "3"
 	test ClickOnCartItemWidgetRedirectToProductDetails {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-7659";
 
 		task("Set up Commerce Minium Site"){
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -698,7 +700,7 @@ definition {
 	@description = "COMMERCE-7736, As a buyer, I want to be able to view product details for more than one item in the cart"
 	@priority = "3"
 	test VerifyTheProductDetailPageRedirectWithTwoProducts {
-		property portal.acceptance = "false";
+		property portal.acceptance = "commerce-7659";
 
 		task ("Set up Commerce Minium Site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
