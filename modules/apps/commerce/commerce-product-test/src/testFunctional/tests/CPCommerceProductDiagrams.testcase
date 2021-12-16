@@ -112,6 +112,8 @@ definition {
 	@description = "This is a test for COMMERCE-7100. Verify user can change a diagram product type to SVG."
 	@priority = "3"
 	test ChangeDiagramType {
+		property portal.acceptance = "COMMERCE-7100";
+
 		task ("Given a diagram product with an svg diagram image") {
 			CommerceJSONProductsAPI._addCommerceProduct(
 				catalogName = "Master",
