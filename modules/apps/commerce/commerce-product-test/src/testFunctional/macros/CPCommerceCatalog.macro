@@ -72,7 +72,7 @@ definition {
 
 		WaitForElementPresent(
 			key_positionNumber = "${position}",
-			locator1 = "CommerceDiagrams#DIAGRAM_IMAGE_PIN");
+			locator1 = "CommerceDiagrams#DIAGRAM_PRODUCT_IMAGE_PIN");
 	}
 
 	macro newOptionsEntry {

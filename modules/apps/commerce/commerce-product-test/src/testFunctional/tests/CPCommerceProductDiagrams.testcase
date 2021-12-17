@@ -299,7 +299,7 @@ definition {
 		task ("When I delete the pin") {
 			Click(
 				key_positionNumber = "1",
-				locator1 = "CommerceDiagrams#DIAGRAM_IMAGE_PIN");
+				locator1 = "CommerceDiagrams#DIAGRAM_PRODUCT_IMAGE_PIN");
 
 			Button.clickDelete();
 
@@ -309,7 +309,7 @@ definition {
 		task ("Then the pin should no longer be present") {
 			AssertElementNotPresent(
 				key_positionNumber = "1",
-				locator1 = "CommerceDiagrams#DIAGRAM_IMAGE_PIN");
+				locator1 = "CommerceDiagrams#DIAGRAM_PRODUCT_IMAGE_PIN");
 		}
 	}
 
