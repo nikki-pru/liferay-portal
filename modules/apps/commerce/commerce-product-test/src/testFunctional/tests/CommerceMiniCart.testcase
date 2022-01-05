@@ -279,7 +279,7 @@ definition {
 	@description = "COMMERCE-7695. As a buyer, I want to verify if I will be redirected to the product details when I click on the item in the minicart"
 	@priority = "3"
 	test ClickOnCartItemRedirectToProductDetails {
-		property portal.acceptance = "commerce-7659";
+		property portal.acceptance = "false";
 
 		task ("Given a Commerce Minium site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
