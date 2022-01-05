@@ -139,7 +139,7 @@ definition {
 				locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
 				value1 = "${quantity}");
 
-			if ("${quantity}" == "1" || "${quantity}" == "2" || "${quantity}" == "4") {
+			if (("${quantity}" == "1") || ("${quantity}" == "2") || ("${quantity}" == "4")) {
 				AssertTextEquals(
 					key_cartItemSKU = "${sku}",
 					locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
@@ -279,7 +279,9 @@ definition {
 	@description = "COMMERCE-7695. As a buyer, I want to verify if I will be redirected to the product details when I click on the item in the minicart"
 	@priority = "3"
 	test ClickOnCartItemRedirectToProductDetails {
-		task ("Set up Commerce Minium Site") {
+		property portal.acceptance = "commerce-7659";
+
+		task ("Given a Commerce Minium site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
 			ApplicationsMenu.gotoSite(site = "Minium");
@@ -289,21 +291,15 @@ definition {
 			CommerceAcceleratorsInitializer.createNewAccountViaFront(accountName = "Commerce Account");
 		}
 
-		task ("Add product to cart") {
+		task ("And Given a product in the cart") {
 			CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Catalog");
 
-			Type(
-				locator1 = "AppBuilder#SEARCH_BAR_INPUT",
-				value1 = "U-Joint");
-
-			Click(locator1 = "Button#SUBMIT");
+			CommerceNavigator.searchCatalog(productName = "U-Joint");
 
 			FrontStore.addInitializerProductToCart(
 				productName = "U-Joint",
 				productQuantity = "3");
-		}
 
-		task ("Assert product is added to minicart") {
 			CommerceNavigator.gotoMiniCart();
 
 			FrontStore.viewMiniCartItem(
@@ -312,15 +308,17 @@ definition {
 				cartItemSKU = "MIN55861");
 		}
 
-		task ("Assert clicking on product navigates to product detail page") {
+		task ("When the item in the minicart is selected") {
 			CommerceNavigator.gotoMiniCartEntry(
 				cartItemSKU = "MIN55861",
 				entryName = "U-Joint");
+		}
 
+		task ("Then the user is navigated to the product detail page") {
 			FrontStore.viewProductDetail(FSProductName = "U-Joint");
 		}
 
-		task ("Assert quantity of product will change after typing new quantity in") {
+		task ("And When the product in the minicart has the number in the quantity box changed") {
 			CommerceNavigator.gotoMiniCart();
 
 			FrontStore.viewMiniCartItem(
@@ -328,15 +326,15 @@ definition {
 				cartItemQuantity = "3",
 				cartItemSKU = "MIN55861");
 
-			Type(
-				key_cartItemSKU = "MIN55861",
-				locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
-				value1 = "5");
+			CommerceNavigator.editMiniCartItemQuantity(
+				cartItemSKU = "MIN55861",
+				productQuantity = "5");
+		}
 
-			AssertTextEquals(
-				key_cartItemSKU = "MIN55861",
-				locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
-				value1 = "5");
+		task ("Then the item quantity will be changed to the new number") {
+			CommerceNavigator.validateMiniCartItemQuantity(
+				cartItemSKU = "MIN55861",
+				productQuantity = "5");
 		}
 	}
 
@@ -345,7 +343,7 @@ definition {
 	test ClickOnCartItemWidgetRedirectToProductDetails {
 		property portal.acceptance = "false";
 
-		task("Set up Commerce Minium Site"){
+		task ("Given a Commerce Minium Site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
 			ApplicationsMenu.gotoSite(site = "Minium");
@@ -355,33 +353,27 @@ definition {
 			CommerceAcceleratorsInitializer.createNewAccountViaFront(accountName = "Commerce Account");
 		}
 
-		task("Add product to cart"){
+		task ("And Given a product in the cart") {
 			CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Catalog");
 
-			Type(
-				locator1 = "AppBuilder#SEARCH_BAR_INPUT",
-				value1 = "U-Joint");
-
-			Click(locator1 = "Button#SUBMIT");
+			CommerceNavigator.searchCatalog(productName = "U-Joint");
 
 			FrontStore.addInitializerProductToCart(
 				productName = "U-Joint",
 				productQuantity = "3");
 		}
 
-		task("Add cart widget to pending orders page"){
+		task ("When a cart widget is added to pending orders page") {
 			CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Pending Orders");
 
 			Portlet.addPGCmd(portletName = "Cart");
 		}
 
-		task("Assert clicking on product in cart widget navigates to product detail page"){
+		task ("Then clicking on product in cart widget navigates to product detail page") {
 			CommerceNavigator.viewCartPortletEntry(productName = "U-Joint");
 
 			FrontStore.viewProductDetail(FSProductName = "U-Joint");
-		}
 
-		task("Assert changing quantity in cart widget is correctly changed"){
 			CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Pending Orders");
 
 			CommerceOrders.editCartPortletOrderQuantity(orderQuantity = "2");
@@ -700,7 +692,7 @@ definition {
 	test VerifyTheProductDetailPageRedirectWithTwoProducts {
 		property portal.acceptance = "false";
 
-		task ("Set up Commerce Minium Site") {
+		task ("Given a Commerce Minium Site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
 			ApplicationsMenu.gotoSite(site = "Minium");
@@ -710,35 +702,25 @@ definition {
 			CommerceAcceleratorsInitializer.createNewAccountViaFront(accountName = "Commerce Account");
 		}
 
-		task ("Add product to cart") {
+		task ("And Given 2 products in the cart") {
 			CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Catalog");
 
-			Type(
-				locator1 = "AppBuilder#SEARCH_BAR_INPUT",
-				value1 = "U-Joint");
-
-			Click(locator1 = "Button#SUBMIT");
+			CommerceNavigator.searchCatalog(productName = "U-Joint");
 
 			FrontStore.addInitializerProductToCart(
 				productName = "U-Joint",
 				productQuantity = "3");
-		}
 
-		task ("Add a second product to cart") {
 			CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Catalog");
 
-			Type(
-				locator1 = "AppBuilder#SEARCH_BAR_INPUT",
-				value1 = "ABS Sensor");
-
-			Click(locator1 = "Button#SUBMIT");
+			CommerceNavigator.searchCatalog(productName = "ABS Sensor");
 
 			FrontStore.addInitializerProductToCart(
 				productName = "ABS Sensor",
 				productQuantity = "1");
 		}
 
-		task ("Assert both product is added to minicart") {
+		task ("When the product in the minicart is clicked") {
 			CommerceNavigator.gotoMiniCart();
 
 			FrontStore.viewMiniCartItem(
@@ -750,17 +732,15 @@ definition {
 				cartItemName = "ABS Sensor",
 				cartItemQuantity = "1",
 				cartItemSKU = "MIN93015");
-		}
 
-		task ("Assert clicking on product navigates to product detail page") {
 			CommerceNavigator.gotoMiniCartEntry(
 				cartItemSKU = "MIN55861",
 				entryName = "U-Joint");
-
-			FrontStore.viewProductDetail(FSProductName = "U-Joint");
 		}
 
-		task ("Assert clicking on second product navigates to product detail page") {
+		task ("Then the user will be navigated to the product detail page") {
+			FrontStore.viewProductDetail(FSProductName = "U-Joint");
+
 			CommerceNavigator.gotoMiniCart();
 
 			CommerceNavigator.gotoMiniCartEntry(
@@ -1325,8 +1305,8 @@ definition {
 			locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
 
 		for (var current : list "L1-10,L2-20,L3-0,L4-0") {
-			key_text = StringUtil.extractFirst("${current}","-");
-			var currentValue = StringUtil.extractLast("${current}","-");
+			var key_text = StringUtil.extractFirst("${current}", "-");
+			var currentValue = StringUtil.extractLast("${current}", "-");
 
 			Type(
 				locator1 = "TextInput#ANY",
@@ -1367,7 +1347,7 @@ definition {
 				locator1 = "CommerceAccelerators#MINI_CART_DISCOUNT_LEVELS",
 				value1 = "${discount}");
 
-			i = MathUtil.sum("${i}", "1");
+			var i = ${i} + 1;
 		}
 
 		AssertTextEquals.assertPartialText(

@@ -1,5 +1,12 @@
 definition {
 
+	macro editMiniCartItemQuantity {
+		Type(
+			key_cartItemSKU = "${cartItemSKU}",
+			locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
+			value1 = "${productQuantity}");
+	}
+
 	macro gotoCommercePortletNavItem {
 		AssertClick(
 			key_navItem = "${navItem}",
@@ -94,6 +101,14 @@ definition {
 			locator1 = "CommerceEntry#TABLE_LIST_TITLE");
 	}
 
+	macro searchCatalog {
+		Type(
+			locator1 = "AppBuilder#SEARCH_BAR_INPUT",
+			value1 = "${productName}");
+
+		Click(locator1 = "Button#SUBMIT");
+	}
+
 	macro searchEntry {
 		AssertElementPresent(locator1 = "CommerceNavigation#SEARCH_FIELD");
 
@@ -113,6 +128,19 @@ definition {
 			value1 = "${sortFieldName}");
 	}
 
+	macro validateMiniCartItemQuantity {
+		AssertTextEquals(
+			key_cartItemSKU = "${cartItemSKU}",
+			locator1 = "CommerceAccelerators#MINI_CART_ITEM_QUANTITY",
+			value1 = "${productQuantity}");
+	}
+
+	macro viewCartPortletEntry {
+		Click(
+			key_productName = "${productName}",
+			locator1 = "CommerceAccelerators#CART_PORTLET_ORDER_DESCRIPTION");
+	}
+
 	macro viewFilterResultsSpecificOrder {
 		var resultOrder = "0";
 
@@ -125,13 +153,6 @@ definition {
 				resultOrder = "${resultOrder}",
 				value1 = "${searchAssetTitle}");
 		}
-	}
-
-	macro viewCartPortletEntry {
-		Click(
-			key_productName = "${productName}",
-			locator1 = "CommerceAccelerators#CART_PORTLET_ORDER_DESCRIPTION"
-		);
 	}
 
 }
