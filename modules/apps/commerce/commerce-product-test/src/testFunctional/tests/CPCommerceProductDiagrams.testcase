@@ -414,11 +414,15 @@ definition {
 		}
 
 		task ("Then the diagram product image should fill up the page") {
-			AssertNotVisible(locator1 = "CommerceDiagrams#DIAGRAM_SETTINGS_SELECTED_TYPE");
+			AssertNotVisible(
+				key_selectedType = "Default",
+				locator1 = "CommerceDiagrams#DIAGRAM_SETTINGS_SELECTED_TYPE");
 
 			CommerceDiagram.clickExpand();
 
-			AssertVisible(locator1 = "CommerceDiagrams#DIAGRAM_SETTINGS_SELECTED_TYPE");
+			AssertVisible(
+				key_selectedType = "Default",
+				locator1 = "CommerceDiagrams#DIAGRAM_SETTINGS_SELECTED_TYPE");
 		}
 	}
 
