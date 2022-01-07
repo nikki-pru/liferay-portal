@@ -25,7 +25,7 @@ definition {
 	@description = "LPS-136456 - Verify it is not possible to change the required option when a field is mapped to an object field"
 	@priority = "5"
 	test CannotChangeRequiredOption {
-		property portal.acceptance = "true";
+		property portal.acceptance = "testRevertForLPS144936RCA";
 
 		ObjectAdmin.addObjectViaAPI(
 			labelName = "Custom Object",
