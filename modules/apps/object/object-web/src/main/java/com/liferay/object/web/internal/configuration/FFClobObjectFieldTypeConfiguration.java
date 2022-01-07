@@ -12,12 +12,22 @@
  * details.
  */
 
-import React from 'react';
-interface IProps extends React.HTMLAttributes<HTMLElement> {
-	apiURL: string;
-	ffClobObjectFieldTypeConfigurationEnabled: boolean;
-	observer: any;
-	onClose: () => void;
+package com.liferay.object.web.internal.configuration;
+
+import aQute.bnd.annotation.metatype.Meta;
+
+import com.liferay.portal.configuration.metatype.annotations.ExtendedObjectClassDefinition;
+
+/**
+ * @author Marcela Cunha
+ */
+@ExtendedObjectClassDefinition(generateUI = false)
+@Meta.OCD(
+	id = "com.liferay.object.web.internal.configuration.FFClobObjectFieldTypeConfiguration"
+)
+public interface FFClobObjectFieldTypeConfiguration {
+
+	@Meta.AD(deflt = "false", required = false)
+	public boolean enabled();
+
 }
-declare const ModalWithProvider: React.FC<IProps>;
-export default ModalWithProvider;
