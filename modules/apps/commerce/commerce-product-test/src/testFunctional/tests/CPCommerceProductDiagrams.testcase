@@ -3,14 +3,14 @@ definition {
 
 	property portal.release = "true";
 	property portal.upstream = "true";
+	property osgi.module.configuration.file.names = "com.liferay.commerce.shop.by.diagram.configuration.CSDiagramCPTypeConfiguration.config";
+	property osgi.module.configurations = "enabled=&quot;true&quot;";
 	property testray.main.component.name = "Product Info Management";
 
 	setUp {
 		TestCase.setUpPortalInstance();
 
 		User.firstLoginPG();
-
-		CommerceConfiguration.enableDiagramFeature();
 	}
 
 	tearDown {
@@ -79,8 +79,6 @@ definition {
 	@description = "This is a test for COMMERCE-7019. AddDiagramProduct"
 	@priority = "3"
 	test AddDiagramProduct {
-		property portal.acceptance = "false";
-
 		CommerceNavigator.gotoPortlet(
 			category = "Product Management",
 			portlet = "Products");
@@ -167,7 +165,9 @@ definition {
 	@description = "This is a test for COMMERCE-7023. EditTheDefaultSettingForPinsCreation"
 	@priority = "3"
 	test EditTheDefaultSettingForPinsCreation {
-		property portal.acceptance = "false";
+		property portal.acceptance = "quarantine";
+ 		property portal.release = "quarantine";
+ 		property portal.upstream = "quarantine";
 
 		CommerceNavigator.gotoPortlet(
 			category = "Product Management",
@@ -220,8 +220,6 @@ definition {
 	@description = "This is a test for COMMERCE-7126. RemoveDiagramProduct"
 	@priority = "3"
 	test RemoveDiagramProduct {
-		property portal.acceptance = "false";
-
 		CommerceNavigator.gotoPortlet(
 			category = "Product Management",
 			portlet = "Products");
@@ -265,8 +263,6 @@ definition {
 	@description = "This test asserts that a pin can be removed from a diagram product image"
 	@priority = "3"
 	test RemovePin {
-		property test.name.skip.portal.instance = "CPCommerceProductDiagrams#RemovePin";
-
 		task ("Given a diagram product with an image") {
 			CommerceNavigator.gotoPortlet(
 				category = "Product Management",
@@ -361,7 +357,9 @@ definition {
 	@description = "This is a test for COMMERCE-7020. UploadANotMappedNewImage"
 	@priority = "3"
 	test UploadANotMappedNewImage {
-		property portal.acceptance = "false";
+		property portal.acceptance = "quarantine";
+ 		property portal.release = "quarantine";
+ 		property portal.upstream = "quarantine";
 
 		CommerceNavigator.gotoPortlet(
 			category = "Product Management",
@@ -400,7 +398,9 @@ definition {
 	@description = "This is a test for COMMERCE-7036. UseDragForPin"
 	@priority = "3"
 	test UseDragForPin {
-		property portal.acceptance = "false";
+		property portal.acceptance = "quarantine";
+ 		property portal.release = "quarantine";
+ 		property portal.upstream = "quarantine";
 
 		CommerceNavigator.gotoPortlet(
 			category = "Product Management",
@@ -433,8 +433,6 @@ definition {
 	@description = "Verify user can use the pin tooltip to edit the information of a diagram product image pin"
 	@priority = "3"
 	test UseToolTip {
-		property portal.acceptance = "false";
-
 		task ("Given a Minium site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 		}
@@ -495,7 +493,9 @@ definition {
 	@description = "This is a test for COMMERCE-7035. UseZoomAndDragBackground"
 	@priority = "3"
 	test UseZoomAndDragBackground {
-		property portal.acceptance = "false";
+		property portal.acceptance = "quarantine";
+ 		property portal.release = "quarantine";
+ 		property portal.upstream = "quarantine";
 
 		CommerceNavigator.gotoPortlet(
 			category = "Product Management",
@@ -526,8 +526,6 @@ definition {
 	@description = "This test asserts that the Mapped Products Table saves all info from pins"
 	@priority = "3"
 	test VerifyMappedProductsTableSavesAllPins {
-		property test.name.skip.portal.instance = "CPCommerceProductDiagrams#VerifyMappedProductsTableSavesAllPins";
-
 		task ("Given a minium site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 		}
