@@ -730,6 +730,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>ORDER_TYPE_ACTION_ITEM</td>
+	<td>//div[contains(.,'${key_orderType}')]/../div[contains(@class,'item-actions')]//button</td>
+	<td></td>
+</tr>
+<tr>
 	<td>SEARCH_ORDER_ID</td>
 	<td>//input[@type='text'][contains(@class,'form-control')][contains(@placeholder,'Search Order')]</td>
 	<td></td>
