@@ -289,6 +289,34 @@ definition {
 		}
 	}
 
+	@description = "Verify a new order type can be deleted"
+	@priority = "3"
+	test DeleteOrderType {
+		task ("Given an order type is created through the Order Types Page") {
+			CommerceOrders.openOrderTypesAdmin();
+
+			CommerceOrders.addOrderType(
+				orderTypeDescription = "Test Order Type Description",
+				orderTypeName = "Test Order Type");
+
+			Navigator.gotoBack();
+
+			WaitForElementPresent(
+				key_entryName = "Test Order Type",
+				locator1 = "CommerceNavigation#ENTRY_NAME");
+		}
+
+		task ("When that order type is deleted") {
+			CommerceOrders.deleteOrderType(orderTypeName = "Test Order Type");
+		}
+
+		task ("Then it should no longer appear in the Order Types Page") {
+			AssertElementNotPresent(
+				key_entryName = "Test Order Type",
+				locator1 = "CommerceNavigation#ENTRY_NAME");
+		}
+	}
+
 	@description = "Verify users can edit an order type."
 	@priority = "3"
 	test EditOrderType {
