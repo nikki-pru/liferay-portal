@@ -118,6 +118,18 @@ definition {
 		}
 	}
 
+	macro deleteOrderType {
+		CommerceNavigator.searchEntry(entryName = "${orderTypeName}");
+
+		Click(
+			key_orderType = "${orderTypeName}",
+			locator1 = "CommerceEntry#ORDER_TYPE_ACTION_ITEM");
+
+		MenuItem.clickNoError(menuItem = "Delete");
+
+		Alert.viewSuccessMessage();
+	}
+
 	macro editCartPortletOrderQuantity {
 		Type(
 			locator1 = "CommerceAccelerators#CART_PORTLET_ORDER_QUANTITY",
