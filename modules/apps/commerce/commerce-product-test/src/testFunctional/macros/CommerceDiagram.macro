@@ -182,6 +182,18 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
+	macro MoveToRecycleBin {
+		Click(locator1 = "Button#MOVE_TO_RECYCLE_BIN");
+
+		AssertElementNotPresent(
+			key_image = "Commerce_Black",
+			locator1 = "CommerceEntry#VERIFY_IMAGE");
+
+		AssertElementNotPresent(
+			key_image = "Commerce_Black",
+			locator1 = "CommerceDiagrams#DIAGRAM_IMAGE");
+	}
+
 	macro useDragOnBackground {
 
 		// Verify the postion after mouse drag

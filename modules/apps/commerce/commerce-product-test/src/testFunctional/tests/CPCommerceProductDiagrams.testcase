@@ -100,6 +100,55 @@ definition {
 		CommerceNavigator.gotoEntry(entryName = "Diagram T-Shirt");
 	}
 
+	@description = "COMMERCE-7024 User is able to remove and replace image; A diagram product will not be published without an image."
+	@priority = "3"
+	test CanReplaceAnImage {
+		property portal.acceptance = "false";
+
+		task ("Given a diagram product has an image") {
+			CommerceJSONProductsAPI._addCommerceProduct(
+				catalogName = "Master",
+				productName = "Diagram Product",
+				productType = "diagram");
+
+			CommerceProducts.openProductsAdmin();
+
+			CommerceNavigator.gotoEntry(entryName = "Diagram Product");
+
+			CommerceEntry.gotoMenuTab(menuTab = "Diagram");
+
+			CommerceProductImages.addDiagramImages(
+				imageTitles = "Black",
+				productType = "Diagram");
+
+			Button.click(button ="Publish");
+
+			WaitForElementPresent(
+				key_image = "Commerce_Black",
+				locator1 = "CommerceDiagrams#DIAGRAM_FILE");
+		}
+
+		task ("When I replace the image") {
+			CommerceDiagram.MoveToRecycleBin();
+
+			CommerceProductImages.addDiagramImages(
+				imageTitles = "White",
+				productType = "Diagram");
+		}
+
+		task ("Then the image should be replaced.") {
+			Button.clickPublish();
+
+			WaitForElementPresent(
+				key_image = "Commerce_White",
+				locator1 = "CommerceDiagrams#DIAGRAM_FILE");
+
+			WaitForElementPresent(
+				key_image = "Commerce_White",
+				locator1 = "CommerceDiagrams#DIAGRAM_IMAGE");
+		}
+	}
+
 	@description = "This is a test for COMMERCE-7100. Verify user can change a diagram product type to SVG."
 	@priority = "3"
 	test ChangeDiagramType {
