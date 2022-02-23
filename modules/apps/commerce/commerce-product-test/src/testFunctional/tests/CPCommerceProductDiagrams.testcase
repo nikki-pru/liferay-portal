@@ -100,6 +100,57 @@ definition {
 		CommerceNavigator.gotoEntry(entryName = "Diagram T-Shirt");
 	}
 
+	@description = "COMMERCE- A product cannot be published without an image."
+	@priority = "3"
+	test CannotPublishADiagramProductWithoutAnImage {
+		property portal.acceptance = "false";
+
+		task ("Given a diagram product has an image") {
+			CommerceNavigator.gotoPortlet(
+				category = "Product Management",
+				portlet = "Products");
+
+			CPCommerceCatalog.newProductsEntry(
+				productCatalog = "Master",
+				productName = "Diagram T-Shirt",
+				productType = "Diagram");
+
+			CommerceEntry.gotoMenuTab(menuTab = "Diagram");
+
+			CommerceProductImages.addDiagramImages(
+				imageTitles = "Black",
+				productType = "Diagram");
+
+			Button.clickPublish();
+
+			WaitForElementPresent(
+				key_image = "Commerce_Black",
+				locator1 = "CommerceEntry#VERIFY_IMAGE");
+
+			WaitForElementPresent(
+				key_image = "Commerce_Black",
+				locator1 = "CommerceDiagrams#DIAGRAM_IMAGE");
+		}
+
+		task ("When I remove the image") {
+			CommerceDiagram.MoveToRecycleBin();
+
+			AssertElementNotPresent(
+				key_image = "Commerce_Black",
+				locator1 = "CommerceEntry#VERIFY_IMAGE");
+
+			AssertElementNotPresent(
+				key_image = "Commerce_Black",
+				locator1 = "CommerceDiagrams#DIAGRAM_IMAGE");
+		}
+
+		task ("Then the product cannot be published.") {
+			Button.clickPublish();
+
+			Alert.viewRequestFailedToComplete();
+		}
+	}
+
 	@description = "COMMERCE-7024 User is able to remove and replace image; A diagram product will not be published without an image."
 	@priority = "3"
 	test CanReplaceAnImage {
