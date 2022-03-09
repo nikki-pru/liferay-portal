@@ -581,6 +581,26 @@ definition {
 		Click(locator1 = "Button#BACK");
 	}
 
+	macro addTermsAndConditionsEntry {
+		LexiconEntry.gotoAdd();
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		Type(
+			locator1 = "TextInput#NAME",
+			value1 = "${termsAndConditionsName}");
+
+		Select(
+			locator1 = "Select#TYPE",
+			value1 = "${termsAndConditionsType}");
+
+		Type(
+			locator1 = "CommerceEntry#PRIORITY_FIELD",
+			value1 = "${valuePriority}");
+
+		Button.clickSubmitButton();
+	}
+
 	macro assertDefaultDisplayPage {
 		if (!(isSet(pageType))) {
 			AssertTextEquals(
