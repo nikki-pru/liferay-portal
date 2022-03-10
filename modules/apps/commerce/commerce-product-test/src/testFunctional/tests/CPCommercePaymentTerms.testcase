@@ -25,6 +25,34 @@ definition {
 		CommerceConfiguration.commerceInitializersTearDown();
 	}
 
+	@description = "This is a test for COMMERCE-8283. Payment Term Name needs to be unique"
+	@priority = "3"
+	test AssertPaymentTermNameIsUnique {
+		task ("Given a new entry into the "Terms and Conditions" with a specific name, and the Type is set to "Payment Terms".") {
+			CommerceNavigator.gotoPortlet(
+				category = "Order Management",
+				portlet = "Terms and Conditions");
+
+			CommerceEntry.addTermsAndConditionsEntry(
+				termsAndConditionsName = "Terms and Conditions Entry 1",
+				termsAndConditionsType = "Payment Terms",
+				valuePriority = "");
+
+			Click(locator1 = "Button#BACK");
+		}
+
+		task ("When the Sales Manager tries to create another new entry with the same name, and the Type is set as "Delivery Terms".") {
+			CommerceEntry.addTermsAndConditionsEntry(
+				termsAndConditionsName = "Terms and Conditions Entry 1",
+				termsAndConditionsType = "Delivery Terms",
+				valuePriority = "");
+		}
+
+		task ("Then the Sales Manager receives an error.") {
+			Alert.viewErrorMessage(errorMessage = "Error:Please enter a valid name.");
+		}
+	}
+
 	@description = "Delete a new payment term to Terms and Conditions."
 	@priority = "3"
 	test CanDeleteAPaymentTerm {
