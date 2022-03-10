@@ -53,6 +53,34 @@ definition {
 		}
 	}
 
+	@description = "This is a test for COMMERCE-8296. Payment Term Priority needs to be unique"
+	@priority = "3"
+	test AssertPaymentTermPriorityIsUnique {
+		task ("Given a new entry "Test" into the "Terms and Conditions".") {
+			CommerceNavigator.gotoPortlet(
+				category = "Order Management",
+				portlet = "Terms and Conditions");
+
+			CommerceEntry.addTermsAndConditionsEntry(
+				termsAndConditionsName = "Test",
+				termsAndConditionsType = "Payment Terms",
+				valuePriority = "1");
+
+			Click(locator1 = "Button#BACK");
+		}
+
+		task ("When the Sales Manager create a new entry with a different name from "Test".") {
+			CommerceEntry.addTermsAndConditionsEntry(
+				termsAndConditionsName = "Terms and Conditions Entry 1",
+				termsAndConditionsType = "Payment Terms",
+				valuePriority = "1");
+		}
+
+		task ("Then the Sales Manager receives an error because the priority is not unique.") {
+			Alert.viewErrorMessage(errorMessage = "Error:Please enter a valid priority.");
+		}
+	}
+
 	@description = "Delete a new payment term to Terms and Conditions."
 	@priority = "3"
 	test CanDeleteAPaymentTerm {
