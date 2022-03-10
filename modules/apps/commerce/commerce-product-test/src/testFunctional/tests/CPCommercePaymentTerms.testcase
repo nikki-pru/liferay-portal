@@ -48,6 +48,16 @@ definition {
 	@description = "[Please Update]"
 	@ignore = "Test Stub"
 	@priority = "4"
+	test AssertPaymentTermNameIsUnique {
+		property portal.acceptance = "false";
+
+		// TODO COMMERCE-8283 PaymentTermNameIsUnique pending implementation
+
+	}
+
+	@description = "[Please Update]"
+	@ignore = "Test Stub"
+	@priority = "4"
 	test AssertPaymentTermPriority {
 		property portal.acceptance = "false";
 
@@ -147,16 +157,6 @@ definition {
 		property portal.acceptance = "false";
 
 		// TODO COMMERCE-8282 EditAPaymentTerm pending implementation
-
-	}
-
-	@description = "[Please Update]"
-	@ignore = "Test Stub"
-	@priority = "4"
-	test PaymentTermNameIsUnique {
-		property portal.acceptance = "false";
-
-		// TODO COMMERCE-8283 PaymentTermNameIsUnique pending implementation
 
 	}
 
