@@ -1201,6 +1201,32 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
+	macro setDefaultCommerceTermEntry {
+		AssertElementPresent(locator1 = "Account#DEFAULT_ACCOUNT_TERMS_AND_CONDITION_HEADING");
+
+		AssertClick(
+			key_termText = "${termText}",
+			key_termType = "${termType}",
+			locator1 = "Account#DEFAULT_ACCOUNT_TERMS_AND_CONDITION_SET_DEFAULT_TERM_ENTRY",
+			value1 = "Set Default ${termText} Commerce Term Entry");
+
+		Pause(locator1 = "3000");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		Click(
+			key_termEntry = "${termEntry}",
+			locator1 = "Account#DEFAULT_ACCOUNT_TERMS_AND_CONDITION_SELECT_TERM_ENTRY_RADIO");
+
+		SelectFrameTop();
+
+		AssertClick(
+			locator1 = "Account#DEFAULT_ACCOUNT_ADDRESSES_SAVE_BUTTON",
+			value1 = "Save");
+
+		Alert.viewSuccessMessage();
+	}
+
 	macro setDefaultShippingAddress {
 		AssertElementPresent(locator1 = "Account#DEFAULT_ACCOUNT_ADDRESSES_HEADING");
 
@@ -1373,6 +1399,24 @@ definition {
 			AssertTextEquals.assertPartialText(
 				locator1 = "Account#DEFAULT_ACCOUNT_ADDRESSES_DEFAULT_BILLING_ADDRESS",
 				value1 = "${phoneNumber}");
+		}
+	}
+
+	macro viewDefaultCommerceTermEntry {
+		AssertElementPresent(
+			key_termText = "${termText}",
+			key_termType = "${termType}",
+			locator1 = "Account#DEFAULT_ACCOUNT_TERMS_AND_CONDITION_TERM_TEXT");
+
+		AssertTextEquals.assertPartialText(
+			key_termType = "${termType}",
+			locator1 = "Account#DEFAULT_ACCOUNT_TERMS_AND_CONDITION_DEFAULT_TERM_ENTRY",
+			value1 = "${termEntry}");
+
+		if ("${inactive}" == "true") {
+			AssertElementPresent(
+				key_termType = "${termType}",
+				locator1 = "Account#DEFAULT_ACCOUNT_TERMS_AND_CONDITION_DEFAULT_TERM_ENTRY_INACTIVE_ICON");
 		}
 	}
 
