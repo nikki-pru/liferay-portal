@@ -142,24 +142,26 @@ definition {
 
 	@description = "This is a test for COMMERCE-8286. Cancel the creation of a new entry and return to the dashboard view"
 	@priority = "4"
-	test CancancelTheCreationOfANewEntry {
+	test CanCancelTheCreationOfANewEntry {
 		property portal.acceptance = "false";
 
-		task ("Given a new entry into the Terms and Conditions, and click on the Cancel button to avoid creating a new entry") {
+		task ("Given I am creating a new Terms and Conditions entry") {
 			CommerceNavigator.gotoPortlet(
 				category = "Order Management",
 				portlet = "Terms and Conditions");
+		}
 
+		task ("When I cancel creating the entry") {
 			CommercePaymentTerms.cancelAddTermsAndCondition(
 				termsAndConditionName = "Test Terms and Condition",
 				termsAndConditionType = "Payment Terms",
 				valuePosition = "");
 		}
 
-		task ("Return on the Terms and Conditions dashboard") {
-			var baseURL = PropsUtil.get("portal.url");
-
-			AssertLocation.assertPartialLocation(value1 = "${baseURL}/group/guest/~/control_panel/manage?p_p_id=com_liferay_commerce_term_web_internal_portlet_CommerceTermEntryPortlet");
+		task ("Then the entry should not be created") {
+			CommerceNavigator.gotoPortlet(
+				category = "Order Management",
+				portlet = "Terms and Conditions");
 
 			CommercePaymentTerms.viewNoPG();
 		}
