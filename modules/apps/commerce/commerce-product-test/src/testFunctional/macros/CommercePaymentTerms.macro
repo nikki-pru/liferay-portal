@@ -36,7 +36,7 @@ definition {
 		SelectFrame.selectFrameNoLoading(locator1 = "CKEditor#BODY_FIELD_IFRAME");
 
 		AssertTextEquals(
-			locator1 = "CKEditor#BODY", 
+			locator1 = "CKEditor#BODY",
 			value1 = "${termsAndConditionDescription}");
 
 		if (isSet(valuePosition)) {
