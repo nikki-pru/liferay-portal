@@ -144,6 +144,10 @@ definition {
 			locator1 = "CommerceEntry#TABLE_LIST_TITLE");
 	}
 
+	macro goToWishLists {
+		Navigator.openWithAppendToBaseURL(urlAppend = "group/minium/lists");
+	}
+
 	macro searchCatalog {
 		Type(
 			locator1 = "AppBuilder#SEARCH_BAR_INPUT",
