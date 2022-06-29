@@ -141,6 +141,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>PRODUCT_CARD_DESCRIPTION</td>
+	<td>//p[@title='${key_productName}']/..//following-sibling::p[@class='card-body']//span[contains(.,'${key_productDescription}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>PRODUCT_CARD_NAME</td>
 	<td>//p[@class='card-title']//span[text() = '${key_productName}']</td>
 	<td></td>
