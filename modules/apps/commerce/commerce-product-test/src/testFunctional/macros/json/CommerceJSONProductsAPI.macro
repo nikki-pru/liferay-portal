@@ -70,7 +70,7 @@ definition {
 		}
 
 		if (!(isSet(shortDescription))) {
-			var shortDescription = "";
+			var shortDescription = "${shortDescription}";
 		}
 
 		if (!(isSet(productStatus))) {
