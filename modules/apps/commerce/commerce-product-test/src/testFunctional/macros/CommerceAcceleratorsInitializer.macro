@@ -325,6 +325,18 @@ definition {
 			locator1 = "CommerceAccelerators#ADD_TO_CART_BUTTON_ENABLED");
 	}
 
+	macro assertMiniumCardDescription {
+		AssertTextEquals(
+			key_productDescription = "${productDescription}",
+			key_productName = "${productName}",
+			locator1 = "CommerceAccelerators#PRODUCT_CARD_DESCRIPTION",
+			value1 = "${productDescription}");
+	}
+
+	macro assertMiniumCardDescriptionTruncated {
+		TestUtils.assertTruncatedText(element = "//p[@title='${productName}']/..//following-sibling::p[@class='card-body']//span[contains(.,'${productDescription}')]");
+	}
+
 	macro viewMiniumCardName {
 		AssertTextEquals(
 			key_productName = "${productName}",
