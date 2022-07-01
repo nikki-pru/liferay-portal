@@ -285,6 +285,166 @@ definition {
 		}
 	}
 
+	@description = "COMMERCE-8151.  Replacement product's information is shown in product details (mapped products table)"
+	@ignore = "Test Stub"
+	@priority = "4"
+	test ReplacementInformationViaMappedProducts {
+		property portal.acceptance = "false";
+
+		task ("Given a Minium site created with diagram type is enabled and three pins are added on the diagram product and the diagram's SKU flagged as "Discontinued" and a replacement SKU set for the discontinued product") {
+			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
+
+			CommerceJSONProductsAPI._addCommerceProduct(
+				catalogName = "Master",
+				discontinued = "True",
+				productName = "Diagram T-Shirt",
+				productType = "diagram",
+				replacementSKU = "SKU1001",
+				sku = "SKU1002");
+
+			CommerceProducts.openProductsAdmin();
+
+			CommerceNavigator.searchEntry(entryName = "Diagram T-Shirt");
+
+			CommerceNavigator.gotoEntry(entryName = "Diagram T-Shirt");
+
+			CommerceEntry.gotoMenuTab(menuTab = "Diagram");
+
+			CommerceProductImages.addDiagramImages(
+				imageTitles = "Black",
+				productType = "Diagram");
+
+			CommerceDiagram.addPin(
+				pinNumber = "1",
+				position = "0,150",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93015");
+
+			CommerceDiagram.addPin(
+				pinNumber = "2",
+				position = "150,100",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93016A");
+
+			CommerceDiagram.addPin(
+				pinNumber = "3",
+				position = "0,100",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93017");
+
+			Button.clickPublish();
+		}
+
+		task ("When the discontinued product's product is attempted to be added to the cart") {
+			CommerceEntry.addAccountEntryUser(
+				accountName = "Commerce Account",
+				accountType = "Business",
+				agreeToTermsAndAnswerReminderQuery = "true",
+				createNewAccount = "true",
+				requireReset = "false",
+				userEmailAddress = "buyer@liferay.com",
+				userFirstName = "Buyer",
+				userLastName = "User",
+				userRole = "Buyer",
+				userScreenName = "buyeruser",
+				userSiteMembership = "Minium");
+
+			User.logoutPG();
+
+			CommerceLogin.miniumLogin(
+				password = "test",
+				urlAppend = "web/minium",
+				userEmailAddress = "buyer@liferay.com");
+		}
+
+		//task ("Then all the warnings about the discontinued product are shown") {
+		//}
+
+	}
+
+	@description = "COMMERCE-8151. Replacement product's information is shown in product details (tooltip)"
+	@ignore = "Test Stub"
+	@priority = "4"
+	test ReplacementInformationViaToolTips {
+		property portal.acceptance = "false";
+
+		task ("Given a Minium site created with diagram type is enabled and three pins are added on the diagram product and the diagram's SKU flagged as "Discontinued" and a replacement SKU set for the discontinued product") {
+			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
+
+			CommerceJSONProductsAPI._addCommerceProduct(
+				catalogName = "Master",
+				discontinued = "True",
+				productName = "Diagram T-Shirt",
+				productType = "diagram",
+				replacementSKU = "SKU1001",
+				sku = "SKU1002");
+
+			CommerceProducts.openProductsAdmin();
+
+			CommerceNavigator.searchEntry(entryName = "Diagram T-Shirt");
+
+			CommerceNavigator.gotoEntry(entryName = "Diagram T-Shirt");
+
+			CommerceEntry.gotoMenuTab(menuTab = "Diagram");
+
+			CommerceProductImages.addDiagramImages(
+				imageTitles = "Black",
+				productType = "Diagram");
+
+			CommerceDiagram.addPin(
+				pinNumber = "1",
+				position = "0,150",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93015");
+
+			CommerceDiagram.addPin(
+				pinNumber = "2",
+				position = "150,100",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93016A");
+
+			CommerceDiagram.addPin(
+				pinNumber = "3",
+				position = "0,100",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93017");
+
+			Button.clickPublish();
+		}
+
+		task (" When the discontinued product's product pin has hovered") {
+			CommerceEntry.addAccountEntryUser(
+				accountName = "Commerce Account",
+				accountType = "Business",
+				agreeToTermsAndAnswerReminderQuery = "true",
+				createNewAccount = "true",
+				requireReset = "false",
+				userEmailAddress = "buyer@liferay.com",
+				userFirstName = "Buyer",
+				userLastName = "User",
+				userRole = "Buyer",
+				userScreenName = "buyeruser",
+				userSiteMembership = "Minium");
+
+			User.logoutPG();
+
+			CommerceLogin.miniumLogin(
+				password = "test",
+				urlAppend = "web/minium",
+				userEmailAddress = "buyer@liferay.com");
+		}
+
+		//task ("Then all the warnings about the discontinued product are shown in the tooltip") {
+		//}
+
+	}
+
 	@description = "[Please Update]"
 	@ignore = "Test Stub"
 	@priority = "4"
@@ -293,6 +453,165 @@ definition {
 
 		// TODO COMMERCE-8164 ReplacementLoopIsPrevented pending implementation
 
+	}
+
+	@description = "COMMERCE-8151. The right replacement SKU is added to the cart (via mapped products table)"
+	@ignore = "Test Stub"
+	@priority = "4"
+	test ReplacementSKUAddedViaMappedProducts {
+		property portal.acceptance = "false";
+
+		task ("Given a Minium site created with diagram type is enabled and three pins are added on the diagram product and the diagram's SKU flagged as "Discontinued" and a replacement SKU set for the discontinued product") {
+			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
+
+			CommerceJSONProductsAPI._addCommerceProduct(
+				catalogName = "Master",
+				discontinued = "True",
+				productName = "Diagram T-Shirt",
+				productType = "diagram",
+				replacementSKU = "SKU1001",
+				sku = "SKU1002");
+
+			CommerceProducts.openProductsAdmin();
+
+			CommerceNavigator.searchEntry(entryName = "Diagram T-Shirt");
+
+			CommerceNavigator.gotoEntry(entryName = "Diagram T-Shirt");
+
+			CommerceEntry.gotoMenuTab(menuTab = "Diagram");
+
+			CommerceProductImages.addDiagramImages(
+				imageTitles = "Black",
+				productType = "Diagram");
+
+			CommerceDiagram.addPin(
+				pinNumber = "1",
+				position = "0,150",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93015");
+
+			CommerceDiagram.addPin(
+				pinNumber = "2",
+				position = "150,100",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93016A");
+
+			CommerceDiagram.addPin(
+				pinNumber = "3",
+				position = "0,100",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93017");
+
+			Button.clickPublish();
+		}
+
+		task (" When the discontinued product is attempted to be added to the cart") {
+			CommerceEntry.addAccountEntryUser(
+				accountName = "Commerce Account",
+				accountType = "Business",
+				agreeToTermsAndAnswerReminderQuery = "true",
+				createNewAccount = "true",
+				requireReset = "false",
+				userEmailAddress = "buyer@liferay.com",
+				userFirstName = "Buyer",
+				userLastName = "User",
+				userRole = "Buyer",
+				userScreenName = "buyeruser",
+				userSiteMembership = "Minium");
+
+			User.logoutPG();
+
+			CommerceLogin.miniumLogin(
+				password = "test",
+				urlAppend = "web/minium",
+				userEmailAddress = "buyer@liferay.com");
+		}
+
+		//task ("Then the replacement product's SKU is added to the cart") {
+		//}
+
+	}
+
+	@description = "COMMERCE-8151. The right replacement SKU is added to the cart (via pin)"
+	@ignore = "Test Stub"
+	@priority = "4"
+	test ReplacementSKUAddedViaPin {
+		property portal.acceptance = "false";
+
+		task ("Given a Minium site created with diagram type is enabled and three pins are added on the diagram product and the diagram's SKU flagged as "Discontinued" and a replacement SKU set for the discontinued product") {
+			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
+
+			CommerceJSONProductsAPI._addCommerceProduct(
+				catalogName = "Master",
+				discontinued = "True",
+				productName = "Diagram T-Shirt",
+				productType = "diagram",
+				replacementSKU = "SKU1001",
+				sku = "SKU1002");
+
+			CommerceProducts.openProductsAdmin();
+
+			CommerceNavigator.searchEntry(entryName = "Diagram T-Shirt");
+
+			CommerceNavigator.gotoEntry(entryName = "Diagram T-Shirt");
+
+			CommerceEntry.gotoMenuTab(menuTab = "Diagram");
+
+			CommerceProductImages.addDiagramImages(
+				imageTitles = "Black",
+				productType = "Diagram");
+
+			CommerceDiagram.addPin(
+				pinNumber = "1",
+				position = "0,150",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93015");
+
+			CommerceDiagram.addPin(
+				pinNumber = "2",
+				position = "150,100",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93016A");
+
+			CommerceDiagram.addPin(
+				pinNumber = "3",
+				position = "0,100",
+				quantity = "1",
+				selectType = "Linked to a SKU",
+				sku = "MIN93017");
+
+			Button.clickPublish();
+		}
+
+		task (" When the discontinued product is attempted to be added to the cart") {
+			CommerceEntry.addAccountEntryUser(
+				accountName = "Commerce Account",
+				accountType = "Business",
+				agreeToTermsAndAnswerReminderQuery = "true",
+				createNewAccount = "true",
+				requireReset = "false",
+				userEmailAddress = "buyer@liferay.com",
+				userFirstName = "Buyer",
+				userLastName = "User",
+				userRole = "Buyer",
+				userScreenName = "buyeruser",
+				userSiteMembership = "Minium");
+
+			User.logoutPG();
+
+			CommerceLogin.miniumLogin(
+				password = "test",
+				urlAppend = "web/minium",
+				userEmailAddress = "buyer@liferay.com");
+		}
+
+		task ("Then the replacement product's SKU is added to the cart") {
+		}
 	}
 
 	@description = "Verify a product can be set as discontinued"
