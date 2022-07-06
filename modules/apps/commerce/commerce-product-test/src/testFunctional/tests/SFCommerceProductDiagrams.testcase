@@ -471,7 +471,7 @@ definition {
 	@priority = "4"
 	test CanAssertDiagramNameAndDescriptionOnTheProductCard {
 		property portal.acceptance = "COMMERCE-8971";
-		
+
 		task ("Given a Diagram product with an image, name and short description") {
 			CommerceProducts.openProductsAdmin();
 
@@ -523,7 +523,7 @@ definition {
 			CommerceAcceleratorsInitializer.viewMiniumCardName(productName = "Test Diagram 2");
 
 			CommerceAcceleratorsInitializer.assertMiniumCardDescriptionTruncated(
-				productDescription = "This is a longer description. This is a longer description. This is a longer description. This is a longer description",
+				productDescription = "This is a longer description. This is a longer description. This is a longer description. This is a longer description.",
 				productName = "Test Diagram 2");
 		}
 	}
