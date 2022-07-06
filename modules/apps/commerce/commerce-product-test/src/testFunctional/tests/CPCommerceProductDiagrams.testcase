@@ -324,8 +324,12 @@ definition {
 	}
 
 	@description = "This is a test for COMMERCE-7023. EditTheDefaultSettingForPinsCreation"
+	@ignore = "true"
 	@priority = "3"
 	test EditTheDefaultSettingForPinsCreation {
+
+		// Test is ignored due to COMMERCE-9646
+		
 		task ("Given a diagram product with an image") {
 			CommerceNavigator.gotoPortlet(
 				category = "Product Management",
