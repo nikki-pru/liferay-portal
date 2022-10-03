@@ -62,7 +62,7 @@ definition {
 
 			Accounts.setDefaultCommerceTermsEntry(
 				channelEntry = "Minium Portal",
-				termEntry = "Delivery Term 1",
+				termEntry = "Delivery Term 2",
 				termType = "Delivery");
 		}
 
@@ -83,7 +83,7 @@ definition {
 
 		task ("Then the default Delivery Term should be displayed at Checkout.") {
 			CommerceCheckout.initializersCheckout(
-				deliveryTerm = "Delivery Term 1",
+				deliveryTerm = "Delivery Term 2",
 				newAddressAddress = "Test Address",
 				newAddressCity = "Test City",
 				newAddressCountry = "United States",
@@ -97,7 +97,7 @@ definition {
 			Button.click(button = "Go to Order Details");
 
 			CommerceOrders.viewOrdersEntry(
-				deliveryTerm = "Delivery Term 1",
+				deliveryTerm = "Delivery Term 2",
 				productListPrice = "24.00",
 				productName = "U-Joint",
 				productQuantity = "1",
@@ -139,7 +139,7 @@ definition {
 
 			Accounts.setDefaultCommerceTermsEntry(
 				channelEntry = "Minium Portal",
-				termEntry = "Payment Term 1",
+				termEntry = "Payment Term 2",
 				termType = "Payment");
 		}
 
@@ -165,7 +165,7 @@ definition {
 				newAddressCountry = "United States",
 				newAddressName = "Address Name",
 				newAddressZipCode = "Test Zip Code",
-				paymentTerm = "Payment Term 1",
+				paymentTerm = "Payment Term 2",
 				productName = "U-Joint",
 				productQuantity = "1",
 				productUnitPrice = "24",
@@ -174,7 +174,7 @@ definition {
 			Button.click(button = "Go to Order Details");
 
 			CommerceOrders.viewOrdersEntry(
-				paymentTerm = "Payment Term 1",
+				paymentTerm = "Payment Term 2",
 				productListPrice = "24.00",
 				productName = "U-Joint",
 				productQuantity = "1",
