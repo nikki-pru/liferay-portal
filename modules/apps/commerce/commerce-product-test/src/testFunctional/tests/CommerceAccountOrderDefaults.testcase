@@ -1027,6 +1027,60 @@ definition {
 		}
 	}
 
+	@description = "COMMERCE-9857. All sites should display the product discount when the discount is set to All Channels."
+	@priority = "4"
+	test CanSelectAllOtherChannelsForDefaultDiscount {
+		task ("Given a second Minium site") {
+			CommerceAccelerators.initializeNewSiteViaAccelerator(
+				siteName = "Minium 2",
+				siteTemplateName = "Minium");
+		}
+
+		task ("and a discount that is applied to the U-joint product") {
+			CommerceJSONDiscountsAPI._addDiscount(
+				active = "true",
+				level = "L1",
+				percentageLevel1 = "10",
+				target = "products",
+				title = "Discount 1 10% off",
+				usePercentage = "true");
+
+			CommerceJSONDiscountsAPI._addDiscountProduct(
+				discountTitle = "Discount 1 10% off",
+				productName = "U-Joint");
+		}
+
+		task ("When the discount is set as the account default") {
+			ApplicationsMenu.gotoSite(site = "Minium");
+
+			CommerceNavigator.gotoMiniumAccountOrderDefaults(accountName = "Commerce Account");
+
+			Accounts.setDefaultDiscount(
+				discountTitle = "Discount 1 10% off",
+				override = "true");
+		}
+
+		task ("Then both Minium sites should show U-joint with a 10% discount applied.") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/minium/catalog");
+
+			CommerceAcceleratorsInitializer.gotoMiniumProductDetailsPage(productName = "U-Joint");
+
+			CommerceAcceleratorsInitializer.viewDiscountedProductDetailsPage(
+				discountPercentage = "10",
+				productDiscountedPrice = "21.60",
+				productListPrice = "24.00");
+
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/minium-2/catalog");
+
+			CommerceAcceleratorsInitializer.gotoMiniumProductDetailsPage(productName = "U-Joint");
+
+			CommerceAcceleratorsInitializer.viewDiscountedProductDetailsPage(
+				discountPercentage = "10",
+				productDiscountedPrice = "21.60",
+				productListPrice = "24.00");
+		}
+	}
+
 	@description = "COMMERCE-9829. As a sales manager, I want to check channel options after setting a default account shipping address for each channel"
 	@priority = "3"
 	test CanSelectOnlyAllOtherChannelsForDefaultShippingAddress {
