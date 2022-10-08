@@ -512,8 +512,6 @@ public class AccountRoleResourceTest extends BaseAccountRoleResourceTestCase {
 			testDeleteAccountByExternalReferenceCodeAccountRoleUserAccountByEmailAddress_addAccountRole()
 		throws Exception {
 
-		_userAccount = _addAccountUserAccount(_account);
-
 		return _addAccountAccountRole(_account);
 	}
 
@@ -522,7 +520,7 @@ public class AccountRoleResourceTest extends BaseAccountRoleResourceTestCase {
 			testDeleteAccountByExternalReferenceCodeAccountRoleUserAccountByEmailAddress_getEmailAddress()
 		throws Exception {
 
-		return _userAccount.getEmailAddress();
+		return null;
 	}
 
 	@Override
@@ -530,7 +528,7 @@ public class AccountRoleResourceTest extends BaseAccountRoleResourceTestCase {
 			testDeleteAccountByExternalReferenceCodeAccountRoleUserAccountByEmailAddress_getExternalReferenceCode()
 		throws Exception {
 
-		return _account.getExternalReferenceCode();
+		return null;
 	}
 
 	@Override
@@ -1002,7 +1000,6 @@ public class AccountRoleResourceTest extends BaseAccountRoleResourceTestCase {
 	private AccountRoleLocalService _accountRoleLocalService;
 
 	private List<AccountRole> _sharedAccountRoles;
-	private UserAccount _userAccount;
 	private UserAccountResource _userAccountResource;
 
 	@Inject
