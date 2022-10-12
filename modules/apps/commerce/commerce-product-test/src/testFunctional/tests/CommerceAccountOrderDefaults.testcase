@@ -1482,6 +1482,77 @@ definition {
 		}
 	}
 
+	@description = "COMMERCE-9858. The default discount can be updated."
+	@priority = "4"
+	test CanUpdateDefaultDiscountsEntry {
+		task ("Given two active discounts applied to the U-joint product"){
+			CommerceJSONDiscountsAPI._addDiscount(
+				active = "true",
+				level = "L1",
+				percentageLevel1 = "10",
+				target = "products",
+				title = "Discount 1 10% off",
+				usePercentage = "true");
+
+			CommerceJSONDiscountsAPI._addDiscountProduct(
+				discountTitle = "Discount 1 10% off",
+				productName = "U-Joint");
+
+			CommerceJSONDiscountsAPI._addDiscount(
+				active = "true",
+				level = "L1",
+				percentageLevel1 = "20",
+				target = "products",
+				title = "Discount 2 20% off",
+				usePercentage = "true");
+
+			CommerceJSONDiscountsAPI._addDiscountProduct(
+				discountTitle = "Discount 2 20% off",
+				productName = "U-Joint");
+		}
+
+		task ("and a default discount is set to the Commerce Account") {
+			ApplicationsMenu.gotoSite(site = "Minium");
+
+			CommerceNavigator.gotoMiniumAccountOrderDefaults(accountName = "Commerce Account");
+
+			Accounts.setDefaultDiscount(channelEntry = "Minium Portal",
+				discountTitle = "Discount 2 20% off");
+		}
+
+		task ("and the U-Joint product displaying the 20% off discount") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/minium/catalog");
+
+			CommerceAcceleratorsInitializer.gotoMiniumProductDetailsPage(productName = "U-Joint");
+
+			CommerceAcceleratorsInitializer.viewDiscountedProductDetailsPage(
+				discountPercentage = "20",
+				productDiscountedPrice = "19.20",
+				productListPrice = "24.00");
+		}
+
+		task ("When the default discount is changed to 10%") {
+			ApplicationsMenu.gotoSite(site = "Minium");
+
+			CommerceNavigator.gotoMiniumAccountOrderDefaults(accountName = "Commerce Account");
+
+			Accounts.editCommerceDefaultDiscount(channelEntry = "Minium Portal",
+				discountTitle = "Discount 1 10% off",
+				entryName = "Minium Portal");
+		}
+
+		task ("Then the U-Joint product should display the new 10% discount.") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/minium/catalog");
+
+			CommerceAcceleratorsInitializer.gotoMiniumProductDetailsPage(productName = "U-Joint");
+
+			CommerceAcceleratorsInitializer.viewDiscountedProductDetailsPage(
+				discountPercentage = "10",
+				productDiscountedPrice = "21.60",
+				productListPrice = "24.00");
+		}
+	}
+
 	@description = "COMMERCE-9782. Default delivery set to override should be default regardless of other eligibility criteria."
 	@priority = "4"
 	test DefaultDeliveryTermCanOverrideOtherEligibilities {
@@ -1712,6 +1783,8 @@ definition {
 
 			CommerceAcceleratorsInitializer.gotoMiniumProductDetailsPage(productName = "U-Joint");
 
+			CommerceAcceleratorsInitializer.selectAccountFromAccountSelector(accountName = "Commerce Account 2");
+
 			CommerceAcceleratorsInitializer.viewDiscountedProductDetailsPage(
 				discountPercentage = "10",
 				productDiscountedPrice = "21.60",
@@ -1819,7 +1892,7 @@ definition {
 			CommerceNavigator.gotoMiniumAccountOrderDefaults(accountName = "Commerce Account 2");
 
 			Accounts.setDefaultDiscount(
-				channelEntry = "Minium 2",
+				channelEntry = "Minium 2 Portal",
 				discountTitle = "Discount 2 20% off",
 				override = "true");
 		}
@@ -1828,6 +1901,8 @@ definition {
 			Navigator.openWithAppendToBaseURL(urlAppend = "web/minium-2/catalog");
 
 			CommerceAcceleratorsInitializer.gotoMiniumProductDetailsPage(productName = "U-Joint");
+
+			CommerceAcceleratorsInitializer.selectAccountFromAccountSelector(accountName = "Commerce Account 2");
 
 			CommerceAcceleratorsInitializer.viewDiscountedProductDetailsPage(
 				discountPercentage = "20",
@@ -1939,13 +2014,24 @@ definition {
 
 			CommerceNavigator.gotoMiniumAccountOrderDefaults(accountName = "Commerce Account 2");
 
+			CommerceNavigator.gotoMiniumAccountOrderDefaults(accountName = "Commerce Account 2");
+
 			Accounts.setDefaultDiscount(
 				discountTitle = "Discount 3 30% off",
 				override = "true");
 		}
 
-		task ("Then viewing the U-joint product for Account 2 shows the 10% discount") {
-			CommerceNavigator.gotoMiniumSidebarItem(menuItem = "Pending Orders");
+		task ("Then viewing the U-joint product on the Minium 2 site for Account 2 shows the 20% discount") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/minium-2/catalog");
+
+			CommerceAcceleratorsInitializer.gotoMiniumProductDetailsPage(productName = "U-Joint");
+
+			CommerceAcceleratorsInitializer.selectAccountFromAccountSelector(accountName = "Commerce Account 2");
+
+			CommerceAcceleratorsInitializer.viewDiscountedProductDetailsPage(
+				discountPercentage = "30",
+				productDiscountedPrice = "16.80",
+				productListPrice = "24.00");
 		}
 	}
 

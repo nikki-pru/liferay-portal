@@ -566,6 +566,11 @@
 	<td></td>
 </tr>
 <tr>
+	<td>DROPDOWN_EDIT</td>
+	<td>//div[contains(@class,'dropdown-menu show')]/ul//li/button[(normalize-space(text())='Edit')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>ACCOUNT_GROUPS_RELS_SELECT</td>
 	<td>//button[contains(@id,'selectCommercePriceListCommerceAccountGroupRel')]</td>
 	<td></td>
@@ -577,7 +582,7 @@
 </tr>
 <tr>
 	<td>BODY_VERTICAL_ELLIPSIS</td>
-	<td>//div[@class='table-list-title']/../../../*[contains(.,'${key_value}')]//*[name()='svg'][contains(@class,'icon-ellipsis')]</td>
+	<td>//div[@class='table-list-title']/../../../*[contains(.,'${key_value}')]//*[name()='svg'][contains(@class,'icon-ellipsis')] | //div[contains(.,'${key_value}')]//div[contains(@class,'dnd-table')]//*[name()='svg'][contains(@class,'icon-ellipsis')]</td>
 	<td></td>
 </tr>
 <tr>

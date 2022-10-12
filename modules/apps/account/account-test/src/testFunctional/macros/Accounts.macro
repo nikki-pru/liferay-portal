@@ -958,6 +958,36 @@ definition {
 		Alert.viewSuccessMessage();
 	}
 
+	macro editCommerceDefaultDiscount {
+		Click(locator1 = "CommerceEntry#BODY_VERTICAL_ELLIPSIS",
+			value1 = "${entryName}");
+
+		Click(
+			locator1 = "CommerceEntry#DROPDOWN_EDIT");
+
+		SelectFrame(locator1 = "IFrame#MODAL_BODY");
+
+		if (isSet(channelEntry) && ("${channelEntry}" != "")) {
+			Select(
+				key_fieldLabel = "Channel",
+				locator1 = "CommerceEntry#LABEL_GENERIC_SELECT",
+				value1 = "${channelEntry}");
+		}
+
+		if (isSet(override) && ("${override}" == "true")) {
+			Check.checkToggleSwitch(
+				key_toggleSwitchLabel = "Override Eligibility",
+				locator1 = "ToggleSwitch#ANY_TOGGLE_SWITCH");
+		}
+
+		Select(
+			key_fieldLabel = "Discount",
+			locator1 = "CommerceEntry#LABEL_GENERIC_SELECT",
+			value1 = "${discountTitle}");
+
+		Button.clickSave();
+	}
+
 	macro gotoAssigneeTab {
 		Navigator.gotoNavTab(navTab = "${assigneeTab}");
 	}
