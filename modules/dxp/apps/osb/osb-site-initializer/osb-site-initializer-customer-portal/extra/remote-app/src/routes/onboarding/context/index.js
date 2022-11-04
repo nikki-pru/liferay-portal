@@ -301,6 +301,8 @@ const AppContextProvider = ({children}) => {
 								accountKey: projectExternalReferenceCode,
 								finished: true,
 								name: ROUTE_TYPES.onboarding,
+								r_accountEntryToAccountFlag_accountEntryId:
+									accountBrief?.id,
 							},
 						},
 					});

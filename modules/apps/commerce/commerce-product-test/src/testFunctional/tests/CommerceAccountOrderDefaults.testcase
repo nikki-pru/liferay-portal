@@ -240,7 +240,7 @@ definition {
 		}
 	}
 
-	@description = "COMMERCE-9937. A default currency can be deleted."
+	@description = "COMMERCE-9931 and COMMERCE-9937. A default currency can be deleted and should not be visible in the Minium site."
 	@priority = "4"
 	test CanDeleteDefaultCurrency {
 		task ("Given an account with a default Currency") {
@@ -263,13 +263,32 @@ definition {
 			Accounts.deleteDefaultSetting(
 				currentDefault = "Euro",
 				settingHeader = "Currencies");
-		}
 
-		task ("Then the default currency should be deleted") {
 			AssertElementNotPresent(
 				key_entryDetail = "Euro",
 				key_settingHeader = "Currencies",
 				locator1 = "Account#DEFAULT_SETTINGS_TABLE_ITEM");
+		}
+
+		task ("and when the buyer views the Minium site") {
+			User.logoutPG();
+
+			CommerceLogin.miniumLogin(
+				password = "test",
+				urlAppend = "web/minium",
+				userEmailAddress = "buyer@liferay.com");
+		}
+
+		task ("then the currency should show US Dollar instead of Euro") {
+			AssertTextEquals.assertPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "$");
+
+			AssertTextNotEquals.assertNotPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "€");
 		}
 	}
 
@@ -836,6 +855,65 @@ definition {
 				productUnitPrice = "24",
 				shippingMethod = "Standard",
 				viewBillingAddressPermission = "true");
+		}
+	}
+
+	@description = "COMMERCE-9936. A disabled default currency should not be usable."
+	@priority = "4"
+	test CannotUseDisabledCurrency {
+		task ("Given an account with a default Currency") {
+			Accounts.openAccountsAdmin();
+
+			LexiconEntry.gotoEntry(rowEntry = "Commerce Account");
+
+			Accounts.gotoAssigneeTab(assigneeTab = "Channel Defaults");
+
+			Accounts.setDefaultCurrency(currencyName = "Euro");
+		}
+
+		task ("and the currency is disabled") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_commerce_currency_web_internal_portlet_CommerceCurrencyPortlet");
+
+			CommerceEntry.selectEntryEllipsis(entryName = "Euro");
+
+			DropdownMenuItem.click(menuItem = "Deactivate");
+
+			Accounts.openAccountsAdmin();
+
+			LexiconEntry.gotoEntry(rowEntry = "Commerce Account");
+
+			Accounts.gotoAssigneeTab(assigneeTab = "Channel Defaults");
+
+			ScrollWebElementIntoView(
+				key_settingHeader = "Currencies",
+				locator1 = "Account#DEFAULT_SETTINGS_HEADER");
+
+			AssertElementPresent(
+				key_activeStatus = "No",
+				key_currentDefault = "Euro",
+				key_settingHeader = "Currencies",
+				locator1 = "Account#DEFAULT_SETTING_ACTIVE_STATUS");
+		}
+
+		task ("When the buyer view products on the Minium site") {
+			User.logoutPG();
+
+			CommerceLogin.miniumLogin(
+				password = "test",
+				urlAppend = "web/minium",
+				userEmailAddress = "buyer@liferay.com");
+		}
+
+		task ("Then the currency should be set to Dollars and not Euros") {
+			AssertTextEquals.assertPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "$");
+
+			AssertTextNotEquals.assertNotPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "€");
 		}
 	}
 
@@ -2119,6 +2197,118 @@ definition {
 				discountPercentage = "10",
 				productDiscountedPrice = "21.60",
 				productListPrice = "24.00");
+		}
+	}
+
+	@description = "COMMERCE-9938. Only active currencies can be viewed and disabled currency should not be available to be selected."
+	@priority = "4"
+	test CanViewOnlyActiveCurrencies {
+		task ("Given a disabled currency") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "group/control_panel/manage?p_p_id=com_liferay_commerce_currency_web_internal_portlet_CommerceCurrencyPortlet");
+
+			CommerceEntry.selectEntryEllipsis(entryName = "Euro");
+
+			DropdownMenuItem.click(menuItem = "Deactivate");
+		}
+
+		task ("When the admin sets a default currency for the account") {
+			Accounts.openAccountsAdmin();
+
+			LexiconEntry.gotoEntry(rowEntry = "Commerce Account");
+
+			Accounts.gotoAssigneeTab(assigneeTab = "Channel Defaults");
+		}
+
+		task ("Then the disabled currency should not be available") {
+			Accounts.assertDisabledCurrencyIsNotAvailable(disabledCurrency = "Euro");
+		}
+	}
+
+	@description = "COMMERCE-9925. Default currency rules works on the storefront"
+	@priority = "4"
+	test DefaultCurrencyRulesCanWorkOnStoreFront {
+		task ("Given a second account (first one is created at setup)") {
+			CommerceEntry.addAccountEntryUser(
+				accountName = "Commerce Account 2",
+				accountType = "Business",
+				agreeToTermsAndAnswerReminderQuery = "true",
+				createNewAccount = "true",
+				requireReset = "false",
+				userEmailAddress = "buyer2@liferay.com",
+				userFirstName = "Buyer2",
+				userLastName = "User2",
+				userRole = "Buyer",
+				userScreenName = "buyeruser2",
+				userSiteMembership = "Minium");
+		}
+
+		task ("and the first account's default currency is set to Euro") {
+			Accounts.openAccountsAdmin();
+
+			LexiconEntry.gotoEntry(rowEntry = "Commerce Account");
+
+			Accounts.gotoAssigneeTab(assigneeTab = "Channel Defaults");
+
+			Accounts.setDefaultCurrency(channelEntry = "Minium Portal",
+				currencyName = "Euro");
+		}
+
+		task ("When the admin views the Minium site") {
+			Navigator.openWithAppendToBaseURL(urlAppend = "web/minium/catalog");
+		}
+
+		task ("Then the currency should be displayed in Euros") {
+			AssertTextEquals.assertPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "€");
+
+			AssertTextNotEquals.assertNotPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "$");
+		}
+
+		task ("And when the buyer user views the Minium site") {
+			User.logoutPG();
+
+			CommerceLogin.miniumLogin(
+				password = "test",
+				urlAppend = "web/minium",
+				userEmailAddress = "buyer@liferay.com");
+		}
+
+		task ("Then the currency should be displayed in Euros") {
+			AssertTextEquals.assertPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "€");
+
+			AssertTextNotEquals.assertNotPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "$");
+		}
+
+		task ("And when the second buyer user views the Minium site") {			
+			User.logoutPG();
+
+			CommerceLogin.miniumLogin(
+				password = "test",
+				urlAppend = "web/minium",
+				userEmailAddress = "buyer2@liferay.com");
+		}
+
+		task ("then the currency should show US Dollar instead of Euro") {
+			AssertTextEquals.assertPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "$");
+
+			AssertTextNotEquals.assertNotPartialText(
+				key_productName = "U-Joint",
+				locator1 = "CommerceEntry#PRODUCT_CARD_LIST_PRICE",
+				value1 = "€");
 		}
 	}
 
