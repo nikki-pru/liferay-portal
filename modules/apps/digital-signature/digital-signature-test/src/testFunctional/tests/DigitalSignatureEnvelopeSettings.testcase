@@ -142,6 +142,7 @@ definition {
 	@description = "This is a test for LPS-131425. Verify if unsuportted files Error message appear"
 	@priority = "5"
 	test CanViewErrorMessageForUnsuporttedFiles {
+		property portal.acceptance = "testConfig";
 		property solutions.acceptance = "true";
 
 		DigitalSignature.createEnvelope(
