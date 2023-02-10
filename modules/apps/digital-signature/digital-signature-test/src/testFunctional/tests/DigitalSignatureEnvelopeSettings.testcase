@@ -5,6 +5,9 @@ definition {
 	property portal.upstream = "true";
 	property testray.main.component.name = "Digital Signature";
 
+	property osgi.module.configuration.file.names = "com.liferay.digital.signature.configuration.DigitalSignatureConfiguration.config";
+	property osgi.module.configurations = "enabled=\"TRUE\"${line.separator}siteSettingsStrategy=\"always-inherit\"";
+
 	setUp {
 		TestCase.setUpPortalInstance();
 
