@@ -1,29 +1,16 @@
 @component-name = "portal-solutions"
 definition {
 
+	property osgi.module.configuration.file.names = "com.liferay.digital.signature.configuration.DigitalSignatureConfiguration.config";
+	property osgi.module.configurations = "enabled=\"TRUE\"${line.separator}siteSettingsStrategy=\"always-inherit\"";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Digital Signature";
-
-	property osgi.module.configuration.file.names = "com.liferay.digital.signature.configuration.DigitalSignatureConfiguration.config";
-	property osgi.module.configurations = "enabled=\"TRUE\"${line.separator}siteSettingsStrategy=\"always-inherit\"";
 
 	setUp {
 		TestCase.setUpPortalInstance();
 
 		User.firstLoginUI();
-
-		ApplicationsMenu.gotoPortlet(
-			category = "Configuration",
-			panel = "Control Panel",
-			portlet = "Instance Settings");
-
-		SystemSettings.gotoConfiguration(
-			configurationCategory = "Digital Signature",
-			configurationName = "Digital Signature Configuration",
-			configurationScope = "Virtual Instance Scope");
-
-		FormFields.enableCheckbox(fieldName = "enabled");
 	}
 
 	tearDown {
@@ -150,8 +137,6 @@ definition {
 	@priority = "5"
 	test CanViewErrorMessageForUnsuporttedFiles {
 		property solutions.acceptance = "true";
-
-		DigitalSignature.enableDigitalSignature(siteStrategy = "Always Inherit");
 
 		DigitalSignature.createEnvelope(
 			dmDocumentFile = "Document_2.mp4",
