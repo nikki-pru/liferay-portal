@@ -10,6 +10,8 @@ definition {
 
 		User.firstLoginUI();
 
+		JSONGroup.addGroup(groupName = "Test Site Name");
+
 		ApplicationsMenu.gotoPortlet(
 			category = "Configuration",
 			panel = "Control Panel",
@@ -37,13 +39,23 @@ definition {
 	@description = "This is a test for LPS-131206. Verify if its possible download envelopes by Envelope Description "
 	@priority = 3
 	test CanDownloadEnvelopeByEnvelopeDescription {
+
 		DigitalSignature.enableDigitalSignature(siteStrategy = "Always Inherit");
 
+		var dmDocumentTitle = "DM Document Title";
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = ${dmDocumentTitle},
+			groupName = "Test Site Name",
+			mimeType = "application/pdf",
+			sourceFileName = "Document_1.pdf");
+
 		DigitalSignature.createEnvelope(
-			dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
+			dmDocumentTitle = ${dmDocumentTitle},
 			emailMessage = "Email Message",
 			emailSubject = "Email Subject",
-			envelopeName = "Test",
+			envelopeName = "Poshi Test CanDownloadEnvelopeByEnvelopeDescription",
 			recipientEmail = "test@liferay.com",
 			recipientFullName = "Recipient Full Name");
 
@@ -105,8 +117,17 @@ definition {
 	test CanViewCorrectDate {
 		DigitalSignature.enableDigitalSignature(siteStrategy = "Always Inherit");
 
+		var dmDocumentTitle = "DM Document Title";
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = ${dmDocumentTitle},
+			groupName = "Test Site Name",
+			mimeType = "application/pdf",
+			sourceFileName = "Document_1.pdf");
+
 		DigitalSignature.createEnvelope(
-			dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
+			dmDocumentTitle = ${dmDocumentTitle},
 			emailMessage = "Email Message",
 			emailSubject = "Email Subject",
 			envelopeName = "Poshi Test CanViewCorrectDate",
@@ -177,8 +198,17 @@ definition {
 	test HaveMoreRecipientsThanOne {
 		DigitalSignature.enableDigitalSignature(siteStrategy = "Always Inherit");
 
+		var dmDocumentTitle = "DM Document Title";
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = ${dmDocumentTitle},
+			groupName = "Test Site Name",
+			mimeType = "application/pdf",
+			sourceFileName = "Document_1.pdf");
+
 		DigitalSignature.createEnvelope(
-			dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
+			dmDocumentTitle = ${dmDocumentTitle},
 			emailMessage = "Email Message",
 			emailSubject = "Email Subject",
 			envelopeName = "Poshi Test HaveMoreRecipientsThanOne",
