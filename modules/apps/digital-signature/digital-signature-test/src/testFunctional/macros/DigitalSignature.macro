@@ -1,13 +1,6 @@
 definition {
 
 	macro createEnvelope {
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-
-		DMDocument.addCP(
-			dmDocumentDescription = "DM Document Description",
-			dmDocumentFile = ${dmDocumentFile},
-			dmDocumentTitle = "DM Document Title");
-
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -52,17 +45,21 @@ definition {
 		SelectFrame(locator1 = "DocumentsAndMediaSelectDocument#SELECT_DOCUMENT_IFRAME");
 
 		Click(
-			dmDocumentTitle = "DM Document Title",
+			breadcrumbTitle = "Sites and Libraries",
+			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_BREADCRUMB");
+
+		Click(
+			cardTitle = "Test Site Name",
+			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_CARD");
+
+		Click(
+			dmDocumentTitle = ${dmDocumentTitle},
 			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_MODAL");
 
 		SelectFrameTop();
 	}
 
 	macro createEnvelopeWithTwoDocuments {
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-
-		DMDocument.addMultipleCP(dmDocumentFileList = "Document_2.docx,Document_3.docx");
-
 		Navigator.openURL();
 
 		ProductMenu.gotoPortlet(
@@ -107,8 +104,18 @@ definition {
 		SelectFrame(locator1 = "DocumentsAndMediaSelectDocument#SELECT_DOCUMENT_IFRAME");
 
 		Click(
-			dmDocumentTitle = "Document_2",
+			breadcrumbTitle = "Sites and Libraries",
+			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_BREADCRUMB");
+
+		Click(
+			cardTitle = "Test Site Name",
+			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_CARD");
+
+		Click(
+			dmDocumentTitle = ${documentTitle1},
 			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_MODAL");
+
+		SelectFrameTop();
 
 		Click(
 			key_text = "Add Document",
@@ -121,8 +128,18 @@ definition {
 		SelectFrame(locator1 = "DocumentsAndMediaSelectDocument#SELECT_DOCUMENT_IFRAME");
 
 		Click(
-			dmDocumentTitle = "Document_3",
+			breadcrumbTitle = "Sites and Libraries",
+			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_BREADCRUMB");
+
+		Click(
+			cardTitle = "Test Site Name",
+			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_CARD");
+
+		Click(
+			dmDocumentTitle = ${documentTitle2},
 			locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_SELECT_DOCUMENT_MODAL");
+
+		SelectFrameTop();
 	}
 
 	macro deleteEnvelope {

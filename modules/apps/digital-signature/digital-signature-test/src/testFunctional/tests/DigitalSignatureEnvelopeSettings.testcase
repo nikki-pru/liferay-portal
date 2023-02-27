@@ -17,6 +17,8 @@ definition {
 		TestCase.setUpPortalInstance();
 
 		User.firstLoginUI();
+
+		JSONGroup.addGroup(groupName = "Test Site Name");
 	}
 
 	tearDown {
@@ -33,7 +35,26 @@ definition {
 	@description = "This is a test for LPS-133105. Verify if its possible add more than 1 valid documents in a new Envelope"
 	@priority = 5
 	test CanAddMoreThan1Document {
+		var dmDocumentTitle1 = "Document1";
+		var dmDocumentTitle2 = "Document2";
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = ${dmDocumentTitle1},
+			groupName = "Test Site Name",
+			mimeType = "application/msword",
+			sourceFileName = "Document_2.docx");
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = ${dmDocumentTitle2},
+			groupName = "Test Site Name",
+			mimeType = "application/msword",
+			sourceFileName = "Document_3.docx");
+
 		DigitalSignature.createEnvelopeWithTwoDocuments(
+			documentTitle1 = ${dmDocumentTitle1},
+			documentTitle2 = ${dmDocumentTitle2},
 			emailMessage = "Email Message",
 			emailSubject = "Email Subject",
 			envelopeName = "Poshi Test CanAddMoreThan1Document",
@@ -146,11 +167,20 @@ definition {
 
 		task ("Given that Digital Signature is enabled with proper credentials") {
 			DigitalSignature.enableDigitalSignature(siteStrategy = "Always Inherit");
+
+			var dmDocumentTitle = "DM Document Title";
+
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Test Site Name",
+				mimeType = "video/mp4",
+				sourceFileName = "Document_2.mp4");
 		}
 
 		task ("When a Digital Envelope is created with an unsupported file type attached") {
 			DigitalSignature.createEnvelope(
-				dmDocumentFile = "Document_2.mp4",
+				dmDocumentTitle = ${dmDocumentTitle},
 				emailMessage = "Email Message",
 				emailSubject = "Email Subject",
 				envelopeName = "Poshi Test CannotCreateEnvelopeWithUnsupportedFiles",
@@ -172,8 +202,17 @@ definition {
 	test CanViewSuccessMessage {
 		property solutions.acceptance = "true";
 
+		var dmDocumentTitle = "DM Document Title";
+
+		JSONDocument.addFileWithUploadedFile(
+			dmDocumentDescription = "DM Document Description",
+			dmDocumentTitle = ${dmDocumentTitle},
+			groupName = "Test Site Name",
+			mimeType = "application/pdf",
+			sourceFileName = "Document_1.pdf");
+
 		DigitalSignature.createEnvelope(
-			dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
+			dmDocumentTitle = ${dmDocumentTitle},
 			emailMessage = "Email Message",
 			emailSubject = "Email Subject",
 			envelopeName = "Poshi Test CanViewSuccessMessage",

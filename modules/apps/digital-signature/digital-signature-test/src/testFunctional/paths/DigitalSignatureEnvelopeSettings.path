@@ -16,6 +16,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>DIGITAL_SIGNATURE_SELECT_DOCUMENT_BREADCRUMB</td>
+	<td>//li[contains(@class, 'breadcrumb-item')]//a//span[contains(., '${breadcrumbTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DIGITAL_SIGNATURE_SELECT_DOCUMENT_CARD</td>
+	<td>//a[contains(@class, 'card')]//*//p[contains(., '${cardTitle}')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>DIGITAL_SIGNATURE_UNSUPPORTED_FILE</td>
 	<td>//p[contains(., 'This file extension is not supported by DocuSign.')]</td>
 	<td></td>
