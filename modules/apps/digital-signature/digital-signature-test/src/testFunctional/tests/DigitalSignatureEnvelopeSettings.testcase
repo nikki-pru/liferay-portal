@@ -202,38 +202,33 @@ definition {
 	test CanViewSuccessMessage {
 		property solutions.acceptance = "true";
 
-		var dmDocumentTitle = "DM Document Title";
+		task ("Given that a document is uploaded") {
+			var dmDocumentTitle = "DM Document Title";
 
-		JSONDocument.addFileWithUploadedFile(
-			dmDocumentDescription = "DM Document Description",
-			dmDocumentTitle = ${dmDocumentTitle},
-			groupName = "Test Site Name",
-			mimeType = "application/pdf",
-			sourceFileName = "Document_1.pdf");
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Test Site Name",
+				mimeType = "application/pdf",
+				sourceFileName = "Document_1.pdf");
 
-		DigitalSignature.createEnvelope(
-			dmDocumentTitle = ${dmDocumentTitle},
-			emailMessage = "Email Message",
-			emailSubject = "Email Subject",
-			envelopeName = "Poshi Test CanViewSuccessMessage",
-			recipientEmail = "test@liferay.com",
-			recipientFullName = "Recipient Full Name");
+		}
 
-		Button.click(button = "Send");
+		task ("When a Digital Envelope is created and sent") {
+			DigitalSignature.createEnvelope(
+				dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
+				emailMessage = "Email Message",
+				emailSubject = "Email Subject",
+				envelopeName = "Poshi Test CanViewSuccessMessage",
+				recipientEmail = "test@liferay.com",
+				recipientFullName = "Recipient Full Name");
 
-		Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+			Button.click(button = "Send");
+		}
 
-		Refresh();
-
-		DigitalSignature.deleteEnvelope(envelopeName = "Poshi Test CanViewSuccessMessage");
-
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-
-		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
-
-		RecycleBin.openRecycleBinAdmin(siteURLKey = "guest");
-
-		RecycleBin.emptyCP();
+		task ("Then the envelope should successfully send and a success message should indicate that to the user") {
+			Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+		}
 	}
 
 	@description = "This is a test for LPS-131425. Verify if Email Subject field is required"
