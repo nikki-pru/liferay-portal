@@ -182,31 +182,25 @@ definition {
 	test CanViewSuccessMessage {
 		property solutions.acceptance = "true";
 
-		DigitalSignature.enableDigitalSignature(siteStrategy = "Always Inherit");
+		task ("Given that Digital Signature is enabled with proper credentials") {
+			DigitalSignature.enableDigitalSignature(siteStrategy = "Always Inherit");
+		}
 
-		DigitalSignature.createEnvelope(
-			dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
-			emailMessage = "Email Message",
-			emailSubject = "Email Subject",
-			envelopeName = "Poshi Test CanViewSuccessMessage",
-			recipientEmail = "test@liferay.com",
-			recipientFullName = "Recipient Full Name");
+		task ("When a Digital Envelope is created and sent") {
+			DigitalSignature.createEnvelope(
+				dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
+				emailMessage = "Email Message",
+				emailSubject = "Email Subject",
+				envelopeName = "Poshi Test CanViewSuccessMessage",
+				recipientEmail = "test@liferay.com",
+				recipientFullName = "Recipient Full Name");
 
-		Button.click(button = "Send");
+			Button.click(button = "Send");
+		}
 
-		Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
-
-		Refresh();
-
-		DigitalSignature.deleteEnvelope(envelopeName = "Poshi Test CanViewSuccessMessage");
-
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-
-		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
-
-		RecycleBin.openRecycleBinAdmin(siteURLKey = "guest");
-
-		RecycleBin.emptyCP();
+		task ("Then the envelope should successfully send and a success message should indicate that to the user") {
+			Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+		}
 	}
 
 	@description = "This is a test for LPS-131425. Verify if Email Subject field is required"
