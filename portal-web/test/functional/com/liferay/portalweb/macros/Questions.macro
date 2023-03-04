@@ -714,11 +714,9 @@ definition {
 	}
 
 	macro subscribeTopic {
-		AssertClick(
-			locator1 = "Button#SUBSCRIBE",
-			value1 = "Subscribe");
+		AssertElementPresent(locator1 = "Questions#QUESTIONS_BELL_BUTTON");
 
-		AssertElementPresent(locator1 = "Questions#QUESTIONS_SUBSCRIBED_BUTTON");
+		Click(locator1 = "Questions#QUESTIONS_BELL_BUTTON");
 	}
 
 	macro tearDown {
