@@ -22,7 +22,7 @@
 </tr>
 <tr>
 	<td>DIGITAL_SIGNATURE_NAVIGATE_NEXT</td>
-	<td>//button[contains(@aria-label, 'Next')]</td>
+	<td>//a[contains(@aria-label, 'next')]</td>
 	<td></td>
 </tr>
 <tr>
