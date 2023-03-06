@@ -125,13 +125,21 @@ definition {
 	@description = "This is a test for LPS-131206. Verify if its possible view envelope details"
 	@priority = 4
 	test CanViewEnvelopeDetails {
-		Navigator.openURL();
+		var envelopeName = "Poshi Test CanViewEnvelopeDetails";
 
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Digital Signature");
+		DigitalSignature.createEnvelope(
+			dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
+			emailMessage = "Email Message",
+			emailSubject = "Email Subject",
+			envelopeName = ${envelopeName},
+			recipientEmail = "test@liferay.com",
+			recipientFullName = "Recipient Full Name");
 
-		var envelopeName = "Test";
+		Button.click(button = "Send");
+
+		Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+
+		Refresh();
 
 		Click(
 			envelopeName = ${envelopeName},
