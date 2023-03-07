@@ -1,6 +1,7 @@
 @component-name = "portal-locale"
 definition {
 
+	property ci.retries.disabled = "true";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Locale";
@@ -269,8 +270,9 @@ definition {
 		Portlet.viewTitle(portletName = "IFrame");
 	}
 
-	@priority = 3
+	@priority = 4
 	test InstanceCreatedOnRestartPickUpNewCompanyLocale {
+		property portal.acceptance = "true";
 		property test.name.skip.portal.instance = "Locale#InstanceCreatedOnRestartPickUpNewCompanyLocale";
 
 		User.firstLoginPG();

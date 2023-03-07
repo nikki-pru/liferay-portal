@@ -18,6 +18,8 @@ import com.liferay.account.model.AccountEntry;
 import com.liferay.account.model.AccountGroupRel;
 import com.liferay.account.service.AccountGroupRelLocalService;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+import com.liferay.portal.kernel.upgrade.UpgradeProcessFactory;
+import com.liferay.portal.kernel.upgrade.UpgradeStep;
 import com.liferay.portal.kernel.util.PortalUtil;
 
 import java.sql.ResultSet;
@@ -70,9 +72,14 @@ public class CommerceAccountGroupCommerceAccountRelUpgradeProcess
 				_accountGroupRelLocalService.addAccountGroupRel(
 					accountGroupRel);
 			}
-
-			runSQL("drop table CAccountGroupCAccountRel");
 		}
+	}
+
+	@Override
+	protected UpgradeStep[] getPostUpgradeSteps() {
+		return new UpgradeStep[] {
+			UpgradeProcessFactory.dropTables("CAccountGroupCAccountRel")
+		};
 	}
 
 	private final AccountGroupRelLocalService _accountGroupRelLocalService;

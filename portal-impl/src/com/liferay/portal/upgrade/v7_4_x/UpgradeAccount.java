@@ -143,8 +143,11 @@ public class UpgradeAccount extends UpgradeProcess {
 		runSQL(
 			"delete from ClassName_ where value = '" + _CLASS_NAME_ACCOUNT +
 				"'");
+	}
 
-		runSQL("drop table Account_");
+	@Override
+	protected UpgradeStep[] getPostUpgradeSteps() {
+		return new UpgradeStep[] {UpgradeProcessFactory.dropTables("Account_")};
 	}
 
 	@Override

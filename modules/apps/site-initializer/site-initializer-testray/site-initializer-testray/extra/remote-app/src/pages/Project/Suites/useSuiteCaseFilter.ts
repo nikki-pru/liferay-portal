@@ -13,8 +13,8 @@
  */
 
 import {BoxItem} from '../../../components/Form/DualListBox';
+import SearchBuilder from '../../../core/SearchBuilder';
 import {TestraySuite} from '../../../services/rest';
-import {SearchBuilder} from '../../../util/search';
 import {
 	State as CaseParameter,
 	initialState as CaseParameterInitialState,

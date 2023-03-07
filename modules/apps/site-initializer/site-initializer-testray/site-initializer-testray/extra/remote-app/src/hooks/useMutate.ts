@@ -12,32 +12,33 @@
  * details.
  */
 
+import {useCallback} from 'react';
 import {KeyedMutator, MutatorOptions} from 'swr';
+import TestrayError from '~/TestrayError';
 
 import {APIResponse} from '../services/rest';
 
-const useMutate = () => {
-	return {
-		addItemToList: (
-			mutate: KeyedMutator<any>,
-			data: any,
-			options?: MutatorOptions
-		) => {
+const useMutate = <T = any>(mutate?: KeyedMutator<T>) => {
+	const mutatePartial = useCallback(
+		(data: Partial<T>, options?: MutatorOptions) => {
+			if (!mutate) {
+				throw new TestrayError('Mutate is missing');
+			}
+
 			mutate(
-				(response: APIResponse) => ({
-					...response,
-					items: [data, ...response?.items],
-					totalCount: response?.totalCount + 1,
-				}),
-				options
+				(currentData) =>
+					currentData ? {...currentData, ...data} : undefined,
+				{
+					revalidate: false,
+					...options,
+				}
 			);
 		},
+		[mutate]
+	);
 
-		removeItemFromList: (
-			mutate: KeyedMutator<any>,
-			id: number,
-			options?: MutatorOptions
-		) =>
+	const removeItemFromList = useCallback(
+		(mutate: KeyedMutator<any>, id: number, options?: MutatorOptions) =>
 			mutate(
 				(response: APIResponse) => ({
 					...response,
@@ -46,8 +47,11 @@ const useMutate = () => {
 				}),
 				{revalidate: false, ...options}
 			),
+		[]
+	);
 
-		updateItemFromList: (
+	const updateItemFromList = useCallback(
+		(
 			mutate: KeyedMutator<any>,
 			id: number,
 			data: any,
@@ -71,6 +75,13 @@ const useMutate = () => {
 				}),
 				{revalidate: false, ...options}
 			),
+		[]
+	);
+
+	return {
+		mutatePartial,
+		removeItemFromList,
+		updateItemFromList,
 	};
 };
 

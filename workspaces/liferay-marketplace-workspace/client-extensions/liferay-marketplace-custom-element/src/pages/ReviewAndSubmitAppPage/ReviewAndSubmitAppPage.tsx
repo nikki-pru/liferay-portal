@@ -14,7 +14,6 @@ import {useAppContext} from '../../manage-app-state/AppManageState';
 import {TYPES} from '../../manage-app-state/actionTypes';
 import {
 	getProduct,
-	getProductImages,
 	getProductSKU,
 	getProductSpecifications,
 } from '../../utils/api';
@@ -163,7 +162,7 @@ export function ReviewAndSubmitAppPage({
 		};
 
 		getData();
-	}, []);
+	}, [appERC, appProductId]);
 
 	return (
 		<div className="review-and-submit-app-page-container">
@@ -322,7 +321,6 @@ export function ReviewAndSubmitAppPage({
 						regarding this app submission until Liferay completes
 						its review process and I agree with the Liferay
 						Marketplace <a href="#">terms</a> and{' '}
-
 						<a href="#">privacy</a>
 					</span>
 				</div>

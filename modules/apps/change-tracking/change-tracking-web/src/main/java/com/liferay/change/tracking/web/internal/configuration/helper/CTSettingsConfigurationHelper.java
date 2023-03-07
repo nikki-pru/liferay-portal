@@ -57,7 +57,16 @@ public class CTSettingsConfigurationHelper {
 		return ctSettingsConfiguration.sandboxEnabled();
 	}
 
-	public void save(long companyId, boolean enabled, boolean sandboxEnabled)
+	public boolean isUnapprovedChangesAllowed(long companyId) {
+		CTSettingsConfiguration ctSettingsConfiguration =
+			_getCTSettingsConfiguration(companyId);
+
+		return ctSettingsConfiguration.unapprovedChangesAllowed();
+	}
+
+	public void save(
+			long companyId, boolean enabled, boolean sandboxEnabled,
+			boolean unapprovedChangesAllowed)
 		throws PortalException {
 
 		_configurationProvider.saveCompanyConfiguration(
@@ -66,6 +75,8 @@ public class CTSettingsConfigurationHelper {
 				"enabled", enabled
 			).put(
 				"sandboxEnabled", sandboxEnabled
+			).put(
+				"unapprovedChangesAllowed", unapprovedChangesAllowed
 			).build());
 	}
 

@@ -19,6 +19,8 @@ import ClayIcon from '@clayui/icon';
 import {getOpener, sub} from 'frontend-js-web';
 import React, {useEffect, useMemo, useState} from 'react';
 
+import './../css/tree.scss';
+
 const nodeByName = (items, name) => {
 	return items.reduce(function reducer(acc, item) {
 		if (item.name?.toLowerCase().includes(name.toLowerCase())) {
@@ -44,13 +46,17 @@ function visit(nodes, callback) {
 
 export function AssetCategoryTree({
 	filterQuery,
+	inheritSelection,
 	itemSelectedEventName,
 	items,
 	multiSelection,
 	onItems,
 	onSelectedItemsCount,
+	selectedCategoryIds,
 }) {
-	const [selectedKeys, setSelectionChange] = useState(new Set());
+	const [selectedKeys, setSelectionChange] = useState(
+		new Set(selectedCategoryIds)
+	);
 
 	const filteredItems = useMemo(() => {
 		if (!filterQuery) {
@@ -176,7 +182,13 @@ export function AssetCategoryTree({
 				onItemsChange={(items) => onItems(items)}
 				onSelectionChange={(keys) => setSelectionChange(keys)}
 				selectedKeys={selectedKeys}
-				selectionMode={multiSelection ? 'multiple' : 'single'}
+				selectionMode={
+					inheritSelection
+						? 'multiple-recursive'
+						: multiSelection
+						? 'multiple'
+						: 'single'
+				}
 				showExpanderOnHover={false}
 			>
 				{(item, selection, expand) => (

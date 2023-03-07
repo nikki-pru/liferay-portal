@@ -18,6 +18,7 @@ import com.liferay.commerce.constants.CPDefinitionInventoryConstants;
 import com.liferay.commerce.currency.model.CommerceCurrency;
 import com.liferay.commerce.currency.model.CommerceMoney;
 import com.liferay.commerce.currency.util.CommercePriceFormatter;
+import com.liferay.commerce.media.CommerceMediaResolver;
 import com.liferay.commerce.model.CPDefinitionInventory;
 import com.liferay.commerce.model.CommerceOrder;
 import com.liferay.commerce.model.CommerceOrderItem;
@@ -26,6 +27,8 @@ import com.liferay.commerce.price.CommerceOrderPriceCalculation;
 import com.liferay.commerce.product.model.CPInstance;
 import com.liferay.commerce.product.service.CPDefinitionLocalService;
 import com.liferay.commerce.product.service.CPInstanceLocalService;
+import com.liferay.commerce.product.type.virtual.order.model.CommerceVirtualOrderItem;
+import com.liferay.commerce.product.type.virtual.order.service.CommerceVirtualOrderItemService;
 import com.liferay.commerce.product.util.CPInstanceHelper;
 import com.liferay.commerce.service.CPDefinitionInventoryLocalService;
 import com.liferay.commerce.service.CommerceOrderItemService;
@@ -34,8 +37,12 @@ import com.liferay.headless.commerce.core.util.LanguageUtils;
 import com.liferay.headless.commerce.delivery.order.dto.v1_0.PlacedOrderItem;
 import com.liferay.headless.commerce.delivery.order.dto.v1_0.Price;
 import com.liferay.headless.commerce.delivery.order.dto.v1_0.Settings;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.Language;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.language.LanguageResources;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.dto.converter.DTOConverterContext;
@@ -106,6 +113,38 @@ public class PlacedOrderItemDTOConverter
 				thumbnail = _cpInstanceHelper.getCPInstanceThumbnailSrc(
 					placedOrderItemDTOConverterContext.getAccountId(),
 					commerceOrderItem.getCPInstanceId());
+
+				setVirtualItemURLs(
+					() -> {
+						try {
+							CommerceVirtualOrderItem commerceVirtualOrderItem =
+								_commerceVirtualOrderItemService.
+									fetchCommerceVirtualOrderItemByCommerceOrderItemId(
+										commerceOrderItem.
+											getCommerceOrderItemId());
+
+							if (commerceVirtualOrderItem == null) {
+								return null;
+							}
+
+							String url = commerceVirtualOrderItem.getUrl();
+
+							if (Validator.isBlank(url)) {
+								url =
+									_commerceMediaResolver.
+										getDownloadVirtualOrderItemURL(
+											commerceVirtualOrderItem.
+												getCommerceVirtualOrderItemId());
+							}
+
+							return new String[] {url};
+						}
+						catch (PortalException portalException) {
+							_log.error(portalException);
+
+							return null;
+						}
+					});
 			}
 		};
 	}
@@ -259,6 +298,12 @@ public class PlacedOrderItemDTOConverter
 		return settings;
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		PlacedOrderItemDTOConverter.class);
+
+	@Reference
+	private CommerceMediaResolver _commerceMediaResolver;
+
 	@Reference
 	private CommerceOrderItemService _commerceOrderItemService;
 
@@ -267,6 +312,9 @@ public class PlacedOrderItemDTOConverter
 
 	@Reference
 	private CommercePriceFormatter _commercePriceFormatter;
+
+	@Reference
+	private CommerceVirtualOrderItemService _commerceVirtualOrderItemService;
 
 	@Reference
 	private CPDefinitionInventoryLocalService

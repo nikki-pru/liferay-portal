@@ -20,6 +20,7 @@ definition {
 
 	@priority = 4
 	test ExternalDataSourceSmoke {
+		property ci.retries.disabled = "true";
 		property skip.start.app.server = "true";
 		property test.assert.warning.exceptions = "true";
 		property test.name.skip.portal.instance = "ServiceBuilder#ExternalDataSourceSmoke";
@@ -54,6 +55,7 @@ definition {
 
 	@priority = 4
 	test RenameFinderColumn {
+		property database.bare.enabled = "true";
 		property test.assert.warning.exceptions = "true";
 		property test.name.skip.portal.instance = "ServiceBuilder#RenameFinderColumn";
 

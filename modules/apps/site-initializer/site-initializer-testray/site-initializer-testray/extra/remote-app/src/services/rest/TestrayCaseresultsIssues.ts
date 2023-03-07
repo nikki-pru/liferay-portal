@@ -12,9 +12,8 @@
  * details.
  */
 
+import Rest from '../../core/Rest';
 import yupSchema from '../../schema/yup';
-import {SearchBuilder} from '../../util/search';
-import Rest from './Rest';
 import {TestrayCaseResultIssue} from './types';
 
 type CaseResultsIssues = typeof yupSchema.caseResultIssues.__outputType;
@@ -43,18 +42,6 @@ class TestrayCaseResultsIssuesImpl extends Rest<
 			}),
 			uri: 'caseresultsissueses',
 		});
-	}
-
-	public async createIfNotExist(data: CaseResultsIssues) {
-		const response = await this.getAll({
-			filter: SearchBuilder.eq('name', data.name as string),
-		});
-
-		if ((response?.totalCount ?? 0) > 0) {
-			return response?.items[0];
-		}
-
-		return this.create(data);
 	}
 }
 

@@ -59,6 +59,10 @@ definition {
 			locator1 = "RaylifeCreateAccount#SELECT_QUOTE",
 			title = "standard");
 
+		Click(
+			key_text = "CREATE NEW ACCOUNT",
+			locator1 = "Button#ANY");
+
 		Type(
 			label = "password",
 			locator1 = "RaylifeCreateAccount#PASSWORD_FIELD",

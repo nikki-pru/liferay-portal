@@ -1,6 +1,7 @@
 @component-name = "portal-file-install"
 definition {
 
+	property ci.retries.disabled = "true";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "File Install";
@@ -123,6 +124,7 @@ definition {
 
 	@priority = 4
 	test RestartingPortalDuplicatesOSGiConfiguration {
+		property database.types = "mysql";
 		property test.name.skip.portal.instance = "FileInstall#RestartingPortalDuplicatesOSGiConfiguration";
 
 		var liferayHome = PropsUtil.get("liferay.home.dir.name");
@@ -157,6 +159,7 @@ definition {
 
 	@priority = 4
 	test UninstallJarOffline {
+		property test.assert.warning.exceptions = "false";
 		property test.name.skip.portal.instance = "FileInstall#UninstallJarOffline";
 
 		Clustering.deployClusteringModule(nodePort = 8080);

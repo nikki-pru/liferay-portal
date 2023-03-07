@@ -1,7 +1,13 @@
 {
 	"description": "Provide dental services",
+	"description_i18n": {
+		"en_US": "Provide dental services"
+	},
 	"externalReferenceCode": "RAYCAT0013",
 	"name": "Medical Offices - Dentists",
+	"name_i18n": {
+		"en_US": "Medical Offices - Dentists"
+	},
 	"taxonomyCategoryProperties": [
 		{
 			"key": "NAICS",

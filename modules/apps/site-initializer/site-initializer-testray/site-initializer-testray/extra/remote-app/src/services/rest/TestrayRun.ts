@@ -13,12 +13,12 @@
  */
 
 import TestrayError from '../../TestrayError';
+import Rest from '../../core/Rest';
+import SearchBuilder from '../../core/SearchBuilder';
 import yupSchema from '../../schema/yup';
 import {DISPATCH_TRIGGER_TYPE} from '../../util/enum';
-import {SearchBuilder} from '../../util/search';
 import {DispatchTriggerStatuses} from '../../util/statuses';
 import {liferayDispatchTriggerImpl} from './LiferayDispatchTrigger';
-import Rest from './Rest';
 import {testrayDispatchTriggerImpl} from './TestrayDispatchTrigger';
 import {APIResponse, TestrayRun} from './types';
 

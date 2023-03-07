@@ -34,7 +34,7 @@ currentURLObj.setParameter("historyKey", liferayPortletResponse.getNamespace() +
 <liferay-ui:membership-policy-error />
 
 <clay:content-row
-	containerElement="h3"
+	containerElement="div"
 	cssClass="sheet-subtitle"
 >
 	<clay:content-col
@@ -45,28 +45,29 @@ currentURLObj.setParameter("historyKey", liferayPortletResponse.getNamespace() +
 
 	<c:if test="<%= !portletName.equals(myAccountPortletId) %>">
 		<clay:content-col>
-			<span class="heading-end">
-				<liferay-ui:icon
-					cssClass="modify-link"
-					id="selectOrganizationLink"
-					label="<%= true %>"
-					linkCssClass="btn btn-secondary btn-sm"
-					message="select"
-					method="get"
-					url="javascript:void(0);"
-				/>
-			</span>
+			<clay:button
+				aria-label='<%= LanguageUtil.format(request, "select-x", "organizations") %>'
+				cssClass="heading-end modify-link"
+				displayType="secondary"
+				id='<%= liferayPortletResponse.getNamespace() + "selectOrganizationLink" %>'
+				label='<%= LanguageUtil.get(request, "select") %>'
+				small="<%= true %>"
+			/>
 		</clay:content-col>
 	</c:if>
 </clay:content-row>
 
 <liferay-util:buffer
-	var="removeOrganizationIcon"
+	var="removeButtonOrganizations"
 >
-	<liferay-ui:icon
+	<clay:button
+		aria-label="TOKEN_ARIA_LABEL"
+		cssClass="lfr-portal-tooltip modify-link"
+		data-rowId="TOKEN_DATA_ROW_ID"
+		displayType="unstyled"
 		icon="times-circle"
-		markupView="lexicon"
-		message="remove"
+		small="<%= true %>"
+		title="TOKEN_TITLE"
 	/>
 </liferay-util:buffer>
 
@@ -122,7 +123,15 @@ currentURLObj.setParameter("historyKey", liferayPortletResponse.getNamespace() +
 
 		<c:if test="<%= !portletName.equals(myAccountPortletId) && ((selUser == null) || !OrganizationMembershipPolicyUtil.isMembershipProtected(permissionChecker, selUser.getUserId(), organization.getOrganizationId())) %>">
 			<liferay-ui:search-container-column-text>
-				<a class="modify-link" data-rowId="<%= organization.getOrganizationId() %>" href="javascript:void(0);"><%= removeOrganizationIcon %></a>
+				<clay:button
+					aria-label='<%= LanguageUtil.format(request, "remove-x", HtmlUtil.escape(organization.getName())) %>'
+					cssClass="lfr-portal-tooltip modify-link"
+					data-rowId="<%= organization.getOrganizationId() %>"
+					displayType="unstyled"
+					icon="times-circle"
+					small="<%= true %>"
+					title='<%= LanguageUtil.format(request, "remove-x", HtmlUtil.escape(organization.getName())) %>'
+				/>
 			</liferay-ui:search-container-column-text>
 		</c:if>
 	</liferay-ui:search-container-row>
@@ -202,17 +211,25 @@ currentURLObj.setParameter("historyKey", liferayPortletResponse.getNamespace() +
 					onSelect: (selectedItem) => {
 						if (selectedItem) {
 							const entityId = selectedItem.entityid;
-
+							const entityName = A.Escape.html(selectedItem.entityname);
+							const label = Liferay.Util.sub(
+								'<liferay-ui:message key="remove-x" />',
+								entityName
+							);
 							const rowColumns = [];
 
-							rowColumns.push(selectedItem.entityname);
+							let removeButton =
+								'<%= UnicodeFormatter.toString(removeButtonOrganizations) %>';
+
+							removeButton = removeButton
+								.replace('TOKEN_ARIA_LABEL', label)
+								.replace('TOKEN_DATA_ROW_ID', entityId)
+								.replace('TOKEN_TITLE', label);
+
+							rowColumns.push(entityName);
 							rowColumns.push(selectedItem.type);
 							rowColumns.push('');
-							rowColumns.push(
-								'<a class="modify-link" data-rowId="' +
-									entityId +
-									'" href="javascript:void(0);"><%= UnicodeFormatter.toString(removeOrganizationIcon) %></a>'
-							);
+							rowColumns.push(removeButton);
 
 							searchContainer.addRow(rowColumns, entityId);
 

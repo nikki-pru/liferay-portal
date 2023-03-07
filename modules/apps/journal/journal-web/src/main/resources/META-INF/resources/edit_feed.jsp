@@ -102,6 +102,8 @@ if (feed != null) {
 	feedURL.setResourceID("/journal/rss");
 }
 
+EditJournalFeedDisplayContext editJournalFeedDisplayContext = new EditJournalFeedDisplayContext(request, feed, liferayPortletResponse);
+
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(redirect);
 
@@ -222,6 +224,16 @@ renderResponse.setTitle((feed == null) ? LanguageUtil.get(request, "new-feed") :
 					</aui:select>
 				</c:otherwise>
 			</c:choose>
+
+			<div class="form-group">
+				<aui:input name="assetCategoryIds" type="hidden" value="<%= editJournalFeedDisplayContext.getAssetCategoryIds() %>" />
+
+				<aui:input name="assetCategory" type="resource" value="<%= editJournalFeedDisplayContext.getAssetCategoryName() %>" />
+
+				<aui:button name="selectAssetCategoryButton" onClick='<%= liferayPortletResponse.getNamespace() + "openAssetCategorySelector();" %>' value="select" />
+
+				<aui:button disabled="<%= editJournalFeedDisplayContext.getAssetCategoryId() == 0 %>" name="removeAssetCategoryButton" onClick='<%= liferayPortletResponse.getNamespace() + "removeAssetCategory();" %>' value="remove" />
+			</div>
 		</liferay-frontend:fieldset>
 
 		<liferay-frontend:fieldset
@@ -343,6 +355,22 @@ renderResponse.setTitle((feed == null) ? LanguageUtil.get(request, "new-feed") :
 </liferay-frontend:edit-form>
 
 <aui:script>
+	function <portlet:namespace />openAssetCategorySelector() {
+		Liferay.Util.openSelectionModal({
+			onSelect: function (selectedItem) {
+				document.<portlet:namespace />fm.<portlet:namespace />assetCategoryIds.value =
+					selectedItem.classPK;
+				document.<portlet:namespace />fm.<portlet:namespace />assetCategory.value =
+					selectedItem.title;
+				document.<portlet:namespace />fm.<portlet:namespace />removeAssetCategoryButton.disabled = false;
+			},
+			selectEventName: '<portlet:namespace />selectAssetCategory',
+			title: '<%= UnicodeLanguageUtil.get(request, "select-category") %>',
+			url:
+				'<%= editJournalFeedDisplayContext.getAssetCategoriesSelectorURL() %>>',
+		});
+	}
+
 	function <portlet:namespace />openDDMStructureSelector() {
 		Liferay.Util.openSelectionModal({
 			onSelect: function (selectedItem) {
@@ -382,6 +410,14 @@ renderResponse.setTitle((feed == null) ? LanguageUtil.get(request, "new-feed") :
 			title: '<%= UnicodeLanguageUtil.get(request, "structures") %>',
 			url: '<%= journalDisplayContext.getSelectDDMStructureURL() %>>',
 		});
+	}
+
+	function <portlet:namespace />removeAssetCategory() {
+		document.<portlet:namespace />fm.<portlet:namespace />assetCategoryIds.value =
+			'';
+		document.<portlet:namespace />fm.<portlet:namespace />assetCategory.value =
+			'';
+		document.<portlet:namespace />fm.<portlet:namespace />removeAssetCategoryButton.disabled = true;
 	}
 
 	function <portlet:namespace />removeDDMStructure() {

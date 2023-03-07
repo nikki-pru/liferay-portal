@@ -2,5 +2,8 @@
 	"description": "Description of the Masterclass vocabulary",
 	"externalReferenceCode": "MASVOC0001",
 	"name": "Masterclass",
+	"name_i18n": {
+		"en_US": "Masterclass"
+	},
 	"viewableBy": "Anyone"
 }

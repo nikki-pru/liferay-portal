@@ -19,6 +19,7 @@ import com.liferay.change.tracking.constants.CTConstants;
 import com.liferay.change.tracking.model.CTCollection;
 import com.liferay.change.tracking.model.CTEntry;
 import com.liferay.change.tracking.service.CTEntryLocalService;
+import com.liferay.change.tracking.web.internal.configuration.helper.CTSettingsConfigurationHelper;
 import com.liferay.change.tracking.web.internal.display.CTDisplayRendererRegistry;
 import com.liferay.change.tracking.web.internal.util.PublicationsPortletURLUtil;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructureRel;
@@ -65,15 +66,17 @@ public class ViewConflictsDisplayContext {
 		Map<Long, List<ConflictInfo>> conflictInfoMap,
 		CTCollection ctCollection,
 		CTDisplayRendererRegistry ctDisplayRendererRegistry,
-		CTEntryLocalService ctEntryLocalService, boolean hasUnapprovedChanges,
-		Language language, Portal portal, RenderRequest renderRequest,
-		RenderResponse renderResponse) {
+		CTEntryLocalService ctEntryLocalService,
+		CTSettingsConfigurationHelper ctSettingsConfigurationHelper,
+		boolean hasUnapprovedChanges, Language language, Portal portal,
+		RenderRequest renderRequest, RenderResponse renderResponse) {
 
 		_activeCtCollectionId = activeCtCollectionId;
 		_conflictInfoMap = conflictInfoMap;
 		_ctCollection = ctCollection;
 		_ctDisplayRendererRegistry = ctDisplayRendererRegistry;
 		_ctEntryLocalService = ctEntryLocalService;
+		_ctSettingsConfigurationHelper = ctSettingsConfigurationHelper;
 		_hasUnapprovedChanges = hasUnapprovedChanges;
 		_language = language;
 		_portal = portal;
@@ -209,6 +212,10 @@ public class ViewConflictsDisplayContext {
 
 				return timeZone.getID();
 			}
+		).put(
+			"unapprovedChangesAllowed",
+			_ctSettingsConfigurationHelper.isUnapprovedChangesAllowed(
+				_themeDisplay.getCompanyId())
 		).put(
 			"unresolvedConflicts", unresolvedConflictsJSONArray
 		).build();
@@ -438,6 +445,7 @@ public class ViewConflictsDisplayContext {
 	private final CTCollection _ctCollection;
 	private final CTDisplayRendererRegistry _ctDisplayRendererRegistry;
 	private final CTEntryLocalService _ctEntryLocalService;
+	private final CTSettingsConfigurationHelper _ctSettingsConfigurationHelper;
 	private final boolean _hasUnapprovedChanges;
 	private final HttpServletRequest _httpServletRequest;
 	private final Language _language;

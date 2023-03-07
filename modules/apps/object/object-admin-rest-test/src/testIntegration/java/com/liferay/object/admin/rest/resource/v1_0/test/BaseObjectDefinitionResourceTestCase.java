@@ -251,10 +251,11 @@ public abstract class BaseObjectDefinitionResourceTestCase {
 			objectDefinition2.getId());
 	}
 
-	protected Map<String, Map> testGetObjectDefinitionsPage_getExpectedActions()
+	protected Map<String, Map<String, String>>
+			testGetObjectDefinitionsPage_getExpectedActions()
 		throws Exception {
 
-		Map<String, Map> expectedActions = new HashMap<>();
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 		return expectedActions;
 	}
@@ -1239,6 +1240,16 @@ public abstract class BaseObjectDefinitionResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals(
+					"objectValidationRules", additionalAssertFieldName)) {
+
+				if (objectDefinition.getObjectValidationRules() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("objectViews", additionalAssertFieldName)) {
 				if (objectDefinition.getObjectViews() == null) {
 					valid = false;
@@ -1352,7 +1363,8 @@ public abstract class BaseObjectDefinitionResourceTestCase {
 	}
 
 	protected void assertValid(
-		Page<ObjectDefinition> page, Map<String, Map> expectedActions) {
+		Page<ObjectDefinition> page,
+		Map<String, Map<String, String>> expectedActions) {
 
 		boolean valid = false;
 
@@ -1370,7 +1382,7 @@ public abstract class BaseObjectDefinitionResourceTestCase {
 
 		Assert.assertTrue(valid);
 
-		Map<String, Map> actions = page.getActions();
+		Map<String, Map<String, String>> actions = page.getActions();
 
 		for (String key : expectedActions.keySet()) {
 			Map action = actions.get(key);
@@ -1661,6 +1673,19 @@ public abstract class BaseObjectDefinitionResourceTestCase {
 				if (!Objects.deepEquals(
 						objectDefinition1.getObjectRelationships(),
 						objectDefinition2.getObjectRelationships())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals(
+					"objectValidationRules", additionalAssertFieldName)) {
+
+				if (!Objects.deepEquals(
+						objectDefinition1.getObjectValidationRules(),
+						objectDefinition2.getObjectValidationRules())) {
 
 					return false;
 				}
@@ -2066,6 +2091,11 @@ public abstract class BaseObjectDefinitionResourceTestCase {
 		}
 
 		if (entityFieldName.equals("objectRelationships")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("objectValidationRules")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

@@ -218,7 +218,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {objectDefinitionByExternalReferenceCode(externalReferenceCode: ___){accountEntryRestricted, accountEntryRestrictedObjectFieldName, actions, active, dateCreated, dateModified, defaultLanguageId, enableCategorization, enableComments, enableObjectEntryHistory, externalReferenceCode, id, label, name, objectActions, objectFields, objectLayouts, objectRelationships, objectViews, panelAppOrder, panelCategoryKey, parameterRequired, pluralLabel, portlet, restContextPath, scope, status, storageType, system, titleObjectFieldName}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {objectDefinitionByExternalReferenceCode(externalReferenceCode: ___){accountEntryRestricted, accountEntryRestrictedObjectFieldName, actions, active, dateCreated, dateModified, defaultLanguageId, enableCategorization, enableComments, enableObjectEntryHistory, externalReferenceCode, id, label, name, objectActions, objectFields, objectLayouts, objectRelationships, objectValidationRules, objectViews, panelAppOrder, panelCategoryKey, parameterRequired, pluralLabel, portlet, restContextPath, scope, status, storageType, system, titleObjectFieldName}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public ObjectDefinition objectDefinitionByExternalReferenceCode(
@@ -237,7 +237,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {objectDefinition(objectDefinitionId: ___){accountEntryRestricted, accountEntryRestrictedObjectFieldName, actions, active, dateCreated, dateModified, defaultLanguageId, enableCategorization, enableComments, enableObjectEntryHistory, externalReferenceCode, id, label, name, objectActions, objectFields, objectLayouts, objectRelationships, objectViews, panelAppOrder, panelCategoryKey, parameterRequired, pluralLabel, portlet, restContextPath, scope, status, storageType, system, titleObjectFieldName}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {objectDefinition(objectDefinitionId: ___){accountEntryRestricted, accountEntryRestrictedObjectFieldName, actions, active, dateCreated, dateModified, defaultLanguageId, enableCategorization, enableComments, enableObjectEntryHistory, externalReferenceCode, id, label, name, objectActions, objectFields, objectLayouts, objectRelationships, objectValidationRules, objectViews, panelAppOrder, panelCategoryKey, parameterRequired, pluralLabel, portlet, restContextPath, scope, status, storageType, system, titleObjectFieldName}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public ObjectDefinition objectDefinition(
@@ -790,36 +790,6 @@ public class Query {
 	}
 
 	@GraphQLTypeExtension(ObjectDefinition.class)
-	public class GetObjectDefinitionObjectValidationRulesPageTypeExtension {
-
-		public GetObjectDefinitionObjectValidationRulesPageTypeExtension(
-			ObjectDefinition objectDefinition) {
-
-			_objectDefinition = objectDefinition;
-		}
-
-		@GraphQLField
-		public ObjectValidationRulePage objectValidationRules(
-				@GraphQLName("search") String search,
-				@GraphQLName("pageSize") int pageSize,
-				@GraphQLName("page") int page)
-			throws Exception {
-
-			return _applyComponentServiceObjects(
-				_objectValidationRuleResourceComponentServiceObjects,
-				Query.this::_populateResourceContext,
-				objectValidationRuleResource -> new ObjectValidationRulePage(
-					objectValidationRuleResource.
-						getObjectDefinitionObjectValidationRulesPage(
-							_objectDefinition.getId(), search,
-							Pagination.of(page, pageSize))));
-		}
-
-		private ObjectDefinition _objectDefinition;
-
-	}
-
-	@GraphQLTypeExtension(ObjectDefinition.class)
 	public class
 		GetObjectDefinitionByExternalReferenceCodeObjectLayoutsPageTypeExtension {
 
@@ -898,7 +868,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected List<Facet> facets;
@@ -936,7 +906,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected List<Facet> facets;
@@ -974,7 +944,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected List<Facet> facets;
@@ -1012,7 +982,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected List<Facet> facets;
@@ -1050,7 +1020,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected List<Facet> facets;
@@ -1088,7 +1058,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected List<Facet> facets;
@@ -1126,7 +1096,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected List<Facet> facets;

@@ -1,0 +1,27 @@
+definition {
+
+	macro getErcValue {
+		var propertyValue = JSONPathUtil.getProperty(
+			property = "$.externalReferenceCode",
+			response = ${response});
+
+		return ${propertyValue};
+	}
+
+	macro getIdValue {
+		var propertyValue = JSONPathUtil.getProperty(
+			property = "$.id",
+			response = ${response});
+
+		return ${propertyValue};
+	}
+
+	macro getProperty {
+		Variables.assertDefined(parameterList = "${response},${property}");
+
+		var propertyValue = JSONUtil.getWithJSONPath(${response}, ${property});
+
+		return ${propertyValue};
+	}
+
+}

@@ -26,6 +26,7 @@ import React, {useEffect, useState} from 'react';
 import {Attachments} from './Attachments';
 import {DefinitionOfTerms} from './DefinitionOfTerms';
 import {FreeMarkerTemplateEditor} from './FreeMarkerTemplateEditor';
+import {GeneralTerms} from './GeneralTerms';
 
 const EDITOR_TYPES = [
 	{
@@ -165,6 +166,10 @@ export default function ContentContainer({
 				baseResourceURL={baseResourceURL}
 				objectDefinitions={objectDefinitions}
 			/>
+
+			{Liferay.FeatureFlags['LPS-171625'] && (
+				<GeneralTerms baseResourceURL={baseResourceURL} />
+			)}
 
 			{values.type === 'email' && (
 				<Attachments setValues={setValues} values={values} />

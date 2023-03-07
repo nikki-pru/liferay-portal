@@ -14,6 +14,7 @@
 
 package com.liferay.portal.tools.service.builder;
 
+import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.io.unsync.UnsyncBufferedReader;
 import com.liferay.petra.io.unsync.UnsyncStringReader;
 import com.liferay.petra.io.unsync.UnsyncStringWriter;
@@ -118,7 +119,6 @@ import java.util.TreeSet;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import org.dom4j.Attribute;
 import org.dom4j.Document;
@@ -5879,32 +5879,40 @@ public class ServiceBuilder {
 			return false;
 		}
 
-		boolean hasCompanyId = Stream.of(
-			columnElements.toArray(new Element[0])
-		).map(
-			columnElement -> columnElement.attributeValue("name")
-		).anyMatch(
-			columnName -> columnName.equals("companyId")
-		);
+		boolean hasCompanyId = false;
+
+		for (Element columnElement : columnElements) {
+			String columnName = columnElement.attributeValue("name");
+
+			if (columnName.equals("companyId")) {
+				hasCompanyId = true;
+
+				break;
+			}
+		}
 
 		if (!hasCompanyId) {
 			return false;
 		}
 
-		String[] finderColumnNames = Stream.of(
-			finderColumnElements.toArray(new Element[0])
-		).map(
-			finderColumnElement -> finderColumnElement.attributeValue("name")
-		).filter(
-			finderColumnName ->
-				finderColumnName.endsWith("Id") ||
-				finderColumnName.endsWith("PK")
-		).toArray(
-			String[]::new
-		);
+		List<String> finderColumnNames = TransformUtil.transform(
+			finderColumnElements,
+			finderColumnElement -> {
+				String finderColumnName = finderColumnElement.attributeValue(
+					"name");
 
-		if ((finderColumnNames.length == 1) &&
-			finderColumnNames[0].equals("classNameId")) {
+				if ((finderColumnName == null) ||
+					(!finderColumnName.endsWith("Id") &&
+					 !finderColumnName.endsWith("PK"))) {
+
+					return null;
+				}
+
+				return finderColumnName;
+			});
+
+		if ((finderColumnNames.size() == 1) &&
+			Objects.equals("classNameId", finderColumnNames.get(0))) {
 
 			return true;
 		}

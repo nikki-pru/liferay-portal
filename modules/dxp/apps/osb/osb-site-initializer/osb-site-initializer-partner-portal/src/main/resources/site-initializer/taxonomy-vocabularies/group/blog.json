@@ -2,5 +2,8 @@
 	"description": "Blog vocabulary",
 	"externalReferenceCode": "PRMV001",
 	"name": "Blog",
+	"name_i18n": {
+		"en_US": "Blog"
+	},
 	"viewableBy": "Anyone"
 }

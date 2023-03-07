@@ -33,6 +33,7 @@ if (columnId > 0) {
 
 portletDisplay.setShowBackIcon(true);
 portletDisplay.setURLBack(redirect);
+portletDisplay.setURLBackTitle(ParamUtil.getString(request, "backTitle"));
 
 renderResponse.setTitle(modelResourceName + ": " + ((expandoColumn == null) ? LanguageUtil.get(request, "new-custom-field") : expandoColumn.getName()));
 

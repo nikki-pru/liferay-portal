@@ -199,6 +199,16 @@ definition {
 			}
 		}
 
+		if (isSet(formulaFieldOption)) {
+			Click(
+				key_filterLabel = "Output",
+				locator1 = "ObjectCustomViews#SELECT_FILTER_GENERIC");
+
+			Click(
+				key_dropdownItem = ${formulaFieldOption},
+				locator1 = "ObjectField#SELECT_FORMULA_FIELD_OPTION");
+		}
+
 		PortletEntry.save();
 	}
 
@@ -661,8 +671,6 @@ definition {
 		Click(
 			key_picklistOption = ${newPicklistOption},
 			locator1 = "ObjectAdmin#ENTRY_PICKLIST_OPTION");
-
-		PortletEntry.save();
 	}
 
 	macro changePluralLabelLanguage {
@@ -728,6 +736,16 @@ definition {
 			locator1 = "ObjectAdmin#OBJECT_KEBAB_MENU");
 
 		MenuItem.clickNoError(menuItem = "Delete");
+	}
+
+	macro deleteAllCommerceOrdersAndSitesViaAPI {
+		var ordersCount = CommerceJSONOrdersAPI._getCommerceOrdersCount();
+
+		if (${ordersCount} != 0) {
+			CommerceJSONOrdersAPI._deleteAllCommerceOrdersAndCheck();
+		}
+
+		CommerceJSONSitesAPI._deleteCommerceSites();
 	}
 
 	macro deleteAllCustomObjectsViaAPI {
@@ -1211,7 +1229,7 @@ definition {
 	}
 
 	macro publishObjectViaUI {
-		Button.clickPublish();
+		PortletEntry.publish();
 
 		Alert.viewSuccessMessage();
 

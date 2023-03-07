@@ -28,8 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author Victor Oliveira
@@ -108,25 +106,26 @@ public class FormContextUtil {
 			{
 				enabled = _getBoolean(formPageContext, "enabled");
 
-				List<Map<String, Object>> maps = _getMaps(
-					formPageContext, "rows");
+				List<FormFieldContext> formFieldContextsList =
+					new ArrayList<>();
 
-				Stream<Map<String, Object>> stream = maps.stream();
+				for (Map<String, Object> rowsMap :
+						_getMaps(formPageContext, "rows")) {
 
-				formFieldContexts = TransformUtil.transformToArray(
-					stream.map(
-						row -> _getMaps(row, "columns")
-					).flatMap(
-						List::stream
-					).map(
-						column -> _getMaps(column, "fields")
-					).flatMap(
-						List::stream
-					).collect(
-						Collectors.toList()
-					),
-					FormContextUtil::_toFormFieldContext,
-					FormFieldContext.class);
+					for (Map<String, Object> columnsMap :
+							_getMaps(rowsMap, "columns")) {
+
+						for (Map<String, Object> fieldsMap :
+								_getMaps(columnsMap, "fields")) {
+
+							formFieldContextsList.add(
+								_toFormFieldContext(fieldsMap));
+						}
+					}
+				}
+
+				formFieldContexts = formFieldContextsList.toArray(
+					new FormFieldContext[0]);
 
 				showRequiredFieldsWarning = _getBoolean(
 					formPageContext, "showRequiredFieldsWarning");

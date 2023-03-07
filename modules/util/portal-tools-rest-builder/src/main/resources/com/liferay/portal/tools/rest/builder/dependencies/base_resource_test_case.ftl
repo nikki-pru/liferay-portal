@@ -649,13 +649,13 @@ public abstract class Base${schemaName}ResourceTestCase {
 					</#if>
 				}
 
-				protected Map<String, Map> test${javaMethodSignature.methodName?cap_first}_getExpectedActions(
+				protected Map<String, Map<String, String>> test${javaMethodSignature.methodName?cap_first}_getExpectedActions(
 					<#list javaMethodSignature.pathJavaMethodParameters as javaMethodParameter>
 						${javaMethodParameter.parameterType} ${javaMethodParameter.parameterName}<#sep>, </#sep>
 					</#list>
 				) throws Exception {
 
-					Map<String, Map> expectedActions = new HashMap<>();
+					Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 					<#if (javaMethodSignature.pathJavaMethodParameters?size == 1) && freeMarkerTool.hasPath(javaMethodSignatures, javaMethodSignature.path + "/batch")>
 						<#assign firstPathJavaMethodParameter = javaMethodSignature.pathJavaMethodParameters[0] />
@@ -1359,12 +1359,15 @@ public abstract class Base${schemaName}ResourceTestCase {
 					/>
 
 					<#if freeMarkerTool.hasPostSchemaJavaMethodSignature(javaMethodSignatures, firstPathJavaMethodParameter.parameterName, schemaName) && stringUtil.equals(javaMethodSignature.methodName, "post" + modifiedPathJavaMethodParameterName + schemaName)>
-						return ${schemaVarName}Resource.post${modifiedPathJavaMethodParameterName}${schemaName}(testGet${modifiedPathJavaMethodParameterName}${schemaNames}Page_get<#if stringUtil.startsWith(firstPathJavaMethodParameter.parameterName, "parent")>Parent</#if>${modifiedPathJavaMethodParameterName}Id(), ${schemaVarName}
+						<#if freeMarkerTool.isCollection(javaMethodSignature, javaMethodSignatures, modifiedPathJavaMethodParameterName + schemaNames)>
+							return ${schemaVarName}Resource.post${modifiedPathJavaMethodParameterName}${schemaName}(testGet${modifiedPathJavaMethodParameterName}${schemaNames}Page_get<#if stringUtil.startsWith(firstPathJavaMethodParameter.parameterName, "parent")>Parent</#if>${modifiedPathJavaMethodParameterName}Id(), ${schemaVarName}
+						<#else>
+							return ${schemaVarName}Resource.post${modifiedPathJavaMethodParameterName}${schemaName}(testGet${modifiedPathJavaMethodParameterName}${schemaName}_get${modifiedPathJavaMethodParameterName}Id(${schemaVarName})
+						</#if>
 
 						<#if freeMarkerTool.hasRequestBodyMediaType(javaMethodSignature, "multipart/form-data")>
 							, multipartFiles
 						</#if>
-
 						);
 					<#else>
 						throw new UnsupportedOperationException("This method needs to be implemented");
@@ -2312,7 +2315,7 @@ public abstract class Base${schemaName}ResourceTestCase {
 		assertValid(page, Collections.emptyMap());
 	}
 
-	protected void assertValid(Page<${schemaClientJavaType}> page, Map<String, Map> expectedActions) {
+	protected void assertValid(Page<${schemaClientJavaType}> page, Map<String, Map<String, String>> expectedActions) {
 		boolean valid = false;
 
 		java.util.Collection<${schemaClientJavaType}> ${schemaVarNames} = page.getItems();
@@ -2325,7 +2328,7 @@ public abstract class Base${schemaName}ResourceTestCase {
 
 		Assert.assertTrue(valid);
 
-		Map<String, Map> actions = page.getActions();
+		Map<String, Map<String, String>> actions = page.getActions();
 
 		for (String key : expectedActions.keySet()) {
 			Map action = actions.get(key);

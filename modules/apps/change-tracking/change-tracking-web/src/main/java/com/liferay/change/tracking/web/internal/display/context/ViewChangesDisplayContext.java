@@ -727,6 +727,8 @@ public class ViewChangesDisplayContext {
 			_publicationsDisplayContext.getStatusStyle(
 				_ctCollection.getStatus())
 		).put(
+			"total", ctEntriesCount
+		).put(
 			"typeNames",
 			() -> {
 				JSONObject typeNamesJSONObject =
@@ -1118,7 +1120,7 @@ public class ViewChangesDisplayContext {
 					model, modelClassNameId);
 
 				if (hideable && !showHideable) {
-					return;
+					continue;
 				}
 
 				modelInfo._jsonObject = JSONUtil.put(
@@ -1212,7 +1214,7 @@ public class ViewChangesDisplayContext {
 					model, modelClassNameId);
 
 				if (hideable && !showHideable) {
-					return;
+					continue;
 				}
 
 				Map<String, Object> modelAttributes =

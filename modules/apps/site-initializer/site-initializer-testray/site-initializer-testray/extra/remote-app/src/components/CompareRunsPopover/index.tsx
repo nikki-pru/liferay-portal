@@ -16,7 +16,7 @@ import ClayButton from '@clayui/button';
 import ClayIcon from '@clayui/icon';
 import ClayLayout from '@clayui/layout';
 import classNames from 'classnames';
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 
 import useRuns from '../../hooks/useRuns';
 import i18n from '../../i18n';
@@ -27,12 +27,14 @@ import Form from '../Form';
 type CompareRunsPopoverProps = {
 	expanded?: boolean;
 	setVisible: (state: boolean) => void;
+	triggedRef: React.RefObject<HTMLDivElement>;
 	visible: boolean;
 };
 
 const CompareRunsPopover: React.FC<CompareRunsPopoverProps> = ({
 	expanded = false,
 	setVisible,
+	triggedRef,
 	visible,
 }) => {
 	const {compareRuns, setRunA, setRunB} = useRuns();
@@ -69,6 +71,24 @@ const CompareRunsPopover: React.FC<CompareRunsPopoverProps> = ({
 				})
 			);
 	};
+	const ref = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const handleClickOutside = (event: any) => {
+			if (
+				ref.current &&
+				!ref.current.contains(event.target) &&
+				!triggedRef.current?.contains(event.target)
+			) {
+				setVisible(false);
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+
+		return () =>
+			document.removeEventListener('mousedown', handleClickOutside);
+	}, [setVisible, triggedRef]);
 
 	return (
 		<div
@@ -78,6 +98,8 @@ const CompareRunsPopover: React.FC<CompareRunsPopoverProps> = ({
 				'box-visible': visible && !expanded,
 				'box-visible-expanded': visible && expanded,
 			})}
+			onBlur={() => setVisible(false)}
+			ref={ref}
 		>
 			<div className="align-items d-flex flex-column justify-content-between m-3">
 				<div className="align-items-center d-flex justify-content-between">

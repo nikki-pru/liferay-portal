@@ -23,7 +23,6 @@ import com.liferay.item.selector.ItemSelectorReturnType;
 import com.liferay.item.selector.ItemSelectorView;
 import com.liferay.item.selector.ItemSelectorViewDescriptor;
 import com.liferay.item.selector.ItemSelectorViewDescriptorRenderer;
-import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.layout.page.template.constants.LayoutPageTemplateEntryTypeConstants;
 import com.liferay.layout.page.template.item.selector.LayoutPageTemplateEntryItemSelectorReturnType;
 import com.liferay.layout.page.template.item.selector.criterion.LayoutPageTemplateEntryItemSelectorCriterion;
@@ -38,8 +37,6 @@ import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.Language;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.model.Layout;
-import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.security.auth.AuthTokenUtil;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
@@ -64,7 +61,6 @@ import java.util.Objects;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletURL;
-import javax.portlet.ResourceURL;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -193,40 +189,28 @@ public class LayoutPageTemplateEntryItemSelectorView
 			).put(
 				"previewURL",
 				() -> {
-					Layout layout = _layoutLocalService.getLayout(
-						_layoutPageTemplateEntry.getPlid());
-
 					if (_layoutPageTemplateEntry.getType() ==
 							LayoutPageTemplateEntryTypeConstants.
 								TYPE_DISPLAY_PAGE) {
 
-						ResourceURL getPagePreviewURL =
-							PortletURLFactoryUtil.create(
-								_httpServletRequest,
-								ContentPageEditorPortletKeys.
-									CONTENT_PAGE_EDITOR_PORTLET,
-								layout, PortletRequest.RESOURCE_PHASE);
-
-						getPagePreviewURL.setParameter(
+						return HttpComponentsUtil.addParameters(
+							_themeDisplay.getPortalURL() +
+								_themeDisplay.getPathMain() +
+									"/portal/get_page_preview",
+							"p_l_mode", Constants.PREVIEW, "selPlid",
+							_layoutPageTemplateEntry.getPlid(),
 							"segmentsExperienceId",
-							String.valueOf(
-								_segmentsExperienceLocalService.
-									fetchDefaultSegmentsExperienceId(
-										_layoutPageTemplateEntry.getPlid())));
-						getPagePreviewURL.setResourceID(
-							"/layout_content_page_editor/get_page_preview");
-
-						return HttpComponentsUtil.addParameter(
-							getPagePreviewURL.toString(), "p_l_mode",
-							Constants.PREVIEW);
+							_segmentsExperienceLocalService.
+								fetchDefaultSegmentsExperienceId(
+									_layoutPageTemplateEntry.getPlid()));
 					}
 
-					String layoutURL = HttpComponentsUtil.addParameter(
-						PortalUtil.getLayoutFullURL(layout, _themeDisplay),
-						"p_l_mode", Constants.PREVIEW);
-
-					return HttpComponentsUtil.addParameter(
-						layoutURL, "p_p_auth",
+					return HttpComponentsUtil.addParameters(
+						PortalUtil.getLayoutFullURL(
+							_layoutLocalService.getLayout(
+								_layoutPageTemplateEntry.getPlid()),
+							_themeDisplay),
+						"p_l_mode", Constants.PREVIEW, "p_p_auth",
 						AuthTokenUtil.getToken(_httpServletRequest));
 				}
 			).put(
@@ -368,9 +352,9 @@ public class LayoutPageTemplateEntryItemSelectorView
 				layoutPageTemplateEntryItemSelectorCriterion;
 			_portletURL = portletURL;
 
-			_portletRequest = (PortletRequest)_httpServletRequest.getAttribute(
+			_portletRequest = (PortletRequest)httpServletRequest.getAttribute(
 				JavaConstants.JAVAX_PORTLET_REQUEST);
-			_themeDisplay = (ThemeDisplay)_httpServletRequest.getAttribute(
+			_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 				WebKeys.THEME_DISPLAY);
 		}
 

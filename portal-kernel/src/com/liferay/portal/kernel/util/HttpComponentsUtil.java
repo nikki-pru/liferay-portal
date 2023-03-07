@@ -95,6 +95,22 @@ public class HttpComponentsUtil {
 		return shortenURL(sb.toString());
 	}
 
+	public static String addParameters(String url, Object... parameters) {
+		if ((parameters.length % 2) != 0) {
+			throw new IllegalArgumentException(
+				"Parameters length is not an even number");
+		}
+
+		for (int i = 0; i < parameters.length; i += 2) {
+			String name = String.valueOf(parameters[i]);
+			String value = String.valueOf(parameters[i + 1]);
+
+			url = addParameter(url, name, value);
+		}
+
+		return url;
+	}
+
 	public static String decodePath(String path) {
 		return decodeURL(path);
 	}

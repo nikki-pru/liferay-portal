@@ -466,7 +466,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderItemByExternalReferenceCode(externalReferenceCode: ___){bookedQuantityId, customFields, decimalQuantity, deliveryGroup, discountAmount, discountManuallyAdjusted, discountPercentageLevel1, discountPercentageLevel1WithTaxAmount, discountPercentageLevel2, discountPercentageLevel2WithTaxAmount, discountPercentageLevel3, discountPercentageLevel3WithTaxAmount, discountPercentageLevel4, discountPercentageLevel4WithTaxAmount, discountWithTaxAmount, externalReferenceCode, finalPrice, finalPriceWithTaxAmount, formattedQuantity, id, name, options, orderExternalReferenceCode, orderId, priceManuallyAdjusted, printedNote, promoPrice, promoPriceWithTaxAmount, quantity, requestedDeliveryDate, shippedQuantity, shippingAddress, shippingAddressId, sku, skuExternalReferenceCode, skuId, subscription, unitOfMeasure, unitPrice, unitPriceWithTaxAmount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderItemByExternalReferenceCode(externalReferenceCode: ___){bookedQuantityId, customFields, decimalQuantity, deliveryGroup, discountAmount, discountManuallyAdjusted, discountPercentageLevel1, discountPercentageLevel1WithTaxAmount, discountPercentageLevel2, discountPercentageLevel2WithTaxAmount, discountPercentageLevel3, discountPercentageLevel3WithTaxAmount, discountPercentageLevel4, discountPercentageLevel4WithTaxAmount, discountWithTaxAmount, externalReferenceCode, finalPrice, finalPriceWithTaxAmount, formattedQuantity, id, name, options, orderExternalReferenceCode, orderId, priceManuallyAdjusted, printedNote, promoPrice, promoPriceWithTaxAmount, quantity, requestedDeliveryDate, shippedQuantity, shippingAddress, shippingAddressId, sku, skuExternalReferenceCode, skuId, subscription, unitOfMeasure, unitPrice, unitPriceWithTaxAmount, virtualItemURLs}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public OrderItem orderItemByExternalReferenceCode(
@@ -484,7 +484,7 @@ public class Query {
 	/**
 	 * Invoke this method with the command line:
 	 *
-	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderItem(id: ___){bookedQuantityId, customFields, decimalQuantity, deliveryGroup, discountAmount, discountManuallyAdjusted, discountPercentageLevel1, discountPercentageLevel1WithTaxAmount, discountPercentageLevel2, discountPercentageLevel2WithTaxAmount, discountPercentageLevel3, discountPercentageLevel3WithTaxAmount, discountPercentageLevel4, discountPercentageLevel4WithTaxAmount, discountWithTaxAmount, externalReferenceCode, finalPrice, finalPriceWithTaxAmount, formattedQuantity, id, name, options, orderExternalReferenceCode, orderId, priceManuallyAdjusted, printedNote, promoPrice, promoPriceWithTaxAmount, quantity, requestedDeliveryDate, shippedQuantity, shippingAddress, shippingAddressId, sku, skuExternalReferenceCode, skuId, subscription, unitOfMeasure, unitPrice, unitPriceWithTaxAmount}}"}' -u 'test@liferay.com:test'
+	 * curl -H 'Content-Type: text/plain; charset=utf-8' -X 'POST' 'http://localhost:8080/o/graphql' -d $'{"query": "query {orderItem(id: ___){bookedQuantityId, customFields, decimalQuantity, deliveryGroup, discountAmount, discountManuallyAdjusted, discountPercentageLevel1, discountPercentageLevel1WithTaxAmount, discountPercentageLevel2, discountPercentageLevel2WithTaxAmount, discountPercentageLevel3, discountPercentageLevel3WithTaxAmount, discountPercentageLevel4, discountPercentageLevel4WithTaxAmount, discountWithTaxAmount, externalReferenceCode, finalPrice, finalPriceWithTaxAmount, formattedQuantity, id, name, options, orderExternalReferenceCode, orderId, priceManuallyAdjusted, printedNote, promoPrice, promoPriceWithTaxAmount, quantity, requestedDeliveryDate, shippedQuantity, shippingAddress, shippingAddressId, sku, skuExternalReferenceCode, skuId, subscription, unitOfMeasure, unitPrice, unitPriceWithTaxAmount, virtualItemURLs}}"}' -u 'test@liferay.com:test'
 	 */
 	@GraphQLField
 	public OrderItem orderItem(@GraphQLName("id") Long id) throws Exception {
@@ -1617,7 +1617,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Account> items;
@@ -1650,7 +1650,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<AccountGroup> items;
@@ -1683,7 +1683,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<BillingAddress> items;
@@ -1716,7 +1716,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Channel> items;
@@ -1749,7 +1749,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Order> items;
@@ -1782,7 +1782,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderItem> items;
@@ -1815,7 +1815,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderNote> items;
@@ -1848,7 +1848,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderRule> items;
@@ -1881,7 +1881,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderRuleAccount> items;
@@ -1914,7 +1914,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderRuleAccountGroup> items;
@@ -1947,7 +1947,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderRuleChannel> items;
@@ -1980,7 +1980,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderRuleOrderType> items;
@@ -2013,7 +2013,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderType> items;
@@ -2046,7 +2046,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<OrderTypeChannel> items;
@@ -2079,7 +2079,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<ShippingAddress> items;
@@ -2112,7 +2112,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<Term> items;
@@ -2145,7 +2145,7 @@ public class Query {
 		}
 
 		@GraphQLField
-		protected Map<String, Map> actions;
+		protected Map<String, Map<String, String>> actions;
 
 		@GraphQLField
 		protected java.util.Collection<TermOrderType> items;

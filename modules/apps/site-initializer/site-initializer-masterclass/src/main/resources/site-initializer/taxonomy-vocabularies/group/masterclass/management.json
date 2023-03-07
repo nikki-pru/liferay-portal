@@ -1,5 +1,8 @@
 {
 	"externalReferenceCode": "MASCAT0002",
 	"name": "Management",
+	"name_i18n": {
+		"en_US": "Management"
+	},
 	"viewableBy": "Anyone"
 }

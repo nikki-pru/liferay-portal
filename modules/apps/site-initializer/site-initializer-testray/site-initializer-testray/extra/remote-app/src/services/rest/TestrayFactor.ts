@@ -12,9 +12,9 @@
  * details.
  */
 
+import Rest from '../../core/Rest';
 import {CategoryOptions} from '../../pages/Project/Routines/Builds/BuildForm/Stack/StackList';
 import yupSchema from '../../schema/yup';
-import Rest from './Rest';
 import {TestrayFactor, TestrayFactorOption} from './types';
 
 type FactorEnviroment = typeof yupSchema.enviroment.__outputType;

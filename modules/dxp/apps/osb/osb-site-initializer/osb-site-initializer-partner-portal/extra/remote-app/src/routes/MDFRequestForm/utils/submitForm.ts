@@ -134,6 +134,8 @@ export default async function submitForm(
 		Liferay.Util.navigate(
 			`${siteURL}/${PRMPageRoute.MDF_REQUESTS_LISTING}?edit-success=true`
 		);
+
+		return;
 	}
 
 	Liferay.Util.navigate(

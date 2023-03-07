@@ -14,8 +14,7 @@
 
 package com.liferay.portal.vulcan.jaxrs.exception.mapper;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.petra.string.StringUtil;
 
 import java.util.List;
 
@@ -33,13 +32,18 @@ public abstract class BaseExceptionMapper<T extends Throwable>
 
 	@Override
 	public Response toResponse(T exception) {
-		Problem problem = null;
+		Problem problem = getProblem(exception);
 
-		if (isSanitize()) {
-			problem = _getSanitizedProblem(exception);
-		}
-		else {
-			problem = getProblem(exception);
+		String type = problem.getType();
+
+		if (type != null) {
+			String[] segments = type.split("\\.");
+
+			String exceptionType = segments[segments.length - 1];
+
+			if (exceptionType != null) {
+				problem.setType(StringUtil.replace(exceptionType, '$', '.'));
+			}
 		}
 
 		return Response.status(
@@ -67,27 +71,7 @@ public abstract class BaseExceptionMapper<T extends Throwable>
 
 	protected abstract Problem getProblem(T exception);
 
-	protected boolean isSanitize() {
-		return false;
-	}
-
 	@Context
 	protected HttpHeaders httpHeaders;
-
-	private Problem _getSanitizedProblem(T exception) {
-		Problem problem = getProblem(exception);
-
-		if (_log.isWarnEnabled()) {
-			_log.warn("Problem " + problem, exception);
-		}
-
-		problem.setDetail(null);
-		problem.setTitle(null);
-
-		return problem;
-	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		BaseExceptionMapper.class);
 
 }

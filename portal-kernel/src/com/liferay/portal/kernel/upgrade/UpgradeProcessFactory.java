@@ -101,10 +101,32 @@ public class UpgradeProcessFactory {
 		};
 	}
 
+	public static UpgradeProcess dropTables(String... tableNames) {
+		return new UpgradeProcess(
+			_getUpgradeInfo("drop tables " + Arrays.toString(tableNames))) {
+
+			@Override
+			protected void doUpgrade() throws Exception {
+				for (String tableName : tableNames) {
+					dropTable(tableName);
+				}
+			}
+
+		};
+	}
+
+	private static String _getUpgradeInfo(String message) {
+		return _getUpgradeInfo(null, "Modifying schema to " + message);
+	}
+
 	private static String _getUpgradeInfo(String tableName, String message) {
 		Thread thread = Thread.currentThread();
 
 		String callerClassName = thread.getStackTrace()[3].getClassName();
+
+		if (tableName == null) {
+			return callerClassName + " - " + message;
+		}
 
 		return StringBundler.concat(
 			callerClassName, " - Modifying table ", tableName, " to ", message);

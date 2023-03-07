@@ -16,10 +16,14 @@ package com.liferay.object.web.internal.info.item.provider;
 
 import com.liferay.asset.display.page.portlet.AssetDisplayPageFriendlyURLProvider;
 import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
+import com.liferay.document.library.util.DLURLHelper;
 import com.liferay.info.field.InfoField;
 import com.liferay.info.field.InfoFieldValue;
 import com.liferay.info.field.type.ImageInfoFieldType;
+import com.liferay.info.field.type.TextInfoFieldType;
+import com.liferay.info.field.type.URLInfoFieldType;
 import com.liferay.info.item.InfoItemFieldValues;
 import com.liferay.info.item.InfoItemReference;
 import com.liferay.info.item.field.reader.InfoItemFieldReaderFieldSetProvider;
@@ -44,9 +48,13 @@ import com.liferay.object.web.internal.util.ObjectFieldDBTypeUtil;
 import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.reflect.ReflectionUtil;
 import com.liferay.petra.string.StringPool;
+import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
@@ -79,7 +87,9 @@ public class ObjectEntryInfoItemFieldValuesProvider
 
 	public ObjectEntryInfoItemFieldValuesProvider(
 		AssetDisplayPageFriendlyURLProvider assetDisplayPageFriendlyURLProvider,
+		DLAppLocalService dlAppLocalService,
 		DLFileEntryLocalService dlFileEntryLocalService,
+		DLURLHelper dlURLHelper,
 		InfoItemFieldReaderFieldSetProvider infoItemFieldReaderFieldSetProvider,
 		JSONFactory jsonFactory,
 		ListTypeEntryLocalService listTypeEntryLocalService,
@@ -93,7 +103,9 @@ public class ObjectEntryInfoItemFieldValuesProvider
 
 		_assetDisplayPageFriendlyURLProvider =
 			assetDisplayPageFriendlyURLProvider;
+		_dlAppLocalService = dlAppLocalService;
 		_dlFileEntryLocalService = dlFileEntryLocalService;
+		_dlURLHelper = dlURLHelper;
 		_infoItemFieldReaderFieldSetProvider =
 			infoItemFieldReaderFieldSetProvider;
 		_jsonFactory = jsonFactory;
@@ -122,6 +134,107 @@ public class ObjectEntryInfoItemFieldValuesProvider
 			new InfoItemReference(
 				objectEntry.getModelClassName(), objectEntry.getObjectEntryId())
 		).build();
+	}
+
+	private List<InfoFieldValue<Object>> _getAttachmentInfoFieldValues(
+		List<ObjectField> objectFields, Map<String, ?> values) {
+
+		if (!FeatureFlagManagerUtil.isEnabled("LPS-176083")) {
+			return Collections.emptyList();
+		}
+
+		List<InfoFieldValue<Object>> infoFieldValues = new ArrayList<>();
+
+		for (ObjectField objectField : objectFields) {
+			if (!Objects.equals(
+					objectField.getBusinessType(),
+					ObjectFieldConstants.BUSINESS_TYPE_ATTACHMENT)) {
+
+				continue;
+			}
+
+			long fileEntryId = GetterUtil.getLong(
+				values.get(objectField.getName()));
+
+			if (fileEntryId == GetterUtil.DEFAULT_LONG) {
+				continue;
+			}
+
+			try {
+				FileEntry fileEntry = _dlAppLocalService.getFileEntry(
+					fileEntryId);
+
+				if (fileEntry == null) {
+					continue;
+				}
+
+				infoFieldValues.add(
+					new InfoFieldValue<>(
+						InfoField.builder(
+						).infoFieldType(
+							URLInfoFieldType.INSTANCE
+						).namespace(
+							ObjectField.class.getSimpleName()
+						).name(
+							objectField.getObjectFieldId() + "#downloadURL"
+						).labelInfoLocalizedValue(
+							InfoLocalizedValue.localize(
+								ObjectEntryInfoItemFields.class, "download-url")
+						).build(),
+						_dlURLHelper.getDownloadURL(
+							fileEntry, fileEntry.getFileVersion(), null,
+							StringPool.BLANK)));
+				infoFieldValues.add(
+					new InfoFieldValue<>(
+						InfoField.builder(
+						).infoFieldType(
+							TextInfoFieldType.INSTANCE
+						).namespace(
+							ObjectField.class.getSimpleName()
+						).name(
+							objectField.getObjectFieldId() + "#fileName"
+						).labelInfoLocalizedValue(
+							InfoLocalizedValue.localize(
+								ObjectEntryInfoItemFields.class, "file-name")
+						).build(),
+						fileEntry.getFileName()));
+				infoFieldValues.add(
+					new InfoFieldValue<>(
+						InfoField.builder(
+						).infoFieldType(
+							TextInfoFieldType.INSTANCE
+						).namespace(
+							ObjectField.class.getSimpleName()
+						).name(
+							objectField.getObjectFieldId() + "#mimeType"
+						).labelInfoLocalizedValue(
+							InfoLocalizedValue.localize(
+								ObjectEntryInfoItemFields.class, "mime-type")
+						).build(),
+						fileEntry.getMimeType()));
+				infoFieldValues.add(
+					new InfoFieldValue<>(
+						InfoField.builder(
+						).infoFieldType(
+							TextInfoFieldType.INSTANCE
+						).namespace(
+							ObjectField.class.getSimpleName()
+						).name(
+							objectField.getObjectFieldId() + "#size"
+						).labelInfoLocalizedValue(
+							InfoLocalizedValue.localize(
+								ObjectEntryInfoItemFields.class, "size")
+						).build(),
+						fileEntry.getSize()));
+			}
+			catch (Exception exception) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(exception);
+				}
+			}
+		}
+
+		return infoFieldValues;
 	}
 
 	private String _getDisplayPageURL(
@@ -198,10 +311,13 @@ public class ObjectEntryInfoItemFieldValuesProvider
 
 		Map<String, Serializable> values = objectEntry.getValues();
 
+		List<ObjectField> objectFields =
+			_objectFieldLocalService.getObjectFields(
+				objectEntry.getObjectDefinitionId(), false);
+
 		objectEntryFieldValues.addAll(
 			TransformUtil.transform(
-				_objectFieldLocalService.getObjectFields(
-					objectEntry.getObjectDefinitionId()),
+				objectFields,
 				objectField -> new InfoFieldValue<>(
 					InfoField.builder(
 					).infoFieldType(
@@ -217,6 +333,9 @@ public class ObjectEntryInfoItemFieldValuesProvider
 						).build()
 					).build(),
 					_getValue(objectField, values))));
+
+		objectEntryFieldValues.addAll(
+			_getAttachmentInfoFieldValues(objectFields, values));
 
 		return objectEntryFieldValues;
 	}
@@ -266,10 +385,13 @@ public class ObjectEntryInfoItemFieldValuesProvider
 
 		Map<String, Object> properties = objectEntry.getProperties();
 
+		List<ObjectField> objectFields =
+			_objectFieldLocalService.getObjectFields(
+				serviceBuilderObjectEntry.getObjectDefinitionId());
+
 		objectEntryFieldValues.addAll(
 			TransformUtil.transform(
-				_objectFieldLocalService.getObjectFields(
-					serviceBuilderObjectEntry.getObjectDefinitionId()),
+				objectFields,
 				objectField -> new InfoFieldValue<>(
 					InfoField.builder(
 					).infoFieldType(
@@ -285,6 +407,9 @@ public class ObjectEntryInfoItemFieldValuesProvider
 						).build()
 					).build(),
 					_getValue(objectField, properties))));
+
+		objectEntryFieldValues.addAll(
+			_getAttachmentInfoFieldValues(objectFields, properties));
 
 		return objectEntryFieldValues;
 	}
@@ -419,9 +544,14 @@ public class ObjectEntryInfoItemFieldValuesProvider
 		return null;
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		ObjectEntryInfoItemFieldValuesProvider.class);
+
 	private final AssetDisplayPageFriendlyURLProvider
 		_assetDisplayPageFriendlyURLProvider;
+	private final DLAppLocalService _dlAppLocalService;
 	private final DLFileEntryLocalService _dlFileEntryLocalService;
+	private final DLURLHelper _dlURLHelper;
 	private final InfoItemFieldReaderFieldSetProvider
 		_infoItemFieldReaderFieldSetProvider;
 	private final JSONFactory _jsonFactory;

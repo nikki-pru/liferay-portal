@@ -1,7 +1,13 @@
 {
 	"description": "Provide accounting services",
+	"description_i18n": {
+		"en_US": "Provide accounting services"
+	},
 	"externalReferenceCode": "RAYCAT0002",
 	"name": "Accounting Services",
+	"name_i18n": {
+		"en_US": "Accounting Services"
+	},
 	"taxonomyCategoryProperties": [
 		{
 			"key": "NAICS",

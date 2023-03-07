@@ -327,12 +327,12 @@ public abstract class BasePlacedOrderItemResourceTestCase {
 				placedOrderId));
 	}
 
-	protected Map<String, Map>
+	protected Map<String, Map<String, String>>
 			testGetPlacedOrderPlacedOrderItemsPage_getExpectedActions(
 				Long placedOrderId)
 		throws Exception {
 
-		Map<String, Map> expectedActions = new HashMap<>();
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 		return expectedActions;
 	}
@@ -651,6 +651,14 @@ public abstract class BasePlacedOrderItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("virtualItemURLs", additionalAssertFieldName)) {
+				if (placedOrderItem.getVirtualItemURLs() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -664,7 +672,8 @@ public abstract class BasePlacedOrderItemResourceTestCase {
 	}
 
 	protected void assertValid(
-		Page<PlacedOrderItem> page, Map<String, Map> expectedActions) {
+		Page<PlacedOrderItem> page,
+		Map<String, Map<String, String>> expectedActions) {
 
 		boolean valid = false;
 
@@ -682,7 +691,7 @@ public abstract class BasePlacedOrderItemResourceTestCase {
 
 		Assert.assertTrue(valid);
 
-		Map<String, Map> actions = page.getActions();
+		Map<String, Map<String, String>> actions = page.getActions();
 
 		for (String key : expectedActions.keySet()) {
 			Map action = actions.get(key);
@@ -978,6 +987,17 @@ public abstract class BasePlacedOrderItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("virtualItemURLs", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						placedOrderItem1.getVirtualItemURLs(),
+						placedOrderItem2.getVirtualItemURLs())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1188,6 +1208,11 @@ public abstract class BasePlacedOrderItemResourceTestCase {
 		}
 
 		if (entityFieldName.equals("valid")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("virtualItemURLs")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

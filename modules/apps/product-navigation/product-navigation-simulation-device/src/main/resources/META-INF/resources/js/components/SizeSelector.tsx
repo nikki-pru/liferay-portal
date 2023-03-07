@@ -12,11 +12,13 @@
  * details.
  */
 
+import ClayAlert from '@clayui/alert';
 import ClayButton from '@clayui/button';
 import ClayForm, {ClayInput} from '@clayui/form';
 import ClayIcon from '@clayui/icon';
 import ClayLayout from '@clayui/layout';
 import classNames from 'classnames';
+import {sub} from 'frontend-js-web';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
@@ -36,6 +38,9 @@ const INITIAL_LIST: Size[] = [
 	SIZES.autosize,
 	SIZES.custom,
 ];
+
+const MAX_CUSTOM_SIZE: number = 9999;
+const MIN_CUSTOM_SIZE: number = 1;
 
 export default function SizeSelector({
 	activeSize,
@@ -57,12 +62,15 @@ export default function SizeSelector({
 		setSizesList(nextList);
 	};
 
+	const customSizeSelectorId = `${namespace}customSizeSelector`;
+
 	return (
 		<ClayLayout.Container>
 			<ClayLayout.Row className="default-devices">
 				{sizesList.map((size) => (
 					<SizeButton
 						activeSize={activeSize}
+						customSizeSelectorId={customSizeSelectorId}
 						key={size.id}
 						onRotate={onRotate}
 						setActiveSize={setActiveSize}
@@ -73,6 +81,7 @@ export default function SizeSelector({
 
 			{activeSize.id === SIZES.custom.id && (
 				<CustomSizeSelector
+					id={customSizeSelectorId}
 					namespace={namespace}
 					previewRef={previewRef}
 				/>
@@ -90,6 +99,7 @@ SizeSelector.propTypes = {
 
 interface ISizeButtonProps {
 	activeSize: Size;
+	customSizeSelectorId: string;
 	onRotate: Function;
 	setActiveSize: Function;
 	size: Size;
@@ -97,6 +107,7 @@ interface ISizeButtonProps {
 
 function SizeButton({
 	activeSize,
+	customSizeSelectorId,
 	onRotate,
 	setActiveSize,
 	size,
@@ -116,6 +127,16 @@ function SizeButton({
 
 	return (
 		<ClayButton
+			aria-controls={
+				id === SIZES.custom.id ? customSizeSelectorId : undefined
+			}
+			aria-expanded={
+				id === SIZES.custom.id
+					? activeSize.id === id
+						? true
+						: false
+					: undefined
+			}
 			className={classNames('col-4 lfr-device-item text-center', {
 				'd-lg-block d-none': !responsive,
 				'selected': activeSize.id === id,
@@ -134,21 +155,29 @@ function SizeButton({
 
 SizeButton.propTypes = {
 	activeSize: PropTypes.object.isRequired,
+	customSizeSelectorId: PropTypes.string.isRequired,
 	onRotate: PropTypes.func.isRequired,
 	setActiveSize: PropTypes.func.isRequired,
 	size: PropTypes.object.isRequired,
 };
 
 interface ICustomSizeSelectorProps {
+	id: string;
 	namespace: string;
 	previewRef: React.RefObject<HTMLDivElement>;
 }
 
-function CustomSizeSelector({namespace, previewRef}: ICustomSizeSelectorProps) {
+function CustomSizeSelector({
+	id,
+	namespace,
+	previewRef,
+}: ICustomSizeSelectorProps) {
 	const [height, setHeight] = useState<number>(
 		SIZES.custom.screenSize.height
 	);
 	const [width, setWidth] = useState<number>(SIZES.custom.screenSize.width);
+
+	const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
 	useEffect(() => {
 		const resizeObserver = new ResizeObserver(([firstEntry]) => {
@@ -168,7 +197,7 @@ function CustomSizeSelector({namespace, previewRef}: ICustomSizeSelectorProps) {
 	}, [previewRef]);
 
 	return (
-		<>
+		<div id={id}>
 			<div className="d-flex flex-nowrap mt-4">
 				<ClayForm.Group className="mr-3">
 					<label htmlFor={`${namespace}height`}>
@@ -177,9 +206,18 @@ function CustomSizeSelector({namespace, previewRef}: ICustomSizeSelectorProps) {
 
 					<ClayInput
 						id={`${namespace}height`}
-						onChange={(event) =>
-							setHeight(Number(event.target.value))
-						}
+						max={MAX_CUSTOM_SIZE}
+						min={MIN_CUSTOM_SIZE}
+						onChange={(event) => {
+							const value = Number(event.target.value);
+
+							if (
+								value >= MIN_CUSTOM_SIZE &&
+								value <= MAX_CUSTOM_SIZE
+							) {
+								setHeight(value);
+							}
+						}}
 						type="number"
 						value={height}
 					/>
@@ -192,9 +230,18 @@ function CustomSizeSelector({namespace, previewRef}: ICustomSizeSelectorProps) {
 
 					<ClayInput
 						id={`${namespace}width`}
-						onChange={(event) =>
-							setWidth(Number(event.target.value))
-						}
+						max={MAX_CUSTOM_SIZE}
+						min={MIN_CUSTOM_SIZE}
+						onChange={(event) => {
+							const value = Number(event.target.value);
+
+							if (
+								value >= MIN_CUSTOM_SIZE &&
+								value <= MAX_CUSTOM_SIZE
+							) {
+								setWidth(value);
+							}
+						}}
 						type="number"
 						value={width}
 					/>
@@ -209,16 +256,30 @@ function CustomSizeSelector({namespace, previewRef}: ICustomSizeSelectorProps) {
 					if (previewRef.current) {
 						previewRef.current.style.height = `${height}px`;
 						previewRef.current.style.width = `${width}px`;
+
+						setAlertMessage(
+							sub(
+								Liferay.Language.get('custom-size-x-applied'),
+								`${height}x${width}`
+							)
+						);
 					}
 				}}
 			>
 				{Liferay.Language.get('apply-custom-size')}
 			</ClayButton>
-		</>
+
+			{alertMessage && (
+				<ClayAlert className="mt-3" displayType="info" role="status">
+					{alertMessage}
+				</ClayAlert>
+			)}
+		</div>
 	);
 }
 
 CustomSizeSelector.propTypes = {
+	id: PropTypes.string.isRequired,
 	namespace: PropTypes.string.isRequired,
 	previewRef: PropTypes.object.isRequired,
 };

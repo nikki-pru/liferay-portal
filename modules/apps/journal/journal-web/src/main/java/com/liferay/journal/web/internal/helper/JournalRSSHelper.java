@@ -15,8 +15,10 @@
 package com.liferay.journal.web.internal.helper;
 
 import com.liferay.asset.kernel.AssetRendererFactoryRegistryUtil;
+import com.liferay.asset.kernel.model.AssetCategory;
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
+import com.liferay.asset.kernel.service.AssetCategoryLocalService;
 import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLAppLocalService;
 import com.liferay.document.library.kernel.util.ImageProcessorUtil;
@@ -25,7 +27,6 @@ import com.liferay.dynamic.data.mapping.form.field.type.constants.DDMFormFieldTy
 import com.liferay.dynamic.data.mapping.model.Value;
 import com.liferay.dynamic.data.mapping.storage.DDMFormFieldValue;
 import com.liferay.dynamic.data.mapping.storage.DDMFormValues;
-import com.liferay.journal.constants.JournalArticleConstants;
 import com.liferay.journal.constants.JournalFeedConstants;
 import com.liferay.journal.exception.NoSuchFeedException;
 import com.liferay.journal.model.JournalArticle;
@@ -34,8 +35,7 @@ import com.liferay.journal.model.JournalFeed;
 import com.liferay.journal.service.JournalArticleLocalService;
 import com.liferay.journal.service.JournalFeedLocalService;
 import com.liferay.journal.util.JournalContent;
-import com.liferay.journal.util.comparator.ArticleDisplayDateComparator;
-import com.liferay.journal.util.comparator.ArticleModifiedDateComparator;
+import com.liferay.journal.web.internal.util.JournalSearcherUtil;
 import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
@@ -49,19 +49,23 @@ import com.liferay.portal.kernel.portlet.PortletRequestModel;
 import com.liferay.portal.kernel.portlet.PortletURLFactoryUtil;
 import com.liferay.portal.kernel.portlet.url.builder.PortletURLBuilder;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.QueryConfig;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.service.ImageLocalService;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpComponentsUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
-import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.search.searcher.SearchResponse;
 import com.liferay.rss.export.RSSExporter;
 import com.liferay.rss.model.SyndContent;
 import com.liferay.rss.model.SyndEnclosure;
@@ -71,8 +75,9 @@ import com.liferay.rss.model.SyndLink;
 import com.liferay.rss.model.SyndModelFactory;
 import com.liferay.rss.util.RSSUtil;
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -92,57 +97,6 @@ import org.osgi.service.component.annotations.Reference;
  */
 @Component(service = JournalRSSHelper.class)
 public class JournalRSSHelper {
-
-	public List<JournalArticle> getArticles(JournalFeed feed) {
-		long companyId = feed.getCompanyId();
-		long groupId = feed.getGroupId();
-		List<Long> folderIds = Collections.emptyList();
-		String articleId = null;
-		Double version = null;
-		String title = null;
-		String description = null;
-		String content = null;
-
-		String ddmStructureKey = feed.getDDMStructureKey();
-
-		if (Validator.isNull(ddmStructureKey)) {
-			ddmStructureKey = null;
-		}
-
-		String ddmTemplateKey = feed.getDDMTemplateKey();
-
-		if (Validator.isNull(ddmTemplateKey)) {
-			ddmTemplateKey = null;
-		}
-
-		Date displayDateGT = null;
-		Date displayDateLT = new Date();
-		Date reviewDate = null;
-		int status = WorkflowConstants.STATUS_APPROVED;
-		boolean andOperator = true;
-		int start = 0;
-		int end = feed.getDelta();
-
-		String orderByCol = feed.getOrderByCol();
-
-		String orderByType = feed.getOrderByType();
-
-		boolean orderByAsc = orderByType.equals("asc");
-
-		OrderByComparator<JournalArticle> orderByComparator =
-			new ArticleModifiedDateComparator(orderByAsc);
-
-		if (orderByCol.equals("display-date")) {
-			orderByComparator = new ArticleDisplayDateComparator(orderByAsc);
-		}
-
-		return _journalArticleLocalService.search(
-			companyId, groupId, folderIds,
-			JournalArticleConstants.CLASS_NAME_ID_DEFAULT, articleId, version,
-			title, description, content, ddmStructureKey, ddmTemplateKey,
-			displayDateGT, displayDateLT, reviewDate, status, andOperator,
-			start, end, orderByComparator);
-	}
 
 	public List<SyndEnclosure> getDLEnclosures(String portalURL, String url) {
 		List<SyndEnclosure> syndEnclosures = new ArrayList<>();
@@ -396,7 +350,13 @@ public class JournalRSSHelper {
 
 		syndFeed.setEntries(syndEntries);
 
-		List<JournalArticle> articles = getArticles(feed);
+		SearchResponse searchResponse =
+			JournalSearcherUtil.searchJournalArticles(
+				searchContext -> _populateSearchContext(feed, searchContext));
+
+		List<JournalArticle> articles =
+			JournalSearcherUtil.transformJournalArticles(
+				searchResponse.getDocuments71(), false);
 
 		if (_log.isDebugEnabled()) {
 			_log.debug("Syndicating " + articles.size() + " articles");
@@ -532,6 +492,60 @@ public class JournalRSSHelper {
 		}
 
 		return null;
+	}
+
+	private void _populateSearchContext(
+		JournalFeed feed, SearchContext searchContext) {
+
+		List<AssetCategory> assetCategories =
+			_assetCategoryLocalService.getCategories(
+				JournalFeed.class.getName(), feed.getId());
+
+		if (!assetCategories.isEmpty()) {
+			AssetCategory assetCategory = assetCategories.get(0);
+
+			searchContext.setAndSearch(true);
+			searchContext.setAssetCategoryIds(
+				new long[] {assetCategory.getCategoryId()});
+		}
+
+		Map<String, Serializable> attributes = searchContext.getAttributes();
+
+		attributes.put(Field.STATUS, WorkflowConstants.STATUS_APPROVED);
+
+		if (Validator.isNotNull(feed.getDDMStructureKey())) {
+			attributes.put("ddmStructureKey", feed.getDDMStructureKey());
+		}
+
+		if (Validator.isNotNull(feed.getDDMTemplateKey())) {
+			attributes.put("ddmTemplateKey", feed.getDDMTemplateKey());
+		}
+
+		attributes.put("head", true);
+
+		searchContext.setAttributes(attributes);
+
+		searchContext.setCompanyId(feed.getCompanyId());
+		searchContext.setEnd(feed.getDelta());
+		searchContext.setGroupIds(new long[] {feed.getGroupId()});
+
+		String fieldName = "modified";
+
+		if (StringUtil.equalsIgnoreCase(feed.getOrderByCol(), "display-date")) {
+			fieldName = "displayDate";
+		}
+
+		searchContext.setSorts(
+			new Sort(
+				fieldName, Sort.LONG_TYPE,
+				StringUtil.equalsIgnoreCase(feed.getOrderByType(), "desc")));
+
+		searchContext.setStart(0);
+
+		QueryConfig queryConfig = searchContext.getQueryConfig();
+
+		queryConfig.setHighlightEnabled(false);
+		queryConfig.setScoreEnabled(false);
 	}
 
 	private String _processContent(
@@ -670,6 +684,9 @@ public class JournalRSSHelper {
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		JournalRSSHelper.class);
+
+	@Reference
+	private AssetCategoryLocalService _assetCategoryLocalService;
 
 	@Reference
 	private DLAppLocalService _dlAppLocalService;

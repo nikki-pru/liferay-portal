@@ -15,11 +15,14 @@
 import ClayTable from '@clayui/table';
 import React, {useMemo} from 'react';
 import {useParams} from 'react-router-dom';
+import {STORAGE_KEYS} from '~/core/Storage';
+import {CONSENT_TYPE} from '~/util/enum';
 
 import EmptyState from '../../../components/EmptyState';
 import Container from '../../../components/Layout/Container';
 import MarkdownPreview from '../../../components/Markdown';
 import QATable from '../../../components/Table/QATable';
+import SearchBuilder from '../../../core/SearchBuilder';
 import {useFetch} from '../../../hooks/useFetch';
 import useStorage from '../../../hooks/useStorage';
 import i18n from '../../../i18n';
@@ -31,9 +34,7 @@ import {
 	testrayCaseRequirementsImpl,
 	testrayCaseRest,
 } from '../../../services/rest';
-import {STORAGE_KEYS} from '../../../util/constants';
 import dayjs from '../../../util/date';
-import {SearchBuilder} from '../../../util/search';
 
 type CaseWithRequirement = {
 	[key: number]: TestrayRequirement[];
@@ -248,7 +249,14 @@ const ExportCaseContainer: React.FC<CaseItemsProps> = ({
 const Export = () => {
 	const {id} = useParams();
 
-	const [caseIds] = useStorage(`${STORAGE_KEYS.EXPORT_CASE_IDS}-${id}`, []);
+	const [caseIds] = useStorage(
+		`${STORAGE_KEYS.EXPORT_CASE_IDS}-${id}` as STORAGE_KEYS,
+		{
+			consentType: CONSENT_TYPE.NECESSARY,
+			initialValue: [],
+			storageType: 'persisted',
+		}
+	);
 
 	const {data: casesData, loading} = useFetch<APIResponse<TestrayCase>>(
 		'/cases',
@@ -259,6 +267,7 @@ const Export = () => {
 				nestedFieldsDepth: 3,
 				pageSize: 1000,
 			},
+			swrConfig: {shouldFetch: caseIds.length},
 			transformData: (response) =>
 				testrayCaseRest.transformDataFromList(response),
 		}

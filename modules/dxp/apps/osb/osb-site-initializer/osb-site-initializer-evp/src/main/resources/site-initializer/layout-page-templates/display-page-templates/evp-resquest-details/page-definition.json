@@ -4,6 +4,7 @@
 			{
 				"definition": {
 					"fragmentStyle": {
+						"marginBottom": "8"
 					},
 					"indexed": true,
 					"layout": {
@@ -14,9 +15,6 @@
 				"pageElements": [
 					{
 						"definition": {
-							"fragmentStyle": {
-								"paddingBottom": "3"
-							},
 							"indexed": true,
 							"layout": {
 								"opacity": 100,
@@ -48,7 +46,7 @@
 																	"fields": [
 																		{
 																			"fieldName": "friendlyURL",
-																			"fieldValue": "/my-evp"
+																			"fieldValue": "/request"
 																		},
 																		{
 																			"fieldName": "privatePage",
@@ -72,14 +70,26 @@
 											}
 										}
 									],
-									"fragmentStyle": {
-									},
 									"indexed": true
 								},
 								"type": "Fragment"
 							}
 						],
 						"type": "Section"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-spacer"
+							},
+							"fragmentConfig": {
+								"height": "py-2"
+							},
+							"fragmentFields": [
+							],
+							"indexed": true
+						},
+						"type": "Fragment"
 					},
 					{
 						"definition": {
@@ -199,7 +209,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -378,7 +389,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -430,7 +442,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -609,7 +622,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -661,7 +675,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -752,7 +767,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -804,7 +820,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -895,7 +912,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -947,7 +965,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1126,7 +1145,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1178,7 +1198,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1268,7 +1289,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1320,7 +1342,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1411,7 +1434,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1463,7 +1487,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1642,7 +1667,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1697,7 +1723,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1787,7 +1814,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1839,7 +1867,8 @@
 														"key": "DIALECT-dialect-text"
 													},
 													"fragmentConfig": {
-														"textType": "h4"
+														"textType": "h4",
+														"truncateText": false
 													},
 													"fragmentFields": [
 														{
@@ -1857,6 +1886,239 @@
 																}
 															}
 														}
+													],
+													"indexed": true
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									}
+								],
+								"type": "Row"
+							},
+							{
+								"definition": {
+									"fragment": {
+										"key": "BASIC_COMPONENT-spacer"
+									},
+									"fragmentConfig": {
+										"height": "py-2"
+									},
+									"fragmentFields": [
+									],
+									"indexed": true
+								},
+								"type": "Fragment"
+							}
+						],
+						"type": "Section"
+					},
+					{
+						"definition": {
+							"fragment": {
+								"key": "BASIC_COMPONENT-spacer"
+							},
+							"fragmentConfig": {
+								"height": "py-3"
+							},
+							"fragmentFields": [
+							],
+							"indexed": true
+						},
+						"type": "Fragment"
+					},
+					{
+						"definition": {
+							"fragmentStyle": {
+								"borderRadius": "borderRadiusSm",
+								"borderWidth": "0",
+								"marginBottom": "7",
+								"marginTop": "2",
+								"shadow": "boxShadow"
+							},
+							"indexed": true,
+							"layout": {
+								"borderWidth": 0,
+								"marginBottom": 8,
+								"marginLeft": 0,
+								"marginRight": 0,
+								"marginTop": 0,
+								"opacity": 100,
+								"paddingBottom": 0,
+								"paddingLeft": 0,
+								"paddingRight": 0,
+								"paddingTop": 0,
+								"widthType": "Fixed"
+							}
+						},
+						"pageElements": [
+							{
+								"definition": {
+									"fragment": {
+										"key": "BASIC_COMPONENT-heading"
+									},
+									"fragmentConfig": {
+										"headingLevel": "h3"
+									},
+									"fragmentFields": [
+										{
+											"id": "element-text",
+											"value": {
+												"fragmentLink": {
+												},
+												"text": {
+													"value_i18n": {
+														"en_US": "Payment Description"
+													}
+												}
+											}
+										}
+									],
+									"fragmentStyle": {
+										"paddingBottom": "2",
+										"paddingTop": "2"
+									},
+									"indexed": true
+								},
+								"type": "Fragment"
+							},
+							{
+								"definition": {
+									"fragment": {
+										"key": "BASIC_COMPONENT-separator"
+									},
+									"fragmentConfig": {
+										"bottomSpacing": "3",
+										"separatorColor": ""
+									},
+									"fragmentFields": [
+									],
+									"indexed": true
+								},
+								"type": "Fragment"
+							},
+							{
+								"definition": {
+									"fragmentStyle": {
+										"backgroundColor": "colorBrandPrimaryLighten6",
+										"paddingBottom": "1",
+										"paddingTop": "1"
+									},
+									"gutters": true,
+									"indexed": true,
+									"modulesPerRow": 2,
+									"numberOfColumns": 2,
+									"reverseOrder": false,
+									"rowViewports": [
+										{
+											"id": "landscapeMobile",
+											"rowViewportDefinition": {
+												"modulesPerRow": 1
+											}
+										},
+										{
+											"id": "portraitMobile",
+											"rowViewportDefinition": {
+											}
+										},
+										{
+											"id": "tablet",
+											"rowViewportDefinition": {
+											}
+										}
+									],
+									"verticalAlignment": "top"
+								},
+								"pageElements": [
+									{
+										"definition": {
+											"columnViewports": [
+												{
+													"columnViewportDefinition": {
+														"size": 12
+													},
+													"id": "landscapeMobile"
+												},
+												{
+													"columnViewportDefinition": {
+													},
+													"id": "portraitMobile"
+												},
+												{
+													"columnViewportDefinition": {
+													},
+													"id": "tablet"
+												}
+											],
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "DIALECT-dialect-text"
+													},
+													"fragmentConfig": {
+														"textType": "h4",
+														"truncateText": false
+													},
+													"fragmentFields": [
+														{
+															"id": "element-text",
+															"value": {
+																"fragmentLink": {
+																},
+																"text": {
+																	"value_i18n": {
+																		"en_US": "Payment Date"
+																	}
+																}
+															}
+														}
+													],
+													"fragmentStyle": {
+														"backgroundColor": "colorBrandPrimaryLighten6"
+													},
+													"indexed": true
+												},
+												"type": "Fragment"
+											}
+										],
+										"type": "Column"
+									},
+									{
+										"definition": {
+											"columnViewports": [
+												{
+													"columnViewportDefinition": {
+														"size": 12
+													},
+													"id": "landscapeMobile"
+												},
+												{
+													"columnViewportDefinition": {
+													},
+													"id": "portraitMobile"
+												},
+												{
+													"columnViewportDefinition": {
+													},
+													"id": "tablet"
+												}
+											],
+											"size": 6
+										},
+										"pageElements": [
+											{
+												"definition": {
+													"fragment": {
+														"key": "evp-payment-date",
+														"siteKey": "EVP"
+													},
+													"fragmentConfig": {
+													},
+													"fragmentFields": [
 													],
 													"indexed": true
 												},

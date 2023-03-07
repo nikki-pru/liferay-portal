@@ -15,16 +15,18 @@
 package com.liferay.object.admin.rest.internal.resource.v1_0;
 
 import com.liferay.object.admin.rest.dto.v1_0.ObjectValidationRule;
-import com.liferay.object.admin.rest.internal.dto.v1_0.util.ObjectValidationRuleUtil;
+import com.liferay.object.admin.rest.internal.dto.v1_0.converter.ObjectValidationRuleDTOConverter;
 import com.liferay.object.admin.rest.resource.v1_0.ObjectValidationRuleResource;
 import com.liferay.object.model.ObjectDefinition;
 import com.liferay.object.service.ObjectDefinitionLocalService;
 import com.liferay.object.service.ObjectValidationRuleService;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.vulcan.dto.converter.DefaultDTOConverterContext;
+import com.liferay.portal.vulcan.fields.NestedField;
+import com.liferay.portal.vulcan.fields.NestedFieldSupport;
 import com.liferay.portal.vulcan.pagination.Page;
 import com.liferay.portal.vulcan.pagination.Pagination;
 import com.liferay.portal.vulcan.util.LocalizedMapUtil;
@@ -39,10 +41,11 @@ import org.osgi.service.component.annotations.ServiceScope;
  */
 @Component(
 	properties = "OSGI-INF/liferay/rest/v1_0/object-validation-rule.properties",
-	scope = ServiceScope.PROTOTYPE, service = ObjectValidationRuleResource.class
+	scope = ServiceScope.PROTOTYPE,
+	service = {NestedFieldSupport.class, ObjectValidationRuleResource.class}
 )
 public class ObjectValidationRuleResourceImpl
-	extends BaseObjectValidationRuleResourceImpl {
+	extends BaseObjectValidationRuleResourceImpl implements NestedFieldSupport {
 
 	@Override
 	public void deleteObjectValidationRule(Long objectValidationRuleId)
@@ -68,6 +71,10 @@ public class ObjectValidationRuleResourceImpl
 			objectDefinition.getObjectDefinitionId(), search, pagination);
 	}
 
+	@NestedField(
+		parentClass = com.liferay.object.admin.rest.dto.v1_0.ObjectDefinition.class,
+		value = "objectValidationRules"
+	)
 	@Override
 	public Page<ObjectValidationRule>
 			getObjectDefinitionObjectValidationRulesPage(
@@ -185,34 +192,43 @@ public class ObjectValidationRuleResourceImpl
 	private ObjectValidationRule _toObjectValidationRule(
 			com.liferay.object.model.ObjectValidationRule
 				serviceBuilderObjectValidationRule)
-		throws PortalException {
+		throws Exception {
 
-		return ObjectValidationRuleUtil.toObjectValidationRule(
-			HashMapBuilder.put(
-				"delete",
-				addAction(
-					ActionKeys.DELETE, "deleteObjectValidationRule",
-					ObjectDefinition.class.getName(),
-					serviceBuilderObjectValidationRule.getObjectDefinitionId())
-			).put(
-				"get",
-				addAction(
-					ActionKeys.VIEW, "getObjectValidationRule",
-					ObjectDefinition.class.getName(),
-					serviceBuilderObjectValidationRule.getObjectDefinitionId())
-			).put(
-				"update",
-				addAction(
-					ActionKeys.UPDATE, "putObjectValidationRule",
-					ObjectDefinition.class.getName(),
-					serviceBuilderObjectValidationRule.getObjectDefinitionId())
-			).build(),
-			contextAcceptLanguage.getPreferredLocale(),
-			_objectDefinitionLocalService, serviceBuilderObjectValidationRule);
+		return _objectValidationRuleDTOConverter.toDTO(
+			new DefaultDTOConverterContext(
+				false,
+				HashMapBuilder.put(
+					"delete",
+					addAction(
+						ActionKeys.DELETE, "deleteObjectValidationRule",
+						ObjectDefinition.class.getName(),
+						serviceBuilderObjectValidationRule.
+							getObjectDefinitionId())
+				).put(
+					"get",
+					addAction(
+						ActionKeys.VIEW, "getObjectValidationRule",
+						ObjectDefinition.class.getName(),
+						serviceBuilderObjectValidationRule.
+							getObjectDefinitionId())
+				).put(
+					"update",
+					addAction(
+						ActionKeys.UPDATE, "putObjectValidationRule",
+						ObjectDefinition.class.getName(),
+						serviceBuilderObjectValidationRule.
+							getObjectDefinitionId())
+				).build(),
+				null, null, contextAcceptLanguage.getPreferredLocale(), null,
+				null),
+			serviceBuilderObjectValidationRule);
 	}
 
 	@Reference
 	private ObjectDefinitionLocalService _objectDefinitionLocalService;
+
+	@Reference
+	private ObjectValidationRuleDTOConverter _objectValidationRuleDTOConverter;
 
 	@Reference
 	private ObjectValidationRuleService _objectValidationRuleService;

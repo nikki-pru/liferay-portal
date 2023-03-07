@@ -19,6 +19,8 @@ definition {
 		if (${testPortalInstance} == "true") {
 			PortalInstances.tearDownCP();
 		}
+
+		ObjectAdmin.deleteAllCommerceOrdersAndSitesViaAPI();
 	}
 
 	@description = "LPS-145665 - Verify that it's possible to activate and deactivate an Action"
@@ -368,6 +370,176 @@ definition {
 		}
 	}
 
+	@description = "LPS-175197 - Verify if actions works with oldValue function when trigger is On After Add (Notification) using any field."
+	@priority = 5
+	test CanCreateActionNotificationUsingOldValueWithOnAfterAddTrigger {
+		task ("Given: A notification template is created") {
+			ApplicationsMenu.gotoPortlet(
+				category = "Notifications",
+				panel = "Control Panel",
+				portlet = "Templates");
+
+			ObjectNotifications.addNewNotificationTemplate(
+				entryTo = "test@liferay.com",
+				fromAddress = "test@liferay.com",
+				fromName = "Test Test",
+				name = "Email Template",
+				notificationType = "Email",
+				subject = "Subject Test");
+
+			PortletEntry.save();
+		}
+
+		task ("And given: An object with a field is created") {
+			ObjectAdmin.addObjectViaAPI(
+				labelName = "Custom Object 175197",
+				objectName = "CustomObject175197",
+				pluralLabelName = "Custom Objects 175197");
+
+			ObjectAdmin.addObjectFieldViaAPI(
+				fieldBusinessType = "Text",
+				fieldLabelName = "Custom Field",
+				fieldName = "customField",
+				fieldType = "String",
+				isRequired = "false",
+				objectName = "CustomObject175197");
+
+			ObjectAdmin.publishObjectViaAPI(objectName = "CustomObject175197");
+		}
+
+		task ("And given: A Notification action with the trigger (On After Add) is created and the oldValue function is used in the condition tab") {
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Custom Object 175197");
+
+			ObjectAdmin.goToActionsTab();
+
+			ObjectAdmin.addObjectActionViaUI(
+				actionLabel = "Notification action when entry is added",
+				active = "true",
+				inputExpression = '''isEmpty(oldValue("customField"))''',
+				notificationName = "Email Template",
+				objectLabel = "Custom Object 175197",
+				thenAction = "Notification",
+				whenAction = "On After Add");
+		}
+
+		task ("When: An entry is added") {
+			ObjectAdmin.goToCustomObject(objectName = "CustomObject175197");
+
+			ObjectPortlet.addSingleFieldEntryViaUI(entry = "Entry Test");
+		}
+
+		task ("Then: The action is triggered and the notification is sent") {
+			ApplicationsMenu.gotoPortlet(
+				category = "Notifications",
+				panel = "Control Panel",
+				portlet = "Queue");
+
+			AssertElementPresent(
+				key_objectName = "CustomObject175197",
+				locator1 = "ObjectNotifications#OBJECT_QUEUE_NAME");
+
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Custom Object 175197");
+
+			ObjectAdmin.goToActionsTab();
+
+			ObjectAdmin.assertObjectActions(
+				actionActive = "Yes",
+				actionLabel = "Notification action when entry is added",
+				status = "Success");
+		}
+	}
+
+	@description = "LPS-175192 - Verify if actions works with oldValue function when trigger is On After Delete (Notification) using any field."
+	@priority = 5
+	test CanCreateActionNotificationUsingOldValueWithOnAfterDeleteTrigger {
+		task ("Given: A notification template is created") {
+			ApplicationsMenu.gotoPortlet(
+				category = "Notifications",
+				panel = "Control Panel",
+				portlet = "Templates");
+
+			ObjectNotifications.addNewNotificationTemplate(
+				entryTo = "test@liferay.com",
+				fromAddress = "test@liferay.com",
+				fromName = "Test Test",
+				name = "Email Template",
+				notificationType = "Email",
+				subject = "Subject Test");
+
+			PortletEntry.save();
+		}
+
+		task ("And given: An object with a field is created") {
+			ObjectAdmin.addObjectViaAPI(
+				labelName = "Custom Object 175192",
+				objectName = "CustomObject175192",
+				pluralLabelName = "Custom Objects 175192");
+
+			ObjectAdmin.addObjectFieldViaAPI(
+				fieldBusinessType = "Text",
+				fieldLabelName = "Custom Field",
+				fieldName = "customField",
+				fieldType = "String",
+				isRequired = "false",
+				objectName = "CustomObject175192");
+
+			ObjectAdmin.publishObjectViaAPI(objectName = "CustomObject175192");
+		}
+
+		task ("And given: A Notification action with the trigger (On After Delete) is created and the oldValue function is used in the condition tab") {
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Custom Object 175192");
+
+			ObjectAdmin.goToActionsTab();
+
+			ObjectAdmin.addObjectActionViaUI(
+				actionLabel = "Notification action when entry is deleted",
+				active = "true",
+				inputExpression = '''oldValue("customField") == "Entry Test"''',
+				notificationName = "Email Template",
+				objectLabel = "Custom Object 175192",
+				thenAction = "Notification",
+				whenAction = "On After Delete");
+		}
+
+		task ("When: An entry is added and then deleted") {
+			ObjectAdmin.goToCustomObject(objectName = "CustomObject175192");
+
+			ObjectPortlet.addSingleFieldEntryViaUI(entry = "Entry Test");
+
+			ObjectAdmin.goToCustomObject(objectName = "CustomObject175192");
+
+			ObjectPortlet.deleteEntry(entry = "Entry Test");
+		}
+
+		task ("Then: The action is triggered and the notification is sent") {
+			ApplicationsMenu.gotoPortlet(
+				category = "Notifications",
+				panel = "Control Panel",
+				portlet = "Queue");
+
+			AssertElementPresent(
+				key_objectName = "CustomObject175192",
+				locator1 = "ObjectNotifications#OBJECT_QUEUE_NAME");
+
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Custom Object 175192");
+
+			ObjectAdmin.goToActionsTab();
+
+			ObjectAdmin.assertObjectActions(
+				actionActive = "Yes",
+				actionLabel = "Notification action when entry is deleted",
+				status = "Success");
+		}
+	}
+
 	@description = "LPS-175191 - Verify if actions works with oldValue function when trigger is On After Update (Notification) using any field"
 	@priority = 5
 	test CanCreateActionNotificationUsingOldValueWithOnAfterUpdateTrigger {
@@ -424,7 +596,7 @@ definition {
 
 		task ("When: An entry is added and updated") {
 			ObjectAdmin.addObjectSingleFieldEntryViaAPI(
-				fieldName = "customObjectField",
+				fieldName = "customField",
 				objectName = "CustomObject175191",
 				value = "Entry Test");
 
@@ -454,6 +626,103 @@ definition {
 			ObjectAdmin.assertObjectActions(
 				actionActive = "Yes",
 				actionLabel = "Notification action when entry is updated",
+				status = "Success");
+		}
+	}
+
+	@description = "LPS-175198 - Verify if actions works with oldValue function when trigger is On Order Status Update (Notification) with order status field"
+	test CanCreateActionNotificationUsingOldValueWithOnOrderStatusUpdateInSystemObject {
+		task ("Given: A notification template is created") {
+			ApplicationsMenu.gotoPortlet(
+				category = "Notifications",
+				panel = "Control Panel",
+				portlet = "Templates");
+
+			ObjectNotifications.addNewNotificationTemplate(
+				entryTo = "test@liferay.com",
+				fromAddress = "test@liferay.com",
+				fromName = "Test Test",
+				name = "Email Template",
+				notificationType = "Email",
+				subject = "Subject");
+
+			PortletEntry.save();
+		}
+
+		task ("And given: An Action is created") {
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Commerce Order");
+
+			ObjectAdmin.goToActionsTab();
+
+			ObjectAdmin.addObjectActionViaUI(
+				actionLabel = "Notification action when the order is updated",
+				active = "true",
+				inputExpression = '''oldValue("orderStatus") == 1''',
+				notificationName = "Email Template",
+				thenAction = "Notification",
+				whenAction = "On Order Status Update");
+		}
+
+		task ("And given: An account, minium site and an order is created") {
+			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
+
+			ApplicationsMenu.gotoSite(site = "Minium");
+
+			JSONAccountEntry.addAccountEntry(
+				accountEntryName = "Accounts Name",
+				accountEntryType = "Business");
+
+			FrontStore.addInitializerProductToCart(
+				productName = "U-Joint",
+				productQuantity = 1);
+
+			Refresh();
+
+			CommerceCheckout.gotoCheckout();
+
+			CommerceCheckout.initializersCheckout(
+				newAddressAddress = "Test Address",
+				newAddressCity = "Test City",
+				newAddressCountry = "United States",
+				newAddressName = "Address Name",
+				newAddressZipCode = "Test Zip Code",
+				productName = "U-Joint",
+				productQuantity = 1,
+				productUnitPrice = 24,
+				shippingMethod = "Standard");
+		}
+
+		task ("When: The user changes the order status.") {
+			CommerceOrders.openOrdersAdmin();
+
+			CommerceNavigator.gotoOrderEntryViaAdmin(status = "Pending");
+
+			Click(
+				key_text = "Accept Order",
+				locator1 = "Link#ANY");
+		}
+
+		task ("Then: The action is triggered and the notification is sent") {
+			ApplicationsMenu.gotoPortlet(
+				category = "Notifications",
+				panel = "Control Panel",
+				portlet = "Queue");
+
+			AssertElementPresent(
+				key_objectName = "CommerceOrder",
+				locator1 = "ObjectNotifications#OBJECT_QUEUE_NAME");
+
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Commerce Order");
+
+			ObjectAdmin.goToActionsTab();
+
+			ObjectAdmin.assertObjectActions(
+				actionActive = "Yes",
+				actionLabel = "Notification action when the order is updated",
 				status = "Success");
 		}
 	}
@@ -1101,6 +1370,97 @@ definition {
 			ObjectPortlet.viewEntry(entry = "Entry Test");
 
 			ObjectPortlet.viewEntry(entry = "Object entry using Action");
+		}
+	}
+
+	@description = "LPS-175196 - Verify if is possible create a validation using the oldValue function using the Picklist field"
+	test CanCreateValidationUsingOldValueFunctionWithPicklistField {
+		task ("Given: A picklist with two items is created (via API)") {
+			Picklist.addPicklistViaAPI(picklistName = "Status");
+
+			Picklist.addPicklistItemViaAPI(
+				itemKey = "open",
+				itemName = "Open",
+				picklistName = "Status");
+
+			Picklist.addPicklistItemViaAPI(
+				itemKey = "inProgress",
+				itemName = "In Progress",
+				picklistName = "Status");
+		}
+
+		task ("And given: An object with a field is created") {
+			ObjectAdmin.addObjectViaAPI(
+				labelName = "Custom Object 175196",
+				objectName = "CustomObject175196",
+				pluralLabelName = "Custom Objects 175196");
+
+			ObjectAdmin.addObjectFieldViaAPI(
+				fieldBusinessType = "Picklist",
+				fieldLabelName = "Custom Picklist Field",
+				fieldName = "customPicklistField",
+				fieldType = "String",
+				isRequired = "false",
+				objectName = "CustomObject175196",
+				picklistName = "Status");
+		}
+
+		task ("And given: A custom validation with expression builder is created and the object is published") {
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Custom Object 175196");
+
+			ObjectAdmin.goToValidationsTab();
+
+			ObjectCustomValidation.addObjectValidation(
+				validationName = "Custom Validation",
+				validationType = "Expression Builder");
+
+			ObjectCustomValidation.gotoCustomValidation(validationName = "Custom Validation");
+
+			ObjectCustomValidation.gotoTab(tabName = "Conditions");
+
+			ObjectCustomValidation.insertScriptOnValidation(scriptValidation = '''oldValue("customPicklistField") == "open"''');
+
+			ObjectCustomValidation.addErrorMessage(errorMessage = "Invalid Value.");
+
+			PortletEntry.save();
+
+			ObjectAdmin.publishObjectViaAPI(objectName = "CustomObject175196");
+		}
+
+		task ("When: An entry is created") {
+			ObjectAdmin.goToCustomObject(objectName = "CustomObject175196");
+
+			ObjectAdmin.addObjectPicklistFieldEntryViaUI(picklistOption = "Open");
+		}
+
+		task ("And when: the validation toggle is active") {
+			ObjectAdmin.openObjectAdmin();
+
+			ObjectPortlet.selectCustomObject(label = "Custom Object 175196");
+
+			ObjectAdmin.goToValidationsTab();
+
+			ObjectCustomValidation.gotoCustomValidation(validationName = "Custom Validation");
+
+			ObjectCustomValidation.activeValidation();
+
+			PortletEntry.save();
+		}
+
+		task ("Then: The validation condition is met and the entry can be updated") {
+			ObjectAdmin.goToCustomObject(objectName = "CustomObject175196");
+
+			ObjectPortlet.viewEntryDetails(entry = "Open");
+
+			ObjectAdmin.changePicklistFieldEntry(
+				entrySelected = "Open",
+				newPicklistOption = "In Progress");
+
+			ObjectAdmin.goToCustomObject(objectName = "CustomObject175196");
+
+			ObjectPortlet.viewEntry(entry = "In Progress");
 		}
 	}
 

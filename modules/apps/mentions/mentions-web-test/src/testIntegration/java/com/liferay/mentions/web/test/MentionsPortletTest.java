@@ -27,9 +27,7 @@ import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
-import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalService;
-import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.test.portlet.MockLiferayResourceRequest;
 import com.liferay.portal.kernel.test.portlet.MockLiferayResourceResponse;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
@@ -47,11 +45,6 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Predicate;
 
 import javax.portlet.Portlet;
 
@@ -92,63 +85,24 @@ public class MentionsPortletTest {
 
 	@Test
 	public void testServletResponseWithoutQuery() throws Exception {
-		_users.add(_addUser("example", _group.getGroupId()));
+		_addUser("example");
 
-		MVCPortlet mvcPortlet = (MVCPortlet)_portlet;
+		JSONArray jsonArray = _getServletResponseJSONArray(null);
 
-		MockLiferayResourceResponse mockLiferayResourceResponse =
-			new MockLiferayResourceResponse();
+		Assert.assertEquals(1, jsonArray.length());
 
-		mvcPortlet.serveResource(
-			_getMockLiferayResourceRequest(null), mockLiferayResourceResponse);
+		JSONObject jsonObject = jsonArray.getJSONObject(0);
 
-		MockHttpServletResponse mockHttpServletResponse =
-			(MockHttpServletResponse)
-				mockLiferayResourceResponse.getHttpServletResponse();
-
-		Assert.assertEquals(
-			ContentTypes.APPLICATION_JSON,
-			mockHttpServletResponse.getContentType());
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-			mockHttpServletResponse.getContentAsString());
-
-		int companyUsersCount = _userLocalService.getCompanyUsersCount(
-			_company.getCompanyId());
-
-		Assert.assertEquals(companyUsersCount - 1, jsonArray.length());
-
-		_assertAnyJSONObject(
-			jsonArray,
-			jsonObject -> Objects.equals(
-				jsonObject.getString("screenName"), "example"));
+		Assert.assertEquals("example", jsonObject.getString("screenName"));
 	}
 
 	@Test
 	public void testServletResponseWithQueryWithFullScreenName()
 		throws Exception {
 
-		_users.add(_addUser("example", _group.getGroupId()));
+		_addUser("example");
 
-		MVCPortlet mvcPortlet = (MVCPortlet)_portlet;
-
-		MockLiferayResourceResponse mockLiferayResourceResponse =
-			new MockLiferayResourceResponse();
-
-		mvcPortlet.serveResource(
-			_getMockLiferayResourceRequest("example"),
-			mockLiferayResourceResponse);
-
-		MockHttpServletResponse mockHttpServletResponse =
-			(MockHttpServletResponse)
-				mockLiferayResourceResponse.getHttpServletResponse();
-
-		Assert.assertEquals(
-			ContentTypes.APPLICATION_JSON,
-			mockHttpServletResponse.getContentType());
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-			mockHttpServletResponse.getContentAsString());
+		JSONArray jsonArray = _getServletResponseJSONArray("example");
 
 		Assert.assertEquals(1, jsonArray.length());
 
@@ -161,26 +115,9 @@ public class MentionsPortletTest {
 	public void testServletResponseWithQueryWithPartialScreenName()
 		throws Exception {
 
-		_users.add(_addUser("example", _group.getGroupId()));
+		_addUser("example");
 
-		MVCPortlet mvcPortlet = (MVCPortlet)_portlet;
-
-		MockLiferayResourceResponse mockLiferayResourceResponse =
-			new MockLiferayResourceResponse();
-
-		mvcPortlet.serveResource(
-			_getMockLiferayResourceRequest("exa"), mockLiferayResourceResponse);
-
-		MockHttpServletResponse mockHttpServletResponse =
-			(MockHttpServletResponse)
-				mockLiferayResourceResponse.getHttpServletResponse();
-
-		Assert.assertEquals(
-			ContentTypes.APPLICATION_JSON,
-			mockHttpServletResponse.getContentType());
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-			mockHttpServletResponse.getContentAsString());
+		JSONArray jsonArray = _getServletResponseJSONArray("exa");
 
 		Assert.assertEquals(1, jsonArray.length());
 
@@ -191,65 +128,24 @@ public class MentionsPortletTest {
 
 	@Test
 	public void testServletResponseWithQueryWithWildard() throws Exception {
-		_users.add(_addUser("example", _group.getGroupId()));
+		_addUser("example");
 
-		MVCPortlet mvcPortlet = (MVCPortlet)_portlet;
+		JSONArray jsonArray = _getServletResponseJSONArray("");
 
-		MockLiferayResourceResponse mockLiferayResourceResponse =
-			new MockLiferayResourceResponse();
+		Assert.assertEquals(1, jsonArray.length());
 
-		mvcPortlet.serveResource(
-			_getMockLiferayResourceRequest(""), mockLiferayResourceResponse);
+		JSONObject jsonObject = jsonArray.getJSONObject(0);
 
-		MockHttpServletResponse mockHttpServletResponse =
-			(MockHttpServletResponse)
-				mockLiferayResourceResponse.getHttpServletResponse();
-
-		Assert.assertEquals(
-			ContentTypes.APPLICATION_JSON,
-			mockHttpServletResponse.getContentType());
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-			mockHttpServletResponse.getContentAsString());
-
-		int companyUsersCount = _userLocalService.getCompanyUsersCount(
-			_company.getCompanyId());
-
-		Assert.assertEquals(companyUsersCount - 1, jsonArray.length());
-
-		_assertAnyJSONObject(
-			jsonArray,
-			jsonObject -> Objects.equals(
-				jsonObject.getString("screenName"), "example"));
+		Assert.assertEquals("example", jsonObject.getString("screenName"));
 	}
 
 	@Test
 	public void testServletResponseWithQueryWithWildcardAndNoResults()
 		throws Exception {
 
-		MVCPortlet mvcPortlet = (MVCPortlet)_portlet;
+		JSONArray jsonArray = _getServletResponseJSONArray("");
 
-		MockLiferayResourceResponse mockLiferayResourceResponse =
-			new MockLiferayResourceResponse();
-
-		mvcPortlet.serveResource(
-			_getMockLiferayResourceRequest(""), mockLiferayResourceResponse);
-
-		MockHttpServletResponse mockHttpServletResponse =
-			(MockHttpServletResponse)
-				mockLiferayResourceResponse.getHttpServletResponse();
-
-		Assert.assertEquals(
-			ContentTypes.APPLICATION_JSON,
-			mockHttpServletResponse.getContentType());
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
-			mockHttpServletResponse.getContentAsString());
-
-		int companyUsersCount = _userLocalService.getCompanyUsersCount(
-			_company.getCompanyId());
-
-		Assert.assertEquals(companyUsersCount - 1, jsonArray.length());
+		Assert.assertEquals(0, jsonArray.length());
 	}
 
 	private Layout _addLayout(long groupId, long userId) throws Exception {
@@ -265,28 +161,14 @@ public class MentionsPortletTest {
 			ServiceContextTestUtil.getServiceContext());
 	}
 
-	private User _addUser(String screenName, long... groupIds)
-		throws Exception {
-
+	private User _addUser(String screenName) throws Exception {
 		User adminUser = UserTestUtil.getAdminUser(_company.getCompanyId());
 
 		return UserTestUtil.addUser(
 			_company.getCompanyId(), adminUser.getUserId(), screenName,
 			LocaleUtil.getDefault(), RandomTestUtil.randomString(),
-			RandomTestUtil.randomString(), groupIds,
-			ServiceContextTestUtil.getServiceContext());
-	}
-
-	private void _assertAnyJSONObject(
-		JSONArray jsonArray, Predicate<JSONObject> predicate) {
-
-		for (int i = 0; i < jsonArray.length(); i++) {
-			if (predicate.test(jsonArray.getJSONObject(i))) {
-				return;
-			}
-		}
-
-		Assert.assertFalse(jsonArray.toString(), false);
+			RandomTestUtil.randomString(), new long[] {_group.getGroupId()},
+			ServiceContextTestUtil.getServiceContext(_company.getGroupId()));
 	}
 
 	private MockLiferayResourceRequest _getMockLiferayResourceRequest(
@@ -310,11 +192,33 @@ public class MentionsPortletTest {
 		return mockLiferayResourceRequest;
 	}
 
+	private JSONArray _getServletResponseJSONArray(String query)
+		throws Exception {
+
+		MVCPortlet mvcPortlet = (MVCPortlet)_portlet;
+
+		MockLiferayResourceResponse mockLiferayResourceResponse =
+			new MockLiferayResourceResponse();
+
+		mvcPortlet.serveResource(
+			_getMockLiferayResourceRequest(query), mockLiferayResourceResponse);
+
+		MockHttpServletResponse mockHttpServletResponse =
+			(MockHttpServletResponse)
+				mockLiferayResourceResponse.getHttpServletResponse();
+
+		Assert.assertEquals(
+			ContentTypes.APPLICATION_JSON,
+			mockHttpServletResponse.getContentType());
+
+		return JSONFactoryUtil.createJSONArray(
+			mockHttpServletResponse.getContentAsString());
+	}
+
 	private ThemeDisplay _getThemeDisplay() throws Exception {
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
-		themeDisplay.setCompany(
-			_companyLocalService.getCompany(_group.getCompanyId()));
+		themeDisplay.setCompany(_company);
 		themeDisplay.setLayout(_layout);
 		themeDisplay.setPpid(MentionsPortletKeys.MENTIONS);
 		themeDisplay.setSiteGroupId(_group.getGroupId());
@@ -327,12 +231,7 @@ public class MentionsPortletTest {
 	@DeleteAfterTestRun
 	private Company _company;
 
-	@Inject
-	private CompanyLocalService _companyLocalService;
-
-	@DeleteAfterTestRun
 	private Group _group;
-
 	private Layout _layout;
 
 	@Inject
@@ -340,10 +239,5 @@ public class MentionsPortletTest {
 
 	@Inject(filter = "javax.portlet.name=" + MentionsPortletKeys.MENTIONS)
 	private Portlet _portlet;
-
-	@Inject
-	private UserLocalService _userLocalService;
-
-	private final List<User> _users = new ArrayList<>();
 
 }

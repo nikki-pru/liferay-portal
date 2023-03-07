@@ -29,6 +29,15 @@ public class Problem {
 	public Problem() {
 	}
 
+	public Problem(Exception exception) {
+		_status = Response.Status.BAD_REQUEST;
+		_title = exception.getMessage();
+
+		Class<?> clazz = exception.getClass();
+
+		_type = clazz.getName();
+	}
+
 	public Problem(Response.Status status, String title) {
 		_status = status;
 		_title = title;

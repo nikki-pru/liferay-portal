@@ -1,0 +1,13 @@
+definition {
+
+	macro searchProvider {
+		Click(
+			dropdownLabel = "Choose an Option",
+			locator1 = "ObjectField#ANY_DROPDOWN_LABEL");
+
+		Type(
+			locator1 = "ContentDashboard#SEARCH_FIELD",
+			value1 = ${key_provider});
+	}
+
+}

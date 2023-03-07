@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"@clayui/data-provider": "3.88.0",
+		"@clayui/data-provider": "3.89.0",
 		"@liferay/frontend-js-react-web": "*",
 		"@liferay/frontend-js-state-web": "*",
 		"data-engine-js-components-web": "*",
@@ -38,5 +38,5 @@
 		"format": "liferay-npm-scripts fix",
 		"test": "liferay-npm-scripts test"
 	},
-	"version": "3.3.56"
+	"version": "3.3.57"
 }

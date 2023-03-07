@@ -20,10 +20,6 @@
 SelectAssetCategoryInfoItemDisplayContext selectAssetCategoryInfoItemDisplayContext = (SelectAssetCategoryInfoItemDisplayContext)request.getAttribute(AssetCategoryItemSelectorWebKeys.SELECT_ASSET_CATEGORY_INFO_ITEM_ITEM_SELECTOR_DISPLAY_CONTEXT);
 %>
 
-<liferay-util:html-top>
-	<link href="<%= PortalUtil.getStaticResourceURL(request, PortalUtil.getPathModule() + "/asset-categories-item-selector-web/css/tree.css") %>" rel="stylesheet" type="text/css" />
-</liferay-util:html-top>
-
 <div>
 	<react:component
 		module="js/SelectAssetCategoryInfoItem.es"

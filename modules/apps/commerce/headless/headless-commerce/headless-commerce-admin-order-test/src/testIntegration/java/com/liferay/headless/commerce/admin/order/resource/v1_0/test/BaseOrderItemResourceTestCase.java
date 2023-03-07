@@ -240,10 +240,11 @@ public abstract class BaseOrderItemResourceTestCase {
 		orderItemResource.deleteOrderItem(orderItem2.getId());
 	}
 
-	protected Map<String, Map> testGetOrderItemsPage_getExpectedActions()
+	protected Map<String, Map<String, String>>
+			testGetOrderItemsPage_getExpectedActions()
 		throws Exception {
 
-		Map<String, Map> expectedActions = new HashMap<>();
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 		return expectedActions;
 	}
@@ -932,12 +933,12 @@ public abstract class BaseOrderItemResourceTestCase {
 		orderItemResource.deleteOrderItem(orderItem2.getId());
 	}
 
-	protected Map<String, Map>
+	protected Map<String, Map<String, String>>
 			testGetOrderByExternalReferenceCodeOrderItemsPage_getExpectedActions(
 				String externalReferenceCode)
 		throws Exception {
 
-		Map<String, Map> expectedActions = new HashMap<>();
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 		return expectedActions;
 	}
@@ -1084,11 +1085,11 @@ public abstract class BaseOrderItemResourceTestCase {
 		orderItemResource.deleteOrderItem(orderItem2.getId());
 	}
 
-	protected Map<String, Map> testGetOrderIdOrderItemsPage_getExpectedActions(
-			Long id)
+	protected Map<String, Map<String, String>>
+			testGetOrderIdOrderItemsPage_getExpectedActions(Long id)
 		throws Exception {
 
-		Map<String, Map> expectedActions = new HashMap<>();
+		Map<String, Map<String, String>> expectedActions = new HashMap<>();
 
 		return expectedActions;
 	}
@@ -1615,6 +1616,14 @@ public abstract class BaseOrderItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("virtualItemURLs", additionalAssertFieldName)) {
+				if (orderItem.getVirtualItemURLs() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -1628,7 +1637,8 @@ public abstract class BaseOrderItemResourceTestCase {
 	}
 
 	protected void assertValid(
-		Page<OrderItem> page, Map<String, Map> expectedActions) {
+		Page<OrderItem> page,
+		Map<String, Map<String, String>> expectedActions) {
 
 		boolean valid = false;
 
@@ -1645,7 +1655,7 @@ public abstract class BaseOrderItemResourceTestCase {
 
 		Assert.assertTrue(valid);
 
-		Map<String, Map> actions = page.getActions();
+		Map<String, Map<String, String>> actions = page.getActions();
 
 		for (String key : expectedActions.keySet()) {
 			Map action = actions.get(key);
@@ -2206,6 +2216,17 @@ public abstract class BaseOrderItemResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("virtualItemURLs", additionalAssertFieldName)) {
+				if (!Objects.deepEquals(
+						orderItem1.getVirtualItemURLs(),
+						orderItem2.getVirtualItemURLs())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
 			throw new IllegalArgumentException(
 				"Invalid additional assert field name " +
 					additionalAssertFieldName);
@@ -2562,6 +2583,11 @@ public abstract class BaseOrderItemResourceTestCase {
 		}
 
 		if (entityFieldName.equals("unitPriceWithTaxAmount")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("virtualItemURLs")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}

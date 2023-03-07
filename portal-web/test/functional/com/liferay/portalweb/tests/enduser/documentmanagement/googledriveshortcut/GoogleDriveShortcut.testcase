@@ -195,9 +195,7 @@ definition {
 			groupName = "Guest",
 			siteURLKey = "guest");
 
-		GoogleDrive.gotoDrive(
-			userEmailAddress = PropsUtil.get("email.address.4"),
-			userPassword = PropsUtil.get("email.password.4"));
+		GoogleDrive.gotoDrive(windowTitle = "liferay - ${siteName}");
 
 		GoogleDrive.selectDocument(
 			googleDocName = "liferay2.xls",
@@ -205,7 +203,11 @@ definition {
 
 		PortletEntry.publish();
 
-		DMDocument.viewPG(dmDocumentTitle = "liferay2");
+		Navigator.gotoPage(pageName = "Documents and Media Page");
+
+		DMDocument.viewPG(
+			dmDocumentFileName = "liferay2.xls",
+			dmDocumentTitle = "liferay");
 	}
 
 	@description = "This ensures that a user can move a Google Doc to a folder in a content page."

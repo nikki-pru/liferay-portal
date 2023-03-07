@@ -114,6 +114,8 @@ public class SXPBlueprintResourceImpl extends BaseSXPBlueprintResourceImpl {
 				_jsonFactory.createJSONArray(
 					sxpBlueprint.getElementInstancesJSON())
 			).put(
+				"externalReferenceCode", sxpBlueprint.getExternalReferenceCode()
+			).put(
 				"schemaVersion", sxpBlueprint.getSchemaVersion()
 			).put(
 				"title_i18n",
@@ -245,7 +247,8 @@ public class SXPBlueprintResourceImpl extends BaseSXPBlueprintResourceImpl {
 				contextAcceptLanguage.getPreferredLocale(), contextUriInfo,
 				contextUser),
 			_sxpBlueprintService.addSXPBlueprint(
-				null, _getConfigurationJSON(sxpBlueprint),
+				sxpBlueprint.getExternalReferenceCode(),
+				_getConfigurationJSON(sxpBlueprint),
 				LocalizedMapUtil.getLocalizedMap(
 					contextAcceptLanguage.getPreferredLocale(),
 					sxpBlueprint.getDescription(),

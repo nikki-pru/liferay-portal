@@ -18,7 +18,6 @@ import com.liferay.exportimport.kernel.staging.StagingUtil;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItem;
 import com.liferay.frontend.taglib.clay.servlet.taglib.util.DropdownItemListBuilder;
 import com.liferay.layout.admin.constants.LayoutAdminPortletKeys;
-import com.liferay.layout.content.page.editor.constants.ContentPageEditorPortletKeys;
 import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalServiceUtil;
 import com.liferay.layout.utility.page.model.LayoutUtilityPageEntry;
@@ -53,7 +52,6 @@ import com.liferay.taglib.security.PermissionsURLTag;
 import java.util.List;
 
 import javax.portlet.PortletRequest;
-import javax.portlet.ResourceURL;
 import javax.portlet.WindowState;
 
 import javax.servlet.http.HttpServletRequest;
@@ -70,7 +68,7 @@ public class LayoutActionsDisplayContext {
 		_httpServletRequest = httpServletRequest;
 		_segmentsExperienceLocalService = segmentsExperienceLocalService;
 
-		_themeDisplay = (ThemeDisplay)_httpServletRequest.getAttribute(
+		_themeDisplay = (ThemeDisplay)httpServletRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 	}
 
@@ -255,31 +253,19 @@ public class LayoutActionsDisplayContext {
 	}
 
 	private String _getPreviewLayoutURL(Layout layout) {
-		ResourceURL getPreviewLayoutURL =
-			(ResourceURL)PortalUtil.getControlPanelPortletURL(
-				_httpServletRequest, _themeDisplay.getScopeGroup(),
-				ContentPageEditorPortletKeys.CONTENT_PAGE_EDITOR_PORTLET, 0, 0,
-				PortletRequest.RESOURCE_PHASE);
-
-		getPreviewLayoutURL.setParameter("p_l_mode", Constants.PREVIEW);
-
 		Layout draftLayout = layout;
 
 		if (!layout.isDraftLayout()) {
 			draftLayout = layout.fetchDraftLayout();
 		}
 
-		getPreviewLayoutURL.setParameter(
-			"selPlid", String.valueOf(draftLayout.getPlid()));
-		getPreviewLayoutURL.setParameter(
-			"segmentsExperienceId",
-			String.valueOf(_getSegmentsExperienceId(draftLayout)));
-		getPreviewLayoutURL.setResourceID(
-			"/layout_content_page_editor/get_page_preview");
-
-		return HttpComponentsUtil.setParameter(
-			getPreviewLayoutURL.toString(), "p_p_state",
-			WindowState.UNDEFINED.toString());
+		return HttpComponentsUtil.addParameters(
+			_themeDisplay.getPortalURL() + _themeDisplay.getPathMain() +
+				"/portal/get_page_preview",
+			"p_l_mode", Constants.PREVIEW, "p_p_state",
+			WindowState.UNDEFINED.toString(), "segmentsExperienceId",
+			_getSegmentsExperienceId(draftLayout), "selPlid",
+			draftLayout.getPlid());
 	}
 
 	private long _getSegmentsExperienceId(Layout layout) {

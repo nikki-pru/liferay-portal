@@ -329,9 +329,7 @@ public class ObjectCodeEditorUtil {
 			for (DDMExpressionFunction ddmExpressionFunction : values()) {
 				if (StringUtil.equals(
 						ddmExpressionFunction._key, "old-value") &&
-					(!FeatureFlagManagerUtil.isEnabled("LPS-171440") ||
-					 (PropsValues.OBJECT_ENTRY_SCRIPT_VARIABLES_VERSION !=
-						 2))) {
+					(PropsValues.OBJECT_ENTRY_SCRIPT_VARIABLES_VERSION != 2)) {
 
 					continue;
 				}

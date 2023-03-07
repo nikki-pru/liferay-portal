@@ -1288,7 +1288,7 @@ definition {
 
 			Button.click(button = "Select All");
 
-			AssertTextEquals(
+			AssertTextEquals.assertPartialText(
 				locator1 = "ManagementBar#NAVBAR_TEXT",
 				value1 = "All Selected");
 
@@ -2148,7 +2148,7 @@ definition {
 		WaitForLiferayEvent.initializeLiferayEventLog();
 
 		if (isSet(bulkSelection)) {
-			AssertTextEquals(
+			AssertTextEquals.assertPartialText(
 				locator1 = "ManagementBar#NAVBAR_TEXT",
 				value1 = ${bulkSelection});
 
@@ -4151,6 +4151,8 @@ definition {
 		DMDocument.expandInfo();
 
 		for (var tagName : list ${tagName}) {
+			ScrollWebElementIntoView(locator1 = "DocumentsAndMediaDocument#DOCUMENT_INFO_TAGS_HEADER");
+
 			var tagName = StringUtil.lowerCase(${tagName});
 
 			AssertTextEquals.assertPartialText(
@@ -4184,10 +4186,10 @@ definition {
 		}
 		else {
 			VerifyElementPresent(
-				key_text = "Generating video preview will take a few minutes.",
+				key_text = "Generating preview will take a few minutes.",
 				locator1 = "DocumentsAndMediaDocument#VIDEO_GENERATION_INFO");
 
-			while (IsElementPresent(key_text = "Generating video preview will take a few minutes.", locator1 = "DocumentsAndMediaDocument#VIDEO_GENERATION_INFO")) {
+			while (IsElementPresent(key_text = "Generating preview will take a few minutes.", locator1 = "DocumentsAndMediaDocument#VIDEO_GENERATION_INFO")) {
 				WaitForElementPresent.waitForLastScript();
 
 				Refresh();

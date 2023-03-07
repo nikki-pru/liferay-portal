@@ -219,13 +219,13 @@ public class AnalyticsConfigurationRegistryImpl
 			AnalyticsConfiguration analyticsConfiguration =
 				getAnalyticsConfiguration(companyId);
 
-			if (FeatureFlagManagerUtil.isEnabled("LRAC-10757") &&
+			if (!FeatureFlagManagerUtil.isEnabled("LRAC-10757") &&
 				analyticsConfiguration.wizardMode()) {
 
 				return;
 			}
 
-			if (FeatureFlagManagerUtil.isEnabled("LRAC-10757") &&
+			if (!FeatureFlagManagerUtil.isEnabled("LRAC-10757") &&
 				analyticsConfiguration.firstSync()) {
 
 				_firstSync(companyId);
@@ -486,6 +486,10 @@ public class AnalyticsConfigurationRegistryImpl
 				entityModelListener.syncAll(companyId);
 			}
 
+			_syncDefaultFields(
+				companyId, analyticsConfiguration.syncedContactFieldNames(),
+				analyticsConfiguration.syncedUserFieldNames());
+
 			_syncUserCustomFields(
 				companyId, analyticsConfiguration.syncedUserFieldNames());
 
@@ -586,7 +590,7 @@ public class AnalyticsConfigurationRegistryImpl
 			}
 
 			if (FeatureFlagManagerUtil.isEnabled("LRAC-10632") ||
-				FeatureFlagManagerUtil.isEnabled("LRAC-10757")) {
+				!FeatureFlagManagerUtil.isEnabled("LRAC-10757")) {
 
 				Set<String> refreshDispatchTriggerNames = new HashSet<>();
 				Set<String> unscheduleDispatchTriggerNames = new HashSet<>();
@@ -696,7 +700,7 @@ public class AnalyticsConfigurationRegistryImpl
 						refreshDispatchTriggerNames.toArray(new String[0]));
 
 					if (FeatureFlagManagerUtil.isEnabled("LRAC-10632") &&
-						!FeatureFlagManagerUtil.isEnabled("LRAC-10757")) {
+						FeatureFlagManagerUtil.isEnabled("LRAC-10757")) {
 
 						_analyticsDXPEntityBatchExporter.export(
 							companyId,

@@ -1,0 +1,1299 @@
+@component-name = "portal-analytics-cloud"
+definition {
+
+	property analytics.cloud.release = "true";
+	property analytics.cloud.upstream = "true";
+	property portal.release = "false";
+	property portal.upstream = "true";
+	property property.group = "analytics.cloud.profile";
+	property testray.main.component.name = "Analytics Cloud";
+
+	setUp {
+		task ("Copy the token from AC") {
+			ACUtils.launchAC();
+
+			ACSettings.takeTokenFromAnalyticsCloud();
+		}
+
+		task ("Set up instance and sign in DXP") {
+			TestCase.setUpPortalInstance();
+
+			ACUtils.launchDXP();
+		}
+
+		task ("Create DXP Site with Commerce") {
+			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium Demo");
+		}
+	}
+
+	tearDown {
+		var testPortalInstance = PropsUtil.get("test.portal.instance");
+
+		ACUtils.tearDownAC();
+
+		ACUtils.tearDownDXP();
+
+		if (${testPortalInstance} == "true") {
+			PortalInstances.tearDownCP();
+		}
+		else {
+			JSONGroup.tearDownNonDefaultGroups();
+
+			ACUtils.tearDownCommerce();
+
+			UserGroup.tearDownCP();
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12667 | Test Summary: Can search for account groups in the select contacts modal"
+	@priority = 4
+	test CanSearchAccountGroupsInContactsModal {
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Click on sync by account groups") {
+			Click(
+				key_panel = "Select Accounts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "Sync by Account Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Search for an account group and assert the result") {
+			ACUtils.searchBar(searchItem = "Gold Accounts");
+
+			ACUtils.viewResultsMessage(results = "Showing 1 to 1 of 1 entries.");
+
+			ACDXPSettings.viewGenericListItem(itemValueList = "Gold Accounts");
+
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = "European Accounts,North American Accounts");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12663 | Test Summary: Can search for groups in the select contacts modal"
+	@priority = 4
+	test CanSearchGroupsInContactsModal {
+		var foundUserGroup = "LXC UserGroup";
+		var notFoundUserGroup = "AC UserGroup,DXP UserGroup";
+
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Create some user groups") {
+			for (var userGroupName : list "${foundUserGroup},${notFoundUserGroup}") {
+				JSONUserGroup.addUserGroup(
+					userGroupDescription = "UserGroup Description",
+					userGroupName = ${userGroupName});
+			}
+		}
+
+		task ("Click on Select Contacts > Click on sync contacts by groups") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "User Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Search for a group on groups list") {
+			ACUtils.searchBar(searchItem = ${foundUserGroup});
+
+			ACUtils.viewResultsMessage(results = "Showing 1 to 1 of 1 entries.");
+		}
+
+		task ("Check that a search result is found") {
+			ACDXPSettings.viewGenericListItem(itemValueList = ${foundUserGroup});
+		}
+
+		task ("Check that unsearched user groups do not appear in the search result") {
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = ${notFoundUserGroup});
+		}
+
+		task ("Search by name of a user group that does not exist") {
+			ACUtils.searchBar(searchItem = "ACQA");
+		}
+
+		task ("Check that no result is found for the search") {
+			ACUtils.viewGenericText(textValueList = "No user groups were found.");
+		}
+
+		task ("Cancel to exit the wizard") {
+			ACDXPSettings.cancelWizardConfiguration();
+		}
+
+		task ("Go to the people page in the sidebar") {
+			ACDXPSettings.navToSyncedContactDataMenu();
+		}
+
+		task ("Click on Select Contacts > Click on sync contacts by groups") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "User Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Search for a group on groups list") {
+			ACUtils.searchBar(searchItem = ${foundUserGroup});
+
+			ACUtils.viewResultsMessage(results = "Showing 1 to 1 of 1 entries.");
+		}
+
+		task ("Check that a search result is found") {
+			ACDXPSettings.viewGenericListItem(itemValueList = ${foundUserGroup});
+		}
+
+		task ("Check that unsearched user groups do not appear in the search result") {
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = ${notFoundUserGroup});
+		}
+
+		task ("Search by name of a user group that does not exist") {
+			ACUtils.searchBar(searchItem = "ACQA");
+		}
+
+		task ("Check that no result is found for the search") {
+			ACUtils.viewGenericText(textValueList = "No user groups were found.");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12660 | Test Summary: Can search for organizations in the select contacts modal"
+	@priority = 4
+	test CanSearchOrganizationsInContactsModal {
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Click on sync by organizations") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "Organizations",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Search for an organization and assert the result") {
+			ACUtils.searchBar(searchItem = "Minium");
+
+			ACUtils.viewResultsMessage(results = "Showing 1 to 1 of 1 entries.");
+
+			ACDXPSettings.viewGenericListItem(itemValueList = "Minium");
+
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = "Canada,Italy,United States");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12666 | Test Summary: Can sync all accounts"
+	@priority = 5
+	test CanSyncAllAccounts {
+
+		// We need to update this tests when it is possible to interact with the DXP and verify that the contacts appear in the AC
+
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Click on sync all accounts") {
+			ACDXPSettings.syncAccountsData();
+		}
+
+		task ("Check if the toggle was enabled") {
+			ACDXPSettings.assertToggleOnOff(
+				boolean = "true",
+				toggleType = "sync-all-accounts");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12659 | Test Summary: Can sync all contacts"
+	@priority = 5
+	test CanSyncAllContacts {
+		property analytics.cloud.upstream = "false";
+		property portal.release = "true";
+
+		for (var userName : list "dxp,lxc") {
+			task ("Add user, group and assign user to group") {
+				JSONUser.addUser(
+					userEmailAddress = "${userName}@liferay.com",
+					userFirstName = ${userName},
+					userLastName = ${userName},
+					userScreenName = ${userName});
+			}
+		}
+
+		task ("Connect to AC") {
+			var propertyName = ACDXPSettings.connectDXPtoAnalyticsCloud(contacts = "True");
+		}
+
+		task ("Go to the people page in the sidebar") {
+			ACDXPSettings.navToSyncedContactDataMenu();
+		}
+
+		task ("Click on Select Contacts") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+		}
+
+		task ("Check if the toggle was enabled") {
+			ACDXPSettings.assertToggleOnOff(
+				boolean = "true",
+				toggleType = "sync-all-contacts");
+		}
+
+		task ("Interact with the user who belongs to the user group and the user who does not belong") {
+			ACUtils.navigateToSitePageWithUser(
+				emailList = "dxp@liferay.com,lxc@liferay.com",
+				pageName = "Home",
+				siteName = "guest");
+		}
+
+		task ("Close sessions") {
+			ACUtils.closeAllSessionsAndWait();
+
+			ACUtils.launchAC();
+		}
+
+		task ("Go to Known Individuals tab") {
+			ACProperties.switchProperty(propertyName = ${propertyName});
+
+			ACNavigation.goToIndividuals();
+
+			ACNavigation.switchTab(tabName = "Known Individuals");
+		}
+
+		task ("Check that users appear in the known individuals list") {
+			ACUtils.searchBar(searchItem = "dxp dxp");
+
+			ACUtils.viewNameList(nameList = "dxp dxp");
+
+			ACUtils.searchBar(searchItem = "lxc lxc");
+
+			ACUtils.viewNameList(nameList = "lxc lxc");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12658 | Test Summary: Can sync all contacts and accounts"
+	@priority = 5
+	test CanSyncAllContactsAndAccounts {
+
+		// We need to update this tests when it is possible to interact with the DXP and verify that the contacts appear in the AC
+
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Click on sync all contacts and accounts") {
+			ACDXPSettings.syncContactsAndAccountstData();
+		}
+
+		task ("Check if the toggle was enabled") {
+			ACDXPSettings.assertToggleOnOff(
+				boolean = "true",
+				toggleType = "sync-all-contacts-and-accounts");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12670 | Test Summary: Can sync all contacts and account groups only"
+	@priority = 5
+	test CanSyncAllContactsAndAccountsGroupsOnly {
+
+		// We need to update this tests when it is possible to interact with the DXP and verify that the contacts appear in the AC
+
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Click on sync all contacts and sync all accounts") {
+			ACDXPSettings.syncContactsData();
+
+			ACDXPSettings.syncAccountsData();
+		}
+
+		task ("Check if the toggle was enabled") {
+			ACDXPSettings.assertToggleOnOff(
+				boolean = "true",
+				toggleType = "sync-all-contacts-and-accounts");
+
+			ACDXPSettings.assertToggleOnOff(
+				boolean = "true",
+				toggleType = "sync-all-contacts");
+
+			ACDXPSettings.assertToggleOnOff(
+				boolean = "true",
+				toggleType = "sync-all-accounts");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12665 | Test Summary: Can sync all contacts by groups"
+	@priority = 5
+	test CanSyncAllContactsByGroups {
+		property analytics.cloud.upstream = "false";
+		property portal.release = "true";
+
+		task ("Add user, group and assign user to group") {
+			JSONUser.addUser(
+				userEmailAddress = "userea@liferay.com",
+				userFirstName = "userfn",
+				userLastName = "userln",
+				userScreenName = "usersn");
+
+			JSONUserGroup.addUserGroup(
+				userGroupDescription = "User Group Description",
+				userGroupName = "User Group Name");
+
+			ApplicationsMenu.gotoPortlet(
+				category = "Users",
+				panel = "Control Panel",
+				portlet = "Users and Organizations");
+
+			UserNavigator.gotoUser(userScreenName = "usersn");
+
+			User.assignUserGroupCP(userGroupName = "User Group Name");
+		}
+
+		task ("Create a new user") {
+			JSONUser.addUser(
+				userEmailAddress = "ac@liferay.com",
+				userFirstName = "ac",
+				userLastName = "ac",
+				userScreenName = "ac");
+		}
+
+		task ("Connect to AC") {
+			var propertyName = ACDXPSettings.connectDXPtoAnalyticsCloud(userGroup = "User Group Name");
+		}
+
+		task ("Go to the people page in the sidebar") {
+			ACDXPSettings.navToSyncedContactDataMenu();
+		}
+
+		task ("Click on Select Contacts") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+		}
+
+		task ("See that there's one user group selected") {
+			ACDXPSettings.viewSyncNumberPreview(
+				syncFieldName = "User Groups",
+				syncNumber = "1 Selected");
+		}
+
+		task ("Interact with the user who belongs to the user group and the user who does not belong") {
+			ACUtils.navigateToSitePageWithUser(
+				emailList = "ac@liferay.com,userea@liferay.com",
+				pageName = "Home",
+				siteName = "guest");
+		}
+
+		task ("Close sessions") {
+			ACUtils.closeAllSessionsAndWait();
+
+			ACUtils.launchAC();
+		}
+
+		task ("Go to Known Individuals tab") {
+			ACProperties.switchProperty(propertyName = ${propertyName});
+
+			ACNavigation.goToIndividuals();
+
+			ACNavigation.switchTab(tabName = "Known Individuals");
+		}
+
+		task ("Check that the user who is not included in the user group does not appear in the AC") {
+			ACUtils.searchBar(searchItem = "ac ac");
+
+			ACUtils.viewNoResultsMessage(noResultMessage = "There are no results found.");
+		}
+
+		task ("Assert that the new user is present") {
+			ACUtils.searchBar(searchItem = "userfn userln");
+
+			ACIndividualsDashboard.goToKnownIndividualDetails(individualName = "userfn userln");
+
+			ACNavigation.switchTab(tabName = "Details");
+
+			ACIndividualsDashboard.assertIndividualAttribute(individualAttribute = "userea@liferay.com");
+
+			ACIndividualsDashboard.assertIndividualAttribute(individualAttribute = "userfn");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12662 | Test Summary: Can sync all contacts by organizations"
+	@priority = 5
+	test CanSyncAllContactsByOrganizations {
+		property analytics.cloud.upstream = "false";
+		property portal.release = "true";
+
+		task ("Create a new user, a new organization and assign the organization for the created user") {
+			JSONUser.addUser(
+				userEmailAddress = "userea@liferay.com",
+				userFirstName = "userfn",
+				userLastName = "userln",
+				userScreenName = "usersn");
+
+			JSONOrganization.addOrganization(organizationName = "Organization Name");
+
+			JSONOrganization.assignUserToOrganization(
+				organizationName = "Organization Name",
+				userEmailAddress = "userea@liferay.com");
+
+			ApplicationsMenu.gotoPortlet(
+				category = "Users",
+				panel = "Control Panel",
+				portlet = "Users and Organizations");
+
+			UsersAndOrganizationsNavigator.gotoOrganizations();
+
+			Organization.gotoCP(orgName = "Organization Name");
+
+			Organization.viewUser(userName = "userfn userln");
+		}
+
+		task ("Create a new user") {
+			JSONUser.addUser(
+				userEmailAddress = "ac@liferay.com",
+				userFirstName = "ac",
+				userLastName = "ac",
+				userScreenName = "ac");
+		}
+
+		task ("Connect to AC") {
+			var propertyName = ACDXPSettings.connectDXPtoAnalyticsCloud(orgName = "Organization Name");
+		}
+
+		task ("Go to the people page in the sidebar") {
+			ACDXPSettings.navToSyncedContactDataMenu();
+		}
+
+		task ("Click on Select Contacts") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+		}
+
+		task ("See that there's one organization selected") {
+			ACDXPSettings.viewSyncNumberPreview(
+				syncFieldName = "Organizations",
+				syncNumber = "1 Selected");
+		}
+
+		task ("Interact with the user who belongs to the organization and the user who does not belong") {
+			ACUtils.navigateToSitePageWithUser(
+				emailList = "ac@liferay.com,userea@liferay.com",
+				pageName = "Home",
+				siteName = "guest");
+		}
+
+		task ("Close sessions") {
+			ACUtils.closeAllSessionsAndWait();
+
+			ACUtils.launchAC();
+		}
+
+		task ("Go to Known Individuals tab") {
+			ACProperties.switchProperty(propertyName = ${propertyName});
+
+			ACNavigation.goToIndividuals();
+
+			ACNavigation.switchTab(tabName = "Known Individuals");
+		}
+
+		task ("Check that the user who is not included in the organization does not appear in the AC") {
+			ACUtils.searchBar(searchItem = "ac ac");
+
+			ACUtils.viewNoResultsMessage(noResultMessage = "There are no results found.");
+		}
+
+		task ("Assert that the new user is present") {
+			ACUtils.searchBar(searchItem = "userfn userln");
+
+			ACIndividualsDashboard.goToKnownIndividualDetails(individualName = "userfn userln");
+
+			ACNavigation.switchTab(tabName = "Details");
+
+			ACIndividualsDashboard.assertIndividualAttribute(individualAttribute = "userea@liferay.com");
+
+			ACIndividualsDashboard.assertIndividualAttribute(individualAttribute = "userfn");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12669 | Test Summary: Can sync by account groups"
+	@priority = 5
+	test CanSyncByAccountGroups {
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Click on sync by account groups") {
+			ACDXPSettings.syncAccountsData(accountGroup = "North American Accounts");
+		}
+
+		task ("See that there's one account selected") {
+			ACDXPSettings.viewSyncNumberPreview(
+				syncFieldName = "Account Groups",
+				syncNumber = "1 Selected");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12764 | Test Summary: Check that it is possible to sort by account groups name in the account groups list"
+	@priority = 3
+	test CheckCanSortByAccountGroupsName {
+		var accountGroupPageListUp = "brazilian accounts,European Accounts,Gold Accounts,North American Accounts";
+		var accountGroupPageListDown = "North American Accounts,Gold Accounts,European Accounts,brazilian accounts";
+
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Create a account groups") {
+			JSONAccountGroup.addAccountGroup(accountGroupName = "brazilian accounts");
+		}
+
+		task ("Click on sync by account groups") {
+			Click(
+				key_panel = "Select Accounts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "Sync by Account Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Sort the list by the Account Groups column (Ascending)") {
+			ManagementBar.setFilterAndOrder(orderBy = "Account Group");
+
+			ACDXPSettings.setSortDirection(sortDirection = "up");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3,4",
+				itemValueList = ${accountGroupPageListUp});
+		}
+
+		task ("Sort the list by the Account Groups column (Descending)") {
+			ACDXPSettings.setSortDirection(sortDirection = "down");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3,4",
+				itemValueList = ${accountGroupPageListDown});
+		}
+
+		task ("Cancel to exit the wizard") {
+			ACDXPSettings.cancelWizardConfiguration();
+		}
+
+		task ("Go to the people page in the sidebar") {
+			ACDXPSettings.navToSyncedContactDataMenu();
+		}
+
+		task ("Click on sync by account groups") {
+			Click(
+				key_panel = "Select Accounts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "Sync by Account Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Sort the list by the Account Groups column (Ascending)") {
+			ManagementBar.setFilterAndOrder(orderBy = "Account Group");
+
+			ACDXPSettings.setSortDirection(sortDirection = "up");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3,4",
+				itemValueList = ${accountGroupPageListUp});
+		}
+
+		task ("Sort the list by the Account Groups column (Descending)") {
+			ACDXPSettings.setSortDirection(sortDirection = "down");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3,4",
+				itemValueList = ${accountGroupPageListDown});
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12762 | Test Summary: Check that it is possible to sort by organizations name in the organizations list"
+	@priority = 3
+	test CheckCanSortByOrganizationsName {
+		var orgNamePageListUp = "Canada,england,Italy,Minium,United States";
+		var orgNamePageListDown = "United States,Minium,Italy,england,Canada";
+
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Create an organization") {
+			JSONOrganization.addOrganization(organizationName = "england");
+		}
+
+		task ("Click on sync by organizations") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "Organizations",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Sort the list by the Organizations column (Ascending)") {
+			ManagementBar.setFilterAndOrder(orderBy = "Organizations");
+
+			ACDXPSettings.setSortDirection(sortDirection = "up");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3,4,5",
+				itemValueList = ${orgNamePageListUp});
+		}
+
+		task ("Sort the list by the Organizations column (Descending)") {
+			ACDXPSettings.setSortDirection(sortDirection = "down");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3,4,5",
+				itemValueList = ${orgNamePageListDown});
+		}
+
+		task ("Cancel to exit the wizard") {
+			ACDXPSettings.cancelWizardConfiguration();
+		}
+
+		task ("Go to the people page in the sidebar") {
+			ACDXPSettings.navToSyncedContactDataMenu();
+		}
+
+		task ("Click on sync by organizations") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "Organizations",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Sort the list by the Organizations column (Ascending)") {
+			ManagementBar.setFilterAndOrder(orderBy = "Organizations");
+
+			ACDXPSettings.setSortDirection(sortDirection = "up");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3,4,5",
+				itemValueList = ${orgNamePageListUp});
+		}
+
+		task ("Sort the list by the Organizations column (Descending)") {
+			ACDXPSettings.setSortDirection(sortDirection = "down");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3,4,5",
+				itemValueList = ${orgNamePageListDown});
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12763 | Test Summary: Check that it is possible to sort by user groups name in the groups list"
+	@priority = 3
+	test CheckCanSortByUserGroupsName {
+		var userGroupPageListUp = "ac UserGroup,DXP UserGroup,LXC UserGroup";
+		var userGroupPageListDown = "LXC UserGroup,DXP UserGroup,ac UserGroup";
+
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Create some user groups") {
+			for (var userGroupName : list ${userGroupPageListUp}) {
+				JSONUserGroup.addUserGroup(
+					userGroupDescription = "UserGroup Description",
+					userGroupName = ${userGroupName});
+			}
+		}
+
+		task ("Click on Select Contacts > Click on sync contacts by groups") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "User Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Sort the list by the User Groups column (Ascending)") {
+			ManagementBar.setFilterAndOrder(orderBy = "User Groups");
+
+			ACDXPSettings.setSortDirection(sortDirection = "up");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3",
+				itemValueList = ${userGroupPageListUp});
+		}
+
+		task ("Sort the list by the User Groups column (Descending)") {
+			ACDXPSettings.setSortDirection(sortDirection = "down");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3",
+				itemValueList = ${userGroupPageListDown});
+		}
+
+		task ("Cancel to exit the wizard") {
+			ACDXPSettings.cancelWizardConfiguration();
+		}
+
+		task ("Go to the people page in the sidebar") {
+			ACDXPSettings.navToSyncedContactDataMenu();
+		}
+
+		task ("Click on Select Contacts > Click on sync contacts by groups") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "User Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Sort the list by the User Groups column (Ascending)") {
+			ManagementBar.setFilterAndOrder(orderBy = "User Groups");
+
+			ACDXPSettings.setSortDirection(sortDirection = "up");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3",
+				itemValueList = ${userGroupPageListUp});
+		}
+
+		task ("Sort the list by the User Groups column (Descending)") {
+			ACDXPSettings.setSortDirection(sortDirection = "down");
+		}
+
+		task ("Check that the list is sorted correctly") {
+			ACDXPSettings.viewGenericListItemInOrder(
+				indexList = "1,2,3",
+				itemValueList = ${userGroupPageListDown});
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12664 | Test Summary: Check that it is possible to make pagination in the groups"
+	@priority = 3
+	test CheckIsPossiblePaginateGroups {
+		var firstPageList = "AC UserGroup Pagination 1,AC UserGroup Pagination 2,AC UserGroup Pagination 3,AC UserGroup Pagination 4,AC UserGroup Pagination 5";
+		var secondPageList = "AC UserGroup Pagination 6";
+
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Create some user groups") {
+			for (var userGroupName : list "${firstPageList},${secondPageList}") {
+				JSONUserGroup.addUserGroup(
+					userGroupDescription = "UserGroup Description",
+					userGroupName = ${userGroupName});
+			}
+		}
+
+		task ("Click on Select Contacts > Click on sync contacts by groups") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "User Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Change the pagination to 5") {
+			ACUtils.changePagination(itemsPerPage = 5);
+
+			ACUtils.viewResultsMessage(results = "Showing 1 to 5 of 6 entries.");
+		}
+
+		task ("Check that 5 user groups appear on the first page") {
+			ACDXPSettings.viewGenericListItem(itemValueList = ${firstPageList});
+		}
+
+		task ("Check that the user group on the second page does not appear on the first") {
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = ${secondPageList});
+		}
+
+		task ("Click next page") {
+			ACUtils.checkAnyPage(pageNumber = 2);
+
+			ACUtils.viewResultsMessage(results = "Showing 6 to 6 of 6 entries.");
+		}
+
+		task ("Check that 2 user groups appear on the second page") {
+			ACDXPSettings.viewGenericListItem(itemValueList = ${secondPageList});
+		}
+
+		task ("Check that the user group on the first page does not appear on the second") {
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = ${firstPageList});
+		}
+
+		task ("Cancel to exit the wizard") {
+			ACDXPSettings.cancelWizardConfiguration();
+		}
+
+		task ("Go to the people page in the sidebar") {
+			ACDXPSettings.navToSyncedContactDataMenu();
+		}
+
+		task ("Click on Select Contacts > Click on sync contacts by groups") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "User Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Change the pagination to 5") {
+			ACUtils.changePagination(itemsPerPage = 5);
+
+			ACUtils.viewResultsMessage(results = "Showing 1 to 5 of 6 entries.");
+		}
+
+		task ("Check that 5 user groups appear on the first page") {
+			ACDXPSettings.viewGenericListItem(itemValueList = ${firstPageList});
+		}
+
+		task ("Check that the user group on the second page does not appear on the first") {
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = ${secondPageList});
+		}
+
+		task ("Click next page") {
+			ACUtils.checkAnyPage(pageNumber = 2);
+
+			ACUtils.viewResultsMessage(results = "Showing 6 to 6 of 6 entries.");
+		}
+
+		task ("Check that 2 user groups appear on the second page") {
+			ACDXPSettings.viewGenericListItem(itemValueList = ${secondPageList});
+		}
+
+		task ("Check that the user group on the first page does not appear on the second") {
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = ${firstPageList});
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12668 | Test Summary: Check that it is possible to make pagination in the account groups"
+	@priority = 4
+	test CheckIsPossiblePaginateInAccountGroups {
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Create 3 more account groups") {
+			for (var accountGroupName : list "Brazilian Accounts,Silver Accounts,Copper Accounts") {
+				JSONAccountGroup.addAccountGroup(accountGroupName = ${accountGroupName});
+			}
+		}
+
+		task ("Click on sync by account groups") {
+			Click(
+				key_panel = "Select Accounts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "Sync by Account Groups",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Choose the pagination to 5 items per page") {
+			ACUtils.changePagination(itemsPerPage = 5);
+		}
+
+		task ("See that there's only 5 account groups present in the list on the first page") {
+			ACDXPSettings.viewGenericListItem(itemValueList = "Brazilian Accounts,Copper Accounts,European Accounts,Gold Accounts,North American Accounts");
+
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = "Silver Accounts");
+		}
+
+		task ("Go to the second page and see that there's only one account group in the list") {
+			ACUtils.checkAnyPage(pageNumber = 2);
+
+			ACDXPSettings.viewGenericListItem(itemValueList = "Silver Accounts");
+
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = "Brazilian Accounts,Copper Accounts,European Accounts,Gold Accounts,North American Accounts");
+		}
+	}
+
+	@description = "Story: LRAC-10859 | Automation ID: LRAC-12661 | Test Summary: Check that it is possible to make pagination in the organizations"
+	@priority = 4
+	test CheckIsPossiblePaginateOrganizations {
+		task ("Connect Commerce and AC") {
+			ACDXPSettings.connectAnalyticsCloud();
+		}
+
+		task ("Get the property name to enable commerce on the right one") {
+			var channelName = "Minium Demo Portal";
+			var siteName = "Minium Demo";
+
+			ACDXPSettings.getAssignedPropertyName();
+		}
+
+		task ("Enable commerce and sync the commerce channel and the related site") {
+			ACDXPSettings.syncChannel(
+				channelName = ${channelName},
+				propertyName = ${assignedPropertyName});
+
+			ACDXPSettings.syncSites(
+				propertyName = ${assignedPropertyName},
+				siteName = ${siteName});
+		}
+
+		task ("Go to the next page to configure people data") {
+			Click(
+				key_text = "Next",
+				locator1 = "Button#ANY");
+		}
+
+		task ("Create 2 organizations") {
+			for (var organizationName : list "Brazil,France") {
+				JSONOrganization.addOrganization(organizationName = ${organizationName});
+			}
+		}
+
+		task ("Click on sync by organizations") {
+			Click(
+				key_panel = "Select Contacts",
+				locator1 = "Panel#PANEL_COLLAPSED");
+
+			Click(
+				key_option = "Organizations",
+				locator1 = "ACDXPSettings#CONTACT_SYNC_OPTIONS");
+		}
+
+		task ("Choose the pagination to 5 items per page") {
+			ACUtils.changePagination(itemsPerPage = 5);
+		}
+
+		task ("See that there's only 5 organizations present in the list on the first page") {
+			ACDXPSettings.viewGenericListItem(itemValueList = "Brazil,Canada,France,Italy,Minium");
+
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = "United States");
+		}
+
+		task ("Go to the second page and see that there's only one organization in the list") {
+			ACUtils.checkAnyPage(pageNumber = 2);
+
+			ACDXPSettings.viewGenericListItem(itemValueList = "United States");
+
+			ACDXPSettings.viewGenericListItemNotPresent(itemValueList = "Brazil,Canada,France,Italy,Minium");
+		}
+	}
+
+}

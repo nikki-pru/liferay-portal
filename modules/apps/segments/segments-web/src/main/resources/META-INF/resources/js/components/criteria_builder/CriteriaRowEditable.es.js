@@ -19,18 +19,20 @@ import {PropTypes} from 'prop-types';
 import React, {Component} from 'react';
 
 import {
+	HAS_OPERATORS,
 	PROPERTY_TYPES,
 	SUPPORTED_OPERATORS,
 	SUPPORTED_PROPERTY_TYPES,
-} from '../../utils/constants.es';
+} from '../../utils/constants';
 import {
 	createNewGroup,
 	getSupportedOperatorsFromType,
 } from '../../utils/utils.es';
 import BooleanInput from '../inputs/BooleanInput.es';
 import CollectionInput from '../inputs/CollectionInput.es';
-import DateTimeInput from '../inputs/DateTimeInput.es';
+import DateTimeInput from '../inputs/DateTimeInput';
 import DecimalInput from '../inputs/DecimalInput.es';
+import EventInput from '../inputs/EventInput';
 import IntegerInput from '../inputs/IntegerInput.es';
 import SelectEntityInput from '../inputs/SelectEntityInput.es';
 import StringInput from '../inputs/StringInput.es';
@@ -44,7 +46,7 @@ class CriteriaRowEditable extends Component {
 		onAdd: PropTypes.func.isRequired,
 		onChange: PropTypes.func.isRequired,
 		onDelete: PropTypes.func.isRequired,
-		renderEmptyValuesErrors: PropTypes.string,
+		renderEmptyValuesErrors: PropTypes.bool,
 		selectedOperator: PropTypes.object,
 		selectedProperty: PropTypes.object.isRequired,
 	};
@@ -72,9 +74,18 @@ class CriteriaRowEditable extends Component {
 	_handleInputChange = (propertyName) => (event) => {
 		const {criterion, onChange} = this.props;
 
+		let value = event.target.value;
+
+		if (Object.values(HAS_OPERATORS).includes(value)) {
+			value =
+				event.target.value === HAS_OPERATORS.HAS
+					? (value = false)
+					: (value = true);
+		}
+
 		onChange({
 			...criterion,
-			[propertyName]: event.target.value,
+			[propertyName]: value,
 		});
 	};
 
@@ -199,6 +210,7 @@ class CriteriaRowEditable extends Component {
 			connectDragSource,
 			criterion,
 			error,
+			renderEmptyValuesErrors,
 			selectedOperator,
 			selectedProperty,
 		} = this.props;
@@ -215,13 +227,26 @@ class CriteriaRowEditable extends Component {
 					</div>
 				)}
 
-				{this._renderEditableProperty({
-					error,
-					propertyLabel,
-					selectedOperator,
-					selectedProperty,
-					value,
-				})}
+				{selectedProperty.type === PROPERTY_TYPES.EVENT ? (
+					<EventInput
+						criterion={criterion}
+						error={error}
+						onChange={this._handleTypedInputChange}
+						onInputChange={this._handleInputChange}
+						propertyLabel={propertyLabel}
+						renderEmptyValueErrors={renderEmptyValuesErrors}
+						selectedProperty={selectedProperty}
+						value={value}
+					/>
+				) : (
+					this._renderEditableProperty({
+						error,
+						propertyLabel,
+						selectedOperator,
+						selectedProperty,
+						value,
+					})
+				)}
 
 				{error ? (
 					<ClayButton

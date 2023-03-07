@@ -39,14 +39,20 @@ export function appReducer(state: InitialStateProps, action: TAction) {
 			return {...state, appDescription};
 		}
 		case TYPES.UPDATE_APP_DOCUMENTATION_URL: {
-			const appDocumentationURL = action.payload.value;
+			const {id, value} = action.payload;
 
-			return {...state, appDocumentationURL};
+			return {
+				...state,
+				appDocumentationURL: {
+					id,
+					value,
+				},
+			};
 		}
 		case TYPES.UPDATE_APP_INSTALLATION_AND_UNINSTALLATION_GUIDE_URL: {
-			const appInstallationGuideURL = action.payload.value;
+			const {id, value} = action.payload;
 
-			return {...state, appInstallationGuideURL};
+			return {...state, appInstallationGuideURL: {id, value}};
 		}
 		case TYPES.UPDATE_APP_LICENSE: {
 			const appLicense = action.payload.value;
@@ -74,9 +80,15 @@ export function appReducer(state: InitialStateProps, action: TAction) {
 			return {...state, buildZIPFiles};
 		}
 		case TYPES.UPDATE_APP_LXC_COMPATIBILITY: {
-			const LXC_Compatibility = action.payload.value;
+			const {id, value} = action.payload;
 
-			return {...state, appType: LXC_Compatibility};
+			return {
+				...state,
+				appType: {
+					id,
+					value,
+				},
+			};
 		}
 		case TYPES.UPDATE_APP_NAME: {
 			const appName = action.payload.value;
@@ -84,9 +96,15 @@ export function appReducer(state: InitialStateProps, action: TAction) {
 			return {...state, appName};
 		}
 		case TYPES.UPDATE_APP_NOTES: {
-			const appNotes = action.payload.value;
+			const {id, value} = action.payload;
 
-			return {...state, appNotes};
+			return {
+				...state,
+				appNotes: {
+					id,
+					value,
+				},
+			};
 		}
 		case TYPES.UPDATE_APP_PRICE_MODEL: {
 			const priceModel = action.payload.value;
@@ -94,9 +112,15 @@ export function appReducer(state: InitialStateProps, action: TAction) {
 			return {...state, priceModel};
 		}
 		case TYPES.UPDATE_APP_PUBLISHER_WEBSITE_URL: {
-			const publisherWebsiteURL = action.payload.value;
+			const {id, value} = action.payload;
 
-			return {...state, publisherWebsiteURL};
+			return {
+				...state,
+				publisherWebsiteURL: {
+					id,
+					value,
+				},
+			};
 		}
 		case TYPES.UPLOAD_APP_STOREFRONT_IMAGES: {
 			const appStorefrontImages = action.payload.files;
@@ -104,9 +128,15 @@ export function appReducer(state: InitialStateProps, action: TAction) {
 			return {...state, appStorefrontImages};
 		}
 		case TYPES.UPDATE_APP_SUPPORT_URL: {
-			const supportURL = action.payload.value;
+			const {id, value} = action.payload;
 
-			return {...state, supportURL};
+			return {
+				...state,
+				supportURL: {
+					id,
+					value,
+				},
+			};
 		}
 		case TYPES.UPDATE_APP_TAGS: {
 			return state;
@@ -117,14 +147,26 @@ export function appReducer(state: InitialStateProps, action: TAction) {
 			return {...state, dayTrial};
 		}
 		case TYPES.UPDATE_APP_USAGE_TERMS_URL: {
-			const appUsageTermsURL = action.payload.value;
+			const {id, value} = action.payload;
 
-			return {...state, appUsageTermsURL};
+			return {
+				...state,
+				appUsageTermsURL: {
+					id,
+					value,
+				},
+			};
 		}
 		case TYPES.UPDATE_APP_VERSION: {
-			const appVersion = action.payload.value;
+			const {id, value} = action.payload;
 
-			return {...state, appVersion};
+			return {
+				...state,
+				appVersion: {
+					id,
+					value,
+				},
+			};
 		}
 		default:
 			return state;

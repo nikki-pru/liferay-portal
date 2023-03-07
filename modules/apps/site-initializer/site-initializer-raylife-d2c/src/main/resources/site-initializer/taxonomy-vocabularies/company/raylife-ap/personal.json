@@ -1,7 +1,13 @@
 {
 	"description": "Personal code",
+	"description_i18n": {
+		"en_US": "Personal code"
+	},
 	"externalReferenceCode": "RAYAPCAT0001",
 	"name": "Personal",
+	"name_i18n": {
+		"en_US": "Personal"
+	},
 	"taxonomyCategoryProperties": [
 	],
 	"viewableBy": "Anyone"

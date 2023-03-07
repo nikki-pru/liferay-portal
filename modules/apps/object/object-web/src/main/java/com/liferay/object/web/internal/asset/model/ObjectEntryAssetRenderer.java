@@ -174,13 +174,15 @@ public class ObjectEntryAssetRenderer
 		throws Exception {
 
 		httpServletRequest.setAttribute(
-			ObjectWebKeys.EXTERNAL_REFERENCE_CODE,
-			_objectEntry.getExternalReferenceCode());
-		httpServletRequest.setAttribute(
 			ObjectWebKeys.OBJECT_DEFINITION, _objectDefinition);
 		httpServletRequest.setAttribute(
+			ObjectWebKeys.OBJECT_ENTRY_EXTERNAL_REFERENCE_CODE,
+			_objectEntry.getExternalReferenceCode());
+		httpServletRequest.setAttribute(
+			ObjectWebKeys.OBJECT_ENTRY_READ_ONLY, Boolean.TRUE);
+		httpServletRequest.setAttribute(
 			WebKeys.PORTLET_DISPLAY_CONTEXT,
-			_objectEntryDisplayContextFactory.create(httpServletRequest, true));
+			_objectEntryDisplayContextFactory.create(httpServletRequest));
 
 		return super.include(httpServletRequest, httpServletResponse, template);
 	}

@@ -127,6 +127,18 @@ export function Editor({autocompleteData, initialScript, mode}) {
 					}
 
 					changeDisabled(false);
+
+					return response;
+				})
+				.then((response) => response.json())
+				.then(({error}) => {
+					if (error) {
+						openToast({
+							message: Liferay.Language.get(error),
+							title: Liferay.Language.get('error'),
+							type: 'danger',
+						});
+					}
 				})
 				.catch(() => {
 					changeDisabled(true);
@@ -183,7 +195,7 @@ export function Editor({autocompleteData, initialScript, mode}) {
 		<>
 			<CodeMirrorEditor
 				autocompleteData={autocompleteData}
-				content={script}
+				content={initialScript}
 				inputChannel={inputChannel}
 				mode={mode}
 				onChange={setScript}
