@@ -85,7 +85,23 @@ definition {
 	@description = "Validate that the user cannot post a question with a tag containing Java Script. It also covers LPS-137561 and LPS-137633."
 	@priority = 4
 	test CannotPostQuestionWithTagContainingJavaScript {
-		Navigator.gotoPage(pageName = "Questions Page");
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		PagesAdmin.gotoPageEllipsisMenuItem(
+			menuItem = "View",
+			pageName = "Questions Page");
+
+		ScrollWebElementIntoView(
+			key_text = "New Topic",
+			locator1 = "Button#ANY");
+
+		Click(
+			key_text = "New Topic",
+			locator1 = "Button#ANY");
 
 		Questions.addRootTopic(
 			invalidCharacters = "Topic",

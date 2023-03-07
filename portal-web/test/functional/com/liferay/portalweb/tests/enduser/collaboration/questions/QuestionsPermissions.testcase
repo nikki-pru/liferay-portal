@@ -187,7 +187,23 @@ definition {
 	test CannotAskQuestionAsGuest {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
-		Navigator.gotoPage(pageName = "Questions Page");
+		Navigator.openURL();
+
+		ProductMenu.gotoPortlet(
+			category = "Site Builder",
+			portlet = "Pages");
+
+		PagesAdmin.gotoPageEllipsisMenuItem(
+			menuItem = "View",
+			pageName = "Questions Page");
+
+		ScrollWebElementIntoView(
+			key_text = "New Topic",
+			locator1 = "Button#ANY");
+
+		Click(
+			key_text = "New Topic",
+			locator1 = "Button#ANY");
 
 		Questions.addRootTopic(
 			rootTopicDescription = "Questions Test Category Description",
