@@ -125,27 +125,49 @@ definition {
 	@description = "This is a test for LPS-131206. Verify if its possible view envelope details"
 	@priority = 4
 	test CanViewEnvelopeDetails {
+		var dmDocumentFile = "Document_1.pdf";
 		var envelopeName = "Poshi Test CanViewEnvelopeDetails";
+		var emailMessage = "Email Message";
+		var emailSubject = "Email Subject";
+		var recipientEmail = "test@liferay.com";
 
-		DigitalSignature.createEnvelope(
-			dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
-			emailMessage = "Email Message",
-			emailSubject = "Email Subject",
-			envelopeName = ${envelopeName},
-			recipientEmail = "test@liferay.com",
-			recipientFullName = "Recipient Full Name");
+		task ("When an admin creates an envelope and views the envelope details") {
+			DigitalSignature.createEnvelope(
+				dmDocumentFile = ${dmDocumentFile},
+				emailMessage = ${emailMessage},
+				emailSubject = ${emailSubject},
+				envelopeName = ${envelopeName},
+				recipientEmail = ${recipientEmail},
+				recipientFullName = "Recipient Full Name");
 
-		Button.click(button = "Send");
+			Button.click(button = "Send");
 
-		Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+			Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
 
-		Refresh();
+			Refresh();
 
-		Click(
-			envelopeName = ${envelopeName},
-			locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_NAME");
+			Click(
+				envelopeName = ${envelopeName},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_NAME");
+		}
 
-		AssertElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_ID");
+		task ("Then the envelope details page should show the correct details") {
+			AssertElementPresent(
+				emailSubject = ${emailSubject},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_HEADER");
+
+			AssertElementPresent(
+				dmDocumentFile = ${dmDocumentFile},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_FILE_PREVIEW");
+
+			AssertElementPresent(
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_RECIPIENT",
+				recipientEmail = ${recipientEmail});
+
+			AssertElementPresent(
+				emailMessage = ${emailMessage},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_BODY");
+		}
 	}
 
 	@description = "This is a test for LPS-131206. Verify if Digital Signature can be enabled"
