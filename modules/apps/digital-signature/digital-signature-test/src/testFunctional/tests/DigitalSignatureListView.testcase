@@ -123,7 +123,7 @@ definition {
 				mimeType = "application/pdf",
 				sourceFileName = "Document_1.pdf");
 		}
-		
+
 		task ("When a digital envelope is created and sent successfully and the page is refreshed to reflect the new entry") {
 			DigitalSignature.createEnvelope(
 				dmDocumentTitle = ${dmDocumentTitle},
@@ -150,35 +150,59 @@ definition {
 	@description = "This is a test for LPS-131206. Verify if its possible view envelope details"
 	@priority = 4
 	test CanViewEnvelopeDetails {
+		var dmDocumentFile = "Document_1.pdf";
 		var dmDocumentTitle = "DM Document Title";
 		var envelopeName = "Poshi Test CanViewEnvelopeDetails";
+		var emailMessage = "Email Message";
+		var emailSubject = "Email Subject";
+		var recipientEmail = "test@liferay.com";
 
-		JSONDocument.addFileWithUploadedFile(
-			dmDocumentDescription = "DM Document Description",
-			dmDocumentTitle = ${dmDocumentTitle},
-			groupName = "Test Site Name",
-			mimeType = "application/pdf",
-			sourceFileName = "Alice's Adventures in Wonderland.pdf");
+		task ("Given that a document is uploaded") {
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Test Site Name",
+				mimeType = "application/pdf",
+				sourceFileName = ${dmDocumentFile});
+		}
 
-		DigitalSignature.createEnvelope(
-			dmDocumentTitle = ${dmDocumentTitle},
-			emailMessage = "Email Message",
-			emailSubject = "Email Subject",
-			envelopeName = ${envelopeName},
-			recipientEmail = "test@liferay.com",
-			recipientFullName = "Recipient Full Name");
+		task ("When an admin creates an envelope and views the envelope details") {
+			DigitalSignature.createEnvelope(
+				dmDocumentTitle = ${dmDocumentTitle},
+				emailMessage = ${emailMessage},
+				emailSubject = ${emailSubject},
+				envelopeName = ${envelopeName},
+				recipientEmail = ${recipientEmail},
+				recipientFullName = "Recipient Full Name");
 
-		Button.click(button = "Send");
+			Button.click(button = "Send");
 
-		Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+			Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
 
-		Refresh();
+			Refresh();
 
-		Click(
-			envelopeName = ${envelopeName},
-			locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_NAME");
+			Click(
+				envelopeName = ${envelopeName},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_NAME");
+		}
 
-		AssertElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_ID");
+		task ("Then the envelope details page should show the correct details") {
+			AssertElementPresent(
+				emailSubject = ${emailSubject},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_HEADER");
+
+			AssertElementPresent(
+				dmDocumentFile = ${dmDocumentFile},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_FILE_PREVIEW");
+
+			AssertElementPresent(
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_RECIPIENT",
+				recipientEmail = ${recipientEmail});
+
+			AssertElementPresent(
+				emailMessage = ${emailMessage},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_BODY");
+		}
 	}
 
 	@description = "This is a test for LPS-131206. Verify if Digital Signature can be enabled"

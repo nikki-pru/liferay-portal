@@ -26,8 +26,23 @@
 	<td></td>
 </tr>
 <tr>
-	<td>DIGITAL_SIGNATURE_ENVELOPE_ID</td>
-	<td>//div[contains(@class, 'envelope-view__details') and contains(., 'Envelope ID')]</td>
+	<td>DIGITAL_SIGNATURE_ENVELOPE_HEADER</td>
+	<td>//div[contains(@class, "envelope-view__header")]//span[contains(., '${emailSubject}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DIGITAL_SIGNATURE_ENVELOPE_FILE_PREVIEW</td>
+	<td>//div[contains(@class, "preview-file")]//img[contains(@src, '${dmDocumentFile}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DIGITAL_SIGNATURE_ENVELOPE_RECIPIENT</td>
+	<td>//b[contains(text(),'To:')]//following-sibling::span[contains(text(), '${recipientEmail}')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>DIGITAL_SIGNATURE_ENVELOPE_BODY</td>
+	<td>//div[contains(@class, "envelope-view__details")]//p[contains(., '${emailMessage}')]</td>
 	<td></td>
 </tr>
 <tr>
