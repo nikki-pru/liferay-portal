@@ -35,40 +35,45 @@ definition {
 	@description = "This is a test for LPS-131206. Verify if its possible download envelopes by Envelope Description "
 	@priority = 3
 	test CanDownloadEnvelopeByEnvelopeDescription {
-		var dmDocumentTitle = "DM Document Title";
+		task ("Given that a digital envelope is created and sent successfully") {
+			var dmDocumentTitle = "DM Document Title";
+			var envelopeName = "Poshi Test CanDownloadEnvelopeByEnvelopeDescription";
 
-		JSONDocument.addFileWithUploadedFile(
-			dmDocumentDescription = "DM Document Description",
-			dmDocumentTitle = ${dmDocumentTitle},
-			groupName = "Test Site Name",
-			mimeType = "application/pdf",
-			sourceFileName = "Document_1.pdf");
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Test Site Name",
+				mimeType = "application/pdf",
+				sourceFileName = "Document_1.pdf");
 
-		DigitalSignature.createEnvelope(
-			dmDocumentTitle = ${dmDocumentTitle},
-			emailMessage = "Email Message",
-			emailSubject = "Email Subject",
-			envelopeName = "Poshi Test CanDownloadEnvelopeByEnvelopeDescription",
-			recipientEmail = "test@liferay.com",
-			recipientFullName = "Recipient Full Name");
+			DigitalSignature.createEnvelope(
+				dmDocumentTitle = ${dmDocumentTitle},
+				emailMessage = "Email Message",
+				emailSubject = "Email Subject",
+				envelopeName = ${envelopeName},
+				recipientEmail = "test@liferay.com",
+				recipientFullName = "Recipient Full Name");
 
-		Button.click(button = "Send");
+			Button.click(button = "Send");
 
-		Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+			Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+		}
 
-		Navigator.openURL();
+		task ("When the user navigates to the created envelope's view page") {
+			Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Digital Signature");
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Digital Signature");
 
-		var envelopeName = "Test";
+			Click(
+				envelopeName = ${envelopeName},
+				locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_NAME");
+		}
 
-		Click(
-			envelopeName = ${envelopeName},
-			locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_ENVELOPE_NAME");
-
-		AssertElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_DOWNLOAD_BUTTON");
+		task ("Then a button to download the envelope as a file should be present") {
+			AssertElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_DOWNLOAD_BUTTON");
+		}
 	}
 
 	@description = "This is a test for LPS-131206. Verify if its possible download envelopes by Envelope List"
@@ -92,54 +97,54 @@ definition {
 	@description = "This is a test for LPS-131206. Verify if is possible navigate between pages"
 	@priority = 3
 	test CanNavigateBetweenPages {
-		Navigator.openURL();
+		task ("When user navigates to the Digital Signature portlet") {
+			Navigator.openURL();
 
-		ProductMenu.gotoPortlet(
-			category = "Content & Data",
-			portlet = "Digital Signature");
+			ProductMenu.gotoPortlet(
+				category = "Content & Data",
+				portlet = "Digital Signature");
+		}
 
-		AssertElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_NAVIGATE_NEXT");
+		task ("Then a next button should be present for the user to navigate to the next page") {
+			AssertElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_NAVIGATE_NEXT");
+		}
 	}
 
 	@description = "This is a test for LPS-133595. Verify if the Create Date column shows the date correctly after created one envelope in local Timezone "
 	@priority = 4
 	test CanViewCorrectDate {
-		var dmDocumentTitle = "DM Document Title";
+		task ("Given that a document is uploaded") {
+			var dmDocumentTitle = "DM Document Title";
 
-		JSONDocument.addFileWithUploadedFile(
-			dmDocumentDescription = "DM Document Description",
-			dmDocumentTitle = ${dmDocumentTitle},
-			groupName = "Test Site Name",
-			mimeType = "application/pdf",
-			sourceFileName = "Document_1.pdf");
+			JSONDocument.addFileWithUploadedFile(
+				dmDocumentDescription = "DM Document Description",
+				dmDocumentTitle = ${dmDocumentTitle},
+				groupName = "Test Site Name",
+				mimeType = "application/pdf",
+				sourceFileName = "Document_1.pdf");
+		}
+		
+		task ("When a digital envelope is created and sent successfully and the page is refreshed to reflect the new entry") {
+			DigitalSignature.createEnvelope(
+				dmDocumentTitle = ${dmDocumentTitle},
+				emailMessage = "Email Message",
+				emailSubject = "Email Subject",
+				envelopeName = "Poshi Test CanViewCorrectDate",
+				recipientEmail = "test@liferay.com",
+				recipientFullName = "Recipient Full Name");
 
-		DigitalSignature.createEnvelope(
-			dmDocumentTitle = ${dmDocumentTitle},
-			emailMessage = "Email Message",
-			emailSubject = "Email Subject",
-			envelopeName = "Poshi Test CanViewCorrectDate",
-			recipientEmail = "test@liferay.com",
-			recipientFullName = "Recipient Full Name");
+			Button.click(button = "Send");
 
-		Button.click(button = "Send");
+			Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
 
-		Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+			Refresh();
+		}
 
-		Refresh();
+		task ("Then the creation date for the new entry should read out as \'a few seconds ago\'") {
+			WaitForElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_RECENT_CREATE_DATE");
 
-		WaitForElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_RECENT_CREATE_DATE");
-
-		AssertElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_RECENT_CREATE_DATE");
-
-		DigitalSignature.deleteEnvelope(envelopeName = "Poshi Test CanViewCorrectDate");
-
-		DMNavigator.openDocumentsAndMediaAdmin(siteURLKey = "guest");
-
-		DMDocument.deleteCP(dmDocumentTitle = "DM Document Title");
-
-		RecycleBin.openRecycleBinAdmin(siteURLKey = "guest");
-
-		RecycleBin.emptyCP();
+			AssertElementPresent(locator1 = "DigitalSignatureListView#DIGITAL_SIGNATURE_RECENT_CREATE_DATE");
+		}
 	}
 
 	@description = "This is a test for LPS-131206. Verify if its possible view envelope details"
