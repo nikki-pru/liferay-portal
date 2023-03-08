@@ -199,7 +199,7 @@ definition {
 
 	@description = "This is a test for LPS-131425. Verify if Success Message appear"
 	@priority = 5
-	test CanViewSuccessMessage {
+	test CanSendEnvelopeAndViewSuccessMessage {
 		property solutions.acceptance = "true";
 
 		task ("Given that a document is uploaded") {
@@ -216,10 +216,10 @@ definition {
 
 		task ("When a Digital Envelope is created and sent") {
 			DigitalSignature.createEnvelope(
-				dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
+				dmDocumentTitle = ${dmDocumentTitle},
 				emailMessage = "Email Message",
 				emailSubject = "Email Subject",
-				envelopeName = "Poshi Test CanViewSuccessMessage",
+				envelopeName = "Poshi Test CanSendEnvelopeAndViewSuccessMessage",
 				recipientEmail = "test@liferay.com",
 				recipientFullName = "Recipient Full Name");
 
@@ -228,6 +228,17 @@ definition {
 
 		task ("Then the envelope should successfully send and a success message should indicate that to the user") {
 			Alert.viewSuccessMessageText(successMessage = "Your envelope was created successfully.");
+
+			WaitForElementPresent(
+				key_tableHeader = "Name",
+				locator1 = "LexiconTable#TABLE_HEADER");
+
+			Refresh();
+
+			AssertElementPresent(
+				createDate = "a few seconds ago",
+				envelopeTitle = "Poshi Test CanSendEnvelopeAndViewSuccessMessage",
+				locator1 = "DigitalSignatureEnvelopeSettings#DIGITAL_SIGNATURE_ENVELOPE_CREATE_DATE");
 		}
 	}
 

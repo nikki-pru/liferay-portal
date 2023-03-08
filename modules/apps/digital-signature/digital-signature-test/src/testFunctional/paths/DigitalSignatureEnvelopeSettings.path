@@ -50,6 +50,11 @@
 	<td>//*[contains(@class,'modal-body')]//ul//li[contains(., '${fileTitle}')]</td>
 	<td></td>
 </tr>
+<tr>
+	<td>DIGITAL_SIGNATURE_ENVELOPE_CREATE_DATE</td>
+	<td>//tr[td//p[@class='table-list-title']//a[contains(text(), '${envelopeTitle}')]]//td[contains(text(), '${createDate}')]</td>
+	<td></td>
+</tr>
 </tbody>
 </table>
 </body>
