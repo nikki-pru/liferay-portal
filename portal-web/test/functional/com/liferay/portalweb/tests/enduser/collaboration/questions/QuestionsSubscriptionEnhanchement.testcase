@@ -485,11 +485,6 @@ definition {
 		}
 
 		task ("Validate if the unsubcribed topic") {
-<<<<<<< HEAD
-			Questions.gotoTab(questionTabField = "Subscriptions");
-
-=======
->>>>>>> 3ae7ca9839ee... LRQA-79681 Update subscription topic tests and macros
 			Questions.viewSubscribedTopic(noSubscribedTopic = "true");
 		}
 	}

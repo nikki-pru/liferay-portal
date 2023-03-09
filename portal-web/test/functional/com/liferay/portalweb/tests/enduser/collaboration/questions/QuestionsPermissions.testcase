@@ -201,9 +201,7 @@ definition {
 			key_text = "New Topic",
 			locator1 = "Button#ANY");
 
-		Click(
-			key_text = "New Topic",
-			locator1 = "Button#ANY");
+		Button.click(button = "New Topic");
 
 		Questions.addRootTopic(
 			rootTopicDescription = "Questions Test Category Description",
