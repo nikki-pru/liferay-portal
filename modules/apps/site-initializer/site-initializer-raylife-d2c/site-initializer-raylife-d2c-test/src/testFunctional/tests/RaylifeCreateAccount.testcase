@@ -241,6 +241,68 @@ definition {
 		AssertElementPresent(locator1 = "RaylifeCreateAccount#CREATE_ACCOUNT_DISABLED");
 	}
 
+	@description = "LPS-144334 - Verify if after filling in the password and the email with all correct information, the create account button is enabled"
+	@priority = 5
+	test IsCreateAccountButtonEnabled {
+		property solutions.acceptance = "true";
+		property test.name.skip.portal.instance = "RaylifeCreateAccount#IsAccountButtonEnabled";
+
+		task ("Given that a site is created with the Raylife D2C site template and the flow for getting a quote is started with info inputted") {
+			ApplicationsMenu.gotoSite(key_site = ${testSiteName});
+
+			RaylifeHomePage.startFlow();
+
+			RaylifeContactInfo.typeAllBasicsInfoFields();
+
+			Click(locator1 = "Raylife#BUTTON_CONTINUE");
+
+			RaylifeBusiness.typeAllBusinessInfoFields();
+
+			Click(locator1 = "Raylife#BUTTON_CONTINUE");
+
+			RaylifeEmployees.typeAllEmployeesInfoFields();
+
+			Click(locator1 = "Raylife#BUTTON_CONTINUE");
+
+			RaylifeProperty.typeAllPropertyInfoFields();
+
+			Click(locator1 = "Raylife#BUTTON_CONTINUE");
+
+			Click(
+				locator1 = "RaylifeCreateAccount#SELECT_QUOTE",
+				title = "standard");
+		}
+
+		task ("When attempting to create a new account with the proper form inputs") {
+			Click(
+				key_text = "CREATE NEW ACCOUNT",
+				locator1 = "Button#ANY");
+
+			Type(
+				locator1 = "RaylifeCreateAccount#EMAIL_FIELD",
+				value1 = "test@liferay.com");
+
+			Type(
+				label = "password",
+				locator1 = "RaylifeCreateAccount#PASSWORD_FIELD",
+				value1 = "test@123");
+
+			Type(
+				label = "rePassword",
+				locator1 = "RaylifeCreateAccount#PASSWORD_FIELD",
+				value1 = "test@123");
+
+			Type(
+				inputFieldId = "input-captcha",
+				locator1 = "TextInput#INPUT_ID",
+				value1 = "a");
+		}
+
+		task ("Then the \'Create Account\' button should be present and enabled") {
+			AssertElementPresent(locator1 = "RaylifeCreateAccount#CREATE_ACCOUNT_ENABLED");
+		}
+	}
+
 	@description = "LPS-144335 - Verify that when entering a 7-character password the message 'At least 8 characters' is highlighted"
 	@priority = 4
 	test IsEightCharactersRequired {
