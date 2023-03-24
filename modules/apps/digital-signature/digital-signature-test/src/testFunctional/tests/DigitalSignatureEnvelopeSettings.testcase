@@ -8,7 +8,7 @@ definition {
 	var digitalSignatureRsaPrivateKey = PropsUtil.get("digital.signature.rsa.private.key");
 
 	property osgi.module.configuration.file.names = "com.liferay.digital.signature.configuration.DigitalSignatureConfiguration.config";
-	property osgi.module.configurations = "enabled=\"TRUE\"\napiUsername=\"${digitalSignatureApiUsername}\"\napiAccountId=\"${digitalSignatureApiAccountId}\"\naccountBaseURI=\"${digitalSignatureAccountBaseUri}\"\nintegrationKey=\"${digitalSignatureIntegrationKey}\"\nrsaPrivateKey=\"${digitalSignatureRsaPrivateKey}\"\nsiteSettingsStrategy=\"always-inherit\"";
+	property osgi.module.configurations = "enabled=\"TRUE\"${line.separator}apiUsername=${digitalSignatureApiUsername}${line.separator}apiAccountId=${digitalSignatureApiAccountId}${line.separator}accountBaseURI=${digitalSignatureAccountBaseUri}${line.separator}integrationKey=${digitalSignatureIntegrationKey}${line.separator}rsaPrivateKey=${digitalSignatureRsaPrivateKey}${line.separator}siteSettingsStrategy=\"always-inherit\"";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property testray.main.component.name = "Digital Signature";
@@ -33,6 +33,8 @@ definition {
 	@description = "This is a test for LPS-133105. Verify if its possible add more than 1 valid documents in a new Envelope"
 	@priority = 5
 	test CanAddMoreThan1Document {
+		property portal.acceptance = "allen";
+
 		DigitalSignature.createEnvelopeWithTwoDocuments(
 			emailMessage = "Email Message",
 			emailSubject = "Email Subject",
