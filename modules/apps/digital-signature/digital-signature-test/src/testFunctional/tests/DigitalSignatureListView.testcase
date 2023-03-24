@@ -35,8 +35,6 @@ definition {
 	@description = "This is a test for LPS-131206. Verify if its possible download envelopes by Envelope Description "
 	@priority = 3
 	test CanDownloadEnvelopeByEnvelopeDescription {
-		property portal.acceptance = "allen";
-
 		DigitalSignature.createEnvelope(
 			dmDocumentFile = "Alice's Adventures in Wonderland.pdf",
 			emailMessage = "Email Message",

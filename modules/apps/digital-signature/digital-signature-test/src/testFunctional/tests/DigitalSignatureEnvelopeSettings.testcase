@@ -172,7 +172,6 @@ definition {
 	@description = "This is a test for LPS-131425. Verify if Success Message appear"
 	@priority = 5
 	test CanViewSuccessMessage {
-		property portal.acceptance = "allen";
 		property solutions.acceptance = "true";
 
 		DigitalSignature.createEnvelope(
