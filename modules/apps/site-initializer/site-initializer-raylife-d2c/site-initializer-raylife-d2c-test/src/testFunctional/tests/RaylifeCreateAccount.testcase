@@ -83,49 +83,41 @@ definition {
 	test CreateAccountSectionCompleted {
 		property test.name.skip.portal.instance = "RaylifeCreateAccount#CreateAccountSectionCompleted";
 
-		ApplicationsMenu.gotoSite(key_site = ${testSiteName});
+		task ("Given that a user goes through all the forms of a Raylife D2C site to select a quote") {
+			ApplicationsMenu.gotoSite(key_site = ${testSiteName});
 
-		RaylifeHomePage.startFlow();
+			RaylifeHomePage.startFlow();
 
-		RaylifeContactInfo.typeAllBasicsInfoFields();
+			RaylifeContactInfo.typeAllBasicsInfoFields();
 
-		Click(locator1 = "Raylife#BUTTON_CONTINUE");
+			Click(locator1 = "Raylife#BUTTON_CONTINUE");
 
-		RaylifeBusiness.typeAllBusinessInfoFields();
+			RaylifeBusiness.typeAllBusinessInfoFields();
 
-		Click(locator1 = "Raylife#BUTTON_CONTINUE");
+			Click(locator1 = "Raylife#BUTTON_CONTINUE");
 
-		RaylifeEmployees.typeAllEmployeesInfoFields();
+			RaylifeEmployees.typeAllEmployeesInfoFields();
 
-		Click(locator1 = "Raylife#BUTTON_CONTINUE");
+			Click(locator1 = "Raylife#BUTTON_CONTINUE");
 
-		RaylifeProperty.typeAllPropertyInfoFields();
+			RaylifeProperty.typeAllPropertyInfoFields();
 
-		Click(locator1 = "Raylife#BUTTON_CONTINUE");
+			Click(locator1 = "Raylife#BUTTON_CONTINUE");
 
-		Click(
-			locator1 = "RaylifeCreateAccount#SELECT_QUOTE",
-			title = "standard");
+			Click(
+				locator1 = "RaylifeCreateAccount#SELECT_QUOTE",
+				title = "standard");
+		}
 
-		Type(
-			locator1 = "RaylifeCreateAccount#EMAIL_FIELD",
-			value1 = "test@liferay.com");
+		task ("When a user chooses to create a new account and submits the form with all valid inputs") {
+			RaylifeCreateAccount.createAccount(createAccount = "true");
+		}
 
-		Type(
-			label = "password",
-			locator1 = "RaylifeCreateAccount#PASSWORD_FIELD",
-			value1 = "test@123");
-
-		Type(
-			label = "rePassword",
-			locator1 = "RaylifeCreateAccount#PASSWORD_FIELD",
-			value1 = "test@123");
-
-		Click(locator1 = "RaylifeCreateAccount#CREATE_ACCOUNT");
-
-		AssertElementPresent(
-			locator1 = "RaylifeCreateAccount#PANEL_SUCCESS",
-			title = "Create");
+		task ("Then the panel for account information should show confirmation that it is inputted successfully") {
+			AssertElementPresent(
+				locator1 = "RaylifeCreateAccount#PANEL_SUCCESS",
+				title = "Create");
+		}
 	}
 
 	@description = "LPS-144331 - Verify e-mail validation is required (Must have '@' and a '.' )"
