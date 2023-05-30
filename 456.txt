@@ -1,0 +1,1617 @@
+commit 07f1e8c938ec712367b2acdb1560baa7e39308ed
+Author: Victor Ware <victor.ware@liferay.com>
+Date:   Tue Jun 28 15:52:19 2016 -0700
+
+    LPS-45616 View title to assert data is not reset
+
+commit dc6184c0bf14c1982b4e7e14ede777f15694d71e
+Author: Victor Ware <victor.ware@liferay.com>
+Date:   Tue Jun 28 15:43:10 2016 -0700
+
+    LPS-45616 Add poshi test that cancels the repeat dialog
+
+commit 3538b3ce542f1fa554714e09d712dbb0f2bbe0d9
+Author: Bruno Basto <bruno.basto@liferay.com>
+Date:   Mon Jun 27 18:45:21 2016 -0300
+
+    LPS-45616 SF
+
+commit 348f84e5cd56b311a1b23727893061f583d6991e
+Author: Adam Victor Nazareth Brandizzi <adam.brandizzi@liferay.com>
+Date:   Tue Jun 21 16:07:39 2016 -0300
+
+    LPS-45616 SF.
+
+commit 8015113f2a463a9daeef24e6d055d5304ae88f42
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Wed Jun 15 12:23:55 2016 -0300
+
+    LPS-45616 Save the current state of the recurrence modal and recovering it when it's necessary.
+
+commit 5f3d7fbaf982233996a970f802f69075baa420c5
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Wed Jun 15 12:05:54 2016 -0300
+
+    LPS-45616 Closing the Edit Event Modal and the Recurrence Modal in sequence.
+
+commit 248bccbc16f78f9043033af5566e12dd310f4a04
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Wed Jun 15 11:13:40 2016 -0300
+
+    LPS-45616 Do not overwrite the attribute toolbars, keeping the default header toolbar with the close button. Instead, add the footer toolbar.
+
+commit 87187ea4d5fe3b620a94192a8b7daa628c79824c
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Tue Jun 7 19:56:54 2016 -0300
+
+    LPS-45616 Removing simulate() calls.
+
+commit baaa7cb67fa10c9a7a253589fa549b9e727af6ae
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Tue Jun 7 19:56:07 2016 -0300
+
+    LPS-45616 Creating _updateUI method.
+
+commit 28f6a68168020d28702d120efec7a4b66d46237a
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Tue Jun 7 19:22:00 2016 -0300
+
+    LPS-45616 Creating _setPositionInputValue method.
+
+commit cbe49f55d5027505a9824a769eacd7aae3a3c534
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Tue Jun 7 19:03:34 2016 -0300
+
+    LPS-45616 Creating _toggleViewPositionalDayOfWeek method.
+
+commit 71f1f39d2b4bdb37f9576ac485b715986d5099e4
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Tue Jun 7 18:57:48 2016 -0300
+
+    LPS-45616 Creating _toggleViewWeeklyRecurrence method.
+
+commit b028bf799fcda5755d9dfb04b4fde731ba89ba9e
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Tue Jun 7 18:52:24 2016 -0300
+
+    LPS-45616 Creating _toggleDisabledLimitCountInput method.
+
+commit 8bfb82f47d22ab97256b42a689191cec42deed06
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Tue Jun 7 18:43:29 2016 -0300
+
+    LPS-45616 Creating _toggleDisabledLimitDateDatePicker method.
+
+commit 0d5341691c9292de52475cadbefecd9de1dcb8ce
+Author: Bruno Basto <bruno.basto@liferay.com>
+Date:   Mon Jun 6 10:23:53 2016 -0300
+
+    LPS-45616 SF
+
+commit b94eaedc34defa4ebd0ad25465aec1c0c8ce402a
+Author: Adam Victor Nazareth Brandizzi <adam.brandizzi@liferay.com>
+Date:   Fri May 27 16:04:12 2016 -0300
+
+    LPS-45616 No need to update summary on visibility change - it was updated on "recurrenceChange" event alrady.
+
+commit 23cbcd64773fadd22f3c453e69502160ac41beed
+Author: Adam Victor Nazareth Brandizzi <adam.brandizzi@liferay.com>
+Date:   Fri May 27 16:03:09 2016 -0300
+
+    LPS-45616 If current recurrence is null, mark event as not recurring.
+
+commit 238fbe739331e05cf2e271b1c63cf1f54d84436c
+Author: Adam Victor Nazareth Brandizzi <adam.brandizzi@liferay.com>
+Date:   Fri May 27 16:02:16 2016 -0300
+
+    LPS-45616 Make current recurrence depend on status of checkbox.
+
+commit d2bf650b08cb2ea800acde385f4b50e6e992ed0e
+Author: Adam Victor Nazareth Brandizzi <adam.brandizzi@liferay.com>
+Date:   Fri May 27 15:29:43 2016 -0300
+
+    LPS-45616 Only set height if dialog was still created.
+
+commit b4826c9f28064a3ee5941dfe8c5a9a6899c9b33b
+Author: Adam Victor Nazareth Brandizzi <adam.brandizzi@liferay.com>
+Date:   Thu May 26 19:37:42 2016 -0300
+
+    LPS-45616 Do not select date if datepicker is disabled.
+
+commit 81cff1db5393958e402a57c211f1ec7a82d73f98
+Author: Adam Victor Nazareth Brandizzi <adam.brandizzi@liferay.com>
+Date:   Thu May 26 19:33:19 2016 -0300
+
+    LPS-45616 SF.
+
+commit 9966be46f412c07ce9ac5febfe19766a2a29262d
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Thu May 26 15:53:54 2016 -0300
+
+    LPS-45616 Removing unnecessary condition of session state.
+
+commit 9e2476a014111812877e8a611238e7241a9ee03a
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Thu May 26 15:50:49 2016 -0300
+
+    LPS-45616 SetRecurrence method
+
+commit 0f8d0711be2d84e5c87bc8ff0351b48e8c286df9
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Thu May 26 15:49:01 2016 -0300
+
+    LPS-45616 Fixing limitDatePicker z-index
+
+commit 93d42812742dc6f35f95aca4ee64ca6e199cc6d1
+Author: Fernando Souza <fernando.souza@liferay.com>
+Date:   Thu May 26 14:34:28 2016 -0300
+
+    LPS-45616 Add cancel button.
+
+commit 19c3afc6d24019fc5b31279cd853c189dbf70f9b
+Author: Michael Han <michael.han@liferay.com>
+Date:   Wed Jan 20 16:08:05 2016 -0600
+
+    LPS-45660 fix mvcc
+
+commit fef7eb8aeb26a7817d5815208a67f899e594ee85
+Author: Bruno Basto <bruno.basto@liferay.com>
+Date:   Tue Nov 3 14:51:02 2015 -0300
+
+    LPS-56443 At Web Content Display, when "save as draft" is executed while CKEditor loading, its content is lost and blank content is saved in the database (LPS-45613 is reproduced again)
+
+commit 04e3a846a2cce28b1f7a0f1370ab6a70e3f31a29
+Author: Zsolt Szabo <zsolt.szabo@liferay.com>
+Date:   Tue Sep 30 12:01:08 2014 +0200
+
+    LPS-50357 Regression fix which caused by LPS-45667
+
+commit 24a0a8635f832d83bddf210bd1ae5a0952442fa7
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Thu Aug 21 12:41:45 2014 -0700
+
+    LPS-45679 - Source formatting
+
+commit 7cf663e271e1c052bd0f5e2bfb9556df2fea007e
+Author: Robert-Frampton <ROBERT.FRAMPTON@LIFERAY.COM>
+Date:   Tue Aug 19 12:04:14 2014 -0700
+
+    LPS-45679 - Making topper toolbar static when title is omitted
+
+commit 1e6df1d0daec3762346b1f80c58cf9b8f2ab0a89
+Author: Travis Cory <travis.cory@liferay.com>
+Date:   Thu May 15 14:49:05 2014 -0700
+
+    LPS-45679 Configuration icon overlaps with navigation in mobile view
+
+commit 3281e2f49d49f549d15f09df8b9a339bd4034c2b
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Aug 8 10:20:16 2014 -0700
+
+    LPS-45607
+
+commit 8db996778563a40a4f047c0c26ed9dffbf59a501
+Author: Iliyan Peychev <iliyan.peychev@liferay.com>
+Date:   Thu Jul 10 11:23:03 2014 +0200
+
+    LPS-45685 Prevent caching Ajax requests in DL
+
+commit 44782c6df864bd230eb25e395d95270f63827558
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Jun 26 22:36:47 2014 -0700
+
+    LPS-45619 Sort by Field.*
+
+commit 40c225e8b1fd9e91351ab1c2b38904523cdd1da6
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Wed Jun 25 15:54:34 2014 +0800
+
+    LPS-45619 Source formatting
+
+commit a25eac75a53ad15afe375404b183e9eed369e101
+Author: hai.yu <haiyu0418@163.com>
+Date:   Fri Jun 20 16:40:07 2014 +0800
+
+    LPS-45619 In search portlet of staging site, remove "everything" option
+
+commit 3195997d237de355f815be45ea8bb060565fdc66
+Author: hai.yu <haiyu0418@163.com>
+Date:   Fri Jun 20 16:37:56 2014 +0800
+
+    LPS-45619 When search by using "everything" in live site, we should filter staging site's data
+
+commit 49abc19400b5e16b4fc821746c1dd225ea31d8dc
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Jun 16 18:41:11 2014 -0700
+
+    LPS-45606 SF
+
+commit 612584e60e432028a193cd30764fb49d068ae2f4
+Author: Miguel Pastor <miguel.pastor@liferay.com>
+Date:   Mon Jun 16 22:30:51 2014 +0200
+
+    LPS-45606 Dependencies are needed at compile time
+
+commit 35689085317b5fc7e994f732f527c6af2cccad20
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Jun 11 20:56:33 2014 -0700
+
+    LPS-45607 SDK
+
+commit af3e4e372e5ee3ac018395f4609f79635ef7c8ae
+Author: Marcellus Tavares <marcellus.tavares@liferay.com>
+Date:   Wed Jun 4 15:51:34 2014 -0300
+
+    LPS-45630 As a developer, I should be able to retrieve the updated model from the WorkflowHandlerRegistryUtil.startWorkflowInstance operation
+
+commit 469ccc3f25b3eca58801e60765770687798e0d92
+Author: Marcellus Tavares <marcellus.tavares@liferay.com>
+Date:   Wed Jun 4 15:35:11 2014 -0300
+
+    LPS-45630 Update references
+
+commit 30ff613021ff7ed3cd9e165264e3e13c83189d4b
+Author: Marcellus Tavares <marcellus.tavares@liferay.com>
+Date:   Wed Jun 4 14:32:47 2014 -0300
+
+    LPS-45630 Apply generics
+
+commit 6a4113edcd7a4d6092751c209e043406bbde990c
+Author: cgoncas <cristina.gonzalez@liferay.com>
+Date:   Wed Jun 4 16:14:58 2014 +0200
+
+    LPS-45606 SF
+
+commit 3dba9c152359263c27d91c9fdd999c31ec57fbdb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jun 3 21:53:29 2014 -0700
+
+    LPS-45606 upate SDK
+
+commit 767f9629ac5e95b3ee06c4bb136a36ff0ec2bb50
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Jun 3 16:34:30 2014 -0700
+
+    LPS-45606
+
+commit 75a223b09e7c3cf154b478bd0de447ebacbe0018
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Mon Jun 2 22:10:14 2014 +0800
+
+    LPS-45608 Source formatting
+
+commit 3576dafd580f6fc5b30d84ab70802a3e1385ec7a
+Author: Dale Shan <dale.shan@liferay.com>
+Date:   Fri May 30 11:41:58 2014 +0800
+
+    LPS-45608 remove unnecessary friendly mapper defination
+
+commit 7e400fb15832fd485b8290543ac3b1fa671b1cb5
+Author: Dale Shan <dale.shan@liferay.com>
+Date:   Thu May 29 22:44:26 2014 +0800
+
+    LPS-45608 path /activities/rss should not require authentication
+
+commit 6cdcfe86d38a74c4893b03e54275baa1813950c4
+Author: Dale Shan <dale.shan@liferay.com>
+Date:   Thu May 29 14:14:37 2014 +0800
+
+    LPS-45608 Change RSSAction to implement method getRSS(HttpServletRequest request) so that members activites portlet and activities can use same RSSAction class to process RSS request
+
+commit 5a36a70348bb2281e75cd0c389280bdb8ea5ad83
+Author: Pei-Jung Lan <pei-jung.lan@liferay.com>
+Date:   Mon May 12 17:28:15 2014 -0700
+
+    LPS-45694 The 'x' in the search field appears on top of opened iframes
+
+commit 62900212df6a4fd687c6437858df260532f47abf
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon May 12 07:50:51 2014 -0700
+
+    LPS-45682 For consistency, tabs, then cur, then redirect. You did that in some places but not in all
+
+commit 47baf790451351b3b2513f4584dd22b1a9febc49
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Mon May 12 09:49:49 2014 +0200
+
+    LPS-45682 replace the way we set the parameter to be the more standard way
+
+commit a6cd753a7edb6b21e92e6c76a668636265c1135d
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed May 7 10:40:07 2014 -0700
+
+    LPS-45615 SF
+
+commit 37fc76d6046a8c31e5b9713c1bea127691f41ace
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed May 7 09:31:58 2014 -0700
+
+    LPS-45615 Simpler message, see CaptchaAction
+
+commit 4aa45104da0538190b6f713d021b3919c93c738b
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed May 7 12:31:15 2014 +0200
+
+    LPS-45615 document breaking changes in the API
+
+commit 0554037ed9037d15dbbc68b059925e295464e2e0
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed May 7 12:29:57 2014 +0200
+
+    LPS-45615 we need to deprecate since we renamed this class
+
+commit cdd96b09d5582992f1f3de4cd619c7cc66f1de95
+Author: Preston-Crary <preston.crary@liferay.com>
+Date:   Wed Apr 16 18:19:13 2014 -0700
+
+    LPS-45978 recommit LPS-45620 relavent source formatting
+
+commit faccb571a0eb07c85e696e0e324608a663d6745d
+Author: Preston-Crary <preston.crary@liferay.com>
+Date:   Wed Apr 16 16:50:42 2014 -0700
+
+    LPS-45978 recommit LPS-45189 and LPS-45620 alt text changes
+
+commit 8154b3703eabfad58f37211c9bb2b1ee8b5cd7b3
+Author: Preston-Crary <preston.crary@liferay.com>
+Date:   Wed Apr 16 14:37:31 2014 -0700
+
+    Revert LPS-45620
+
+commit 80b37227f87d19b9043cf2d980238d587006ee92
+Author: Evan Nagayama <evan.nagayama@liferay.com>
+Date:   Wed Apr 23 13:34:39 2014 -0700
+
+    LPS-45651 SF
+
+commit 5a8a238a9fe376d5ba53995d665dff4cad172a35
+Author: godestablishedyou <godestablishedyou.escobedo@liferay.com>
+Date:   Mon Apr 21 09:41:58 2014 -0700
+
+    LPS-45651 - tests
+
+commit fdf689b211164b8a488648168e796776aeeca0f8
+Author: Daniel Kocsis <daniel.kocsis@liferay.com>
+Date:   Thu Apr 17 14:35:01 2014 +0200
+
+    LPS-45609 Use the proper class when suppressing system event creation
+
+commit 4df97524694ff78e16e54c001dc2dc7aabcb61c1
+Author: Daniel Kocsis <daniel.kocsis@liferay.com>
+Date:   Thu Apr 17 14:34:05 2014 +0200
+
+    LPS-45609 Add new convenience methods
+
+commit b091c40218718033d5b43f29bc1bfe0a04ffb407
+Author: Zsolt Szabo <zsolt.szabo@liferay.com>
+Date:   Tue Apr 15 14:00:31 2014 +0200
+
+    LPS-45609 Publish to live causes a NoSuchFileVersionException after renaming title of a DLFileEntry
+
+commit c2ca17a56f95261a164f83d7423ab541659f9544
+Author: alee8888 <albert.lee@liferay.com>
+Date:   Tue Apr 15 11:40:23 2014 -0700
+
+    LPS-45650 SF
+
+commit 74904dacd7b502795cd395f0fbf0f15e355db822
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Mon Apr 14 11:00:23 2014 -0700
+
+    LPS-45650 - tests
+
+commit 399b8a1e8f98e2c1b6400ab7f23794c55d28419b
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Mon Apr 14 11:00:10 2014 -0700
+
+    LPS-45650 - macros
+
+commit c6a56cb1cbd0c893c58a12d5002b0c23510af578
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Mon Apr 14 10:59:58 2014 -0700
+
+    LPS-45650 - actions, paths
+
+commit 22dfd582d5afaf2259e3aaaed5ae08854799aa25
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Wed Apr 16 12:25:09 2014 -0700
+
+    LPS-45693 - We can push multiple values into an array with one call, we don't need to create multiple arrays and concat
+
+commit 6ebc96ca1f3bc4d266e4d3d3fb6a81b4c9af5f19
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Wed Apr 16 11:59:21 2014 -0700
+
+    LPS-45693 - Cache namespace call
+
+commit 728fe60b115a574bca99f22758a40627f6afd2f8
+Author: Chema Balsas <jose.balsas@liferay.com>
+Date:   Wed Apr 16 10:59:30 2014 +0200
+
+    LPS-45693 Namespace components
+
+commit 40e4fa4d4a9b2d7a3fbb392f345800bf0dc8a080
+Author: Iliyan Peychev <iliyan.peychev@liferay.com>
+Date:   Fri Apr 11 14:01:34 2014 +0200
+
+    LPS-45693 - SF
+
+commit 2fe582f2c83f9c8d40df775e03b2ac391ef73434
+Author: Chema Balsas <jose.balsas@liferay.com>
+Date:   Thu Apr 10 17:58:55 2014 +0200
+
+    LPS-45693 Properly clean all listeners inside add panels
+
+commit 51912bdc2c7c67780acb664efdb345a143bbfdfc
+Author: alee8888 <albert.lee@liferay.com>
+Date:   Mon Apr 14 15:36:03 2014 -0700
+
+    LPS-45687 SF
+
+commit 084171e4c11eff8253465abf9baf4fb3361a02b7
+Author: Koor Gai <koor.gai@liferay.com>
+Date:   Mon Apr 14 10:47:22 2014 -0700
+
+    LPS-45687 - tests
+
+commit 9c0c0a18e4c90588e831f3ed9cf25eedbfad82fa
+Author: Koor Gai <koor.gai@liferay.com>
+Date:   Mon Apr 14 10:46:05 2014 -0700
+
+    LPS-45687 - macros
+
+commit a6fd64c42dd49e9e90ff47010f22aeedf3f9056e
+Author: Koor Gai <koor.gai@liferay.com>
+Date:   Mon Apr 14 10:45:09 2014 -0700
+
+    LPS-45687 - paths
+
+commit 0af78a3e4443ceb069688af5ccd556aadf283cc2
+Author: cgoncas <cristina.gonzalez@liferay.com>
+Date:   Tue Apr 15 09:39:27 2014 +0200
+
+    LPS-45615 Autogenerated
+
+commit c3981629bbfe3194a94b5baa1d3f58eed5e8fe69
+Author: Brian Chiu <brian.chiu@liferay.com>
+Date:   Mon Apr 14 18:28:43 2014 -0700
+
+    LPS-45692 SF
+
+commit d49a986875c7d180cb806d907fcf0d0c7ae92f2d
+Author: alee8888 <albert.lee@liferay.com>
+Date:   Mon Apr 14 12:40:59 2014 -0700
+
+    LPS-45692 SF
+
+commit d3211faedab01b1b0f08e04a933621fc9f489cc1
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Mon Apr 7 09:20:58 2014 -0700
+
+    LPS-45692 - tests
+
+commit 9dfb6aaf7332eb64a218f0b96bfad69b885a9f05
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Mon Apr 7 09:20:44 2014 -0700
+
+    LPS-45692 - macros
+
+commit 7c55d53233cb4606bc9b0bcea91934aa366ff5dd
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Mon Apr 7 09:20:30 2014 -0700
+
+    LPS-45692 - paths
+
+commit 9ac271529451e8a763d229d0f11b6edf98a2ef59
+Author: alee8888 <albert.lee@liferay.com>
+Date:   Fri Apr 11 12:32:07 2014 -0700
+
+    LPS-45628 SF
+
+commit 918df6d04930ee4a507909d588d2d825604ff71a
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Wed Apr 2 13:56:48 2014 -0700
+
+    LPS-45628 - tests
+
+commit 8bf2846d108e702e28e52c5503a94d732e26bf47
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Wed Apr 2 13:56:38 2014 -0700
+
+    LPS-45628 - macros
+
+commit b6ce92268192042460cebbffa714aa27cc8993c3
+Author: kristinjewell <kristin.jewell@liferay.com>
+Date:   Wed Apr 2 13:56:24 2014 -0700
+
+    LPS-45628 - paths
+
+commit d329f5949dd91f4b7af5f1fe653f8ce0dccc6d46
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Apr 14 13:42:04 2014 -0700
+
+    LPS-45615 Lang keys
+
+commit 6fe67b9d8291854bebe2395903e4458622343913
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 10 09:43:28 2014 +0200
+
+    LPS-45615 Auto
+
+commit ada6531071b5be33a90a59ef0f342aed3d31b485
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Mon Apr 14 12:34:21 2014 -0700
+
+    LPS-45615 - Source formatting
+
+commit 6ea5f74621b7597638e043773cdb50e1889a483e
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Fri Apr 11 08:40:09 2014 +0200
+
+    LPS-45615 Removes unnecessary parameter
+
+commit d4b51f8a1250aec43e8ae18d9552c2fae3621be5
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 11:29:14 2014 -0700
+
+    LPS-45615 Pass in a long[] and use Set, better for remote JSON/SOAP, and better for performance
+
+commit 5f7e6de7d154fbb0aaf486aca29761ed1da733a4
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 11:21:02 2014 -0700
+
+    LPS-45615 Missing upgrade logic
+
+commit 3af9b93d7d874bd1a0352f393c764f7a063feb7c
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 11:19:47 2014 -0700
+
+    LPS-45615 SF
+
+commit b9cfd60d652e16965b2ca735da80c6f45ad78ed2
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 10:42:02 2014 -0700
+
+    LPS-45615 SF
+
+commit 2e14475d11286d7db8d9da6a59e20d3ac25de964
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 10:38:01 2014 -0700
+
+    LPS-45615 More clarity
+
+commit 4e438b001c016403eb21f1b73d608e829ee23367
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 10:37:03 2014 -0700
+
+    LPS-45615 Fix compile error (you forgot to rename this)
+
+commit 790166e813503da7e8e6aca1a2dd58a56bce4cd4
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 10:36:41 2014 -0700
+
+    LPS-45615 SF
+
+commit bcd4ab4ec96f95928a8e5d9a514ccf0b1c935954
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 10:33:51 2014 -0700
+
+    LPS-45615 Since we're now in DDM
+
+commit 67ff46b35f6f046bb2f95f20db33c0f94c45c3ae
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 10 10:33:13 2014 -0700
+
+    LPS-45615 Since we're now in DDM
+
+commit ed29c6934678cbddc1833d7872bd23ceea90cca9
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 15:38:07 2014 +0200
+
+    LPS-45615 Check is a valid structures for the container when restoring from trash an entry
+
+commit d583716a0e67dd3f0f525059eee8500f9ef1f68d
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 09:56:28 2014 +0200
+
+    LPS-45615 Check is a valid DDMStructure when we move an article into a folder
+
+commit 68b2a66867e7a99a6316951bdfd1fbb0eb503485
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Wed Apr 2 13:44:21 2014 +0200
+
+    LPS-45615 Show only the allowed ddmStructureIds for the actual folder
+
+commit c7cc43b6445fe30079c242e0b407d65a0769d5ab
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Tue Apr 8 09:51:15 2014 +0200
+
+    LPS-45615 Check allowed ddmStructureIds for the folder we are adding the web content
+
+commit e43b2e8bd12801baedefcce76d5ee226c6b56ab9
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Wed Apr 2 14:53:57 2014 +0200
+
+    LPS-45615 Folders can be restricted to allow only certain structures
+
+commit 405b4f90715a5c761dbf67546d101c5283e4bae8
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Wed Apr 2 13:41:30 2014 +0200
+
+    LPS-45615 Adds a new entityMapping for journal folders and ddmStructures
+
+commit e523c773df2c07017f74b7a0fb6d40ca98e4fa62
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Mon Apr 14 10:30:26 2014 -0700
+
+    LPS-45667 - Source formatting
+
+commit bf077b347bfc9d5d6c6a97651282e9bc879a60b8
+Author: Jonathan Mak <jonathan.mak@liferay.com>
+Date:   Fri Apr 11 17:54:07 2014 -0700
+
+    LPS-45667 - Source formatting
+
+commit 8eeb73628558d015d05651ce4a30fe33951254a5
+Author: michael.bradford@liferay.com <michael.bradford@liferay.com>
+Date:   Mon Apr 7 14:58:06 2014 -0700
+
+    LPS-45667 - timePicker.getTime() from liferay-ui:input-time does not retrieve date if called before user interaction
+
+commit 6b0694ed230565dafaa3eeae1d40ddd90e2640a9
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Thu Apr 10 15:16:52 2014 -0700
+
+    LPS-45620 - Source formatting
+
+commit 93f2b6470085f388c91aec1027dfb8d66ebe0b8e
+Author: Preston-Crary <preston.crary@liferay.com>
+Date:   Fri Mar 28 13:46:38 2014 -0700
+
+    LPS-45620 SF
+
+commit 3580ddc80b6a76dea9ec4cdb9f4a170b8eec1b97
+Author: Preston-Crary <preston.crary@liferay.com>
+Date:   Thu Mar 27 18:19:35 2014 -0700
+
+    LPS-45620 Translate and add language keys
+
+commit 2b1b385da906e248a818070e165d54878bde7f76
+Author: Preston-Crary <preston.crary@liferay.com>
+Date:   Thu Mar 27 18:16:26 2014 -0700
+
+    LPS-45620 Update the selects with unclear names (most of them)
+
+commit a9f52332b76317254f4eb8b627332f5a2273add9
+Author: Preston-Crary <preston.crary@liferay.com>
+Date:   Thu Mar 27 18:08:46 2014 -0700
+
+    LPS-45620 Remove alt text now added through taglib
+
+commit 70196938d808224af5afd385f29bedd812324abe
+Author: Preston-Crary <preston.crary@liferay.com>
+Date:   Thu Mar 27 18:03:23 2014 -0700
+
+    LPS-45620 Add hidden labels when the name field is unclear
+
+commit 38b1b68e3470f8d07d67b60cc29f1b3e715b4770
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Apr 9 19:00:02 2014 -0700
+
+    LPS-45618 fix my typo
+
+commit 11a877741e62eecba8b4d179aceb0d1fd8c8cea1
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Apr 9 18:34:32 2014 -0700
+
+    LPS-45618 SF
+
+commit cd71fd9c558f7583d67cc5c1d2ba25f746411dc7
+Author: Vilmos Papp <vilmos.papp@liferay.com>
+Date:   Wed Apr 2 12:58:13 2014 +0200
+
+    LPS-45618 Fixed SusbscriptionSender to handle not verified e-mail addresses as well
+
+commit 6fbb4b3767d79c413e5bf76e654409c51fd6206c
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Apr 9 15:26:13 2014 -0700
+
+    LPS-45638 SF
+
+commit 9d67ed728f4b71b180fd9080d4c6487dfb3a20bf
+Author: Tomáš Polešovský <tomas.polesovsky@liferay.com>
+Date:   Wed Apr 2 18:56:30 2014 +0200
+
+    LPS-45638 Do not rely on HtmlUtil initialization
+
+commit 503775409a870719d05e203d595cf9dd641155d5
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Apr 9 15:10:30 2014 -0700
+
+    LPS-45622 Sort
+
+commit 6d8c6c90cef91044a69f946ff9429464ec1ae7d6
+Author: Tomáš Polešovský <tomas.polesovsky@liferay.com>
+Date:   Wed Apr 2 16:09:18 2014 +0200
+
+    LPS-45622 Display organization and site roles
+
+commit 9dff698e57758bab6be349470efe9a5e0f89dc03
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Apr 9 13:43:35 2014 -0700
+
+    LPS-45613 SF
+
+commit 821aef47a94ca66c6778482bd346c40e2c7f57ae
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Wed Apr 9 11:34:12 2014 -0700
+
+    LPS-45613 - Forgot to commit SF
+
+commit 77a9a18255f4dfeb700c5172c873d457a7609a5b
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Apr 9 11:17:08 2014 -0700
+
+    LPS-45613 - SF
+
+commit a5de82b54e32e51ec02e9861a992975b25014ab8
+Author: Iliyan Peychev <iliyan.peychev@liferay.com>
+Date:   Wed Apr 9 15:13:31 2014 +0200
+
+    LPS-45613 - SF
+
+commit ea5e9b0ac5e9919e38e1fcbf88a9a17f983b5a1f
+Author: Chema Balsas <jose.balsas@liferay.com>
+Date:   Mon Apr 7 18:07:04 2014 +0200
+
+    LPS-45613 Disable form until submit event ready
+
+commit e06d323523e57b4b2539eb6f2048bf10fc362360
+Author: Chema Balsas <jose.balsas@liferay.com>
+Date:   Wed Apr 9 10:29:02 2014 +0200
+
+    LPS-45613 Consolidate editor instanceReady API for fckeditor
+
+commit eb0a7c2dd3833c44265029147b003125d57047ec
+Author: Chema Balsas <jose.balsas@liferay.com>
+Date:   Wed Apr 9 10:28:39 2014 +0200
+
+    LPS-45613 Consolidate editor instanceReady API for simple
+
+commit c7ecbd053cd40521ceaf717f7c840e06480ee101
+Author: Chema Balsas <jose.balsas@liferay.com>
+Date:   Wed Apr 9 10:25:00 2014 +0200
+
+    LPS-45613 Return tinymce_simple initial content if editor has not been initialized
+
+commit 1174092d9df6858f5ef26c936a472d50dee33b9c
+Author: Chema Balsas <jose.balsas@liferay.com>
+Date:   Wed Apr 9 10:03:12 2014 +0200
+
+    LPS-45613 Return tinymce initial content if editor has not been initialized
+
+commit 987ac10d2061ca0ecf18c9418fc69bb8ea60c3ba
+Author: Chema Balsas <jose.balsas@liferay.com>
+Date:   Thu Apr 3 16:44:05 2014 +0200
+
+    LPS-45613 Return ckeditor initial content if editor has not been initialized
+
+commit e86eafd8e38f1b92692fb6111f3bb33a928e55dc
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Apr 8 12:06:27 2014 -0700
+
+    LPS-45669 SF
+
+commit 3429e66ce68e8a057c4eb1502b41227242501edb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Apr 8 12:06:13 2014 -0700
+
+    LPS-45636  SF
+
+commit 7ddc3dc2a7b86dd5fdb10692c2e5047cccdcf565
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Tue Apr 8 11:48:28 2014 -0700
+
+    LPS-45636 SF
+
+commit 1286753eac40948c0c03542eecb2edf0eb6fc047
+Author: tinatian <tina.tian@liferay.com>
+Date:   Tue Apr 8 15:20:06 2014 +0800
+
+    LPS-45636 Should use set instead of list to avoid duplicated fileds.
+
+commit 82b23d6f83b5debbf075c8baf9c2e201368586e5
+Author: michael.bradford@liferay.com <michael.bradford@liferay.com>
+Date:   Mon Apr 7 11:44:06 2014 -0700
+
+    LPS-45669 - "dateParam" attribute from liferay-ui:input-time should be mandatory or have some default value
+
+commit 04c951a8a6e6026cd1fcae0c2536a5a484d22403
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Apr 8 10:12:45 2014 -0700
+
+    LPS-45614 Lang keys
+
+commit f528622040166217006af1dede0c414bb468c79a
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Apr 8 10:05:38 2014 -0700
+
+    LPS-45614 Minor SF
+
+commit f4ccf4596f7a1448c44c761c3c2d27712260542e
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Tue Apr 8 10:04:47 2014 -0700
+
+    LPS-45614 SF
+
+commit b9db5cb7fe318a75c700abb62ce1a335b83c047e
+Author: Sergio Gonzalez <sergio.gonzalez@liferay.com>
+Date:   Tue Apr 8 10:50:29 2014 +0200
+
+    LPS-45614 Provide more info in the exception
+
+commit 590a6f6a91451a53d8f76c5d9d6fffaa80a154a6
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Fri Apr 4 16:55:06 2014 -0700
+
+    LPS-45614 Also throw AntivirusScannerException when antivirus is not properly set up
+
+commit 8371bf38f42a8e9f03dc3df4dcd3bc13a1bdcd1c
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Fri Apr 4 16:51:32 2014 -0700
+
+    LPS-45614 AntivirusScannerException is not handled very well
+
+commit 1ebe89f64cd3d937365c5adb7f90b8ea57558df0
+Author: Sergio Gonzalez <sergio.gonzalez@liferay.com>
+Date:   Tue Apr 8 16:29:37 2014 +0200
+
+    LPS-45686 source formatting
+
+commit e6e8c8a531c0dd9d69c1d1f5d5e6acb6eb00ab2c
+Author: Roberto Díaz <roberto.diaz@liferay.com>
+Date:   Tue Apr 8 12:59:47 2014 +0200
+
+    LPS-45686 Do not break words
+
+commit 630e2a52c058ba1dcfee6577f77cae2829b10e93
+Author: Levente Hudak <levente.hudak@liferay.com>
+Date:   Thu Apr 3 18:09:09 2014 +0200
+
+    LPS-45674 Using request.getAttribute(), since we are passing the parameters with request.setAttribute(), also we need to postfix the controls name with the portletId at all times
+
+commit 69e046d3dab762537de8501dc8d1354f00c612d4
+Author: Brian Chiu <brian.chiu@liferay.com>
+Date:   Mon Apr 7 12:37:16 2014 -0700
+
+    LPS-45695 SF
+
+commit 09880431b4850a50e0097c92fae3430aaf657f43
+Author: Evan Nagayama <evan.nagayama@liferay.com>
+Date:   Mon Apr 7 09:59:37 2014 -0700
+
+    LPS-45695 - tests
+
+commit 69d61f006ccefca4879cf5bd0a7d698ce31cd6d6
+Author: Evan Nagayama <evan.nagayama@liferay.com>
+Date:   Mon Apr 7 09:59:30 2014 -0700
+
+    LPS-45695 - macros
+
+commit 1135c304a8b07c759737d4eda41482e020dbefcb
+Author: Evan Nagayama <evan.nagayama@liferay.com>
+Date:   Mon Apr 7 09:59:22 2014 -0700
+
+    LPS-45695 - actions, functions, paths
+
+commit 4d39c26812dd0a6b521ae464f0f6db81d8e73c11
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Apr 7 11:26:44 2014 -0700
+
+    LPS-45657 SF
+
+commit 404b787bb2147fd63d833f7c50c9eb9d5e3a5fa3
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Apr 7 11:26:32 2014 -0700
+
+    LPS-45615 SF
+
+commit 3c32306586083034e52ea1bcff7784d7c8226d49
+Author: Roberto Díaz <roberto.diaz@liferay.com>
+Date:   Mon Apr 7 12:23:09 2014 +0200
+
+    LPS-45639 Add missing default values in shopping to fallbackKeys
+
+commit eb1037db4d6ae88e7f21d5e45b1c62a54db09b95
+Author: Roberto Díaz <roberto.diaz@liferay.com>
+Date:   Mon Apr 7 11:59:01 2014 +0200
+
+    LPS-45639 Add missing default values in mb to fallbackKeys
+
+commit 5c0ddb90860f186a2be1c9f7eb2351c0390c9b86
+Author: Roberto Díaz <roberto.diaz@liferay.com>
+Date:   Mon Apr 7 11:51:05 2014 +0200
+
+    LPS-45639 Add missing default values in wiki to fallbackKeys
+
+commit 67c89dd33a42bcac9193a0c42a2d77c15525d9ef
+Author: Roberto Díaz <roberto.diaz@liferay.com>
+Date:   Mon Apr 7 11:02:10 2014 +0200
+
+    LPS-45639 Add the default value for blogs rss enabled to portal properties and pass to settings using the fallbackKeys
+
+commit 8be64197dfd1ea26f93439b8f24e768cbe2c12c3
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri Apr 4 13:43:21 2014 +0200
+
+    LPS-45615 SF
+
+commit f3112ff4567060cc396d91cee9b9641e4f0fb506
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 15:50:51 2014 +0200
+
+    LPS-45615 Deprecate methods
+
+commit ff69ab5dea871f8f0fbaaa8446488af02751b1d8
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 15:38:07 2014 +0200
+
+    LPS-45615 Creates different types of RestoreEntryException
+
+commit f86a28867ec0aa2c886a5d8dcac89e8a2bbd8635
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 15:14:06 2014 +0200
+
+    LPS-45615 Rename exception to RestoreEntryException
+
+commit 54d78b9e8f445e7ddc5cb3cd253626ea0d12373c
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 15:03:23 2014 +0200
+
+    LPS-45615 Rename methods
+
+commit b8cc53d15f75c4bc7d195bb1040fd38054a6b04c
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Apr 7 07:53:05 2014 -0700
+
+    LPS-45615 Sort by JournalArticle service.xml columns
+
+commit 1997c5039196d689f36ae36dd6aa443736364540
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Mon Apr 7 11:01:30 2014 +0200
+
+    LPS-45615 Rename type to classTypeName, because we use "classType" in AssetRendererFactory to reference the different types of structures
+
+commit d489c05f1e729ba8034295bb0d7f61e44c66d5c2
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Fri Apr 4 13:36:27 2014 +0200
+
+    LPS-45615 SF
+
+commit e6cf9c743da69639d5207bc785dc8fccc98e6413
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Wed Apr 2 18:08:33 2014 +0200
+
+    LPS-45615 Add new parameter to show the type in the taglib
+
+commit da2cbce0c5b9343d5b46e13bd6bf3b70958d1495
+Author: Ken Duenwald <ken.duenwald@liferay.com>
+Date:   Fri Apr 4 14:27:35 2014 -0700
+
+    LPS-45690 - tests
+
+commit 62ddd790ea7438db0bea146ae14085cf502cf5bb
+Author: Ken Duenwald <ken.duenwald@liferay.com>
+Date:   Fri Apr 4 14:27:20 2014 -0700
+
+    LPS-45690 - macros
+
+commit 809324ed964ede53450a521125d00894262601f9
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Fri Apr 4 14:27:20 2014 -0700
+
+    LPS-45688 - Add 'mouseRelease' to 'MouseUp.function'
+
+commit 8999e7cd722a3d9fc39c8c6b1a298e142827c03e
+Author: Kwang Lee <kwang.lee@liferay.com>
+Date:   Thu Apr 3 16:12:58 2014 -0700
+
+    LPS-45688 - fixing mouseMove and mouseMoveAt
+
+commit 71ba7d3b07f38122c40ad4036f7d77a1d2bd9f28
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Apr 4 10:18:32 2014 -0700
+
+    LPS-45656 SF
+
+commit 4777f66813108224ce9e667fd5ee6d5ad0d72e63
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Fri Apr 4 09:57:31 2014 -0700
+
+    LPS-45656 Cleanup env variables
+
+commit 614fd688910fbb1951cf64442d01c8aa4182c42c
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Apr 4 09:32:04 2014 -0700
+
+    LPS-45657 SF
+
+commit 51f48bfdae8336cb95eafc14d19fc0518520ba6d
+Author: Michael Han <michael.han@liferay.com>
+Date:   Fri Apr 4 10:31:44 2014 -0500
+
+    LPS-45657 add default field selection for orgs
+
+commit eeed06cd260534f62617d7dd627e06ebb83a6d26
+Author: Michael Han <michael.han@liferay.com>
+Date:   Thu Apr 3 05:08:23 2014 -0500
+
+    LPS-45657 regen svcs
+
+commit 60528e7a992193a4fd55b8b52f0753902d8cd12a
+Author: Michael Han <michael.han@liferay.com>
+Date:   Thu Apr 3 03:47:58 2014 -0500
+
+    LPS-45657 use search index for searchCount when appropriate
+
+commit 7ff62dbdc3e0f873f066d31971ad6d63afb880d8
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Apr 4 09:30:17 2014 -0700
+
+    LPS-45664 Sort
+
+commit a8c52344cdfbd186e4292a7449e4df5ca02a776a
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Apr 4 09:24:37 2014 -0700
+
+    LPS-45664 SF
+
+commit c7503ff61962f5ba7d252b31ec97eb58f63c3265
+Author: Michael Han <michael.han@liferay.com>
+Date:   Fri Apr 4 10:41:57 2014 -0500
+
+    LPS-45664 src format
+
+commit 7060dcc0c5ef5ff87d19ca19eff853360d63f325
+Author: Michael Han <michael.han@liferay.com>
+Date:   Fri Apr 4 10:39:25 2014 -0500
+
+    LPS-45664 set default fields for asset vocab
+
+commit 4eeee3d1cc200cf990243dda2cbfccf245ada742
+Author: Michael Han <michael.han@liferay.com>
+Date:   Fri Apr 4 10:37:32 2014 -0500
+
+    LPS-45664 set default fields for asset entry
+
+commit bf9094d3b08500070232ade1dd107a00296468d4
+Author: Michael Han <michael.han@liferay.com>
+Date:   Fri Apr 4 10:36:09 2014 -0500
+
+    LPS-45664 set default selected fields for asset categories
+
+commit c6b83d5077dad913bfb4da9360a7c939848f49e0
+Author: Michael Han <michael.han@liferay.com>
+Date:   Fri Apr 4 10:45:18 2014 -0500
+
+    LPS-45664 bookmarks default selected fields
+
+commit be4aa584c2887cfa253c00c5e339a49ea037e7d1
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Fri Apr 4 08:03:30 2014 -0700
+
+    LPS-45663 SF
+
+commit 84f68c43d73bbd000592fec5a844a6a7fa208577
+Author: Michael Han <michael.han@liferay.com>
+Date:   Fri Apr 4 01:45:23 2014 -0500
+
+    LPS-45663 update user groups to perform searchCount via index
+
+commit fdcf55ba8de80c985d81e263a1560edf15655d14
+Author: Michael Han <michael.han@liferay.com>
+Date:   Fri Apr 4 01:44:41 2014 -0500
+
+    LPS-45663 add default selected fields
+
+commit 7fed6cd647a616a8c7c4dbf436e0a9eff0b6a79b
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 17:56:13 2014 +0200
+
+    LPS-45615 Removes no used MOVE_FROM_TRASH
+
+commit 9e0c5ae559496b4f53fb883cee305dbeb300f6d0
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 17:25:18 2014 +0200
+
+    LPS-45615 Removes no used code
+
+commit a7d727e18ff7cc882afa1f2ef419cacf6a02a4e8
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 17:06:34 2014 +0200
+
+    LPS-45615 Apply to DL, uses only one move action
+
+commit 34275a13b2e04fb2aba29a002ed3715c3724d8ce
+Author: Eudaldo Alonso <eudaldo.alonso@liferay.com>
+Date:   Thu Apr 3 09:56:28 2014 +0200
+
+    LPS-45615 Refactor, uses only one move action
+
+commit 4686df334929a2dc6d0fa34bdb7fbd94b21e8888
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 19:24:40 2014 -0700
+
+    LPS-45656 Sort
+
+commit 23391620242d007711b991ff5d510bdb21c1a0cb
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 19:23:40 2014 -0700
+
+    LPS-45656 Rename to match gradle-execute
+
+commit a5e5e745ce25f5f79894a100cdb0fc4bcb361e82
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Thu Apr 3 17:53:43 2014 -0700
+
+    LPS-45656 SF
+
+commit c82c6076721e34bbcf0897804f76197da71f4d42
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Thu Apr 3 15:07:32 2014 -0700
+
+    LPS-45656 SF
+
+commit af6c95e297ae3d726cc847c7460939fea2739725
+Author: Kwang Lee <kwang.lee@liferay.com>
+Date:   Wed Apr 2 16:55:53 2014 -0700
+
+    LPS-45656 - load test
+
+commit 1a746e0584542d88f30ffd4878c18b2c0d0caf64
+Author: matthewkong <matthew.kong@liferay.com>
+Date:   Thu Apr 3 18:46:28 2014 -0700
+
+    LPS-45696 Allow accessing all classNameIds from plugins
+
+commit 79966eb452e99d2a9a98033d44051d9e266cbaf5
+Author: John Co <john.co@liferay.com>
+Date:   Thu Apr 3 15:53:36 2014 -0700
+
+    LPS-45689 - tests
+
+commit 1d52358515d0e093d7bfe91a6f719f64c8972388
+Author: Ken Duenwald <ken.duenwald@liferay.com>
+Date:   Thu Apr 3 15:38:35 2014 -0700
+
+    LPS-45652 - tests
+
+commit 492638ca01d10e2a7b449cdcf33b7393366266b2
+Author: Ken Duenwald <ken.duenwald@liferay.com>
+Date:   Thu Apr 3 15:38:23 2014 -0700
+
+    LPS-45652 - macros
+
+commit 685907c9df766c021722add1fcf8b6419540a4c0
+Author: Ken Duenwald <ken.duenwald@liferay.com>
+Date:   Thu Apr 3 15:38:05 2014 -0700
+
+    LPS-45652 - paths
+
+commit 348bc3de27d6a8ab95ab52b62e612d6a81c6c1c3
+Author: Brian Chiu <brian.chiu@liferay.com>
+Date:   Thu Apr 3 17:05:59 2014 -0700
+
+    LPS-45633 SF
+
+commit da9d2adda645c91fc2b6754e321fef78a32822a7
+Author: Evan Nagayama <evan.nagayama@liferay.com>
+Date:   Thu Apr 3 12:36:05 2014 -0700
+
+    LPS-45633 SF
+
+commit 2120e7eaaa262d2617d3b35751d68d351330e900
+Author: godestablishedyou <godestablishedyou.escobedo@liferay.com>
+Date:   Thu Apr 3 10:17:28 2014 -0700
+
+    LPS-45633 - tests
+
+commit 487c6bc4e3d97fe71d44c077958d9fe17092a048
+Author: godestablishedyou <godestablishedyou.escobedo@liferay.com>
+Date:   Thu Apr 3 10:17:11 2014 -0700
+
+    LPS-45633 - macros
+
+commit 07dfad18afcb32955e0e802722be2e7ac0861811
+Author: godestablishedyou <godestablishedyou.escobedo@liferay.com>
+Date:   Wed Apr 2 09:19:36 2014 -0700
+
+    LPS-45633 - actions, functions, paths
+
+commit 5c3a2672a588831de6db557b20555925939f19a5
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 16:34:38 2014 -0700
+
+    Revert "LPS-45663 update user groups to perform searchCount against search index"
+    
+    This reverts commit 6487f41f972c90ff3bd5088e725b8f97c55e6ea2.
+
+commit cd07b482dd19c36d1bcd5064f2f4c7c732f4f92c
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 16:34:30 2014 -0700
+
+    Revert "LPS-45663 add default selected fields"
+    
+    This reverts commit aa30777f84bc45679d3d933766bee76a1aaefd73.
+
+commit aa30777f84bc45679d3d933766bee76a1aaefd73
+Author: Michael Han <michael.han@liferay.com>
+Date:   Thu Apr 3 18:01:36 2014 -0500
+
+    LPS-45663 add default selected fields
+
+commit 6487f41f972c90ff3bd5088e725b8f97c55e6ea2
+Author: Michael Han <michael.han@liferay.com>
+Date:   Thu Apr 3 05:55:37 2014 -0500
+
+    LPS-45663 update user groups to perform searchCount against search index
+
+commit 6e4f0a5ee8b8ed7436a53eed1db46ed8f3358aad
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 14:25:45 2014 -0700
+
+    LPS-45675 SF
+
+commit a4f94ac1d1fa50ec461408b94e158d5815bbb93e
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Thu Apr 3 11:41:22 2014 -0700
+
+    LPS-45675 SF
+
+commit a3dd6f4f722b6c51e0e6b5b195e5eebf04100bef
+Author: Kwang Lee <kwang.lee@liferay.com>
+Date:   Thu Apr 3 09:51:58 2014 -0700
+
+    LPS-45675 - Add regular expression replacements for variables
+
+commit 7837e39834694443c3f1f184902f2c82938ef748
+Author: Kenji Heigel <kenji.heigel@liferay.com>
+Date:   Wed Apr 2 11:01:44 2014 -0700
+
+    LPS-45631 - tests
+
+commit e9c2cde2ac043a9b929c0f2eaf35161d8b4cd26e
+Author: Kenji Heigel <kenji.heigel@liferay.com>
+Date:   Wed Apr 2 11:01:28 2014 -0700
+
+    LPS-45631 - macros
+
+commit 15674ba55b10feb3d6e28a31617ed29461995ea5
+Author: Kenji Heigel <kenji.heigel@liferay.com>
+Date:   Wed Apr 2 11:01:09 2014 -0700
+
+    LPS-45631 - actions
+
+commit 5e2af5c120980a4dbac3cbba274e43b65a25bac6
+Author: Jonathan McCann <jonathan.mccann@liferay.com>
+Date:   Wed Apr 2 10:32:33 2014 -0700
+
+    LPS-45643 Categories and tags hyperlinks in My Workflow Tasks redirect back to workflow
+
+commit 0f03b4cc6410df3183eb46acaf38aba24b4e813a
+Author: Roberto Díaz <roberto.diaz@liferay.com>
+Date:   Thu Apr 3 17:27:11 2014 +0200
+
+    LPS-45670 When bulk do not notify the user twice
+
+commit a5a53b4803cd4706d6836066ab87a8dccf9e4715
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 08:46:05 2014 -0700
+
+    LPS-45636 Auto SF
+
+commit 942fddc04b0cc82fb34ca1d6d4861f26bd9c6172
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 08:44:35 2014 -0700
+
+    LPS-45636 SF
+
+commit d94210cf0ba9264fdc86eab5c98b2ec488637f4b
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 08:43:32 2014 -0700
+
+    LPS-45636 Rename
+
+commit 2968e76f8c0cbf3dcc72d1040b0f450dc600018b
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 08:42:50 2014 -0700
+
+    LPS-45636 SF
+
+commit 930fbc76d072ddc35e9b21c24f499bd8e8995482
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 08:42:14 2014 -0700
+
+    LPS-45636 SF
+
+commit 7935a337a5591fc2d2de90dc262987de6eb37e9b
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 08:41:19 2014 -0700
+
+    LPS-45636 Simplify?
+
+commit 026272399df873132155c0aee0b592e835741903
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu Apr 3 08:37:11 2014 -0700
+
+    LPS-45636 Rename
+
+commit 50d5a108eca2101d95b932a959939efc73e5ef28
+Author: Michael Han <michael.han@liferay.com>
+Date:   Wed Apr 2 11:50:22 2014 -0500
+
+    LPS-45636 modify lucene impl to support all_fields_id
+
+commit 3bcda57fa94a37827e755487b1b3eefe57189010
+Author: Michael Han <michael.han@liferay.com>
+Date:   Wed Apr 2 11:49:53 2014 -0500
+
+    LPS-45636 add support for default selected fields
+
+commit ad434472a95aac189513c3a39d580d4e89598ef9
+Author: Michael Han <michael.han@liferay.com>
+Date:   Thu Apr 3 06:27:19 2014 -0500
+
+    LPS-45665
+
+commit 119160a71eed84a3ddb1b1563d080cb7234c2e19
+Author: Daniel Kocsis <daniel.kocsis@liferay.com>
+Date:   Wed Apr 2 18:09:00 2014 +0200
+
+    LPS-45632 Use the liveGroupId to persist the background tasks to the correct group
+
+commit eec5eef04dc8f4458f845a8f13dbabf5d7ca6d30
+Author: Hugo Huijser <hugo.huijser@liferay.com>
+Date:   Wed Apr 2 13:54:46 2014 -0700
+
+    LPS-45649 Add check to SourceFormatter
+
+commit 68f87cc8a8e21c7cdfd15fa6f441eb85421afc68
+Author: Ken Duenwald <ken.duenwald@liferay.com>
+Date:   Wed Apr 2 14:22:00 2014 -0700
+
+    LPS-45644 - tests
+
+commit 392c22ac44a1d0b6afa061c2bf5bc8a4b074a0c0
+Author: Ken Duenwald <ken.duenwald@liferay.com>
+Date:   Wed Apr 2 14:21:22 2014 -0700
+
+    LPS-45644 - macros
+
+commit de1012f9dcc366ab0165407251dd50264dd85308
+Author: Ken Duenwald <ken.duenwald@liferay.com>
+Date:   Wed Apr 2 09:49:29 2014 -0700
+
+    LPS-45641 - tests
+
+commit 051b33b924dcd094bfa2778b3cc84b14745e6c8a
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Wed Apr 2 15:55:53 2014 -0700
+
+    LPS-45640 SF
+
+commit 91f14d0759d8376776df3bd8a19c386995c21be0
+Author: Kwang Lee <kwang.lee@liferay.com>
+Date:   Wed Apr 2 09:47:51 2014 -0700
+
+    LPS-45640 - Implementing Boolean and integer from StringUtil and LiferaySelenium classes
+
+commit ea6902713756c37b80030ac0a7e8e568550e17a4
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed Apr 2 16:29:31 2014 -0700
+
+    LPS-45603 SF
+
+commit a37824ecf0bdb7dd5e98a72622a92bfca195af3a
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Wed Apr 2 12:18:59 2014 -0700
+
+    LPS-45603 SF
+
+commit df3da353ea9fc7da1c637d074226c0b0efcc47cb
+Author: Kwang Lee <kwang.lee@liferay.com>
+Date:   Wed Apr 2 10:50:25 2014 -0700
+
+    LPS-45603 - Implement DragAndDrop, MouseUpAt, MouseDownAt
+
+commit ccd2783b4fca370ce0139a555170c17474713009
+Author: shuyangzhou <shuyang.zhou@liferay.com>
+Date:   Wed Apr 2 13:23:52 2014 -0700
+
+    LPS-45649 As a developer, I'd like to make sure IOException contains its cause info, if there is any.
+
+commit 0748fa7e5810972606160651c0ef0ffb3cbc1fb0
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Wed Apr 2 21:18:29 2014 +0200
+
+    LPS-45612 - Fixing XSS
+
+commit 7a04a65ef234caef1755a75ee0b194f247cc7d67
+Author: Iliyan Peychev <iliyan.peychev@liferay.com>
+Date:   Wed Apr 2 13:00:22 2014 +0200
+
+    LPS-45612 - After switching user controls, the Inline Editor changes its toolbar
+
+commit 247fbb0e965f413d062de1502b5083eae5ecb661
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Tue Apr 1 17:10:50 2014 -0700
+
+    LPS-45601 - Add a missing semi-colon in javascript command
+
+commit 5431a799e90a6d8f5ecb51c09acc0250e15da4ea
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Fri Aug 21 18:25:58 2009 +0000
+
+    LPS-4566
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@36175 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 615e0c624f8ff94e3a185c7e9df3ac8dde74faf5
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Wed Aug 19 18:30:50 2009 +0000
+
+    LPS-4563
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35995 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 454b37e458fdc2a648f5781c9b743e69699bf273
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Tue Aug 18 21:47:02 2009 +0000
+
+    LPS-4563
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35927 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit dc31312e3ef03c29505d2dcfa8231dd0f2243a49
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Tue Aug 18 17:15:10 2009 +0000
+
+    LPS-4562 - Need previous rule for panel containers
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35909 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit e882c15a85c9fc8c297c571446a17585455bd830
+Author: Michael Saechang <michael.saechang@liferay.com>
+Date:   Tue Aug 18 10:15:37 2009 +0000
+
+    LPS-4567
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35907 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 977f8f131854a77f840d8820ee3faf3f9fe80e53
+Author: Michael Han <michael.han@liferay.com>
+Date:   Tue Aug 18 02:29:10 2009 +0000
+
+    LPS-4564
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35900 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 2c1a24d3600086a9f0e8058142c61bd960bf5396
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Tue Aug 18 01:20:04 2009 +0000
+
+    LPS-4563
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35897 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit b98670671657f97864f041219ab287674a7d53be
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Tue Aug 18 00:43:44 2009 +0000
+
+    LPS-4563
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35896 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit b4301204360da5ec203678fd40788c4eca5ec0ca
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Tue Aug 18 00:41:47 2009 +0000
+
+    LPS-4563
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35895 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit f921c5e213d184848a4b3250e0effbfbc834ad10
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Mon Aug 17 23:22:05 2009 +0000
+
+    LPS-4563
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35882 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit f14d58052a5bbc2fb0e3bb50b62080c0cba6f229
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Mon Aug 17 22:51:09 2009 +0000
+
+    LPS-4563
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35874 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit fcccc0d2bb8ddbec8cfc01e3fb9b440c134c0ca9
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Mon Aug 17 22:19:11 2009 +0000
+
+    LPS-4562 - Removing unneeded files
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35872 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 68a729b86e880e8202a343abab8470074617c425
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Aug 17 21:49:24 2009 +0000
+
+    LPS-4561 Rollback
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35870 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 7c8b3136905a95b0ec268b572b0f61eba0973d94
+Author: Michael Hashimoto <michael.hashimoto@liferay.com>
+Date:   Mon Aug 17 21:28:51 2009 +0000
+
+    LPS-4563
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35865 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 4bafcc52f137005d8ccf31ae7f0908d6a090615a
+Author: Nate Cavanaugh <nathan.cavanaugh@liferay.com>
+Date:   Mon Aug 17 21:28:22 2009 +0000
+
+    LPS-4562 - Changing AutoComplete to the Alloy Autocomplete
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35864 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 1eadddeab7abc5cc60abfe1dd0443d18c4613c21
+Author: JR Houn <jr.houn@liferay.com>
+Date:   Mon Aug 17 21:25:35 2009 +0000
+
+    LPS-4560
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35863 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 7c8e4b3734127d487fdc21e9ff962a46d1d1df2f
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Mon Aug 17 19:23:25 2009 +0000
+
+    LPS-4561
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35849 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 46b32fdb1fde2c0a5c74458ad7a8797d11ba4cad
+Author: JR Houn <jr.houn@liferay.com>
+Date:   Mon Aug 17 19:08:12 2009 +0000
+
+    LPS-4560
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35845 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 2bc9cf09459f750bb60261fd500edb3d879209d1
+Author: JR Houn <jr.houn@liferay.com>
+Date:   Mon Aug 17 19:06:38 2009 +0000
+
+    LPS-4560
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35844 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit b1568b2ec4f4227d2751a430047adaae882fb725
+Author: JR Houn <jr.houn@liferay.com>
+Date:   Mon Aug 17 18:18:09 2009 +0000
+
+    LPS-4560
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@35833 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 6f245a3d7fdb05ccd22a78481e8cd2688cbe1cee
+Author: Bruno Farache <bruno.farache@liferay.com>
+Date:   Wed Nov 5 17:44:11 2008 +0000
+
+    LPS-456
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@22404 05bdf26c-840f-0410-9ced-eb539d925f36
