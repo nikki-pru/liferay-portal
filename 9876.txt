@@ -1,0 +1,39 @@
+commit 44cd20dbce991d3517a7502119e1e2217ad0ad54
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Thu May 27 16:57:19 2010 +0000
+
+    LPS-9876 Source formatting
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@53982 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 071cfb6ebcf71bf0c09bb99b01ff0820e6a9d12b
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Thu May 27 10:47:56 2010 +0000
+
+    LPS-9876 Automatic translation of ambiguous keys
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@53963 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 682f9206550109231637c933a645856a40572a90
+Author: Brian Chan <brian.chan@liferay.com>
+Date:   Wed May 26 16:53:37 2010 +0000
+
+    LPS-9876 Temp rollback, commented on possible fix
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@53864 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 9066a9d3c954cc57102a34e93f1d93ff244363e9
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed May 26 12:46:40 2010 +0000
+
+    LPS-9876 source formating
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@53851 05bdf26c-840f-0410-9ced-eb539d925f36
+
+commit 6d4587f6aef2fb174a8469de3f215133ba60e08b
+Author: Julio Camarero <julio.camarero@liferay.com>
+Date:   Wed May 26 11:50:52 2010 +0000
+
+    LPS-9876 Automatic translation of ambiguous keys
+    
+    git-svn-id: svn://svn.liferay.com/repos/public/portal/trunk@53850 05bdf26c-840f-0410-9ced-eb539d925f36
