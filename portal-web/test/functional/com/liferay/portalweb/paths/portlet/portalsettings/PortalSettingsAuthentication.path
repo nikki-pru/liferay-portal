@@ -247,6 +247,16 @@
 	<td></td>
 </tr>
 <tr>
+	<td>LDAP_SERVER_DEFAULT_VALUES_OPENLDAP</td>
+	<td>//input[@value='open']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>LDAP_SERVER_CUSTOM_USER_MAPPING</td>
+	<td>//textarea[contains(@name,'userCustomMappings')]</td>
+	<td></td>
+</tr>
+<tr>
 	<td>LDAP_SERVER_DEFAULT_VALUES_MICROSOFT_ACTIVE_DIRECTORY_SERVER_RADIO</td>
 	<td>//input[@value='microsoft']</td>
 	<td></td>
