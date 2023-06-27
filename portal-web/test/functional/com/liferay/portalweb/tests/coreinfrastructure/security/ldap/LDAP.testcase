@@ -49,6 +49,91 @@ definition {
 
 	@description = "This is a use case for LPS-65498. LDAP user can be imported with blank password."
 	@priority = 5
+	test UserFieldsAbleToExportToLDAP {
+		property apacheds.multiple.users.enabled = "true";
+		
+		property apacheds.multiple.users.enabled = "true";
+		property portal.acceptance = "true";
+		property test.name.skip.portal.instance = "LDAP#AssertLDAPCredentialsDoesNotExposeInURL";
+
+		task ("Given a LDAP server and test connection") {
+			PortalSettings.gotoConfiguration( baseURL = ${baseURL}, configurationCategory = "LDAP", configurationName = "Servers", configurationScope = "Virtual Instance Scope");
+
+			AssertClick( locator1 = "PortalSettingsAuthentication#AUTHENTICATION_LDAP_ADD_BUTTON", value1 = "Add");
+			
+			Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_SERVER_NAME", value1 = "LDAP");
+			
+			Click(locator1 = "PortalSettingsAuthentication#LDAP_SERVER_DEFAULT_VALUES_OPENLDAP");
+
+			Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CONNECTION_BASE_PROVIDER_URL_FIELD", value1 = "ldap://localhost:389");
+
+			Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CONNECTION_BASE_DN_FIELD", value1 = "dc=example,dc=org");
+
+			Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CONNECTION_PRINCIPAL_FIELD", value1 = "cn=admin,dc=example,dc=org");
+
+			Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CONNECTION_CREDENTIALS_FIELD", value1 = "admin");
+
+			Button.clickSave();
+
+			PortalSettings.editLDAPServer(ldapServerName = ApplicationsMenu.gotoPortlet(
+			category = "Configuration",
+			panel = "Control Panel",
+			portlet = "Custom Fields");
+
+			AssertClick( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_TEST_LDAP_CONNECTION_BUTTON", value1 = "Test LDAP Connection");
+
+			AssertTextEquals( locator1 = "Modal#BODY", value1 = "Liferay has successfully connected to the LDAP server.");
+		}
+
+		task ("When LDAP settings are enabled and user is added with a telephone number field") {
+
+			PortalSettings.gotoConfiguration( baseURL = ${baseURL}, configurationCategory = "LDAP", configurationName = "Servers", configurationScope = "Virtual Instance Scope");
+
+			var enableSettingList = "ldapExportEnabled,ldapImportEnabled,importOnStartup";
+
+			PortalSettings.configureLDAPSetting(enableSettingList = ${enableSettingList});
+
+			ApplicationsMenu.gotoPortlet(
+				category = "Configuration",
+				panel = "Control Panel",
+				portlet = "Custom Fields");
+
+			CustomFields.addCP(
+				customFieldName = "testField",
+				customFieldType = "Text Area",
+				customInputDataType = "Text",
+				resourceName = "User");
+			
+			PortalSettings.editLDAPServer();
+
+			Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CUSTOM_USER_MAPPING", value1 = "testField=telephoneNumber");
+
+			Button.clickSave();
+
+			JSONUser.addUser(
+				userEmailAddress = "userea@liferay.com",
+				userFirstName = "userfn",
+				userLastName = "userln",
+				userScreenName = "usersn");
+			
+			LexiconEntry.gotoEntry(rowEntry = "Name Test");
+
+			Account._inputAddressDetails(phoneNumber = 5555555555);
+
+			PortletEntry.save();
+		}
+
+		task ("Then the user should be imported after server restart") {
+			Portlet.shutdownServer();
+
+			Portlet.startServer(deleteLiferayHome = "false");
+
+			LDAP.verifyUserImportAfterImportIntervalTime(userScreenName = "usersn");
+		}
+	}
+
+	@description = "This is a use case for LPS-65498. LDAP user can be imported with blank password."
+	@priority = 5
 	test CanImportLDAPUserWithBlankPassword {
 		property apacheds.blank.user.password.enabled = "true";
 		property app.server.types = "tomcat";
@@ -539,7 +624,7 @@ definition {
 			var enableSettingList = "enabled,ldapImportEnabled";
 
 			LDAP.addLDAPServerAndTestConnection();
-
+			LDAP.addOpenLDAPAndTestConnection();
 			LDAP.enableLDAPSettings(enableSettingList = ${enableSettingList});
 
 			PortalSettings.changeGroupImportMethod(groupImportMethod = "Group");
