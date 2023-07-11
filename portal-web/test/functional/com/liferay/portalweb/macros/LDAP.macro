@@ -9,6 +9,36 @@ definition {
 		PortalSettings.testLDAPConnection();
 	}
 
+	@description = "Add an LDAP server with OpenLDAP"
+	macro addOpenLDAPAndTestConnection {
+		PortalSettings.gotoConfiguration( baseURL = ${baseURL}, configurationCategory = "LDAP", configurationName = "Servers", configurationScope = "Virtual Instance Scope");
+
+		AssertClick( locator1 = "PortalSettingsAuthentication#AUTHENTICATION_LDAP_ADD_BUTTON", value1 = "Add");
+		
+		Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_SERVER_NAME", value1 = "LDAP");
+		
+		Click(locator1 = "PortalSettingsAuthentication#LDAP_SERVER_DEFAULT_VALUES_OPENLDAP");
+
+		Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CONNECTION_BASE_PROVIDER_URL_FIELD", value1 = "ldap://localhost:389");
+
+		Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CONNECTION_BASE_DN_FIELD", value1 = "dc=example,dc=org");
+
+		Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CONNECTION_PRINCIPAL_FIELD", value1 = "cn=admin,dc=example,dc=org");
+
+		Type( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_CONNECTION_CREDENTIALS_FIELD", value1 = "admin");
+
+		Button.clickSave();
+
+		PortalSettings.editLDAPServer(ldapServerName = ApplicationsMenu.gotoPortlet(
+		category = "Configuration",
+		panel = "Control Panel",
+		portlet = "Custom Fields");
+
+		AssertClick( locator1 = "PortalSettingsAuthentication#LDAP_SERVER_TEST_LDAP_CONNECTION_BUTTON", value1 = "Test LDAP Connection");
+
+		AssertTextEquals( locator1 = "Modal#BODY", value1 = "Liferay has successfully connected to the LDAP server.");	echo("Contact found in LDAP database.");
+	}
+
 	@description = "Assert no pagination display in the LDAP connection page"
 	macro assertNoPagination {
 		PortalSettings.editLDAPServer(ldapServerName = ${ldapServerName});
