@@ -1,0 +1,44 @@
+definition {
+    property testray.main.component.name = "Fragments";
+
+    setUp {
+        User.firstLoginPG();
+    }
+
+    test FolderVisibleInContentEditor {
+        task ("navigate to Web Content") {
+            ProductMenu.gotoPortlet(
+                panel = "Site Administration",
+                category = "Content & Data",
+                portlet = "Web Content"
+            );
+        }
+
+        task ("create new folder") {
+            LexiconEntry.gotoAdd();
+
+            MenuItem.click(menuItem = "Folder");
+
+            PortletEntry.inputName(name = "TestName");
+            PortletEntry.inputDescription(description = "TestDesc");
+                
+            PortletEntry.save();
+        }
+
+        task ("go to structures and create a simple structure") {
+            NavItem.gotoStructures();
+
+            LexiconEntry.gotoAdd();
+
+            PortletEntry.inputName(name = "StrucName");
+
+            DataEngine.addField(fieldName = "Text");
+
+            PortletEntry.save();
+        }
+
+        task ("Assert Folder Selection is NOT showing in Edit Default Values") {
+            
+        }
+    }
+}

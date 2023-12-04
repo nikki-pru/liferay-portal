@@ -1,0 +1,20 @@
+definition {
+  property testray.main.component.name = "Blogs";
+
+  setUp {
+    User.firstLoginPG();
+  }
+
+  test AddBlogsEntry {
+    ProductMenu.gotoPortlet(
+  panel = "Site Administration",
+  category = "Content & Data",
+  portlet = "Blogs"
+    );
+
+    Blogs.addEntry(
+  entryContent = "Blogs Content",
+  entryTitle = "Blogs Title"
+    );
+  }
+}

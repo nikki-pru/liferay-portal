@@ -1,0 +1,37 @@
+definition {
+    property testray.main.component.name = "Forms";
+
+    setUp {
+        User.firstLoginPG();
+
+        Navigator.openURL();
+    }
+
+    tearDown {
+        User.logoutAndLoginPG(
+            userLoginEmailAddress = "test@liferay.com",
+            userLoginFullName = "Test Test");
+    }
+
+    @description = "Users can translate Service Policies to Japanese"
+    @priority = "3"
+    test CanTranslateServicePoliciesToJapanese {
+        
+        task ("Given that a user is in Security Settings") {
+            ApplicationsMenu.gotoPortlet(
+                category = "Security",
+                panel = "Control Panel",
+                portlet = "Service Access Policy"
+            );
+        }
+
+        task ("When the user changes the language to Japanese") {
+            Navigator.ensureLocaleURL(locale = "ja");
+        }
+
+        /*task ("Then the settings should be in Japanese") {
+            Navigator.AssertValue()
+        }*/
+
+    }
+}
