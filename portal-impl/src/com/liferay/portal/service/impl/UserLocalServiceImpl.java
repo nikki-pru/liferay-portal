@@ -143,6 +143,7 @@ import com.liferay.portal.kernel.service.persistence.UserGroupRolePersistence;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.EscapableObject;
@@ -193,6 +194,8 @@ import com.liferay.users.admin.kernel.file.uploads.UserFileUploadsSettings;
 
 import java.io.IOException;
 import java.io.Serializable;
+
+import java.text.DateFormat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6652,6 +6655,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			String subject, String body, ServiceContext serviceContext)
 		throws PortalException {
 
+		PasswordPolicy passwordPolicy = user.getPasswordPolicy();
+
 		if (Validator.isNull(fromName)) {
 			fromName = PrefsPropsUtil.getString(
 				companyId, PropsKeys.ADMIN_EMAIL_FROM_NAME);
@@ -6670,6 +6675,12 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 				body = StringUtil.read(
 					PortalClassLoaderUtil.getClassLoader(),
 					PropsValues.ADMIN_EMAIL_PASSWORD_LOCKOUT_BODY);
+
+				if (passwordPolicy.getLockoutDuration() > 0) {
+					body = StringUtil.read(
+						PortalClassLoaderUtil.getClassLoader(),
+						PropsValues.ADMIN_EMAIL_PASSWORD_LOCKOUT_UNTIL_BODY);
+				}
 			}
 			catch (IOException ioException) {
 				_log.error("Unable to read the content", ioException);
@@ -6709,6 +6720,15 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 			"[$USER_ID$]", String.valueOf(user.getUserId()));
 		mailTemplateContextBuilder.put(
 			"[$USER_SCREENNAME$]", new EscapableObject<>(user.getScreenName()));
+
+		if (passwordPolicy.getLockoutDuration() > 0) {
+			DateFormat dateFormat = DateFormatFactoryUtil.getDateTime(
+				user.getLocale());
+
+			mailTemplateContextBuilder.put(
+				"[$TIME_TO_UNLOCK]",
+				new EscapableObject<>(dateFormat.format(user.getUnlockDate())));
+		}
 
 		MailTemplateContext mailTemplateContext =
 			mailTemplateContextBuilder.build();
