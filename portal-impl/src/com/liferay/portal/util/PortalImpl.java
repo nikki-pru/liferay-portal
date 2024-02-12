@@ -3350,17 +3350,7 @@ public class PortalImpl implements Portal {
 		HttpServletRequest httpServletRequest, Layout layout, Locale locale,
 		Locale originalLocale) {
 
-		String contextPath = getPathContext();
-		String requestURI = httpServletRequest.getRequestURI();
-
-		if (Validator.isNotNull(contextPath) &&
-			requestURI.startsWith(contextPath)) {
-
-			requestURI = requestURI.substring(contextPath.length());
-		}
-
-		requestURI = StringUtil.replace(
-			requestURI, StringPool.DOUBLE_SLASH, StringPool.SLASH);
+		String requestURI = _getRequestURI(httpServletRequest);
 
 		String layoutFriendlyURL = null;
 
@@ -3412,7 +3402,7 @@ public class PortalImpl implements Portal {
 			appendI18nPath = false;
 		}
 
-		String localizedFriendlyURL = contextPath;
+		String localizedFriendlyURL = getPathContext();
 
 		if (appendI18nPath) {
 			String i18nPathLanguageId = getI18nPathLanguageId(
@@ -8037,6 +8027,20 @@ public class PortalImpl implements Portal {
 		}
 
 		return portletTitle;
+	}
+
+	private String _getRequestURI(HttpServletRequest httpServletRequest) {
+		String contextPath = getPathContext();
+		String requestURI = httpServletRequest.getRequestURI();
+
+		if (Validator.isNotNull(contextPath) &&
+			requestURI.startsWith(contextPath)) {
+
+			requestURI = requestURI.substring(contextPath.length());
+		}
+
+		return StringUtil.replace(
+			requestURI, StringPool.DOUBLE_SLASH, StringPool.SLASH);
 	}
 
 	private long _getScopeGroupId(
