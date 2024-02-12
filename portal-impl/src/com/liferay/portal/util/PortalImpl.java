@@ -3352,6 +3352,16 @@ public class PortalImpl implements Portal {
 
 		String requestURI = _getRequestURI(httpServletRequest);
 
+		if (!_hasRequestURIWithGroupFriendlyURL(
+			getOriginalServletRequest(httpServletRequest))) {
+
+			int[] groupFriendlyURLIndex = getGroupFriendlyURLIndex(requestURI);
+
+			if (groupFriendlyURLIndex != null) {
+				requestURI = requestURI.substring(groupFriendlyURLIndex[1]);
+			}
+		}
+
 		String layoutFriendlyURL = null;
 
 		if (originalLocale == null) {
@@ -8164,6 +8174,28 @@ public class PortalImpl implements Portal {
 		}
 
 		return virtualHostnames.firstKey();
+	}
+
+	private boolean _hasRequestURIWithGroupFriendlyURL(
+		HttpServletRequest httpServletRequest) {
+
+		String requestURI = _getRequestURI(httpServletRequest);
+
+		if (httpServletRequest.getAttribute(WebKeys.I18N_PATH) != null) {
+			int pos = requestURI.indexOf(StringPool.SLASH, 1);
+
+			if (pos != -1) {
+				requestURI = requestURI.substring(pos);
+			}
+		}
+
+		int[] groupFriendlyURLIndex = getGroupFriendlyURLIndex(requestURI);
+
+		if (groupFriendlyURLIndex == null) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private boolean _layoutContainsPortletId(Layout layout, String portletId) {
