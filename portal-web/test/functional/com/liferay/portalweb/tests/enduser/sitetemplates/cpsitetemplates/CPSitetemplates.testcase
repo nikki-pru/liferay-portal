@@ -29,7 +29,7 @@ definition {
 	@description = "User can add site templates to the portal."
 	@priority = 4
 	test AddSiteTemplate {
-		property portal.acceptance = "true";
+		property portal.acceptance = "U112Round3";
 
 		task ("When: User adds new site template") {
 			SiteTemplates.addCP(

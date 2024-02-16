@@ -157,6 +157,7 @@ definition {
 	@description = "Smoke test Liferay Sample Etc Cron"
 	@priority = 4
 	test LiferaySampleEtcCronSmoke {
+		property portal.acceptance = "U112Round3";
 		property workspaces.client.extension.names = "liferay-sample-etc-cron";
 
 		task ("Assert the Sample Etc Cron OAuth Application") {

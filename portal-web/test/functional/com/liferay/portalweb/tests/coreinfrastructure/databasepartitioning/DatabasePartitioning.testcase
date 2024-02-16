@@ -449,6 +449,7 @@ definition {
 	@priority = 4
 	test ExecuteSchemaValidator {
 		property custom.properties = "database.partition.schema.name.prefix=ltest_${line.separator}virtual.hosts.valid.hosts=localhost,127.0.0.1,www.able.com,www.baker.com";
+		property portal.acceptance = "U112Round3";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 

@@ -3272,7 +3272,7 @@ definition {
 	@description = "COMMERCE-11610. As a supplier account user, I can add and edit products in a catalog and delete them from the catalog the account is linked to."
 	@priority = 5
 	test CanSupplierManageOnlyLinkedCatalogProducts {
-		property portal.acceptance = "true";
+		property portal.acceptance = "U112Round3";
 
 		task ("Given a Supplier account with a supplier user") {
 			JSONAccountEntry.addAccountEntry(

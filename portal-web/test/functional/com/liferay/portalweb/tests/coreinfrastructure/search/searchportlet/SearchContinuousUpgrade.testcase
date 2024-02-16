@@ -6,6 +6,7 @@ definition {
 	property database.bare.enabled = "true";
 	property database.types = "db2,mariadb,mysql,oracle,postgresql,sqlserver,sybase";
 	property minimum.slave.ram = "24";
+	property portal.acceptance = "U112Round3";
 	property portal.release = "true";
 	property portal.upstream = "true";
 	property skip.start.app.server = "true";

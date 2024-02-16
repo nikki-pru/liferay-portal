@@ -168,7 +168,7 @@ definition {
 	@priority = 3
 	test CanAssertImpersonatingOnMiniumMaintainsContext {
 		property custom.properties = "company.security.strangers.verify=false${line.separator}jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "false";
+		property portal.acceptance = "U112Round3";
 
 		task ("Given a Minium Site is created") {
 			var siteName = TestCase.getSiteName(siteName = ${siteName});
