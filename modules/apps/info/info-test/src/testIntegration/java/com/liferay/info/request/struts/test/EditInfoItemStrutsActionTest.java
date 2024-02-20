@@ -452,6 +452,8 @@ public class EditInfoItemStrutsActionTest {
 
 		mockMultipartHttpServletRequest.addHeader(
 			HttpHeaders.REFERER, "https://example.com/error");
+		mockMultipartHttpServletRequest.setContentType(
+			"multipart/form-data;boundary=" + System.currentTimeMillis());
 
 		Map<String, List<String>> regularParameters =
 			HashMapBuilder.<String, List<String>>put(
