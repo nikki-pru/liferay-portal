@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
 import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserGroupTestUtil;
+import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.Portal;
@@ -103,6 +104,7 @@ public class PortalImplLocalizedFriendlyURLTest {
 	@Before
 	public void setUp() throws Exception {
 		_group = GroupTestUtil.addGroup();
+		_user = UserTestUtil.addUser();
 	}
 
 	@Test
@@ -729,7 +731,8 @@ public class PortalImplLocalizedFriendlyURLTest {
 		throws Exception {
 
 		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
+			ServiceContextTestUtil.getServiceContext(
+				_group.getGroupId(), _user.getUserId());
 
 		UserGroup userGroup = UserGroupTestUtil.addUserGroup(
 			_group.getGroupId());
@@ -763,7 +766,8 @@ public class PortalImplLocalizedFriendlyURLTest {
 		throws Exception {
 
 		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
+			ServiceContextTestUtil.getServiceContext(
+				_group.getGroupId(), _user.getUserId());
 
 		UserGroup userGroup = UserGroupTestUtil.addUserGroup(
 			_group.getGroupId());
@@ -797,7 +801,8 @@ public class PortalImplLocalizedFriendlyURLTest {
 		throws Exception {
 
 		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
+			ServiceContextTestUtil.getServiceContext(
+				_group.getGroupId(), _user.getUserId());
 
 		UserGroup userGroup = UserGroupTestUtil.addUserGroup(
 			_group.getGroupId());
@@ -842,7 +847,8 @@ public class PortalImplLocalizedFriendlyURLTest {
 		throws Exception {
 
 		ServiceContext serviceContext =
-			ServiceContextTestUtil.getServiceContext(_group.getGroupId());
+			ServiceContextTestUtil.getServiceContext(
+				_group.getGroupId(), _user.getUserId());
 
 		UserGroup userGroup = UserGroupTestUtil.addUserGroup(
 			_group.getGroupId());
@@ -894,6 +900,9 @@ public class PortalImplLocalizedFriendlyURLTest {
 
 	@Inject
 	private GroupLocalService _groupLocalService;
+
+	@DeleteAfterTestRun
+	private User _user;
 
 	@Inject
 	private UserGroupLocalService _userGroupLocalService;
