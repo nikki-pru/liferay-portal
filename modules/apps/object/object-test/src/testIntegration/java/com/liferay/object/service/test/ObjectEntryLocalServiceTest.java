@@ -2506,9 +2506,9 @@ public class ObjectEntryLocalServiceTest {
 
 		User user = UserTestUtil.addUser();
 
-		PermissionChecker oldPermissionChecker =
+		PermissionChecker originalPermissionChecker =
 			PermissionThreadLocal.getPermissionChecker();
-		String oldName = PrincipalThreadLocal.getName();
+		String originalName = PrincipalThreadLocal.getName();
 
 		PermissionThreadLocal.setPermissionChecker(
 			PermissionCheckerFactoryUtil.create(user));
@@ -2533,10 +2533,10 @@ public class ObjectEntryLocalServiceTest {
 
 		_assertObjectEntryValues(28, values3, valuesList.get(0));
 
-		// Predicate
+		PermissionThreadLocal.setPermissionChecker(originalPermissionChecker);
+		PrincipalThreadLocal.setName(originalName);
 
-		PermissionThreadLocal.setPermissionChecker(oldPermissionChecker);
-		PrincipalThreadLocal.setName(oldName);
+		// Predicate
 
 		Column<?, Object> firstNameColumn =
 			(Column<?, Object>)_objectFieldLocalService.getColumn(
@@ -2572,6 +2572,9 @@ public class ObjectEntryLocalServiceTest {
 		Assert.assertEquals(valuesList.toString(), 1, valuesList.size());
 
 		_assertObjectEntryValues(28, values3, valuesList.get(0));
+
+		PermissionThreadLocal.setPermissionChecker(originalPermissionChecker);
+		PrincipalThreadLocal.setName(originalName);
 	}
 
 	@Test
