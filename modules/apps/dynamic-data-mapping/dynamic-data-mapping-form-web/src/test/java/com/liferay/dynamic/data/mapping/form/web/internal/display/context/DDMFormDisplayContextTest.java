@@ -992,8 +992,8 @@ public class DDMFormDisplayContextTest {
 		);
 	}
 
-	private MockRenderRequest _mockRenderRequest() throws PortalException {
-		MockRenderRequest mockRenderRequest = new MockRenderRequest();
+	private RenderRequest _mockRenderRequest() throws PortalException {
+		RenderRequest renderRequest = new MockRenderRequest();
 
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
@@ -1001,9 +1001,9 @@ public class DDMFormDisplayContextTest {
 		themeDisplay.setLayout(Mockito.mock(Layout.class));
 		themeDisplay.setLocale(LocaleUtil.SPAIN);
 
-		mockRenderRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
+		renderRequest.setAttribute(WebKeys.THEME_DISPLAY, themeDisplay);
 
-		mockRenderRequest.setParameter("languageId", _DEFAULT_LANGUAGE_ID);
+		renderRequest.setParameter("languageId", _DEFAULT_LANGUAGE_ID);
 
 		return mockRenderRequest;
 	}
