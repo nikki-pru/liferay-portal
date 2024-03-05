@@ -18,7 +18,12 @@ ViewObjectDefinitionsDisplayContext viewObjectDefinitionsDisplayContext = (ViewO
 		module="js/components/ViewObjectDefinitions/ViewObjectDefinitions"
 		props='<%=
 			HashMapBuilder.<String, Object>put(
-				"baseResourceURL", String.valueOf(baseResourceURL)
+				"baseResourceURL",
+				URLBuilder.create(
+					String.valueOf(baseResourceURL)
+				).setParameter(
+					"objectFolderName", "Default"
+				).build()
 			).put(
 				"editObjectDefinitionURL", viewObjectDefinitionsDisplayContext.getEditObjectDefinitionURL()
 			).put(
