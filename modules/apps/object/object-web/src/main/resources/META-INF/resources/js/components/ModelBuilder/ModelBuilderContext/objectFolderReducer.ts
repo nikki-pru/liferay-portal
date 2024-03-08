@@ -22,7 +22,6 @@ import {
 	getObjectDefinitionNodeNextPosition,
 	getObjectDefinitionNodePosition,
 	getObjectFolderDiagramCenterPosition,
-	updateURLParam,
 } from '../utils';
 import {
 	convertAllObjectFieldsToUnselected,
@@ -742,8 +741,6 @@ export function ObjectFolderReducer(state: TState, action: TAction): TState {
 
 		case TYPES.SET_OBJECT_FOLDER_NAME: {
 			const {objectFolderName} = action.payload;
-
-			updateURLParam('objectFolderName', objectFolderName);
 
 			return {
 				...state,
