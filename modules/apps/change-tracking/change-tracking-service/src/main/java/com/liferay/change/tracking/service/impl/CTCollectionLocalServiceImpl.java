@@ -431,7 +431,8 @@ public class CTCollectionLocalServiceImpl
 			if (ctService == null) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
-						"No CTService found for classNameId " + entry.getKey());
+						"No CT service found for class name ID " +
+							entry.getKey());
 				}
 
 				continue;
