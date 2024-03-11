@@ -172,34 +172,6 @@ public class CTRowUtilPerformanceTest {
 	}
 
 	@Test
-	public void testCheckConflictsLayout() throws Exception {
-		String layoutName = RandomTestUtil.randomString();
-
-		try (SafeCloseable safeCloseable =
-				CTCollectionThreadLocal.setCTCollectionIdWithSafeCloseable(
-					_ctCollection1.getCtCollectionId())) {
-
-			LayoutTestUtil.addTypeContentLayout(_group, layoutName);
-		}
-
-		try (SafeCloseable safeCloseable =
-				CTCollectionThreadLocal.setCTCollectionIdWithSafeCloseable(
-					_ctCollection2.getCtCollectionId())) {
-
-			LayoutTestUtil.addTypeContentLayout(_group, layoutName);
-		}
-
-		try (LoggingTimer loggingTimer = new LoggingTimer()) {
-			_ctProcessLocalService.addCTProcess(
-				_ctCollection2.getUserId(), _ctCollection2.getCtCollectionId());
-		}
-
-		try (LoggingTimer loggingTimer = new LoggingTimer()) {
-			_ctCollectionLocalService.checkConflicts(_ctCollection1);
-		}
-	}
-
-	@Test
 	public void testCheckConflictsGroup() throws Exception {
 		String groupName = RandomTestUtil.randomString();
 
@@ -251,6 +223,34 @@ public class CTRowUtilPerformanceTest {
 		}
 
 		GroupTestUtil.deleteGroup(group);
+	}
+
+	@Test
+	public void testCheckConflictsLayout() throws Exception {
+		String layoutName = RandomTestUtil.randomString();
+
+		try (SafeCloseable safeCloseable =
+				CTCollectionThreadLocal.setCTCollectionIdWithSafeCloseable(
+					_ctCollection1.getCtCollectionId())) {
+
+			LayoutTestUtil.addTypeContentLayout(_group, layoutName);
+		}
+
+		try (SafeCloseable safeCloseable =
+				CTCollectionThreadLocal.setCTCollectionIdWithSafeCloseable(
+					_ctCollection2.getCtCollectionId())) {
+
+			LayoutTestUtil.addTypeContentLayout(_group, layoutName);
+		}
+
+		try (LoggingTimer loggingTimer = new LoggingTimer()) {
+			_ctProcessLocalService.addCTProcess(
+				_ctCollection2.getUserId(), _ctCollection2.getCtCollectionId());
+		}
+
+		try (LoggingTimer loggingTimer = new LoggingTimer()) {
+			_ctCollectionLocalService.checkConflicts(_ctCollection1);
+		}
 	}
 
 	@Inject
