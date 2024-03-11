@@ -128,15 +128,15 @@ public class CTRowUtilPerformanceTest {
 
 	@Test
 	public void testAddCTProcessJournalArticle() throws Exception {
+		JournalFolder journalFolder = JournalTestUtil.addFolder(
+			_group.getGroupId(), RandomTestUtil.randomString());
+
 		DDMStructure ddmStructure = DDMStructureTestUtil.addStructure(
 			_group.getGroupId(), JournalArticle.class.getName());
 
 		DDMTemplate ddmTemplate = DDMTemplateTestUtil.addTemplate(
 			_group.getGroupId(), ddmStructure.getStructureId(),
 			_portal.getClassNameId(JournalArticle.class));
-
-		JournalFolder journalFolder = JournalTestUtil.addFolder(
-			_group.getGroupId(), RandomTestUtil.randomString());
 
 		JournalArticle journalArticle =
 			JournalTestUtil.addArticleWithXMLContent(
