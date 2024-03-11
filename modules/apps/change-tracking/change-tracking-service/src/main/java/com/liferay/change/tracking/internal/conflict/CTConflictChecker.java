@@ -491,7 +491,7 @@ public class CTConflictChecker<T extends CTModel<T>> {
 		}
 	}
 
-	private void _copyModificationConflictRow(
+	private void _copyModificationConflictCTRow(
 		Connection connection, CTPersistence<?> ctPersistence,
 		String primaryKeyName, long primaryKey, long tempCTCollectionId) {
 
@@ -963,7 +963,7 @@ public class CTConflictChecker<T extends CTModel<T>> {
 		}
 
 		for (long primaryKey : resolvedPrimaryKeys) {
-			_copyModificationConflictRow(
+			_copyModificationConflictCTRow(
 				connection, ctPersistence, primaryKeyName, primaryKey,
 				tempCTCollectionId);
 		}
