@@ -3842,7 +3842,7 @@ definition {
 
 	@priority = 5
 	test ViewApprovedProcessRecords {
-		property portal.acceptance = "true";
+		property portal.acceptance = "U113Round2";
 
 		Navigator.openURL();
 

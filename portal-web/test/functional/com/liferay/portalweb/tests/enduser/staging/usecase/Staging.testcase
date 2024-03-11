@@ -1073,6 +1073,7 @@ definition {
 	@description = "This is a use case for LPS-190064 (TC-3). The name of multiple published Web Contents are NOT displayed in the Publication Summary even when the actions are different."
 	@priority = 4
 	test DifferentlyModifiedWebContentTitlesAreNotDisplayedInPublicationSummary {
+		property portal.acceptance = "U113Round2";
 		property custom.properties = "feature.flag.LPS-165481=true";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
