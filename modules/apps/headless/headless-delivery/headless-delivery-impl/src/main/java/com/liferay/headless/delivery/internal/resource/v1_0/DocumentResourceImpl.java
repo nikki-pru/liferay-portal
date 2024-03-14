@@ -51,7 +51,6 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.events.ServicePreAction;
 import com.liferay.portal.events.ThemeServicePreAction;
 import com.liferay.portal.kernel.change.tracking.CTAware;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -695,22 +694,6 @@ public class DocumentResourceImpl extends BaseDocumentResourceImpl {
 		return serviceContext;
 	}
 
-	private long[] _getAncestorSiteAndDepotGroupIds(long groupId) {
-		try {
-			if (_siteConnectedGroupGroupProvider == null) {
-				return _portal.getAncestorSiteGroupIds(groupId);
-			}
-
-			return _siteConnectedGroupGroupProvider.
-				getAncestorSiteAndDepotGroupIds(groupId, true);
-		}
-		catch (PortalException portalException) {
-			_log.error(portalException);
-
-			return new long[0];
-		}
-	}
-
 	private long _getDDMStructureId(FileEntry fileEntry) throws Exception {
 		if (!(fileEntry.getModel() instanceof DLFileEntry)) {
 			return 0;
@@ -756,7 +739,8 @@ public class DocumentResourceImpl extends BaseDocumentResourceImpl {
 		try {
 			for (DLFileEntryType dlFileEntryType :
 					_dlFileEntryTypeLocalService.getFolderFileEntryTypes(
-						_getAncestorSiteAndDepotGroupIds(groupId),
+						_siteConnectedGroupGroupProvider.
+							getAncestorSiteAndDepotGroupIds(groupId, true),
 						documentFolderId, true)) {
 
 				if (name.equals(
