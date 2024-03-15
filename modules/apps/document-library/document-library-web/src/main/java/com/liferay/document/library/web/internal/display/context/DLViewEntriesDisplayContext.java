@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpComponentsUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.servlet.BrowserSnifferUtil;
 import com.liferay.portal.util.RepositoryUtil;
@@ -266,8 +267,9 @@ public class DLViewEntriesDisplayContext {
 	}
 
 	public String getThumbnailSrc(FileVersion fileVersion) throws Exception {
-		return DLURLHelperUtil.getThumbnailSrc(
-			fileVersion.getFileEntry(), fileVersion, _themeDisplay);
+		return _addDoAsUserIdParameter(
+			DLURLHelperUtil.getThumbnailSrc(
+				fileVersion.getFileEntry(), fileVersion, _themeDisplay));
 	}
 
 	public String getViewFileEntryURL(FileEntry fileEntry) {
@@ -344,6 +346,17 @@ public class DLViewEntriesDisplayContext {
 
 	public boolean isVersioningStrategyOverridable() {
 		return _dlAdminDisplayContext.isVersioningStrategyOverridable();
+	}
+
+	private String _addDoAsUserIdParameter(String url) {
+		if (Validator.isNotNull(_themeDisplay.getDoAsUserId()) &&
+			Validator.isNotNull(url)) {
+
+			return HttpComponentsUtil.setParameter(
+				url, "doAsUserId", _themeDisplay.getDoAsUserId());
+		}
+
+		return url;
 	}
 
 	private long _getRepositoryId() {
