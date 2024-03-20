@@ -349,14 +349,14 @@ public class DLViewEntriesDisplayContext {
 	}
 
 	private String _addDoAsUserIdParameter(String url) {
-		if (Validator.isNotNull(_themeDisplay.getDoAsUserId()) &&
-			Validator.isNotNull(url)) {
+		if (Validator.isNull(_themeDisplay.getDoAsUserId()) ||
+			Validator.isNull(url)) {
 
-			return HttpComponentsUtil.setParameter(
-				url, "doAsUserId", _themeDisplay.getDoAsUserId());
+			return url;
 		}
 
-		return url;
+		return HttpComponentsUtil.setParameter(
+			url, "doAsUserId", _themeDisplay.getDoAsUserId());
 	}
 
 	private long _getRepositoryId() {
