@@ -950,7 +950,10 @@ public class CTCollectionLocalServiceImpl
 		for (CTEntry publishedCTEntry : publishedCTEntries) {
 			long modelClassNameId = publishedCTEntry.getModelClassNameId();
 
-			if (!ctServiceCopiers.containsKey(modelClassNameId)) {
+			CTServiceCopier<?> ctServiceCopier = ctServiceCopiers.get(
+				modelClassNameId);
+
+			if (ctServiceCopier == null) {
 				CTService<?> ctService = _ctServiceRegistry.getCTService(
 					modelClassNameId);
 
@@ -965,11 +968,11 @@ public class CTCollectionLocalServiceImpl
 						publishedCTEntry.getModelClassNameId());
 				}
 
-				ctServiceCopiers.put(
-					modelClassNameId,
-					new CTServiceCopier<>(
-						ctService, undoCTCollection.getCtCollectionId(),
-						newCTCollection.getCtCollectionId()));
+				ctServiceCopier = new CTServiceCopier<>(
+					ctService, undoCTCollection.getCtCollectionId(),
+					newCTCollection.getCtCollectionId());
+
+				ctServiceCopiers.put(modelClassNameId, ctServiceCopier);
 			}
 
 			CTEntry ctEntry = _ctEntryPersistence.create(++batchCounter);
@@ -992,7 +995,8 @@ public class CTCollectionLocalServiceImpl
 
 			ctEntry.setChangeType(changeType);
 
-			_ctEntryLocalService.updateCTEntry(ctEntry);
+			ctServiceCopier.addCTEntry(
+				_ctEntryLocalService.updateCTEntry(ctEntry));
 		}
 
 		try {
