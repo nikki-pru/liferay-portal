@@ -23,51 +23,51 @@ import java.nio.ByteBuffer;
 public class ClusterLinkMessageUtil {
 
 	public static long getCompanyId(Message message) {
-		return message.getLong(_COMPANY_ID);
+		return message.getLong(_KEY_COMPANY_ID);
 	}
 
 	public static Serializable getKey(Message message) {
-		return _deserialize(message.get(_KEY));
+		return _deserialize(message.get(_KEY_KEY));
 	}
 
 	public static PortalCacheClusterEventType getPortalCacheClusterEventType(
 		Message message) {
 
 		return PortalCacheClusterEventType.valueOf(
-			message.getString(_EVENT_TYPE));
+			message.getString(_KEY_EVENT_TYPE));
 	}
 
 	public static String getPortalCacheManagerName(Message message) {
-		return message.getString(_CACHE_MANAGER_NAME);
+		return message.getString(_KEY_CACHE_MANAGER_NAME);
 	}
 
 	public static String getPortalCacheName(Message message) {
-		return message.getString(_CACHE_NAME);
+		return message.getString(_KEY_CACHE_NAME);
 	}
 
 	public static int getTimeToLive(Message message) {
-		return message.getInteger(_TIME_TO_LIVE);
+		return message.getInteger(_KEY_TIME_TO_LIVE);
 	}
 
 	public static Serializable getValue(Message message) {
-		return _deserialize(message.get(_VALUE));
+		return _deserialize(message.get(_KEY_VALUE));
 	}
 
 	public static void populateMessageFromPortalCacheClusterEvent(
 		Message message, PortalCacheClusterEvent portalCacheClusterEvent) {
 
 		message.put(
-			_CACHE_MANAGER_NAME,
+			_KEY_CACHE_MANAGER_NAME,
 			portalCacheClusterEvent.getPortalCacheManagerName());
-		message.put(_CACHE_NAME, portalCacheClusterEvent.getPortalCacheName());
-		message.put(_COMPANY_ID, portalCacheClusterEvent.getCompanyId());
+		message.put(_KEY_CACHE_NAME, portalCacheClusterEvent.getPortalCacheName());
+		message.put(_KEY_COMPANY_ID, portalCacheClusterEvent.getCompanyId());
 		message.put(
-			_EVENT_TYPE,
+			_KEY_EVENT_TYPE,
 			String.valueOf(portalCacheClusterEvent.getEventType()));
-		message.put(_KEY, _serialize(portalCacheClusterEvent.getElementKey()));
-		message.put(_TIME_TO_LIVE, portalCacheClusterEvent.getTimeToLive());
+		message.put(_KEY_KEY, _serialize(portalCacheClusterEvent.getElementKey()));
+		message.put(_KEY_TIME_TO_LIVE, portalCacheClusterEvent.getTimeToLive());
 		message.put(
-			_VALUE, _serialize(portalCacheClusterEvent.getElementValue()));
+			_KEY_VALUE, _serialize(portalCacheClusterEvent.getElementValue()));
 	}
 
 	private static Serializable _deserialize(Object object) {
@@ -108,19 +108,19 @@ public class ClusterLinkMessageUtil {
 		return byteBuffer.array();
 	}
 
-	private static final String _CACHE_MANAGER_NAME = "cache.manager.name";
+	private static final String _KEY_CACHE_MANAGER_NAME = "cache.manager.name";
 
-	private static final String _CACHE_NAME = "cache.name";
+	private static final String _KEY_CACHE_NAME = "cache.name";
 
-	private static final String _COMPANY_ID = "company.id";
+	private static final String _KEY_COMPANY_ID = "company.id";
 
-	private static final String _EVENT_TYPE = "event.type";
+	private static final String _KEY_EVENT_TYPE = "event.type";
 
-	private static final String _KEY = "key";
+	private static final String _KEY_KEY = "key";
 
-	private static final String _TIME_TO_LIVE = "time.to.live";
+	private static final String _KEY_TIME_TO_LIVE = "time.to.live";
 
-	private static final String _VALUE = "value";
+	private static final String _KEY_VALUE = "value";
 
 	private static final Log _log = LogFactoryUtil.getLog(
 		ClusterLinkMessageUtil.class);
