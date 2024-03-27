@@ -44,25 +44,24 @@ public class MailServiceTest {
 
 	@Test
 	public void testGetSessionWithCompanyId() {
-		long dummyCompanyId = RandomTestUtil.randomLong();
-		String expectedDummyMailSMTPHost = "test.local";
+		long companyId = RandomTestUtil.randomLong();
+		String smtpHost = "test.local";
 
 		MockLiferayPortletActionRequest mockLiferayPortletActionRequest =
 			new MockLiferayPortletActionRequest();
 
-		mockLiferayPortletActionRequest.addParameter(
-			"smtpHost", expectedDummyMailSMTPHost);
+		mockLiferayPortletActionRequest.addParameter("smtpHost", smtpHost);
 
 		ReflectionTestUtil.invoke(
 			_mvcActionCommand, "_updateMail",
 			new Class<?>[] {ActionRequest.class, PortletPreferences.class},
 			mockLiferayPortletActionRequest,
-			PrefsPropsUtil.getPreferences(dummyCompanyId));
+			PrefsPropsUtil.getPreferences(companyId));
 
-		Session session = _mailService.getSession(dummyCompanyId);
+		Session session = _mailService.getSession(companyId);
 
 		Assert.assertEquals(
-			expectedDummyMailSMTPHost, session.getProperty("mail.smtp.host"));
+			smtpHost, session.getProperty("mail.smtp.host"));
 
 		session = _mailService.getSession(_portal.getDefaultCompanyId());
 
