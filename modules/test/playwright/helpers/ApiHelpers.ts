@@ -18,6 +18,12 @@ import {HeadlessDeliveryApiHelper} from './HeadlessDeliveryApiHelper';
 import {HeadlessSiteApiHelper} from './HeadlessSiteApiHelper';
 import {ObjectAdminApiHelper} from './ObjectAdminApiHelper';
 import {ObjectApiHelper} from './ObjectApiHelper';
+import {JSONWebServicesLayoutSetPrototypeApiHelper} from './json-web-services/JSONWebServicesLayoutSetPrototypeApiHelper';
+
+type TDataApiHelpersData = {
+	id: any;
+	type: string;
+};
 
 export class ApiHelpers {
 	readonly baseUrl: string;
@@ -29,6 +35,7 @@ export class ApiHelpers {
 	readonly headlessCommerceDeliveryCart: HeadlessCommerceDeliveryCartApiHelper;
 	readonly headlessDelivery: HeadlessDeliveryApiHelper;
 	readonly headlessSite: HeadlessSiteApiHelper;
+	readonly jsonWebServicesLayoutSetPrototype: JSONWebServicesLayoutSetPrototypeApiHelper;
 	readonly object: ObjectApiHelper;
 	readonly objectAdmin: ObjectAdminApiHelper;
 	readonly page: Page;
@@ -47,6 +54,8 @@ export class ApiHelpers {
 			new HeadlessCommerceDeliveryCartApiHelper(this);
 		this.headlessDelivery = new HeadlessDeliveryApiHelper(this);
 		this.headlessSite = new HeadlessSiteApiHelper(this);
+		this.jsonWebServicesLayoutSetPrototype =
+			new JSONWebServicesLayoutSetPrototypeApiHelper(this);
 		this.object = new ObjectApiHelper(this);
 		this.objectAdmin = new ObjectAdminApiHelper(this);
 		this.page = page;

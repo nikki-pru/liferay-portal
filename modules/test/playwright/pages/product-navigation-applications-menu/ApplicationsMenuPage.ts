@@ -17,14 +17,17 @@ export class ApplicationsMenuPage {
 	private readonly dataMigrationCenterMenuItem: Locator;
 	private readonly dataSetManagerMenuItem: Locator;
 	private readonly homePage: HomePage;
-	private readonly instanceSettingsLink: Locator;
 	private readonly instanceSettingsMenuItem: Locator;
 	private readonly oAuth2Administration: Locator;
 	private readonly objectsMenuItem: Locator;
 	readonly page: Page;
 	private readonly processBuilderItem: Locator;
 	private readonly usersAndOrganizationsItem: Locator;
-
+	private readonly sitesItem: Locator;
+	private readonly systemSettingsItem: Locator;
+	private readonly serverAdministrationItem: Locator;
+	private readonly siteTemplatesButton: Locator;
+	
 	constructor(page: Page) {
 		this.apiBuilderMenuItem = page.getByRole('menuitem', {
 			exact: true,
@@ -72,6 +75,22 @@ export class ApplicationsMenuPage {
 			exact: true,
 			name: 'Process Builder',
 		});
+		this.serverAdministrationItem = page.getByRole('menuitem', {
+			exact: true,
+			name: 'Server Administration',
+		});
+		this.sitesItem = page.getByRole('menuitem', {
+			exact: true,
+			name: 'Sites',
+		});
+		this.siteTemplatesButton = page.getByRole('menuitem', {
+			exact: true,
+			name: 'Site Templates',
+		});
+		this.systemSettingsItem = page.getByRole('menuitem', {
+			exact: true,
+			name: 'System Settings',
+		});
 		this.usersAndOrganizationsItem = page.getByRole('menuitem', {
 			exact: true,
 			name: 'Users and Organizations',
@@ -113,6 +132,26 @@ export class ApplicationsMenuPage {
 	async goToObjects() {
 		await this.goToControlPanel();
 		await this.objectsMenuItem.click();
+	}
+
+	async goToServerAdministration() {
+		await this.goToControlPanel();
+		await this.serverAdministrationItem.click();
+	}
+
+	async goToSiteTemplates() {
+		await this.goToControlPanel();
+		await this.siteTemplatesButton.click();
+	}
+
+	async goToSites() {
+		await this.goToControlPanel();
+		await this.sitesItem.click();
+	}
+
+	async goToSystemSettings() {
+		await this.goToControlPanel();
+		await this.systemSettingsItem.click();
 	}
 
 	async goToInstanceSettings() {
