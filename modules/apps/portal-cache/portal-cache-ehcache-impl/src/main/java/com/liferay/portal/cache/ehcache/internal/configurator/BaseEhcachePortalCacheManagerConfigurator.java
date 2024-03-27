@@ -143,9 +143,9 @@ public abstract class BaseEhcachePortalCacheManagerConfigurator {
 	private boolean _isRequireSerialization(
 		CacheConfiguration cacheConfiguration) {
 
-		if (cacheConfiguration.isOverflowToDisk() ||
-			cacheConfiguration.isOverflowToOffHeap() ||
-			cacheConfiguration.isDiskPersistent()) {
+		if (cacheConfiguration.isDiskPersistent() ||
+			cacheConfiguration.isOverflowToDisk() ||
+			cacheConfiguration.isOverflowToOffHeap()) {
 
 			return true;
 		}
