@@ -250,12 +250,11 @@ public abstract class BaseJSONWebServiceClientImpl
 
 		HttpGet httpGet = new HttpGet(url);
 
-		RequestConfig requestConfig = RequestConfig.custom(
-		).setCookieSpec(
-			CookieSpecs.STANDARD
-		).build();
-
-		httpGet.setConfig(requestConfig);
+		httpGet.setConfig(
+			RequestConfig.custom(
+			).setCookieSpec(
+				CookieSpecs.STANDARD
+			).build());
 
 		addHeaders(httpGet, headers);
 
