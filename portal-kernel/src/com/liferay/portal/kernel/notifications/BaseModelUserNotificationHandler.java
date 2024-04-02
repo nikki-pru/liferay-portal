@@ -25,6 +25,8 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.net.URI;
 
+import java.util.Objects;
+
 import org.osgi.annotation.versioning.ProviderType;
 
 /**
@@ -127,17 +129,15 @@ public abstract class BaseModelUserNotificationHandler
 		}
 
 		URI entryURLURI = HttpComponentsUtil.getURI(entryURL);
-
-		String entryURLURIAuthority = entryURLURI.getAuthority();
-
 		URI portalURLURI = HttpComponentsUtil.getURI(
 			serviceContext.getPortalURL());
 
-		String portalURLURIAuthority = portalURLURI.getAuthority();
+		if (!Objects.equals(
+				entryURLURI.getAuthority(), portalURLURI.getAuthority())) {
 
-		if (!entryURLURIAuthority.equals(portalURLURIAuthority)) {
 			entryURL = StringUtil.replaceFirst(
-				entryURL, entryURLURIAuthority, portalURLURIAuthority);
+				entryURL, entryURLURI.getAuthority(),
+				portalURLURI.getAuthority());
 		}
 
 		return entryURL;
