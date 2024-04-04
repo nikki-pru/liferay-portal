@@ -191,7 +191,7 @@ public class TemplateInfoItemFieldSetProviderTest {
 
 		Assert.assertEquals(infoFields.toString(), 1, infoFields.size());
 
-		InfoField infoField = infoFields.get(0);
+		InfoField<?> infoField = infoFields.get(0);
 
 		Assert.assertTrue(
 			infoField.getInfoFieldType() instanceof HTMLInfoFieldType);
@@ -226,7 +226,7 @@ public class TemplateInfoItemFieldSetProviderTest {
 
 		Assert.assertEquals(infoFields.toString(), 1, infoFields.size());
 
-		InfoField infoField = infoFields.get(0);
+		InfoField<?> infoField = infoFields.get(0);
 
 		Assert.assertTrue(
 			infoField.getInfoFieldType() instanceof HTMLInfoFieldType);
@@ -268,7 +268,7 @@ public class TemplateInfoItemFieldSetProviderTest {
 
 		Assert.assertEquals(infoFields.toString(), 1, infoFields.size());
 
-		InfoField infoField = infoFields.get(0);
+		InfoField<?> infoField = infoFields.get(0);
 
 		Assert.assertTrue(
 			infoField.getInfoFieldType() instanceof HTMLInfoFieldType);
@@ -327,7 +327,7 @@ public class TemplateInfoItemFieldSetProviderTest {
 
 		InfoFieldValue<Object> infoFieldValue = infoFieldValues.get(0);
 
-		InfoField infoField = infoFieldValue.getInfoField();
+		InfoField<?> infoField = infoFieldValue.getInfoField();
 
 		Assert.assertTrue(
 			infoField.getInfoFieldType() instanceof HTMLInfoFieldType);
