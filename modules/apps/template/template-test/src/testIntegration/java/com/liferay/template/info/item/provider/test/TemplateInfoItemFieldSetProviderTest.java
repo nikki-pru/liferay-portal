@@ -155,6 +155,7 @@ public class TemplateInfoItemFieldSetProviderTest {
 		if (_globalTemplateEntry != null) {
 			_templateEntryLocalService.deleteTemplateEntry(
 				_globalTemplateEntry);
+
 			_globalTemplateEntry = null;
 		}
 	}
