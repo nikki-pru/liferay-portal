@@ -26,7 +26,7 @@ export class JournalPage {
 		this.createBasicWebContentLink = this.page.getByRole('menuitem', {
 			name: 'Basic Web Content',
 		});
-		this.newButton = page.getByText('New', {exact: true});
+		this.newButton = page.getByLabel('New', {exact: true});
 		this.permissionsFrameLocator = page.frameLocator(
 			'iframe[title="Permissions"]'
 		);
@@ -36,12 +36,14 @@ export class JournalPage {
 			.locator('xpath=//input[contains(@id,"title")]')
 			.first();
 		this.webContentBodyIFrame = page
-			.getByRole('application', {
-				name: /Rich Text Editor, _com_liferay_journal_web_portlet_JournalPortlet_ddm\$\$content\$.*\$en_US/,
-			})
+			.locator(
+				'[div^="cke__com_liferay_journal_web_portlet_JournalPortlet_ddm"]'
+			)
 			.frameLocator('iframe');
-		this.webContentBodyTextBox =
-			this.webContentBodyIFrame.getByRole('textbox');
+		this.webContentBodyTextBox = page
+			.frameLocator('iframe')
+			.nth(1)
+			.locator('body');
 	}
 
 	async goto(siteUrl?: Site['friendlyUrlPath']) {
@@ -60,9 +62,7 @@ export class JournalPage {
 		await this.webContentTitleBox.press('Backspace');
 		await this.publishButton.click();
 		await this.page
-			.locator(
-				'[id="_com_liferay_journal_web_portlet_JournalPortlet_successMessageWithLink"]'
-			)
+			.getByText('Success:Your request completed successfully.')
 			.waitFor({state: 'visible'});
 	}
 

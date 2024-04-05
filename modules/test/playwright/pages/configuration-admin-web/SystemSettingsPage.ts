@@ -24,12 +24,11 @@ export class SystemSettingsPage {
 		this.applicationsMenuPage = new ApplicationsMenuPage(page);
 		this.uiElementsPage = new UIElementsPage(page);
 
-		this.disabledFeaturesSection = page.getByLabel('Disabled Features', {
-			exact: true,
-		});
-		this.disablePrivatePagesOption = page.getByRole('option', {
-			name: 'Disable Private Pages',
-		});
+		this.disabledFeaturesSection = page
+			.locator('.col-ddm')
+			.locator('div')
+			.nth(2);
+		this.disablePrivatePagesOption = page.getByTestId('dropdownItem-1');
 		this.releaseFeatureFlagsLink = page.getByRole('link', {
 			name: 'Release Feature Flags',
 		});

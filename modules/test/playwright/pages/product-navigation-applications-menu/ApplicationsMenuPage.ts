@@ -27,7 +27,7 @@ export class ApplicationsMenuPage {
 	private readonly systemSettingsItem: Locator;
 	private readonly serverAdministrationItem: Locator;
 	private readonly siteTemplatesButton: Locator;
-	
+
 	constructor(page: Page) {
 		this.apiBuilderMenuItem = page.getByRole('menuitem', {
 			exact: true,
@@ -58,7 +58,7 @@ export class ApplicationsMenuPage {
 			exact: true,
 			name: 'Data Sets',
 		});
-		this.instanceSettingsMenuItem = page.getByRole('menuitem', {
+		this.instanceSettingsMenuItem = page.getByRole('link', {
 			exact: true,
 			name: 'Instance Settings',
 		});
@@ -75,19 +75,19 @@ export class ApplicationsMenuPage {
 			exact: true,
 			name: 'Process Builder',
 		});
-		this.serverAdministrationItem = page.getByRole('menuitem', {
+		this.serverAdministrationItem = page.getByRole('link', {
 			exact: true,
 			name: 'Server Administration',
 		});
-		this.sitesItem = page.getByRole('menuitem', {
+		this.sitesItem = page.getByRole('link', {
 			exact: true,
 			name: 'Sites',
 		});
-		this.siteTemplatesButton = page.getByRole('menuitem', {
+		this.siteTemplatesButton = page.getByRole('link', {
 			exact: true,
 			name: 'Site Templates',
 		});
-		this.systemSettingsItem = page.getByRole('menuitem', {
+		this.systemSettingsItem = page.getByRole('link', {
 			exact: true,
 			name: 'System Settings',
 		});
@@ -141,6 +141,7 @@ export class ApplicationsMenuPage {
 
 	async goToSiteTemplates() {
 		await this.goToControlPanel();
+		await this.siteTemplatesButton.waitFor({state: 'visible'});
 		await this.siteTemplatesButton.click();
 	}
 

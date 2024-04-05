@@ -28,7 +28,9 @@ export class WebContentDisplayPage {
 			exact: true,
 			name: 'Configuration',
 		});
-		this.modalIFrame = page.frameLocator('iframe[id="modalIframe"]');
+		this.modalIFrame = page.frameLocator(
+			'iframe[title="\\a \\9 \\9 \\9 \\9 \\9 Web Content Display\\a \\9 \\9 \\9 \\9  - Configuration"]'
+		);
 		this.page = page;
 		this.saveButton = this.modalIFrame.getByRole('button', {name: 'Save'});
 		this.selectButton = this.modalIFrame.getByRole('button', {
@@ -42,12 +44,13 @@ export class WebContentDisplayPage {
 			.getByText('Select web content to make it visible')
 			.first();
 		this.webContentDisplayAddButton = page
-			.getByLabel(
-				'Asset PublisherDocuments and MediaMenu DisplayWeb Content Display'
-			)
-			.locator('li')
-			.filter({hasText: 'Web Content Display'})
-			.getByLabel('Add Content');
+			.locator('ul')
+			.filter({
+				hasText:
+					'Asset PublisherDocuments and MediaMenu DisplayWeb Content Display',
+			})
+			.getByLabel('Add Content')
+			.nth(3);
 		this.webContentDisplayContent = page.locator(
 			'[id^="portlet_com_liferay_journal_content_web_portlet_JournalContentPortlet_INSTANCE"]'
 		);
@@ -63,25 +66,6 @@ export class WebContentDisplayPage {
 		);
 	}
 
-	async addWebContentWithDisplay() {
-		await this.webContentDisplay.waitFor({state: 'visible'});
-		await this.webContentDisplayContent.hover();
-		await this.webContentDisplayOptionsContent.click();
-		await this.configurationOption.click();
-		await this.selectButton.waitFor({state: 'visible'});
-		await this.selectButton.click();
-		await this.selectWebContentButton.click();
-		if (!this.saveButton.isVisible) {
-			await this.selectWebContentButton.click();
-		}
-		await this.saveButton.click();
-		await this.uiElementsPage.closeClickable.click();
-		await this.page
-			.locator('header')
-			.filter({hasText: 'Web Content Display'})
-			.waitFor({state: 'visible'});
-	}
-
 	async addWebContentWithWidget() {
 		await this.webContentDisplayAddButton.click();
 		await this.uiElementsPage.pageCreatedAlert.waitFor({state: 'hidden'});
@@ -95,10 +79,13 @@ export class WebContentDisplayPage {
 			.waitFor({state: 'hidden'});
 		await this.selectButton.waitFor({state: 'visible'});
 		await this.selectButton.click();
+		await this.selectWebContentButton.waitFor({state: 'visible'});
+		await this.selectWebContentButton.waitFor({state: 'attached'});
 		await this.selectWebContentButton.click();
 		if (!this.saveButton.isVisible) {
 			await this.selectWebContentButton.click();
 		}
+		await this.saveButton.waitFor({state: 'visible'});
 		await this.saveButton.click();
 	}
 }

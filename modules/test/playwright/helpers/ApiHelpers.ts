@@ -18,12 +18,8 @@ import {HeadlessDeliveryApiHelper} from './HeadlessDeliveryApiHelper';
 import {HeadlessSiteApiHelper} from './HeadlessSiteApiHelper';
 import {ObjectAdminApiHelper} from './ObjectAdminApiHelper';
 import {ObjectApiHelper} from './ObjectApiHelper';
+import {JSONWebServicesCompanyApiHelper} from './json-web-services/JSONWebServicesCompanyApiHelper';
 import {JSONWebServicesLayoutSetPrototypeApiHelper} from './json-web-services/JSONWebServicesLayoutSetPrototypeApiHelper';
-
-type TDataApiHelpersData = {
-	id: any;
-	type: string;
-};
 
 export class ApiHelpers {
 	readonly baseUrl: string;
@@ -35,10 +31,15 @@ export class ApiHelpers {
 	readonly headlessCommerceDeliveryCart: HeadlessCommerceDeliveryCartApiHelper;
 	readonly headlessDelivery: HeadlessDeliveryApiHelper;
 	readonly headlessSite: HeadlessSiteApiHelper;
+	readonly jsonWebServicesCompany: JSONWebServicesCompanyApiHelper;
 	readonly jsonWebServicesLayoutSetPrototype: JSONWebServicesLayoutSetPrototypeApiHelper;
 	readonly object: ObjectApiHelper;
 	readonly objectAdmin: ObjectAdminApiHelper;
 	readonly page: Page;
+
+	private static readonly _authorization = `Basic ${btoa(
+		`test@liferay.com:test`
+	)}`;
 
 	constructor(page: Page) {
 		this.baseUrl = liferayConfig.environment.baseUrl + '/o/';
@@ -54,6 +55,7 @@ export class ApiHelpers {
 			new HeadlessCommerceDeliveryCartApiHelper(this);
 		this.headlessDelivery = new HeadlessDeliveryApiHelper(this);
 		this.headlessSite = new HeadlessSiteApiHelper(this);
+		this.jsonWebServicesCompany = new JSONWebServicesCompanyApiHelper(this);
 		this.jsonWebServicesLayoutSetPrototype =
 			new JSONWebServicesLayoutSetPrototypeApiHelper(this);
 		this.object = new ObjectApiHelper(this);
@@ -90,11 +92,31 @@ export class ApiHelpers {
 		return response.json();
 	}
 
-	async post(url: string, data: DataObject | any[]) {
-		const response = await this.page.request.post(url, {
+	async postResponse(
+		url: string,
+		data: DataObject | any[] | string,
+		failOnStatusCode?: boolean,
+		headers?: {[key: string]: string}
+	) {
+		return await this.page.request.post(url, {
 			data,
-			headers: await this.getHeader(),
+			failOnStatusCode: failOnStatusCode || false,
+			headers: headers || (await this.getHeader()),
 		});
+	}
+
+	async post(
+		url: string,
+		data: DataObject | any[] | string,
+		failOnStatusCode?: boolean,
+		headers?: {[key: string]: string}
+	) {
+		const response = await this.postResponse(
+			url,
+			data,
+			failOnStatusCode,
+			headers
+		);
 
 		return response.json();
 	}
@@ -105,6 +127,22 @@ export class ApiHelpers {
 		return {
 			'Content-Type': 'application/json',
 			'x-csrf-token': authToken,
+		};
+	}
+
+	async _getCSRFTokenHeader() {
+		const authToken = await this.page.evaluate(() => Liferay.authToken);
+
+		return {
+			'x-csrf-token': authToken,
+		};
+	}
+
+	async getJSONWebServicesHeaders() {
+		return {
+			'Authorization': ApiHelpers._authorization,
+			'Content-Type': 'application/x-www-form-urlencoded',
+			...(await this._getCSRFTokenHeader()),
 		};
 	}
 }
