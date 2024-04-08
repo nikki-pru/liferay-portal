@@ -57,7 +57,6 @@ export default function UpperToolbar({
 		setSelectedLanguageId,
 		setShowAlert,
 		setShowDefinitionInfo,
-		setShowInvalidContentMessage,
 		setSourceView,
 		setVersion,
 		showAlert,
@@ -463,7 +462,12 @@ export default function UpperToolbar({
 											setDeserialize(true);
 										}
 										else {
-											setShowInvalidContentMessage(true);
+											setBlockingError(() => ({
+												errorMessage: Liferay.Language.get(
+													'please-select-a-valid-xml-file'
+												),
+												errorType: 'invalidXML',
+											}));
 										}
 									}}
 									symbol="rules"
