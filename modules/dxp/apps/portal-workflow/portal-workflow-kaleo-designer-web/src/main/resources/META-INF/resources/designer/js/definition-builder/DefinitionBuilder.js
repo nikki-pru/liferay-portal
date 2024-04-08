@@ -18,7 +18,7 @@ export default function DefinitionBuilder(props) {
 	const [active, setActive] = useState(true);
 	const [alertMessage, setAlertMessage] = useState('');
 	const [alertType, setAlertType] = useState(null);
-	const [blockingErrors, setBlockingErrors] = useState({errorType: ''});
+	const [blockingError, setBlockingError] = useState({errorType: ''});
 	const [currentEditor, setCurrentEditor] = useState(null);
 	const [definitionDescription, setDefinitionDescription] = useState('');
 	const [definitionInfo, setDefinitionInfo] = useState(null);
@@ -44,7 +44,7 @@ export default function DefinitionBuilder(props) {
 		active,
 		alertMessage,
 		alertType,
-		blockingErrors,
+		blockingError,
 		currentEditor,
 		definitionDescription,
 		definitionInfo,
@@ -59,7 +59,7 @@ export default function DefinitionBuilder(props) {
 		setActive,
 		setAlertMessage,
 		setAlertType,
-		setBlockingErrors,
+		setBlockingError,
 		setCurrentEditor,
 		setDefinitionDescription,
 		setDefinitionInfo,
