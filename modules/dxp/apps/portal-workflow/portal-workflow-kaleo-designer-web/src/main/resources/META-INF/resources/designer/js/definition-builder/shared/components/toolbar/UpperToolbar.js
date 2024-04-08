@@ -107,13 +107,13 @@ export default function UpperToolbar({
 		}
 	};
 
-	const getXMLContent = (exporting) => {
+	const getXMLContent = () => {
 		let currentDescription;
 		let currentElements;
 		let currentName;
 		let xmlContent;
 
-		if (currentEditor && !exporting) {
+		if (currentEditor) {
 			xmlContent = currentEditor.getData();
 		}
 		else {
@@ -149,8 +149,7 @@ export default function UpperToolbar({
 					version,
 				},
 				currentElements.filter(isNode),
-				currentElements.filter(isEdge),
-				exporting
+				currentElements.filter(isEdge)
 			);
 		}
 
@@ -214,7 +213,7 @@ export default function UpperToolbar({
 
 		publishDefinitionRequest({
 			active,
-			content: getXMLContent(true),
+			content: getXMLContent(),
 			name: definitionName,
 			title: definitionTitle,
 			title_i18n: definitionTitleTranslations,
@@ -273,7 +272,7 @@ export default function UpperToolbar({
 
 		saveDefinitionRequest({
 			active,
-			content: getXMLContent(true),
+			content: getXMLContent(),
 			name: definitionName,
 			title: definitionTitle,
 			title_i18n: definitionTitleTranslations,
