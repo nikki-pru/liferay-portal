@@ -157,6 +157,15 @@ export default function UpperToolbar({
 		return xmlContent;
 	};
 
+	const handleInvalidXMLBlockingError = () => {
+		setBlockingError(() => ({
+			errorMessage: Liferay.Language.get(
+				'please-select-a-valid-xml-file'
+			),
+			errorType: 'invalidXML',
+		}));
+	};
+
 	const onSelectedLanguageIdChange = (id) => {
 		if (id) {
 			setSelectedLanguageId(id);
@@ -190,6 +199,15 @@ export default function UpperToolbar({
 
 		if (blockingError.errorType !== '') {
 			setAlert(blockingError.errorMessage, 'danger', true);
+
+			return;
+		}
+
+		if (
+			sourceView &&
+			!XMLUtil.validateDefinition(currentEditor.getData())
+		) {
+			handleInvalidXMLBlockingError();
 
 			return;
 		}
@@ -243,6 +261,15 @@ export default function UpperToolbar({
 	const saveDefinition = () => {
 		if (blockingError.errorType !== '') {
 			setAlert(blockingError.errorMessage, 'danger', true);
+
+			return;
+		}
+
+		if (
+			sourceView &&
+			!XMLUtil.validateDefinition(currentEditor.getData())
+		) {
+			handleInvalidXMLBlockingError();
 
 			return;
 		}
@@ -462,12 +489,7 @@ export default function UpperToolbar({
 											setDeserialize(true);
 										}
 										else {
-											setBlockingError(() => ({
-												errorMessage: Liferay.Language.get(
-													'please-select-a-valid-xml-file'
-												),
-												errorType: 'invalidXML',
-											}));
+											handleInvalidXMLBlockingError();
 										}
 									}}
 									symbol="rules"
