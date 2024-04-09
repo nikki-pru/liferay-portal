@@ -28,9 +28,9 @@ public class DDMTemplateLinkUpgradeProcess extends UpgradeProcess {
 			JournalArticle.class.getName(), DDMTemplate.class.getName());
 
 		runSQL(
-			"delete from DDMTemplateLink where classNameId = '" +
+			"delete from DDMTemplateLink where classNameId = " +
 				_classNameLocalService.getClassNameId(compositeClassName) +
-					"' and classPK not in (select id_ from JournalArticle)");
+					" and classPK not in (select id_ from JournalArticle)");
 	}
 
 	private final ClassNameLocalService _classNameLocalService;
