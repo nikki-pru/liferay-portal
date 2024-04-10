@@ -130,6 +130,7 @@ import com.liferay.portal.kernel.service.TicketLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.service.UserServiceUtil;
 import com.liferay.portal.kernel.service.VirtualHostLocalServiceUtil;
+import com.liferay.portal.kernel.service.permission.LayoutPermissionUtil;
 import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
 import com.liferay.portal.kernel.service.permission.UserPermissionUtil;
 import com.liferay.portal.kernel.servlet.DynamicServletRequest;
@@ -1041,7 +1042,16 @@ public class PortalImpl implements Portal {
 		Layout layout = null;
 
 		if (Validator.isNull(friendlyURL)) {
-			layout = _getLayout(groupId, privateLayout);
+			HttpServletRequest httpServletRequest =
+				(HttpServletRequest)requestContext.get("request");
+
+			User user = UserServiceUtil.getUserById(
+				getUserId(httpServletRequest));
+
+			PermissionChecker permissionChecker =
+				PermissionCheckerFactoryUtil.create(user);
+
+			layout = _getLayout(groupId, privateLayout, permissionChecker);
 
 			if (layout == null) {
 				throw new NoSuchLayoutException(
@@ -7579,7 +7589,8 @@ public class PortalImpl implements Portal {
 	}
 
 	private Layout _getFirstPublishedLayout(
-		long groupId, boolean privateLayout) {
+		long groupId, boolean privateLayout,
+		PermissionChecker permissionChecker) {
 
 		boolean hasNext = true;
 
@@ -7595,7 +7606,9 @@ public class PortalImpl implements Portal {
 				LayoutConstants.DEFAULT_PARENT_LAYOUT_ID, true, start, end);
 
 			for (Layout layout : layouts) {
-				if (layout.isPublished()) {
+				if (layout.isPublished() &&
+					_hasViewPermission(layout, permissionChecker)) {
+
 					return layout;
 				}
 			}
@@ -7791,7 +7804,9 @@ public class PortalImpl implements Portal {
 		return sb.toString();
 	}
 
-	private Layout _getLayout(long groupId, boolean privateLayout) {
+	private Layout _getLayout(
+		long groupId, boolean privateLayout,
+		PermissionChecker permissionChecker) {
 
 		// We need to ensure that virtual layouts are merged
 
@@ -7805,9 +7820,11 @@ public class PortalImpl implements Portal {
 
 		Layout layout = layouts.get(0);
 
-		if (!layout.isPublished()) {
+		if (!layout.isPublished() ||
+			!_hasViewPermission(layout, permissionChecker)) {
+
 			Layout firstPublishedLayout = _getFirstPublishedLayout(
-				groupId, privateLayout);
+				groupId, privateLayout, permissionChecker);
 
 			if (firstPublishedLayout != null) {
 				return firstPublishedLayout;
@@ -8183,6 +8200,25 @@ public class PortalImpl implements Portal {
 		}
 
 		return virtualHostnames.firstKey();
+	}
+
+	private boolean _hasViewPermission(
+		Layout layout, PermissionChecker permissionChecker) {
+
+		try {
+			if (LayoutPermissionUtil.contains(
+					permissionChecker, layout, ActionKeys.VIEW)) {
+
+				return true;
+			}
+		}
+		catch (PortalException portalException) {
+			if (_log.isDebugEnabled()) {
+				_log.debug(portalException);
+			}
+		}
+
+		return false;
 	}
 
 	private boolean _layoutContainsPortletId(Layout layout, String portletId) {
