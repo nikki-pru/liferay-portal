@@ -550,13 +550,13 @@
 			</library>
 			<library>
 				<file-name>com.liferay.data.engine.rest.impl.jar!json-path.jar</file-name>
-				<version>2.2.0</version>
-				<project-name>Json Path</project-name>
+				<version>2.9.0</version>
+				<project-name>json-path</project-name>
 				<project-url>https://github.com/jayway/JsonPath</project-url>
 				<licenses>
 					<license>
 						<license-name>The Apache Software License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+						<license-url>https://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -1119,7 +1119,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.dynamic.data.mapping.data.provider.impl.jar!hystrix-core.jar</file-name>
-				<version>1.5.11</version>
+				<version>1.5.18</version>
 				<project-name>hystrix-core</project-name>
 				<project-url>https://github.com/Netflix/Hystrix</project-url>
 				<licenses>
@@ -1131,13 +1131,13 @@
 			</library>
 			<library>
 				<file-name>com.liferay.dynamic.data.mapping.data.provider.impl.jar!json-path.jar</file-name>
-				<version>2.2.0</version>
-				<project-name>Json Path</project-name>
+				<version>2.9.0</version>
+				<project-name>json-path</project-name>
 				<project-url>https://github.com/jayway/JsonPath</project-url>
 				<licenses>
 					<license>
 						<license-name>The Apache Software License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+						<license-url>https://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -1201,13 +1201,13 @@
 			</library>
 			<library>
 				<file-name>com.liferay.dynamic.data.mapping.service.jar!json-path.jar</file-name>
-				<version>2.2.0</version>
-				<project-name>Json Path</project-name>
+				<version>2.9.0</version>
+				<project-name>json-path</project-name>
 				<project-url>https://github.com/jayway/JsonPath</project-url>
 				<licenses>
 					<license>
 						<license-name>The Apache Software License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+						<license-url>https://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
 					</license>
 				</licenses>
 			</library>
@@ -3819,7 +3819,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.tika.jar!jmatio.jar</file-name>
-				<version>1.2</version>
+				<version>1.5</version>
 				<project-name>JMatIO</project-name>
 				<project-url>https://github.com/tballison/jmatio</project-url>
 				<licenses>
