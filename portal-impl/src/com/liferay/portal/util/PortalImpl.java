@@ -7815,9 +7815,9 @@ public class PortalImpl implements Portal {
 
 		Layout layout = layouts.get(0);
 
-		if (!layout.isPublished() ||
-			!_hasViewPermission(layout, permissionChecker)) {
+		boolean viewPermission = _hasViewPermission(layout, permissionChecker);
 
+		if (!layout.isPublished() || !viewPermission) {
 			Layout firstPublishedLayout = _getFirstPublishedLayout(
 				groupId, privateLayout, permissionChecker);
 
@@ -7826,7 +7826,11 @@ public class PortalImpl implements Portal {
 			}
 		}
 
-		return layout;
+		if (viewPermission) {
+			return layout;
+		}
+
+		return null;
 	}
 
 	private PermissionChecker _getPermissionChecker(
