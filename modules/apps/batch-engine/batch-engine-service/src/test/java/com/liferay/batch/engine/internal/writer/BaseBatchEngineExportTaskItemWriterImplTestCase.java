@@ -125,7 +125,6 @@ public abstract class BaseBatchEngineExportTaskItemWriterImplTestCase {
 				}
 
 				item.setId((long)(i + j));
-
 				item.setMap(
 					HashMapBuilder.<Object, String>put(
 						LocaleUtil.getDefault(), "test"
@@ -174,7 +173,6 @@ public abstract class BaseBatchEngineExportTaskItemWriterImplTestCase {
 						HashMapBuilder.<Object, String>put(
 							LocaleUtil.getDefault(), "test"
 						).build());
-
 					childItem.setName(childItemName);
 
 					item.setChildItem(childItem);
