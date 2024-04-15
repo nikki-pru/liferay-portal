@@ -81,12 +81,6 @@ public class ObjectFieldUtil {
 					userId, objectField.getSystem());
 		}
 
-		ObjectFieldSetting[] stateFlowObjectFieldSettings = ArrayUtil.filter(
-			objectField.getObjectFieldSettings(),
-			objectFieldSetting -> StringUtil.equals(
-				objectFieldSetting.getName(),
-				ObjectFieldSettingConstants.NAME_STATE_FLOW));
-
 		Map<String, ListTypeEntry> listTypeEntries = new HashMap<>();
 
 		ListUtil.isNotEmptyForEach(
@@ -94,6 +88,12 @@ public class ObjectFieldUtil {
 				listTypeDefinition.getListTypeDefinitionId()),
 			listTypeEntry -> listTypeEntries.put(
 				listTypeEntry.getKey(), listTypeEntry));
+
+		ObjectFieldSetting[] stateFlowObjectFieldSettings = ArrayUtil.filter(
+			objectField.getObjectFieldSettings(),
+			objectFieldSetting -> StringUtil.equals(
+				objectFieldSetting.getName(),
+				ObjectFieldSettingConstants.NAME_STATE_FLOW));
 
 		if (!ArrayUtil.isEmpty(stateFlowObjectFieldSettings)) {
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
