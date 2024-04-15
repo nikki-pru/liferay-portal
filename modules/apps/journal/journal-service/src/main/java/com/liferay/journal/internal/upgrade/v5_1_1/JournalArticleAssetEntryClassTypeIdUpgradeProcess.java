@@ -54,7 +54,6 @@ public class JournalArticleAssetEntryClassTypeIdUpgradeProcess
 
 			while (resultSet.next()) {
 				long entryId = resultSet.getLong(1);
-
 				long classTypeId = resultSet.getLong(2);
 
 				long ddmStructureId = resultSet.getLong(3);
