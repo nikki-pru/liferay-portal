@@ -738,7 +738,7 @@ public class ObjectEntryLocalServiceImpl
 				objectDefinition.getObjectDefinitionId());
 
 		Expression<?>[] selectExpressions = _getSelectExpressions(
-			extensionDynamicObjectDefinitionTable);
+			extensionDynamicObjectDefinitionTable, null);
 
 		List<Object[]> rows = _list(
 			_getExtensionDynamicObjectDefinitionTableSelectDSLQuery(
@@ -1099,9 +1099,10 @@ public class ObjectEntryLocalServiceImpl
 
 		Expression<?>[] selectExpressions = ArrayUtil.append(
 			_getSelectExpressions(dynamicObjectDefinitionLocalizationTable),
-			_getSelectExpressions(dynamicObjectDefinitionTable),
+			_getSelectExpressions(dynamicObjectDefinitionTable, null),
 			ArrayUtil.remove(
-				_getSelectExpressions(extensionDynamicObjectDefinitionTable),
+				_getSelectExpressions(
+					extensionDynamicObjectDefinitionTable, null),
 				extensionDynamicObjectDefinitionTable.getPrimaryKeyColumn()));
 
 		List<Object[]> rows = _list(
@@ -1144,8 +1145,8 @@ public class ObjectEntryLocalServiceImpl
 	@Override
 	public List<Map<String, Serializable>> getValuesList(
 			long groupId, long companyId, long userId, long objectDefinitionId,
-			Predicate predicate, String search, int start, int end,
-			OrderByExpression[] orderByExpressions)
+			List<String> fields, Predicate predicate, String search, int start,
+			int end, OrderByExpression[] orderByExpressions)
 		throws PortalException {
 
 		DynamicObjectDefinitionLocalizationTable
@@ -1163,9 +1164,10 @@ public class ObjectEntryLocalServiceImpl
 
 		Expression<?>[] selectExpressions = ArrayUtil.append(
 			_getSelectExpressions(dynamicObjectDefinitionLocalizationTable),
-			_getSelectExpressions(dynamicObjectDefinitionTable),
+			_getSelectExpressions(dynamicObjectDefinitionTable, fields),
 			ArrayUtil.remove(
-				_getSelectExpressions(extensionDynamicObjectDefinitionTable),
+				_getSelectExpressions(
+					extensionDynamicObjectDefinitionTable, fields),
 				extensionDynamicObjectDefinitionTable.getPrimaryKeyColumn()),
 			_EXPRESSIONS);
 
@@ -3027,13 +3029,25 @@ public class ObjectEntryLocalServiceImpl
 	}
 
 	private Expression<?>[] _getSelectExpressions(
-			DynamicObjectDefinitionTable dynamicObjectDefinitionTable)
+			DynamicObjectDefinitionTable dynamicObjectDefinitionTable,
+			List<String> fields)
 		throws PortalException {
 
 		List<Expression<?>> selectExpressions = new ArrayList<>();
 
 		for (Column<DynamicObjectDefinitionTable, ?> column :
 				dynamicObjectDefinitionTable.getColumns()) {
+
+			if ((fields != null) &&
+				!fields.contains(
+					StringUtil.removeLast(
+						column.getName(), StringPool.UNDERLINE)) &&
+				!Objects.equals(
+					column.getName(),
+					dynamicObjectDefinitionTable.getPrimaryKeyColumnName())) {
+
+				continue;
+			}
 
 			selectExpressions.add(column);
 		}
@@ -3048,6 +3062,10 @@ public class ObjectEntryLocalServiceImpl
 				!objectField.compareBusinessType(
 					ObjectFieldConstants.BUSINESS_TYPE_FORMULA)) {
 
+				continue;
+			}
+
+			if ((fields != null) && !fields.contains(objectField.getName())) {
 				continue;
 			}
 
