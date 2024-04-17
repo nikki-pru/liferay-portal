@@ -44,6 +44,7 @@ import com.liferay.portal.vulcan.util.LocalizedMapUtil;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -194,7 +195,7 @@ public abstract class BaseNotificationType implements NotificationType {
 
 		if (SetUtil.isNotEmpty(allowedNotificationRecipientSettingsNames)) {
 			Set<String> notAllowedNotificationRecipientSettingsNames =
-				new HashSet<>();
+				new LinkedHashSet<>();
 
 			ListUtil.isNotEmptyForEach(
 				notificationContext.getNotificationRecipientSettings(),
