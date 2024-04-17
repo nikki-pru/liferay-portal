@@ -9,6 +9,8 @@
 
 <%
 AMManagementToolbarDisplayContext amManagementToolbarDisplayContext = new AMManagementToolbarDisplayContext(request, liferayPortletRequest, liferayPortletResponse, currentURLObj);
+
+int totalImages = GetterUtil.getInteger(request.getAttribute(AMWebKeys.TOTAL_IMAGES_COUNT));
 %>
 
 <clay:management-toolbar
@@ -24,7 +26,9 @@ AMManagementToolbarDisplayContext amManagementToolbarDisplayContext = new AMMana
 />
 
 <div class="closed sidenav-container sidenav-right" id="<portlet:namespace />infoPanelId">
-	<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="/adaptive_media/info_panel" var="sidebarPanelURL" />
+	<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="/adaptive_media/info_panel" var="sidebarPanelURL">
+		<portlet:param name="totalImages" value="<%= String.valueOf(totalImages) %>" />
+	</liferay-portlet:resourceURL>
 
 	<liferay-frontend:sidebar-panel
 		resourceURL="<%= sidebarPanelURL %>"
@@ -126,8 +130,6 @@ AMManagementToolbarDisplayContext amManagementToolbarDisplayContext = new AMMana
 						String uuid = String.valueOf(amImageConfigurationEntry.getUUID());
 
 						int adaptedImages = AMImageEntryLocalServiceUtil.getAMImageEntriesCount(themeDisplay.getCompanyId(), amImageConfigurationEntry.getUUID());
-
-						int totalImages = AMImageEntryLocalServiceUtil.getExpectedAMImageEntriesCount(themeDisplay.getCompanyId());
 						%>
 
 						<div id="<portlet:namespace />AdaptRemainingContainer_<%= rowId %>">
