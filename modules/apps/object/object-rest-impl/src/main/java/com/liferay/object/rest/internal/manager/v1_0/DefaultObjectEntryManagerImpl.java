@@ -108,6 +108,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -393,6 +394,22 @@ public class DefaultObjectEntryManagerImpl
 			}
 		}
 
+		UriInfo uriInfo = dtoConverterContext.getUriInfo();
+
+		List<String> fields = null;
+
+		if (uriInfo != null) {
+			MultivaluedMap<String, String> queryParameters =
+				uriInfo.getQueryParameters();
+
+			String fieldsString = queryParameters.getFirst("fields");
+
+			if (fieldsString != null) {
+				fields = Arrays.asList(
+					StringUtil.split(fieldsString, StringPool.COMMA));
+			}
+		}
+
 		return Page.of(
 			HashMapBuilder.put(
 				"create",
@@ -440,9 +457,8 @@ public class DefaultObjectEntryManagerImpl
 			TransformUtil.transform(
 				objectEntryLocalService.getValuesList(
 					groupId, companyId, dtoConverterContext.getUserId(),
-					objectDefinition.getObjectDefinitionId(), predicate, search,
-					start, end,
-					OrderByExpressionUtil.getOrderByExpressions(
+					objectDefinition.getObjectDefinitionId(), fields, predicate,
+					search, start, end, OrderByExpressionUtil.getOrderByExpressions(
 						objectDefinition.getObjectDefinitionId(),
 						objectFieldLocalService, sorts)),
 				values -> _getObjectEntry(
