@@ -109,7 +109,6 @@ public class ExpandoInfoDisplayFieldProviderTest {
 		Assert.assertEquals(
 			value.get(LocaleUtil.FRANCE),
 			expandoValue.getStringArray(LocaleUtil.FRANCE));
-
 		Assert.assertEquals(
 			value.get(LocaleUtil.US),
 			expandoValue.getStringArray(LocaleUtil.US));
@@ -118,7 +117,6 @@ public class ExpandoInfoDisplayFieldProviderTest {
 			StringUtil.merge(
 				value.get(LocaleUtil.FRANCE), StringPool.COMMA_AND_SPACE),
 			_getValue(expandoColumn.getName(), LocaleUtil.FRANCE));
-
 		Assert.assertEquals(
 			StringUtil.merge(
 				value.get(LocaleUtil.US), StringPool.COMMA_AND_SPACE),
@@ -149,14 +147,12 @@ public class ExpandoInfoDisplayFieldProviderTest {
 		Assert.assertEquals(
 			value.get(LocaleUtil.FRANCE),
 			expandoValue.getString(LocaleUtil.FRANCE));
-
 		Assert.assertEquals(
 			value.get(LocaleUtil.US), expandoValue.getString(LocaleUtil.US));
 
 		Assert.assertEquals(
 			value.get(LocaleUtil.FRANCE),
 			_getValue(expandoColumn.getName(), LocaleUtil.FRANCE));
-
 		Assert.assertEquals(
 			value.get(LocaleUtil.US),
 			_getValue(expandoColumn.getName(), LocaleUtil.US));
