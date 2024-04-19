@@ -92,7 +92,7 @@ if (ListUtil.isNotEmpty(selectedAMImageConfigurationEntries)) {
 
 							<%
 							int adaptedImages = AMImageEntryLocalServiceUtil.getAMImageEntriesCount(themeDisplay.getCompanyId(), amImageConfigurationEntry.getUUID());
-							int totalImages = GetterUtil.getInteger(request.getAttribute(AMWebKeys.TOTAL_IMAGES_COUNT));
+							int totalImages = GetterUtil.getInteger(request.getAttribute(AMWebKeys.TOTAL_IMAGES));
 							%>
 
 							<%= Math.min(adaptedImages, totalImages) %>/<%= totalImages %>

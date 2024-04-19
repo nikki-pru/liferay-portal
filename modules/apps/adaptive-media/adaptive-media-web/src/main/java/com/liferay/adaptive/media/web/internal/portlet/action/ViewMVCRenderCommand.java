@@ -52,7 +52,7 @@ public class ViewMVCRenderCommand implements MVCRenderCommand {
 			new ArrayList<>(amImageConfigurationEntries));
 
 		renderRequest.setAttribute(
-			AMWebKeys.TOTAL_IMAGES_COUNT,
+			AMWebKeys.TOTAL_IMAGES,
 			_amImageEntryLocalService.getExpectedAMImageEntriesCount(
 				themeDisplay.getCompanyId()));
 

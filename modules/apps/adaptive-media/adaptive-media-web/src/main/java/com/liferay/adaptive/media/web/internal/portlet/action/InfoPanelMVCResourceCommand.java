@@ -50,7 +50,7 @@ public class InfoPanelMVCResourceCommand extends BaseMVCResourceCommand {
 			AMWebKeys.SELECTED_CONFIGURATION_ENTRIES,
 			_getSelectedAMImageConfigurationEntries(resourceRequest));
 		resourceRequest.setAttribute(
-			AMWebKeys.TOTAL_IMAGES_COUNT,
+			AMWebKeys.TOTAL_IMAGES,
 			ParamUtil.getInteger(resourceRequest, "totalImages"));
 
 		include(
