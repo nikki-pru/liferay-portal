@@ -91,7 +91,7 @@ public class FileSystemStore implements Store {
 	public void deleteDirectory(
 		long companyId, long repositoryId, String dirName) {
 
-		File dirNameDir;
+		File dirNameDir = null;
 
 		if (Objects.equals(dirName, StringPool.SLASH)) {
 			dirNameDir = getRepositoryDir(companyId, repositoryId);
