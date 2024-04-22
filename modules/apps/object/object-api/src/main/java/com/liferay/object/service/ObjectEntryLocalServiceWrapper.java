@@ -656,8 +656,7 @@ public class ObjectEntryLocalServiceWrapper
 	public java.util.List<java.util.Map<String, java.io.Serializable>>
 			getValuesList(
 				long groupId, long companyId, long userId,
-				long objectDefinitionId,
-				java.util.List<String> selectedObjectFieldNames,
+				long objectDefinitionId, String[] selectedObjectFieldNames,
 				com.liferay.petra.sql.dsl.expression.Predicate predicate,
 				String search, int start, int end,
 				com.liferay.petra.sql.dsl.query.sort.OrderByExpression[]

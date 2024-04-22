@@ -569,7 +569,7 @@ public class ObjectEntryLocalServiceUtil {
 
 	public static List<Map<String, Serializable>> getValuesList(
 			long groupId, long companyId, long userId, long objectDefinitionId,
-			List<String> selectedObjectFieldNames,
+			String[] selectedObjectFieldNames,
 			com.liferay.petra.sql.dsl.expression.Predicate predicate,
 			String search, int start, int end,
 			com.liferay.petra.sql.dsl.query.sort.OrderByExpression[]

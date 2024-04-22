@@ -445,7 +445,7 @@ public interface ObjectEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Map<String, Serializable>> getValuesList(
 			long groupId, long companyId, long userId, long objectDefinitionId,
-			List<String> selectedObjectFieldNames, Predicate predicate,
+			String[] selectedObjectFieldNames, Predicate predicate,
 			String search, int start, int end, OrderByExpression[] orderByExpressions)
 		throws PortalException;
 
