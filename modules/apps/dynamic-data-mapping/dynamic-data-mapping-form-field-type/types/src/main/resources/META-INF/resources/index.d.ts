@@ -8,7 +8,6 @@ declare const CheckboxMultiple: any;
 declare const ColorPicker: any;
 declare const DatePicker: any;
 declare const DocumentLibrary: any;
-declare const ReactFieldBase: any;
 declare const FieldSet: any;
 declare const Geolocation: any;
 declare const Grid: any;
@@ -30,6 +29,7 @@ declare const Validation: any;
 export {default as Checkbox} from './Checkbox/Checkbox';
 export {default as Numeric} from './Numeric/Numeric';
 export {default as Select} from './Select/Select';
+export {FieldBase as ReactFieldBase} from './FieldBase/ReactFieldBase.es';
 export type {FieldChangeEventHandler} from './types';
 export {default as NumericInputMask} from './NumericInputMask/NumericInputMask';
 export {
@@ -45,7 +45,6 @@ export {
 	ImagePicker,
 	OptionFieldKeyValue,
 	LocalizableText,
-	ReactFieldBase,
 	ObjectField,
 	Options,
 	Paragraph,

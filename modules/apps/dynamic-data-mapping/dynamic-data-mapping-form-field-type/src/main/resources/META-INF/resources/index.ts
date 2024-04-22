@@ -15,7 +15,6 @@ const {default: DatePicker} = require('./DatePicker/DatePicker.es');
 const {
 	default: DocumentLibrary,
 } = require('./DocumentLibrary/DocumentLibrary.es');
-const {default: ReactFieldBase} = require('./FieldBase/ReactFieldBase.es');
 const {default: FieldSet} = require('./FieldSet/FieldSet.es');
 const {default: Geolocation} = require('./Geolocation/Geolocation.es');
 const {default: Grid} = require('./Grid/Grid.es');
@@ -42,6 +41,7 @@ const {default: Validation} = require('./Validation/Validation');
 export {default as Checkbox} from './Checkbox/Checkbox';
 export {default as Numeric} from './Numeric/Numeric';
 export {default as Select} from './Select/Select';
+export {FieldBase as ReactFieldBase} from './FieldBase/ReactFieldBase.es';
 export type {FieldChangeEventHandler} from './types';
 export {default as NumericInputMask} from './NumericInputMask/NumericInputMask';
 
@@ -58,7 +58,6 @@ export {
 	ImagePicker,
 	OptionFieldKeyValue,
 	LocalizableText,
-	ReactFieldBase,
 	ObjectField,
 	Options,
 	Paragraph,
