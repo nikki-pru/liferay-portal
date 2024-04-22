@@ -2578,21 +2578,25 @@ public class ObjectEntryLocalServiceTest {
 		PermissionThreadLocal.setPermissionChecker(originalPermissionChecker);
 		PrincipalThreadLocal.setName(originalName);
 
-		// Set fields as query parameter
+		// Selected object field names
 
-		List<String> fields = Arrays.asList(
-			"emailAddressRequired", "firstName");
+		String[] selectedObjectFieldNames = {
+			"emailAddressRequired", "firstName"
+		};
 
 		valuesList = _objectEntryLocalService.getValuesList(
 			0, TestPropsValues.getCompanyId(), user.getUserId(),
-			_objectDefinition.getObjectDefinitionId(), fields, null, null,
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+			_objectDefinition.getObjectDefinitionId(), selectedObjectFieldNames,
+			null, null, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 		Assert.assertEquals(valuesList.toString(), 3, valuesList.size());
 
-		_assertObjectEntryValues(9, values1, valuesList.get(0), fields);
-		_assertObjectEntryValues(9, values2, valuesList.get(1), fields);
-		_assertObjectEntryValues(9, values3, valuesList.get(2), fields);
+		_assertObjectEntryValues(
+			9, values1, valuesList.get(0), selectedObjectFieldNames);
+		_assertObjectEntryValues(
+			9, values2, valuesList.get(1), selectedObjectFieldNames);
+		_assertObjectEntryValues(
+			9, values3, valuesList.get(2), selectedObjectFieldNames);
 	}
 
 	@Test
@@ -3259,12 +3263,13 @@ public class ObjectEntryLocalServiceTest {
 
 	private void _assertObjectEntryValues(
 		int expectedValuesSize, Map<String, Serializable> expectedValues,
-		Map<String, Serializable> actualValues, List<String> fields) {
+		Map<String, Serializable> actualValues,
+		String[] selectedObjectFieldNames) {
 
 		Assert.assertEquals(
 			actualValues.toString(), expectedValuesSize, actualValues.size());
 
-		if (fields == null) {
+		if (selectedObjectFieldNames == null) {
 			Assert.assertEquals(
 				expectedValues.get("emailAddressDomain"),
 				actualValues.get("emailAddressDomain"));
@@ -3280,9 +3285,10 @@ public class ObjectEntryLocalServiceTest {
 			return;
 		}
 
-		for (String field : fields) {
+		for (String selectedObjectFieldName : selectedObjectFieldNames) {
 			Assert.assertEquals(
-				expectedValues.get(field), actualValues.get(field));
+				expectedValues.get(selectedObjectFieldName),
+				actualValues.get(selectedObjectFieldName));
 		}
 	}
 
