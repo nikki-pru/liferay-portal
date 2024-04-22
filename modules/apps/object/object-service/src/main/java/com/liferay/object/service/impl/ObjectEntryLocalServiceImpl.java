@@ -1145,8 +1145,8 @@ public class ObjectEntryLocalServiceImpl
 	@Override
 	public List<Map<String, Serializable>> getValuesList(
 			long groupId, long companyId, long userId, long objectDefinitionId,
-			List<String> fields, Predicate predicate, String search, int start,
-			int end, OrderByExpression[] orderByExpressions)
+			List<String> selectedObjectFieldNames, Predicate predicate,
+			String search, int start, int end, OrderByExpression[] orderByExpressions)
 		throws PortalException {
 
 		DynamicObjectDefinitionLocalizationTable
@@ -1164,10 +1164,12 @@ public class ObjectEntryLocalServiceImpl
 
 		Expression<?>[] selectExpressions = ArrayUtil.append(
 			_getSelectExpressions(dynamicObjectDefinitionLocalizationTable),
-			_getSelectExpressions(dynamicObjectDefinitionTable, fields),
+			_getSelectExpressions(
+				dynamicObjectDefinitionTable, selectedObjectFieldNames),
 			ArrayUtil.remove(
 				_getSelectExpressions(
-					extensionDynamicObjectDefinitionTable, fields),
+					extensionDynamicObjectDefinitionTable,
+					selectedObjectFieldNames),
 				extensionDynamicObjectDefinitionTable.getPrimaryKeyColumn()),
 			_EXPRESSIONS);
 
@@ -3030,7 +3032,7 @@ public class ObjectEntryLocalServiceImpl
 
 	private Expression<?>[] _getSelectExpressions(
 			DynamicObjectDefinitionTable dynamicObjectDefinitionTable,
-			List<String> fields)
+			List<String> selectedObjectFieldNames)
 		throws PortalException {
 
 		List<Expression<?>> selectExpressions = new ArrayList<>();
@@ -3038,8 +3040,8 @@ public class ObjectEntryLocalServiceImpl
 		for (Column<DynamicObjectDefinitionTable, ?> column :
 				dynamicObjectDefinitionTable.getColumns()) {
 
-			if ((fields != null) &&
-				!fields.contains(
+			if ((selectedObjectFieldNames != null) &&
+				!selectedObjectFieldNames.contains(
 					StringUtil.removeLast(
 						column.getName(), StringPool.UNDERLINE)) &&
 				!Objects.equals(
@@ -3065,7 +3067,9 @@ public class ObjectEntryLocalServiceImpl
 				continue;
 			}
 
-			if ((fields != null) && !fields.contains(objectField.getName())) {
+			if ((selectedObjectFieldNames != null) &&
+				!selectedObjectFieldNames.contains(objectField.getName())) {
+
 				continue;
 			}
 

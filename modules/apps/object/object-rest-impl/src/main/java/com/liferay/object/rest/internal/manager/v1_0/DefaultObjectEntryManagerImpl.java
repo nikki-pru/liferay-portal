@@ -396,7 +396,7 @@ public class DefaultObjectEntryManagerImpl
 
 		UriInfo uriInfo = dtoConverterContext.getUriInfo();
 
-		List<String> fields = null;
+		List<String> selectedObjectFieldNames = null;
 
 		if (uriInfo != null) {
 			MultivaluedMap<String, String> queryParameters =
@@ -405,7 +405,7 @@ public class DefaultObjectEntryManagerImpl
 			String fieldsString = queryParameters.getFirst("fields");
 
 			if (fieldsString != null) {
-				fields = Arrays.asList(
+				selectedObjectFieldNames = Arrays.asList(
 					StringUtil.split(fieldsString, StringPool.COMMA));
 			}
 		}
@@ -457,8 +457,9 @@ public class DefaultObjectEntryManagerImpl
 			TransformUtil.transform(
 				objectEntryLocalService.getValuesList(
 					groupId, companyId, dtoConverterContext.getUserId(),
-					objectDefinition.getObjectDefinitionId(), fields, predicate,
-					search, start, end, OrderByExpressionUtil.getOrderByExpressions(
+					objectDefinition.getObjectDefinitionId(),
+					selectedObjectFieldNames, predicate, search, start, end,
+					OrderByExpressionUtil.getOrderByExpressions(
 						objectDefinition.getObjectDefinitionId(),
 						objectFieldLocalService, sorts)),
 				values -> _getObjectEntry(
