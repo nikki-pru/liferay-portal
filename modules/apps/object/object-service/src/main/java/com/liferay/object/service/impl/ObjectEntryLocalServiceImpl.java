@@ -1145,7 +1145,7 @@ public class ObjectEntryLocalServiceImpl
 	@Override
 	public List<Map<String, Serializable>> getValuesList(
 			long groupId, long companyId, long userId, long objectDefinitionId,
-			List<String> selectedObjectFieldNames, Predicate predicate,
+			String[] selectedObjectFieldNames, Predicate predicate,
 			String search, int start, int end, OrderByExpression[] orderByExpressions)
 		throws PortalException {
 
@@ -3032,7 +3032,7 @@ public class ObjectEntryLocalServiceImpl
 
 	private Expression<?>[] _getSelectExpressions(
 			DynamicObjectDefinitionTable dynamicObjectDefinitionTable,
-			List<String> selectedObjectFieldNames)
+			String[] selectedObjectFieldNames)
 		throws PortalException {
 
 		List<Expression<?>> selectExpressions = new ArrayList<>();
@@ -3041,7 +3041,8 @@ public class ObjectEntryLocalServiceImpl
 				dynamicObjectDefinitionTable.getColumns()) {
 
 			if ((selectedObjectFieldNames != null) &&
-				!selectedObjectFieldNames.contains(
+				!ArrayUtil.contains(
+					selectedObjectFieldNames,
 					StringUtil.removeLast(
 						column.getName(), StringPool.UNDERLINE)) &&
 				!Objects.equals(
@@ -3068,7 +3069,8 @@ public class ObjectEntryLocalServiceImpl
 			}
 
 			if ((selectedObjectFieldNames != null) &&
-				!selectedObjectFieldNames.contains(objectField.getName())) {
+				!ArrayUtil.contains(
+					selectedObjectFieldNames, objectField.getName())) {
 
 				continue;
 			}
