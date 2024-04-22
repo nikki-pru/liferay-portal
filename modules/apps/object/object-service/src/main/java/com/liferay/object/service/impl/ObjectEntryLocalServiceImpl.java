@@ -1146,7 +1146,8 @@ public class ObjectEntryLocalServiceImpl
 	public List<Map<String, Serializable>> getValuesList(
 			long groupId, long companyId, long userId, long objectDefinitionId,
 			String[] selectedObjectFieldNames, Predicate predicate,
-			String search, int start, int end, OrderByExpression[] orderByExpressions)
+			String search, int start, int end,
+			OrderByExpression[] orderByExpressions)
 		throws PortalException {
 
 		DynamicObjectDefinitionLocalizationTable
