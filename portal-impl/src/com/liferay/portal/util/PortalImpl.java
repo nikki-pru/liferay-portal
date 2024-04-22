@@ -2890,9 +2890,10 @@ public class PortalImpl implements Portal {
 			!StringUtil.equalsIgnoreCase(
 				virtualHostname, defaultVirtualHostname)) {
 
-			String portalURL = getPortalURL(
-				virtualHostname, themeDisplay.getServerPort(),
-				themeDisplay.isSecure());
+			String portalURL =
+				getPortalURL(
+					virtualHostname, themeDisplay.getServerPort(),
+					themeDisplay.isSecure()) + _pathContext;
 
 			// Use the layout set's virtual host setting only if the layout set
 			// is already used for the current request
@@ -2906,7 +2907,7 @@ public class PortalImpl implements Portal {
 			if ((layoutSet.getLayoutSetId() != curLayoutSetId) ||
 				portalURL.startsWith(themeDisplay.getURLPortal())) {
 
-				String layoutSetFriendlyURL = portalURL + _pathContext;
+				String layoutSetFriendlyURL = portalURL;
 
 				if (themeDisplay.isI18n()) {
 					layoutSetFriendlyURL +=
