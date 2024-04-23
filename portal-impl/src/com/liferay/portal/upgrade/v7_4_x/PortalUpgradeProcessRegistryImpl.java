@@ -371,6 +371,24 @@ public class PortalUpgradeProcessRegistryImpl
 			UpgradeModulesFactory.create(
 				new String[] {"com.liferay.portal.search.tuning.rankings.web"},
 				null));
+
+		upgradeVersionTreeMap.put(
+			new Version(29, 2, 2),
+			UpgradeModulesFactory.create(
+				new String[] {"com.liferay.headless.builder.impl"}, null));
+
+		upgradeVersionTreeMap.put(
+			new Version(29, 3, 0),
+			new CTModelUpgradeProcess("AnnouncementsDelivery"));
+
+		upgradeVersionTreeMap.put(
+			new Version(30, 0, 0),
+			new UpgradePartitionedControlTable("Counter"));
+
+		upgradeVersionTreeMap.put(
+			new Version(30, 0, 1),
+			UpgradeProcessFactory.alterColumnType(
+				"PortalPreferenceValue", "key_", "VARCHAR(1024) null"));
 	}
 
 }
