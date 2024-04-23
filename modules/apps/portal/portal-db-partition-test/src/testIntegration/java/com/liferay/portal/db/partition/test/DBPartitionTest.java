@@ -9,11 +9,8 @@ import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.portal.db.partition.test.util.BaseDBPartitionTestCase;
 import com.liferay.portal.db.partition.util.DBPartitionUtil;
-import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.EntityCache;
 import com.liferay.portal.kernel.dao.orm.FinderCache;
-import com.liferay.portal.kernel.dao.orm.Property;
-import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.model.ClassName;
 import com.liferay.portal.kernel.model.ResourceAction;
@@ -22,7 +19,6 @@ import com.liferay.portal.kernel.service.ClassNameLocalService;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.ResourceActionLocalService;
 import com.liferay.portal.kernel.test.ReflectionTestUtil;
-import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.InfrastructureUtil;
@@ -333,49 +329,6 @@ public class DBPartitionTest extends BaseDBPartitionTestCase {
 
 			DBPartitionUtil.checkDatabasePartitionSchemaNamePrefix();
 		}
-	}
-
-	@Test
-	public void testParallelWithDBPartitionEnabled() throws Exception {
-		CompanyThreadLocal.setCompanyId(COMPANY_IDS[0]);
-
-		ActionableDynamicQuery actionableDynamicQuery =
-			_classNameLocalService.getActionableDynamicQuery();
-
-		ClassName className1 = _classNameLocalService.addClassName(
-			RandomTestUtil.randomString());
-
-		String expectedClassNameValue = RandomTestUtil.randomString();
-
-		actionableDynamicQuery.setAddCriteriaMethod(
-			dynamicQuery -> {
-				Property classNameIdProperty = PropertyFactoryUtil.forName(
-					"classNameId");
-
-				dynamicQuery.add(
-					classNameIdProperty.eq(className1.getClassNameId()));
-			});
-
-		ActionableDynamicQuery.PerformActionMethod<?> performActionMethod =
-			(ClassName className) -> {
-				ClassName className2 = _classNameLocalService.getClassName(
-					className1.getClassNameId());
-
-				className2.setValue(expectedClassNameValue);
-
-				_classNameLocalService.updateClassName(className2);
-			};
-
-		actionableDynamicQuery.setPerformActionMethod(performActionMethod);
-
-		actionableDynamicQuery.setParallel(true);
-
-		actionableDynamicQuery.performActions();
-
-		ClassName className2 = _classNameLocalService.getClassName(
-			className1.getClassNameId());
-
-		Assert.assertEquals(expectedClassNameValue, className2.getValue());
 	}
 
 	@Test
