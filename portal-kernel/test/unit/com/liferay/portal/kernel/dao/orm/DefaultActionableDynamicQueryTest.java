@@ -49,7 +49,7 @@ public class DefaultActionableDynamicQueryTest {
 
 		PropsUtil.setProps(ProxyFactory.newDummyInstance(Props.class));
 
-		_snapshot = ReflectionTestUtil.getAndSetFieldValue(
+		_portalExecutorManagerSnapshot = ReflectionTestUtil.getAndSetFieldValue(
 			DefaultActionableDynamicQuery.class,
 			"_portalExecutorManagerSnapshot",
 			new Snapshot<PortalExecutorManager>(
@@ -83,7 +83,7 @@ public class DefaultActionableDynamicQueryTest {
 
 		ReflectionTestUtil.setFieldValue(
 			DefaultActionableDynamicQuery.class,
-			"_portalExecutorManagerSnapshot", _snapshot);
+			"_portalExecutorManagerSnapshot", _portalExecutorManagerSnapshot);
 	}
 
 	@Test
@@ -126,8 +126,9 @@ public class DefaultActionableDynamicQueryTest {
 
 	private static DynamicQueryFactory _dynamicQueryFactory;
 	private static OrderFactory _orderFactory;
+	private static Snapshot<PortalExecutorManager>
+		_portalExecutorManagerSnapshot;
 	private static PropertyFactory _propertyFactory;
-	private static Snapshot<PortalExecutorManager> _snapshot;
 
 	private long _companyId;
 
