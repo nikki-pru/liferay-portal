@@ -97,6 +97,16 @@ public class GraphQLServletTest extends BaseGraphQLServlet {
 				"query"),
 			"JSONObject/data", "JSONObject/testDTO");
 
+		Assert.assertEquals(
+			"Not Found",
+			JSONUtil.getValueAsString(
+				invoke(
+					new GraphQLField(
+						"testNoPermissionOverDTO", new GraphQLField("id")),
+					"query"),
+				"JSONArray/errors", "Object/0", "JSONObject/extensions",
+				"Object/code"));
+
 		assertEquals(true, _testDTO, jsonObject);
 	}
 
