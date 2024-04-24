@@ -61,7 +61,6 @@ public class NavigationMenuTagTest {
 		_group = GroupTestUtil.addGroup();
 
 		_layout = LayoutTestUtil.addTypePortletLayout(_group);
-
 		_locale = _portal.getSiteDefaultLocale(_group);
 	}
 
