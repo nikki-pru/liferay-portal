@@ -79,15 +79,15 @@ public class SystemExecutorServiceUtil {
 	static {
 		Runtime runtime = Runtime.getRuntime();
 
-		int defaultMaxpoolsize = runtime.availableProcessors();
+		int defaultMaxPoolSize = runtime.availableProcessors();
 
-		if (defaultMaxpoolsize == 1) {
-			defaultMaxpoolsize = 2;
+		if (defaultMaxPoolSize == 1) {
+			defaultMaxPoolSize = 2;
 		}
 
 		int maxPoolSize = GetterUtil.getInteger(
 			SystemProperties.get("system.executor.service.maxpoolsize"),
-			defaultMaxpoolsize);
+			defaultMaxPoolSize);
 
 		long keepAliveTime = GetterUtil.getLong(
 			SystemProperties.get("system.executor.service.keepalivetime"), 60);
