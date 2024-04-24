@@ -280,7 +280,7 @@ public class DefaultActionableDynamicQuery implements ActionableDynamicQuery {
 
 				List<Future<Void>> futures = new ArrayList<>(objects.size());
 
-				for (final Object object : objects) {
+				for (Object object : objects) {
 					futures.add(
 						executorService.submit(
 							() -> {
