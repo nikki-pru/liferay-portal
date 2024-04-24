@@ -31,7 +31,7 @@ public class SchemaUpgradeProcess extends UpgradeProcess {
 						"ObjectField.objectDefinitionId where ",
 						"ObjectDefinition.status = ",
 						WorkflowConstants.STATUS_APPROVED,
-						" and ObjectField.businessType ='",
+						" and ObjectField.businessType = '",
 						ObjectFieldConstants.BUSINESS_TYPE_PICKLIST, "'")));
 			ResultSet resultSet = preparedStatement.executeQuery()) {
 
