@@ -468,7 +468,6 @@ public class DocumentResourceTest extends BaseDocumentResourceTestCase {
 		DocumentType documentType = postDocument.getDocumentType();
 
 		Assert.assertNotNull(documentType);
-
 		Assert.assertEquals(
 			dlFileEntryType.getName(LocaleUtil.getDefault()),
 			documentType.getName());
