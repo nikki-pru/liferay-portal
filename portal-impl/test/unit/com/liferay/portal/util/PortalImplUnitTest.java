@@ -713,16 +713,18 @@ public class PortalImplUnitTest {
 		layoutSet.setPrivateLayout(privateLayout);
 		layoutSet.setVirtualHostnames(virtualHostnames);
 
+		ThemeDisplay themeDisplay = ThemeDisplayFactory.create();
+
+		themeDisplay.setDoAsGroupId(0);
+		themeDisplay.setI18nLanguageId(null);
+
 		Layout layout = new LayoutImpl();
 
 		layout.setLayoutSet(layoutSet);
 		layout.setType(LayoutConstants.TYPE_CONTENT);
 
-		ThemeDisplay themeDisplay = ThemeDisplayFactory.create();
-
-		themeDisplay.setDoAsGroupId(0);
-		themeDisplay.setI18nLanguageId(null);
 		themeDisplay.setLayout(layout);
+
 		themeDisplay.setRefererGroupId(0);
 		themeDisplay.setRefererPlid(0);
 		themeDisplay.setSecure(false);
