@@ -2893,7 +2893,9 @@ public class PortalImpl implements Portal {
 			String portalURL =
 				getPortalURL(
 					virtualHostname, themeDisplay.getServerPort(),
-					themeDisplay.isSecure()) + _pathContext;
+					themeDisplay.isSecure());
+
+			portalURL += _pathContext;
 
 			// Use the layout set's virtual host setting only if the layout set
 			// is already used for the current request
