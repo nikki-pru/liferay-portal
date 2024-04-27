@@ -177,7 +177,8 @@ public class JournalExportImportTest extends BasePortletExportImportTestCase {
 
 		DataDefinition dataDefinition = DataDefinition.toDTO(
 			_readFileToString(
-				"dependencies/repeatable_journal_field_data_definition.json"));
+				"dependencies" +
+					"/repeatable_journal_article_field_data_definition.json"));
 
 		dataDefinition.setName(
 			HashMapBuilder.<String, Object>put(
@@ -197,7 +198,8 @@ public class JournalExportImportTest extends BasePortletExportImportTestCase {
 				group.getGroupId(), "journal", dataDefinition);
 
 		String xml = _readFileToString(
-			"dependencies/repeatable_journal_field_journal_content.xml");
+			"dependencies" +
+				"/repeatable_journal_article_field_journal_content.xml");
 
 		JournalArticle referencedArticle1 = JournalTestUtil.addArticle(
 			group.getGroupId(),
