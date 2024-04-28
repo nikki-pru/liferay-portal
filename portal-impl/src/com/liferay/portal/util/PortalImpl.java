@@ -2890,10 +2890,9 @@ public class PortalImpl implements Portal {
 			!StringUtil.equalsIgnoreCase(
 				virtualHostname, defaultVirtualHostname)) {
 
-			String portalURL =
-				getPortalURL(
-					virtualHostname, themeDisplay.getServerPort(),
-					themeDisplay.isSecure());
+			String portalURL = getPortalURL(
+				virtualHostname, themeDisplay.getServerPort(),
+				themeDisplay.isSecure());
 
 			portalURL += _pathContext;
 
