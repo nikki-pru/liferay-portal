@@ -374,11 +374,9 @@ public class StringBundler implements Serializable {
 
 				_coderMethodHandle = lookup.findGetter(
 					String.class, "coder", byte.class);
-
 				_constructorMethodHandle = lookup.unreflectConstructor(
 					String.class.getDeclaredConstructor(
 						byte[].class, byte.class));
-
 				_valueMethodHandle = lookup.findGetter(
 					String.class, "value", byte[].class);
 			}
