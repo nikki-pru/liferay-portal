@@ -169,6 +169,9 @@ public class BaseNotificationTypeTest {
 
 		group = GroupTestUtil.addGroup();
 
+		guestUser = _userLocalService.getGuestUser(
+			TestPropsValues.getCompanyId());
+
 		parentObjectEntryValues = LinkedHashMapBuilder.<String, Object>put(
 			"systemObjectField", RandomTestUtil.randomString()
 		).put(
@@ -417,14 +420,14 @@ public class BaseNotificationTypeTest {
 			getTermName(true, "AUTHOR_SUFFIX"), _getListType("SUFFIX", user2)
 		).build();
 
-		_resourcePermissionLocalService.addResourcePermission(
+		resourcePermissionLocalService.addResourcePermission(
 			TestPropsValues.getCompanyId(),
 			childObjectDefinition.getResourceName(),
 			ResourceConstants.SCOPE_COMPANY,
 			String.valueOf(TestPropsValues.getCompanyId()), role.getRoleId(),
 			ObjectActionKeys.ADD_OBJECT_ENTRY);
 
-		_resourcePermissionLocalService.addResourcePermission(
+		resourcePermissionLocalService.addResourcePermission(
 			TestPropsValues.getCompanyId(),
 			parentObjectDefinition.getResourceName(),
 			ResourceConstants.SCOPE_COMPANY,
@@ -545,6 +548,7 @@ public class BaseNotificationTypeTest {
 	protected static LinkedHashMap<String, Object> childObjectEntryValues;
 	protected static DTOConverterContext dtoConverterContext;
 	protected static Group group;
+	protected static User guestUser;
 
 	@Inject
 	protected static ObjectFieldLocalService objectFieldLocalService;
@@ -581,6 +585,9 @@ public class BaseNotificationTypeTest {
 		filter = "object.entry.manager.storage.type=" + ObjectDefinitionConstants.STORAGE_TYPE_DEFAULT
 	)
 	protected ObjectEntryManager objectEntryManager;
+
+	@Inject
+	protected ResourcePermissionLocalService resourcePermissionLocalService;
 
 	private String _getListType(String type, User user) throws Exception {
 		Contact contact = user.fetchContact();
@@ -637,8 +644,5 @@ public class BaseNotificationTypeTest {
 		_notificationRecipientSettingLocalService;
 
 	private Map<String, Object> _parentAuthorTermValues;
-
-	@Inject
-	private ResourcePermissionLocalService _resourcePermissionLocalService;
 
 }

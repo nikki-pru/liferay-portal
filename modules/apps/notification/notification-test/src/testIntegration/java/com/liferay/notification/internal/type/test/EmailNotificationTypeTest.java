@@ -20,6 +20,7 @@ import com.liferay.notification.service.NotificationQueueEntryAttachmentLocalSer
 import com.liferay.notification.service.test.util.NotificationTemplateUtil;
 import com.liferay.notification.util.NotificationRecipientSettingUtil;
 import com.liferay.object.constants.ObjectActionExecutorConstants;
+import com.liferay.object.constants.ObjectActionKeys;
 import com.liferay.object.constants.ObjectActionTriggerConstants;
 import com.liferay.object.constants.ObjectDefinitionConstants;
 import com.liferay.object.model.ObjectAction;
@@ -32,11 +33,19 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Repository;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.Role;
+import com.liferay.portal.kernel.model.role.RoleConstants;
 import com.liferay.portal.kernel.portletfilerepository.PortletFileRepository;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portal.kernel.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.kernel.security.permission.PermissionChecker;
+import com.liferay.portal.kernel.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.kernel.security.permission.PermissionThreadLocal;
 import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
+import com.liferay.portal.kernel.service.RoleLocalService;
 import com.liferay.portal.kernel.test.AssertUtils;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
@@ -150,30 +159,64 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 				).build()),
 			null, "Body", LanguageUtil.getLanguageId(LocaleUtil.US));
 
+		// Notification triggered by admin user
+
 		_executeNotificationObjectAction(
 			0,
 			_addNotificationTemplate(
 				body, NotificationTemplateConstants.EDITOR_TYPE_FREEMARKER,
+				Collections.singletonMap(
+					LocaleUtil.US, "[%CURRENT_USER_FIRST_NAME%]"),
 				false,
 				Collections.singletonMap(
 					LocaleUtil.US, user1.getEmailAddress())));
 
-		List<NotificationQueueEntry> notificationQueueEntries =
-			notificationQueueEntryLocalService.getNotificationEntries(
-				NotificationConstants.TYPE_EMAIL,
-				NotificationQueueEntryConstants.STATUS_SENT);
+		_assertNotificationQueueEntryTermValues(
+			new ArrayList<>(_freeMarkerTermValues.values()), StringPool.POUND);
 
-		Assert.assertEquals(
-			notificationQueueEntries.toString(), 1,
-			notificationQueueEntries.size());
+		// Notification triggered by guest user
 
-		notificationQueueEntry = notificationQueueEntries.get(0);
+		Role guestRole = _roleLocalService.getRole(
+			TestPropsValues.getCompanyId(), RoleConstants.GUEST);
 
-		assertTermValues(
-			new ArrayList<>(_freeMarkerTermValues.values()),
-			Arrays.asList(
-				StringUtil.split(
-					notificationQueueEntry.getBody(), StringPool.COMMA)));
+		resourcePermissionLocalService.addResourcePermission(
+			guestUser.getCompanyId(), childObjectDefinition.getResourceName(),
+			ResourceConstants.SCOPE_COMPANY,
+			String.valueOf(guestUser.getCompanyId()), guestRole.getRoleId(),
+			ObjectActionKeys.ADD_OBJECT_ENTRY);
+		resourcePermissionLocalService.addResourcePermission(
+			guestUser.getCompanyId(), parentObjectDefinition.getResourceName(),
+			ResourceConstants.SCOPE_COMPANY,
+			String.valueOf(guestUser.getCompanyId()), guestRole.getRoleId(),
+			ObjectActionKeys.ADD_OBJECT_ENTRY);
+
+		PermissionChecker originalPermissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+		String originalName = PrincipalThreadLocal.getName();
+
+		try {
+			PermissionThreadLocal.setPermissionChecker(
+				PermissionCheckerFactoryUtil.create(guestUser));
+			PrincipalThreadLocal.setName(guestUser.getUserId());
+
+			_executeNotificationObjectAction(
+				0,
+				_addNotificationTemplate(
+					body, NotificationTemplateConstants.EDITOR_TYPE_FREEMARKER,
+					Collections.singletonMap(
+						LocaleUtil.US, RandomTestUtil.randomString()),
+					false,
+					Collections.singletonMap(
+						LocaleUtil.US, user1.getEmailAddress())));
+		}
+		finally {
+			PermissionThreadLocal.setPermissionChecker(
+				originalPermissionChecker);
+			PrincipalThreadLocal.setName(originalName);
+		}
+
+		_assertNotificationQueueEntryTermValues(
+			new ArrayList<>(_freeMarkerTermValues.values()), StringPool.POUND);
 	}
 
 	@Test
@@ -192,29 +235,17 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 			0,
 			_addNotificationTemplate(
 				body, NotificationTemplateConstants.EDITOR_TYPE_FREEMARKER,
+				Collections.singletonMap(
+					LocaleUtil.US, "[%CURRENT_USER_FIRST_NAME%]"),
 				false,
 				Collections.singletonMap(
 					LocaleUtil.US, user1.getEmailAddress())));
 
-		List<NotificationQueueEntry> notificationQueueEntries =
-			notificationQueueEntryLocalService.getNotificationEntries(
-				NotificationConstants.TYPE_EMAIL,
-				NotificationQueueEntryConstants.STATUS_SENT);
-
-		Assert.assertEquals(
-			notificationQueueEntries.toString(), 1,
-			notificationQueueEntries.size());
-
-		notificationQueueEntry = notificationQueueEntries.get(0);
-
 		ListEntry listEntry = (ListEntry)childObjectEntryValues.get(
 			"picklistObjectField");
 
-		assertTermValues(
-			Arrays.asList(listEntry.getName()),
-			Arrays.asList(
-				StringUtil.split(
-					notificationQueueEntry.getBody(), StringPool.COMMA)));
+		_assertNotificationQueueEntryTermValues(
+			Collections.singletonList(listEntry.getName()), StringPool.COMMA);
 	}
 
 	@Test
@@ -314,8 +345,8 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 	}
 
 	private NotificationTemplate _addNotificationTemplate(
-			String body, String editorType, boolean singleRecipient,
-			Map<Locale, String> to)
+			String body, String editorType, Map<Locale, String> fromName,
+			boolean singleRecipient, Map<Locale, String> to)
 		throws Exception {
 
 		ObjectField objectField = objectFieldLocalService.getObjectField(
@@ -335,10 +366,7 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 						"cc", "[%CURRENT_USER_EMAIL_ADDRESS%],cc@liferay.com"),
 					createNotificationRecipientSetting(
 						"from", "[%CURRENT_USER_EMAIL_ADDRESS%]"),
-					createNotificationRecipientSetting(
-						"fromName",
-						Collections.singletonMap(
-							LocaleUtil.US, "[%CURRENT_USER_FIRST_NAME%]")),
+					createNotificationRecipientSetting("fromName", fromName),
 					createNotificationRecipientSetting(
 						"singleRecipient", String.valueOf(singleRecipient)),
 					createNotificationRecipientSetting("to", to)),
@@ -416,6 +444,31 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 		Assert.assertEquals(
 			fileEntry.getFileEntryId(),
 			notificationQueueEntryAttachment.getFileEntryId());
+	}
+
+	private void _assertNotificationQueueEntryTermValues(
+			List<Object> expectedTermValues, String delimiter)
+		throws Exception {
+
+		List<NotificationQueueEntry> notificationQueueEntries =
+			notificationQueueEntryLocalService.getNotificationEntries(
+				NotificationConstants.TYPE_EMAIL,
+				NotificationQueueEntryConstants.STATUS_SENT);
+
+		Assert.assertEquals(
+			notificationQueueEntries.toString(), 1,
+			notificationQueueEntries.size());
+
+		NotificationQueueEntry notificationQueueEntry =
+			notificationQueueEntries.get(0);
+
+		assertTermValues(
+			expectedTermValues,
+			Arrays.asList(
+				StringUtil.split(notificationQueueEntry.getBody(), delimiter)));
+
+		notificationQueueEntryLocalService.deleteNotificationQueueEntry(
+			notificationQueueEntry);
 	}
 
 	private void _executeNotificationObjectAction(
@@ -502,6 +555,8 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 				ListUtil.toString(
 					getTermNames(), StringPool.BLANK, StringPool.SEMICOLON),
 				NotificationTemplateConstants.EDITOR_TYPE_RICH_TEXT,
+				Collections.singletonMap(
+					LocaleUtil.US, "[%CURRENT_USER_FIRST_NAME%]"),
 				singleRecipient, Collections.singletonMap(LocaleUtil.US, to)));
 
 		List<NotificationQueueEntry> notificationQueueEntries = ListUtil.sort(
@@ -577,5 +632,8 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 
 	@Inject
 	private PortletFileRepository _portletFileRepository;
+
+	@Inject
+	private RoleLocalService _roleLocalService;
 
 }
