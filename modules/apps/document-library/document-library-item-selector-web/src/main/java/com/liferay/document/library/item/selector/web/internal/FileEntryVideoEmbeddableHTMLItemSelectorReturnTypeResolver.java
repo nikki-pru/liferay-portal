@@ -43,17 +43,18 @@ public class FileEntryVideoEmbeddableHTMLItemSelectorReturnTypeResolver
 	public String getValue(FileEntry fileEntry, ThemeDisplay themeDisplay)
 		throws PortalException {
 
-		DLVideoRenderer dlVideoRenderer = _dlVideoRendererSnapshot.get();
-
 		return JSONUtil.put(
 			"html",
 			() -> {
-				if (dlVideoRenderer != null) {
-					return dlVideoRenderer.renderHTML(
-						fileEntry.getFileVersion(), themeDisplay.getRequest());
+				DLVideoRenderer dlVideoRenderer =
+					_dlVideoRendererSnapshot.get();
+
+				if (dlVideoRenderer == null) {
+					return null;
 				}
 
-				return null;
+				return dlVideoRenderer.renderHTML(
+					fileEntry.getFileVersion(), themeDisplay.getRequest());
 			}
 		).put(
 			"title", fileEntry.getTitle()

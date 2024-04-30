@@ -53,24 +53,6 @@ public class FileEntryFileEntryItemSelectorReturnTypeResolver
 	public String getValue(FileEntry fileEntry, ThemeDisplay themeDisplay)
 		throws Exception {
 
-		String previewURL = null;
-
-		long repositoryId = fileEntry.getRepositoryId();
-
-		if (RepositoryUtil.isExternalRepository(repositoryId) ||
-			(fileEntry.getGroupId() == repositoryId)) {
-
-			previewURL = _dlURLHelper.getImagePreviewURL(
-				fileEntry, fileEntry.getFileVersion(), themeDisplay,
-				StringPool.BLANK, false, false);
-		}
-		else {
-			previewURL = _portletFileRepository.getPortletFileEntryURL(
-				themeDisplay, fileEntry, "&imagePreview=1", false);
-		}
-
-		DLVideoRenderer dlVideoRenderer = _dlVideoRendererSnapshot.get();
-
 		return JSONUtil.put(
 			"classNameId", _portal.getClassNameId(FileEntry.class)
 		).put(
@@ -82,6 +64,9 @@ public class FileEntryFileEntryItemSelectorReturnTypeResolver
 		).put(
 			"html",
 			() -> {
+				DLVideoRenderer dlVideoRenderer =
+					_dlVideoRendererSnapshot.get();
+
 				if (((dlVideoRenderer != null) &&
 					 ArrayUtil.contains(
 						 PropsValues.DL_FILE_ENTRY_PREVIEW_VIDEO_MIME_TYPES,
@@ -104,7 +89,21 @@ public class FileEntryFileEntryItemSelectorReturnTypeResolver
 		).put(
 			"type", "document"
 		).put(
-			"url", previewURL
+			"url",
+			() -> {
+				long repositoryId = fileEntry.getRepositoryId();
+
+				if (RepositoryUtil.isExternalRepository(repositoryId) ||
+					(fileEntry.getGroupId() == repositoryId)) {
+
+					return _dlURLHelper.getImagePreviewURL(
+						fileEntry, fileEntry.getFileVersion(), themeDisplay,
+						StringPool.BLANK, false, false);
+				}
+
+				return _portletFileRepository.getPortletFileEntryURL(
+					themeDisplay, fileEntry, "&imagePreview=1", false);
+			}
 		).put(
 			"uuid", fileEntry.getUuid()
 		).toString();
