@@ -4210,7 +4210,7 @@ public class ServiceBuilder {
 					entity.getPKEntityColumnDBNames(), indexMetadata);
 			}
 
-			indexMetadatas = indexMetadatasMap.get(entity.getTable());
+			indexMetadatas = indexMetadatasMap.get(tableName);
 
 			if (_optimizeDBIndexes && (indexMetadatas != null)) {
 				indexMetadatasMap.put(
