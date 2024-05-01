@@ -13940,6 +13940,7 @@ public class FragmentEntryLinkPersistenceImpl
 	static {
 		Set<String> ctControlColumnNames = new HashSet<String>();
 		Set<String> ctIgnoreColumnNames = new HashSet<String>();
+		Set<String> ctMergeColumnNames = new HashSet<String>();
 		Set<String> ctStrictColumnNames = new HashSet<String>();
 
 		ctControlColumnNames.add("mvccVersion");
@@ -13962,18 +13963,19 @@ public class FragmentEntryLinkPersistenceImpl
 		ctStrictColumnNames.add("js");
 		ctStrictColumnNames.add("configuration");
 		ctStrictColumnNames.add("deleted");
-		ctStrictColumnNames.add("editableValues");
+		ctMergeColumnNames.add("editableValues");
 		ctStrictColumnNames.add("namespace");
 		ctStrictColumnNames.add("position");
 		ctStrictColumnNames.add("rendererKey");
 		ctStrictColumnNames.add("type_");
-		ctStrictColumnNames.add("lastPropagationDate");
-		ctStrictColumnNames.add("lastPublishDate");
+		ctMergeColumnNames.add("lastPropagationDate");
+		ctMergeColumnNames.add("lastPublishDate");
 
 		_ctColumnNamesMap.put(
 			CTColumnResolutionType.CONTROL, ctControlColumnNames);
 		_ctColumnNamesMap.put(
 			CTColumnResolutionType.IGNORE, ctIgnoreColumnNames);
+		_ctColumnNamesMap.put(CTColumnResolutionType.MERGE, ctMergeColumnNames);
 		_ctColumnNamesMap.put(
 			CTColumnResolutionType.PK,
 			Collections.singleton("fragmentEntryLinkId"));
