@@ -596,12 +596,12 @@ public class JSONWebServiceActionsManagerImpl
 		catch (Exception exception) {
 			_log.warn(
 				StringBundler.concat(
-					"Something went wrong attempting to register service ",
-					"method {contextName=", contextName, ",contextPath=",
-					contextPath, ",actionObject=", actionObject,
-					",actionClass=", actionClass, ",actionMethod=",
-					actionMethod, ",path=", path, ",method=", method,
-					"} due to ", exception.getMessage()));
+					"Unable to register service method ",
+					" {contextName=", contextName, ", contextPath=",
+					contextPath, ", actionObject=", actionObject,
+					", actionClass=", actionClass, ", actionMethod=",
+					actionMethod, ", path=", path, ", method=", method,
+					"}: ", exception.getMessage()));
 		}
 	}
 
