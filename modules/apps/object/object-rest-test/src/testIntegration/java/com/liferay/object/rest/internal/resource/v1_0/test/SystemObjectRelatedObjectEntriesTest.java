@@ -253,6 +253,8 @@ public class SystemObjectRelatedObjectEntriesTest {
 	public void testGetManyToOneSystemObjectRelatedObjectEntries()
 		throws Exception {
 
+		// Default unrelated user
+
 		ObjectRelationship objectRelationship =
 			ObjectRelationshipTestUtil.addObjectRelationship(
 				_objectDefinition, _userSystemObjectDefinition,
@@ -260,8 +262,6 @@ public class SystemObjectRelatedObjectEntriesTest {
 				ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 
 		_objectRelationships.add(objectRelationship);
-
-		// Default unrelated user
 
 		_testGetManyToOneSystemObjectRelatedObjectEntries(
 			StringPool.BLANK, 0, relatedObjectEntryFieldBase,
