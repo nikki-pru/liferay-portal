@@ -150,6 +150,9 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 
 	@Test
 	public void testFreeMarkerNotification() throws Exception {
+
+		// Notification triggered by admin user
+
 		String body = LocalizationUtil.updateLocalization(
 			LocalizedMapUtil.getLocalizedMap(
 				HashMapBuilder.put(
@@ -158,8 +161,6 @@ public class EmailNotificationTypeTest extends BaseNotificationTypeTest {
 						_freeMarkerTermValues.keySet(), StringPool.COMMA)
 				).build()),
 			null, "Body", LanguageUtil.getLanguageId(LocaleUtil.US));
-
-		// Notification triggered by admin user
 
 		_executeNotificationObjectAction(
 			0,
