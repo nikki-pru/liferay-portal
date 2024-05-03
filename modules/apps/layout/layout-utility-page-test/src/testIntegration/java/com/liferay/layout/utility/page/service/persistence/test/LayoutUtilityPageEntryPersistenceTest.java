@@ -298,6 +298,15 @@ public class LayoutUtilityPageEntryPersistenceTest {
 	}
 
 	@Test
+	public void testCountByG_TArrayable() throws Exception {
+		_persistence.countByG_T(
+			RandomTestUtil.nextLong(),
+			new String[] {
+				RandomTestUtil.randomString(), "", "null", null, null
+			});
+	}
+
+	@Test
 	public void testCountByG_D_T() throws Exception {
 		_persistence.countByG_D_T(
 			RandomTestUtil.nextLong(), RandomTestUtil.randomBoolean(), "");
@@ -315,6 +324,24 @@ public class LayoutUtilityPageEntryPersistenceTest {
 		_persistence.countByG_N_T(0L, "null", "null");
 
 		_persistence.countByG_N_T(0L, (String)null, (String)null);
+	}
+
+	@Test
+	public void testCountByG_LikeN_T() throws Exception {
+		_persistence.countByG_LikeN_T(RandomTestUtil.nextLong(), "", "");
+
+		_persistence.countByG_LikeN_T(0L, "null", "null");
+
+		_persistence.countByG_LikeN_T(0L, (String)null, (String)null);
+	}
+
+	@Test
+	public void testCountByG_LikeN_TArrayable() throws Exception {
+		_persistence.countByG_LikeN_T(
+			RandomTestUtil.nextLong(), RandomTestUtil.randomString(),
+			new String[] {
+				RandomTestUtil.randomString(), "", "null", null, null
+			});
 	}
 
 	@Test
