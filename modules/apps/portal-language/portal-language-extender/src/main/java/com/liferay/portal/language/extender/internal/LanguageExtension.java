@@ -110,6 +110,12 @@ public class LanguageExtension {
 					ResourceBundleLoaderUtil.getPortalResourceBundleLoader();
 			}
 
+			if (Validator.isNotNull(serviceRanking)) {
+				attributes.put(
+					Constants.SERVICE_RANKING,
+					GetterUtil.getInteger(serviceRanking));
+			}
+
 			if (Validator.isNull(servletContextName)) {
 				Dictionary<String, String> headers = _bundle.getHeaders(
 					StringPool.BLANK);
@@ -128,12 +134,6 @@ public class LanguageExtension {
 							webContextPath.substring(1));
 					}
 				}
-			}
-
-			if (Validator.isNotNull(serviceRanking)) {
-				attributes.put(
-					Constants.SERVICE_RANKING,
-					GetterUtil.getInteger(serviceRanking));
 			}
 
 			if (resourceBundleLoader != null) {
