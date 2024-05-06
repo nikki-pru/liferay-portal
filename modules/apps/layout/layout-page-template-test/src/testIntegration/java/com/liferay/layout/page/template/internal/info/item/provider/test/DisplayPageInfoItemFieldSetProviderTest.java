@@ -117,6 +117,56 @@ public class DisplayPageInfoItemFieldSetProviderTest {
 
 	@Test
 	public void testGetInfoFieldValues() throws Exception {
+		_assertInfoFieldValues(
+			FriendlyURLResolverConstants.URL_SEPARATOR_X_CUSTOM_ASSET);
+	}
+
+	@FeatureFlags("LPS-203351")
+	@Test
+	public void testGetInfoFieldValuesWithConfiguredURLSeparator()
+		throws Exception {
+
+		String customAssetFriendlyURLSeparator = "/custom-asset-test1";
+
+		try (CompanyConfigurationTemporarySwapper
+				companyConfigurationTemporarySwapper =
+					new CompanyConfigurationTemporarySwapper(
+						_group.getCompanyId(),
+						FriendlyURLSeparatorCompanyConfiguration.class.
+							getName(),
+						HashMapDictionaryBuilder.<String, Object>put(
+							"friendlyURLSeparatorsJSON",
+							JSONUtil.put(
+								JournalArticle.class.getName(),
+								"/journal-test1/"
+							).put(
+								"custom-asset-display-page",
+								customAssetFriendlyURLSeparator +
+									StringPool.SLASH
+							)
+						).build())) {
+
+			_assertInfoFieldValues(customAssetFriendlyURLSeparator);
+		}
+	}
+
+	private void _assertInfoFieldValue(
+			InfoFieldValue<Object> infoFieldValue, String name, String uniqueId,
+			UnsafeConsumer<Object, Exception> unsafeConsumer)
+		throws Exception {
+
+		InfoField infoField = infoFieldValue.getInfoField();
+
+		Assert.assertEquals(name, infoField.getName());
+		Assert.assertEquals(uniqueId, infoField.getUniqueId());
+
+		unsafeConsumer.accept(
+			infoFieldValue.getValue(LocaleUtil.getSiteDefault()));
+	}
+
+	private void _assertInfoFieldValues(String customAssetURLSeparator)
+		throws Exception {
+
 		InfoItemReference infoItemReference = new InfoItemReference(
 			JournalArticle.class.getName(),
 			_journalArticle.getResourcePrimKey());
@@ -129,17 +179,41 @@ public class DisplayPageInfoItemFieldSetProviderTest {
 				_themeDisplay);
 
 		Assert.assertEquals(
-			infoFieldValues.toString(), 2, infoFieldValues.size());
+			infoFieldValues.toString(), 3, infoFieldValues.size());
 
 		_assertInfoFieldValue(
 			infoFieldValues.get(0), "displayPageURL",
+			JournalArticle.class.getSimpleName() + "_displayPageURL",
 			object -> Assert.assertEquals(
 				_assetDisplayPageFriendlyURLProvider.getFriendlyURL(
 					infoItemReference, _journalArticle, _themeDisplay),
 				object));
-
 		_assertInfoFieldValue(
 			infoFieldValues.get(1), _layoutPageTemplateEntry.getName(),
+			LayoutPageTemplateEntry.class.getSimpleName() +
+				StringPool.UNDERLINE +
+					_layoutPageTemplateEntry.getLayoutPageTemplateEntryId(),
+			object -> {
+				Assert.assertTrue(object instanceof WebURL);
+
+				WebURL layoutPageTemplateEntryWebURL = (WebURL)object;
+
+				Assert.assertEquals(
+					StringBundler.concat(
+						_portal.getGroupFriendlyURL(
+							_group.getPublicLayoutSet(), _themeDisplay, false,
+							false),
+						customAssetURLSeparator,
+						_layout.getFriendlyURL(LocaleUtil.getSiteDefault()),
+						StringPool.SLASH, _classNameId, StringPool.SLASH,
+						_journalArticle.getResourcePrimKey()),
+					layoutPageTemplateEntryWebURL.getURL());
+			});
+		_assertInfoFieldValue(
+			infoFieldValues.get(2), _layoutPageTemplateEntry.getName(),
+			LayoutPageTemplateEntry.class.getSimpleName() +
+				StringPool.UNDERLINE +
+					_layoutPageTemplateEntry.getLayoutPageTemplateEntryKey(),
 			object -> {
 				Assert.assertTrue(object instanceof WebURL);
 
@@ -157,19 +231,6 @@ public class DisplayPageInfoItemFieldSetProviderTest {
 						_journalArticle.getResourcePrimKey()),
 					layoutPageTemplateEntryWebURL.getURL());
 			});
-	}
-
-	private void _assertInfoFieldValue(
-			InfoFieldValue<Object> infoFieldValue, String name,
-			UnsafeConsumer<Object, Exception> unsafeConsumer)
-		throws Exception {
-
-		InfoField infoField = infoFieldValue.getInfoField();
-
-		Assert.assertEquals(name, infoField.getName());
-
-		unsafeConsumer.accept(
-			infoFieldValue.getValue(LocaleUtil.getSiteDefault()));
 	}
 
 	private void _setUpThemeDisplay() throws Exception {
