@@ -70,12 +70,6 @@ public class EditableValuesMappingExportImportContentProcessor
 					KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR),
 			exportReferencedContent, portletDataContext, stagedModel);
 
-		_replaceAllEditableExportContentReferences(
-			editableValuesJSONObject.getJSONObject(
-				FragmentEntryProcessorConstants.
-					KEY_FREEMARKER_FRAGMENT_ENTRY_PROCESSOR),
-			exportReferencedContent, portletDataContext, stagedModel);
-
 		return editableValuesJSONObject;
 	}
 
@@ -95,12 +89,6 @@ public class EditableValuesMappingExportImportContentProcessor
 			editableValuesJSONObject.getJSONObject(
 				FragmentEntryProcessorConstants.
 					KEY_EDITABLE_FRAGMENT_ENTRY_PROCESSOR),
-			portletDataContext);
-
-		_replaceAllEditableImportContentReferences(
-			editableValuesJSONObject.getJSONObject(
-				FragmentEntryProcessorConstants.
-					KEY_FREEMARKER_FRAGMENT_ENTRY_PROCESSOR),
 			portletDataContext);
 
 		return editableValuesJSONObject;
