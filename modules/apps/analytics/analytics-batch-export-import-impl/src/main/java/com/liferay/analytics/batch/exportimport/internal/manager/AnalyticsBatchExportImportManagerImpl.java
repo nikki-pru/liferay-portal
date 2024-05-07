@@ -120,7 +120,6 @@ public class AnalyticsBatchExportImportManagerImpl
 		zipOutputStream.putNextEntry(new ZipEntry("export.jsonl"));
 
 		List<BatchEngineExportTask> batchEngineExportTasks = new ArrayList<>();
-
 		boolean skipUpload = true;
 
 		for (String batchEngineExportTaskItemDelegateName :
@@ -204,7 +203,7 @@ public class AnalyticsBatchExportImportManagerImpl
 		}
 		else {
 			_notify(
-				"Skipping resource upload " + resourceName,
+				"Skip uploading resource " + resourceName,
 				notificationUnsafeConsumer);
 		}
 
