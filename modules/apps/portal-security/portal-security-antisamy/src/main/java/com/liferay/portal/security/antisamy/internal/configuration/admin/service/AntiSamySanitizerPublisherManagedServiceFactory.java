@@ -40,11 +40,13 @@ public class AntiSamySanitizerPublisherManagedServiceFactory
 
 	@Override
 	public void deleted(String pid) {
-		if (_sanitizerServiceRegistration != null) {
-			String className = _classNames.get(pid);
-
-			_antiSamySanitizerImpl.removePolicy(className);
+		if (_sanitizerServiceRegistration == null) {
+			return;
 		}
+
+		String className = _classNames.get(pid);
+
+		_antiSamySanitizerImpl.removePolicy(className);
 	}
 
 	@Override
@@ -54,28 +56,30 @@ public class AntiSamySanitizerPublisherManagedServiceFactory
 
 	@Override
 	public void updated(String pid, Dictionary<String, ?> properties) {
-		if (_sanitizerServiceRegistration != null) {
-			AntiSamyClassNameConfiguration antiSamyClassNameConfiguration =
-				ConfigurableUtil.createConfigurable(
-					AntiSamyClassNameConfiguration.class, properties);
-
-			String className = antiSamyClassNameConfiguration.className();
-
-			Bundle bundle = FrameworkUtil.getBundle(
-				AntiSamyClassNameConfiguration.class);
-
-			URL url = bundle.getResource(
-				antiSamyClassNameConfiguration.configurationFileURL());
-
-			if (url == null) {
-				throw new IllegalStateException(
-					"Unable to find " +
-						antiSamyClassNameConfiguration.configurationFileURL());
-			}
-
-			_antiSamySanitizerImpl.addPolicy(className, url);
-			_classNames.put(pid, className);
+		if (_sanitizerServiceRegistration == null) {
+			return;
 		}
+
+		AntiSamyClassNameConfiguration antiSamyClassNameConfiguration =
+			ConfigurableUtil.createConfigurable(
+				AntiSamyClassNameConfiguration.class, properties);
+
+		String className = antiSamyClassNameConfiguration.className();
+
+		Bundle bundle = FrameworkUtil.getBundle(
+			AntiSamyClassNameConfiguration.class);
+
+		URL url = bundle.getResource(
+			antiSamyClassNameConfiguration.configurationFileURL());
+
+		if (url == null) {
+			throw new IllegalStateException(
+				"Unable to find " +
+					antiSamyClassNameConfiguration.configurationFileURL());
+		}
+
+		_antiSamySanitizerImpl.addPolicy(className, url);
+		_classNames.put(pid, className);
 	}
 
 	@Activate
