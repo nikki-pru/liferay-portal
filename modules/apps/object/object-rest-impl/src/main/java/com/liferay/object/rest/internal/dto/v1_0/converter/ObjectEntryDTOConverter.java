@@ -365,6 +365,11 @@ public class ObjectEntryDTOConverter
 									objectField.getBusinessType(),
 									baseModel.getModelAttributes(), objectField,
 									dtoConverterContext.getUser(), values));
+
+							values.putAll(
+								_objectEntryLocalService.
+									getExtensionDynamicObjectDefinitionTableValues(
+										objectDefinition, primaryKey));
 						}
 
 						relatedObjectEntryAtomicReference.set(
