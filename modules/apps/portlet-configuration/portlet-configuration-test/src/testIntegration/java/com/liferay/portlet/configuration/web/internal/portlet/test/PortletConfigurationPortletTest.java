@@ -248,7 +248,7 @@ public class PortletConfigurationPortletTest {
 			portletPreferences.getValue("lfrScopeType", StringPool.BLANK));
 	}
 
-	private String _getDefaultPreferences(HashMap<String, String> preferences) {
+	private String _getDefaultPreferences(Map<String, String> preferences) {
 		StringBundler sb = new StringBundler();
 
 		sb.append("<portlet-preferences>");
@@ -283,7 +283,6 @@ public class PortletConfigurationPortletTest {
 
 		mockActionRequest.setAttribute(
 			WebKeys.THEME_DISPLAY, _getThemeDisplay(layout));
-
 		mockActionRequest.setParameter(
 			"portletResource", _testPortlet.getPortletId());
 		mockActionRequest.setParameter("scope", "company");
@@ -338,11 +337,9 @@ public class PortletConfigurationPortletTest {
 		ThemeDisplay themeDisplay = new ThemeDisplay();
 
 		themeDisplay.setCompany(_company);
-
+		themeDisplay.setLanguageId(LocaleUtil.toLanguageId(_locale));
 		themeDisplay.setLayout(layout);
 		themeDisplay.setLayoutSet(layout.getLayoutSet());
-
-		themeDisplay.setLanguageId(LocaleUtil.toLanguageId(_locale));
 		themeDisplay.setLayoutTypePortlet(
 			(LayoutTypePortlet)layout.getLayoutType());
 		themeDisplay.setLocale(_locale);
