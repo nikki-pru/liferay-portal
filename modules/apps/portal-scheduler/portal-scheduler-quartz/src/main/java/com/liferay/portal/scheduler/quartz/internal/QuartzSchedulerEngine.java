@@ -766,7 +766,7 @@ public class QuartzSchedulerEngine implements SchedulerEngine {
 		QuartzSchedulerEngine.class);
 
 	private static final Snapshot<SchedulerEngineHelper>
-		_schedulerEngineAuditorSnapshot = new Snapshot<>(
+		_schedulerEngineHelperSnapshot = new Snapshot<>(
 			QuartzSchedulerEngine.class, SchedulerEngineHelper.class, null,
 			true);
 
@@ -822,7 +822,7 @@ public class QuartzSchedulerEngine implements SchedulerEngine {
 				JobDataMap jobDataMap = jobDetail.getJobDataMap();
 
 				SchedulerEngineHelper schedulerEngineHelper =
-					_schedulerEngineAuditorSnapshot.get();
+					_schedulerEngineHelperSnapshot.get();
 
 				schedulerEngineHelper.delete(
 					jobKey.getName(), jobKey.getGroup(),
