@@ -13,7 +13,10 @@ const RoleType = ({notificationIndex, updateSelectedItem: _, ...restProps}) => {
 
 	const updateSelectedItem = (values) => {
 		setSelectedItem((previousItem) => {
-			previousItem.data.notifications.recipients[notificationIndex] = {
+			previousItem.data.notifications.recipients[notificationIndex][0] = {
+				...previousItem.data.notifications.recipients[
+					notificationIndex
+				][0],
 				assignmentType: ['roleType'],
 				autoCreate: values.map(({autoCreate}) => autoCreate),
 				roleKey: values.map(({roleKey}) => roleKey),
@@ -21,7 +24,7 @@ const RoleType = ({notificationIndex, updateSelectedItem: _, ...restProps}) => {
 				roleType: values.map(({roleType}) => roleType),
 			};
 
-			return previousItem;
+			return {...previousItem};
 		});
 	};
 

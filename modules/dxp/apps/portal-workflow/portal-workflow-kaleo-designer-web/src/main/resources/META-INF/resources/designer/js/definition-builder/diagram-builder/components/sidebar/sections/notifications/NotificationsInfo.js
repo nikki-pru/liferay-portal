@@ -187,15 +187,15 @@ const NotificationsInfo = ({
 
 	const scriptedRecipientUpdateSelectedItem = ({target}) => {
 		setSelectedItem((previousItem) => {
-			previousItem.data.notifications.recipients[notificationIndex] = {
+			previousItem.data.notifications.recipients[notificationIndex][0] = {
 				...previousItem.data.notifications.recipients[
 					notificationIndex
-				],
+				][0],
 				assignmentType: ['scriptedRecipient'],
 				script: [target.value],
 			};
 
-			return previousItem;
+			return {...previousItem};
 		});
 	};
 
@@ -268,9 +268,11 @@ const NotificationsInfo = ({
 					notificationTypes: initialValues.notificationTypesValues,
 					recipients: !previousItem.data.notifications?.recipients
 						? [
-								{
-									assignmentType: ['user'],
-								},
+								[
+									{
+										assignmentType: ['user'],
+									},
+								],
 						  ]
 						: [...previousItem.data.notifications.recipients],
 					template: initialValues.templateValues,
@@ -363,11 +365,11 @@ const NotificationsInfo = ({
 					if (
 						selectedItem.data.notifications.recipients[
 							notificationIndex
-						]
+						]?.[0]
 					) {
 						delete selectedItem.data.notifications?.recipients?.[
 							notificationIndex
-						].emailAddress;
+						][0].emailAddress;
 					}
 				}
 				else if (recipientType === 'taskAssignees') {
@@ -381,24 +383,24 @@ const NotificationsInfo = ({
 				if (
 					previousItem.data.notifications.recipients[
 						notificationIndex
-					]
+					]?.[0]
 				) {
 					previousItem.data.notifications.recipients[
 						notificationIndex
-					] = {
+					][0] = {
 						...previousItem.data.notifications.recipients[
 							notificationIndex
-						],
+						][0],
 						...currentRecipient,
 					};
 				}
 				else {
 					previousItem.data.notifications.recipients[
 						notificationIndex
-					] = currentRecipient;
+					] = [currentRecipient];
 				}
 
-				return previousItem;
+				return {...previousItem};
 			});
 		}
 
@@ -605,17 +607,17 @@ const NotificationsInfo = ({
 										setSelectedItem((previousItem) => {
 											previousItem.data.notifications.recipients[
 												notificationIndex
-											] = {
+											][0] = {
 												...previousItem.data
 													.notifications.recipients[
 													notificationIndex
-												],
+												][0],
 												scriptLanguage: [
 													scriptLanguage,
 												],
 											};
 
-											return previousItem;
+											return {...previousItem};
 										})
 									}
 									index={index}
