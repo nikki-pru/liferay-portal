@@ -21,6 +21,13 @@ public interface SchedulerEngineHelper {
 			String language, String script)
 		throws SchedulerException;
 
+	public default void auditSchedulerJobs(
+			Message message, TriggerState triggerState)
+		throws SchedulerException {
+
+		throw new UnsupportedOperationException();
+	}
+
 	public void delete(String groupName, StorageType storageType)
 		throws SchedulerException;
 
