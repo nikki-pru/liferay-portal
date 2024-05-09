@@ -449,7 +449,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "Authentication failed. Please try again.");
+				value1 = "Authentication failed due to incorrect credentials or account lockout. Click \"Forgot Password\" if the correct credentials were provided.");
 
 			Navigator.openURL();
 
@@ -1262,7 +1262,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "Authentication failed. Please try again.");
+				value1 = "Authentication failed due to incorrect credentials or account lockout. Click \"Forgot Password\" if the correct credentials were provided.");
 		}
 
 		task ("Then: The sign in action LOGIN_DNE info audit event message is written out to the log with the reason of the failure") {
@@ -1325,7 +1325,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "Authentication failed. Please try again.");
+				value1 = "Authentication failed due to incorrect credentials or account lockout. Click \"Forgot Password\" if the correct credentials were provided.");
 		}
 
 		task ("Then: The sign in action LOGIN_FAILURE info audit event message is written out to the log with the reason of the failure") {
@@ -1391,7 +1391,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "Authentication failed. Please try again.");
+				value1 = "Authentication failed due to incorrect credentials or account lockout. Click \"Forgot Password\" if the correct credentials were provided.");
 		}
 
 		task ("Then: The sign in action LOGIN_DNE info audit event message is written out to the log with the reason of the failure") {
@@ -1445,7 +1445,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "Authentication failed. Please try again.");
+				value1 = "Authentication failed due to incorrect credentials or account lockout. Click \"Forgot Password\" if the correct credentials were provided.");
 		}
 
 		task ("Then: The sign in action LOGIN_FAILURE info audit event message is written out to the log with the reason of the failure") {
@@ -1509,7 +1509,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "Authentication failed. Please try again.");
+				value1 = "Authentication failed due to incorrect credentials or account lockout. Click \"Forgot Password\" if the correct credentials were provided.");
 		}
 
 		task ("Then: The sign in action LOGIN_FAILURE info audit event message is written out to the log with the reason of the failure") {
@@ -1576,7 +1576,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "Authentication failed. Please try again.");
+				value1 = "Authentication failed due to incorrect credentials or account lockout. Click \"Forgot Password\" if the correct credentials were provided.");
 		}
 
 		task ("Then: The sign in action LOGIN_FAILURE info audit event message is written out to the log with the reason of the failure") {
@@ -1647,7 +1647,7 @@ definition {
 
 			AssertTextEquals.assertPartialText(
 				locator1 = "Message#ERROR_DISMISSIBLE",
-				value1 = "Authentication failed. Please try again.");
+				value1 = "Authentication failed due to incorrect credentials or account lockout. Click \"Forgot Password\" if the correct credentials were provided.");
 		}
 
 		task ("Then: The sign in action LOGIN_FAILURE info audit event message is written out to the log with the reason of the failure") {
