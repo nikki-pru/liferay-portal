@@ -7,7 +7,10 @@ package com.liferay.headless.delivery.resource.v1_0.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
 import com.liferay.document.library.kernel.model.DLFileEntry;
+import com.liferay.document.library.kernel.model.DLFolder;
+import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLAppLocalServiceUtil;
+import com.liferay.document.library.kernel.service.DLFolderLocalService;
 import com.liferay.headless.delivery.client.dto.v1_0.Creator;
 import com.liferay.headless.delivery.client.dto.v1_0.Document;
 import com.liferay.headless.delivery.client.http.HttpInvoker;
@@ -33,6 +36,7 @@ import com.liferay.portal.kernel.test.constants.TestDataConstants;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
 import com.liferay.portal.kernel.test.util.ServiceContextTestUtil;
+import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.test.util.UserTestUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
@@ -197,6 +201,32 @@ public class DocumentResourceTest extends BaseDocumentResourceTestCase {
 			Arrays.asList(document1, document2),
 			Arrays.asList(
 				DocumentSerDes.toDTOs(documentsJSONObject.getString("items"))));
+	}
+
+	@Override
+	@Test
+	public void testPutSiteDocumentByExternalReferenceCode() throws Exception {
+		super.testPutSiteDocumentByExternalReferenceCode();
+
+		DLFolder dlFolder = _dlFolderLocalService.addFolder(
+			null, TestPropsValues.getUserId(), testGroup.getGroupId(),
+			testGroup.getGroupId(), false,
+			DLFolderConstants.DEFAULT_PARENT_FOLDER_ID,
+			RandomTestUtil.randomString(), RandomTestUtil.randomString(), false,
+			ServiceContextTestUtil.getServiceContext(testGroup.getGroupId()));
+
+		Document randomDocument = randomDocument();
+
+		randomDocument.setDocumentFolderId(dlFolder.getFolderId());
+
+		Document putDocument =
+			documentResource.putSiteDocumentByExternalReferenceCode(
+				randomDocument.getSiteId(),
+				randomDocument.getExternalReferenceCode(), randomDocument,
+				getMultipartFiles());
+
+		Assert.assertEquals(
+			(Long)dlFolder.getFolderId(), putDocument.getDocumentFolderId());
 	}
 
 	@Override
@@ -376,6 +406,9 @@ public class DocumentResourceTest extends BaseDocumentResourceTestCase {
 
 		return httpResponse.getContent();
 	}
+
+	@Inject
+	private DLFolderLocalService _dlFolderLocalService;
 
 	@Inject
 	private LayoutPageTemplateEntryLocalService
