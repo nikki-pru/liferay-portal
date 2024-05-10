@@ -170,9 +170,6 @@ public class GetPagePreviewStrutsActionTest {
 		MockHttpServletRequest mockHttpServletRequest =
 			new MockHttpServletRequest();
 
-		mockHttpServletRequest.setAttribute(
-			WebKeys.THEME_DISPLAY, _themeDisplay);
-
 		mockHttpServletRequest.addParameter(
 			"segmentsExperienceId",
 			String.valueOf(
@@ -181,7 +178,6 @@ public class GetPagePreviewStrutsActionTest {
 						_fragmentEntryLink.getPlid())));
 		mockHttpServletRequest.addParameter(
 			"selPlid", String.valueOf(_fragmentEntryLink.getPlid()));
-
 		mockHttpServletRequest.setAttribute(
 			WebKeys.THEME_DISPLAY, _themeDisplay);
 		mockHttpServletRequest.setMethod(HttpMethods.GET);
