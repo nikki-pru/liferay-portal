@@ -74,7 +74,6 @@ public class RankingJSONStorageEntryUpgradeProcess extends UpgradeProcess {
 
 				preparedStatement2.setLong(
 					3, resultSet.getLong("ctCollectionId"));
-
 				preparedStatement2.setLong(
 					4, resultSet.getLong("jsonStorageEntryId"));
 
