@@ -182,9 +182,9 @@ public class GetPagePreviewStrutsActionTest {
 			WebKeys.THEME_DISPLAY, _themeDisplay);
 		mockHttpServletRequest.setMethod(HttpMethods.GET);
 
-		_themeDisplay.setRequest(mockHttpServletRequest);
-
 		_serviceContext.setRequest(mockHttpServletRequest);
+
+		_themeDisplay.setRequest(mockHttpServletRequest);
 
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
