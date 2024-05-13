@@ -285,7 +285,6 @@ public class LayoutPageTemplateStructureRelUpgradeProcess
 
 			while (resultSet.next()) {
 				long ctCollectionId = resultSet.getLong("ctCollectionId");
-
 				long layoutPageTemplateStructureRelId = resultSet.getLong(
 					"lPageTemplateStructureRelId");
 
@@ -294,7 +293,6 @@ public class LayoutPageTemplateStructureRelUpgradeProcess
 				preparedStatement.setString(1, _upgradeLayoutData(data));
 
 				preparedStatement.setLong(2, ctCollectionId);
-
 				preparedStatement.setLong(3, layoutPageTemplateStructureRelId);
 
 				preparedStatement.addBatch();
