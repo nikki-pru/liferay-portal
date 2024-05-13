@@ -67,7 +67,7 @@ public class EmptyResult implements Externalizable {
 
 			if ((start == end) && (start != QueryUtil.ALL_POS)) {
 
-				// Defense for on purpose empty page.
+				// Account for a empty page
 
 				args = Arrays.copyOf(args, args.length - 1);
 

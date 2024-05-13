@@ -44,14 +44,13 @@ public class EmptyResultTest {
 	@Test
 	public void testPlainMatch() {
 
-		// 3 args and last is not OrderByComparator
+		// 3 args and last is not an OrderByComparator
 
 		Object[] args = {1, "test", new Date()};
 
 		EmptyResult emptyResult = new EmptyResult(args);
 
 		Assert.assertTrue(emptyResult.matches(args));
-
 		Assert.assertFalse(emptyResult.matches(Arrays.copyOf(args, 2)));
 
 		args = Arrays.copyOf(args, args.length);
@@ -74,7 +73,7 @@ public class EmptyResultTest {
 
 		Assert.assertFalse(emptyResult.matches(args));
 
-		// start is not int
+		// Start is not an intenger
 
 		args = new Object[] {
 			1, "test", 1L, 2,
@@ -97,7 +96,7 @@ public class EmptyResultTest {
 
 		Assert.assertTrue(emptyResult.matches(args));
 
-		// end is not int
+		// End is not an intenger
 
 		args = new Object[] {
 			1, "test", 1, 2L,
@@ -163,7 +162,7 @@ public class EmptyResultTest {
 	@Test
 	public void testStripPaginationDefenseEmptyPageMatch() {
 
-		// start = 2 and end = 2 is stripped to start = 0 and end = 0
+		// Start 2 and end 2 stripped to start 0 and end 0
 
 		Object[] args = {
 			1, "test", new Date(), 2, 2,
@@ -188,7 +187,7 @@ public class EmptyResultTest {
 
 		Assert.assertTrue(emptyResult.matches(args));
 
-		// Match with start = 5 and end = 5
+		// Start 5 and end 5
 
 		args = Arrays.copyOf(args, args.length);
 
@@ -197,7 +196,7 @@ public class EmptyResultTest {
 
 		Assert.assertTrue(emptyResult.matches(args));
 
-		// Not match with no start/end
+		// No start and end
 
 		Assert.assertFalse(emptyResult.matches(Arrays.copyOf(args, 3)));
 	}
@@ -205,7 +204,7 @@ public class EmptyResultTest {
 	@Test
 	public void testStripPaginationMatch() {
 
-		// Strip away pagination parameters
+		// Strip pagination
 
 		Object[] args = {
 			1, "test", new Date(), 1, 2,
@@ -228,7 +227,7 @@ public class EmptyResultTest {
 
 		Assert.assertTrue(emptyResult.matches(args));
 
-		// Match with different OrderByComparator
+		// Different OrderByComparator
 
 		args = Arrays.copyOf(args, args.length);
 
@@ -243,26 +242,26 @@ public class EmptyResultTest {
 
 		Assert.assertTrue(emptyResult.matches(args));
 
-		// Match with start = 3 and end = 5
+		// Start 3 and end 5
 
 		args[4] = 5;
 		args[3] = 3;
 
 		Assert.assertTrue(emptyResult.matches(args));
 
-		// Not match with diffent 1st parameter
+		// Different first parameter
 
 		args[0] = 2;
 
 		Assert.assertFalse(emptyResult.matches(args));
 
-		// Match with no pagination args
+		// No pagination
 
 		args[0] = 1;
 
 		Assert.assertTrue(emptyResult.matches(Arrays.copyOf(args, 3)));
 
-		// start = QueryUtil.ALL_POS and end = QueryUtil.ALL_POS is stripped
+		// Strip start QueryUtil.ALL_POS and end QueryUtil.ALL_POS
 
 		args = new Object[] {
 			1, "test", new Date(), QueryUtil.ALL_POS, QueryUtil.ALL_POS,
