@@ -3594,7 +3594,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.store.s3.jar!aws-java-sdk-core.jar</file-name>
-				<version>1.12.262</version>
+				<version>1.12.719</version>
 				<project-name>AWS SDK for Java - Core</project-name>
 				<project-url>https://aws.amazon.com/sdkforjava</project-url>
 				<licenses>
@@ -3606,7 +3606,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.store.s3.jar!aws-java-sdk-kms.jar</file-name>
-				<version>1.12.262</version>
+				<version>1.12.719</version>
 				<project-name>AWS Java SDK for AWS KMS</project-name>
 				<project-url>https://aws.amazon.com/sdkforjava</project-url>
 				<licenses>
@@ -3618,7 +3618,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.store.s3.jar!aws-java-sdk-s3.jar</file-name>
-				<version>1.12.262</version>
+				<version>1.12.719</version>
 				<project-name>AWS Java SDK for Amazon S3</project-name>
 				<project-url>https://aws.amazon.com/sdkforjava</project-url>
 				<licenses>
@@ -3657,18 +3657,6 @@
 				<version>2.9.0</version>
 				<project-name>IBM COS Java SDK for Amazon S3</project-name>
 				<project-url>https://github.com/ibm/ibm-cos-sdk-java</project-url>
-				<licenses>
-					<license>
-						<license-name>The Apache License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
-				<file-name>com.liferay.portal.store.s3.jar!ion-java.jar</file-name>
-				<version>1.1.0</version>
-				<project-name>software.amazon.ion:ion-java</project-name>
-				<project-url>https://github.com/amzn/ion-java/</project-url>
 				<licenses>
 					<license>
 						<license-name>The Apache License, Version 2.0</license-name>
