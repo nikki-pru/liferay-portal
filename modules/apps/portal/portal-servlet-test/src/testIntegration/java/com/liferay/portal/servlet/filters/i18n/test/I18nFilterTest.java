@@ -146,11 +146,10 @@ public class I18nFilterTest {
 
 		Assert.assertNull(
 			_getPrependI18nLanguageId(
-				3, null, null, null, null, LocaleUtil.US));
-
+				3, null, null, null, null, LocaleUtil.ENGLISH));
 		Assert.assertNull(
 			_getPrependI18nLanguageId(
-				3, null, null, null, null, LocaleUtil.ENGLISH));
+				3, null, null, null, null, LocaleUtil.US));
 	}
 
 	@Test
