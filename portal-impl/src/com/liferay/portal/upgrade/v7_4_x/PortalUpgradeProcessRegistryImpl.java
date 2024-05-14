@@ -393,13 +393,13 @@ public class PortalUpgradeProcessRegistryImpl
 		upgradeVersionTreeMap.put(
 			new Version(30, 0, 2),
 			UpgradeProcessFactory.alterColumnType(
-				"User_", "password_", "VARCHAR(255) null"),
-			//
-			UpgradeProcessFactory.alterColumnType(
 				"PasswordTracker", "password_", "VARCHAR(255) null"),
 			//
 			UpgradeProcessFactory.alterColumnType(
-				"Ticket", "key_", "VARCHAR(255) null"));
+				"Ticket", "key_", "VARCHAR(255) null"),
+			//
+			UpgradeProcessFactory.alterColumnType(
+				"User_", "password_", "VARCHAR(255) null"));
 	}
 
 }
