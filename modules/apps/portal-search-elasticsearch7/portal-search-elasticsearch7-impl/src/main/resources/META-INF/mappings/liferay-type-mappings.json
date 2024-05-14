@@ -1552,6 +1552,11 @@
 		},
 		"assetTagNames": {
 			"fields": {
+				"lowercase": {
+					"normalizer": "lowercase",
+					"store": true,
+					"type": "keyword"
+				},
 				"raw": {
 					"store": true,
 					"type": "keyword"
@@ -1743,10 +1748,6 @@
 			"type": "keyword"
 		},
 		"leftOrganizationId": {
-			"store": true,
-			"type": "keyword"
-		},
-		"lowerCaseAssetTagNames": {
 			"store": true,
 			"type": "keyword"
 		},

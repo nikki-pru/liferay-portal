@@ -121,7 +121,7 @@ public class BaseBatchEngineTaskExecutorTest {
 			_entityFieldsMap = EntityModel.toEntityFieldsMap(
 				new CollectionEntityField(
 					new StringEntityField(
-						"keywords", locale -> "lowerCaseAssetTagNames")),
+						"keywords", locale -> "assetTagNames.lowercase")),
 				new CollectionEntityField(
 					new IntegerEntityField(
 						"taxonomyCategoryIds", locale -> "assetCategoryIds")),
