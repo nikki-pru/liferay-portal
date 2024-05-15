@@ -45,7 +45,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.elasticsearch.action.admin.indices.create.CreateIndexRequest;
 import org.elasticsearch.action.admin.indices.delete.DeleteIndexRequest;
 import org.elasticsearch.action.get.GetRequest;
 import org.elasticsearch.action.get.GetResponse;
@@ -54,6 +53,7 @@ import org.elasticsearch.action.support.WriteRequest;
 import org.elasticsearch.client.IndicesClient;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.rest.RestStatus;
 import org.elasticsearch.xcontent.XContentType;
 
@@ -636,8 +636,7 @@ public class ElasticsearchSearchEngineAdapterDocumentRequestTest {
 		CreateIndexRequest createIndexRequest = new CreateIndexRequest(
 			_INDEX_NAME);
 
-		createIndexRequest.mapping(
-			_MAPPING_NAME, _MAPPING_SOURCE, XContentType.JSON);
+		createIndexRequest.mapping(_MAPPING_SOURCE, XContentType.JSON);
 
 		try {
 			_indicesClient.create(createIndexRequest, RequestOptions.DEFAULT);
