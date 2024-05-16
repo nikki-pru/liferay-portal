@@ -559,6 +559,14 @@ public abstract class BaseCategoryResourceTestCase {
 				continue;
 			}
 
+			if (Objects.equals("title", additionalAssertFieldName)) {
+				if (category.getTitle() == null) {
+					valid = false;
+				}
+
+				continue;
+			}
+
 			if (Objects.equals("vocabulary", additionalAssertFieldName)) {
 				if (category.getVocabulary() == null) {
 					valid = false;
@@ -713,6 +721,16 @@ public abstract class BaseCategoryResourceTestCase {
 			if (Objects.equals("name", additionalAssertFieldName)) {
 				if (!Objects.deepEquals(
 						category1.getName(), category2.getName())) {
+
+					return false;
+				}
+
+				continue;
+			}
+
+			if (Objects.equals("title", additionalAssertFieldName)) {
+				if (!equals(
+						(Map)category1.getTitle(), (Map)category2.getTitle())) {
 
 					return false;
 				}
@@ -935,6 +953,11 @@ public abstract class BaseCategoryResourceTestCase {
 		}
 
 		if (entityFieldName.equals("siteId")) {
+			throw new IllegalArgumentException(
+				"Invalid entity field " + entityFieldName);
+		}
+
+		if (entityFieldName.equals("title")) {
 			throw new IllegalArgumentException(
 				"Invalid entity field " + entityFieldName);
 		}
