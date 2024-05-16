@@ -159,8 +159,8 @@ public class SpecificationResourceImpl extends BaseSpecificationResourceImpl {
 				_getCPOptionCategoryId(specification),
 				LanguageUtils.getLocalizedMap(specification.getTitle()),
 				LanguageUtils.getLocalizedMap(specification.getDescription()),
-				_isFacetable(specification), specificationKey,
-				_serviceContextHelper.getServiceContext());
+				GetterUtil.getBoolean(specification.getFacetable()),
+				specificationKey, _serviceContextHelper.getServiceContext());
 
 		return _toSpecification(
 			cpSpecificationOption.getCPSpecificationOptionId());
@@ -174,16 +174,6 @@ public class SpecificationResourceImpl extends BaseSpecificationResourceImpl {
 		}
 
 		return optionCategory.getId();
-	}
-
-	private boolean _isFacetable(Specification specification) {
-		boolean facetable = false;
-
-		if (specification.getFacetable() != null) {
-			facetable = specification.getFacetable();
-		}
-
-		return facetable;
 	}
 
 	private Specification _toSpecification(Long cpSpecificationOptionId)
@@ -210,8 +200,8 @@ public class SpecificationResourceImpl extends BaseSpecificationResourceImpl {
 			LanguageUtils.getLocalizedMap(specification.getTitle()),
 			LanguageUtils.getLocalizedMap(specification.getDescription()),
 			GetterUtil.getBoolean(
-				cpSpecificationOption.isFacetable(),
-				_isFacetable(specification)),
+				specification.getFacetable(),
+				cpSpecificationOption.isFacetable()),
 			GetterUtil.getString(
 				specification.getKey(), cpSpecificationOption.getKey()),
 			_serviceContextHelper.getServiceContext());
@@ -233,7 +223,10 @@ public class SpecificationResourceImpl extends BaseSpecificationResourceImpl {
 			_getCPOptionCategoryId(specification),
 			LanguageUtils.getLocalizedMap(specification.getTitle()),
 			LanguageUtils.getLocalizedMap(specification.getDescription()),
-			_isFacetable(specification), key, serviceContext);
+			GetterUtil.getBoolean(
+				specification.getFacetable(),
+				cpSpecificationOption.isFacetable()),
+			key, serviceContext);
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
