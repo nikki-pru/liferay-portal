@@ -22,6 +22,7 @@ export class ApplicationsMenuPage {
 	private readonly objectsMenuItem: Locator;
 	readonly page: Page;
 	private readonly processBuilderItem: Locator;
+	private readonly serviceAccountsItem: Locator;
 	private readonly usersAndOrganizationsItem: Locator;
 	private readonly sitesItem: Locator;
 	private readonly systemSettingsItem: Locator;
@@ -74,6 +75,10 @@ export class ApplicationsMenuPage {
 		this.processBuilderItem = page.getByRole('menuitem', {
 			exact: true,
 			name: 'Process Builder',
+		});
+		this.serviceAccountsItem = page.getByRole('menuitem', {
+			exact: true,
+			name: 'Service Accounts',
 		});
 		this.serverAdministrationItem = page.getByRole('link', {
 			exact: true,
@@ -183,6 +188,12 @@ export class ApplicationsMenuPage {
 	async goToProcessBuilder() {
 		await this.goToApplicationsMenu();
 		await this.processBuilderItem.click();
+	}
+
+	async goToServiceAccounts() {
+		await this.goto();
+		await this.controlPanelButton.click();
+		await this.serviceAccountsItem.click();
 	}
 
 	async goToUsersAndOrganizations() {
