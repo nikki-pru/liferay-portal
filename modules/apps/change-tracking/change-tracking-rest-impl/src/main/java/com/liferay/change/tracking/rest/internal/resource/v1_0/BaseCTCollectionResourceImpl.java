@@ -285,7 +285,7 @@ public abstract class BaseCTCollectionResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/ct-collections/by-external-reference-code/{externalReferenceCode}"
+		"/ct-collections/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -315,7 +315,7 @@ public abstract class BaseCTCollectionResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/ct-collections/by-external-reference-code/{externalReferenceCode}"
+		"/ct-collections/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -348,7 +348,7 @@ public abstract class BaseCTCollectionResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/ct-collections/by-external-reference-code/{externalReferenceCode}"
+		"/ct-collections/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -380,7 +380,7 @@ public abstract class BaseCTCollectionResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CTCollection")}
 	)
 	@javax.ws.rs.Path(
-		"/ct-collections/by-external-reference-code/{externalReferenceCode}/publish"
+		"/ct-collections/by-external-reference-code/{externalReferenceCode: .+}/publish"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -414,7 +414,7 @@ public abstract class BaseCTCollectionResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "CTCollection")}
 	)
 	@javax.ws.rs.Path(
-		"/ct-collections/by-external-reference-code/{externalReferenceCode}/schedule-publish"
+		"/ct-collections/by-external-reference-code/{externalReferenceCode: .+}/schedule-publish"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -448,7 +448,7 @@ public abstract class BaseCTCollectionResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/ct-collections/by-external-reference-code/{externalReferenceCode}/share-link"
+		"/ct-collections/by-external-reference-code/{externalReferenceCode: .+}/share-link"
 	)
 	@javax.ws.rs.Produces("text/plain")
 	@Override

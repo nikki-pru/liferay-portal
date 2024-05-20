@@ -276,7 +276,7 @@ public abstract class BaseOrderResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}"
+		"/orders/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -310,7 +310,7 @@ public abstract class BaseOrderResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}"
+		"/orders/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -343,7 +343,7 @@ public abstract class BaseOrderResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}"
+		"/orders/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override

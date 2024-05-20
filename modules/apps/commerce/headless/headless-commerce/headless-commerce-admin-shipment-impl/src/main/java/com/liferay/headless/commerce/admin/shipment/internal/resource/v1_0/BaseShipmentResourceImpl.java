@@ -277,7 +277,7 @@ public abstract class BaseShipmentResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -310,7 +310,7 @@ public abstract class BaseShipmentResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -343,7 +343,7 @@ public abstract class BaseShipmentResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -423,7 +423,7 @@ public abstract class BaseShipmentResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -456,7 +456,7 @@ public abstract class BaseShipmentResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Shipment")}
 	)
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}/status-delivered"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}/status-delivered"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -488,7 +488,7 @@ public abstract class BaseShipmentResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Shipment")}
 	)
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}/status-finish-processing"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}/status-finish-processing"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -520,7 +520,7 @@ public abstract class BaseShipmentResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "Shipment")}
 	)
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}/status-shipped"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}/status-shipped"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

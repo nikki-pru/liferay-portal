@@ -177,7 +177,7 @@ public abstract class BaseWarehouseOrderTypeResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/warehouses/by-externalReferenceCode/{externalReferenceCode}/warehouse-order-types"
+		"/warehouses/by-externalReferenceCode/{externalReferenceCode: .+}/warehouse-order-types"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -213,7 +213,7 @@ public abstract class BaseWarehouseOrderTypeResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/warehouses/by-externalReferenceCode/{externalReferenceCode}/warehouse-order-types"
+		"/warehouses/by-externalReferenceCode/{externalReferenceCode: .+}/warehouse-order-types"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

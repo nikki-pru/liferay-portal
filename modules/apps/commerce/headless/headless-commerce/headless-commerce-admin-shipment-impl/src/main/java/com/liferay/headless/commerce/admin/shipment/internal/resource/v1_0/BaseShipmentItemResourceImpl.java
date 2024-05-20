@@ -90,7 +90,7 @@ public abstract class BaseShipmentItemResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/shipment-items/by-externalReferenceCode/{externalReferenceCode}"
+		"/shipment-items/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -120,7 +120,7 @@ public abstract class BaseShipmentItemResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/shipment-items/by-externalReferenceCode/{externalReferenceCode}"
+		"/shipment-items/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -153,7 +153,7 @@ public abstract class BaseShipmentItemResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/shipment-items/by-externalReferenceCode/{externalReferenceCode}"
+		"/shipment-items/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -328,7 +328,7 @@ public abstract class BaseShipmentItemResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}/items"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}/items"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -361,7 +361,7 @@ public abstract class BaseShipmentItemResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/shipments/by-externalReferenceCode/{externalReferenceCode}/items"
+		"/shipments/by-externalReferenceCode/{externalReferenceCode: .+}/items"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT

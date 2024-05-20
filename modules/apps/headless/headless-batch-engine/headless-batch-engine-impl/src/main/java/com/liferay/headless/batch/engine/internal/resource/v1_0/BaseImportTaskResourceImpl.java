@@ -67,7 +67,7 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/import-task/by-external-reference-code/{externalReferenceCode}"
+		"/import-task/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -102,7 +102,7 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/import-task/by-external-reference-code/{externalReferenceCode}/content"
+		"/import-task/by-external-reference-code/{externalReferenceCode: .+}/content"
 	)
 	@javax.ws.rs.Produces("application/octet-stream")
 	@Override
@@ -136,7 +136,7 @@ public abstract class BaseImportTaskResourceImpl implements ImportTaskResource {
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/import-task/by-external-reference-code/{externalReferenceCode}/failed-items/report"
+		"/import-task/by-external-reference-code/{externalReferenceCode: .+}/failed-items/report"
 	)
 	@javax.ws.rs.Produces("application/octet-stream")
 	@Override

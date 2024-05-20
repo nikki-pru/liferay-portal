@@ -67,7 +67,7 @@ public abstract class BaseSkuSubscriptionConfigurationResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/skus/by-externalReferenceCode/{externalReferenceCode}/skuSubscriptionConfiguration"
+		"/skus/by-externalReferenceCode/{externalReferenceCode: .+}/skuSubscriptionConfiguration"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override

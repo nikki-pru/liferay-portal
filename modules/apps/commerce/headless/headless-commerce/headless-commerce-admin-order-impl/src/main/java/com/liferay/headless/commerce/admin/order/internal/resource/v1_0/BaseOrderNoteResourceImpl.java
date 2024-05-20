@@ -90,7 +90,7 @@ public abstract class BaseOrderNoteResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/orderNotes/by-externalReferenceCode/{externalReferenceCode}"
+		"/orderNotes/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -124,7 +124,7 @@ public abstract class BaseOrderNoteResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/orderNotes/by-externalReferenceCode/{externalReferenceCode}"
+		"/orderNotes/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -157,7 +157,7 @@ public abstract class BaseOrderNoteResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/orderNotes/by-externalReferenceCode/{externalReferenceCode}"
+		"/orderNotes/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -337,7 +337,7 @@ public abstract class BaseOrderNoteResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/orderNotes"
+		"/orders/by-externalReferenceCode/{externalReferenceCode: .+}/orderNotes"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -370,7 +370,7 @@ public abstract class BaseOrderNoteResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/orders/by-externalReferenceCode/{externalReferenceCode}/orderNotes"
+		"/orders/by-externalReferenceCode/{externalReferenceCode: .+}/orderNotes"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

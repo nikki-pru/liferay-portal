@@ -68,7 +68,7 @@ public abstract class BaseProductTaxConfigurationResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/taxConfiguration"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/taxConfiguration"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -106,7 +106,7 @@ public abstract class BaseProductTaxConfigurationResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/taxConfiguration"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/taxConfiguration"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override

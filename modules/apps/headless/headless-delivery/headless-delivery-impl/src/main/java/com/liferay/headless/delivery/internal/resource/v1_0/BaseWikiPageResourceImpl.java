@@ -112,7 +112,7 @@ public abstract class BaseWikiPageResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/sites/{siteId}/wiki-pages/by-external-reference-code/{externalReferenceCode}"
+		"/sites/{siteId}/wiki-pages/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -165,7 +165,7 @@ public abstract class BaseWikiPageResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/sites/{siteId}/wiki-pages/by-external-reference-code/{externalReferenceCode}"
+		"/sites/{siteId}/wiki-pages/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -208,7 +208,7 @@ public abstract class BaseWikiPageResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/sites/{siteId}/wiki-pages/by-external-reference-code/{externalReferenceCode}"
+		"/sites/{siteId}/wiki-pages/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT

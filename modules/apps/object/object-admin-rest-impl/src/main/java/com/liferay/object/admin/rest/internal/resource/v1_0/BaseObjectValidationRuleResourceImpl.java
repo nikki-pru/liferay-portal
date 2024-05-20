@@ -110,7 +110,7 @@ public abstract class BaseObjectValidationRuleResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/object-definitions/by-external-reference-code/{externalReferenceCode}/object-validation-rules"
+		"/object-definitions/by-external-reference-code/{externalReferenceCode: .+}/object-validation-rules"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -152,7 +152,7 @@ public abstract class BaseObjectValidationRuleResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/object-definitions/by-external-reference-code/{externalReferenceCode}/object-validation-rules"
+		"/object-definitions/by-external-reference-code/{externalReferenceCode: .+}/object-validation-rules"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

@@ -299,7 +299,7 @@ public abstract class BaseObjectEntryResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "ObjectEntry")}
 	)
 	@javax.ws.rs.Path(
-		"/by-external-reference-code/{currentExternalReferenceCode}/{objectRelationshipName}/{relatedExternalReferenceCode}"
+		"/by-external-reference-code/{currentExternalReferenceCode: .+}/{objectRelationshipName}/{relatedExternalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -335,7 +335,7 @@ public abstract class BaseObjectEntryResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "ObjectEntry")}
 	)
 	@javax.ws.rs.DELETE
-	@javax.ws.rs.Path("/by-external-reference-code/{externalReferenceCode}")
+	@javax.ws.rs.Path("/by-external-reference-code/{externalReferenceCode: .+}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
 	public void deleteByExternalReferenceCode(
@@ -370,7 +370,7 @@ public abstract class BaseObjectEntryResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "ObjectEntry")}
 	)
 	@javax.ws.rs.GET
-	@javax.ws.rs.Path("/by-external-reference-code/{externalReferenceCode}")
+	@javax.ws.rs.Path("/by-external-reference-code/{externalReferenceCode: .+}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
 	public ObjectEntry getByExternalReferenceCode(
@@ -396,7 +396,7 @@ public abstract class BaseObjectEntryResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
-	@javax.ws.rs.Path("/by-external-reference-code/{externalReferenceCode}")
+	@javax.ws.rs.Path("/by-external-reference-code/{externalReferenceCode: .+}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
 	public ObjectEntry patchByExternalReferenceCode(
@@ -459,7 +459,7 @@ public abstract class BaseObjectEntryResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "ObjectEntry")}
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
-	@javax.ws.rs.Path("/by-external-reference-code/{externalReferenceCode}")
+	@javax.ws.rs.Path("/by-external-reference-code/{externalReferenceCode: .+}")
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
 	@Override
@@ -490,7 +490,7 @@ public abstract class BaseObjectEntryResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "ObjectEntry")}
 	)
 	@javax.ws.rs.Path(
-		"/by-external-reference-code/{objectEntryExternalReferenceCode}/object-actions/{objectActionName}"
+		"/by-external-reference-code/{objectEntryExternalReferenceCode: .+}/object-actions/{objectActionName}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -525,7 +525,7 @@ public abstract class BaseObjectEntryResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode}"
+		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -570,7 +570,7 @@ public abstract class BaseObjectEntryResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode}"
+		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -606,7 +606,7 @@ public abstract class BaseObjectEntryResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode}"
+		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -680,7 +680,7 @@ public abstract class BaseObjectEntryResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode}"
+		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -720,7 +720,7 @@ public abstract class BaseObjectEntryResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "ObjectEntry")}
 	)
 	@javax.ws.rs.Path(
-		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode}/object-actions/{objectActionName}"
+		"/scopes/{scopeKey}/by-external-reference-code/{externalReferenceCode: .+}/object-actions/{objectActionName}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT

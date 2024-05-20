@@ -239,7 +239,7 @@ public abstract class BaseSkuUnitOfMeasureResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/skus/by-externalReferenceCode/{externalReferenceCode}/sku-unit-of-measures"
+		"/skus/by-externalReferenceCode/{externalReferenceCode: .+}/sku-unit-of-measures"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -275,7 +275,7 @@ public abstract class BaseSkuUnitOfMeasureResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/skus/by-externalReferenceCode/{externalReferenceCode}/sku-unit-of-measures"
+		"/skus/by-externalReferenceCode/{externalReferenceCode: .+}/sku-unit-of-measures"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

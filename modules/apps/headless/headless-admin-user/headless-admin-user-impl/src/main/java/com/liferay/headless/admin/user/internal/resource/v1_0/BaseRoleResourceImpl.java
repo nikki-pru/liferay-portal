@@ -277,7 +277,7 @@ public abstract class BaseRoleResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/roles/by-external-reference-code/{externalReferenceCode}"
+		"/roles/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT

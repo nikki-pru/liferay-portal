@@ -90,7 +90,7 @@ public abstract class BasePriceEntryResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/priceEntries/by-externalReferenceCode/{externalReferenceCode}"
+		"/priceEntries/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -124,7 +124,7 @@ public abstract class BasePriceEntryResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/priceEntries/by-externalReferenceCode/{externalReferenceCode}"
+		"/priceEntries/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -157,7 +157,7 @@ public abstract class BasePriceEntryResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/priceEntries/by-externalReferenceCode/{externalReferenceCode}"
+		"/priceEntries/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -337,7 +337,7 @@ public abstract class BasePriceEntryResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceEntries"
+		"/priceLists/by-externalReferenceCode/{externalReferenceCode: .+}/priceEntries"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -370,7 +370,7 @@ public abstract class BasePriceEntryResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/priceLists/by-externalReferenceCode/{externalReferenceCode}/priceEntries"
+		"/priceLists/by-externalReferenceCode/{externalReferenceCode: .+}/priceEntries"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

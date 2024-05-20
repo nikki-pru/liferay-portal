@@ -1485,7 +1485,7 @@ public abstract class BaseMessageBoardMessageResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/sites/{siteId}/message-board-messages/by-external-reference-code/{externalReferenceCode}"
+		"/sites/{siteId}/message-board-messages/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -1542,7 +1542,7 @@ public abstract class BaseMessageBoardMessageResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/sites/{siteId}/message-board-messages/by-external-reference-code/{externalReferenceCode}"
+		"/sites/{siteId}/message-board-messages/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -1590,7 +1590,7 @@ public abstract class BaseMessageBoardMessageResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/sites/{siteId}/message-board-messages/by-external-reference-code/{externalReferenceCode}"
+		"/sites/{siteId}/message-board-messages/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT

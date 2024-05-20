@@ -66,7 +66,7 @@ public abstract class BaseExportTaskResourceImpl implements ExportTaskResource {
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/export-task/by-external-reference-code/{externalReferenceCode}"
+		"/export-task/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -101,7 +101,7 @@ public abstract class BaseExportTaskResourceImpl implements ExportTaskResource {
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/export-task/by-external-reference-code/{externalReferenceCode}/content"
+		"/export-task/by-external-reference-code/{externalReferenceCode: .+}/content"
 	)
 	@javax.ws.rs.Produces("application/octet-stream")
 	@Override

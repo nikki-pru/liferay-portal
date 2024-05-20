@@ -253,7 +253,7 @@ public abstract class BaseProductOptionResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/productOptions"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/productOptions"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -293,7 +293,7 @@ public abstract class BaseProductOptionResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/productOptions"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/productOptions"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

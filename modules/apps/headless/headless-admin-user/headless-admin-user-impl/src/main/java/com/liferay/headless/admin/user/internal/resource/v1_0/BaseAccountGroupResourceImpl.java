@@ -293,7 +293,7 @@ public abstract class BaseAccountGroupResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/account-groups/by-external-reference-code/{accountExternalReferenceCode}/accounts/by-external-reference-code/{externalReferenceCode}"
+		"/account-groups/by-external-reference-code/{accountExternalReferenceCode: .+}/accounts/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -334,7 +334,7 @@ public abstract class BaseAccountGroupResourceImpl
 		value = {@io.swagger.v3.oas.annotations.tags.Tag(name = "AccountGroup")}
 	)
 	@javax.ws.rs.Path(
-		"/account-groups/by-external-reference-code/{accountExternalReferenceCode}/accounts/by-external-reference-code/{externalReferenceCode}"
+		"/account-groups/by-external-reference-code/{accountExternalReferenceCode: .+}/accounts/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -373,7 +373,7 @@ public abstract class BaseAccountGroupResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/account-groups/by-external-reference-code/{externalReferenceCode}"
+		"/account-groups/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -403,7 +403,7 @@ public abstract class BaseAccountGroupResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/account-groups/by-external-reference-code/{externalReferenceCode}"
+		"/account-groups/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -439,7 +439,7 @@ public abstract class BaseAccountGroupResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/account-groups/by-external-reference-code/{externalReferenceCode}"
+		"/account-groups/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -496,7 +496,7 @@ public abstract class BaseAccountGroupResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/account-groups/by-external-reference-code/{externalReferenceCode}"
+		"/account-groups/by-external-reference-code/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@javax.ws.rs.PUT
@@ -776,7 +776,7 @@ public abstract class BaseAccountGroupResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/accounts/by-external-reference-code/{accountExternalReferenceCode}/account-groups"
+		"/accounts/by-external-reference-code/{accountExternalReferenceCode: .+}/account-groups"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override

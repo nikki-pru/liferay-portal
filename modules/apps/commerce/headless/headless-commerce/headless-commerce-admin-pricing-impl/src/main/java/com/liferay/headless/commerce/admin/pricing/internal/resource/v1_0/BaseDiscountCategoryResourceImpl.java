@@ -179,7 +179,7 @@ public abstract class BaseDiscountCategoryResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountCategories"
+		"/discounts/by-externalReferenceCode/{externalReferenceCode: .+}/discountCategories"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -215,7 +215,7 @@ public abstract class BaseDiscountCategoryResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/discounts/by-externalReferenceCode/{externalReferenceCode}/discountCategories"
+		"/discounts/by-externalReferenceCode/{externalReferenceCode: .+}/discountCategories"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

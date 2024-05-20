@@ -96,7 +96,7 @@ public abstract class BaseCategoryResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/categories"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/categories"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -130,7 +130,7 @@ public abstract class BaseCategoryResourceImpl
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.PATCH
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/categories"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/categories"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override

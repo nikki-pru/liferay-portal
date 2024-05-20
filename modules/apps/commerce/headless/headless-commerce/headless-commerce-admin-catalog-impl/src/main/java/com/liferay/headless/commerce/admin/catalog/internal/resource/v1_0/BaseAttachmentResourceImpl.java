@@ -92,7 +92,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.DELETE
 	@javax.ws.rs.Path(
-		"/attachment/by-externalReferenceCode/{externalReferenceCode}"
+		"/attachment/by-externalReferenceCode/{externalReferenceCode: .+}"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -201,7 +201,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/attachments"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/attachments"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -234,7 +234,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/attachments"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/attachments"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -268,7 +268,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/attachments/by-base64"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/attachments/by-base64"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -302,7 +302,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/attachments/by-url"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/attachments/by-url"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -344,7 +344,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/images"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/images"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -377,7 +377,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/images"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/images"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -411,7 +411,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/images/by-base64"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/images/by-base64"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
@@ -445,7 +445,7 @@ public abstract class BaseAttachmentResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/products/by-externalReferenceCode/{externalReferenceCode}/images/by-url"
+		"/products/by-externalReferenceCode/{externalReferenceCode: .+}/images/by-url"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

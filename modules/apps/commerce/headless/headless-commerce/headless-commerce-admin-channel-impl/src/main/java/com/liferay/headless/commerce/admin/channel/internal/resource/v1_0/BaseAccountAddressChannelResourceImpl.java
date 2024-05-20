@@ -180,7 +180,7 @@ public abstract class BaseAccountAddressChannelResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/account-addresses/by-externalReferenceCode/{externalReferenceCode}/account-address-channels"
+		"/account-addresses/by-externalReferenceCode/{externalReferenceCode: .+}/account-address-channels"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -218,7 +218,7 @@ public abstract class BaseAccountAddressChannelResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/account-addresses/by-externalReferenceCode/{externalReferenceCode}/account-address-channels"
+		"/account-addresses/by-externalReferenceCode/{externalReferenceCode: .+}/account-address-channels"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})

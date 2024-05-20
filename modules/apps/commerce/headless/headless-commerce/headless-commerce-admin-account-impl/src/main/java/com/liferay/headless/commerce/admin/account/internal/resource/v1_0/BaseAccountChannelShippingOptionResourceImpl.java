@@ -251,7 +251,7 @@ public abstract class BaseAccountChannelShippingOptionResourceImpl
 	)
 	@javax.ws.rs.GET
 	@javax.ws.rs.Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/account-channel-shipping-option"
+		"/accounts/by-externalReferenceCode/{externalReferenceCode: .+}/account-channel-shipping-option"
 	)
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
 	@Override
@@ -289,7 +289,7 @@ public abstract class BaseAccountChannelShippingOptionResourceImpl
 	)
 	@javax.ws.rs.Consumes({"application/json", "application/xml"})
 	@javax.ws.rs.Path(
-		"/accounts/by-externalReferenceCode/{externalReferenceCode}/account-channel-shipping-option"
+		"/accounts/by-externalReferenceCode/{externalReferenceCode: .+}/account-channel-shipping-option"
 	)
 	@javax.ws.rs.POST
 	@javax.ws.rs.Produces({"application/json", "application/xml"})
