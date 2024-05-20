@@ -223,7 +223,9 @@ public class ResourceOpenAPIParser {
 
 			String parameterName = pathJavaMethodParameter.getParameterName();
 
-			if (parameterName.endsWith("Path") &&
+			if ((parameterName.endsWith("externalReferenceCode") ||
+				 parameterName.endsWith("ExternalReferenceCode") ||
+				 parameterName.endsWith("Path")) &&
 				Objects.equals(
 					pathJavaMethodParameter.getParameterType(),
 					"java.lang.String")) {
