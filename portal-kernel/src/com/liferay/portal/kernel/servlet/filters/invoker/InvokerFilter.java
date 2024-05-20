@@ -5,6 +5,7 @@
 
 package com.liferay.portal.kernel.servlet.filters.invoker;
 
+import com.liferay.petra.string.CharPool;
 import com.liferay.petra.string.StringBundler;
 import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.cache.PortalCache;
@@ -27,6 +28,10 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 
 import java.io.IOException;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -195,8 +200,11 @@ public class InvokerFilter extends BasePortalLifecycle implements Filter {
 
 		String queryString = httpServletRequest.getQueryString();
 
-		if (Validator.isNotNull(queryString)) {
-			key = StringBundler.concat(key, StringPool.QUESTION, queryString);
+		if (Validator.isNotNull(queryString) &&
+			!_skipQueryStringURIs.contains(uri)) {
+
+			key = StringBundler.concat(
+				key, StringPool.QUESTION, _scrubQueryString(queryString));
 		}
 
 		InvokerFilterChain invokerFilterChain = _filterChainsPortalCache.get(
@@ -319,6 +327,40 @@ public class InvokerFilter extends BasePortalLifecycle implements Filter {
 			servletContextName, StringPool.DASH, _filterConfig.getFilterName());
 	}
 
+	private String _scrubQueryString(String queryString) {
+		String[] parameters = StringUtil.split(queryString, CharPool.AMPERSAND);
+
+		for (int i = 0; i < parameters.length; i++) {
+			String parameter = parameters[i];
+
+			int index = parameter.indexOf(CharPool.EQUAL);
+
+			if ((index != -1) &&
+				_queryStringIgnoredKeys.contains(
+					parameter.substring(0, index))) {
+
+				parameters[i] = StringPool.BLANK;
+			}
+		}
+
+		Arrays.sort(parameters);
+
+		StringBundler sb = new StringBundler();
+
+		for (String parameter : parameters) {
+			if (!parameter.isEmpty()) {
+				sb.append(parameter);
+				sb.append(StringPool.AMPERSAND);
+			}
+		}
+
+		if (sb.index() != 0) {
+			sb.setIndex(sb.index() - 1);
+		}
+
+		return sb.toString();
+	}
+
 	private static final boolean _INVOKER_FILTER_CHAIN_ENABLED =
 		GetterUtil.getBoolean(
 			PropsUtil.get(PropsKeys.INVOKER_FILTER_CHAIN_ENABLED));
@@ -331,6 +373,16 @@ public class InvokerFilter extends BasePortalLifecycle implements Filter {
 		InvokerFilter.class.getName() + "SECURE_RESPONSE";
 
 	private static final Log _log = LogFactoryUtil.getLog(InvokerFilter.class);
+
+	private static final Set<String> _queryStringIgnoredKeys = new HashSet<>(
+		Arrays.asList(
+			PropsUtil.getArray(
+				PropsKeys.
+					INVOKER_FILTER_CHAIN_CACHE_QUERY_STRING_IGNORED_KEYS)));
+	private static final Set<String> _skipQueryStringURIs = new HashSet<>(
+		Arrays.asList(
+			PropsUtil.getArray(
+				PropsKeys.INVOKER_FILTER_CHAIN_CACHE_SKIP_QUERY_STRING_URIS)));
 
 	private String _contextPath;
 	private Dispatcher _dispatcher;
