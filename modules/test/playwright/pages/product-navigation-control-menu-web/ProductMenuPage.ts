@@ -9,10 +9,13 @@ import {Locator, Page} from '@playwright/test';
 
 export class ProductMenuPage {
 	readonly contentAndDataButton: Locator;
+	readonly importButton: Locator;
+	readonly formsButton: Locator;
 	readonly page: Page;
 	readonly pagesButton: Locator;
 	readonly productMenuButton: Locator;
 	readonly productMenuHeader: Locator;
+	readonly publishingButton: Locator;
 	readonly siteBuilderButton: Locator;
 	readonly webContentButton: Locator;
 
@@ -21,17 +24,37 @@ export class ProductMenuPage {
 		this.contentAndDataButton = page.getByRole('menuitem', {
 			name: 'Content & Data',
 		});
+		this.importButton = page.getByRole('menuitem', {
+			name: 'Import',
+		});
+		this.formsButton = page.getByRole('menuitem', {
+			exact: true,
+			name: 'Forms',
+		});
 		this.pagesButton = page.getByRole('menuitem', {name: 'Pages'});
 		this.productMenuButton = page.getByLabel('Open Product Menu');
 		this.productMenuHeader = page.locator(
 			'[id="_com_liferay_product_navigation_product_menu_web_portlet_ProductMenuPortlet_site_administrationHeading"] div'
 		);
+		this.publishingButton = page.getByRole('menuitem', {
+			name: 'Publishing',
+		});
 		this.siteBuilderButton = page.getByRole('menuitem', {
 			name: 'Site Builder',
 		});
 		this.webContentButton = page.getByRole('menuitem', {
 			name: 'Web Content',
 		});
+	}
+
+	async goToPublishingImport() {
+		await this.publishingButton.click();
+		await this.importButton.click();
+	}
+
+	async goToForms() {
+		await this.contentAndDataButton.click();
+		await this.formsButton.click();
 	}
 
 	async goToWebContent() {
