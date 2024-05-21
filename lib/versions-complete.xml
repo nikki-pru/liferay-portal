@@ -3735,7 +3735,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.tika.jar!apache-mime4j-core.jar</file-name>
-				<version>0.8.3</version>
+				<version>0.8.11</version>
 				<project-name>Apache James :: Mime4j :: Core</project-name>
 				<project-url>https://www.apache.org/</project-url>
 				<licenses>
@@ -3747,7 +3747,7 @@
 			</library>
 			<library>
 				<file-name>com.liferay.portal.tika.jar!apache-mime4j-dom.jar</file-name>
-				<version>0.8.3</version>
+				<version>0.8.11</version>
 				<project-name>Apache James :: Mime4j :: DOM</project-name>
 				<project-url>https://www.apache.org/</project-url>
 				<licenses>
