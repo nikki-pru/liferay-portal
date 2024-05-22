@@ -389,6 +389,17 @@ public class PortalUpgradeProcessRegistryImpl
 			new Version(30, 0, 1),
 			UpgradeProcessFactory.alterColumnType(
 				"PortalPreferenceValue", "key_", "VARCHAR(1024) null"));
+
+		upgradeVersionTreeMap.put(
+			new Version(30, 0, 2),
+			UpgradeProcessFactory.alterColumnType(
+				"User_", "password_", "VARCHAR(255) null"),
+			//
+			UpgradeProcessFactory.alterColumnType(
+				"PasswordTracker", "password_", "VARCHAR(255) null"),
+			//
+			UpgradeProcessFactory.alterColumnType(
+				"Ticket", "key_", "VARCHAR(255) null"));
 	}
 
 }
