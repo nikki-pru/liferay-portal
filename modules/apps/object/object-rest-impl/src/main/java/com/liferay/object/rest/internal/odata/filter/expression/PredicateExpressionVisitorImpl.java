@@ -633,12 +633,6 @@ public class PredicateExpressionVisitorImpl
 			 Objects.equals(DBManagerUtil.getDBType(), DBType.POSTGRESQL)) &&
 			Validator.isNotNull(right)) {
 
-			String pattern = "dd-MMM-yyyy HH:mm:ss.SSS";
-
-			if (Objects.equals(DBManagerUtil.getDBType(), DBType.ORACLE)) {
-				pattern = "dd-MMM-yyyy hh:mm:ss.SSS a";
-			}
-
 			try {
 				String value = right.toString();
 
@@ -654,6 +648,14 @@ public class PredicateExpressionVisitorImpl
 					right = date;
 				}
 				else {
+					String pattern = "yyyy-MM-dd HH:mm:ss.SSS";
+
+					if (Objects.equals(
+							DBManagerUtil.getDBType(), DBType.ORACLE)) {
+
+						pattern = "dd-MMM-yyyy hh:mm:ss.SSS a";
+					}
+
 					Format format =
 						FastDateFormatFactoryUtil.getSimpleDateFormat(pattern);
 
