@@ -161,10 +161,20 @@ public class EditServerMVCActionCommand extends BaseMVCActionCommand {
 		PermissionChecker permissionChecker =
 			themeDisplay.getPermissionChecker();
 
-		if (!permissionChecker.isOmniadmin() &&
-			(!permissionChecker.isCompanyAdmin() ||
-			 !cmd.equals("updateMail"))) {
+		PortletPreferences portletPreferences = _prefsProps.getPreferences(
+			ParamUtil.getLong(actionRequest, "preferencesCompanyId"));
 
+		String redirect = ParamUtil.getString(actionRequest, "redirect");
+
+		if (permissionChecker.isCompanyAdmin() && cmd.equals("updateMail")) {
+			_updateMail(actionRequest, portletPreferences);
+
+			sendRedirect(actionRequest, actionResponse, redirect);
+
+			return;
+		}
+
+		if (!permissionChecker.isOmniadmin()) {
 			SessionErrors.add(
 				actionRequest,
 				PrincipalException.MustBeOmniadmin.class.getName());
@@ -173,11 +183,6 @@ public class EditServerMVCActionCommand extends BaseMVCActionCommand {
 
 			return;
 		}
-
-		PortletPreferences portletPreferences = _prefsProps.getPreferences(
-			ParamUtil.getLong(actionRequest, "preferencesCompanyId"));
-
-		String redirect = ParamUtil.getString(actionRequest, "redirect");
 
 		if (!cmd.equals("addLogLevel") &&
 			!cmd.equals("dlGenerateAudioPreviews") &&
