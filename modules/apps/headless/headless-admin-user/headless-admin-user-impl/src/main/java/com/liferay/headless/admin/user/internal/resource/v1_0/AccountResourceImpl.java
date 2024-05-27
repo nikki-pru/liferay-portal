@@ -59,7 +59,6 @@ import com.liferay.portal.vulcan.util.SearchUtil;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -251,17 +250,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 				account.getExternalReferenceCode(),
 				accountEntry.getExternalReferenceCode()));
 
-		for (Address address : _getAddresses(account)) {
-			_addressLocalService.addAddress(
-				address.getExternalReferenceCode(), contextUser.getUserId(),
-				AccountEntry.class.getName(), accountId, address.getName(),
-				address.getDescription(), address.getStreet1(),
-				address.getStreet2(), address.getStreet3(), address.getCity(),
-				address.getZip(), address.getRegionId(), address.getCountryId(),
-				address.getListTypeId(), address.isMailing(),
-				address.isPrimary(), address.getPhoneNumber(),
-				_createServiceContext(account));
-		}
+		_addAddresses(accountId, account);
 
 		_accountEntryLocalService.updateDefaultBillingAddressId(
 			accountId,
@@ -350,18 +339,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 			accountEntry.getAccountEntryId(),
 			_getAccountUserAccountIds(account));
 
-		for (Address address : _getAddresses(account)) {
-			_addressLocalService.addAddress(
-				address.getExternalReferenceCode(), contextUser.getUserId(),
-				AccountEntry.class.getName(), accountEntry.getAccountEntryId(),
-				address.getName(), address.getDescription(),
-				address.getStreet1(), address.getStreet2(),
-				address.getStreet3(), address.getCity(), address.getZip(),
-				address.getRegionId(), address.getCountryId(),
-				address.getListTypeId(), address.isMailing(),
-				address.isPrimary(), address.getPhoneNumber(),
-				_createServiceContext(account));
-		}
+		_addAddresses(accountEntry.getAccountEntryId(), account);
 
 		return _toAccount(accountEntry);
 	}
@@ -404,17 +382,7 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 		_accountEntryUserRelLocalService.setAccountEntryUserRels(
 			accountId, _getAccountUserAccountIds(account));
 
-		for (Address address : _getAddresses(account)) {
-			_addressLocalService.addAddress(
-				address.getExternalReferenceCode(), contextUser.getUserId(),
-				AccountEntry.class.getName(), accountId, address.getName(),
-				address.getDescription(), address.getStreet1(),
-				address.getStreet2(), address.getStreet3(), address.getCity(),
-				address.getZip(), address.getRegionId(), address.getCountryId(),
-				address.getListTypeId(), address.isMailing(),
-				address.isPrimary(), address.getPhoneNumber(),
-				_createServiceContext(account));
-		}
+		_addAddresses(accountId, account);
 
 		return _toAccount(
 			_accountEntryService.updateAccountEntry(
@@ -448,6 +416,35 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 				_createServiceContext(account)));
 	}
 
+	private void _addAddresses(Long accountId, Account account)
+		throws Exception {
+
+		PostalAddress[] postalAddresses = account.getPostalAddresses();
+
+		if ((postalAddresses == null) || (postalAddresses.length == 0)) {
+			return;
+		}
+
+		for (PostalAddress postalAddress :
+				ListUtil.filter(
+					Arrays.asList(postalAddresses), Objects::nonNull)) {
+
+			Address address = ServiceBuilderAddressUtil.toServiceBuilderAddress(
+				contextCompany.getCompanyId(), postalAddress,
+				AccountListTypeConstants.ACCOUNT_ENTRY_ADDRESS);
+
+			_addressLocalService.addAddress(
+				address.getExternalReferenceCode(), contextUser.getUserId(),
+				AccountEntry.class.getName(), accountId, address.getName(),
+				address.getDescription(), address.getStreet1(),
+				address.getStreet2(), address.getStreet3(), address.getCity(),
+				address.getZip(), address.getRegionId(), address.getCountryId(),
+				address.getListTypeId(), address.isMailing(),
+				address.isPrimary(), postalAddress.getPhoneNumber(),
+				_createServiceContext(account));
+		}
+	}
+
 	private ServiceContext _createServiceContext(Account account)
 		throws Exception {
 
@@ -477,23 +474,6 @@ public class AccountResourceImpl extends BaseAccountResourceImpl {
 			userAccounts, userAccount -> userAccount.getId(), Long.class);
 
 		return ArrayUtil.toArray(userAccountIds);
-	}
-
-	private List<Address> _getAddresses(Account account) {
-		PostalAddress[] postalAddresses = account.getPostalAddresses();
-
-		if (postalAddresses == null) {
-			return Collections.emptyList();
-		}
-
-		return ListUtil.filter(
-			transformToList(
-				postalAddresses,
-				_postalAddress ->
-					ServiceBuilderAddressUtil.toServiceBuilderAddress(
-						contextCompany.getCompanyId(), _postalAddress,
-						AccountListTypeConstants.ACCOUNT_ENTRY_ADDRESS)),
-			Objects::nonNull);
 	}
 
 	private String[] _getDomains(Account account) {
