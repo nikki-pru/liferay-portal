@@ -1661,7 +1661,7 @@
 			UPDATE
 				User_
 			SET
-				failedLoginAttempts = ?, lastLoginDate = ?, lastLoginIP = ?, loginDate = ?, loginIP = ?, mvccVersion = ?
+				mvccVersion = ?, loginDate = ?, loginIP = ?, lastLoginDate = ?, lastLoginIP = ?, failedLoginAttempts = ?
 			WHERE
 				(mvccVersion = ?) AND
 				(userId = ?)

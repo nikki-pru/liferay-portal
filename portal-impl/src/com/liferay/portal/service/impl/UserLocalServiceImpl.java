@@ -4996,7 +4996,7 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 		}
 
 		user = _updateLastLogin(
-			user, 0, lastLoginDate, lastLoginIP, new Date(), loginIP);
+			user, new Date(), loginIP, lastLoginDate, lastLoginIP, 0);
 
 		if (user == null) {
 			return userPersistence.findByPrimaryKey(userId);
@@ -7480,8 +7480,8 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 	}
 
 	private User _updateLastLogin(
-		User user, int failedLoginAttempts, Date lastLoginDate,
-		String lastLoginIP, Date loginDate, String loginIP) {
+		User user, Date loginDate, String loginIP, Date lastLoginDate,
+		String lastLoginIP, int failedLoginAttempts) {
 
 		Session session = null;
 
@@ -7494,17 +7494,16 @@ public class UserLocalServiceImpl extends UserLocalServiceBaseImpl {
 
 			QueryPos queryPos = QueryPos.getInstance(sqlQuery);
 
-			queryPos.add(failedLoginAttempts);
-			queryPos.add(lastLoginDate);
-			queryPos.add(lastLoginIP);
-			queryPos.add(loginDate);
-			queryPos.add(loginIP);
-
 			long mvccVersion = user.getMvccVersion();
 
 			queryPos.add(mvccVersion + 1);
-			queryPos.add(mvccVersion);
 
+			queryPos.add(loginDate);
+			queryPos.add(loginIP);
+			queryPos.add(lastLoginDate);
+			queryPos.add(lastLoginIP);
+			queryPos.add(failedLoginAttempts);
+			queryPos.add(mvccVersion);
 			queryPos.add(user.getUserId());
 
 			int count = sqlQuery.executeUpdate();
