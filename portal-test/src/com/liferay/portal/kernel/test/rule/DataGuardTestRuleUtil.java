@@ -530,7 +530,7 @@ public class DataGuardTestRuleUtil {
 				"_serviceTrackerMap");
 
 		for (String modeClassName : serviceTrackerMap.keySet()) {
-			if (!_modelClassNameBlacklist.contains(modeClassName) &&
+			if (!_blacklistedModelClassNames.contains(modeClassName) &&
 				(modeClassName.indexOf(CharPool.POUND) == -1)) {
 
 				scrubbedPersistedModelLocalServices.put(
@@ -644,9 +644,10 @@ public class DataGuardTestRuleUtil {
 			basePersistence, "_sessionFactory", originalSessionFactory);
 	}
 
-	private static final Set<String> _modelClassNameBlacklist = new HashSet<>(
-		Arrays.asList(
-			"com.liferay.portal.security.audit.storage.model.AuditEvent"));
+	private static final Set<String> _blacklistedModelClassNames =
+		new HashSet<>(
+			Arrays.asList(
+				"com.liferay.portal.security.audit.storage.model.AuditEvent"));
 	private static final ThreadLocal<Map<String, Map<Serializable, String>>>
 		_recordsThreadLocal = new ThreadLocal<>();
 	private static final TransactionConfig _transactionConfig =
@@ -714,7 +715,7 @@ public class DataGuardTestRuleUtil {
 			BaseModel<?> baseModel = (BaseModel<?>)object;
 
 			if (baseModel.isNew() &&
-				!_modelClassNameBlacklist.contains(
+				!_blacklistedModelClassNames.contains(
 					baseModel.getModelClassName())) {
 
 				Map<Serializable, String> map = _records.computeIfAbsent(
