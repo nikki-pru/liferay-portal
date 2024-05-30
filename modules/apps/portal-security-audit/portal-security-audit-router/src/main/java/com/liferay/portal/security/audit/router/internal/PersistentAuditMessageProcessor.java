@@ -127,19 +127,19 @@ public class PersistentAuditMessageProcessor implements AuditMessageProcessor {
 			auditMessages.add(auditMessage);
 		}
 
-		int flushedSize = auditMessages.size();
+		int flushSize = auditMessages.size();
 
-		if (flushedSize > 0) {
+		if (flushSize > 0) {
 			int size = _queueSize.get();
 
-			while (!_queueSize.compareAndSet(size, size - flushedSize)) {
+			while (!_queueSize.compareAndSet(size, size - flushSize)) {
 				size = _queueSize.get();
 			}
 
 			_auditEventManager.addAuditEvents(auditMessages);
 
 			if (_log.isDebugEnabled()) {
-				_log.debug("Bulk flushed AuditMessage count " + flushedSize);
+				_log.debug("Flush size " + flushSize);
 			}
 		}
 	}
