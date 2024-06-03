@@ -61,15 +61,14 @@ public class OAuth2ProviderApplicationHeadlessServerConfigurationFactory
 				String externalReferenceCode =
 					ConfigurationFactoryUtil.getExternalReferenceCode(
 						properties);
+				Collection<String> scopeAliases = _scopeLocator.getScopeAliases(
+					companyId);
 
 				OAuth2ProviderApplicationHeadlessServerConfiguration
 					oAuth2ProviderApplicationHeadlessServerConfiguration =
 						ConfigurableUtil.createConfigurable(
 							OAuth2ProviderApplicationHeadlessServerConfiguration.class,
 							properties);
-
-				Collection<String> scopeAliases = _scopeLocator.getScopeAliases(
-					companyId);
 
 				List<String> scopeAliasesList = TransformUtil.transformToList(
 					oAuth2ProviderApplicationHeadlessServerConfiguration.

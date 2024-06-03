@@ -66,7 +66,6 @@ public class
 		_testWithOAuth2ProviderApplicationHeadlessServerConfiguration(
 			lowerCaseName + ".everything", objectDefinition,
 			lowerCaseName + ".everything");
-
 		_testWithOAuth2ProviderApplicationHeadlessServerConfiguration(
 			lowerCaseName + ".everything", objectDefinition,
 			name + ".everything");
@@ -78,7 +77,6 @@ public class
 				objectDefinition,
 				"com.liferay.object.rest.impl/" + lowerCaseName +
 					"/everything"));
-
 		_withBundlePrefixHandlerFactoryConfiguration(
 			objectDefinition,
 			() -> _testWithOAuth2ProviderApplicationHeadlessServerConfiguration(
