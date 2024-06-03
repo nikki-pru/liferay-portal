@@ -90,7 +90,7 @@ public class CETConfigurationFactoryTest {
 	}
 
 	@Test
-	public void testCETFactoryWithVirtualInstanceAndFF() throws Exception {
+	public void testActivate() throws Exception {
 		FeatureFlagTestHelper featureFlagTestHelper =
 			new FeatureFlagTestHelper();
 
