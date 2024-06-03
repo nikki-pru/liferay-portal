@@ -104,15 +104,15 @@ public class CETConfigurationFactoryTest {
 
 			Dictionary<String, Object> properties =
 				HashMapDictionaryBuilder.<String, Object>put(
-					"baseURL", "${portalURL}/o/test_vi.localtest.me"
+					"baseURL", "${portalURL}/o/test_" + _VIRTUAL_HOSTNAME
 				).put(
 					"buildTimestamp", System.currentTimeMillis()
 				).put(
 					"description", ""
 				).put(
-					"dxp.lxc.liferay.com.virtualInstanceId", "vi.localtest.me"
+					"dxp.lxc.liferay.com.virtualInstanceId", _VIRTUAL_HOSTNAME
 				).put(
-					"name", "Test vi.localtest.me"
+					"name", "Test " + _VIRTUAL_HOSTNAME
 				).put(
 					"projectId", "test"
 				).put(
@@ -131,7 +131,7 @@ public class CETConfigurationFactoryTest {
 						"portletCategoryName=category.client-extensions"
 					}
 				).put(
-					"webContextPath", "/test_vi.localtest.me"
+					"webContextPath", "/test_" + _VIRTUAL_HOSTNAME
 				).build();
 
 			Bundle bundle = FrameworkUtil.getBundle(
@@ -145,7 +145,7 @@ public class CETConfigurationFactoryTest {
 					configurationAdmin.getFactoryConfiguration(
 						"com.liferay.client.extension.type.configuration." +
 							"CETConfiguration",
-						"test/vi.localtest.me", StringPool.QUESTION));
+						"test/" + _VIRTUAL_HOSTNAME, StringPool.QUESTION));
 
 			ConfigurationTestUtil.saveConfiguration(
 				configuration.getPid(), properties);
@@ -157,7 +157,7 @@ public class CETConfigurationFactoryTest {
 
 			Assert.assertNotNull(cet);
 
-			Assert.assertEquals("Test vi.localtest.me", cet.getName());
+			Assert.assertEquals("Test " + _VIRTUAL_HOSTNAME, cet.getName());
 
 			String filterString = StringBundler.concat(
 				"(&(javax.portlet.name=com_liferay_client_extension_web",
