@@ -34,6 +34,8 @@ public class CETConfigurationFactory {
 
 	@Activate
 	protected void activate(Map<String, Object> properties) throws Exception {
+		_properties = properties;
+
 		ConfigurationFactoryUtil.executeAsCompany(
 			_companyLocalService, properties,
 			companyId -> {
@@ -45,8 +47,6 @@ public class CETConfigurationFactory {
 					cetConfiguration, companyId,
 					_getExternalReferenceCode(properties));
 			});
-
-		_properties = properties;
 	}
 
 	@Deactivate
@@ -60,6 +60,8 @@ public class CETConfigurationFactory {
 
 	@Modified
 	protected void modified(Map<String, Object> properties) throws Exception {
+		_properties = properties;
+
 		ConfigurationFactoryUtil.executeAsCompany(
 			_companyLocalService, properties,
 			companyId -> {
@@ -73,8 +75,6 @@ public class CETConfigurationFactory {
 					cetConfiguration, companyId,
 					_getExternalReferenceCode(properties));
 			});
-
-		_properties = properties;
 	}
 
 	private String _getExternalReferenceCode(Map<String, Object> properties) {
