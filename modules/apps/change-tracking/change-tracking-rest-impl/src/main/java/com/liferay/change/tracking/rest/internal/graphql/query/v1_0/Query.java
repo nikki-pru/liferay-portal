@@ -84,8 +84,8 @@ public class Query {
 	 */
 	@GraphQLField
 	public CTCollectionPage cTCollections(
-			@GraphQLName("status") Integer[] status,
 			@GraphQLName("search") String search,
+			@GraphQLName("status") Integer[] status,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page,
 			@GraphQLName("sort") String sortsString)
@@ -96,7 +96,7 @@ public class Query {
 			this::_populateResourceContext,
 			ctCollectionResource -> new CTCollectionPage(
 				ctCollectionResource.getCTCollectionsPage(
-					status, search, Pagination.of(page, pageSize),
+					search, status, Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(
 						ctCollectionResource, sortsString))));
 	}
@@ -180,8 +180,8 @@ public class Query {
 	@GraphQLField
 	public CTEntryPage ctCollectionCTEntries(
 			@GraphQLName("ctCollectionId") Long ctCollectionId,
-			@GraphQLName("showHideable") Boolean showHideable,
 			@GraphQLName("search") String search,
+			@GraphQLName("showHideable") Boolean showHideable,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page,
@@ -193,7 +193,7 @@ public class Query {
 			this::_populateResourceContext,
 			ctEntryResource -> new CTEntryPage(
 				ctEntryResource.getCtCollectionCTEntriesPage(
-					ctCollectionId, showHideable, search,
+					ctCollectionId, search, showHideable,
 					_filterBiFunction.apply(ctEntryResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(ctEntryResource, sortsString))));
@@ -221,8 +221,8 @@ public class Query {
 	 */
 	@GraphQLField
 	public CTProcessPage cTProcesses(
-			@GraphQLName("status") Integer[] status,
 			@GraphQLName("search") String search,
+			@GraphQLName("status") Integer[] status,
 			@GraphQLName("filter") String filterString,
 			@GraphQLName("pageSize") int pageSize,
 			@GraphQLName("page") int page,
@@ -234,7 +234,7 @@ public class Query {
 			this::_populateResourceContext,
 			ctProcessResource -> new CTProcessPage(
 				ctProcessResource.getCTProcessesPage(
-					status, search,
+					search, status,
 					_filterBiFunction.apply(ctProcessResource, filterString),
 					Pagination.of(page, pageSize),
 					_sortsBiFunction.apply(ctProcessResource, sortsString))));
@@ -368,8 +368,8 @@ public class Query {
 
 		@GraphQLField
 		public CTEntryPage ctCollectionCTEntries(
-				@GraphQLName("showHideable") Boolean showHideable,
 				@GraphQLName("search") String search,
+				@GraphQLName("showHideable") Boolean showHideable,
 				@GraphQLName("filter") String filterString,
 				@GraphQLName("pageSize") int pageSize,
 				@GraphQLName("page") int page,
@@ -381,7 +381,7 @@ public class Query {
 				Query.this::_populateResourceContext,
 				ctEntryResource -> new CTEntryPage(
 					ctEntryResource.getCtCollectionCTEntriesPage(
-						_cTCollection.getId(), showHideable, search,
+						_cTCollection.getId(), search, showHideable,
 						_filterBiFunction.apply(ctEntryResource, filterString),
 						Pagination.of(page, pageSize),
 						_sortsBiFunction.apply(ctEntryResource, sortsString))));
