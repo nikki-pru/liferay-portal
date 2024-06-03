@@ -53,7 +53,7 @@ import org.osgi.util.tracker.ServiceTracker;
  * @author Gregory Amerson
  */
 @RunWith(Arquillian.class)
-public class CETConfigurationFactoryVirtualInstanceTest {
+public class CETConfigurationFactoryTest {
 
 	@ClassRule
 	@Rule
@@ -135,7 +135,7 @@ public class CETConfigurationFactoryVirtualInstanceTest {
 				).build();
 
 			Bundle bundle = FrameworkUtil.getBundle(
-				CETConfigurationFactoryVirtualInstanceTest.class);
+				CETConfigurationFactoryTest.class);
 
 			BundleContext bundleContext = bundle.getBundleContext();
 
@@ -202,7 +202,7 @@ public class CETConfigurationFactoryVirtualInstanceTest {
 		RandomTestUtil.randomString() + ".localtest.me";
 
 	private static final Log _log = LogFactoryUtil.getLog(
-		CETConfigurationFactoryVirtualInstanceTest.class);
+		CETConfigurationFactoryTest.class);
 
 	private static final List<AutoCloseable> _autoCloseables =
 		new ArrayList<>();
