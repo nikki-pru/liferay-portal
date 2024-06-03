@@ -26,7 +26,6 @@ import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.concurrent.TimeoutException;
@@ -113,7 +112,21 @@ public class CETConfigurationFactoryTest {
 	private void _testActivate() throws Exception {
 		SystemProperties.clear("liferay.mode");
 
-		Dictionary<String, Object> properties =
+		Bundle bundle = FrameworkUtil.getBundle(
+			CETConfigurationFactoryTest.class);
+
+		BundleContext bundleContext = bundle.getBundleContext();
+
+		Configuration configuration = OSGiServiceUtil.callService(
+			bundleContext, ConfigurationAdmin.class,
+			(ConfigurationAdmin configurationAdmin) ->
+				configurationAdmin.getFactoryConfiguration(
+					"com.liferay.client.extension.type.configuration." +
+						"CETConfiguration",
+					"test/" + _VIRTUAL_HOSTNAME, StringPool.QUESTION));
+
+		ConfigurationTestUtil.saveConfiguration(
+			configuration.getPid(),
 			HashMapDictionaryBuilder.<String, Object>put(
 				"baseURL", "${portalURL}/o/test_" + _VIRTUAL_HOSTNAME
 			).put(
@@ -143,23 +156,7 @@ public class CETConfigurationFactoryTest {
 				}
 			).put(
 				"webContextPath", "/test_" + _VIRTUAL_HOSTNAME
-			).build();
-
-		Bundle bundle = FrameworkUtil.getBundle(
-			CETConfigurationFactoryTest.class);
-
-		BundleContext bundleContext = bundle.getBundleContext();
-
-		Configuration configuration = OSGiServiceUtil.callService(
-			bundleContext, ConfigurationAdmin.class,
-			(ConfigurationAdmin configurationAdmin) ->
-				configurationAdmin.getFactoryConfiguration(
-					"com.liferay.client.extension.type.configuration." +
-						"CETConfiguration",
-					"test/" + _VIRTUAL_HOSTNAME, StringPool.QUESTION));
-
-		ConfigurationTestUtil.saveConfiguration(
-			configuration.getPid(), properties);
+			).build());
 
 		_autoCloseables.add(
 			() -> ConfigurationTestUtil.deleteConfiguration(configuration));
