@@ -154,21 +154,20 @@ public class DDMContentUpgradeProcessTest extends BaseCTUpgradeProcessTestCase {
 	protected CTModel<?> updateCTModel(CTModel<?> ctModel) throws Exception {
 		DDMContent ddmContent = (DDMContent)ctModel;
 
-		JSONObject jsonObject = JSONUtil.put(
-			"name", RandomTestUtil.randomString());
-
-		JSONArray jsonArray = JSONUtil.putAll(
+		ddmContent.setData(
 			JSONUtil.put(
-				"fieldReference", RandomTestUtil.randomString()
-			).put(
-				"instanceId", RandomTestUtil.randomString()
+				"fieldValues",
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"fieldReference", RandomTestUtil.randomString()
+					).put(
+						"instanceId", RandomTestUtil.randomString()
+					).put(
+						"name", RandomTestUtil.randomString()
+					))
 			).put(
 				"name", RandomTestUtil.randomString()
-			));
-
-		jsonObject.put("fieldValues", jsonArray);
-
-		ddmContent.setData(jsonObject.toString());
+			).toString());
 
 		return _ddmContentLocalService.updateDDMContent(ddmContent);
 	}

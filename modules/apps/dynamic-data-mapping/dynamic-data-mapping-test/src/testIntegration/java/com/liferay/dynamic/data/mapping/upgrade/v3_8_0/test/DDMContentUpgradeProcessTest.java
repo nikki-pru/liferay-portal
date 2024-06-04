@@ -19,9 +19,6 @@ import com.liferay.dynamic.data.mapping.test.util.DDMFormInstanceRecordTestUtil;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormInstanceTestUtil;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormTestUtil;
 import com.liferay.dynamic.data.mapping.test.util.DDMFormValuesTestUtil;
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONFactory;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.change.tracking.CTModel;
@@ -108,21 +105,19 @@ public class DDMContentUpgradeProcessTest extends BaseCTUpgradeProcessTestCase {
 
 	@Override
 	protected CTModel<?> addCTModel() throws Exception {
-		JSONObject jsonObject = JSONUtil.put(
-			"name", RandomTestUtil.randomString());
-
-		JSONArray jsonArray = _jsonFactory.createJSONArray();
-
-		jsonArray.put(
-			JSONUtil.put(
-				RandomTestUtil.randomString(), RandomTestUtil.randomString()));
-
-		jsonObject.put("fieldValues", jsonArray);
-
 		DDMContent ddmContent = _ddmContentLocalService.addContent(
 			TestPropsValues.getUserId(), _group.getGroupId(),
 			RandomTestUtil.randomString(), RandomTestUtil.randomString(),
-			jsonObject.toString(), ServiceContextTestUtil.getServiceContext());
+			JSONUtil.put(
+				"fieldValues",
+				JSONUtil.putAll(
+					JSONUtil.put(
+						RandomTestUtil.randomString(),
+						RandomTestUtil.randomString()))
+			).put(
+				"name", RandomTestUtil.randomString()
+			).toString(),
+			ServiceContextTestUtil.getServiceContext());
 
 		DDMFormInstanceRecordVersion ddmFormInstanceRecordVersion =
 			_ddmFormInstanceRecord.getFormInstanceRecordVersion();
@@ -152,18 +147,16 @@ public class DDMContentUpgradeProcessTest extends BaseCTUpgradeProcessTestCase {
 	protected CTModel<?> updateCTModel(CTModel<?> ctModel) throws Exception {
 		DDMContent ddmContent = (DDMContent)ctModel;
 
-		JSONObject jsonObject = JSONUtil.put(
-			"name", RandomTestUtil.randomString());
-
-		JSONArray jsonArray = _jsonFactory.createJSONArray();
-
-		jsonArray.put(
+		ddmContent.setData(
 			JSONUtil.put(
-				RandomTestUtil.randomString(), RandomTestUtil.randomString()));
-
-		jsonObject.put("fieldValues", jsonArray);
-
-		ddmContent.setData(jsonObject.toString());
+				"fieldValues",
+				JSONUtil.putAll(
+					JSONUtil.put(
+						RandomTestUtil.randomString(),
+						RandomTestUtil.randomString()))
+			).put(
+				"name", RandomTestUtil.randomString()
+			).toString());
 
 		return _ddmContentLocalService.updateDDMContent(ddmContent);
 	}
@@ -194,8 +187,5 @@ public class DDMContentUpgradeProcessTest extends BaseCTUpgradeProcessTestCase {
 
 	@DeleteAfterTestRun
 	private Group _group;
-
-	@Inject
-	private JSONFactory _jsonFactory;
 
 }
