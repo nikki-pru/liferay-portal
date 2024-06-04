@@ -47,6 +47,7 @@ import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.language.constants.LanguageConstants;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.login.AuthLoginGroupSettingsUtil;
 import com.liferay.portal.kernel.model.AuditedModel;
 import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.ClassName;
@@ -1056,10 +1057,19 @@ public class PortalImpl implements Portal {
 		Layout layout = null;
 
 		if (Validator.isNull(friendlyURL)) {
-			layout = _getLayout(
-				groupId, privateLayout,
-				_getPermissionChecker(
-					(HttpServletRequest)requestContext.get("request")));
+			if (AuthLoginGroupSettingsUtil.isPromptEnabled(groupId) &&
+				!_isSignedIn(
+					(HttpServletRequest)requestContext.get("request"))) {
+
+				layout = LayoutLocalServiceUtil.fetchDefaultLayout(
+					groupId, privateLayout);
+			}
+			else {
+				layout = _getLayout(
+					groupId, privateLayout,
+					_getPermissionChecker(
+						(HttpServletRequest)requestContext.get("request")));
+			}
 
 			if (layout == null) {
 				throw new NoSuchLayoutException(
@@ -8270,6 +8280,32 @@ public class PortalImpl implements Portal {
 		}
 
 		return false;
+	}
+
+	private boolean _isSignedIn(HttpServletRequest httpServletRequest) {
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
+		if (permissionChecker != null) {
+			return permissionChecker.isSignedIn();
+		}
+
+		User user = null;
+
+		try {
+			user = getUser(httpServletRequest);
+		}
+		catch (PortalException portalException) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(portalException);
+			}
+		}
+
+		if ((user == null) || user.isGuestUser()) {
+			return false;
+		}
+
+		return true;
 	}
 
 	private boolean _layoutContainsPortletId(Layout layout, String portletId) {
