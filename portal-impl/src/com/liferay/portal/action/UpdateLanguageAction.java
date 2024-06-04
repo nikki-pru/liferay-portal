@@ -285,15 +285,15 @@ public class UpdateLanguageAction implements Action {
 			return true;
 		}
 
-		int pos = layoutURL.indexOf(
+		int index = layoutURL.indexOf(
 			PortalUtil.getPathContext() + StringPool.SLASH);
 
-		String string = layoutURL.substring(pos + 1);
+		String string = layoutURL.substring(index + 1);
 
-		pos = string.indexOf(CharPool.SLASH);
+		index = string.indexOf(CharPool.SLASH);
 
 		Locale layoutURLLocale = LocaleUtil.fromLanguageId(
-			string.substring(pos + 1), true, false);
+			string.substring(index + 1), true, false);
 
 		if (layoutURLLocale != null) {
 			return true;
