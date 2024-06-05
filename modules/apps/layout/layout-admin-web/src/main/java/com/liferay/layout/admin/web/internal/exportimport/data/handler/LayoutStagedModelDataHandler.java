@@ -2050,6 +2050,9 @@ public class LayoutStagedModelDataHandler
 		_clientExtensionEntryRelLocalService.deleteClientExtensionEntryRels(
 			_portal.getClassNameId(Layout.class), importedLayout.getPlid(),
 			ClientExtensionEntryConstants.TYPE_GLOBAL_JS);
+		_clientExtensionEntryRelLocalService.deleteClientExtensionEntryRels(
+			_portal.getClassNameId(Layout.class), importedLayout.getPlid(),
+			ClientExtensionEntryConstants.TYPE_THEME_CSS);
 
 		List<Element> clientExtensionEntryRelsElements =
 			portletDataContext.getReferenceDataElements(
