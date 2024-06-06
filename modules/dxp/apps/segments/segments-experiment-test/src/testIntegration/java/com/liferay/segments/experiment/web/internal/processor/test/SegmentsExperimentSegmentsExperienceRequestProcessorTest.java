@@ -199,7 +199,6 @@ public class SegmentsExperimentSegmentsExperienceRequestProcessorTest {
 			Assert.assertEquals(
 				Arrays.toString(segmentsExperienceIds), 1,
 				segmentsExperienceIds.length);
-
 			Assert.assertEquals(
 				defaultSegmentsExperienceId, segmentsExperienceIds[0]);
 		}
@@ -342,7 +341,9 @@ public class SegmentsExperimentSegmentsExperienceRequestProcessorTest {
 	}
 
 	@Test
-	public void testGetSegmentsExperienceIdsWithRandomId() throws Exception {
+	public void testGetSegmentsExperienceIdsWithNonexistentSegmentsEntryId()
+		throws Exception {
+
 		SegmentsEntry segmentsEntry = SegmentsTestUtil.addSegmentsEntry(
 			_group.getGroupId());
 
