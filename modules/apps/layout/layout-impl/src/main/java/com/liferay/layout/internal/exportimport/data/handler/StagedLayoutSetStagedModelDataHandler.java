@@ -392,7 +392,7 @@ public class StagedLayoutSetStagedModelDataHandler
 		}
 	}
 
-	private void _deleteUnnecessaryClientExtensions(
+	private void _deleteUnnecessaryClientExtensionEntryRels(
 		StagedLayoutSet stagedLayoutSet,
 		StagedLayoutSet importedStagedLayoutSet) {
 
@@ -715,7 +715,7 @@ public class StagedLayoutSetStagedModelDataHandler
 			StagedLayoutSet importedStagedLayoutSet)
 		throws Exception {
 
-		_deleteUnnecessaryClientExtensions(
+		_deleteUnnecessaryClientExtensionEntryRels(
 			stagedLayoutSet, importedStagedLayoutSet);
 
 		List<Element> clientExtensionEntryRelsElements =
