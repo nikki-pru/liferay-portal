@@ -141,6 +141,8 @@ import com.liferay.segments.model.SegmentsExperience;
 import com.liferay.segments.service.SegmentsExperienceLocalService;
 import com.liferay.sites.kernel.util.Sites;
 import com.liferay.staging.configuration.StagingConfiguration;
+import com.liferay.style.book.model.StyleBookEntry;
+import com.liferay.style.book.service.StyleBookEntryLocalService;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -388,6 +390,8 @@ public class LayoutStagedModelDataHandler
 		_fixExportTypeSettings(layout);
 
 		_exportTheme(layout, portletDataContext);
+
+		_exportStyleBookEntry(layout, portletDataContext);
 
 		portletDataContext.addClassedModel(
 			layoutElement, ExportImportPathUtil.getModelPath(layout),
@@ -889,7 +893,7 @@ public class LayoutStagedModelDataHandler
 			importedLayout.setIconImageId(0);
 		}
 
-		importedLayout.setStyleBookEntryId(layout.getStyleBookEntryId());
+		_importStyleBookEntry(importedLayout, layout, portletDataContext);
 
 		if (existingLayout == null) {
 			try {
@@ -1682,6 +1686,25 @@ public class LayoutStagedModelDataHandler
 					portletDataContext, layout, layoutPageTemplateEntry,
 					PortletDataContext.REFERENCE_TYPE_DEPENDENCY);
 			}
+		}
+	}
+
+	private void _exportStyleBookEntry(
+			Layout layout, PortletDataContext portletDataContext)
+		throws Exception {
+
+		if (layout.getStyleBookEntryId() == 0) {
+			return;
+		}
+
+		StyleBookEntry styleBookEntry =
+			_styleBookEntryLocalService.fetchStyleBookEntry(
+				layout.getStyleBookEntryId());
+
+		if (styleBookEntry != null) {
+			StagedModelDataHandlerUtil.exportReferenceStagedModel(
+				portletDataContext, layout, styleBookEntry,
+				PortletDataContext.REFERENCE_TYPE_DEPENDENCY);
 		}
 	}
 
@@ -2565,6 +2588,29 @@ public class LayoutStagedModelDataHandler
 						portletDataContext, layout, linkedToURL)));
 	}
 
+	private void _importStyleBookEntry(
+			Layout importedLayout, Layout layout,
+			PortletDataContext portletDataContext)
+		throws Exception {
+
+		if (layout.getStyleBookEntryId() == 0) {
+			return;
+		}
+
+		StagedModelDataHandlerUtil.importReferenceStagedModel(
+			portletDataContext, layout, StyleBookEntry.class,
+			layout.getStyleBookEntryId());
+
+		Map<Long, Long> styleBooksEntryNewPrimaryKeysMap =
+			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
+				StyleBookEntry.class);
+
+		importedLayout.setStyleBookEntryId(
+			MapUtil.getLong(
+				styleBooksEntryNewPrimaryKeysMap, layout.getStyleBookEntryId(),
+				layout.getStyleBookEntryId()));
+	}
+
 	private void _importTheme(
 			Layout importedLayout, Layout layout,
 			PortletDataContext portletDataContext)
@@ -3224,6 +3270,9 @@ public class LayoutStagedModelDataHandler
 
 	@Reference
 	private Staging _staging;
+
+	@Reference
+	private StyleBookEntryLocalService _styleBookEntryLocalService;
 
 	@Reference
 	private UserLocalService _userLocalService;
