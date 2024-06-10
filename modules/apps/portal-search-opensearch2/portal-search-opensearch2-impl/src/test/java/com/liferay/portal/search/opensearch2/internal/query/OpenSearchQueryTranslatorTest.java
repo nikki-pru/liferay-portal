@@ -15,6 +15,7 @@ import com.liferay.portal.search.internal.query.TermQueryImpl;
 import com.liferay.portal.search.internal.query.WildcardQueryImpl;
 import com.liferay.portal.search.opensearch2.internal.OpenSearchTestRule;
 import com.liferay.portal.search.opensearch2.internal.util.JsonpUtil;
+import com.liferay.portal.search.opensearch2.internal.util.QueryUtil;
 import com.liferay.portal.search.query.BooleanQuery;
 import com.liferay.portal.search.query.Query;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
@@ -121,6 +122,24 @@ public class OpenSearchQueryTranslatorTest {
 	private void _assertBoost(Query query) {
 		query.setBoost(_BOOST);
 
+		String jsonp = _toJSONP(query);
+
+		Assert.assertTrue(
+			jsonp, jsonp.contains("\"boost\":" + String.valueOf(_BOOST)));
+	}
+
+	private void _assertTermsCount(int expected, TermsQuery termsQuery) {
+		String jsonp = _toJSONP(termsQuery);
+
+		Assert.assertEquals(jsonp, expected, StringUtil.count(jsonp, "terms"));
+	}
+
+	private void _setMaxTermsCount(int maxTermsCount) {
+		ReflectionTestUtil.setFieldValue(
+			QueryUtil.class, "_MAX_TERMS_COUNT", maxTermsCount);
+	}
+
+	private String _toJSONP(Query query) {
 		org.opensearch.client.opensearch._types.query_dsl.Query
 			openSearchQuery =
 				new org.opensearch.client.opensearch._types.query_dsl.Query(
