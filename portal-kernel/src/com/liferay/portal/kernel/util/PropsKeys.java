@@ -1383,6 +1383,9 @@ public interface PropsKeys {
 
 	public static final String LAYOUT_SITEMAPABLE = "layout.sitemapable";
 
+	public static final String LAYOUT_STATIC_PORTLETS =
+		"layout.static.portlets.";
+
 	public static final String LAYOUT_STATIC_PORTLETS_ALL =
 		"layout.static.portlets.all";
 
