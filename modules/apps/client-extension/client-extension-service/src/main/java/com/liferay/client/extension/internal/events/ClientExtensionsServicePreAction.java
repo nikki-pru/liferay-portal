@@ -133,22 +133,26 @@ public class ClientExtensionsServicePreAction extends Action {
 			return faviconURL;
 		}
 
-		Layout masterLayout = _layoutLocalService.fetchLayout(
-			layout.getMasterLayoutPlid());
+		long masterLayoutPlid = layout.getMasterLayoutPlid();
 
-		if (masterLayout != null) {
-			faviconURL = _getThemeFaviconCETURL(
-				_portal.getClassNameId(Layout.class), masterLayout.getPlid(),
-				layout.getCompanyId());
+		if (masterLayoutPlid > 0) {
+			Layout masterLayout = _layoutLocalService.fetchLayout(
+				masterLayoutPlid);
 
-			if (Validator.isNotNull(faviconURL)) {
-				return faviconURL;
-			}
+			if (masterLayout != null) {
+				faviconURL = _getThemeFaviconCETURL(
+					_portal.getClassNameId(Layout.class),
+					masterLayout.getPlid(), layout.getCompanyId());
 
-			faviconURL = masterLayout.getFaviconURL();
+				if (Validator.isNotNull(faviconURL)) {
+					return faviconURL;
+				}
 
-			if (Validator.isNotNull(faviconURL)) {
-				return faviconURL;
+				faviconURL = masterLayout.getFaviconURL();
+
+				if (Validator.isNotNull(faviconURL)) {
+					return faviconURL;
+				}
 			}
 		}
 
@@ -177,7 +181,7 @@ public class ClientExtensionsServicePreAction extends Action {
 			layout.getCompanyId(),
 			ClientExtensionEntryConstants.TYPE_THEME_CSS);
 
-		if (cet == null) {
+		if ((cet == null) && (layout.getMasterLayoutPlid() > 0)) {
 			cet = _getCET(
 				_portal.getClassNameId(Layout.class),
 				layout.getMasterLayoutPlid(), layout.getCompanyId(),
@@ -250,7 +254,7 @@ public class ClientExtensionsServicePreAction extends Action {
 			layout.getCompanyId(),
 			ClientExtensionEntryConstants.TYPE_THEME_SPRITEMAP);
 
-		if (cet == null) {
+		if ((cet == null) && (layout.getMasterLayoutPlid() > 0)) {
 			cet = _getCET(
 				_portal.getClassNameId(Layout.class),
 				layout.getMasterLayoutPlid(), layout.getCompanyId(),
