@@ -5,6 +5,9 @@
 
 package com.liferay.portal.search.elasticsearch7.internal.query;
 
+import com.liferay.portal.kernel.test.ReflectionTestUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.search.elasticsearch7.internal.util.QueryUtil;
 import com.liferay.portal.search.internal.query.BooleanQueryImpl;
 import com.liferay.portal.search.internal.query.CommonTermsQueryImpl;
 import com.liferay.portal.search.internal.query.FuzzyQueryImpl;
@@ -104,6 +107,27 @@ public class ElasticsearchQueryTranslatorTest {
 			String.valueOf(innerQueryBuilder.boost()));
 	}
 
+	@Test
+	public void testTranslateTermsFilterExceedingMaxAllowedTerms() {
+		ReflectionTestUtil.setFieldValue(
+			_elasticsearchQueryTranslator, "_termsQueryTranslator",
+			new TermsQueryTranslatorImpl());
+
+		termsQuery.addValues("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+
+		_setMaxTermsCount(10);
+
+		_assertTermsCount(1, termsQuery);
+
+		_setMaxTermsCount(5);
+
+		_assertTermsCount(2, termsQuery);
+
+		_setMaxTermsCount(3);
+
+		_assertTermsCount(4, termsQuery);
+	}
+
 	private void _assertBoost(Query query) {
 		query.setBoost(_BOOST);
 
@@ -113,6 +137,20 @@ public class ElasticsearchQueryTranslatorTest {
 		Assert.assertEquals(
 			queryBuilder.toString(), String.valueOf(_BOOST),
 			String.valueOf(queryBuilder.boost()));
+	}
+
+	private void _assertTermsCount(int expected, TermsQuery termsQuery) {
+		String queryString = _elasticsearchQueryTranslator.translate(
+			termsQuery
+		).toString();
+
+		Assert.assertEquals(
+			queryString, expected, StringUtil.count(queryString, "terms"));
+	}
+
+	private void _setMaxTermsCount(int maxTermsCount) {
+		ReflectionTestUtil.setFieldValue(
+			QueryUtil.class, "_MAX_TERMS_COUNT", maxTermsCount);
 	}
 
 	private static final Float _BOOST = 1.5F;
