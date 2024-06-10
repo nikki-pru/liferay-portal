@@ -65,7 +65,6 @@ import com.liferay.portal.search.query.function.CombineFunction;
 import com.liferay.portal.search.query.geolocation.ShapeRelation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
@@ -984,22 +983,9 @@ public class OpenSearchQueryTranslator
 
 	@Override
 	public QueryVariant visit(TermsQuery termsQuery) {
-		org.opensearch.client.opensearch._types.query_dsl.TermsQuery.Builder
-			builder = QueryBuilders.terms();
-
-		SetterUtil.setNotNullFloat(builder::boost, termsQuery.getBoost());
-
-		builder.field(termsQuery.getField());
-
-		List<FieldValue> fieldValues = new ArrayList<>();
-
-		ListUtil.isNotEmptyForEach(
-			Arrays.asList(termsQuery.getValues()),
-			value -> fieldValues.add(FieldValue.of(value)));
-
-		builder.terms(termsQueryField -> termsQueryField.value(fieldValues));
-
-		return builder.build();
+		return QueryUtil.translateTerms(
+			termsQuery.getBoost(), termsQuery.getField(),
+			termsQuery.getValues());
 	}
 
 	@Override
