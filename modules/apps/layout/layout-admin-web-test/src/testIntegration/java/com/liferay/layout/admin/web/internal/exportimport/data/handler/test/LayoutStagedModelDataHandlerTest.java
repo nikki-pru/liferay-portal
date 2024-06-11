@@ -99,11 +99,11 @@ public class LayoutStagedModelDataHandlerTest
 
 	@Test
 	public void testClientExtensionEntries() throws Exception {
-		_testClientExtensionByType(
+		_testClientExtensionEntries(
 			ClientExtensionEntryConstants.TYPE_GLOBAL_CSS, "http://css.css");
-		_testClientExtensionByType(
+		_testClientExtensionEntries(
 			ClientExtensionEntryConstants.TYPE_GLOBAL_JS, "http://js.js");
-		_testClientExtensionByType(
+		_testClientExtensionEntries(
 			ClientExtensionEntryConstants.TYPE_THEME_CSS, "http://css.css");
 	}
 
@@ -653,7 +653,7 @@ public class LayoutStagedModelDataHandlerTest
 			).build());
 	}
 
-	private void _testClientExtensionByType(String type, String url)
+	private void _testClientExtensionEntries(String type, String url)
 		throws Exception {
 
 		initExport();

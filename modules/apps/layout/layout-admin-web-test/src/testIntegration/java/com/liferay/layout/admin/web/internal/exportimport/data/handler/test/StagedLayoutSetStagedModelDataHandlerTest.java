@@ -62,11 +62,11 @@ public class StagedLayoutSetStagedModelDataHandlerTest
 
 	@Test
 	public void testClientExtensionEntries() throws Exception {
-		_testClientExtensionEntriesByType(
+		_testClientExtensionEntries(
 			ClientExtensionEntryConstants.TYPE_GLOBAL_CSS, "http://css.css");
-		_testClientExtensionEntriesByType(
+		_testClientExtensionEntries(
 			ClientExtensionEntryConstants.TYPE_THEME_CSS, "http://css.css");
-		_testClientExtensionEntriesByType(
+		_testClientExtensionEntries(
 			ClientExtensionEntryConstants.TYPE_GLOBAL_JS, "http://js.js");
 	}
 
@@ -115,7 +115,7 @@ public class StagedLayoutSetStagedModelDataHandlerTest
 		return StagedLayoutSet.class;
 	}
 
-	private void _testClientExtensionEntriesByType(String type, String url)
+	private void _testClientExtensionEntries(String type, String url)
 		throws Exception {
 
 		initExport();
