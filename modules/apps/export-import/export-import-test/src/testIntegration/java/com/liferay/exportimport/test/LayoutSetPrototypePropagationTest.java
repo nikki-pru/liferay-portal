@@ -59,7 +59,6 @@ import com.liferay.portal.kernel.util.HashMapBuilder;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.impl.ThemeSettingImpl;
-import com.liferay.portal.servlet.filters.cache.CacheUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.sites.kernel.util.Sites;
@@ -192,8 +191,6 @@ public class LayoutSetPrototypePropagationTest
 		prototypeLayout = updateModifiedDate(
 			prototypeLayout,
 			new Date(System.currentTimeMillis() + Time.MINUTE));
-
-		CacheUtil.clearCache(prototypeLayout.getCompanyId());
 
 		propagateChanges(group);
 
