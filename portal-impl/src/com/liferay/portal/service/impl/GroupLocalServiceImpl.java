@@ -5211,15 +5211,11 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			// the same company as the remote user
 
 			try {
-				MethodKey methodKey = new MethodKey(
-					GroupServiceUtil.class, "checkRemoteStagingGroup",
-					_CHECK_REMOTE_STAGING_GROUP_PARAMETER_TYPES);
-
-				MethodHandler methodHandler = new MethodHandler(
-					methodKey, remoteGroupId);
-
 				try {
-					TunnelUtil.invoke(httpPrincipal, methodHandler);
+					TunnelUtil.invoke(
+						httpPrincipal,
+						new MethodHandler(
+							_checkRemoteStagingGroupMethodKey, remoteGroupId));
 				}
 				catch (Exception exception) {
 					if (exception instanceof PortalException) {
@@ -5498,14 +5494,13 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		}
 	}
 
-	private static final Class<?>[]
-		_CHECK_REMOTE_STAGING_GROUP_PARAMETER_TYPES = new Class<?>[] {
-			long.class
-		};
-
 	private static final Log _log = LogFactoryUtil.getLog(
 		GroupLocalServiceImpl.class);
 
+	private static final MethodKey _checkRemoteStagingGroupMethodKey =
+		new MethodKey(
+			GroupServiceUtil.class, "checkRemoteStagingGroup",
+			new Class<?>[] {long.class});
 	private static final MethodHandler _clearStagingGroupIdsMethodHandler =
 		new MethodHandler(
 			new MethodKey(
