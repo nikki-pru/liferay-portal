@@ -366,7 +366,7 @@ public class ForgotPasswordMVCActionCommand extends BaseMVCActionCommand {
 
 		PasswordPolicy passwordPolicy = user.getPasswordPolicy();
 
-		if (!passwordPolicy.isChangeable()) {
+		if ((passwordPolicy == null) || !passwordPolicy.isChangeable()) {
 			emailParam = "emailPasswordUnchangeable";
 		}
 		else if (company.isSendPasswordResetLink()) {
