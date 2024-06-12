@@ -1506,17 +1506,17 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 			return GroupUtil.fetchByLiveGroupId(liveGroupId);
 		}
 
-		Map<Long, Long> liveToStagingGroups =
-			_liveToStagingGroupsDCLSingleton.getSingleton(
-				this::_getLiveToStagingGroups);
+		Map<Long, Long> stagingGroupIds =
+			_stagingGroupIdsDCLSingleton.getSingleton(
+				this::_getStagingGroupIds);
 
-		if (liveToStagingGroups.size() > _stagingGroupsInMemoryFilterLimit) {
+		if (stagingGroupIds.size() > _stagingGroupsInMemoryFilterLimit) {
 			_stagingGroupsInMemoryFilterLimit = 0;
 
-			_liveToStagingGroupsDCLSingleton.destroy(null);
+			_stagingGroupIdsDCLSingleton.destroy(null);
 		}
 
-		Long stagingGroupId = liveToStagingGroups.get(liveGroupId);
+		Long stagingGroupId = stagingGroupIds.get(liveGroupId);
 
 		if (stagingGroupId == null) {
 			return null;
@@ -5349,23 +5349,25 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 
 	protected File publicLARFile;
 
-	private static void _clearLiveToStagingGroupsCache() {
-		_liveToStagingGroupsDCLSingleton.destroy(null);
+	private static void _clearStagingGroupIds() {
+		_stagingGroupIdsDCLSingleton.destroy(null);
 
-		if (ClusterExecutorUtil.isEnabled()) {
-			TransactionCommitCallbackUtil.registerCallback(
-				() -> {
-					ClusterRequest clusterRequest =
-						ClusterRequest.createMulticastRequest(
-							_clearLiveToStagingGroupsCacheMethodHandler, true);
-
-					clusterRequest.setFireAndForget(true);
-
-					ClusterExecutorUtil.execute(clusterRequest);
-
-					return null;
-				});
+		if (!ClusterExecutorUtil.isEnabled()) {
+			return;
 		}
+
+		TransactionCommitCallbackUtil.registerCallback(
+			() -> {
+				ClusterRequest clusterRequest =
+					ClusterRequest.createMulticastRequest(
+						_clearStagingGroupIdsMethodHandler, true);
+
+				clusterRequest.setFireAndForget(true);
+
+				ClusterExecutorUtil.execute(clusterRequest);
+
+				return null;
+			});
 	}
 
 	private Collection<Group> _filterGroups(
@@ -5412,7 +5414,7 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		return groupKey;
 	}
 
-	private Map<Long, Long> _getLiveToStagingGroups() {
+	private Map<Long, Long> _getStagingGroupIds() {
 		Session session = null;
 
 		try {
@@ -5431,14 +5433,13 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 				return Collections.emptyMap();
 			}
 
-			Map<Long, Long> liveToStagingGroups = new HashMap<>();
+			Map<Long, Long> stagingGroupIds = new HashMap<>();
 
-			for (Object[] liveToStagingGroup : results) {
-				liveToStagingGroups.put(
-					(Long)liveToStagingGroup[0], (Long)liveToStagingGroup[1]);
+			for (Object[] result : results) {
+				stagingGroupIds.put((Long)result[0], (Long)result[1]);
 			}
 
-			return liveToStagingGroups;
+			return stagingGroupIds;
 		}
 		catch (Exception exception) {
 			throw new SystemException(exception);
@@ -5506,11 +5507,11 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		GroupLocalServiceImpl.class);
 
 	private static final MethodHandler
-		_clearLiveToStagingGroupsCacheMethodHandler = new MethodHandler(
+		_clearStagingGroupIdsMethodHandler = new MethodHandler(
 			new MethodKey(
-				GroupLocalServiceImpl.class, "_clearLiveToStagingGroupsCache"));
+				GroupLocalServiceImpl.class, "_clearStagingGroupIds"));
 	private static final DCLSingleton<Map<Long, Long>>
-		_liveToStagingGroupsDCLSingleton = new DCLSingleton<>();
+		_stagingGroupIdsDCLSingleton = new DCLSingleton<>();
 	private static final Snapshot<ReindexerBridge> _reindexerBridgeSnapshot =
 		new Snapshot<>(GroupLocalServiceImpl.class, ReindexerBridge.class);
 	private static volatile int _stagingGroupsInMemoryFilterLimit =
@@ -5654,21 +5655,21 @@ public class GroupLocalServiceImpl extends GroupLocalServiceBaseImpl {
 		@Override
 		public void onBeforeCreate(Group group) throws ModelListenerException {
 			if (group.getLiveGroupId() != 0) {
-				_clearLiveToStagingGroupsCache();
+				_clearStagingGroupIds();
 			}
 		}
 
 		@Override
 		public void onBeforeRemove(Group group) throws ModelListenerException {
 			if (group.getLiveGroupId() != 0) {
-				_clearLiveToStagingGroupsCache();
+				_clearStagingGroupIds();
 			}
 		}
 
 		@Override
 		public void onBeforeUpdate(Group originalGroup, Group group) {
 			if (originalGroup.getLiveGroupId() != group.getLiveGroupId()) {
-				_clearLiveToStagingGroupsCache();
+				_clearStagingGroupIds();
 			}
 		}
 
