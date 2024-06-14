@@ -293,6 +293,7 @@ definition {
 	@description = "This is a use case for OAUTH2-242. Verify that 2 portals and an external application authorization works in a clustered environment."
 	@priority = 5
 	test AuthCodeShouldWorkWithClusteredPortals {
+		property portal.acceptance = "U122Round2";
 		property app.server.bundles.size = "1";
 		property cluster.enabled = "true";
 		property custom.properties = "virtual.hosts.default.site.name=Guest";
