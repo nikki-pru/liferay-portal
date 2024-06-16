@@ -61,7 +61,7 @@ public class LayoutImplTest {
 	}
 
 	@Test
-	public void testGetThemeWithMasterPage() throws Exception {
+	public void testGetThemeWithMasterLayout() throws Exception {
 		_layoutSetLocalService.updateLookAndFeel(
 			_group.getGroupId(), true, "admin_WAR_admintheme", "01",
 			StringPool.BLANK);
