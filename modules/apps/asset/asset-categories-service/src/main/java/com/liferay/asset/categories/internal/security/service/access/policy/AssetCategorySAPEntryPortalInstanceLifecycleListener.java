@@ -55,7 +55,6 @@ public class AssetCategorySAPEntryPortalInstanceLifecycleListener
 
 		String allowedServiceSignatures =
 			AssetCategoryService.class.getName() + "#search";
-
 		Map<Locale, String> titleMap = ResourceBundleUtil.getLocalizationMap(
 			LanguageResources.PORTAL_RESOURCE_BUNDLE_LOADER,
 			"service-access-policy-entry-default-asset-category-title");
