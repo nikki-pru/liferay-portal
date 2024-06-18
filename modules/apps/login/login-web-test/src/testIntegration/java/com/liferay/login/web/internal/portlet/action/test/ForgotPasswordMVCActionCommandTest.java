@@ -61,7 +61,7 @@ public class ForgotPasswordMVCActionCommandTest {
 		new LiferayIntegrationTestRule();
 
 	@Test
-	public void testLdapPasswordPolicyPreventsPasswordReset() throws Exception {
+	public void testLDAPPasswordPolicyPreventsPasswordReset() throws Exception {
 		_user = UserTestUtil.addUser();
 
 		Dictionary<String, Object> configurations =
@@ -86,7 +86,7 @@ public class ForgotPasswordMVCActionCommandTest {
 					PropsKeys.USERS_REMINDER_QUERIES_ENABLED,
 					Boolean.FALSE.toString())) {
 
-			List<Ticket> tickets1 = _ticketLocalService.getTickets(
+			List<Ticket> tickets = _ticketLocalService.getTickets(
 				_user.getCompanyId(), User.class.getName(), _user.getUserId());
 
 			MockLiferayPortletActionRequest mockLiferayPortletActionRequest =
@@ -102,10 +102,11 @@ public class ForgotPasswordMVCActionCommandTest {
 
 			Assert.assertNotNull(message);
 
-			List<Ticket> tickets2 = _ticketLocalService.getTickets(
-				_user.getCompanyId(), User.class.getName(), _user.getUserId());
-
-			Assert.assertEquals(tickets1, tickets2);
+			Assert.assertEquals(
+				tickets,
+				_ticketLocalService.getTickets(
+					_user.getCompanyId(), User.class.getName(),
+					_user.getUserId()));
 		}
 		finally {
 			if (existingValue != null) {
