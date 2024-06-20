@@ -1069,7 +1069,7 @@ public class ProductResourceImpl extends BaseProductResourceImpl {
 						sku.getPrice(), cpInstance.getPrice()),
 					(BigDecimal)GetterUtil.get(
 						sku.getPromoPrice(), cpInstance.getPromoPrice()),
-					serviceContext);
+					StringPool.BLANK, serviceContext);
 			}
 		}
 
