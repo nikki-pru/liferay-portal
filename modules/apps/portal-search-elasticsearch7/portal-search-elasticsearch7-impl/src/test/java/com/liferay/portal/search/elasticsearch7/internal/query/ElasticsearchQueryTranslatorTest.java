@@ -17,10 +17,13 @@ import com.liferay.portal.search.internal.query.TermQueryImpl;
 import com.liferay.portal.search.internal.query.WildcardQueryImpl;
 import com.liferay.portal.search.query.BooleanQuery;
 import com.liferay.portal.search.query.Query;
+import com.liferay.portal.search.query.TermsQuery;
+import com.liferay.portal.search.test.util.IdempotentRetryAssert;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
@@ -108,10 +111,10 @@ public class ElasticsearchQueryTranslatorTest {
 	}
 
 	@Test
-	public void testTranslateTermsFilterExceedingMaxAllowedTerms() {
-		ReflectionTestUtil.setFieldValue(
-			_elasticsearchQueryTranslator, "_termsQueryTranslator",
-			new TermsQueryTranslatorImpl());
+	public void testTranslateTermsQueryExceedingMaxAllowedTerms()
+		throws Exception {
+
+		TermsQuery termsQuery = new TermsQueryImpl("groupId");
 
 		termsQuery.addValues("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
 
@@ -139,13 +142,20 @@ public class ElasticsearchQueryTranslatorTest {
 			String.valueOf(queryBuilder.boost()));
 	}
 
-	private void _assertTermsCount(int expected, TermsQuery termsQuery) {
-		String queryString = _elasticsearchQueryTranslator.translate(
-			termsQuery
-		).toString();
+	private void _assertTermsCount(int expected, TermsQuery termsQuery)
+		throws Exception {
 
-		Assert.assertEquals(
-			queryString, expected, StringUtil.count(queryString, "terms"));
+		IdempotentRetryAssert.retryAssert(
+			10, TimeUnit.SECONDS,
+			() -> {
+				String queryString = _elasticsearchQueryTranslator.visit(
+					termsQuery
+				).toString();
+
+				Assert.assertEquals(
+					queryString, expected,
+					StringUtil.count(queryString, "terms"));
+			});
 	}
 
 	private void _setMaxTermsCount(int maxTermsCount) {
