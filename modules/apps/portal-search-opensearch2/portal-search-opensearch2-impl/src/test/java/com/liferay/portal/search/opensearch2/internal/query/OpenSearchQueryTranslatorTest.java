@@ -18,11 +18,14 @@ import com.liferay.portal.search.opensearch2.internal.util.JsonpUtil;
 import com.liferay.portal.search.opensearch2.internal.util.QueryUtil;
 import com.liferay.portal.search.query.BooleanQuery;
 import com.liferay.portal.search.query.Query;
+import com.liferay.portal.search.query.TermsQuery;
+import com.liferay.portal.search.test.util.IdempotentRetryAssert;
 import com.liferay.portal.test.rule.LiferayUnitTestRule;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -119,6 +122,27 @@ public class OpenSearchQueryTranslatorTest {
 			queryString.contains("\"boost\":" + String.valueOf(_BOOST)));
 	}
 
+	@Test
+	public void testTranslateTermsQueryExceedingMaxAllowedTerms()
+		throws Exception {
+
+		TermsQuery termsQuery = new TermsQueryImpl("groupId");
+
+		termsQuery.addValues("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+
+		_setMaxTermsCount(10);
+
+		_assertTermsCount(1, termsQuery);
+
+		_setMaxTermsCount(5);
+
+		_assertTermsCount(2, termsQuery);
+
+		_setMaxTermsCount(3);
+
+		_assertTermsCount(4, termsQuery);
+	}
+
 	private void _assertBoost(Query query) {
 		query.setBoost(_BOOST);
 
@@ -128,10 +152,17 @@ public class OpenSearchQueryTranslatorTest {
 			jsonp, jsonp.contains("\"boost\":" + String.valueOf(_BOOST)));
 	}
 
-	private void _assertTermsCount(int expected, TermsQuery termsQuery) {
-		String jsonp = _toJSONP(termsQuery);
+	private void _assertTermsCount(int expected, TermsQuery termsQuery)
+		throws Exception {
 
-		Assert.assertEquals(jsonp, expected, StringUtil.count(jsonp, "terms"));
+		IdempotentRetryAssert.retryAssert(
+			10, TimeUnit.SECONDS,
+			() -> {
+				String jsonp = _toJSONP(termsQuery);
+
+				Assert.assertEquals(
+					jsonp, expected, StringUtil.count(jsonp, "terms"));
+			});
 	}
 
 	private void _setMaxTermsCount(int maxTermsCount) {
