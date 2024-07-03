@@ -312,7 +312,7 @@ public class NavigationMenuResourceTest
 
 		SiteNavigationMenuItem siteNavigationMenuItem =
 			_siteNavigationMenuItemLocalService.addSiteNavigationMenuItem(
-				null, TestPropsValues.getUserId(), testGroup.getGroupId(),
+				TestPropsValues.getUserId(), testGroup.getGroupId(),
 				postNavigationMenu.getId(), 0,
 				SiteNavigationMenuItemTypeConstants.NODE,
 				UnicodePropertiesBuilder.create(
