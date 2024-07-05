@@ -372,7 +372,7 @@ public class WorkflowDefinitionManagerImpl
 					name, version, serviceContext);
 			}
 
-			return getWorkflowDefinition(companyId, name, version);
+			return liberalGetWorkflowDefinition(companyId, name, version);
 		}
 		catch (WorkflowException workflowException) {
 			throw workflowException;
