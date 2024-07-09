@@ -33,6 +33,7 @@ import com.liferay.object.constants.ObjectDefinitionConstants;
 import com.liferay.object.constants.ObjectFieldConstants;
 import com.liferay.object.constants.ObjectFieldSettingConstants;
 import com.liferay.object.constants.ObjectRelationshipConstants;
+import com.liferay.object.field.builder.TextObjectFieldBuilder;
 import com.liferay.object.field.setting.builder.ObjectFieldSettingBuilder;
 import com.liferay.object.field.util.ObjectFieldUtil;
 import com.liferay.object.model.ObjectAction;
@@ -52,6 +53,7 @@ import com.liferay.object.scope.ObjectScopeProviderRegistry;
 import com.liferay.object.service.ObjectActionLocalService;
 import com.liferay.object.service.ObjectDefinitionLocalService;
 import com.liferay.object.service.ObjectEntryLocalService;
+import com.liferay.object.service.ObjectFieldLocalService;
 import com.liferay.object.service.ObjectRelationshipLocalService;
 import com.liferay.object.system.SystemObjectDefinitionManager;
 import com.liferay.object.system.SystemObjectDefinitionManagerRegistry;
@@ -5589,6 +5591,60 @@ public class ObjectEntryResourceTest {
 	}
 
 	@Test
+	public void testPostRelatedObjectEntryInDifferentCompany()
+		throws Exception {
+
+		ObjectRelationship objectRelationship1 = _addObjectRelationship(
+			TestPropsValues.getCompanyId());
+
+		ObjectEntry objectEntry = ObjectEntryTestUtil.addObjectEntry(
+			_objectDefinitionLocalService.getObjectDefinition(
+				objectRelationship1.getObjectDefinitionId1()),
+			_OBJECT_FIELD_NAME_1, RandomTestUtil.randomString());
+
+		JSONObject jsonObject = HTTPTestUtil.invokeToJSONObject(
+			JSONUtil.put(
+				"domain", "able.com"
+			).put(
+				"portalInstanceId", "able.com"
+			).put(
+				"virtualHost", "www.able.com"
+			).toString(),
+			"headless-portal-instances/v1.0/portal-instances",
+			Http.Method.POST);
+
+		ObjectRelationship objectRelationship2 = _addObjectRelationship(
+			jsonObject.getLong("companyId"));
+
+		HTTPTestUtil.customize(
+		).withBaseURL(
+			"http://www.able.com:8080"
+		).withCredentials(
+			"test@able.com", PropsValues.DEFAULT_ADMIN_PASSWORD
+		).apply(
+			() -> {
+				ObjectDefinition objectDefinition =
+					_objectDefinitionLocalService.getObjectDefinition(
+						objectRelationship2.getObjectDefinitionId2());
+
+				ObjectField objectField =
+					_objectFieldLocalService.getObjectField(
+						objectRelationship2.getObjectFieldId2());
+
+				Assert.assertEquals(
+					400,
+					HTTPTestUtil.invokeToHttpCode(
+						JSONUtil.put(
+							objectField.getName(),
+							objectEntry.getObjectEntryId()
+						).toString(),
+						objectDefinition.getRESTContextPath(),
+						Http.Method.POST));
+			}
+		);
+	}
+
+	@Test
 	public void testPutByExternalReferenceCodeCurrentExternalReferenceCodeObjectRelationshipNameRelatedExternalReferenceCodeWithSlash()
 		throws Exception {
 
@@ -6410,6 +6466,39 @@ public class ObjectEntryResourceTest {
 					RoleConstants.USER, actionIds
 				).build(),
 				className));
+	}
+
+	private ObjectRelationship _addObjectRelationship(long companyId)
+		throws Exception {
+
+		User user = UserTestUtil.getAdminUser(companyId);
+
+		ObjectDefinition objectDefinition1 =
+			ObjectDefinitionTestUtil.publishObjectDefinition(
+				Collections.singletonList(
+					new TextObjectFieldBuilder(
+					).labelMap(
+						LocalizedMapUtil.getLocalizedMap(
+							RandomTestUtil.randomString())
+					).name(
+						_OBJECT_FIELD_NAME_1
+					).build()),
+				ObjectDefinitionConstants.SCOPE_COMPANY, user.getUserId());
+		ObjectDefinition objectDefinition2 =
+			ObjectDefinitionTestUtil.publishObjectDefinition(
+				Collections.singletonList(
+					new TextObjectFieldBuilder(
+					).labelMap(
+						LocalizedMapUtil.getLocalizedMap(
+							RandomTestUtil.randomString())
+					).name(
+						_OBJECT_FIELD_NAME_1
+					).build()),
+				ObjectDefinitionConstants.SCOPE_COMPANY, user.getUserId());
+
+		return ObjectRelationshipTestUtil.addObjectRelationship(
+			objectDefinition1, objectDefinition2, user.getUserId(),
+			ObjectRelationshipConstants.TYPE_ONE_TO_MANY);
 	}
 
 	private ObjectRelationship _addObjectRelationshipAndRelateObjectEntries(
@@ -8758,6 +8847,9 @@ public class ObjectEntryResourceTest {
 
 	@Inject
 	private ObjectEntryLocalService _objectEntryLocalService;
+
+	@Inject
+	private ObjectFieldLocalService _objectFieldLocalService;
 
 	private ObjectRelationship _objectRelationship1;
 	private ObjectRelationship _objectRelationship2;
