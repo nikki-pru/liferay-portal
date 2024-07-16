@@ -102,10 +102,10 @@ public class AutocompleteUserMVCResourceCommandTest {
 
 		JSONArray jsonArray = _getUsersJSONArray(mockLiferayResourceResponse);
 
-		JSONObject itemJSONObject = jsonArray.getJSONObject(0);
+		JSONObject jsonObject = jsonArray.getJSONObject(0);
 
 		Assert.assertEquals(
-			_user2.getFullName(), itemJSONObject.getString("fullName"));
+			_user2.getFullName(), jsonObject.getString("fullName"));
 	}
 
 	private MockLiferayResourceRequest _getMockLiferayResourceRequest(
