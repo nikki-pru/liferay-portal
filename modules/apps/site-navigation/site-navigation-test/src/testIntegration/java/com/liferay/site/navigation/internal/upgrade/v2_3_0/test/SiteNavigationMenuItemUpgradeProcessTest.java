@@ -66,7 +66,6 @@ public class SiteNavigationMenuItemUpgradeProcessTest
 
 		_serviceContext = ServiceContextTestUtil.getServiceContext(
 			_group.getGroupId());
-
 		_siteNavigationMenu = SiteNavigationMenuTestUtil.addSiteNavigationMenu(
 			_group);
 	}
@@ -133,11 +132,10 @@ public class SiteNavigationMenuItemUpgradeProcessTest
 				_siteNavigationMenuItemLocalService.getSiteNavigationMenuItem(
 					entry.getKey());
 
-			Assert.assertNotEquals(
-				"display_page", displayPageSiteNavigationMenuItem.getType());
-
 			Assert.assertEquals(
 				entry.getValue(), displayPageSiteNavigationMenuItem.getType());
+			Assert.assertNotEquals(
+				"display_page", displayPageSiteNavigationMenuItem.getType());
 		}
 	}
 
