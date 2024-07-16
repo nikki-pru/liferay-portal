@@ -29,7 +29,7 @@ public class DDMFormInstanceReportUpgradeProcess extends UpgradeProcess {
 	protected void doUpgrade() throws Exception {
 		try (PreparedStatement selectPreparedStatement =
 				connection.prepareStatement(
-					"select ctCollectionId, data_, formInstanceReportId from " +
+					"select ctCollectionId, formInstanceReportId, data_ from " +
 						"DDMFormInstanceReport");
 			PreparedStatement updatePreparedStatement =
 				AutoBatchPreparedStatementUtil.concurrentAutoBatch(
