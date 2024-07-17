@@ -129,8 +129,8 @@ public class RelationshipObjectFieldBusinessType
 				valueLong);
 
 			if (!Objects.equals(
-					objectEntry.getObjectDefinitionId(),
-					objectDefinition.getObjectDefinitionId())) {
+					objectDefinition.getObjectDefinitionId(),
+					objectEntry.getObjectDefinitionId())) {
 
 				throw new ObjectEntryValuesException.InvalidValue(
 					objectField.getName());
