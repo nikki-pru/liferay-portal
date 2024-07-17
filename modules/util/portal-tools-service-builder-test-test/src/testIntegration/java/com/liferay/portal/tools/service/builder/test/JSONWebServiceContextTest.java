@@ -37,7 +37,7 @@ public class JSONWebServiceContextTest {
 		new LiferayIntegrationTestRule();
 
 	@Test
-	public void testJSONWebServiceContext() {
+	public void test() {
 		OSGiBeanProperties osgiBeanProperties = AnnotationLocator.locate(
 			LazyBlobEntryService.class, OSGiBeanProperties.class);
 
