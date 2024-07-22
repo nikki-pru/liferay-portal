@@ -78,8 +78,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.URLCodec;
 import com.liferay.portal.security.service.access.policy.model.SAPEntry;
 import com.liferay.portal.security.service.access.policy.service.SAPEntryLocalService;
-import com.liferay.portal.test.log.LogCapture;
-import com.liferay.portal.test.log.LoggerTestUtil;
 import com.liferay.portal.test.rule.FeatureFlags;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
@@ -3325,7 +3323,6 @@ public class HeadlessBuilderResourceTest extends BaseTestCase {
 
 	@Inject
 	private SAPEntryLocalService _sapEntryLocalService;
-
 
 	@DeleteAfterTestRun
 	private ObjectDefinition _siteScopedObjectDefinition1;
