@@ -17,7 +17,10 @@ import com.liferay.fragment.service.FragmentEntryLinkLocalService;
 import com.liferay.layout.constants.LayoutTypeSettingsConstants;
 import com.liferay.layout.helper.LayoutCopyHelper;
 import com.liferay.layout.model.LayoutClassedModelUsage;
+import com.liferay.layout.page.template.constants.LayoutPageTemplateEntryTypeConstants;
+import com.liferay.layout.page.template.model.LayoutPageTemplateEntry;
 import com.liferay.layout.page.template.model.LayoutPageTemplateStructure;
+import com.liferay.layout.page.template.service.LayoutPageTemplateEntryLocalService;
 import com.liferay.layout.page.template.service.LayoutPageTemplateStructureLocalService;
 import com.liferay.layout.seo.model.LayoutSEOEntry;
 import com.liferay.layout.seo.service.LayoutSEOEntryLocalService;
@@ -32,6 +35,8 @@ import com.liferay.portal.kernel.change.tracking.CTCollectionThreadLocal;
 import com.liferay.portal.kernel.comment.CommentManager;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Image;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutConstants;
@@ -60,6 +65,7 @@ import com.liferay.portal.kernel.service.permission.PortletPermissionUtil;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.TransactionConfig;
 import com.liferay.portal.kernel.transaction.TransactionInvokerUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CopyLayoutThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
@@ -552,13 +558,14 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 		}
 	}
 
-	private void _deletePortletPermissions(
+	private List<String> _deletePortletPermissions(
 			Layout layout, long[] segmentsExperiencesIds)
 		throws Exception {
 
-		for (String portletId :
-				_getLayoutPortletIds(layout, segmentsExperiencesIds)) {
+		List<String> portletIds = _getLayoutPortletIds(
+			layout, segmentsExperiencesIds);
 
+		for (String portletId : portletIds) {
 			_resourcePermissionLocalService.deleteResourcePermissions(
 				layout.getCompanyId(),
 				PortletIdCodec.decodePortletName(portletId),
@@ -566,6 +573,8 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 				PortletPermissionUtil.getPrimaryKey(
 					layout.getPlid(), portletId));
 		}
+
+		return portletIds;
 	}
 
 	private Map<Long, FragmentEntryLink> _getFragmentEntryLinksMap(
@@ -941,6 +950,9 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 		return layoutStructure.toJSONObject();
 	}
 
+	private static final Log _log = LogFactoryUtil.getLog(
+		LayoutCopyHelperImpl.class);
+
 	private static final TransactionConfig _transactionConfig =
 		TransactionConfig.Factory.create(
 			Propagation.REQUIRED, new Class<?>[] {Exception.class});
@@ -976,6 +988,10 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 
 	@Reference
 	private LayoutLocalService _layoutLocalService;
+
+	@Reference
+	private LayoutPageTemplateEntryLocalService
+		_layoutPageTemplateEntryLocalService;
 
 	@Reference
 	private LayoutPageTemplateStructureLocalService
@@ -1024,7 +1040,7 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 				_sites.copyPortletPermissions(_targetLayout, _sourceLayout);
 			}
 			else {
-				_deletePortletPermissions(
+				List<String> oldPortletIds = _deletePortletPermissions(
 					_targetLayout, _targetSegmentsExperiencesIds);
 
 				// LPS-108378 Copy structure before permissions and preferences
@@ -1048,6 +1064,8 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 
 				_copyPortletPreferences(
 					portletIds, _sourceLayout, _targetLayout);
+
+				_deleteOrphanPortletPreferences(portletIds, oldPortletIds);
 			}
 
 			// Copy classedModelUsages after copying the structure
@@ -1122,6 +1140,54 @@ public class LayoutCopyHelperImpl implements LayoutCopyHelper {
 					clientExtensionEntryRel.getType(),
 					clientExtensionEntryRel.getTypeSettings(),
 					ServiceContextThreadLocal.getServiceContext());
+			}
+		}
+
+		private void _deleteOrphanPortletPreferences(
+			List<String> portletIds, List<String> oldPortletIds) {
+
+			String[] deletedPortletIds = TransformUtil.transformToArray(
+				oldPortletIds,
+				portletId -> {
+					if (portletIds.contains(portletId)) {
+						return null;
+					}
+
+					return portletId;
+				},
+				String.class);
+
+			if (ArrayUtil.isEmpty(deletedPortletIds)) {
+				return;
+			}
+
+			LayoutPageTemplateEntry layoutPageTemplateEntry =
+				_layoutPageTemplateEntryLocalService.
+					fetchLayoutPageTemplateEntryByPlid(_targetLayout.getPlid());
+
+			if ((layoutPageTemplateEntry == null) ||
+				!Objects.equals(
+					layoutPageTemplateEntry.getType(),
+					LayoutPageTemplateEntryTypeConstants.MASTER_LAYOUT)) {
+
+				return;
+			}
+
+			for (String portletId : deletedPortletIds) {
+				for (PortletPreferences portletPreferences :
+						_portletPreferencesLocalService.
+							getPortletPreferencesByPortletId(portletId)) {
+
+					try {
+						_portletPreferencesLocalService.
+							deletePortletPreferences(portletPreferences);
+					}
+					catch (Exception exception) {
+						if (_log.isDebugEnabled()) {
+							_log.debug(exception);
+						}
+					}
+				}
 			}
 		}
 
