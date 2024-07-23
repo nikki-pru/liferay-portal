@@ -35,6 +35,22 @@ public class WorkflowDefinitionManagerUtil {
 			companyId, userId, title, name, bytes);
 	}
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #liberalGetActiveWorkflowDefinitions(long, int, int, OrderByComparator)}
+	 */
+	@Deprecated
+	public static List<WorkflowDefinition> getActiveWorkflowDefinitions(
+			long companyId, int start, int end,
+			OrderByComparator<WorkflowDefinition> orderByComparator)
+		throws WorkflowException {
+
+		WorkflowDefinitionManager workflowDefinitionManager =
+			_workflowDefinitionManagerSnapshot.get();
+
+		return workflowDefinitionManager.getActiveWorkflowDefinitions(
+			companyId, start, end, orderByComparator);
+	}
+
 	public static int getActiveWorkflowDefinitionsCount(long companyId)
 		throws WorkflowException {
 
@@ -43,6 +59,68 @@ public class WorkflowDefinitionManagerUtil {
 
 		return workflowDefinitionManager.getActiveWorkflowDefinitionsCount(
 			companyId);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #liberalGetLatestWorkflowDefinition(long, String)}
+	 */
+	@Deprecated
+	public static WorkflowDefinition getLatestWorkflowDefinition(
+			long companyId, String name)
+		throws WorkflowException {
+
+		WorkflowDefinitionManager workflowDefinitionManager =
+			_workflowDefinitionManagerSnapshot.get();
+
+		return workflowDefinitionManager.getLatestWorkflowDefinition(
+			companyId, name);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #liberalGetLatestWorkflowDefinitions(long, int, int, OrderByComparator)}
+	 */
+	@Deprecated
+	public static List<WorkflowDefinition> getLatestWorkflowDefinitions(
+			long companyId, int start, int end,
+			OrderByComparator<WorkflowDefinition> orderByComparator)
+		throws WorkflowException {
+
+		WorkflowDefinitionManager workflowDefinitionManager =
+			_workflowDefinitionManagerSnapshot.get();
+
+		return workflowDefinitionManager.getLatestWorkflowDefinitions(
+			companyId, start, end, orderByComparator);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #liberalGetWorkflowDefinition(long, String, int)}
+	 */
+	@Deprecated
+	public static WorkflowDefinition getWorkflowDefinition(
+			long companyId, String name, int version)
+		throws WorkflowException {
+
+		WorkflowDefinitionManager workflowDefinitionManager =
+			_workflowDefinitionManagerSnapshot.get();
+
+		return workflowDefinitionManager.getWorkflowDefinition(
+			companyId, name, version);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link #liberalGetWorkflowDefinitions(long, String, int, int, OrderByComparator)}
+	 */
+	@Deprecated
+	public static List<WorkflowDefinition> getWorkflowDefinitions(
+			long companyId, String name, int start, int end,
+			OrderByComparator<WorkflowDefinition> orderByComparator)
+		throws WorkflowException {
+
+		WorkflowDefinitionManager workflowDefinitionManager =
+			_workflowDefinitionManagerSnapshot.get();
+
+		return workflowDefinitionManager.getWorkflowDefinitions(
+			companyId, name, start, end, orderByComparator);
 	}
 
 	public static int getWorkflowDefinitionsCount(long companyId, String name)
