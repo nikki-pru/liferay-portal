@@ -6,6 +6,7 @@
 package com.liferay.fragment.internal.upgrade.v2_9_1.test;
 
 import com.liferay.arquillian.extension.junit.bridge.junit.Arquillian;
+import com.liferay.change.tracking.test.util.BaseCTUpgradeProcessTestCase;
 import com.liferay.fragment.entry.processor.constants.FragmentEntryProcessorConstants;
 import com.liferay.fragment.model.FragmentEntryLink;
 import com.liferay.fragment.service.FragmentEntryLinkLocalService;
@@ -17,12 +18,14 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
+import com.liferay.portal.kernel.model.change.tracking.CTModel;
+import com.liferay.portal.kernel.service.change.tracking.CTService;
 import com.liferay.portal.kernel.test.rule.AggregateTestRule;
 import com.liferay.portal.kernel.test.rule.DeleteAfterTestRun;
 import com.liferay.portal.kernel.test.util.GroupTestUtil;
 import com.liferay.portal.kernel.test.util.RandomTestUtil;
+import com.liferay.portal.kernel.test.util.TestPropsValues;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
-import com.liferay.portal.kernel.version.Version;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.LiferayIntegrationTestRule;
 import com.liferay.portal.test.rule.PermissionCheckerMethodTestRule;
@@ -43,7 +46,8 @@ import org.junit.runner.RunWith;
  * @author Rubén Pulido
  */
 @RunWith(Arquillian.class)
-public class FragmentEntryLinkUpgradeProcessTest {
+public class FragmentEntryLinkUpgradeProcessTest
+	extends BaseCTUpgradeProcessTestCase {
 
 	@ClassRule
 	@Rule
@@ -130,7 +134,7 @@ public class FragmentEntryLinkUpgradeProcessTest {
 				editableValuesJSONObject2,
 				draftLayoutFragmentEntryLink2.getFragmentEntryLinkId());
 
-		_runUpgrade();
+		runUpgrade();
 
 		_assertFragmentEntryLinkEditableValues(
 			emptyJSONObject,
@@ -145,6 +149,43 @@ public class FragmentEntryLinkUpgradeProcessTest {
 				draftLayoutFragmentEntryLink2.getFragmentEntryLinkId()),
 			_fragmentEntryLinkLocalService.getFragmentEntryLink(
 				publishedLayoutFragmentEntryLink2.getFragmentEntryLinkId()));
+	}
+
+	@Override
+	protected CTModel<?> addCTModel() throws Exception {
+		return ContentLayoutTestUtil.addFragmentEntryLinkToLayout(
+			"{}", _layout, _segmentsExperienceId);
+	}
+
+	@Override
+	protected CTService<?> getCTService() {
+		return _fragmentEntryLinkLocalService;
+	}
+
+	@Override
+	protected void runUpgrade() throws Exception {
+		UpgradeProcess upgradeProcess = UpgradeTestUtil.getUpgradeStep(
+			_upgradeStepRegistrator, _CLASS_NAME);
+
+		upgradeProcess.upgrade();
+
+		_multiVMPool.clear();
+	}
+
+	@Override
+	protected CTModel<?> updateCTModel(CTModel<?> ctModel) throws Exception {
+		FragmentEntryLink fragmentEntryLink = (FragmentEntryLink)ctModel;
+
+		return _fragmentEntryLinkLocalService.updateFragmentEntryLink(
+			TestPropsValues.getUserId(),
+			fragmentEntryLink.getFragmentEntryLinkId(),
+			JSONUtil.put(
+				FragmentEntryProcessorConstants.
+					KEY_FREEMARKER_FRAGMENT_ENTRY_PROCESSOR,
+				JSONUtil.put(
+					RandomTestUtil.randomString(),
+					RandomTestUtil.randomString())
+			).toString());
 	}
 
 	private FragmentEntryLink _addFragmentEntryLinkToDraftLayout(
@@ -192,16 +233,9 @@ public class FragmentEntryLinkUpgradeProcessTest {
 		return fragmentEntryLink;
 	}
 
-	private void _runUpgrade() throws Exception {
-		UpgradeProcess[] upgradeProcesses = UpgradeTestUtil.getUpgradeSteps(
-			_upgradeStepRegistrator, new Version(2, 9, 1));
-
-		for (UpgradeProcess upgradeProcess : upgradeProcesses) {
-			upgradeProcess.upgrade();
-		}
-
-		_multiVMPool.clear();
-	}
+	private static final String _CLASS_NAME =
+		"com.liferay.fragment.internal.upgrade.v2_9_1." +
+			"FragmentEntryLinkUpgradeProcess";
 
 	@Inject(
 		filter = "(&(component.name=com.liferay.fragment.internal.upgrade.registry.FragmentServiceUpgradeStepRegistrator))"
