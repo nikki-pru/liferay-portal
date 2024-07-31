@@ -60,15 +60,14 @@ public class DDMFormInstanceDDMFormInstanceSettingsUpgradeProcessTest
 
 		DDMFormValues ddmFormValues = new DDMFormValues(ddmForm);
 
-		ddmFormValues.setAvailableLocales(ddmForm.getAvailableLocales());
-		ddmFormValues.setDefaultLocale(ddmForm.getDefaultLocale());
-
 		ddmFormValues.addDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
 				"autosaveEnabled", "true"));
 		ddmFormValues.addDDMFormFieldValue(
 			DDMFormValuesTestUtil.createUnlocalizedDDMFormFieldValue(
 				"storageType", "[\"object\"]"));
+		ddmFormValues.setAvailableLocales(ddmForm.getAvailableLocales());
+		ddmFormValues.setDefaultLocale(ddmForm.getDefaultLocale());
 
 		_ddmFormInstance = DDMFormInstanceTestUtil.addDDMFormInstance(
 			ddmForm, _group, ddmFormValues, TestPropsValues.getUserId());
