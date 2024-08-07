@@ -42,7 +42,7 @@ import org.junit.runner.RunWith;
  * @author Carolina Barbosa
  */
 @RunWith(Arquillian.class)
-public class DDMFormInstanceReportUpgradeProcessTest
+public class DDMFormInstanceReportCTUpgradeProcessTest
 	extends BaseCTUpgradeProcessTestCase {
 
 	@ClassRule
