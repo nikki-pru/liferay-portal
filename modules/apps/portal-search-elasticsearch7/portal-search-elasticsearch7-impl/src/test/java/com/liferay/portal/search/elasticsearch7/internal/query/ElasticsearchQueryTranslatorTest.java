@@ -14,6 +14,7 @@ import com.liferay.portal.search.internal.query.FuzzyQueryImpl;
 import com.liferay.portal.search.internal.query.MatchAllQueryImpl;
 import com.liferay.portal.search.internal.query.MoreLikeThisQueryImpl;
 import com.liferay.portal.search.internal.query.TermQueryImpl;
+import com.liferay.portal.search.internal.query.TermsQueryImpl;
 import com.liferay.portal.search.internal.query.WildcardQueryImpl;
 import com.liferay.portal.search.query.BooleanQuery;
 import com.liferay.portal.search.query.Query;
