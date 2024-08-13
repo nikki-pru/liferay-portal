@@ -481,6 +481,10 @@ public class ContentFieldUtil {
 				LocalizedValue selectedOptionLabelLocalizedValue =
 					ddmFormFieldOptions.getOptionLabels(valueString);
 
+				if (selectedOptionLabelLocalizedValue == null) {
+					return new ContentFieldValue();
+				}
+
 				return new ContentFieldValue() {
 					{
 						setData(
