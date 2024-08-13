@@ -40,6 +40,13 @@ public class BNDBreakingChangeCommitMessageCheck extends BaseFileCheck {
 		SourceFormatterArgs sourceFormatterArgs =
 			sourceProcessor.getSourceFormatterArgs();
 
+		String gitWorkingBranchName =
+			sourceFormatterArgs.getGitWorkingBranchName();
+
+		if (gitWorkingBranchName.matches("release-\\d{4}\\.q[1-4]")) {
+			return content;
+		}
+
 		if (_hasMajorVersionBump(absolutePath, sourceFormatterArgs)) {
 			_checkCommitMessages(fileName, absolutePath, sourceFormatterArgs);
 		}
