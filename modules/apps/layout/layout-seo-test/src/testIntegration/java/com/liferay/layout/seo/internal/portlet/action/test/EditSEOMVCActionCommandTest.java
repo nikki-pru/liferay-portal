@@ -188,7 +188,6 @@ public class EditSEOMVCActionCommandTest {
 		mockLiferayPortletActionRequest.addParameter(
 			"privateLayout", String.valueOf(_layout.isPrivateLayout()));
 		mockLiferayPortletActionRequest.addParameter("redirect", "fakeURL");
-
 		mockLiferayPortletActionRequest.setAttribute(
 			WebKeys.THEME_DISPLAY, _getThemeDisplay());
 
