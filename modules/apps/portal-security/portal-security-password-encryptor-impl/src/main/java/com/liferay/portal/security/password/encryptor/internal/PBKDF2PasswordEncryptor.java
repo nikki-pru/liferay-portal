@@ -141,16 +141,16 @@ public class PBKDF2PasswordEncryptor implements PasswordEncryptor {
 				}
 			}
 
-			int indexOf = StringUtil.indexOfIgnoreCase(algorithm, "SHA");
+			int index = StringUtil.indexOfIgnoreCase(algorithm, "SHA");
 
-			if (indexOf < 0) {
+			if (index < 0) {
 				return;
 			}
 
-			String[] digestNameParts = StringUtil.split(
-				algorithm.substring(indexOf), StringPool.FORWARD_SLASH);
+			String[] parts = StringUtil.split(
+				algorithm.substring(index), StringPool.FORWARD_SLASH);
 
-			_digest = DigestFactory.getDigest(digestNameParts[0]);
+			_digest = DigestFactory.getDigest(parts[0]);
 		}
 
 		public Digest getDigest() {
