@@ -143,6 +143,7 @@ public class PortletPreferencesUpgradeProcessTest
 		FragmentEntryLink fragmentEntryLink = (FragmentEntryLink)ctModel;
 
 		return _fragmentEntryLinkLocalService.updateFragmentEntryLink(
+			TestPropsValues.getUserId(),
 			fragmentEntryLink.getFragmentEntryLinkId(),
 			JSONUtil.put(
 				FragmentEntryProcessorConstants.
