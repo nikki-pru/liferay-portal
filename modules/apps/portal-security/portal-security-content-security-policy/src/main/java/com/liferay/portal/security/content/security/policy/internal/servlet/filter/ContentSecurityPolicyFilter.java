@@ -59,8 +59,8 @@ public class ContentSecurityPolicyFilter extends BasePortalFilter {
 		if (CompanyThreadLocal.getCompanyId() == 0) {
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"CompanyThreadLocal not initialized for this request so " +
-						"CSP will not be applied");
+					"Content security policy will not be applied to this " +
+						"request for company ID 0");
 			}
 
 			return false;
