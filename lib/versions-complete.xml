@@ -17,18 +17,6 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.batch.engine.service.jar!commons-collections4.jar</file-name>
-				<version>4.4</version>
-				<project-name>Apache Commons Collections</project-name>
-				<project-url>https://commons.apache.org/proper/commons-collections/</project-url>
-				<licenses>
-					<license>
-						<license-name>Apache License, Version 2.0</license-name>
-						<license-url>https://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
 				<file-name>com.liferay.calendar.api.jar!com.google.ical.jar</file-name>
 				<version>20110304</version>
 				<project-name>com.google.ical</project-name>
@@ -3700,18 +3688,6 @@
 				</licenses>
 			</library>
 			<library>
-				<file-name>com.liferay.portal.template.velocity.jar!commons-collections.jar</file-name>
-				<version>3.2.2</version>
-				<project-name>Apache Commons Collections</project-name>
-				<project-url>http://commons.apache.org/collections/</project-url>
-				<licenses>
-					<license>
-						<license-name>Apache License, Version 2.0</license-name>
-						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
 				<file-name>com.liferay.portal.template.velocity.jar!org.apache.velocity.jar</file-name>
 				<version>1.6.4.LIFERAY-PATCHED-3</version>
 				<project-name>org.apache.velocity</project-name>
@@ -4492,6 +4468,18 @@
 				</licenses>
 			</library>
 			<library>
+				<file-name>com.liferay.shared.dependencies.apache.commons.jar!commons-collections.jar</file-name>
+				<version>3.2.2</version>
+				<project-name>Apache Commons Collections</project-name>
+				<project-url>http://commons.apache.org/collections/</project-url>
+				<licenses>
+					<license>
+						<license-name>Apache License, Version 2.0</license-name>
+						<license-url>http://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
+					</license>
+				</licenses>
+			</library>
+			<library>
 				<file-name>com.liferay.shared.dependencies.apache.commons.jar!commons-collections4.jar</file-name>
 				<version>4.4</version>
 				<project-name>Apache Commons Collections</project-name>
@@ -5114,18 +5102,6 @@
 				<version>2.0.24</version>
 				<project-name>Apache PDFBox</project-name>
 				<project-url>http://pdfbox.apache.org</project-url>
-				<licenses>
-					<license>
-						<license-name>Apache License, Version 2.0</license-name>
-						<license-url>https://www.apache.org/licenses/LICENSE-2.0.txt</license-url>
-					</license>
-				</licenses>
-			</library>
-			<library>
-				<file-name>com.liferay.shared.dependencies.poi.jar!commons-collections4.jar</file-name>
-				<version>4.4</version>
-				<project-name>Apache Commons Collections</project-name>
-				<project-url>https://commons.apache.org/proper/commons-collections/</project-url>
 				<licenses>
 					<license>
 						<license-name>Apache License, Version 2.0</license-name>
