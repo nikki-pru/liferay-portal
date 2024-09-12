@@ -182,7 +182,7 @@ public class WorkflowDefinitionManagerImpl
 
 	@Override
 	public WorkflowDefinition getWorkflowDefinition(long workflowDefinitionId)
-		throws WorkflowException {
+		throws PortalException {
 
 		try {
 			return _kaleoWorkflowModelConverter.toWorkflowDefinition(
@@ -203,7 +203,7 @@ public class WorkflowDefinitionManagerImpl
 	@Override
 	public WorkflowDefinition getWorkflowDefinition(
 			long companyId, String name, int version)
-		throws WorkflowException {
+		throws PortalException {
 
 		return _getWorkflowDefinition(companyId, false, name, version);
 	}
@@ -262,7 +262,7 @@ public class WorkflowDefinitionManagerImpl
 	@Override
 	public WorkflowDefinition liberalGetWorkflowDefinition(
 			long companyId, String name, int version)
-		throws WorkflowException {
+		throws PortalException {
 
 		return _getWorkflowDefinition(companyId, true, name, version);
 	}
@@ -531,7 +531,7 @@ public class WorkflowDefinitionManagerImpl
 
 	private WorkflowDefinition _getWorkflowDefinition(
 			long companyId, boolean liberal, String name, int version)
-		throws WorkflowException {
+		throws PortalException {
 
 		try {
 			return _kaleoWorkflowModelConverter.toWorkflowDefinition(
