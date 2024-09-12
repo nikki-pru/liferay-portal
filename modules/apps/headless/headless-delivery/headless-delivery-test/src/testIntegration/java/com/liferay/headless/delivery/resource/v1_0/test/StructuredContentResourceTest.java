@@ -210,12 +210,7 @@ public class StructuredContentResourceTest
 			Problem problem = problemException.getProblem();
 
 			Assert.assertEquals("NOT_FOUND", problem.getStatus());
-			Assert.assertEquals(
-				StringBundler.concat(
-					"No JournalArticle exists with the key {groupId=",
-					testDepotEntry.getGroupId(), ", externalReferenceCode=",
-					externalReferenceCode, "}"),
-				problem.getTitle());
+			Assert.assertNull(problem.getTitle());
 		}
 	}
 
@@ -293,9 +288,7 @@ public class StructuredContentResourceTest
 			Problem problem = problemException.getProblem();
 
 			Assert.assertEquals("NOT_FOUND", problem.getStatus());
-			Assert.assertEquals(
-				"Unable to get a valid asset library with ID " + assetLibraryId,
-				problem.getTitle());
+			Assert.assertNull(problem.getTitle());
 		}
 
 		// Nonexistent external reference code
@@ -315,12 +308,7 @@ public class StructuredContentResourceTest
 			Problem problem = problemException.getProblem();
 
 			Assert.assertEquals("NOT_FOUND", problem.getStatus());
-			Assert.assertEquals(
-				StringBundler.concat(
-					"No JournalArticle exists with the key {groupId=",
-					testDepotEntry.getGroupId(), ", externalReferenceCode=",
-					externalReferenceCode, "}"),
-				problem.getTitle());
+			Assert.assertNull(problem.getTitle());
 		}
 	}
 
