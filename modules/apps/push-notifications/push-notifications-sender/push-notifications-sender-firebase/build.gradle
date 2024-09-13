@@ -1,6 +1,6 @@
 dependencies {
 	compileInclude group: "com.liferay.mobile", name: "fcm-client", version: "0.3.0"
-	compileInclude group: "com.squareup.okhttp3", name: "okhttp", version: "3.5.0"
+	compileInclude group: "com.squareup.okhttp3", name: "okhttp", version: "4.12.0"
 	compileInclude group: "com.squareup.okio", name: "okio", version: "3.4.0"
 	compileInclude group: "org.jetbrains.kotlin", name: "kotlin-stdlib", version: "1.8.0"
 
