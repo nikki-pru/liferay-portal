@@ -98,7 +98,6 @@ public class CommerceAccountRoleUpgradeProcess extends UpgradeProcess {
 
 						preparedStatement2.setLong(
 							2, resultSet.getLong("ctCollectionId"));
-
 						preparedStatement2.setLong(3, roleId);
 
 						preparedStatement2.addBatch();

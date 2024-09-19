@@ -44,15 +44,12 @@ public class CPTaxCategoryUpgradeProcess extends UpgradeProcess {
 				while (resultSet.next()) {
 					String externalReferenceCode = resultSet.getString(2);
 
-					long cpTaxCategoryId = resultSet.getLong(3);
-
 					preparedStatement.setString(
 						1, externalReferenceCode + StringUtil.randomString(4));
 
 					preparedStatement.setLong(
 						2, resultSet.getLong("ctCollectionId"));
-
-					preparedStatement.setLong(3, cpTaxCategoryId);
+					preparedStatement.setLong(3, resultSet.getLong(3));
 
 					preparedStatement.addBatch();
 				}
