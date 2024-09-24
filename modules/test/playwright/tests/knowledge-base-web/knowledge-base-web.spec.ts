@@ -29,10 +29,7 @@ const testFeatureFlagsDisabled = mergeTests(
 	knowledgeBasePages
 );
 
-const test = mergeTests(
-	knowledgeBasePages,
-	loginTest
-);
+const test = mergeTests(knowledgeBasePages, loginTest);
 
 testFeatureFlagsDisabled(
 	'can publish and delete an article with scheduling disabled',
@@ -116,7 +113,7 @@ testFeatureFlagsEnabled(
 
 test('Check editor required content is an icon', async ({
 	knowledgeBaseEditArticlePage,
-	page
+	page,
 }) => {
 	await knowledgeBaseEditArticlePage.goto();
 
