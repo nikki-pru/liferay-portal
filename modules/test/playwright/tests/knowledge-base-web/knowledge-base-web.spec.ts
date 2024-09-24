@@ -29,6 +29,11 @@ const testFeatureFlagsDisabled = mergeTests(
 	knowledgeBasePages
 );
 
+const test = mergeTests(
+	knowledgeBasePages,
+	loginTest
+);
+
 testFeatureFlagsDisabled(
 	'can publish and delete an article with scheduling disabled',
 	async ({knowledgeBaseEditArticlePage, knowledgeBasePage, page}) => {
@@ -108,3 +113,16 @@ testFeatureFlagsEnabled(
 		).toBeVisible();
 	}
 );
+
+test('Check editor required content is an icon', async ({
+	knowledgeBaseEditArticlePage,
+	page
+}) => {
+	await knowledgeBaseEditArticlePage.goto();
+
+	const requiredField = page.locator(
+		'#_com_liferay_knowledge_base_web_portlet_AdminPortlet_contentEditorContainer svg.lexicon-icon-asterisk'
+	);
+
+	await expect(requiredField).toBeVisible();
+});
