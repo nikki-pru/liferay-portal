@@ -5357,12 +5357,7 @@ public class ObjectEntryResourceTest {
 
 		Assert.assertEquals(2, nestedObjectEntriesJSONArray.length());
 
-		_assertObjectEntryField(
-			(JSONObject)nestedObjectEntriesJSONArray.get(0),
-			_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_1);
-		_assertObjectEntryField(
-			(JSONObject)nestedObjectEntriesJSONArray.get(1),
-			_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_2);
+		_assertEquals(nestedObjectEntriesJSONArray);
 
 		String objectEntryId = jsonObject.getString("id");
 
@@ -5379,12 +5374,7 @@ public class ObjectEntryResourceTest {
 
 		Assert.assertEquals(2, nestedObjectEntriesJSONArray.length());
 
-		_assertObjectEntryField(
-			(JSONObject)nestedObjectEntriesJSONArray.get(0),
-			_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_1);
-		_assertObjectEntryField(
-			(JSONObject)nestedObjectEntriesJSONArray.get(1),
-			_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_2);
+		_assertEquals(nestedObjectEntriesJSONArray);
 
 		// Site scope
 
@@ -5420,12 +5410,7 @@ public class ObjectEntryResourceTest {
 
 		Assert.assertEquals(2, nestedObjectEntriesJSONArray.length());
 
-		_assertObjectEntryField(
-			(JSONObject)nestedObjectEntriesJSONArray.get(0),
-			_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_1);
-		_assertObjectEntryField(
-			(JSONObject)nestedObjectEntriesJSONArray.get(1),
-			_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_2);
+		_assertEquals(nestedObjectEntriesJSONArray);
 
 		objectEntryId = jsonObject.getString("id");
 
@@ -5442,12 +5427,7 @@ public class ObjectEntryResourceTest {
 
 		Assert.assertEquals(2, nestedObjectEntriesJSONArray.length());
 
-		_assertObjectEntryField(
-			(JSONObject)nestedObjectEntriesJSONArray.get(0),
-			_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_1);
-		_assertObjectEntryField(
-			(JSONObject)nestedObjectEntriesJSONArray.get(1),
-			_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_2);
+		_assertEquals(nestedObjectEntriesJSONArray);
 	}
 
 	@Test
@@ -6576,6 +6556,25 @@ public class ObjectEntryResourceTest {
 		return UserLocalServiceUtil.updateUser(user);
 	}
 
+	private void _assertEquals(JSONArray nestedObjectEntriesJSONArray)
+		throws Exception {
+
+		JSONAssert.assertEquals(
+			JSONUtil.putAll(
+				JSONUtil.put(
+					_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_1
+				).put(
+					"externalReferenceCode", _ERC_VALUE_1
+				),
+				JSONUtil.put(
+					_OBJECT_FIELD_NAME_2, _NEW_OBJECT_FIELD_VALUE_2
+				).put(
+					"externalReferenceCode", _ERC_VALUE_2
+				)
+			).toString(),
+			nestedObjectEntriesJSONArray.toString(), JSONCompareMode.LENIENT);
+	}
+
 	private void _assertFilteredObjectEntries(
 			int expectedObjectEntryCount, String filterString)
 		throws Exception {
@@ -7678,18 +7677,15 @@ public class ObjectEntryResourceTest {
 
 		_testPatchPutCustomObjectEntryWithDuplicateExternalReferenceCode(
 			objectDefinition.getRESTContextPath(),
-			StringBundler.concat(
-				objectDefinition.getRESTContextPath(),
-				"/by-external-reference-code/", _ERC_VALUE_1),
+			objectDefinition.getRESTContextPath() +
+				"/by-external-reference-code/",
 			httpMethod);
+
+		String endpoint = _getEndpoint(
+			TestPropsValues.getGroupId(), siteScopedObjectDefinition);
+
 		_testPatchPutCustomObjectEntryWithDuplicateExternalReferenceCode(
-			_getEndpoint(
-				TestPropsValues.getGroupId(), siteScopedObjectDefinition),
-			StringBundler.concat(
-				_getEndpoint(
-					TestPropsValues.getGroupId(), siteScopedObjectDefinition),
-				"/by-external-reference-code/", _ERC_VALUE_1),
-			httpMethod);
+			endpoint, endpoint + "/by-external-reference-code/", httpMethod);
 	}
 
 	private void
@@ -7697,13 +7693,16 @@ public class ObjectEntryResourceTest {
 				String endpoint1, String endpoint2, Http.Method httpMethod)
 		throws Exception {
 
+		String externalReferenceCode1 = RandomTestUtil.randomString();
+		String externalReferenceCode2 = RandomTestUtil.randomString();
+
 		Assert.assertEquals(
 			200,
 			HTTPTestUtil.invokeToHttpCode(
 				JSONUtil.put(
 					_OBJECT_FIELD_NAME_1, RandomTestUtil.randomString()
 				).put(
-					"externalReferenceCode", _ERC_VALUE_1
+					"externalReferenceCode", externalReferenceCode1
 				).toString(),
 				endpoint1, Http.Method.POST));
 		Assert.assertEquals(
@@ -7712,7 +7711,7 @@ public class ObjectEntryResourceTest {
 				JSONUtil.put(
 					_OBJECT_FIELD_NAME_1, RandomTestUtil.randomString()
 				).put(
-					"externalReferenceCode", _ERC_VALUE_2
+					"externalReferenceCode", externalReferenceCode2
 				).toString(),
 				endpoint1, Http.Method.POST));
 
@@ -7720,9 +7719,9 @@ public class ObjectEntryResourceTest {
 			400,
 			HTTPTestUtil.invokeToHttpCode(
 				JSONUtil.put(
-					"externalReferenceCode", _ERC_VALUE_2
+					"externalReferenceCode", externalReferenceCode2
 				).toString(),
-				endpoint2, httpMethod));
+				endpoint2 + externalReferenceCode1, httpMethod));
 	}
 
 	private void _testPostCustomObjectEntryWithAttachmentField(
