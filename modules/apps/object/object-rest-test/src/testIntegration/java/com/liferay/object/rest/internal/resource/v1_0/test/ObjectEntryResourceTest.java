@@ -5264,40 +5264,96 @@ public class ObjectEntryResourceTest {
 	}
 
 	@Test
-	public void testGetObjectEntriesFilteredBySystemDate() throws Exception {
+	public void testGetObjectEntriesFilteredByDateModified() throws Exception {
 		_objectEntry1 = ObjectEntryTestUtil.addObjectEntry(
 			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1);
-
-		_objectEntry1.setCreateDate(
-			_dateTimeDateFormat.parse("2023-09-20T10:00:00.150Z"));
-		_objectEntry1.setModifiedDate(
-			_dateTimeDateFormat.parse("2023-09-20T10:00:00.150Z"));
-
-		_objectEntry1 = _objectEntryLocalService.updateObjectEntry(
-			_objectEntry1);
 
 		_objectEntry2 = ObjectEntryTestUtil.addObjectEntry(
 			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2);
 
-		_objectEntry2.setCreateDate(
-			_dateTimeDateFormat.parse("2023-09-20T10:05:00.450Z"));
+		_objectEntry1.setModifiedDate(
+			_dateTimeDateFormat.parse("2023-09-20T10:00:00.150Z"));
 		_objectEntry2.setModifiedDate(
 			_dateTimeDateFormat.parse("2023-09-20T10:05:00.450Z"));
 
+		_objectEntry1 = _objectEntryLocalService.updateObjectEntry(
+			_objectEntry1);
 		_objectEntry2 = _objectEntryLocalService.updateObjectEntry(
 			_objectEntry2);
 
-		_objectEntry3 = ObjectEntryTestUtil.addObjectEntry(
-			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_3);
+		// Test case for 'gt' (greater than)
 
-		_objectEntry3.setCreateDate(null);
-		_objectEntry3.setModifiedDate(null);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL("dateModified gt 2023-09-20T10:00:00.150Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL("dateModified gt 2023-09-20T10:00:00Z"),
+			_objectDefinition1);
 
-		_objectEntry3 = _objectEntryLocalService.updateObjectEntry(
-			_objectEntry3);
+		// Test case for 'ge' (greater than or equal)
 
-		_testGetObjectEntriesFilteredBySystemDate("dateCreated");
-		_testGetObjectEntriesFilteredBySystemDate("dateModified");
+		_assertFilteredObjectEntries(
+			2, "dateModified ge 2023-09-20T10:00:00.400Z");
+		_assertFilteredObjectEntries(2, "dateModified ge 2023-09-20T10:00:00Z");
+
+		// Test case for 'lt' (less than)
+
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL("dateModified lt 2023-09-20T10:05:00.450Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL("dateModified lt 2023-09-20T10:05:00Z"),
+			_objectDefinition1);
+
+		// Test case for 'le' (less than or equal)
+
+		_assertFilteredObjectEntries(
+			2, "dateModified le 2023-09-20T10:05:00.700Z");
+		_assertFilteredObjectEntries(2, "dateModified le 2023-09-20T10:05:00Z");
+
+		// Test case for 'eq' (equal)
+
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL("dateModified eq 2023-09-20T10:00:00.300Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL("dateModified eq 2023-09-20T10:00:00Z"),
+			_objectDefinition1);
+
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL("dateModified eq 2023-09-20T10:05:00.200Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL("dateModified eq 2023-09-20T10:05:00Z"),
+			_objectDefinition1);
+
+		// Test case for 'ne' (not equal)
+
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL("dateModified ne 2023-09-20T10:00:00Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL("dateModified ne 2023-09-20T10:05:00Z"),
+			_objectDefinition1);
+
+		// Test case for 'in' (multiple values)
+
+		_assertFilteredObjectEntries(
+			2, "dateModified in (2023-09-20T10:05:00Z,2023-09-20T10:00:00Z)");
+
+		// Test case for 'isNotEmpty' (check that dateModified is not null)
+
+		_assertFilteredObjectEntries(2, "dateModified ne null");
 	}
 
 	@Test
@@ -12891,91 +12947,6 @@ public class ObjectEntryResourceTest {
 				nestedFieldDepth, nestedFieldName, objectDefinition),
 			expectedFieldName, objectFieldNamesAndObjectFieldValues, null,
 			type);
-	}
-
-	private void _testGetObjectEntriesFilteredBySystemDate(String fieldName)
-		throws Exception {
-
-		// eq
-
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:00:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:00:00.999Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:05:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:05:00.999Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_3,
-			URLCodec.encodeURL(fieldName + " eq null"), _objectDefinition1);
-
-		// ge
-
-		_assertFilteredObjectEntries(2, fieldName + " ge 2023-09-20T10:00:00Z");
-		_assertFilteredObjectEntries(
-			2, fieldName + " ge 2023-09-20T10:00:00.999Z");
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " ge 2023-09-20T10:00:01Z"),
-			_objectDefinition1);
-
-		// gt
-
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " gt 2023-09-20T10:00:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " gt 2023-09-20T10:00:00.999Z"),
-			_objectDefinition1);
-
-		// in
-
-		_assertFilteredObjectEntries(
-			2, fieldName + " in (2023-09-20T10:05:00Z,2023-09-20T10:00:00Z)");
-
-		// le
-
-		_assertFilteredObjectEntries(2, fieldName + " le 2023-09-20T10:05:00Z");
-		_assertFilteredObjectEntries(
-			2, fieldName + " le 2023-09-20T10:05:00.999Z");
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " le 2023-09-20T10:04:00.999Z"),
-			_objectDefinition1);
-
-		// lt
-
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " lt 2023-09-20T10:05:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " lt 2023-09-20T10:05:00.999Z"),
-			_objectDefinition1);
-
-		// ne
-
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " ne 2023-09-20T10:05:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " ne 2023-09-20T10:00:00Z"),
-			_objectDefinition1);
-		_assertFilteredObjectEntries(2, fieldName + " ne null");
 	}
 
 	private void _testGetObjectEntryWithObjectActions(
