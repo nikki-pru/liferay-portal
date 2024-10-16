@@ -99,8 +99,7 @@ public class PredicateExpressionVisitorImpl
 
 	@Override
 	public Predicate visitBinaryExpressionOperation(
-			BinaryExpression.Operation operation, Object left, Object right)
-		throws ExpressionVisitException {
+		BinaryExpression.Operation operation, Object left, Object right) {
 
 		Predicate predicate = null;
 
@@ -263,8 +262,7 @@ public class PredicateExpressionVisitorImpl
 
 	@Override
 	public Object visitMethodExpression(
-			List<Object> expressions, MethodExpression.Type type)
-		throws ExpressionVisitException {
+		List<Object> expressions, MethodExpression.Type type) {
 
 		if (expressions.size() == 2) {
 			String left = (String)expressions.get(0);
@@ -374,9 +372,8 @@ public class PredicateExpressionVisitorImpl
 	}
 
 	private Predicate _contains(
-			Object fieldName, Object fieldValue,
-			ObjectDefinition objectDefinition)
-		throws ExpressionVisitException {
+		Object fieldName, Object fieldValue,
+		ObjectDefinition objectDefinition) {
 
 		FieldPredicateProvider fieldPredicateProvider =
 			_getFieldPredicateProvider(
@@ -461,17 +458,21 @@ public class PredicateExpressionVisitorImpl
 	}
 
 	private Predicate _getInPredicate(
-			Object left, ObjectDefinition objectDefinition, List<Object> rights)
-		throws ExpressionVisitException {
+		Object left, ObjectDefinition objectDefinition, List<Object> rights) {
 
 		FieldPredicateProvider fieldPredicateProvider =
 			_getFieldPredicateProvider(String.valueOf(left), objectDefinition);
 
 		if (fieldPredicateProvider != null) {
+			List<Object> adjustedRights = new ArrayList<>();
+
+			for (Object right : rights) {
+				adjustedRights.add(_getValue(left, objectDefinition, right));
+			}
+
 			return fieldPredicateProvider.getInPredicate(
 				name -> _getColumn(name, objectDefinition), left,
-				TransformUtil.transform(
-					rights, right -> _getValue(left, objectDefinition, right)));
+				adjustedRights);
 		}
 
 		return _getColumn(
@@ -604,9 +605,8 @@ public class PredicateExpressionVisitorImpl
 	}
 
 	private Predicate _getPredicate(
-			Object left, ObjectDefinition objectDefinition,
-			BinaryExpression.Operation operation, Object right)
-		throws ExpressionVisitException {
+		Object left, ObjectDefinition objectDefinition,
+		BinaryExpression.Operation operation, Object right) {
 
 		Predicate predicate = null;
 
@@ -785,9 +785,8 @@ public class PredicateExpressionVisitorImpl
 	}
 
 	private Predicate _startsWith(
-			Object fieldName, Object fieldValue,
-			ObjectDefinition objectDefinition)
-		throws ExpressionVisitException {
+		Object fieldName, Object fieldValue,
+		ObjectDefinition objectDefinition) {
 
 		FieldPredicateProvider fieldPredicateProvider =
 			_getFieldPredicateProvider(

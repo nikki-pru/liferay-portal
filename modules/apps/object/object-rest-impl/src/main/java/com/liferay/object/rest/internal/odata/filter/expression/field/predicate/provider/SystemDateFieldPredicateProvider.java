@@ -5,20 +5,17 @@
 
 package com.liferay.object.rest.internal.odata.filter.expression.field.predicate.provider;
 
-import com.liferay.object.field.util.ObjectFieldUtil;
 import com.liferay.object.odata.filter.expression.field.predicate.provider.FieldPredicateProvider;
 import com.liferay.petra.sql.dsl.Column;
 import com.liferay.petra.sql.dsl.expression.Expression;
 import com.liferay.petra.sql.dsl.expression.Predicate;
-import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.odata.filter.expression.BinaryExpression;
-import com.liferay.portal.odata.filter.expression.ExpressionVisitException;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -40,43 +37,28 @@ public class SystemDateFieldPredicateProvider
 
 	@Override
 	public Predicate getBinaryExpressionPredicate(
-			Function<String, Column<?, ?>> objectDefinitionColumnSupplier,
-			Object left, long objectDefinitionId,
-			BinaryExpression.Operation operation, Object right)
-		throws ExpressionVisitException {
+		Function<String, Column<?, ?>> objectDefinitionColumnSupplier,
+		Object left, long objectDefinitionId,
+		BinaryExpression.Operation operation, Object right) {
 
-		Expression<Object> expression =
-			(Expression<Object>)objectDefinitionColumnSupplier.apply(
+		if ((operation == BinaryExpression.Operation.NE) && (right == null)) {
+			return objectDefinitionColumnSupplier.apply(
+				String.valueOf(left)
+			).isNotNull();
+		}
+		else if ((operation == BinaryExpression.Operation.EQ) &&
+				 (right == null)) {
+
+			return objectDefinitionColumnSupplier.apply(
+				String.valueOf(left)
+			).isNull();
+		}
+
+		Expression<String> expression =
+			(Expression<String>)objectDefinitionColumnSupplier.apply(
 				String.valueOf(left));
 
-		if (right == null) {
-			if (operation == BinaryExpression.Operation.EQ) {
-				return expression.isNull();
-			}
-			else if (operation == BinaryExpression.Operation.NE) {
-				return expression.isNotNull();
-			}
-		}
-
-		if (right instanceof Date) {
-			return _getDateTimePredicate(
-				(Date)right, expression, Function.identity(), operation);
-		}
-
-		String valueString = (String)right;
-
-		DateFormat dateFormat = DateFormatFactoryUtil.getSimpleDateFormat(
-			ObjectFieldUtil.getDateTimePattern(valueString));
-
-		try {
-			return _getDateTimePredicate(
-				dateFormat.parse(valueString), expression, dateFormat::format,
-				operation);
-		}
-		catch (ParseException parseException) {
-			throw new ExpressionVisitException(
-				"Unable to parse date " + valueString, parseException);
-		}
+		return _getDateTimePredicate(expression, operation, (String)right);
 	}
 
 	@Override
@@ -91,27 +73,28 @@ public class SystemDateFieldPredicateProvider
 
 	@Override
 	public Predicate getInPredicate(
-			Function<String, Column<?, ?>> objectDefinitionColumnSupplier,
-			Object left, List<Object> rights)
-		throws ExpressionVisitException {
+		Function<String, Column<?, ?>> objectDefinitionColumnSupplier,
+		Object left, List<Object> rights) {
+
+		Expression<String> expression =
+			(Expression<String>)objectDefinitionColumnSupplier.apply(
+				String.valueOf(left));
 
 		Predicate predicate = null;
 
 		for (Object right : rights) {
-			Predicate binaryExpressionPredicate = getBinaryExpressionPredicate(
-				objectDefinitionColumnSupplier, left, 0L,
-				BinaryExpression.Operation.EQ, right);
+			Predicate eqPredicate = _getDateTimePredicate(
+				expression, BinaryExpression.Operation.EQ, (String)right);
 
 			if (predicate == null) {
-				predicate = binaryExpressionPredicate;
-
-				continue;
+				predicate = eqPredicate;
 			}
-
-			predicate = predicate.or(binaryExpressionPredicate);
+			else {
+				predicate = predicate.or(eqPredicate);
+			}
 		}
 
-		return Predicate.withParentheses(predicate);
+		return predicate;
 	}
 
 	@Override
@@ -119,9 +102,7 @@ public class SystemDateFieldPredicateProvider
 		String fieldName,
 		Function<String, Column<?, ?>> objectDefinitionColumnSupplier) {
 
-		throw new UnsupportedOperationException(
-			"Unsupported method getIsNotEmptyPredicate for " +
-				"dateCreated/dateModified fields");
+		return null;
 	}
 
 	@Override
@@ -134,61 +115,153 @@ public class SystemDateFieldPredicateProvider
 				"dateCreated/dateModified fields");
 	}
 
-	private Predicate _getDateTimePredicate(
-		Date date, Expression<Object> expression,
-		Function<Object, Object> function,
-		BinaryExpression.Operation operation) {
+	private <T> T _adjustToEndOfMillis(T value) {
+		String dateString = (String)_adjustToStartOfMillis(value);
+
+		if (value instanceof String) {
+			try {
+				String pattern = _getDateTimePattern(dateString);
+
+				DateFormat dateFormat =
+					DateFormatFactoryUtil.getSimpleDateFormat(pattern);
+
+				Date date = dateFormat.parse((String)dateString);
+
+				date.setTime(date.getTime() + 1000);
+
+				return (T)dateFormat.format(date);
+			}
+			catch (ParseException parseException) {
+				throw new IllegalArgumentException(
+					"Unable to parse date from " + value, parseException);
+			}
+		}
+		else if (value instanceof Date) {
+			Date date = (Date)value;
+
+			date.setTime(date.getTime() + 1000);
+
+			return (T)date;
+		}
+
+		return value;
+	}
+
+	private <T> T _adjustToStartOfMillis(T value) {
+		if (value instanceof String) {
+			String dateString = (String)value;
+
+			try {
+				String pattern = _getDateTimePattern(dateString);
+
+				DateFormat dateFormat =
+					DateFormatFactoryUtil.getSimpleDateFormat(pattern);
+
+				if (pattern.equals("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")) {
+					if (dateString.matches(
+							"^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$")) {
+
+						dateString = StringUtil.replace(
+							dateString, 'Z', ".000Z");
+					}
+					else if (dateString.matches(
+								"^\\d{4}-\\d{2}-\\d{2}T\\d{2}:" +
+									"\\d{2}:\\d{2}\\.\\d{4,}Z$")) {
+
+						String truncatedDateString = dateString.substring(
+							0, dateString.indexOf('.') + 4);
+
+						dateString = truncatedDateString + "Z";
+					}
+				}
+
+				Date date = dateFormat.parse(dateString);
+
+				date.setTime((date.getTime() / 1000) * 1000);
+
+				if (dateString.length() == 20) {
+					return (T)DateFormatFactoryUtil.getSimpleDateFormat(
+						"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+					).format(
+						date
+					);
+				}
+
+				return (T)dateFormat.format(date);
+			}
+			catch (ParseException parseException) {
+				throw new IllegalArgumentException(
+					"Unable to parse date from " + dateString, parseException);
+			}
+		}
+		else if (value instanceof Date) {
+			Date date = (Date)value;
+
+			date.setTime((date.getTime() / 1000) * 1000);
+
+			return (T)date;
+		}
+
+		return value;
+	}
+
+	private String _getDateTimePattern(String value) {
+		if (value.matches(
+				"^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$")) {
+
+			return "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"; // oData
+		}
+
+		if (value.length() == 23) {
+			return "yyyy-MM-dd HH:mm:ss.SSS"; // Hypersonic, DB2
+		}
+
+		if (value.length() == 27) {
+			return "dd-MMM-yyyy HH:mm:ss.SSS a"; // Oracle (24-hour format)
+		}
+
+		throw new IllegalArgumentException(
+			"Unrecognized date format: " + value);
+	}
+
+	private <T> Predicate _getDateTimePredicate(
+		Expression<T> expression, BinaryExpression.Operation operation,
+		T value) {
 
 		if (operation == BinaryExpression.Operation.EQ) {
-			Date truncatedDate = _truncateMilliseconds(date);
+			T startOfSecond = _adjustToStartOfMillis(value);
+			T endOfSecond = _adjustToEndOfMillis(value);
 
 			return expression.gte(
-				function.apply(truncatedDate)
+				startOfSecond
 			).and(
-				expression.lt(function.apply(_incrementSecond(truncatedDate)))
-			).withParentheses();
-		}
-		else if (operation == BinaryExpression.Operation.GE) {
-			return expression.gte(function.apply(_truncateMilliseconds(date)));
-		}
-		else if (operation == BinaryExpression.Operation.GT) {
-			return expression.gte(
-				function.apply(_incrementSecond(_truncateMilliseconds(date))));
-		}
-		else if (operation == BinaryExpression.Operation.LE) {
-			return expression.lt(
-				function.apply(_incrementSecond(_truncateMilliseconds(date))));
-		}
-		else if (operation == BinaryExpression.Operation.LT) {
-			return expression.lt(function.apply(_truncateMilliseconds(date)));
+				expression.lt(endOfSecond)
+			);
 		}
 		else if (operation == BinaryExpression.Operation.NE) {
-			Date truncatedDate = _truncateMilliseconds(date);
+			T startOfSecond = _adjustToStartOfMillis(value);
+			T endOfSecond = _adjustToEndOfMillis(value);
 
 			return expression.lt(
-				function.apply(truncatedDate)
+				startOfSecond
 			).or(
-				expression.gte(function.apply(_incrementSecond(truncatedDate)))
-			).withParentheses();
+				expression.gte(endOfSecond)
+			);
+		}
+		else if (operation == BinaryExpression.Operation.GT) {
+			return expression.gte(_adjustToEndOfMillis(value));
+		}
+		else if (operation == BinaryExpression.Operation.GE) {
+			return expression.gte(_adjustToStartOfMillis(value));
+		}
+		else if (operation == BinaryExpression.Operation.LT) {
+			return expression.lt(_adjustToStartOfMillis(value));
+		}
+		else if (operation == BinaryExpression.Operation.LE) {
+			return expression.lt(_adjustToEndOfMillis(value));
 		}
 
 		return null;
-	}
-
-	private Date _incrementSecond(Date date) {
-		Calendar calendar = CalendarFactoryUtil.getCalendar(date.getTime());
-
-		calendar.add(Calendar.SECOND, 1);
-
-		return calendar.getTime();
-	}
-
-	private Date _truncateMilliseconds(Date date) {
-		Calendar calendar = CalendarFactoryUtil.getCalendar(date.getTime());
-
-		calendar.set(Calendar.MILLISECOND, 0);
-
-		return calendar.getTime();
 	}
 
 }
