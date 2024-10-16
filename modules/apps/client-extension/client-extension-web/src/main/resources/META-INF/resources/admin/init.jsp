@@ -35,7 +35,8 @@ page import="com.liferay.client.extension.web.internal.display.context.ViewClien
 page import="com.liferay.learn.LearnMessageUtil" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.service.WorkflowDefinitionLinkLocalServiceUtil" %><%@
-page import="com.liferay.portal.kernel.util.HashMapBuilder" %>
+page import="com.liferay.portal.kernel.util.HashMapBuilder" %><%@
+page import="com.liferay.portal.kernel.util.HtmlUtil" %>
 
 <%@ page import="java.lang.reflect.Method" %>
 
