@@ -5267,27 +5267,31 @@ public class ObjectEntryResourceTest {
 	public void testGetObjectEntriesFilteredBySystemDate() throws Exception {
 		_objectEntry1 = ObjectEntryTestUtil.addObjectEntry(
 			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1);
-		_objectEntry2 = ObjectEntryTestUtil.addObjectEntry(
-			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2);
-		_objectEntry3 = ObjectEntryTestUtil.addObjectEntry(
-			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_3);
 
 		_objectEntry1.setCreateDate(
 			_dateTimeDateFormat.parse("2023-09-20T10:00:00.150Z"));
-		_objectEntry2.setCreateDate(
-			_dateTimeDateFormat.parse("2023-09-20T10:05:00.450Z"));
-		_objectEntry3.setCreateDate(null);
-
 		_objectEntry1.setModifiedDate(
 			_dateTimeDateFormat.parse("2023-09-20T10:00:00.150Z"));
-		_objectEntry2.setModifiedDate(
-			_dateTimeDateFormat.parse("2023-09-20T10:05:00.450Z"));
-		_objectEntry3.setModifiedDate(null);
 
 		_objectEntry1 = _objectEntryLocalService.updateObjectEntry(
 			_objectEntry1);
+
+		_objectEntry2 = ObjectEntryTestUtil.addObjectEntry(
+			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2);
+
+		_objectEntry2.setCreateDate(
+			_dateTimeDateFormat.parse("2023-09-20T10:05:00.450Z"));
+		_objectEntry2.setModifiedDate(
+			_dateTimeDateFormat.parse("2023-09-20T10:05:00.450Z"));
+
 		_objectEntry2 = _objectEntryLocalService.updateObjectEntry(
 			_objectEntry2);
+
+		_objectEntry3 = ObjectEntryTestUtil.addObjectEntry(
+			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_3);
+		_objectEntry3.setCreateDate(null);
+		_objectEntry3.setModifiedDate(null);
+
 		_objectEntry3 = _objectEntryLocalService.updateObjectEntry(
 			_objectEntry3);
 
