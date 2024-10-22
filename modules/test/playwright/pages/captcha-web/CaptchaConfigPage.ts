@@ -5,7 +5,7 @@
 
 import {Locator, Page} from '@playwright/test';
 
-import {waitForAlert} from '../../utils/waitForAlert';
+import {waitForSuccessAlert} from '../../utils/waitForSuccessAlert';
 import {ApplicationsMenuPage} from '../product-navigation-applications-menu/ApplicationsMenuPage';
 
 export class CaptchaConfigPage {
@@ -68,9 +68,8 @@ export class CaptchaConfigPage {
 		await this.reCaptchaPublicKey.fill(publicKey);
 		await this.reCaptchaPrivateKey.fill(privateKey);
 		this.saveConfiguration();
-		await waitForAlert(
-			this.page,
-			`Success:Your request completed successfully.`
+		await waitForSuccessAlert(
+			this.page
 		);
 	}
 
