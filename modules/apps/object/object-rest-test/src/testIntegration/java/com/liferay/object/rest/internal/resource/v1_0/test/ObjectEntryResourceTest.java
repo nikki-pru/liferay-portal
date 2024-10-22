@@ -5289,6 +5289,7 @@ public class ObjectEntryResourceTest {
 
 		_objectEntry3 = ObjectEntryTestUtil.addObjectEntry(
 			_objectDefinition1, _OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_3);
+
 		_objectEntry3.setCreateDate(null);
 		_objectEntry3.setModifiedDate(null);
 
@@ -5297,93 +5298,6 @@ public class ObjectEntryResourceTest {
 
 		_testGetObjectEntriesFilteredBySystemDate("dateCreated");
 		_testGetObjectEntriesFilteredBySystemDate("dateModified");
-	}
-
-	private void _testGetObjectEntriesFilteredBySystemDate(String fieldName) {
-
-		// eq
-
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:00:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:00:00.999Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:05:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:05:00.999Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_3,
-			URLCodec.encodeURL(fieldName + " eq null"), _objectDefinition1);
-
-		// ge
-
-		_assertFilteredObjectEntries(
-			2, fieldName + " ge 2023-09-20T10:00:00Z");
-		_assertFilteredObjectEntries(
-			2, fieldName + " ge 2023-09-20T10:00:00.999Z");
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " ge 2023-09-20T10:00:01Z"),
-			_objectDefinition1);
-
-		// gt
-
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " gt 2023-09-20T10:00:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " gt 2023-09-20T10:00:00.999Z"),
-			_objectDefinition1);
-
-		// in
-
-		_assertFilteredObjectEntries(
-			2,
-			fieldName + " in (2023-09-20T10:05:00Z,2023-09-20T10:00:00Z)");
-
-		// le
-
-		_assertFilteredObjectEntries(
-			2, fieldName + " le 2023-09-20T10:05:00Z");
-		_assertFilteredObjectEntries(
-			2, fieldName + " le 2023-09-20T10:05:00.999Z");
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " le 2023-09-20T10:04:00.999Z"),
-			_objectDefinition1);
-
-		// lt
-
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " lt 2023-09-20T10:05:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " lt 2023-09-20T10:05:00.999Z"),
-			_objectDefinition1);
-
-		// ne
-
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
-			URLCodec.encodeURL(fieldName + " ne 2023-09-20T10:05:00Z"),
-			_objectDefinition1);
-		_assertFilterString(
-			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
-			URLCodec.encodeURL(fieldName + " ne 2023-09-20T10:00:00Z"),
-			_objectDefinition1);
-		_assertFilteredObjectEntries(2, fieldName + " ne null");
 	}
 
 	@Test
@@ -12977,6 +12891,90 @@ public class ObjectEntryResourceTest {
 				nestedFieldDepth, nestedFieldName, objectDefinition),
 			expectedFieldName, objectFieldNamesAndObjectFieldValues, null,
 			type);
+	}
+
+	private void _testGetObjectEntriesFilteredBySystemDate(String fieldName) {
+
+		// eq
+
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:00:00Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:00:00.999Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:05:00Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL(fieldName + " eq 2023-09-20T10:05:00.999Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_3,
+			URLCodec.encodeURL(fieldName + " eq null"), _objectDefinition1);
+
+		// ge
+
+		_assertFilteredObjectEntries(2, fieldName + " ge 2023-09-20T10:00:00Z");
+		_assertFilteredObjectEntries(
+			2, fieldName + " ge 2023-09-20T10:00:00.999Z");
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL(fieldName + " ge 2023-09-20T10:00:01Z"),
+			_objectDefinition1);
+
+		// gt
+
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL(fieldName + " gt 2023-09-20T10:00:00Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL(fieldName + " gt 2023-09-20T10:00:00.999Z"),
+			_objectDefinition1);
+
+		// in
+
+		_assertFilteredObjectEntries(
+			2, fieldName + " in (2023-09-20T10:05:00Z,2023-09-20T10:00:00Z)");
+
+		// le
+
+		_assertFilteredObjectEntries(2, fieldName + " le 2023-09-20T10:05:00Z");
+		_assertFilteredObjectEntries(
+			2, fieldName + " le 2023-09-20T10:05:00.999Z");
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL(fieldName + " le 2023-09-20T10:04:00.999Z"),
+			_objectDefinition1);
+
+		// lt
+
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL(fieldName + " lt 2023-09-20T10:05:00Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL(fieldName + " lt 2023-09-20T10:05:00.999Z"),
+			_objectDefinition1);
+
+		// ne
+
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_1,
+			URLCodec.encodeURL(fieldName + " ne 2023-09-20T10:05:00Z"),
+			_objectDefinition1);
+		_assertFilterString(
+			_OBJECT_FIELD_NAME_1, _OBJECT_FIELD_VALUE_2,
+			URLCodec.encodeURL(fieldName + " ne 2023-09-20T10:00:00Z"),
+			_objectDefinition1);
+		_assertFilteredObjectEntries(2, fieldName + " ne null");
 	}
 
 	private void _testGetObjectEntryWithObjectActions(
