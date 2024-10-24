@@ -69,10 +69,10 @@ public class CallFunction
 			DDMDataProviderRequest.Builder builder =
 				DDMDataProviderRequest.Builder.newBuilder();
 
-			builder = builder.withDDMDataProviderId(
-				ddmDataProviderInstanceUUID
-			).withCompanyId(
+			builder = builder.withCompanyId(
 				CompanyThreadLocal.getCompanyId()
+			).withDDMDataProviderId(
+				ddmDataProviderInstanceUUID
 			);
 
 			Map<String, String> parameterMap = _extractParameters(
