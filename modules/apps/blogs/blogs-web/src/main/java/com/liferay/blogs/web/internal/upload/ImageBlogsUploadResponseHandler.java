@@ -46,14 +46,13 @@ public class ImageBlogsUploadResponseHandler implements UploadResponseHandler {
 		if (portalException instanceof EntryImageNameException ||
 			portalException instanceof EntryImageSizeException) {
 
-			String errorMessage = StringPool.BLANK;
 			int errorType = 0;
+			String message = StringPool.BLANK;
 
 			if (portalException instanceof EntryImageNameException) {
 				errorType =
 					ServletResponseConstants.SC_FILE_EXTENSION_EXCEPTION;
-
-				errorMessage = StringUtil.merge(
+				message = StringUtil.merge(
 					_blogsFileUploadsConfiguration.imageExtensions());
 			}
 			else if (portalException instanceof EntryImageSizeException) {
@@ -65,7 +64,7 @@ public class ImageBlogsUploadResponseHandler implements UploadResponseHandler {
 				JSONUtil.put(
 					"errorType", errorType
 				).put(
-					"message", errorMessage
+					"message", message
 				));
 		}
 

@@ -52,8 +52,8 @@ public class MultipleUploadResponseHandler implements UploadResponseHandler {
 			PortletRequest portletRequest, PortalException portalException)
 		throws PortalException {
 
-		String errorMessage = StringPool.BLANK;
-		int errorType = 0;
+		String message = StringPool.BLANK;
+		int status = 0;
 
 		if (portalException instanceof AntivirusScannerException ||
 			portalException instanceof DLStorageQuotaExceededException ||
@@ -71,62 +71,59 @@ public class MultipleUploadResponseHandler implements UploadResponseHandler {
 				AntivirusScannerException antivirusScannerException =
 					(AntivirusScannerException)portalException;
 
-				errorMessage = themeDisplay.translate(
+				message = themeDisplay.translate(
 					antivirusScannerException.getMessageKey());
 
-				errorType =
-					ServletResponseConstants.SC_FILE_ANTIVIRUS_EXCEPTION;
+				status = ServletResponseConstants.SC_FILE_ANTIVIRUS_EXCEPTION;
 			}
 
 			if (portalException instanceof DLStorageQuotaExceededException) {
-				errorMessage = themeDisplay.translate(
+				message = themeDisplay.translate(
 					"you-have-exceeded-the-x-storage-quota-for-this-instance",
 					_language.formatStorageSize(
 						PropsValues.DATA_LIMIT_DL_STORAGE_MAX_SIZE,
 						themeDisplay.getLocale()));
-				errorType = ServletResponseConstants.SC_FILE_SIZE_EXCEPTION;
+				status = ServletResponseConstants.SC_FILE_SIZE_EXCEPTION;
 			}
 			else if (portalException instanceof DuplicateFileEntryException) {
-				errorMessage = themeDisplay.translate(
+				message = themeDisplay.translate(
 					"please-enter-a-unique-document-name");
-				errorType =
-					ServletResponseConstants.SC_DUPLICATE_FILE_EXCEPTION;
+				status = ServletResponseConstants.SC_DUPLICATE_FILE_EXCEPTION;
 			}
 			else if (portalException instanceof FileExtensionException) {
-				errorMessage = themeDisplay.translate(
+				message = themeDisplay.translate(
 					"please-enter-a-file-with-a-valid-extension-x",
 					_getAllowedFileExtensions());
-				errorType =
-					ServletResponseConstants.SC_FILE_EXTENSION_EXCEPTION;
+				status = ServletResponseConstants.SC_FILE_EXTENSION_EXCEPTION;
 			}
 			else if (portalException instanceof FileNameException) {
-				errorMessage = themeDisplay.translate(
+				message = themeDisplay.translate(
 					"please-enter-a-file-with-a-valid-file-name");
-				errorType = ServletResponseConstants.SC_FILE_NAME_EXCEPTION;
+				status = ServletResponseConstants.SC_FILE_NAME_EXCEPTION;
 			}
 			else if (portalException instanceof FileSizeException) {
 				FileSizeException fileSizeException =
 					(FileSizeException)portalException;
 
-				errorMessage = themeDisplay.translate(
+				message = themeDisplay.translate(
 					"please-enter-a-file-with-a-valid-file-size-no-larger-" +
 						"than-x",
 					_language.formatStorageSize(
 						fileSizeException.getMaxSize(),
 						themeDisplay.getLocale()));
 
-				errorType = ServletResponseConstants.SC_FILE_SIZE_EXCEPTION;
+				status = ServletResponseConstants.SC_FILE_SIZE_EXCEPTION;
 			}
 			else if (portalException instanceof UploadRequestSizeException) {
-				errorType =
+				status =
 					ServletResponseConstants.SC_UPLOAD_REQUEST_SIZE_EXCEPTION;
 			}
 		}
 
 		return JSONUtil.put(
-			"message", errorMessage
+			"message", message
 		).put(
-			"status", errorType
+			"status", status
 		);
 	}
 

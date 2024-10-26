@@ -64,27 +64,27 @@ public class DefaultUploadResponseHandler implements UploadResponseHandler {
 					return null;
 				}
 
-				String errorMessage = StringPool.BLANK;
 				int errorType = 0;
+				String message = StringPool.BLANK;
 
 				if (portalException instanceof AntivirusScannerException) {
 					errorType =
 						ServletResponseConstants.SC_FILE_ANTIVIRUS_EXCEPTION;
-					AntivirusScannerException antivirusScannerException =
-						(AntivirusScannerException)portalException;
 
 					ThemeDisplay themeDisplay =
 						(ThemeDisplay)portletRequest.getAttribute(
 							WebKeys.THEME_DISPLAY);
 
-					errorMessage = themeDisplay.translate(
+					AntivirusScannerException antivirusScannerException =
+						(AntivirusScannerException)portalException;
+
+					message = themeDisplay.translate(
 						antivirusScannerException.getMessageKey());
 				}
 				else if (portalException instanceof FileExtensionException) {
 					errorType =
 						ServletResponseConstants.SC_FILE_EXTENSION_EXCEPTION;
-
-					errorMessage = _getAllowedFileExtensions();
+					message = _getAllowedFileExtensions();
 				}
 				else if (portalException instanceof FileNameException) {
 					errorType = ServletResponseConstants.SC_FILE_NAME_EXCEPTION;
@@ -99,7 +99,7 @@ public class DefaultUploadResponseHandler implements UploadResponseHandler {
 					FileSizeException fileSizeException =
 						(FileSizeException)portalException;
 
-					errorMessage = themeDisplay.translate(
+					message = themeDisplay.translate(
 						"please-enter-a-file-with-a-valid-file-size-no-" +
 							"larger-than-x",
 						_language.formatStorageSize(
@@ -117,7 +117,7 @@ public class DefaultUploadResponseHandler implements UploadResponseHandler {
 				return JSONUtil.put(
 					"errorType", errorType
 				).put(
-					"message", errorMessage
+					"message", message
 				);
 			}
 		).put(
