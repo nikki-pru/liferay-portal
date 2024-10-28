@@ -157,7 +157,7 @@ public class LocalizedMapUtilTest {
 			LocalizedMapUtil.populateI18nMap(
 				"pt_BR",
 				HashMapBuilder.put(
-					"pt_BR", defaultValue
+					"pt-BR", defaultValue
 				).build(),
 				RandomTestUtil.randomString()));
 		Assert.assertEquals(
@@ -169,7 +169,7 @@ public class LocalizedMapUtilTest {
 			LocalizedMapUtil.populateI18nMap(
 				"pt_BR",
 				HashMapBuilder.put(
-					"pt-BR", defaultValue
+					"pt_BR", defaultValue
 				).build(),
 				RandomTestUtil.randomString()));
 
