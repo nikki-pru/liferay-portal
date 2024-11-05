@@ -932,7 +932,7 @@ definition {
 	@description = "This is a test for COMMERCE-12958. Verify that is not possible to view and use an ineligible address for a reorder"
 	@priority = 5
 	test CanUseAnIneligibleAddressForReorder {
-		property portal.acceptance = "true";
+		property portal.acceptance = "u129";
 
 		task ("Given a Minium Site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");

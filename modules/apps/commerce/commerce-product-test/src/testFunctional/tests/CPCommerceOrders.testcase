@@ -1476,7 +1476,7 @@ definition {
 	@priority = 5
 	test CanReorderAFailedPayment {
 		property custom.properties = "company.security.strangers.verify=false${line.separator}jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "true";
+		property portal.acceptance = "u129";
 
 		task ("Given the Admin already created a Minium Site and a buyer account") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
