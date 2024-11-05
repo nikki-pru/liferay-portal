@@ -17,7 +17,7 @@ definition {
 	@description = "This is a test for COMMERCE-10783. The add to cart button and quantity selector are disabled for a guest user on the default B2B scenario"
 	@priority = 3
 	test AddToCartButtonAndQuantitySelectorAreDisabledOnB2BScenarioForGuestUser {
-		property portal.acceptance = "false";
+		property portal.acceptance = "u129";
 
 		task ("Given a Minium site is created") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -593,7 +593,7 @@ definition {
 	@description = "This is for COMMERCE-10054. Account users without roles should not be able to add products to cart"
 	@priority = 3
 	test CannotAddToCartAsAccountUserWithoutRoles {
-		property portal.acceptance = "false";
+		property portal.acceptance = "u129";
 
 		task ("Given a Minium site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -656,7 +656,7 @@ definition {
 	@description = "This is for COMMERCE-10054. Account users without roles should not be able to add products to cart if the accounts has pending orders"
 	@priority = 3
 	test CannotAddToCartWithExistingOrdersAsAccountUserWithoutRoles {
-		property portal.acceptance = "false";
+		property portal.acceptance = "u129";
 
 		task ("Given a Minium site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
