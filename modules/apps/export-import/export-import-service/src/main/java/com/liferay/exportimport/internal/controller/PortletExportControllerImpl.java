@@ -1043,6 +1043,7 @@ public class PortletExportControllerImpl implements PortletExportController {
 				parameterMap.put(
 					PortletDataHandlerKeys.PORTLET_DATA_ALL,
 					new String[] {String.valueOf(portletDataAll)});
+
 				portletDataContext.addScopedPrimaryKeys(oldScopedPrimaryKeys);
 				portletDataContext.setExportDataRootElement(
 					exportDataRootElement);
