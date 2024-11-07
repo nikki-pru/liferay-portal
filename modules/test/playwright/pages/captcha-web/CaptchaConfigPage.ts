@@ -68,9 +68,7 @@ export class CaptchaConfigPage {
 		await this.reCaptchaPublicKey.fill(publicKey);
 		await this.reCaptchaPrivateKey.fill(privateKey);
 		this.saveConfiguration();
-		await waitForSuccessAlert(
-			this.page
-		);
+		await waitForSuccessAlert(this.page);
 	}
 
 	async saveConfiguration() {
