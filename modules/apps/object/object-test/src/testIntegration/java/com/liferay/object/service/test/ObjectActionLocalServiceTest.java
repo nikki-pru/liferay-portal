@@ -1229,7 +1229,15 @@ public class ObjectActionLocalServiceTest {
 	}
 
 	@Test
-	public void testAddObjectActionWithMoreThanOneObjectEntry()
+	public void testExecuteObjectActionMultipleTimesInTheSameThread()
+		throws Exception {
+
+		// Custom object definition
+
+		_testExecuteObjectActionMultipleTimesInTheSameThread();
+	}
+
+	private void _testExecuteObjectActionMultipleTimesInTheSameThread()
 		throws Exception {
 
 		// On after add
