@@ -1945,8 +1945,8 @@ public class ObjectActionLocalServiceTest {
 	public void testExecuteObjectActionMultipleTimesInTheSameThread()
 		throws Exception {
 
-		_testExecuteObjectActionMultipleTimesInTheSameThread();
-		_testExecuteObjectActionMultipleTimesInTheSameThreadWithSystemObjectDefinition();
+		_testExecuteObjectActionMultipleTimesInTheSameThreadWithACustomObjectDefinition();
+		_testExecuteObjectActionMultipleTimesInTheSameThreadWithASystemObjectDefinition();
 	}
 
 	@Test
@@ -2854,7 +2854,7 @@ public class ObjectActionLocalServiceTest {
 		}
 	}
 
-	private void _testExecuteObjectActionMultipleTimesInTheSameThread()
+	private void _testExecuteObjectActionMultipleTimesInTheSameThreadWithACustomObjectDefinition()
 		throws Exception {
 
 		// On after add
@@ -3022,7 +3022,7 @@ public class ObjectActionLocalServiceTest {
 		_objectActionLocalService.deleteObjectAction(objectAction3);
 	}
 
-	private void _testExecuteObjectActionMultipleTimesInTheSameThreadWithSystemObjectDefinition()
+	private void _testExecuteObjectActionMultipleTimesInTheSameThreadWithASystemObjectDefinition()
 		throws Exception {
 
 		// On after add
