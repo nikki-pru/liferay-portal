@@ -21,6 +21,7 @@ import MappingSidebar from '../../plugins/mapping/components/MappingSidebar';
 import ContentsSidebar from '../../plugins/page_content/components/ContentsSidebar';
 import PageDesignOptionsSidebar from '../../plugins/page_design_options/components/PageDesignOptionsSidebar';
 import RulesSidebar from '../../plugins/page_rules/components/RulesSidebar';
+import {VIEWPORT_SIZES} from '../config/constants/viewportSizes';
 import {config} from '../config/index';
 import {useSelectItem} from '../contexts/ControlsContext';
 import {useSetOpenShorcutModal} from '../contexts/ShortcutContext';
@@ -77,6 +78,10 @@ export default function Sidebar() {
 	const sidebarContentId = useId();
 	const sidebarId = useId();
 	const sidebar = useSelector((state) => state.sidebar);
+
+	const selectedViewportSize = useSelector(
+		(state) => state.selectedViewportSize
+	);
 
 	const [sidebarWidth, setSidebarWidth] = useSessionState(
 		`${config.portletNamespace}_sidebar-width`,
@@ -200,6 +205,22 @@ export default function Sidebar() {
 			separatorElement.removeEventListener('mousedown', handleMouseDown);
 		};
 	}, [separatorRef, setResizing, setSidebarWidth, sidebarWidthRef]);
+
+	useEffect(() => {
+		const wrapper = document.getElementById('wrapper');
+
+		if (!wrapper || selectedViewportSize === VIEWPORT_SIZES.desktop) {
+			return;
+		}
+
+		wrapper.classList.add('overflow-hidden');
+
+		return () => {
+			if (wrapper) {
+				wrapper.classList.remove('overflow-hidden');
+			}
+		};
+	}, [selectedViewportSize]);
 
 	const deselectItem = (event) => {
 		if (event.target === event.currentTarget) {
