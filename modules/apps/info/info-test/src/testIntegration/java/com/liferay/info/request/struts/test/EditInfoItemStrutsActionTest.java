@@ -453,7 +453,7 @@ public class EditInfoItemStrutsActionTest {
 			new MockMultipartHttpServletRequest();
 
 		mockMultipartHttpServletRequest.addHeader(
-			HttpHeaders.REFERER, "https://example.com/error");
+			HttpHeaders.REFERER, "http://localhost:8080/error");
 		mockMultipartHttpServletRequest.setContentType(
 			"multipart/form-data;boundary=" + System.currentTimeMillis());
 
@@ -899,7 +899,7 @@ public class EditInfoItemStrutsActionTest {
 		}
 
 		mockMultipartHttpServletRequest.addHeader(
-			HttpHeaders.REFERER, "https://example.com/error");
+			HttpHeaders.REFERER, "http://localhost:8080/error");
 
 		return UploadTestUtil.createUploadPortletRequest(
 			UploadTestUtil.createUploadServletRequest(
