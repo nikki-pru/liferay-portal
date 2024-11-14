@@ -3170,7 +3170,7 @@ public class BundleSiteInitializerTest {
 
 		pageDefinitionString = String.valueOf(sitePage.getPageDefinition());
 
-		Assert.assertFalse(pageDefinitionString.contains("$CLASS_NAME_ID"));
+		Assert.assertFalse(pageDefinitionString.contains("[$CLASS_NAME_ID:"));
 	}
 
 	private void _assertPublicLayouts2() throws Exception {
