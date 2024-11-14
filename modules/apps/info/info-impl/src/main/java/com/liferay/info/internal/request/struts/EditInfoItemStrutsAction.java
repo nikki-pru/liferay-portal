@@ -402,7 +402,7 @@ public class EditInfoItemStrutsAction implements StrutsAction {
 				httpServletRequest, "requestProcessed", notificationText);
 		}
 
-		httpServletResponse.sendRedirect(redirect);
+		httpServletResponse.sendRedirect(_portal.escapeRedirect(redirect));
 
 		return null;
 	}
