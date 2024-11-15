@@ -4,7 +4,7 @@ Bundle-Version: 5.0.8
 Import-Package:\
 	!com.aayushatharva.brotli4j.*,\
 	\
-	!com.github.luben.zstd,\
+	!com.github.luben.zstd.*,\
 	\
 	!com.google.crypto.tink.subtle,\
 	!com.google.protobuf.*,\
