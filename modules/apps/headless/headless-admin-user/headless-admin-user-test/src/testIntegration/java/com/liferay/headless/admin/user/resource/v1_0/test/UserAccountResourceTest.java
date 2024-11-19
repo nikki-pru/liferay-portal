@@ -34,6 +34,11 @@ import com.liferay.headless.admin.user.client.pagination.Pagination;
 import com.liferay.headless.admin.user.client.problem.Problem;
 import com.liferay.headless.admin.user.client.resource.v1_0.UserAccountResource;
 import com.liferay.headless.admin.user.client.serdes.v1_0.UserAccountSerDes;
+import com.liferay.object.constants.ObjectValidationRuleConstants;
+import com.liferay.object.model.ObjectDefinition;
+import com.liferay.object.model.ObjectValidationRule;
+import com.liferay.object.service.ObjectDefinitionLocalService;
+import com.liferay.object.service.ObjectValidationRuleLocalService;
 import com.liferay.petra.function.UnsafeRunnable;
 import com.liferay.petra.function.UnsafeSupplier;
 import com.liferay.petra.function.transform.TransformUtil;
@@ -110,6 +115,7 @@ import com.liferay.portal.test.log.LoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
 import com.liferay.portal.test.rule.SynchronousMailTestRule;
 import com.liferay.portal.vulcan.jaxrs.exception.mapper.BaseExceptionMapper;
+import com.liferay.portal.vulcan.util.LocalizedMapUtil;
 
 import java.io.InputStream;
 
@@ -890,6 +896,7 @@ public class UserAccountResourceTest extends BaseUserAccountResourceTestCase {
 
 		_testPostUserAccountWithApprovalWorkflow();
 		_testPostUserAccountWithImageExternalReferenceCode();
+		_testPostUserAccountWithObjectValidation();
 		_testPostUserAccountWithSAPEntry();
 	}
 
@@ -2033,6 +2040,33 @@ public class UserAccountResourceTest extends BaseUserAccountResourceTestCase {
 		Assert.assertTrue(postUserAccount.getImageId() > 0);
 	}
 
+	private void _testPostUserAccountWithObjectValidation() throws Exception {
+		ObjectDefinition objectDefinition =
+			_objectDefinitionLocalService.
+				getObjectDefinitionByExternalReferenceCode(
+					"L_USER", testCompany.getCompanyId());
+
+		ObjectValidationRule objectValidationRule =
+			_objectValidationRuleLocalService.addObjectValidationRule(
+				StringPool.BLANK, _testUser.getUserId(),
+				objectDefinition.getObjectDefinitionId(), true,
+				ObjectValidationRuleConstants.ENGINE_TYPE_DDM,
+				LocalizedMapUtil.getLocalizedMap("This name is invalid."),
+				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
+				ObjectValidationRuleConstants.OUTPUT_TYPE_FULL_VALIDATION,
+				"NOT(isEmpty(alternateName))", true, Collections.emptyList());
+
+		UserAccount postUserAccount = userAccountResource.postUserAccount(
+			_randomUserAccount(
+				userAccount -> userAccount.setUserAccountContactInformation(
+					() -> null)));
+
+		Assert.assertNotNull(postUserAccount);
+
+		_objectValidationRuleLocalService.deleteObjectValidationRule(
+			objectValidationRule);
+	}
+
 	private void _testPostUserAccountWithSAPEntry() throws Exception {
 		UserAccount userAccount = randomUserAccount();
 
@@ -2163,6 +2197,12 @@ public class UserAccountResourceTest extends BaseUserAccountResourceTestCase {
 
 	@Inject
 	private JSONFactory _jsonFactory;
+
+	@Inject
+	private ObjectDefinitionLocalService _objectDefinitionLocalService;
+
+	@Inject
+	private ObjectValidationRuleLocalService _objectValidationRuleLocalService;
 
 	private Organization _organization;
 
