@@ -1092,7 +1092,7 @@ public class StructuredContentResourceTest
 			StorageType.DEFAULT.getValue(), DDMStructureConstants.TYPE_DEFAULT);
 
 		Map<Locale, String> titleMap = HashMapBuilder.put(
-			LocaleUtil.getDefault(), "test"
+			LocaleUtil.getDefault(), RandomTestUtil.randomString()
 		).put(
 			LocaleUtil.FRANCE, "test fr"
 		).build();
