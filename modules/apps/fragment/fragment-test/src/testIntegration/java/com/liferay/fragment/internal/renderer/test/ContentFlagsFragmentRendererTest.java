@@ -66,7 +66,6 @@ public class ContentFlagsFragmentRendererTest {
 
 		_journalArticle = JournalTestUtil.addArticle(
 			_group.getGroupId(), JournalArticleConstants.CLASS_NAME_ID_DEFAULT);
-
 		_layout = LayoutTestUtil.addTypeContentLayout(_group);
 	}
 
