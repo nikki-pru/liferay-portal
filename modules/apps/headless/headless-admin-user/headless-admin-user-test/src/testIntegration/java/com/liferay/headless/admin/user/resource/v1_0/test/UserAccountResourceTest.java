@@ -896,7 +896,7 @@ public class UserAccountResourceTest extends BaseUserAccountResourceTestCase {
 
 		_testPostUserAccountWithApprovalWorkflow();
 		_testPostUserAccountWithImageExternalReferenceCode();
-		_testPostUserAccountWithObjectValidation();
+		_testPostUserAccountWithObjectValidationRule();
 		_testPostUserAccountWithSAPEntry();
 	}
 
@@ -2040,7 +2040,9 @@ public class UserAccountResourceTest extends BaseUserAccountResourceTestCase {
 		Assert.assertTrue(postUserAccount.getImageId() > 0);
 	}
 
-	private void _testPostUserAccountWithObjectValidation() throws Exception {
+	private void _testPostUserAccountWithObjectValidationRule()
+		throws Exception {
+
 		ObjectDefinition objectDefinition =
 			_objectDefinitionLocalService.
 				getObjectDefinitionByExternalReferenceCode(
