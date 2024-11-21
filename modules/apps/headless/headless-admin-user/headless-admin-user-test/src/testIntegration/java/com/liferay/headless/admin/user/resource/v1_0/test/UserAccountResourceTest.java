@@ -2053,7 +2053,7 @@ public class UserAccountResourceTest extends BaseUserAccountResourceTestCase {
 				StringPool.BLANK, _testUser.getUserId(),
 				objectDefinition.getObjectDefinitionId(), true,
 				ObjectValidationRuleConstants.ENGINE_TYPE_DDM,
-				LocalizedMapUtil.getLocalizedMap("This name is invalid."),
+				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
 				LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
 				ObjectValidationRuleConstants.OUTPUT_TYPE_FULL_VALIDATION,
 				"NOT(isEmpty(alternateName))", true, Collections.emptyList());
