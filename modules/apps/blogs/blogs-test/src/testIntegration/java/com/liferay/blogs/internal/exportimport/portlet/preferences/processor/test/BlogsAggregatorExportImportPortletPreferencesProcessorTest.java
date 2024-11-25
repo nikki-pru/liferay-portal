@@ -115,6 +115,28 @@ public class BlogsAggregatorExportImportPortletPreferencesProcessorTest {
 				_portletDataContextImport,
 				_portletDataContextImport.getMissingReferenceElement(
 					_organization)));
+
+		Group remoteLiveGroup = GroupTestUtil.addGroup();
+
+		try {
+			_enableRemoteStaging(remoteLiveGroup, _group);
+
+			remoteLiveGroup = GroupLocalServiceUtil.getGroup(
+				remoteLiveGroup.getGroupId());
+
+			Map<String, String[]> parameters =
+				ExportImportConfigurationParameterMapFactoryUtil.
+					buildFullPublishParameterMap();
+
+			StagingUtil.publishLayouts(
+				TestPropsValues.getUserId(), _group.getGroupId(),
+				remoteLiveGroup.getGroupId(), false, parameters);
+
+			Assert.assertEquals(1, remoteLiveGroup.getPublicLayoutsPageCount());
+		}
+		finally {
+			GroupTestUtil.deleteGroup(remoteLiveGroup);
+		}
 	}
 
 	@Test
@@ -165,33 +187,6 @@ public class BlogsAggregatorExportImportPortletPreferencesProcessorTest {
 		Assert.assertEquals(
 			_organization.getOrganizationId(),
 			GetterUtil.getLong(importedOrganizationId));
-	}
-
-	@Test
-	public void testRemoteStagedOrganizationMissingRefValidation()
-		throws Exception {
-
-		Group remoteLiveGroup = GroupTestUtil.addGroup();
-
-		try {
-			_enableRemoteStaging(remoteLiveGroup, _group);
-
-			remoteLiveGroup = GroupLocalServiceUtil.getGroup(
-				remoteLiveGroup.getGroupId());
-
-			Map<String, String[]> parameters =
-				ExportImportConfigurationParameterMapFactoryUtil.
-					buildFullPublishParameterMap();
-
-			StagingUtil.publishLayouts(
-				TestPropsValues.getUserId(), _group.getGroupId(),
-				remoteLiveGroup.getGroupId(), false, parameters);
-
-			Assert.assertEquals(1, remoteLiveGroup.getPublicLayoutsPageCount());
-		}
-		finally {
-			GroupTestUtil.deleteGroup(remoteLiveGroup);
-		}
 	}
 
 	private void _enableRemoteStaging(
