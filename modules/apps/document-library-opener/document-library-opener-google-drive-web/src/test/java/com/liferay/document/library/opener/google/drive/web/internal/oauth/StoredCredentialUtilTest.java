@@ -65,13 +65,13 @@ public class StoredCredentialUtilTest {
 		}
 
 		for (int i = 0; i < _COMPANIES_COUNT; i++) {
-			for (int j = 0; j < _USERS_COUNT; j++) {
+			for (int j = 0; j < _KEYS_COUNT; j++) {
 				_storedCredentials[i][j] = _addStoredCredential();
 			}
 		}
 
-		for (int i = 0; i < _USERS_COUNT; i++) {
-			_userIds[i] = String.valueOf(RandomTestUtil.randomLong());
+		for (int i = 0; i < _KEYS_COUNT; i++) {
+			_keys[i] = String.valueOf(RandomTestUtil.randomLong());
 		}
 	}
 
@@ -89,8 +89,8 @@ public class StoredCredentialUtilTest {
 		_forEachUser(StoredCredentialUtil::add);
 
 		_forEachUser(
-			(companyId, userId, storedCredential) -> Assert.assertEquals(
-				storedCredential, StoredCredentialUtil.get(companyId, userId)));
+			(companyId, key, storedCredential) -> Assert.assertEquals(
+				storedCredential, StoredCredentialUtil.get(companyId, key)));
 	}
 
 	@Test
@@ -100,8 +100,8 @@ public class StoredCredentialUtilTest {
 		StoredCredentialUtil.clear();
 
 		_forEachUser(
-			(companyId, userId, storedCredential) -> Assert.assertNull(
-				StoredCredentialUtil.get(companyId, userId)));
+			(companyId, key, storedCredential) -> Assert.assertNull(
+				StoredCredentialUtil.get(companyId, key)));
 	}
 
 	@Test
@@ -111,15 +111,14 @@ public class StoredCredentialUtilTest {
 		StoredCredentialUtil.clear(_companyIds[0]);
 
 		_forEachUser(
-			(companyId, userId, storedCredential) -> {
+			(companyId, key, storedCredential) -> {
 				if (companyId == _companyIds[0]) {
-					Assert.assertNull(
-						StoredCredentialUtil.get(companyId, userId));
+					Assert.assertNull(StoredCredentialUtil.get(companyId, key));
 				}
 				else {
 					Assert.assertEquals(
 						storedCredential,
-						StoredCredentialUtil.get(companyId, userId));
+						StoredCredentialUtil.get(companyId, key));
 				}
 			});
 	}
@@ -127,27 +126,27 @@ public class StoredCredentialUtilTest {
 	@Test
 	public void testContainsKey() throws Exception {
 		_forEachUser(
-			(companyId, userId, storedCredential) -> Assert.assertFalse(
-				StoredCredentialUtil.containsKey(companyId, userId)));
+			(companyId, key, storedCredential) -> Assert.assertFalse(
+				StoredCredentialUtil.containsKey(companyId, key)));
 
 		_forEachUser(StoredCredentialUtil::add);
 
 		_forEachUser(
-			(companyId, userId, storedCredential) -> Assert.assertTrue(
-				StoredCredentialUtil.containsKey(companyId, userId)));
+			(companyId, key, storedCredential) -> Assert.assertTrue(
+				StoredCredentialUtil.containsKey(companyId, key)));
 	}
 
 	@Test
 	public void testContainsValue() throws Exception {
 		_forEachUser(
-			(companyId, userId, storedCredential) -> Assert.assertFalse(
+			(companyId, key, storedCredential) -> Assert.assertFalse(
 				StoredCredentialUtil.containsValue(
 					companyId, storedCredential)));
 
 		_forEachUser(StoredCredentialUtil::add);
 
 		_forEachUser(
-			(companyId, userId, storedCredential) -> Assert.assertTrue(
+			(companyId, key, storedCredential) -> Assert.assertTrue(
 				StoredCredentialUtil.containsValue(
 					companyId, storedCredential)));
 	}
@@ -156,20 +155,19 @@ public class StoredCredentialUtilTest {
 	public void testDelete() throws Exception {
 		_forEachUser(StoredCredentialUtil::add);
 
-		StoredCredentialUtil.delete(_companyIds[0], _userIds[0]);
+		StoredCredentialUtil.delete(_companyIds[0], _keys[0]);
 
 		_forEachUser(
-			(companyId, userId, storedCredential) -> {
+			(companyId, key, storedCredential) -> {
 				if ((companyId == _companyIds[0]) &&
-					Objects.equals(userId, _userIds[0])) {
+					Objects.equals(key, _keys[0])) {
 
-					Assert.assertNull(
-						StoredCredentialUtil.get(companyId, userId));
+					Assert.assertNull(StoredCredentialUtil.get(companyId, key));
 				}
 				else {
 					Assert.assertEquals(
 						storedCredential,
-						StoredCredentialUtil.get(companyId, userId));
+						StoredCredentialUtil.get(companyId, key));
 				}
 			});
 	}
@@ -222,7 +220,7 @@ public class StoredCredentialUtilTest {
 
 		_forEachCompany(
 			companyId -> Assert.assertEquals(
-				_USERS_COUNT, StoredCredentialUtil.size(companyId)));
+				_KEYS_COUNT, StoredCredentialUtil.size(companyId)));
 	}
 
 	@Test
@@ -287,9 +285,9 @@ public class StoredCredentialUtilTest {
 		throws Exception {
 
 		for (int i = 0; i < _COMPANIES_COUNT; i++) {
-			for (int j = 0; j < _USERS_COUNT; j++) {
+			for (int j = 0; j < _KEYS_COUNT; j++) {
 				unsafeTriConsumer.accept(
-					_companyIds[i], _userIds[j], _storedCredentials[i][j]);
+					_companyIds[i], _keys[j], _storedCredentials[i][j]);
 			}
 		}
 	}
@@ -298,9 +296,9 @@ public class StoredCredentialUtilTest {
 		Set<String> keySet = new HashSet<>();
 
 		_forEachUser(
-			(companyId2, userId, storedCredential) -> {
+			(companyId2, key, storedCredential) -> {
 				if (companyId1 == companyId2) {
-					keySet.add(userId);
+					keySet.add(key);
 				}
 			});
 
@@ -313,7 +311,7 @@ public class StoredCredentialUtilTest {
 		Set<StoredCredential> values = new HashSet<>();
 
 		_forEachUser(
-			(companyId2, userId, storedCredential) -> {
+			(companyId2, key, storedCredential) -> {
 				if (companyId1 == companyId2) {
 					values.add(storedCredential);
 				}
@@ -324,15 +322,15 @@ public class StoredCredentialUtilTest {
 
 	private static final int _COMPANIES_COUNT = 3;
 
-	private static final int _USERS_COUNT = 3;
+	private static final int _KEYS_COUNT = 3;
 
 	private static final MockedStatic<ClusterExecutorUtil>
 		_clusterExecutorUtilMockedStatic = Mockito.mockStatic(
 			ClusterExecutorUtil.class);
 
 	private final long[] _companyIds = new long[_COMPANIES_COUNT];
+	private final String[] _keys = new String[_KEYS_COUNT];
 	private final StoredCredential[][] _storedCredentials =
-		new StoredCredential[_COMPANIES_COUNT][_USERS_COUNT];
-	private final String[] _userIds = new String[_USERS_COUNT];
+		new StoredCredential[_COMPANIES_COUNT][_KEYS_COUNT];
 
 }
