@@ -84,31 +84,31 @@ public class StoredCredentialUtilTest {
 
 	@Test
 	public void testAdd() throws Exception {
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
-		_forEachUser(
+		_forEachKey(
 			(companyId, key, storedCredential) -> Assert.assertEquals(
 				storedCredential, StoredCredentialUtil.get(companyId, key)));
 	}
 
 	@Test
 	public void testClear() throws Exception {
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
 		StoredCredentialUtil.clear();
 
-		_forEachUser(
+		_forEachKey(
 			(companyId, key, storedCredential) -> Assert.assertNull(
 				StoredCredentialUtil.get(companyId, key)));
 	}
 
 	@Test
 	public void testClearCompany() throws Exception {
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
 		StoredCredentialUtil.clear(_companyIds[0]);
 
-		_forEachUser(
+		_forEachKey(
 			(companyId, key, storedCredential) -> {
 				if (companyId == _companyIds[0]) {
 					Assert.assertNull(StoredCredentialUtil.get(companyId, key));
@@ -123,27 +123,27 @@ public class StoredCredentialUtilTest {
 
 	@Test
 	public void testContainsKey() throws Exception {
-		_forEachUser(
+		_forEachKey(
 			(companyId, key, storedCredential) -> Assert.assertFalse(
 				StoredCredentialUtil.containsKey(companyId, key)));
 
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
-		_forEachUser(
+		_forEachKey(
 			(companyId, key, storedCredential) -> Assert.assertTrue(
 				StoredCredentialUtil.containsKey(companyId, key)));
 	}
 
 	@Test
 	public void testContainsValue() throws Exception {
-		_forEachUser(
+		_forEachKey(
 			(companyId, key, storedCredential) -> Assert.assertFalse(
 				StoredCredentialUtil.containsValue(
 					companyId, storedCredential)));
 
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
-		_forEachUser(
+		_forEachKey(
 			(companyId, key, storedCredential) -> Assert.assertTrue(
 				StoredCredentialUtil.containsValue(
 					companyId, storedCredential)));
@@ -151,11 +151,11 @@ public class StoredCredentialUtilTest {
 
 	@Test
 	public void testDelete() throws Exception {
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
 		StoredCredentialUtil.delete(_companyIds[0], _keys[0]);
 
-		_forEachUser(
+		_forEachKey(
 			(companyId, key, storedCredential) -> {
 				if ((companyId == _companyIds[0]) &&
 					Objects.equals(key, _keys[0])) {
@@ -184,7 +184,7 @@ public class StoredCredentialUtilTest {
 			companyId -> Assert.assertTrue(
 				StoredCredentialUtil.isEmpty(companyId)));
 
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
 		_forEachCompany(
 			companyId -> Assert.assertFalse(
@@ -200,7 +200,7 @@ public class StoredCredentialUtilTest {
 				Assert.assertTrue(keySet.isEmpty());
 			});
 
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
 		_forEachCompany(
 			companyId -> Assert.assertEquals(
@@ -214,7 +214,7 @@ public class StoredCredentialUtilTest {
 			companyId -> Assert.assertEquals(
 				0, StoredCredentialUtil.size(companyId)));
 
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
 		_forEachCompany(
 			companyId -> Assert.assertEquals(
@@ -249,7 +249,7 @@ public class StoredCredentialUtilTest {
 				Assert.assertTrue(values.isEmpty());
 			});
 
-		_forEachUser(StoredCredentialUtil::add);
+		_forEachKey(StoredCredentialUtil::add);
 
 		_forEachCompany(
 			companyId -> Assert.assertEquals(
@@ -277,7 +277,7 @@ public class StoredCredentialUtilTest {
 		}
 	}
 
-	private void _forEachUser(
+	private void _forEachKey(
 			UnsafeTriConsumer<Long, String, StoredCredential, Exception>
 				unsafeTriConsumer)
 		throws Exception {
@@ -293,7 +293,7 @@ public class StoredCredentialUtilTest {
 	private Set<String> _getCompanyKeySet(long companyId1) throws Exception {
 		Set<String> keySet = new HashSet<>();
 
-		_forEachUser(
+		_forEachKey(
 			(companyId2, key, storedCredential) -> {
 				if (companyId1 == companyId2) {
 					keySet.add(key);
@@ -308,7 +308,7 @@ public class StoredCredentialUtilTest {
 
 		Set<StoredCredential> values = new HashSet<>();
 
-		_forEachUser(
+		_forEachKey(
 			(companyId2, key, storedCredential) -> {
 				if (companyId1 == companyId2) {
 					values.add(storedCredential);

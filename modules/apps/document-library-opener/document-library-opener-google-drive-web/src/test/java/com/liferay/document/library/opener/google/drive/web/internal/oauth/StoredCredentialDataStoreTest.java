@@ -64,12 +64,12 @@ public class StoredCredentialDataStoreTest {
 				RandomTestUtil.randomString());
 		}
 
-		for (int i = 0; i < _USERS_COUNT; i++) {
-			_userIds[i] = String.valueOf(RandomTestUtil.randomLong());
+		for (int i = 0; i < _KEYS_COUNT; i++) {
+			_keys[i] = String.valueOf(RandomTestUtil.randomLong());
 		}
 
 		for (int i = 0; i < _COMPANIES_COUNT; i++) {
-			for (int j = 0; j < _USERS_COUNT; j++) {
+			for (int j = 0; j < _KEYS_COUNT; j++) {
 				_storedCredentials[i][j] = _addStoredCredential();
 			}
 		}
@@ -86,75 +86,71 @@ public class StoredCredentialDataStoreTest {
 
 	@Test
 	public void testClear() throws Exception {
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
 		_storedCredentialDataStores[0].clear();
 
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) -> {
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) -> {
 				if (Objects.equals(
 						storedCredentialDataStore.getId(),
 						_storedCredentialDataStores[0].getId())) {
 
-					Assert.assertNull(storedCredentialDataStore.get(userId));
+					Assert.assertNull(storedCredentialDataStore.get(key));
 				}
 				else {
 					Assert.assertEquals(
-						storedCredential,
-						storedCredentialDataStore.get(userId));
+						storedCredential, storedCredentialDataStore.get(key));
 				}
 			});
 	}
 
 	@Test
 	public void testContainsKey() throws Exception {
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) ->
-				Assert.assertFalse(
-					storedCredentialDataStore.containsKey(userId)));
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) ->
+				Assert.assertFalse(storedCredentialDataStore.containsKey(key)));
 
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) ->
-				Assert.assertTrue(
-					storedCredentialDataStore.containsKey(userId)));
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) ->
+				Assert.assertTrue(storedCredentialDataStore.containsKey(key)));
 	}
 
 	@Test
 	public void testContainsValue() throws Exception {
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) ->
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) ->
 				Assert.assertFalse(
 					storedCredentialDataStore.containsValue(storedCredential)));
 
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) ->
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) ->
 				Assert.assertTrue(
 					storedCredentialDataStore.containsValue(storedCredential)));
 	}
 
 	@Test
 	public void testDelete() throws Exception {
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
-		_storedCredentialDataStores[0].delete(_userIds[0]);
+		_storedCredentialDataStores[0].delete(_keys[0]);
 
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) -> {
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) -> {
 				if (Objects.equals(
 						storedCredentialDataStore.getId(),
 						_storedCredentialDataStores[0].getId()) &&
-					Objects.equals(userId, _userIds[0])) {
+					Objects.equals(key, _keys[0])) {
 
-					Assert.assertNull(storedCredentialDataStore.get(userId));
+					Assert.assertNull(storedCredentialDataStore.get(key));
 				}
 				else {
 					Assert.assertEquals(
-						storedCredential,
-						storedCredentialDataStore.get(userId));
+						storedCredential, storedCredentialDataStore.get(key));
 				}
 			});
 	}
@@ -173,7 +169,7 @@ public class StoredCredentialDataStoreTest {
 			storedCredentialDataStore -> Assert.assertTrue(
 				storedCredentialDataStore.isEmpty()));
 
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
 		_forEachStoredCredentialDataStore(
 			storedCredentialDataStore -> Assert.assertFalse(
@@ -189,7 +185,7 @@ public class StoredCredentialDataStoreTest {
 				Assert.assertTrue(keySet.isEmpty());
 			});
 
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
 		_forEachStoredCredentialDataStore(
 			storedCredentialDataStore -> Assert.assertEquals(
@@ -199,12 +195,12 @@ public class StoredCredentialDataStoreTest {
 
 	@Test
 	public void testSet() throws Exception {
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) ->
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) ->
 				Assert.assertEquals(
-					storedCredential, storedCredentialDataStore.get(userId)));
+					storedCredential, storedCredentialDataStore.get(key)));
 	}
 
 	@Test
@@ -213,11 +209,11 @@ public class StoredCredentialDataStoreTest {
 			storedCredentialDataStore -> Assert.assertEquals(
 				0, storedCredentialDataStore.size()));
 
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
 		_forEachStoredCredentialDataStore(
 			storedCredentialDataStore -> Assert.assertEquals(
-				_USERS_COUNT, storedCredentialDataStore.size()));
+				_KEYS_COUNT, storedCredentialDataStore.size()));
 	}
 
 	@Test
@@ -230,7 +226,7 @@ public class StoredCredentialDataStoreTest {
 				Assert.assertTrue(values.isEmpty());
 			});
 
-		_forEachUser(StoredCredentialDataStore::set);
+		_forEachKey(StoredCredentialDataStore::set);
 
 		_forEachStoredCredentialDataStore(
 			storedCredentialDataStore -> Assert.assertEquals(
@@ -250,6 +246,21 @@ public class StoredCredentialDataStoreTest {
 		return storedCredential;
 	}
 
+	private void _forEachKey(
+			UnsafeTriConsumer
+				<StoredCredentialDataStore, String, StoredCredential, Exception>
+					unsafeTriConsumer)
+		throws Exception {
+
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
+			for (int j = 0; j < _KEYS_COUNT; j++) {
+				unsafeTriConsumer.accept(
+					_storedCredentialDataStores[i], _keys[j],
+					_storedCredentials[i][j]);
+			}
+		}
+	}
+
 	private void _forEachStoredCredentialDataStore(
 			UnsafeConsumer<StoredCredentialDataStore, Exception> unsafeConsumer)
 		throws Exception {
@@ -259,28 +270,13 @@ public class StoredCredentialDataStoreTest {
 		}
 	}
 
-	private void _forEachUser(
-			UnsafeTriConsumer
-				<StoredCredentialDataStore, String, StoredCredential, Exception>
-					unsafeTriConsumer)
-		throws Exception {
-
-		for (int i = 0; i < _COMPANIES_COUNT; i++) {
-			for (int j = 0; j < _USERS_COUNT; j++) {
-				unsafeTriConsumer.accept(
-					_storedCredentialDataStores[i], _userIds[j],
-					_storedCredentials[i][j]);
-			}
-		}
-	}
-
 	private Set<String> _getCompanyKeySet(String id) throws Exception {
 		Set<String> keySet = new HashSet<>();
 
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) -> {
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) -> {
 				if (Objects.equals(storedCredentialDataStore.getId(), id)) {
-					keySet.add(userId);
+					keySet.add(key);
 				}
 			});
 
@@ -292,8 +288,8 @@ public class StoredCredentialDataStoreTest {
 
 		Set<StoredCredential> values = new HashSet<>();
 
-		_forEachUser(
-			(storedCredentialDataStore, userId, storedCredential) -> {
+		_forEachKey(
+			(storedCredentialDataStore, key, storedCredential) -> {
 				if (Objects.equals(storedCredentialDataStore.getId(), id)) {
 					values.add(storedCredential);
 				}
@@ -304,16 +300,16 @@ public class StoredCredentialDataStoreTest {
 
 	private static final int _COMPANIES_COUNT = 3;
 
-	private static final int _USERS_COUNT = 3;
+	private static final int _KEYS_COUNT = 3;
 
 	private static final MockedStatic<ClusterExecutorUtil>
 		_clusterExecutorUtilMockedStatic = Mockito.mockStatic(
 			ClusterExecutorUtil.class);
 
+	private final String[] _keys = new String[_KEYS_COUNT];
 	private final StoredCredentialDataStore[] _storedCredentialDataStores =
 		new StoredCredentialDataStore[_COMPANIES_COUNT];
 	private final StoredCredential[][] _storedCredentials =
-		new StoredCredential[_COMPANIES_COUNT][_USERS_COUNT];
-	private final String[] _userIds = new String[_USERS_COUNT];
+		new StoredCredential[_COMPANIES_COUNT][_KEYS_COUNT];
 
 }
