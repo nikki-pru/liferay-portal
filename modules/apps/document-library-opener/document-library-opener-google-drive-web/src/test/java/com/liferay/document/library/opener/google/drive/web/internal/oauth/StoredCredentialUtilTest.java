@@ -62,9 +62,7 @@ public class StoredCredentialUtilTest {
 	public void setUp() {
 		for (int i = 0; i < _COMPANIES_COUNT; i++) {
 			_companyIds[i] = RandomTestUtil.randomLong();
-		}
 
-		for (int i = 0; i < _COMPANIES_COUNT; i++) {
 			for (int j = 0; j < _KEYS_COUNT; j++) {
 				_storedCredentials[i][j] = _addStoredCredential();
 			}
