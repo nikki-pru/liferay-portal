@@ -58,18 +58,18 @@ public class StoredCredentialDataStoreTest {
 
 	@Before
 	public void setUp() {
-		for (int i = 0; i < _COMPANY_COUNT; i++) {
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
 			_storedCredentialDataStores[i] = new StoredCredentialDataStore(
 				RandomTestUtil.randomLong(), null,
 				RandomTestUtil.randomString());
 		}
 
-		for (int i = 0; i < _USER_COUNT; i++) {
+		for (int i = 0; i < _USERS_COUNT; i++) {
 			_userIds[i] = String.valueOf(RandomTestUtil.randomLong());
 		}
 
-		for (int i = 0; i < _COMPANY_COUNT; i++) {
-			for (int j = 0; j < _USER_COUNT; j++) {
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
+			for (int j = 0; j < _USERS_COUNT; j++) {
 				_storedCredentials[i][j] = _addStoredCredential();
 			}
 		}
@@ -202,7 +202,7 @@ public class StoredCredentialDataStoreTest {
 		_forEachUser(StoredCredentialDataStore::set);
 
 		_forEachDataStore(
-			dataStore -> Assert.assertEquals(_USER_COUNT, dataStore.size()));
+			dataStore -> Assert.assertEquals(_USERS_COUNT, dataStore.size()));
 	}
 
 	@Test
@@ -237,7 +237,7 @@ public class StoredCredentialDataStoreTest {
 			UnsafeConsumer<StoredCredentialDataStore, Exception> unsafeConsumer)
 		throws Exception {
 
-		for (int i = 0; i < _COMPANY_COUNT; i++) {
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
 			unsafeConsumer.accept(_storedCredentialDataStores[i]);
 		}
 	}
@@ -248,8 +248,8 @@ public class StoredCredentialDataStoreTest {
 					unsafeTriConsumer)
 		throws Exception {
 
-		for (int i = 0; i < _COMPANY_COUNT; i++) {
-			for (int j = 0; j < _USER_COUNT; j++) {
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
+			for (int j = 0; j < _USERS_COUNT; j++) {
 				unsafeTriConsumer.accept(
 					_storedCredentialDataStores[i], _userIds[j],
 					_storedCredentials[i][j]);
@@ -285,18 +285,18 @@ public class StoredCredentialDataStoreTest {
 		return values;
 	}
 
-	private static final int _COMPANY_COUNT = 3;
+	private static final int _COMPANIES_COUNT = 3;
 
-	private static final int _USER_COUNT = 3;
+	private static final int _USERS_COUNT = 3;
 
 	private static final MockedStatic<ClusterExecutorUtil>
 		_clusterExecutorUtilMockedStatic = Mockito.mockStatic(
 			ClusterExecutorUtil.class);
 
 	private final StoredCredentialDataStore[] _storedCredentialDataStores =
-		new StoredCredentialDataStore[_COMPANY_COUNT];
+		new StoredCredentialDataStore[_COMPANIES_COUNT];
 	private final StoredCredential[][] _storedCredentials =
-		new StoredCredential[_COMPANY_COUNT][_USER_COUNT];
-	private final String[] _userIds = new String[_USER_COUNT];
+		new StoredCredential[_COMPANIES_COUNT][_USERS_COUNT];
+	private final String[] _userIds = new String[_USERS_COUNT];
 
 }

@@ -60,16 +60,16 @@ public class StoredCredentialUtilTest {
 
 	@Before
 	public void setUp() {
-		for (int i = 0; i < _COMPANY_COUNT; i++) {
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
 			_companyIds[i] = RandomTestUtil.randomLong();
 		}
 
-		for (int i = 0; i < _USER_COUNT; i++) {
+		for (int i = 0; i < _USERS_COUNT; i++) {
 			_userIds[i] = String.valueOf(RandomTestUtil.randomLong());
 		}
 
-		for (int i = 0; i < _COMPANY_COUNT; i++) {
-			for (int j = 0; j < _USER_COUNT; j++) {
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
+			for (int j = 0; j < _USERS_COUNT; j++) {
 				_storedCredentials[i][j] = _addStoredCredential();
 			}
 		}
@@ -222,7 +222,7 @@ public class StoredCredentialUtilTest {
 
 		_forEachCompany(
 			companyId -> Assert.assertEquals(
-				_USER_COUNT, StoredCredentialUtil.size(companyId)));
+				_USERS_COUNT, StoredCredentialUtil.size(companyId)));
 	}
 
 	@Test
@@ -276,7 +276,7 @@ public class StoredCredentialUtilTest {
 	private void _forEachCompany(UnsafeConsumer<Long, Exception> unsafeConsumer)
 		throws Exception {
 
-		for (int i = 0; i < _COMPANY_COUNT; i++) {
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
 			unsafeConsumer.accept(_companyIds[i]);
 		}
 	}
@@ -286,8 +286,8 @@ public class StoredCredentialUtilTest {
 				unsafeTriConsumer)
 		throws Exception {
 
-		for (int i = 0; i < _COMPANY_COUNT; i++) {
-			for (int j = 0; j < _USER_COUNT; j++) {
+		for (int i = 0; i < _COMPANIES_COUNT; i++) {
+			for (int j = 0; j < _USERS_COUNT; j++) {
 				unsafeTriConsumer.accept(
 					_companyIds[i], _userIds[j], _storedCredentials[i][j]);
 			}
@@ -322,17 +322,17 @@ public class StoredCredentialUtilTest {
 		return values;
 	}
 
-	private static final int _COMPANY_COUNT = 3;
+	private static final int _COMPANIES_COUNT = 3;
 
-	private static final int _USER_COUNT = 3;
+	private static final int _USERS_COUNT = 3;
 
 	private static final MockedStatic<ClusterExecutorUtil>
 		_clusterExecutorUtilMockedStatic = Mockito.mockStatic(
 			ClusterExecutorUtil.class);
 
-	private final long[] _companyIds = new long[_COMPANY_COUNT];
+	private final long[] _companyIds = new long[_COMPANIES_COUNT];
 	private final StoredCredential[][] _storedCredentials =
-		new StoredCredential[_COMPANY_COUNT][_USER_COUNT];
-	private final String[] _userIds = new String[_USER_COUNT];
+		new StoredCredential[_COMPANIES_COUNT][_USERS_COUNT];
+	private final String[] _userIds = new String[_USERS_COUNT];
 
 }
