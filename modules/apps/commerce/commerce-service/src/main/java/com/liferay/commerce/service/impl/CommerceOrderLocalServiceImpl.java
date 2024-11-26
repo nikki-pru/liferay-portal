@@ -1076,7 +1076,6 @@ public class CommerceOrderLocalServiceImpl
 		}
 
 		long commerceCurrencyId = commerceOrder.getCommerceCurrencyId();
-
 		boolean recalculate = false;
 
 		CommerceCurrency commerceContextCommerceCurrency =
@@ -1089,7 +1088,6 @@ public class CommerceOrderLocalServiceImpl
 
 			commerceCurrencyId =
 				commerceContextCommerceCurrency.getCommerceCurrencyId();
-
 			recalculate = true;
 		}
 
