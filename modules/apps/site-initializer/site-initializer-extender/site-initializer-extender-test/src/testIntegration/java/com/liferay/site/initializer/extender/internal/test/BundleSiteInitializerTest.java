@@ -1775,7 +1775,7 @@ public class BundleSiteInitializerTest {
 	private void _assertJournalArticles1() throws Exception {
 		JournalArticle journalArticle1 =
 			_journalArticleLocalService.fetchArticle(
-				_group.getGroupId(), "test-journal-article-1");
+				_group.getGroupId(), "TEST-JOURNAL-ARTICLE-1");
 
 		Assert.assertNotNull(journalArticle1);
 		Assert.assertEquals(
@@ -1785,7 +1785,7 @@ public class BundleSiteInitializerTest {
 
 		JournalArticle journalArticle2 =
 			_journalArticleLocalService.fetchArticle(
-				_group.getGroupId(), "test-journal-article-2");
+				_group.getGroupId(), "TEST-JOURNAL-ARTICLE-2");
 
 		Assert.assertNotNull(journalArticle2);
 		Assert.assertEquals(
@@ -1815,7 +1815,7 @@ public class BundleSiteInitializerTest {
 	private void _assertJournalArticles2() throws Exception {
 		JournalArticle journalArticle1 =
 			_journalArticleLocalService.fetchArticle(
-				_group.getGroupId(), "test-journal-article-1");
+				_group.getGroupId(), "TEST-JOURNAL-ARTICLE-1");
 
 		Assert.assertNotNull(journalArticle1);
 		Assert.assertEquals(
@@ -1825,7 +1825,7 @@ public class BundleSiteInitializerTest {
 
 		JournalArticle journalArticle2 =
 			_journalArticleLocalService.fetchArticle(
-				_group.getGroupId(), "test-journal-article-2");
+				_group.getGroupId(), "TEST-JOURNAL-ARTICLE-2");
 
 		Assert.assertNotNull(journalArticle2);
 		Assert.assertEquals(
@@ -1835,7 +1835,7 @@ public class BundleSiteInitializerTest {
 
 		JournalArticle journalArticle3 =
 			_journalArticleLocalService.fetchArticle(
-				_group.getGroupId(), "test-journal-article-3");
+				_group.getGroupId(), "TEST-JOURNAL-ARTICLE-3");
 
 		Assert.assertNotNull(journalArticle3);
 		Assert.assertTrue(
