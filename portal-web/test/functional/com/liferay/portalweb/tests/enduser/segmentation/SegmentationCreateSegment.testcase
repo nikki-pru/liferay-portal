@@ -101,7 +101,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOrganizationCountry {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -167,7 +167,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOrganizationDateModified {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -225,7 +225,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOrganizationHierarchyPath {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -279,7 +279,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOrganizationName {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -333,7 +333,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOrganizationOrganization {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -387,7 +387,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOrganizationParentOrganization {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -505,7 +505,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOrganizationTag {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -571,7 +571,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOrganizationType {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -625,7 +625,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOtherSegmentsUnableToAddNewSegments {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Assert in the segment select that it's not possible to create new segments") {
 			LexiconEntry.gotoAdd();
@@ -652,7 +652,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByOtherSegmentsWarning {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add users") {
 			JSONUser.addUser(
@@ -725,7 +725,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionBrowser {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -756,7 +756,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionCookies {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -793,7 +793,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionHostname {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -853,7 +853,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionLanguage {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -950,7 +950,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionReferrerURL {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -981,7 +981,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionRequestParameters {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -1018,7 +1018,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionSignedIn {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -1051,7 +1051,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionURL {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -1082,7 +1082,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentBySessionUserAgent {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -1119,7 +1119,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserDateModified {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1212,7 +1212,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserEmailAddress {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1258,7 +1258,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserEmailAddressEquals {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -1293,7 +1293,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserEmailAddressNotContains {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -1328,7 +1328,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserEmailAddressNotEquals {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add segment") {
 			LexiconEntry.gotoAdd();
@@ -1363,7 +1363,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserFirstName {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1407,7 +1407,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserJobTitle {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1452,7 +1452,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserLastName {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1496,7 +1496,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserName {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1540,7 +1540,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserRole {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1589,7 +1589,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserScreenName {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1633,7 +1633,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserSite {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1736,7 +1736,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserTag {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1776,7 +1776,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserTeam {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1833,7 +1833,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserUser {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1872,7 +1872,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddSegmentByUserUserGroup {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -1982,7 +1982,7 @@ definition {
 	@description = "LPS-146550 Bug: Apostrophe in segment property value breaks filter"
 	@priority = 4
 	test AddSegmentWithApostrophe {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create an User with an apostrophe") {
 			JSONUser.addUser(
@@ -2273,7 +2273,7 @@ definition {
 	@priority = 4
 	@uitest
 	test CheckSegmentationWithApostropheValueFilter {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user with apostrophe in first and last name") {
 			JSONUser.addUser(
@@ -2351,7 +2351,7 @@ definition {
 	@description = "LPS-152077 Bug: Error updating segment which contains a non-existing segment"
 	@priority = 4
 	test DeleteUnavailableSegmentCriteria {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create a first segment with any criteria") {
 			JSONSegmentsentry.addSegment(
@@ -2594,7 +2594,7 @@ definition {
 	@description = "LPS-150511 Bug: Can't scroll down in segments editor sidebar"
 	@priority = 4
 	test ScrollDownSegmentsEditor {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Go to segments editor page") {
 			LexiconEntry.gotoAdd();
@@ -2672,7 +2672,7 @@ definition {
 	@priority = 5
 	@uitest
 	test SegmentationCheckSpecialCharacters {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user") {
 			JSONUser.addUser(
@@ -2746,7 +2746,7 @@ definition {
 	@description = "LPS-136086 Validate if, in the segments page, the default segment doesn't appear, with the page without records."
 	@priority = 4
 	test ValidateDefaultSegmentNotDisplayed {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Assert 'default' segment is not present") {
 			Segmentation.viewEntryNotPresent(segmentName = "Anyone");
@@ -2758,7 +2758,7 @@ definition {
 	@description = "LPS-135880 Validate in Segmentation, if on view mode, the value on the criteria field input, is correct for property: Organization."
 	@priority = 4
 	test ValidateOrganizationFieldInputInViewMode {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add and get organization ID") {
 			JSONOrganization.addOrganization(
@@ -2796,7 +2796,7 @@ definition {
 	@description = "LPS-135880 Validate in Segmentation, if on view mode, the value on the criteria field input, is correct for property: Parent Organization."
 	@priority = 4
 	test ValidateParentOrganizationFieldInputInViewMode {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add organization and parent, and get parent's organization ID") {
 			JSONOrganization.addOrganization(organizationName = "Parent Organization Name");
@@ -2965,7 +2965,7 @@ definition {
 	@description = "LPS-135880 Validate in Segmentation, if on view mode, the value on the criteria field input, is correct for property: Role."
 	@priority = 4
 	test ValidateRoleFieldInputInViewMode {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Get role id") {
 			var roleId = JSONPermissionSetter.setRoleId(roleTitle = "Administrator");
@@ -2994,7 +2994,7 @@ definition {
 	@description = "LPS-135880 Validate in Segmentation, if on view mode, the value on the criteria field input, is correct for property: Site."
 	@priority = 4
 	test ValidateSiteFieldInputInViewMode {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create a site") {
 			var siteId = JSONGroupSetter.setGroupId(groupName = "Test Site Name");
@@ -3023,7 +3023,7 @@ definition {
 	@description = "LPS-135880 Validate in Segmentation, if on view mode, the value on the criteria field input, is correct for property: Team."
 	@priority = 4
 	test ValidateTeamFieldInputInViewMode {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add team using JSONWS") {
 			JSONTeam.addTeam(
@@ -3058,7 +3058,7 @@ definition {
 	@description = "LPS-135880 Validate in Segmentation, if on view mode, the value on the criteria field input, is correct for property: User."
 	@priority = 4
 	test ValidateUserFieldInputInViewMode {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Get user ID") {
 			var userId = JSONUserSetter.setUserId(userEmailAddress = "test@liferay.com");
@@ -3087,7 +3087,7 @@ definition {
 	@description = "LPS-135880 Validate in Segmentation, if on view mode, the value on the criteria field input, is correct for property: User Group."
 	@priority = 4
 	test ValidateUserGroupFieldInputInViewMode {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create and get user group ID") {
 			JSONUserGroup.addUserGroup(userGroupName = "Test Group Name");
@@ -3262,7 +3262,7 @@ definition {
 	@priority = 3
 	@uitest
 	test ViewSegmentFieldsType {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Check the field types appear in the segments editor") {
 			LexiconEntry.gotoAdd();

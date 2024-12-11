@@ -321,7 +321,7 @@ definition {
 	@priority = 5
 	@uitest
 	test DisableShowPage {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a Breadcrumb widget to page") {
 			JSONLayout.addWidgetToPublicLayout(

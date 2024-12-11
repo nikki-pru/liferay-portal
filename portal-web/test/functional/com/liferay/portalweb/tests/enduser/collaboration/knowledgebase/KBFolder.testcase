@@ -160,7 +160,7 @@ definition {
 	@priority = 5
 	@refactordone
 	test CanAddFolder {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		KBFolder.addCP(
 			kbFolderDescription = "KB Folder 1 Description",
@@ -229,7 +229,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CanDeleteFolder {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		JSONKnowledgeBase.addkBFolder(
 			groupName = "Guest",
@@ -282,7 +282,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CanEditFolder {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		JSONKnowledgeBase.addkBFolder(
 			groupName = "Guest",

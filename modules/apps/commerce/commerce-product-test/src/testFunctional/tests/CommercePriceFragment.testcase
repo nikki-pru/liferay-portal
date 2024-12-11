@@ -32,7 +32,7 @@ definition {
 	@description = "COMMERCE-7617. Verify that the price shown in the Price fragment is affected by discounts"
 	@priority = 5
 	test CanViewPriceFragmentDiscount {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given Hoses has different prices for all the SKUs") {
 			for (var productSKUAndPrice : list "MIN93022A:25,MIN93022B:50,MIN93022C:100") {

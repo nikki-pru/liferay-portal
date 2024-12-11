@@ -224,7 +224,7 @@ definition {
 	@description = "COMMERCE-12468. As a user, I can verify the table is updated correctly if UOM or Tier Prices are edited and deleted."
 	@priority = 5
 	test CanVerifyTableUpdatedAfterEditingAndDeletingUOMsAndTierPrices {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium site is created") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");

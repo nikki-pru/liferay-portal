@@ -148,7 +148,7 @@ definition {
 	@priority = 5
 	@uitest
 	test CanEditSegmentIfHaveASelectInput {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Go to segments portlet") {
 			Segmentation.openSegmentsAdmin(siteURLKey = "test-site-name");
@@ -213,7 +213,7 @@ definition {
 	@priority = 5
 	@uitest
 	test EditSegmentUserByOrganizationCountry {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Go to segments portlet") {
 			Segmentation.openSegmentsAdmin(siteURLKey = "test-site-name");
@@ -250,7 +250,7 @@ definition {
 	@priority = 5
 	@uitest
 	test EditSegmentUserByOrganizationRegion {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Go to segments portlet") {
 			Segmentation.openSegmentsAdmin(siteURLKey = "test-site-name");
@@ -287,7 +287,7 @@ definition {
 	@priority = 5
 	@uitest
 	test EditSegmentUserBySessionURL {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Go to segments portlet") {
 			Segmentation.openSegmentsAdmin(siteURLKey = "test-site-name");
@@ -322,7 +322,7 @@ definition {
 	@priority = 5
 	@uitest
 	test EditSegmentUserByUserTag {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add user with tag") {
 			JSONUser.addUser(
@@ -366,7 +366,7 @@ definition {
 	@priority = 5
 	@uitest
 	test EditSegmentUserEmailAddressContainsToEquals {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Go to segments portlet") {
 			Segmentation.openSegmentsAdmin(siteURLKey = "test-site-name");

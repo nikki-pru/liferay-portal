@@ -109,7 +109,7 @@ definition {
 	@description = "The user can delete a single tag via menu item."
 	@priority = 5
 	test DeleteTagViaMenu {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a tag") {
 			JSONAssettag.addTag(
@@ -135,7 +135,7 @@ definition {
 	@description = "The user can edit the tag name."
 	@priority = 5
 	test EditTag {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a tag") {
 			JSONAssettag.addTag(

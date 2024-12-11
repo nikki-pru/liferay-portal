@@ -333,7 +333,7 @@ definition {
 	@priority = 5
 	test CanCreateVirtualInstanceWithClusteringSecondNode {
 		property custom.properties = "virtual.hosts.valid.hosts=localhost,127.0.0.1,www.able.com";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "sequential";
 

@@ -2229,7 +2229,7 @@ definition {
 	@priority = 5
 	test CanVerifyProductsLimitRuleWithDecimalUOMQuantity {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given an access token is generated to enable Show Unselectable Options from Instance Settings") {
 			var companyId = JSONCompany.getCompanyId();

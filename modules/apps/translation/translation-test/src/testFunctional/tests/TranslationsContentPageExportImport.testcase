@@ -110,6 +110,7 @@ definition {
 	@description = "This ensures that the user can export multiple available languages for multiple experiences."
 	@priority = 5
 	test CanExportMultipleAvailableLanguagesForMultipleExperiences {
+		property portal.acceptance = "Q4";
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "TranslationContentPage",
@@ -325,6 +326,7 @@ definition {
 	@description = "This ensures that the user can export multiple available languages of default experience for translation."
 	@priority = 5
 	test CanExportWithMultipleLanguages {
+		property portal.acceptance = "Q4";
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Translation Content Page",
@@ -354,6 +356,7 @@ definition {
 	@description = "This ensures that the user can export a single available language of default experience for translation."
 	@priority = 5
 	test CanExportWithSingleLanguage {
+		property portal.acceptance = "Q4";
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "Translation Content Page",
@@ -384,6 +387,7 @@ definition {
 	@description = "This ensures that the user can import the exported content page xliff file with 1.2 version."
 	@priority = 5
 	test CanImportExportedCustomizeXliffFile {
+		property portal.acceptance = "Q4";
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "TranslationContentPage",
@@ -476,6 +480,7 @@ definition {
 	@description = "This ensures that the user can import the exported content page xliff file with default version."
 	@priority = 5
 	test CanImportExportedDefaultXliffFile {
+		property portal.acceptance = "Q4";
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "TranslationContentPage",
@@ -558,6 +563,7 @@ definition {
 	@description = "This ensures that imported translation for a content page experience can be merged to the correct experience of a content page."
 	@priority = 5
 	test CanImportExportedTranslationForCorrespondingExperience {
+		property portal.acceptance = "Q4";
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "TranslationContentPage",
@@ -1244,6 +1250,7 @@ definition {
 	@description = "This is a test for LPS-144152. This ensures that the updated draft translation can be published."
 	@priority = 3
 	test CanPublishUpdatedDraftTranslation {
+		property portal.acceptance = "Q4";
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "TranslationContentPage",
@@ -1337,6 +1344,7 @@ definition {
 	@description = "This ensures that the user can import the translated content page file with Button fragment."
 	@priority = 5
 	test CanTranslateAndImportButtonFragment {
+		property portal.acceptance = "Q4";
 		JSONLayout.addPublicLayout(
 			groupName = "Guest",
 			layoutName = "TranslationContentPage",

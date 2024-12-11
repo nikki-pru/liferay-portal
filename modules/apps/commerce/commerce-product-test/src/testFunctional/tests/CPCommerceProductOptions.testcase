@@ -312,7 +312,7 @@ definition {
 	@priority = 5
 	test CanAssertAllTypesOfOptionsShownInPlacedOrders {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium site with a buyer user is created") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -2074,7 +2074,7 @@ definition {
 	@priority = 5
 	test CanUseTheAccordionForBundledProductsWithUOM {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium site with a buyer user is created") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -2206,7 +2206,7 @@ definition {
 	@priority = 5
 	test CanUseTheAccordionForDefineExternallyProducts {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium site with a buyer user is created") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -2304,7 +2304,7 @@ definition {
 	@priority = 5
 	test CanUseTheAccordionForNormalProducts {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium site with a buyer user is created") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");

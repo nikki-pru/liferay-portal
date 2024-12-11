@@ -69,7 +69,7 @@ definition {
 	@priority = 5
 	test CanSetPortalPropertyViaEnvironmentVariable {
 		property custom.system.properties = "company-id-properties=true";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 

@@ -1188,6 +1188,7 @@ definition {
 	@priority = 5
 	@refactordone
 	test CanView404URLsAfterReactivating {
+		property portal.acceptance = "Q4";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 

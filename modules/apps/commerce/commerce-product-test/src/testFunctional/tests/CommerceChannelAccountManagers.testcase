@@ -130,7 +130,7 @@ definition {
 	@description = "COMMERCE-9988 | Can add a Channel Account Managers entry"
 	@priority = 5
 	test CanAddChannelAccountManagersEntry {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a business account is created") {
 			JSONAccountEntry.addAccountEntry(

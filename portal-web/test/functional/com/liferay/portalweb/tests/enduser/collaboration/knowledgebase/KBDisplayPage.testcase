@@ -68,7 +68,7 @@ definition {
 	@description = "This test ensures that the Max Nesting settings can be configured in the KB navigation fragment for a display page."
 	@priority = 5
 	test CanUpdateMaxNestingForArticleNavigation {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		var portalURL = PropsUtil.get("portal.url");
 

@@ -119,6 +119,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CannotShareUnpublishedEntry {
+		property portal.acceptance = "Q4";
 		property custom.properties = "jsonws.web.service.paths.excludes=";
 
 		JSONUser.addUser(

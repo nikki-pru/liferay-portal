@@ -31,7 +31,7 @@ definition {
 
 	@priority = 5
 	test CanConsumeGraphQLAPIsForHeadlessAdminContent {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a basic web content is created") {
 			HeadlessWebcontent.addBasicWebContent(
@@ -61,7 +61,7 @@ definition {
 
 	@priority = 5
 	test CanConsumeGraphQLAPIsForHeadlessAdminTaxonomy {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a vocabulary is added") {
 			JSONCategory.addVocabulary(
@@ -90,7 +90,7 @@ definition {
 
 	@priority = 5
 	test CanConsumeGraphQLAPIsForHeadlessDelivery {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a blog entry with a custom headline is created") {
 			BlogPostingAPI.getIdOfCreatedBlogPosting(
@@ -119,7 +119,7 @@ definition {
 
 	@priority = 4
 	test CanGetFieldsAnnotatedWithGraphQLTypeExtension {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a basic web content is created") {
 			HeadlessWebcontent.addBasicWebContent(
@@ -172,7 +172,7 @@ definition {
 
 	@priority = 5
 	test CanLoadHeadlessAdminContentOpenAPI {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given navigate to headless admin content endpoint") {
 			var api = "headless-admin-content";
@@ -195,7 +195,7 @@ definition {
 
 	@priority = 5
 	test CanLoadHeadlessAdminTaxonomyOpenAPI {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given navigate to headless admin taxonomy endpoint") {
 			var api = "headless-admin-taxonomy";
@@ -219,7 +219,7 @@ definition {
 	@description = "Load headless delivery openAPI explorer"
 	@priority = 5
 	test CanLoadHeadlessDeliveryOpenAPI {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given navigate to headless delivery endpoint") {
 			APIExplorer.navigateToOpenAPI(
@@ -240,7 +240,7 @@ definition {
 
 	@priority = 5
 	test CanRetrieveSiteBlogPostingsWithHeadlessDeliveryOpenAPI {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given navigate to headless delivery endpoint") {
 			APIExplorer.navigateToOpenAPI(

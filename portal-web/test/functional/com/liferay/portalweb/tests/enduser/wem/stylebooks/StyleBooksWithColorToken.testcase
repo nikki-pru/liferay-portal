@@ -185,7 +185,7 @@ definition {
 	@description = "This is a test for LPS-145650 and LPS-149218. The user could continue publish process in style book editor if link invalid color token. The tokens groups should be collapsed by default except the first one."
 	@priority = 5
 	test ContinuePublishProcessInStyleBookEditorIfLinkInvalidColorToken {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a style book") {
 			JSONStylebooks.addStyleBookEntry(
@@ -255,7 +255,7 @@ definition {
 	@description = "This is a test for LPS-136199. The user could detach the linked token."
 	@priority = 5
 	test DetachLinkedColorTokenInPageEditor {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a Heading fragment to a content page") {
 			JSONLayout.addPublicLayout(

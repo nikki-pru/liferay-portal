@@ -30,7 +30,7 @@ definition {
 	@description = "COMMERCE-12610. As a buyer, I can assert the bundled product works with all types of the options"
 	@priority = 5
 	test CanAssertAllTypesOfOptionsWorkWithProductOptions {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a new bundled product with all types of options is created") {
 			CommerceJSONProductsAPI._addCommerceProduct(
@@ -1105,7 +1105,7 @@ definition {
 	@description = "COMMERCE-12608. As a buyer, I cannot edit the sku in the order item's Edit Bundled Product panel in mini-cart when the sku stock quantity is zero and the allow back order is disabled"
 	@priority = 5
 	test CannotEditProductOptionsWhenStockIsZeroAndBackOrderIsDisabled {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a new bundled product with an option(two values) and Static Price Type is created") {
 			CommerceJSONProductsAPI._addCommerceProduct(

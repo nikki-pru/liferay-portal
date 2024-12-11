@@ -714,7 +714,7 @@ definition {
 	@description = "COMMERCE-12641. As a user with View and Update Warehouse permissions, I want to be able to view and update all existing inventory entries and warehouses"
 	@priority = 5
 	test CanEditWarehousesAndInventoryEntriesWithGeneralViewAndUpdatePermissions {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given the Operations Manager has view and update warehouse permissions") {
 			for (var permissions : list "VIEW,UPDATE") {

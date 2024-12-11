@@ -218,6 +218,7 @@ definition {
 	@priority = 3
 	@refactordone
 	test CanCancelEditOnThread {
+		property portal.acceptance = "Q4";
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
 			threadBody = "Message Boards Thread Body",
@@ -244,6 +245,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CanCancelThread {
+		property portal.acceptance = "Q4";
 		Navigator.gotoPage(pageName = "Message Boards Page");
 
 		MessageboardsThread.cancelAdd(
@@ -257,6 +259,7 @@ definition {
 	@priority = 5
 	@refactordone
 	test CanDeleteThread {
+		property portal.acceptance = "Q4";
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
 			threadBody = "MB Thread Message Body",
@@ -326,6 +329,7 @@ definition {
 	@description = "This is a test for LPS-136914. It checks that an attachment can be downloaded."
 	@priority = 4
 	test CanDownloadAttachment {
+		property portal.acceptance = "Q4";
 		MessageboardsThread.addPG(
 			groupName = "Guest",
 			layoutName = "message-boards-page",
@@ -359,6 +363,7 @@ definition {
 	@description = "This is a test for LPS-136920. It checks that a thread can be exported."
 	@priority = 3
 	test CanExportThread {
+		property portal.acceptance = "Q4";
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
 			threadBody = "MB Thread Message Body",
@@ -374,6 +379,7 @@ definition {
 	@description = "This is a test for LPS-136919. It checks that a thread can be imported."
 	@priority = 3
 	test CanImportThread {
+		property portal.acceptance = "Q4";
 		MessageBoardsAdmin.openMessageBoardsAdmin(siteURLKey = "guest");
 
 		LAR.importPortlet(
@@ -418,6 +424,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CanLockAndUnlockThread {
+		property portal.acceptance = "Q4";
 		JSONMBMessage.addMessage(
 			groupName = "Guest",
 			threadBody = "Message Boards Thread Body",
@@ -456,6 +463,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CanMoveMBCategory1ThreadToCategory2 {
+		property portal.acceptance = "Q4";
 		JSONMBMessage.addCategory(
 			categoryDescription = "MB Category Description",
 			categoryName = "MB Category1 Name",

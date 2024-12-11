@@ -693,7 +693,7 @@ definition {
 	@description = "LPS-114911 When the user selects vocabularies from the selection panel, vocabularies selected show in the table as headers and categories assigned to contents will show "
 	@priority = 5
 	test CategorieShowInTable {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Adding vocabulary and category") {
 			JSONCategory.addVocabulary(
@@ -1155,7 +1155,7 @@ definition {
 	@description = "LPS-132597 When a web content is NOT associated to a Display Page and its status is Approved, a display page icon is NOT displayed"
 	@priority = 5
 	test CheckDisplayPageIconofApprovedWebContentNotDisplayed {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create a Web Content and set a Display Page") {
 			JSONWebcontent.addWebContent(
@@ -5421,7 +5421,7 @@ definition {
 	@description = "LPS-133354 Given The Extension filter modal When there are file extensions for the MIME type ""presentation"" Then the MIME type ""presentation"" appears as father and all of the file extensions for it appear as children and available to be selected"
 	@priority = 4
 	test MimeTypePresentation {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a compressed file") {
 			JSONDocument.addFileWithUploadedFile(
@@ -5714,7 +5714,7 @@ definition {
 	@description = "LPS-111323 Validate if the user can order by Modification Date"
 	@priority = 5
 	test OrderByModificationDate {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		var groupId = JSONGroupSetter.setGroupId(groupName = "Test Site Name");
 

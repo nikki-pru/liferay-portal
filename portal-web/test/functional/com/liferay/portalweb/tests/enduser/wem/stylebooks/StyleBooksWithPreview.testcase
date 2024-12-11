@@ -615,7 +615,7 @@ definition {
 	@description = "This is a test for LPS-137065. The designer could preview the effects of styles on master page."
 	@priority = 5
 	test PreviewStyleBookOnMasterPage {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a master with a Header Dark fragment then publish") {
 			JSONLayoutpagetemplate.addMasterPageTemplateEntry(
@@ -691,7 +691,7 @@ definition {
 	@description = "This is a test for LPS-137065. The designer could preview the effects of styles on all pages."
 	@priority = 5
 	test PreviewStyleBookOnPages {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add the first widget page with a Blogs widget") {
 			JSONLayout.addPublicLayout(
@@ -949,7 +949,7 @@ definition {
 	@description = "This is a test for LPS-137065. The designer could preview the effects of styles on all page templates."
 	@priority = 5
 	test PreviewStyleBookOnPageTemplates {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a page template collection") {
 			JSONLayoutpagetemplate.addLayoutPageTemplateCollection(

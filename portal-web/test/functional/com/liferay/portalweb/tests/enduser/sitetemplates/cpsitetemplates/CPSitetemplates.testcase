@@ -703,7 +703,7 @@ definition {
 	@description = "This is a use case for LPS-131903 and LPS-132256. Verify that users can not attempt to edit pages when disable changes."
 	@priority = 3
 	test CannotEditSiteLinkedToDisabledPageModificationSiteTemplate {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given: User adds new site template with disallowing site admin's right to modificate pages") {
 			SiteTemplates.addCP(

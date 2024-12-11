@@ -34,7 +34,7 @@ definition {
 	@description = "COMMERCE-10075 | Can import existing orders based on the product's Maximum and Multiple Order Quantity set(maximum > multiple)"
 	@priority = 5
 	test CanAssertInvalidQuantityNotImportedWhenMaximumIsHigherThanMultiple {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		var maxOrderQuantity = 10;
 		var multipleOrderQuantity = 4;
@@ -297,7 +297,7 @@ definition {
 	@description = "COMMERCE-10074 | Can import existing orders based on the product's Minimum and Multiple Order Quantity set(minimum < multiple)"
 	@priority = 5
 	test CanAssertInvalidQuantityNotImportedWhenMinimumIsLowerThanMultiple {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		var minOrderQuantity = 3;
 		var multipleOrderQuantity = 4;

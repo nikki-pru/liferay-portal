@@ -43,7 +43,7 @@ definition {
 	@description = "LPS-101341: Validate if the user has one experience with the AB test in a Running status, the experiences dropdown menu shows the AB test icon and one help hint"
 	@priority = 4
 	test ABTestIconInExperience {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create an experience and add on content page") {
 			ContentPages.gotoPageEditor();
@@ -1096,7 +1096,7 @@ definition {
 	@description = "LPS-103334: Validate if the AB Test is in the status draft, the experience about the AB Test is active is in Edition Mode"
 	@priority = 5
 	test EditExperienceWithDraftABTest {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create an experience and add on content page") {
 			ContentPages.gotoPageEditor();
@@ -1453,7 +1453,7 @@ definition {
 	@description = "LPS-101341: Validate if when the user will edit some Experience with an AB Test in a Terminated status, the experience about the AB Test is active is in Non-Edition Mode"
 	@priority = 4
 	test NotPossibleToEditExperienceAfterTerminatedABTest {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create an experience and add on content page") {
 			ContentPages.gotoPageEditor();
@@ -1501,7 +1501,7 @@ definition {
 	@description = "LPS-103334: Validate if the AB Test is in the status running, the experience about the AB Test is active is in Non-Edition Mode"
 	@priority = 5
 	test NotPossibleToEditExperienceWithRunningABTest {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Create an experience and add on content page") {
 			ContentPages.gotoPageEditor();

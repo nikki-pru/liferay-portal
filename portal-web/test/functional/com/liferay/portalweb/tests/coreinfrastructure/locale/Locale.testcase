@@ -981,7 +981,7 @@ definition {
 
 	@priority = 5
 	test ViewSiteLocaleWithoutUserPreferredLocale {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		User.firstLoginPG();
 

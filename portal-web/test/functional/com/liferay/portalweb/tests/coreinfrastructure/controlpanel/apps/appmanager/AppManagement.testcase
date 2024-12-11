@@ -383,7 +383,7 @@ definition {
 	@description = "This ensures that the Questions app in the app manager can be deactivated and reactivated."
 	@priority = 3
 	test CanDeactivateAndActivateQuestions {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 		property testray.main.component.name = "Questions";

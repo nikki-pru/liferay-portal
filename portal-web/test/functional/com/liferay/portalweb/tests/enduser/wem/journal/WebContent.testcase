@@ -111,7 +111,7 @@ definition {
 	@description = "This is a test for LPS-192836. Assert can select feature image from Document and Media in web content creation."
 	@priority = 5
 	test AddWebContentWithFeaturedImageFromDocumentsAndMedia {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a user accesses to the web content editor") {
 			HeadlessSite.addSite(
@@ -515,7 +515,7 @@ definition {
 	@description = "Delete a web content in web content admin."
 	@priority = 5
 	test DeleteWebContent {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a web content") {
 			JSONWebcontent.addWebContent(
@@ -590,7 +590,7 @@ definition {
 	@description = "The user can edit a web content."
 	@priority = 5
 	test EditWebContent {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 		property testray.component.names = "Web Content Administration,WYSIWYG";
 
 		task ("Add a web content") {
@@ -623,7 +623,7 @@ definition {
 	@description = "This is a use case for LPS-141842. View Error message when editing web contents concurrently."
 	@priority = 4
 	test EditWebContentConcurrently {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a Web Content article") {
 			JSONWebcontent.addWebContent(
@@ -669,7 +669,7 @@ definition {
 	@description = "The user can edit a web content clicking in the article title in the serach result."
 	@priority = 5
 	test EditWebContentViaArticleTitle {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a web content") {
 			JSONWebcontent.addWebContent(
@@ -1110,7 +1110,7 @@ definition {
 	@description = "Can move a single web content to a new folder via menu item."
 	@priority = 5
 	test MoveWebContentToFolder {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 		property testray.component.names = "Training";
 
 		task ("Add a folder") {

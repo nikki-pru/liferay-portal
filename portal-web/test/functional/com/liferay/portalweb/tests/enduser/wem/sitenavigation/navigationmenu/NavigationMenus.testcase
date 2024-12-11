@@ -34,7 +34,7 @@ definition {
 	@description = "This is a test for LPS-172782. The navigation menu creator could add child item."
 	@priority = 5
 	test AddChildNavigationMenuItem {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a navigation menu creator has a navigation menu") {
 			JSONCategory.addVocabulary(
@@ -134,7 +134,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddNavigationMenuEntriesAllTypes {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a page to the site") {
 			JSONLayout.addPublicLayout(
@@ -190,7 +190,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddPageToNavigationMenuAndViewPageStatus {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a page to the site") {
 			JSONLayout.addPublicLayout(
@@ -230,7 +230,7 @@ definition {
 	@description = "This is a test for LPS-172782. The navigation menu creator could add sibling item."
 	@priority = 5
 	test AddSiblingNavigationMenuItems {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a navigation menu creator has a navigation menu with an item") {
 			JSONLayout.addPublicLayout(
@@ -332,7 +332,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddURLTypeNavigationMenuItemWithBlankTarget {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a page to the site") {
 			JSONLayout.addPublicLayout(
@@ -392,7 +392,7 @@ definition {
 	@priority = 5
 	@uitest
 	test AddURLTypeNavigationMenuItemWithSelfTarget {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a page to the site") {
 			JSONLayout.addPublicLayout(
@@ -448,7 +448,7 @@ definition {
 	@description = "This is a test for LPS-141352. The navigation menu admin could add a vocabulary item to navigation menu."
 	@priority = 5
 	test AddVocabularyTypeNavigationMenuItem {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a navigation menu admin has a navigation menu") {
 			task ("Add a navigation menu") {
@@ -499,7 +499,7 @@ definition {
 	@description = "This is a test for LPS-107833. Don't support Add page to Global Navigation Menu when creating a new page."
 	@priority = 5
 	test CannotAddPageToGlobalNavigationMenuWhenCreatingPageInNormalSite {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Assert no Add New Pages column in Global navigation menu") {
 			NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "global");
@@ -528,7 +528,7 @@ definition {
 	@description = "This is a test for LPS-107833. Assert no option to add displayed page in Global Navigation Menu."
 	@priority = 5
 	test CannotAddPageTypeItemInGlobalNavigationMenu {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Navigate to the Global navigation menu") {
 			NavigationMenusAdmin.openNavigationMenusAdmin(siteURLKey = "global");
@@ -712,7 +712,7 @@ definition {
 	@description = "LPS-78049 - Multiple Navigation Menus can be deleted by select all."
 	@priority = 3
 	test DeleteMultipleNavigationMenus {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add 2 navigation menus") {
 			JSONSitenavigation.addSiteNavigationMenu(
@@ -741,7 +741,7 @@ definition {
 	@priority = 5
 	@uitest
 	test DeleteNavigationMenu {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a navigation menu") {
 			JSONSitenavigation.addSiteNavigationMenu(
@@ -1014,7 +1014,7 @@ definition {
 	@description = "User can rename a navigation menu."
 	@priority = 5
 	test RenameNavigationMenu {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add a navigation menu") {
 			JSONSitenavigation.addSiteNavigationMenu(
@@ -1042,7 +1042,7 @@ definition {
 	@description = "This is a test for LPS-76658 and LPS-67191. A user can rename the page items in a navigation menu."
 	@priority = 5
 	test RenamePageTypeNavigationMenuItem {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add two pages") {
 			for (var n : list "1,2") {
@@ -1189,7 +1189,7 @@ definition {
 	@description = "This is a test for LPS-87134. We assert that the option to automatically add new pages to a navigation menu works as expected."
 	@priority = 5
 	test ToggleAutomaticallyAddNewPagesToNavigationMenu {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Add two navigation menus with option to offer new pages flagged") {
 			for (var n : list "1,2") {

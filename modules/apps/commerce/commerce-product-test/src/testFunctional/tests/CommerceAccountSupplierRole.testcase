@@ -2113,7 +2113,7 @@ definition {
 	@description = "This is a test for COMMERCE-11888. As a supplier user, I can edit the order summary of an order"
 	@priority = 5
 	test CanSupplierEditOrderSummary {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium site with a buyer user is created") {
 			CommerceEntry.addAccountEntryUser(

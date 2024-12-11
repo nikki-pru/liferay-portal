@@ -823,7 +823,7 @@ definition {
 	@description = "LPS-165850 - Verify user cannot edit an entry without permissions"
 	@priority = 5
 	test CannotEditEntryWhenNotAllowedToEdit {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 

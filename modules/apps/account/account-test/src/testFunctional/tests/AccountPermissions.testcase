@@ -41,7 +41,7 @@ definition {
 	@priority = 4
 	@refactorneeded
 	test AccountAdminCanAddAccount {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given add a user as Account Administrator with add account entry permission assign to a Business Account") {
 			JSONAccountEntry.addAccountEntry(
@@ -411,7 +411,7 @@ definition {
 	@priority = 4
 	@refactorneeded
 	test AccountAdminCanDeleteAccount {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 

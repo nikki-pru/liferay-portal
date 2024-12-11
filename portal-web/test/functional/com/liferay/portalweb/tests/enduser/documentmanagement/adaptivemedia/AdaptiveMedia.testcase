@@ -45,6 +45,7 @@ definition {
 	@priority = 5
 	@refactordone
 	test CanAdaptImageInWebContent {
+		property portal.acceptance = "Q4";
 		JSONDocument.addFileWithUploadedFile(
 			dmDocumentDescription = "Adaptive Media Image Description",
 			dmDocumentTitle = "high_resolution_photo.jpg",
@@ -74,6 +75,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CanAdaptSVGImageInBlogsEntry {
+		property portal.acceptance = "Q4";
 		JSONDocument.addFileWithUploadedFile(
 			dmDocumentDescription = "Adaptive Media Image Description",
 			dmDocumentTitle = "Document_1.svg",
@@ -168,6 +170,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CanBulkAdaptImageResolutions {
+		property portal.acceptance = "Q4";
 		JSONDocument.addFileWithUploadedFile(
 			dmDocumentDescription = "DM Document Description",
 			dmDocumentTitle = "Document_1.jpg",
@@ -202,6 +205,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CanDeleteDisabledResolution {
+		property portal.acceptance = "Q4";
 		AdaptiveMedia.openToAddImageResolution();
 
 		AdaptiveMedia.addImageResolution(
@@ -282,6 +286,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test CannotAddImageResolutionWithNoDimensions {
+		property portal.acceptance = "Q4";
 		AdaptiveMedia.openToAddImageResolution();
 
 		AdaptiveMedia.addImageResolution(
@@ -340,6 +345,7 @@ definition {
 	@description = "This is a test for LPS-78626. It ensures that a reloaded image can be viewed after changing the screen resolution."
 	@priority = 4
 	test CanRenderImageAfterChangingScreenResolution {
+		property portal.acceptance = "Q4";
 		var fileEntryId = JSONDocument.addFileWithUploadedFile(
 			dmDocumentDescription = "DM Document Description",
 			dmDocumentTitle = "Document_1.jpg",
@@ -378,6 +384,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test DisabledResolutionsWillNotAdaptNewImages {
+		property portal.acceptance = "Q4";
 		HeadlessSite.addSite(siteName = "Site Name");
 
 		AdaptiveMedia.openToAddImageResolution();
@@ -427,6 +434,7 @@ definition {
 	@priority = 4
 	@refactordone
 	test ImageMustBeReadaptedForUpdatedResolutionToTakeEffect {
+		property portal.acceptance = "Q4";
 		AdaptiveMedia.openToAddImageResolution();
 
 		AdaptiveMedia.addImageResolution(

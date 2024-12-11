@@ -449,7 +449,7 @@ definition {
 	@priority = 5
 	test CanRestockSKUUOMInventoryAfterDeletingAnOrder {
 		property custom.properties = "company.security.strangers.verify=false${line.separator}jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given the buyer adds the product ABS Sensor to the cart in the quantity of 2") {
 			User.logoutPG();

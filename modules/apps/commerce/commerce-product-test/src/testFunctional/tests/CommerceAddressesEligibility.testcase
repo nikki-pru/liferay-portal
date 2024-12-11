@@ -18,7 +18,7 @@ definition {
 	@description = "This is a test for COMMERCE-12894. Verify that is possibile to create a default channel with eligible addresses and do the checkout with it"
 	@priority = 5
 	test CanCreateAChannelDefaultWithEligibleAddressesAndCompleteTheCheckout {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium Site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -149,7 +149,7 @@ definition {
 	@description = "This is a test for COMMERCE-12892. Verify that is not possibile to create a default channel with illegible addresses"
 	@priority = 5
 	test CanNotCreateAChannelDefaultWithIllegibleAddresses {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium Site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
@@ -322,7 +322,7 @@ definition {
 	@description = "This is a test for COMMERCE-12890. Verify that an address that is not elligible can't be used into the checkout"
 	@priority = 5
 	test CanNotUseIllegibleAddressesOnCheckout {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium Site") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");

@@ -304,7 +304,7 @@ definition {
 	@priority = 5
 	test CreateEditAndDeleteLocalizedFieldset {
 		property custom.properties = "feature.flag.LPD-11228=true${line.separator}feature.flag.LPD-15596=true";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		var newStructureName = "WC Structure Name";
 

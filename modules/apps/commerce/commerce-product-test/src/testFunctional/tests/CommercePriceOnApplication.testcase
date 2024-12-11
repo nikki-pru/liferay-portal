@@ -84,7 +84,7 @@ definition {
 	@description = "COMMERCE-11507. As an admin user with permission to manage quotes, I want to be able to mark a quote as processed in the order's admin page"
 	@priority = 5
 	test CanAdminUsersWithManageQuotePermissionProcessQuote {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given 'Allow Request a Quote on a Fully Priced Cart' is enabled for the site") {
 			CommerceChannels.openChannelsAdmin();

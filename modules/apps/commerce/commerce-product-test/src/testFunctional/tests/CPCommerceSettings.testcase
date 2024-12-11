@@ -18,7 +18,7 @@ definition {
 	@priority = 5
 	test CannotExecuteXSSInAddresses {
 		property custom.properties = "jsonws.web.service.paths.excludes=";
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("Given a Minium site is created") {
 			CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");

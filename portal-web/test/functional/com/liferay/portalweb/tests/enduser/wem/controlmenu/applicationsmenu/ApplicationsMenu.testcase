@@ -122,7 +122,7 @@ definition {
 	@priority = 5
 	@uitest
 	test ViewLocationOfApplicationsMenuIconAndUserAvatarIcon {
-		property portal.acceptance = "true";
+		property portal.acceptance = "Q4";
 
 		task ("The Applications Menu icon is located in Control Menu but User Avatar icon is located in Nav Bar when user is in site page") {
 			Navigator.gotoPage(pageName = "Home");
