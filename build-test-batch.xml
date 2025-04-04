@@ -6250,6 +6250,10 @@ information. Make sure to commit in all format-javadoc results.
 		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" />
 	</target>
 
+	<target name="functional-upgrade-tomcat90-mysql84">
+		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="8.4" />
+	</target>
+
 	<target name="functional-upgrade-tomcat90-mysql57-jdk21_zulu">
 		<run-functional-test app.server.type="tomcat" database.type="mysql" database.version="5.7" />
 	</target>
@@ -7525,6 +7529,14 @@ information. Make sure to commit in all format-javadoc results.
 		/>
 	</target>
 
+	<target name="modules-integration-db-partition-mysql84">
+		<run-modules-integration-test
+			database.partition.enabled="true"
+			database.type="mysql"
+			database.version="8.4"
+		/>
+	</target>
+
 	<target name="modules-integration-db-partition-postgresql">
 		<run-modules-integration-test
 			database.partition.enabled="true"
@@ -7641,6 +7653,10 @@ information. Make sure to commit in all format-javadoc results.
 
 	<target name="modules-integration-mysql80">
 		<run-modules-integration-test database.type="mysql" database.version="8.0" />
+	</target>
+
+	<target name="modules-integration-mysql84">
+		<run-modules-integration-test database.type="mysql" database.version="8.4" />
 	</target>
 
 	<target name="modules-integration-mysql80_stable">
