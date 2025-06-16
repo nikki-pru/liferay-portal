@@ -382,6 +382,16 @@ public class JournalArticleLocalServiceImpl
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(), null);
 
+		if (displayDate == null) {
+			Calendar calendar = CalendarFactoryUtil.getCalendar(
+				user.getTimeZone());
+
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+
+			displayDate = calendar.getTime();
+		}
+
 		Date expirationDate = null;
 		Date reviewDate = null;
 
@@ -4891,6 +4901,23 @@ public class JournalArticleLocalServiceImpl
 		Date displayDate = _portal.getDate(
 			displayDateMonth, displayDateDay, displayDateYear, displayDateHour,
 			displayDateMinute, user.getTimeZone(), null);
+
+		if (displayDate == null) {
+			displayDate = article.getDisplayDate();
+
+			if ((displayDate != null) && displayDate.before(new Date())) {
+				displayDate = article.getDisplayDate();
+			}
+			else {
+				Calendar calendar = CalendarFactoryUtil.getCalendar(
+					user.getTimeZone());
+
+				calendar.set(Calendar.SECOND, 0);
+				calendar.set(Calendar.MILLISECOND, 0);
+
+				displayDate = calendar.getTime();
+			}
+		}
 
 		Date expirationDate = null;
 		Date reviewDate = null;
