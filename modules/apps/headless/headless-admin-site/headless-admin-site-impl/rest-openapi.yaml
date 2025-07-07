@@ -1814,10 +1814,10 @@ components:
                 showNotification:
                     type: boolean
             type: object
-        NavigationMenuSettings:
+        NavigationSettings:
             # @review
             description:
-                Represents settings related with the site navigation menu of a page.
+                Represents settings related with the site navigation of a page.
             properties:
                 queryString:
                     # @review
@@ -1827,7 +1827,7 @@ components:
                 target:
                     # @review
                     description:
-                        The page's description to be used as summary for search engines.
+                        The ID of the target specific frame.
                     type: string
                 targetType:
                     # @review
@@ -2130,11 +2130,11 @@ components:
                     description:
                         A flag that indicates whether the page is hidden from navigation.
                     type: boolean
-                navigationMenuSettings:
-                    $ref: "#/components/schemas/NavigationMenuSettings"
+                navigationSettings:
+                    $ref: "#/components/schemas/NavigationSettings"
                     # @review
                     description:
-                        The page's site navigation menu settings.
+                        The page's site navigation settings.
                 openGraphSettings:
                     $ref: "#/components/schemas/OpenGraphSettings"
                     # @review
@@ -2358,8 +2358,8 @@ components:
                 The settings of the page template.
             discriminator:
                 mapping:
-                    ContentPageTemplate: "#/components/schemas/ContentPageTemplateSettings"
-                    WidgetPageTemplate: "#/components/schemas/WidgetPageTemplateSettings"
+                    ContentPageTemplateSettings: "#/components/schemas/ContentPageTemplateSettings"
+                    WidgetPageTemplateSettings: "#/components/schemas/WidgetPageTemplateSettings"
                 propertyName: type
             properties:
                 type:
@@ -3143,15 +3143,15 @@ components:
                             description:
                                 The identifier of the layout template.
                             type: string
-                        navigationMenuSettings:
+                        navigationSettings:
                             # @review
                             description:
-                                The widget page template's site navigation menu settings.
+                                The widget page template's site navigation settings.
                             properties:
                                 target:
                                     # @review
                                     description:
-                                        The page's description to be used as summary for search engines.
+                                        The ID of the target specific frame.
                                     type: string
                                 targetType:
                                     # @review

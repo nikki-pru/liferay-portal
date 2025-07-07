@@ -1099,6 +1099,10 @@
 			<category name="Styling" />
 			<description name="Remove elements in `*.batch-engine-data.json` files." />
 		</check>
+		<check name="JSONCatalogFileCheck">
+			<category name="Styling" />
+			<description name="Sorts `*.options.json`, `*.products.json`, and `*.products.specifications.json` files." />
+		</check>
 		<check name="JSONDeprecatedPackagesCheck">
 			<category name="Bug Prevention" />
 			<description name="Finds incorrect use of deprecated packages in `package.json` files." />

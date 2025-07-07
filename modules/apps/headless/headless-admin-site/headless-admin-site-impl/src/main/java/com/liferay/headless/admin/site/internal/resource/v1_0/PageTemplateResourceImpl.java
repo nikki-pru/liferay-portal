@@ -7,10 +7,13 @@ package com.liferay.headless.admin.site.internal.resource.v1_0;
 
 import com.liferay.headless.admin.site.dto.v1_0.ContentPageSpecification;
 import com.liferay.headless.admin.site.dto.v1_0.ContentPageTemplate;
+import com.liferay.headless.admin.site.dto.v1_0.NavigationSettings;
 import com.liferay.headless.admin.site.dto.v1_0.PageSpecification;
 import com.liferay.headless.admin.site.dto.v1_0.PageTemplate;
 import com.liferay.headless.admin.site.dto.v1_0.PageTemplateSet;
+import com.liferay.headless.admin.site.dto.v1_0.PageTemplateSettings;
 import com.liferay.headless.admin.site.dto.v1_0.WidgetPageTemplate;
+import com.liferay.headless.admin.site.dto.v1_0.WidgetPageTemplateSettings;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.GroupUtil;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.LayoutUtil;
 import com.liferay.headless.admin.site.internal.resource.v1_0.util.ServiceContextUtil;
@@ -27,6 +30,7 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.feature.flag.FeatureFlagManagerUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutPrototype;
+import com.liferay.portal.kernel.model.LayoutTypePortletConstants;
 import com.liferay.portal.kernel.search.Sort;
 import com.liferay.portal.kernel.search.filter.Filter;
 import com.liferay.portal.kernel.service.LayoutLocalService;
@@ -35,8 +39,10 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HashMapBuilder;
+import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.util.PropsValues;
 import com.liferay.portal.vulcan.aggregation.Aggregation;
 import com.liferay.portal.vulcan.dto.converter.DTOConverter;
 import com.liferay.portal.vulcan.pagination.Page;
@@ -448,9 +454,25 @@ public class PageTemplateResourceImpl extends BasePageTemplateResourceImpl {
 			layoutPageTemplateEntry.setUuid(widgetPageTemplate.getUuid());
 		}
 
-		return _pageTemplateDTOConverter.toDTO(
+		layoutPageTemplateEntry =
 			_layoutPageTemplateEntryLocalService.updateLayoutPageTemplateEntry(
-				layoutPageTemplateEntry));
+				layoutPageTemplateEntry);
+
+		PageTemplateSettings pageTemplateSettings =
+			widgetPageTemplate.getPageTemplateSettings();
+
+		if (pageTemplateSettings != null) {
+			Layout layout = _layoutLocalService.getLayout(
+				layoutPageTemplateEntry.getPlid());
+
+			_layoutLocalService.updateLayout(
+				layout.getGroupId(), layout.isPrivateLayout(),
+				layout.getLayoutId(),
+				_getWidgetPageTemplateTypeSettings(
+					layout, pageTemplateSettings));
+		}
+
+		return _pageTemplateDTOConverter.toDTO(layoutPageTemplateEntry);
 	}
 
 	private PageTemplate _addPageTemplate(
@@ -513,6 +535,59 @@ public class PageTemplateResourceImpl extends BasePageTemplateResourceImpl {
 			contextUser.getUserId(), uuid);
 	}
 
+	private String _getWidgetPageTemplateTypeSettings(
+		Layout layout, PageTemplateSettings pageTemplateSettings) {
+
+		UnicodeProperties unicodeProperties =
+			layout.getTypeSettingsProperties();
+
+		if (pageTemplateSettings == null) {
+			unicodeProperties.setProperty(
+				LayoutTypePortletConstants.LAYOUT_TEMPLATE_ID,
+				PropsValues.DEFAULT_LAYOUT_TEMPLATE_ID);
+			unicodeProperties.remove("target");
+			unicodeProperties.remove("targetType");
+
+			return unicodeProperties.toString();
+		}
+
+		if (!(pageTemplateSettings instanceof
+				WidgetPageTemplateSettings widgetPageTemplateSettings)) {
+
+			throw new UnsupportedOperationException();
+		}
+
+		unicodeProperties.setProperty(
+			LayoutTypePortletConstants.LAYOUT_TEMPLATE_ID,
+			GetterUtil.getString(
+				widgetPageTemplateSettings.getLayoutTemplateId(),
+				PropsValues.DEFAULT_LAYOUT_TEMPLATE_ID));
+
+		NavigationSettings navigationSettings =
+			widgetPageTemplateSettings.getNavigationSettings();
+
+		if (navigationSettings != null) {
+			unicodeProperties.setProperty(
+				"target", navigationSettings.getTarget());
+
+			if (Objects.equals(
+					navigationSettings.getTargetType(),
+					NavigationSettings.TargetType.NEW_TAB)) {
+
+				unicodeProperties.setProperty("targetType", "useNewTab");
+			}
+			else {
+				unicodeProperties.remove("targetType");
+			}
+		}
+		else {
+			unicodeProperties.remove("target");
+			unicodeProperties.remove("targetType");
+		}
+
+		return unicodeProperties.toString();
+	}
+
 	private boolean _isTypeWidgetPageTemplate(PageTemplate pageTemplate) {
 		return Objects.equals(
 			pageTemplate.getType(), PageTemplate.Type.WIDGET_PAGE_TEMPLATE);
@@ -534,6 +609,11 @@ public class PageTemplateResourceImpl extends BasePageTemplateResourceImpl {
 		if (widgetPageTemplate.getName_i18n() != null) {
 			existingWidgetPageTemplate.setName_i18n(
 				widgetPageTemplate::getName_i18n);
+		}
+
+		if (widgetPageTemplate.getPageTemplateSettings() != null) {
+			existingWidgetPageTemplate.setPageTemplateSettings(
+				widgetPageTemplate::getPageTemplateSettings);
 		}
 	}
 
@@ -592,6 +672,16 @@ public class PageTemplateResourceImpl extends BasePageTemplateResourceImpl {
 			active,
 			_getServiceContext(
 				layoutPageTemplateEntry.getGroupId(), widgetPageTemplate));
+
+		PageTemplateSettings pageTemplateSettings =
+			widgetPageTemplate.getPageTemplateSettings();
+
+		Layout layout = _layoutLocalService.getLayout(
+			layoutPageTemplateEntry.getPlid());
+
+		_layoutLocalService.updateLayout(
+			layout.getGroupId(), layout.isPrivateLayout(), layout.getLayoutId(),
+			_getWidgetPageTemplateTypeSettings(layout, pageTemplateSettings));
 
 		return _pageTemplateDTOConverter.toDTO(
 			_layoutPageTemplateEntryLocalService.getLayoutPageTemplateEntry(
