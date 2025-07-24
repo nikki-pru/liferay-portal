@@ -2608,6 +2608,8 @@ definition {
 	@description = "This test covers LPS-148758. It ensures that a PDF without an extension can be previewed through the latest version URL."
 	@priority = 3
 	test CanPreviewPDFWithoutExtensionViaLatestVersionURL {
+		property portal.acceptance = "137";
+
 		JSONDocument.addFileWithUploadedFile(
 			dmDocumentTitle = "Document_1.pdf",
 			groupName = "Guest",
