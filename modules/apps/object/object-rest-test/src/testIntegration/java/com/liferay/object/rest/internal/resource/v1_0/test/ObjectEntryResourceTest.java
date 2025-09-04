@@ -16705,12 +16705,7 @@ public class ObjectEntryResourceTest {
 					fileEntry -> JSONUtil.put(
 						"status", "FORBIDDEN"
 					).put(
-						"title",
-						StringBundler.concat(
-							"User ", user.getUserId(),
-							" must have ADD_DOCUMENT permission for com.",
-							"liferay.portal.kernel.repository.model.Folder ",
-							dlFolder.getFolderId())
+						"title", "Forbidden"
 					),
 					testFileEntry, httpMethod, null, objectDefinition,
 					_OBJECT_FIELD_NAME_ATTACHMENT_DOCS_AND_MEDIA_SOURCE,
@@ -17340,12 +17335,7 @@ public class ObjectEntryResourceTest {
 					fileEntry -> JSONUtil.put(
 						"status", "FORBIDDEN"
 					).put(
-						"title",
-						StringBundler.concat(
-							"User ", user.getUserId(),
-							" must have ADD_DOCUMENT permission for com.",
-							"liferay.portal.kernel.repository.model.Folder ",
-							dlFolder.getFolderId())
+						"title", "Forbidden"
 					),
 					_toFileEntry(
 						Base64::encode, RandomTestUtil.randomString(),
