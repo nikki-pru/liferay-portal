@@ -162,6 +162,7 @@ definition {
 	test HSQLtoPostgreSQLSampleDataEnabled {
 		property database.types = "postgresql";
 		property databases.size = "1";
+		property portal.acceptance = "141";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 

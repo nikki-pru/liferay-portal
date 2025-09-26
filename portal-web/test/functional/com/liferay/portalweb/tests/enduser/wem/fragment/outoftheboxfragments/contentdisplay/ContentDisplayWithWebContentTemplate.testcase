@@ -94,7 +94,7 @@ definition {
 	@priority = 5
 	@uitest
 	test SelectCustomWebContentTemplate {
-		property portal.acceptance = "true";
+		property portal.acceptance = "141";
 
 		task ("Add a web content") {
 			JSONWebcontent.addWebContent(
