@@ -76,6 +76,7 @@ PortletURL portletURL = PortletURLBuilder.createRenderURL(
 			<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.EXPORT %>" />
 			<portlet:param name="tabs2" value="export" />
 			<portlet:param name="tabs3" value="current-and-previous" />
+			<portlet:param name="redirect" value="<%= redirect %>" />
 			<portlet:param name="portletResource" value="<%= portletResource %>" />
 		</liferay-portlet:renderURL>
 
@@ -506,26 +507,32 @@ PortletURL portletURL = PortletURLBuilder.createRenderURL(
 							</c:if>
 						</div>
 					</div>
+
+					<c:choose>
+						<c:when test='<%= FeatureFlagManagerUtil.isEnabled(company.getCompanyId(), "LPD-57655") %>'>
+							<aui:button-row cssClass="sheet-footer">
+								<aui:button type="submit" value="export" />
+
+								<clay:link
+									cssClass="btn btn-secondary"
+									href="<%= redirect %>"
+									label='<%= LanguageUtil.get(request, "cancel") %>'
+									role="button"
+								/>
+							</aui:button-row>
+						</c:when>
+					</c:choose>
 				</clay:container-fluid>
 			</div>
 
-			<aui:button-row>
-				<aui:button type="submit" value="export" />
-
-				<c:choose>
-					<c:when test='<%= FeatureFlagManagerUtil.isEnabled(company.getCompanyId(), "LPD-57655") %>'>
-						<clay:link
-							cssClass="btn btn-secondary"
-							href="<%= redirect %>"
-							label='<%= LanguageUtil.get(request, "cancel") %>'
-							role="button"
-						/>
-					</c:when>
-					<c:otherwise>
+			<c:choose>
+				<c:when test='<%= !FeatureFlagManagerUtil.isEnabled(company.getCompanyId(), "LPD-57655") %>'>
+					<aui:button-row>
+						<aui:button type="submit" value="export" />
 						<aui:button type="cancel" />
-					</c:otherwise>
-				</c:choose>
-			</aui:button-row>
+					</aui:button-row>
+				</c:when>
+			</c:choose>
 		</aui:form>
 
 		<aui:script use="aui-base">
@@ -605,6 +612,7 @@ PortletURL portletURL = PortletURLBuilder.createRenderURL(
 		<portlet:param name="<%= SearchContainer.DEFAULT_DELTA_PARAM %>" value="<%= ParamUtil.getString(request, SearchContainer.DEFAULT_DELTA_PARAM) %>" />
 		<portlet:param name="groupId" value="<%= String.valueOf(themeDisplay.getScopeGroupId()) %>" />
 		<portlet:param name="portletResource" value="<%= portletResource %>" />
+		<portlet:param name="redirect" value="<%= redirect %>" />
 	</liferay-portlet:resourceURL>
 
 	var exportImport = new Liferay.ExportImport({
