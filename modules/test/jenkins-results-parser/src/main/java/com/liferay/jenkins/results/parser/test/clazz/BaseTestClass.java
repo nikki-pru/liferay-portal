@@ -184,16 +184,6 @@ public abstract class BaseTestClass implements TestClass {
 	}
 
 	@Override
-	public long getSharedWeight() {
-		return 0L;
-	}
-
-	@Override
-	public String getSharedWeightName() {
-		return null;
-	}
-
-	@Override
 	public File getTestClassFile() {
 		return _testClassFile;
 	}
@@ -267,6 +257,24 @@ public abstract class BaseTestClass implements TestClass {
 	@Override
 	public boolean isIgnored() {
 		return false;
+	}
+
+	@Override
+	public boolean isIsolated() {
+		return isLatestReportMissing();
+	}
+
+	public boolean isLatestReportMissing() {
+		if (_latestBuildReportMissing != null) {
+			return _latestBuildReportMissing;
+		}
+
+		BatchTestClassGroup batchTestClassGroup = getBatchTestClassGroup();
+
+		_latestBuildReportMissing = batchTestClassGroup.isLatestReportMissing(
+			getTestName());
+
+		return _latestBuildReportMissing;
 	}
 
 	@Override
@@ -386,6 +394,7 @@ public abstract class BaseTestClass implements TestClass {
 	private Long _averageTotalTestTaskDuration;
 	private AxisTestClassGroup _axisTestClassGroup;
 	private BatchTestClassGroup _batchTestClassGroup;
+	private Boolean _latestBuildReportMissing;
 	private Long _longestTestTaskDuration;
 	private SegmentTestClassGroup _segmentTestClassGroup;
 	private final File _testClassFile;

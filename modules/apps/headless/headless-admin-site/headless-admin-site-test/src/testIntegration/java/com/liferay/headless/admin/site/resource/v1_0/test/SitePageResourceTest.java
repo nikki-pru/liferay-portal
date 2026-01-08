@@ -342,6 +342,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 
 	@Override
 	@Test
+	@TestInfo("LPD-75450")
 	public void testPutSiteSitePage() throws Exception {
 		ServiceContext serviceContext =
 			ServiceContextTestUtil.getServiceContext(
@@ -350,6 +351,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 		_testPutSiteSitePage(serviceContext, SitePage.Type.CONTENT_PAGE);
 		_testPutSiteSitePage(serviceContext, SitePage.Type.WIDGET_PAGE);
 
+		_testPutSiteSitePageWithExportedSitePage();
 		_testPutSiteSitePageWithPageElements();
 		_testPutSiteSitePageWithPageSpecifications();
 		_testPutSiteSitePageWithPriority();
@@ -819,7 +821,10 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 		return Math.min(priority, maxPriority);
 	}
 
-	private PageSettings _getPageSettings(SitePage.Type type) throws Exception {
+	private PageSettings _getPageSettings(
+			String parentSitePageExternalReferenceCode, SitePage.Type type)
+		throws Exception {
+
 		PageSettings pageSettings = null;
 
 		if (type == SitePage.Type.CONTENT_PAGE) {
@@ -865,6 +870,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 					}
 				}
 			});
+		pageSettings.setHiddenFromNavigation(RandomTestUtil::randomBoolean);
 		pageSettings.setNavigationSettings(
 			() -> new SitePageNavigationSettings() {
 				{
@@ -929,6 +935,10 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 						).build());
 				}
 			});
+		pageSettings.setPriority(
+			_priorities.merge(
+				parentSitePageExternalReferenceCode, 0,
+				(oldPriority, defaultPriority) -> oldPriority + 1));
 		pageSettings.setSeoSettings(
 			() -> new SEOSettings() {
 				{
@@ -1028,17 +1038,8 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 				LocaleUtil.toBCP47LanguageId(LocaleUtil.SPAIN),
 				RandomTestUtil.randomString()
 			).build());
-
-		PageSettings pageSettings = _getPageSettings(type);
-
-		pageSettings.setHiddenFromNavigation(RandomTestUtil::randomBoolean);
-		pageSettings.setPriority(
-			_priorities.merge(
-				parentSitePageExternalReferenceCode, 0,
-				(oldPriority, defaultPriority) -> oldPriority + 1));
-
-		sitePage.setPageSettings(pageSettings);
-
+		sitePage.setPageSettings(
+			_getPageSettings(parentSitePageExternalReferenceCode, type));
 		sitePage.setParentSitePageExternalReferenceCode(
 			parentSitePageExternalReferenceCode);
 		sitePage.setTaxonomyCategoryItemExternalReferences(
@@ -1618,7 +1619,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 		SitePage randomSitePage = _getRandomSitePage(SitePage.Type.WIDGET_PAGE);
 
 		SitePage sitePage = _testPutSiteSitePage(
-			randomSitePage, randomSitePage);
+			randomSitePage, testGroup, randomSitePage);
 
 		WidgetPageSettings widgetPageSettings =
 			(WidgetPageSettings)sitePage.getPageSettings();
@@ -1626,7 +1627,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 		widgetPageSettings.setCustomizable(true);
 		widgetPageSettings.setCustomizableSectionIds(
 			new String[] {"column-1", "column-3"});
-		widgetPageSettings.setCustomMetaTags(new CustomMetaTag[0]);
+		widgetPageSettings.setCustomMetaTags(() -> null);
 		widgetPageSettings.setLayoutTemplateId("1_2_columns_i");
 		widgetPageSettings.setNavigationSettings(
 			new SitePageNavigationSettings() {
@@ -1636,14 +1637,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 					setTargetType(TargetType.SPECIFIC_FRAME);
 				}
 			});
-		widgetPageSettings.setOpenGraphSettings(
-			new OpenGraphSettings() {
-				{
-					setDescription_i18n(new HashMap<>());
-					setImageAlt_i18n(new HashMap<>());
-					setTitle_i18n(new HashMap<>());
-				}
-			});
+		widgetPageSettings.setOpenGraphSettings(() -> null);
 		widgetPageSettings.setSeoSettings(
 			new SEOSettings() {
 				{
@@ -1652,15 +1646,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 					setHtmlTitle_i18n(new HashMap<>());
 					setRobots_i18n(new HashMap<>());
 					setSeoKeywords_i18n(new HashMap<>());
-					setSitemapSettings(
-						new SitemapSettings() {
-							{
-								setChangeFrequency(ChangeFrequency.DAILY);
-								setInclude(true);
-								setIncludeChildSitePages(true);
-								setPagePriority(0.0);
-							}
-						});
+					setSitemapSettings(() -> null);
 				}
 			});
 
@@ -1739,12 +1725,13 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 			_getRandomSitePageWithWidgetPageTemplate(false);
 
 		SitePage sitePage = _testPutSiteSitePage(
-			sitePageWithWidgetPageTemplate, sitePageWithWidgetPageTemplate);
+			sitePageWithWidgetPageTemplate, testGroup,
+			sitePageWithWidgetPageTemplate);
 
 		WidgetPageSettings widgetPageSettings =
 			(WidgetPageSettings)sitePage.getPageSettings();
 
-		widgetPageSettings.setCustomMetaTags(new CustomMetaTag[0]);
+		widgetPageSettings.setCustomMetaTags(() -> null);
 		widgetPageSettings.setInheritChanges(false);
 		widgetPageSettings.setLayoutTemplateId("2_columns_ii");
 		widgetPageSettings.setNavigationSettings(
@@ -1755,14 +1742,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 					setTargetType(TargetType.SPECIFIC_FRAME);
 				}
 			});
-		widgetPageSettings.setOpenGraphSettings(
-			new OpenGraphSettings() {
-				{
-					setDescription_i18n(new HashMap<>());
-					setImageAlt_i18n(new HashMap<>());
-					setTitle_i18n(new HashMap<>());
-				}
-			});
+		widgetPageSettings.setOpenGraphSettings(() -> null);
 		widgetPageSettings.setSeoSettings(
 			new SEOSettings() {
 				{
@@ -1771,15 +1751,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 					setHtmlTitle_i18n(new HashMap<>());
 					setRobots_i18n(new HashMap<>());
 					setSeoKeywords_i18n(new HashMap<>());
-					setSitemapSettings(
-						new SitemapSettings() {
-							{
-								setChangeFrequency(ChangeFrequency.DAILY);
-								setInclude(true);
-								setIncludeChildSitePages(true);
-								setPagePriority(0.0);
-							}
-						});
+					setSitemapSettings(() -> null);
 				}
 			});
 
@@ -2135,11 +2107,11 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 	}
 
 	private SitePage _testPutSiteSitePage(
-			SitePage expectedSitePage, SitePage sitePage)
+			SitePage expectedSitePage, Group group, SitePage sitePage)
 		throws Exception {
 
 		SitePage putSitePage = sitePageResource.putSiteSitePage(
-			testGroup.getExternalReferenceCode(),
+			group.getExternalReferenceCode(),
 			sitePage.getExternalReferenceCode(), sitePage);
 
 		assertEquals(expectedSitePage, putSitePage);
@@ -2147,10 +2119,29 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 
 		_assertSitePage(
 			_layoutLocalService.getLayoutByExternalReferenceCode(
-				sitePage.getExternalReferenceCode(), testGroup.getGroupId()),
+				sitePage.getExternalReferenceCode(), group.getGroupId()),
 			putSitePage);
 
 		return putSitePage;
+	}
+
+	private void _testPutSiteSitePageWithExportedSitePage() throws Exception {
+		Layout layout = LayoutTestUtil.addTypeContentLayout(irrelevantGroup);
+
+		ContentLayoutTestUtil.publishLayout(layout.fetchDraftLayout(), layout);
+
+		SitePage sitePage = sitePageResource.getSiteSitePage(
+			irrelevantGroup.getExternalReferenceCode(),
+			layout.getExternalReferenceCode());
+
+		_assertSitePage(layout, sitePage);
+		_testPutSiteSitePage(sitePage, testGroup, sitePage);
+
+		sitePage.setPageSettings(
+			_getPageSettings(null, SitePage.Type.CONTENT_PAGE));
+
+		_testPutSiteSitePage(sitePage, irrelevantGroup, sitePage);
+		_testPutSiteSitePage(sitePage, testGroup, sitePage);
 	}
 
 	private void _testPutSiteSitePageWithPageElements() throws Exception {
@@ -2372,7 +2363,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 		SitePage randomSitePage = _getRandomSitePage(SitePage.Type.WIDGET_PAGE);
 
 		SitePage sitePage = _testPutSiteSitePage(
-			randomSitePage, randomSitePage);
+			randomSitePage, testGroup, randomSitePage);
 
 		WidgetPageSettings widgetPageSettings =
 			(WidgetPageSettings)sitePage.getPageSettings();
@@ -2382,7 +2373,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 			new String[] {"column-1", "column-3"});
 		widgetPageSettings.setLayoutTemplateId("1_2_columns_i");
 
-		sitePage = _testPutSiteSitePage(sitePage, sitePage);
+		sitePage = _testPutSiteSitePage(sitePage, testGroup, sitePage);
 
 		widgetPageSettings = (WidgetPageSettings)sitePage.getPageSettings();
 
@@ -2397,7 +2388,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 
 		expectedWidgetPageSettings.setLayoutTemplateId("2_columns_ii");
 
-		sitePage = _testPutSiteSitePage(expectedSitePage, sitePage);
+		sitePage = _testPutSiteSitePage(expectedSitePage, testGroup, sitePage);
 
 		widgetPageSettings = (WidgetPageSettings)sitePage.getPageSettings();
 
@@ -2414,7 +2405,7 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 		expectedWidgetPageSettings.setCustomizableSectionIds(new String[0]);
 		expectedWidgetPageSettings.setLayoutTemplateId("2_columns_ii");
 
-		_testPutSiteSitePage(expectedSitePage, sitePage);
+		_testPutSiteSitePage(expectedSitePage, testGroup, sitePage);
 	}
 
 	private void _testPutSiteSitePageWithWidgetPageSettingsWithWidgetPageTemplate()
@@ -2424,14 +2415,15 @@ public class SitePageResourceTest extends BaseSitePageResourceTestCase {
 			_getRandomSitePageWithWidgetPageTemplate(false);
 
 		SitePage sitePage = _testPutSiteSitePage(
-			sitePageWithWidgetPageTemplate, sitePageWithWidgetPageTemplate);
+			sitePageWithWidgetPageTemplate, testGroup,
+			sitePageWithWidgetPageTemplate);
 
 		WidgetPageSettings widgetPageSettings =
 			(WidgetPageSettings)sitePage.getPageSettings();
 
 		widgetPageSettings.setInheritChanges(false);
 
-		_testPutSiteSitePage(sitePage, sitePage);
+		_testPutSiteSitePage(sitePage, testGroup, sitePage);
 	}
 
 	private void _testUpdateSiteSitePageWithPriority(

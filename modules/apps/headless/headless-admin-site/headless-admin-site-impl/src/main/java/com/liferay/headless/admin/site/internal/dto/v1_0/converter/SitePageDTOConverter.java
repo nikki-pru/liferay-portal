@@ -120,20 +120,13 @@ public class SitePageDTOConverter implements DTOConverter<Layout, SitePage> {
 		};
 	}
 
-	private CustomMetaTag[] _getCustomMetaTags(
-		Layout layout, LayoutSEOEntryLocalService layoutSEOEntryLocalService) {
-
-		LayoutSEOEntry layoutSEOEntry =
-			layoutSEOEntryLocalService.fetchLayoutSEOEntry(
-				layout.getGroupId(), layout.isPrivateLayout(),
-				layout.getLayoutId());
-
+	private CustomMetaTag[] _getCustomMetaTags(LayoutSEOEntry layoutSEOEntry) {
 		if (layoutSEOEntry == null) {
 			return null;
 		}
 
 		List<LayoutSEOEntryCustomMetaTag> layoutSEOEntryCustomMetaTags =
-			layoutSEOEntryLocalService.getLayoutSEOEntryCustomMetaTags(
+			_layoutSEOEntryLocalService.getLayoutSEOEntryCustomMetaTags(
 				layoutSEOEntry.getGroupId(),
 				layoutSEOEntry.getLayoutSEOEntryId());
 
@@ -151,6 +144,10 @@ public class SitePageDTOConverter implements DTOConverter<Layout, SitePage> {
 								layoutSEOEntryCustomMetaTag.getContentMap()));
 					}
 				});
+		}
+
+		if (customMetaTags.isEmpty()) {
+			return null;
 		}
 
 		return customMetaTags.toArray(new CustomMetaTag[0]);
@@ -173,19 +170,24 @@ public class SitePageDTOConverter implements DTOConverter<Layout, SitePage> {
 	private PageSettings _toPageSettings(Layout layout) {
 		PageSettings pageSettings = _getPageSettings(layout);
 
+		LayoutSEOEntry layoutSEOEntry =
+			_layoutSEOEntryLocalService.fetchLayoutSEOEntry(
+				layout.getGroupId(), layout.isPrivateLayout(),
+				layout.getLayoutId());
+
 		pageSettings.setCustomMetaTags(
-			() -> _getCustomMetaTags(layout, _layoutSEOEntryLocalService));
+			() -> _getCustomMetaTags(layoutSEOEntry));
+
 		pageSettings.setHiddenFromNavigation(layout::isHidden);
 		pageSettings.setNavigationSettings(
 			() -> NavigationSettingsUtil.toSitePageNavigationSettings(
 				layout.getTypeSettingsProperties()));
 		pageSettings.setOpenGraphSettings(
 			() -> OpenGraphSettingsUtil.getOpenGraphSettings(
-				_dlAppService, _layoutSEOEntryLocalService, layout));
+				_dlAppService, layoutSEOEntry));
 		pageSettings.setPriority(layout::getPriority);
 		pageSettings.setSeoSettings(
-			() -> SEOSettingsUtil.getSeoSettings(
-				_layoutSEOEntryLocalService, layout));
+			() -> SEOSettingsUtil.getSeoSettings(layout, layoutSEOEntry));
 
 		return pageSettings;
 	}

@@ -846,6 +846,11 @@
 			<category name="Bug Prevention" />
 			<description name="Performs several checks on `*JSPDynamicInclude` class." />
 		</check>
+		<check name="JavaLiferayFilterCheck">
+			<category name="Bug Prevention" />
+			<description name="Finds cases of incorrect use of certain method calls." />
+			<property name="enabled" value="false" />
+		</check>
 		<check name="JavaLogClassNameCheck">
 			<category name="Bug Prevention" />
 			<description name="Checks the name of the class that is passed in `LogFactoryUtil.getLog`." />
@@ -2254,6 +2259,10 @@
 		<check name="XMLIvyFileCheck">
 			<category name="Styling" />
 			<description name="Checks the order of dependencies in `ivy.xml` file." />
+		</check>
+		<check name="XMLLiferayWebFileCheck">
+			<category name="Bug Prevention" />
+			<description name="Performs several checks on `liferay-web.xml` file." />
 		</check>
 		<check name="XMLServiceReferenceCheck">
 			<category name="Bug Prevention" />

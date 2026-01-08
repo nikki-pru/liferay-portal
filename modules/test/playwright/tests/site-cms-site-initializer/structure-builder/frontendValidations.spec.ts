@@ -81,7 +81,9 @@ test(
 			page.getByText('Maximum Number of Characters Exceeded')
 		).toBeVisible();
 
-		await structureBuilderPage.changeStructureSettings({name: 'CMSBlog'});
+		await structureBuilderPage.changeStructureSettings({
+			name: 'CMSBasicDocument',
+		});
 
 		await expect(
 			page.getByText('This name is already in use')
@@ -417,5 +419,82 @@ test(
 				'Remember to review the customized editor if needed'
 			);
 		}).toPass();
+	}
+);
+
+test(
+	'Field deletion modal is shown when deleting published fields',
+	{
+		tag: '@LPD-65217',
+	},
+	async ({page, structureBuilderPage}) => {
+
+		// Create structure
+
+		await structureBuilderPage.createStructureFromData({
+			label: `StructureName${getRandomInt()}`,
+			page: structureBuilderPage,
+		});
+
+		// Add two fields
+
+		await structureBuilderPage.addField('Text');
+
+		await structureBuilderPage.addField('Numeric');
+
+		// Publish the structure
+
+		await structureBuilderPage.publishStructure();
+
+		// Try to delete both and check warning is shown
+
+		await structureBuilderPage.deleteFields(
+			[{label: 'Text'}, {label: 'Numeric'}],
+			{
+				confirm: false,
+			}
+		);
+
+		await expect(
+			page.getByText('Deleting fields may impact existing stored data')
+		).toBeVisible();
+
+		// Cancel deletion
+
+		const modal = page.locator('.modal-content', {
+			hasText: 'Delete Fields',
+		});
+
+		await clickAndExpectToBeHidden({
+			target: modal,
+			trigger: modal.getByText('Cancel', {exact: true}),
+		});
+
+		// Now delete one field and check option to not show it anymore
+
+		await structureBuilderPage.deleteFields([{label: 'Text'}], {
+			confirm: false,
+		});
+
+		await expect(
+			page.getByText('Deleting fields may impact existing stored data')
+		).toBeVisible();
+
+		await modal.getByText('Do not show me').check();
+
+		await clickAndExpectToBeHidden({
+			target: modal,
+			trigger: modal.getByText('Delete', {exact: true}),
+		});
+
+		// Now try to delete the other field and check modal is not shown anymore
+
+		await structureBuilderPage.deleteFields([{label: 'Numeric'}], {
+			confirm: false,
+		});
+
+		await page.waitForTimeout(2000);
+
+		await expect(modal).not.toBeVisible();
 	}
 );

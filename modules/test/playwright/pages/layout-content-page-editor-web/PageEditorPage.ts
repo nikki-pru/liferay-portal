@@ -719,13 +719,15 @@ export class PageEditorPage {
 		dropTarget,
 		force = false,
 		page,
+		timeout,
 	}: {
 		dragTarget: Locator;
 		dropTarget: Locator;
 		force?: boolean;
 		page: Page;
+		timeout?: number;
 	}) {
-		await dragTarget.hover({force});
+		await dragTarget.hover({force, timeout});
 
 		await page.mouse.down();
 
@@ -739,6 +741,7 @@ export class PageEditorPage {
 				x: boundingClientRect.width / 2,
 				y: boundingClientRect.height / 2,
 			},
+			timeout,
 		});
 
 		await page.mouse.up();
@@ -1836,6 +1839,16 @@ export class PageEditorPage {
 				`.page-editor__layout-viewport--size-${VIEWPORTS_CLASSNAMES[viewport]}`
 			)
 			.waitFor({timeout});
+
+		const resizer = this.page.locator(
+			'.page-editor__layout-viewport__resizer'
+		);
+
+		const loadingIndicator = resizer.locator('.loading-animation');
+
+		if (await loadingIndicator.isVisible()) {
+			await loadingIndicator.waitFor({state: 'hidden'});
+		}
 	}
 
 	async undoAction() {
