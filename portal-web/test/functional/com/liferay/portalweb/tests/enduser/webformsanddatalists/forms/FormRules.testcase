@@ -259,7 +259,8 @@ definition {
 	@description = "Verify that a Rule can be created"
 	@priority = 5
 	test CanBeCreated {
-		property portal.acceptance = "true";
+		property browser.chrome.version = "139.0";
+		property portal.acceptance = "76999";
 
 		FormsAdmin.addForm();
 

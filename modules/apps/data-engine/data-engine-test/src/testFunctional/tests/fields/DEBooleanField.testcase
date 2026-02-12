@@ -129,7 +129,8 @@ definition {
 	@description = "Verify that a structure with the boolean field can be edited."
 	@priority = 5
 	test CanBeEdited {
-		property portal.acceptance = "true";
+		property browser.chrome.version = "139.0";
+		property portal.acceptance = "76999";
 
 		NavItem.gotoStructures();
 

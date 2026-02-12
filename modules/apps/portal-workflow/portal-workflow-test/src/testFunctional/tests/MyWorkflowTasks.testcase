@@ -1332,7 +1332,8 @@ definition {
 
 	@priority = 5
 	test ResubmitTaskByDetails {
-		property portal.acceptance = "true";
+		property browser.chrome.version = "139.0";
+		property portal.acceptance = "76999";
 		property test.liferay.virtual.instance = "false";
 		property test.run.type = "single";
 
