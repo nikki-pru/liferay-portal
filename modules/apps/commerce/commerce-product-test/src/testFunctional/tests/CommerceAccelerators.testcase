@@ -885,9 +885,10 @@ definition {
 
 	@priority = 5
 	test InitializeNewMiniumSite {
+		property browser.chrome.version = "139.0";
 		property environment.acceptance = "false";
 		property operating.system.types = "alpine,amazonlinux,centos,debian,fedora,orcllinux,osx,redhat,rockylinux,solaris,suse,ubuntu,windows";
-		property portal.acceptance = "true";
+		property portal.acceptance = "76999";
 
 		CommerceAccelerators.initializeNewSiteViaAccelerator(siteName = "Minium");
 
