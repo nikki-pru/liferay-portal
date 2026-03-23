@@ -217,8 +217,6 @@ public abstract class BaseLicenseTestCase {
 	public File deployFreeTierPortalLicense(long validityPeriod)
 		throws Exception {
 
-		long currentTimeMillis = System.currentTimeMillis();
-
 		StringBundler sb = new StringBundler(20);
 
 		sb.append("<?xml version=\"1.0\"?><license><account-name>");
@@ -232,7 +230,11 @@ public abstract class BaseLicenseTestCase {
 		sb.append(_FREE_TIER_LICENSE_TYPE);
 		sb.append("</license-type><license-version>6</license-version>");
 		sb.append("<start-date>");
+
+		long currentTimeMillis = System.currentTimeMillis();
+
 		sb.append(_DATE_FORMAT.format(new Date(currentTimeMillis)));
+
 		sb.append("</start-date><expiration-date>");
 		sb.append(
 			_DATE_FORMAT.format(new Date(currentTimeMillis + validityPeriod)));
