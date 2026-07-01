@@ -125,6 +125,35 @@
 		</if>
 	</target>
 
+	<target depends="get-artifact-properties,get-artifact-properties-releng" name="download-artifact-lpkg" unless="artifact.exclude">
+		<local name="artifact.location.dest.dir" />
+
+		<dirname file="${artifact.location.dest}" property="artifact.location.dest.dir" />
+
+		<mkdir dir="${artifact.location.dest.dir}" />
+
+		<if>
+			<or>
+				<contains string="${basedir}" substring="dxp${file.separator}" />
+				<istrue value="${download.artifact.private.override}" />
+			</or>
+			<then>
+				<get
+					dest="${artifact.location.dest.dir}"
+					password="${build.repository.private.password}"
+					src="${artifact.url}"
+					username="${build.repository.private.username}"
+				/>
+			</then>
+			<else>
+				<get
+					dest="${artifact.location.dest.dir}"
+					src="${artifact.url}"
+				/>
+			</else>
+		</if>
+	</target>
+
 	<target if="artifact.deploy.dependencies" name="download-artifact-dependencies">
 		<exec dir="${modules.dir}" executable="${modules.dir}/../gradlew${gradlew.suffix}" failonerror="true">
 			<arg value="${gradle.project.path}:deployDependencies" />
