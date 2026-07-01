@@ -304,6 +304,47 @@
 		</subant>
 	</target>
 
+	<target depends="dist-module-artifacts-lpkg-from-nexus,get-app-version" name="build-app-lpkg-from-nexus" unless="module.dirs.null">
+		<property name="output.dir" value="${dist.dir}/lpkg" />
+
+		<for param="lpkg.dir">
+			<path>
+				<dirset
+					dir="${output.dir}"
+				>
+					<include name="*/**" />
+					<exclude name="override" />
+				</dirset>
+			</path>
+			<sequential>
+				<local name="lpkg.dir.name" />
+
+				<basename file="@{lpkg.dir}" property="lpkg.dir.name" />
+
+				<antcall target="write-lpkg-marketplace-properties-from-nexus">
+					<param name="lpkg.dir" value="@{lpkg.dir}" />
+				</antcall>
+
+				<zip
+					basedir="@{lpkg.dir}"
+					destfile="${output.dir}/${lpkg.dir.name}.lpkg"
+					includes="*.jar,*.war,liferay-marketplace.properties"
+				/>
+			</sequential>
+		</for>
+
+		<zip
+			destfile="${dist.dir}/${Liferay-Releng-App-Title}.lpkg"
+		>
+			<fileset
+				dir="${output.dir}"
+			>
+				<include name="*${Liferay-Releng-App-Title}*.lpkg" />
+			</fileset>
+		</zip>
+
+		<delete dir="${output.dir}" />
+	</target>
 
 	<target name="check-current-branch">
 		<loadproperties srcFile="${modules.dir}/../release.properties">
