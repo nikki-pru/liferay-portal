@@ -1,0 +1,26 @@
+[
+	{
+		"key": "high",
+		"name": "High",
+		"name_i18n": {
+			"en-US": "High"
+		},
+		"type": "string"
+	},
+	{
+		"key": "medium",
+		"name": "Medium",
+		"name_i18n": {
+			"en-US": "Medium"
+		},
+		"type": "string"
+	},
+	{
+		"key": "low",
+		"name": "Low",
+		"name_i18n": {
+			"en-US": "Low"
+		},
+		"type": "string"
+	}
+]

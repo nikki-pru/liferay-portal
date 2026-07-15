@@ -1,0 +1,42 @@
+[
+	{
+		"key": "BUG",
+		"name": "Bug",
+		"name_i18n": {
+			"en-US": "Bug"
+		},
+		"type": "string"
+	},
+	{
+		"key": "POSSIBLEBUG",
+		"name": "Possible Bug",
+		"name_i18n": {
+			"en-US": "Possible Bug"
+		},
+		"type": "string"
+	},
+	{
+		"key": "NEEDSREVIEW",
+		"name": "Needs Review",
+		"name_i18n": {
+			"en-US": "Needs Review"
+		},
+		"type": "string"
+	},
+	{
+		"key": "TESTFIX",
+		"name": "Test Fix",
+		"name_i18n": {
+			"en-US": "Test Fix"
+		},
+		"type": "string"
+	},
+	{
+		"key": "FALSEPOSITIVE",
+		"name": "False Positive",
+		"name_i18n": {
+			"en-US": "False Positive"
+		},
+		"type": "string"
+	}
+]

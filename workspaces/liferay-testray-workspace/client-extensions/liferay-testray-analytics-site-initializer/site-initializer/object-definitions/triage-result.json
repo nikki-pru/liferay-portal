@@ -1,0 +1,139 @@
+{
+	"enableIndexSearch": false,
+	"label": {
+		"en_US": "Triage Result"
+	},
+	"name": "TriageResult",
+	"objectFields": [
+		{
+			"DBType": "String",
+			"businessType": "Picklist",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Classification"
+			},
+			"listTypeDefinitionId": "[$LIST_TYPE_DEFINITION_ID:Triage Classifications$]",
+			"name": "classification",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"businessType": "Picklist",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Confidence"
+			},
+			"listTypeDefinitionId": "[$LIST_TYPE_DEFINITION_ID:Triage Confidences$]",
+			"name": "confidence",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Culprit File"
+			},
+			"name": "culpritFile",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "Clob",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Specific Change"
+			},
+			"name": "specificChange",
+			"required": false,
+			"type": "Clob"
+		},
+		{
+			"DBType": "Clob",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Reason"
+			},
+			"name": "reason",
+			"required": false,
+			"type": "Clob"
+		},
+		{
+			"DBType": "String",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Classifier"
+			},
+			"name": "classifier",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Cluster Key"
+			},
+			"name": "clusterKey",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Analysis Mode"
+			},
+			"name": "analysisMode",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Git Hash A"
+			},
+			"name": "gitHashA",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Git Hash B"
+			},
+			"name": "gitHashB",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "Clob",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Suspicious Commits"
+			},
+			"name": "suspiciousCommits",
+			"required": false,
+			"type": "Clob"
+		}
+	],
+	"objectFolderExternalReferenceCode": "TESTRAY",
+	"pluralLabel": {
+		"en_US": "Triage Results"
+	},
+	"scope": "company"
+}
