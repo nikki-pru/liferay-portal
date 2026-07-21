@@ -1099,7 +1099,7 @@
 				<regexpmapper from="^(.+?)-(\d.*?)\.jar$" to="\1#\2##" />
 			</chainedmapper>
 			<fileset
-				dir="${output.dir}"
+				dir="${lpkg.dir}"
 				includes="**/*.jar"
 			/>
 		</pathconvert>
