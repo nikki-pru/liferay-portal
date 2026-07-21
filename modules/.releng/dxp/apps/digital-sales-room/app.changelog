@@ -1,0 +1,76 @@
+#
+# Liferay App Version 1.0.0
+#
+
+
+
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.digital.sales.room.site.initializer-1.0.8.jar
+
+app.change.log-1.0.0=LPD-69509 LPD-69528 LPD-69570 LPD-69985 LPD-73189 LPD-76076 LPD-76076- LPD-79484 LPD-86504 LPD-90636 LPD-92365 LPD-92373
+
+app.git.id-1.0.0=99459c431f4b5b5ce5929d9c08da6f430ecad29c
+
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.digital.sales.room.site.initializer-1.0.8.jar,\
+	com.liferay.headless.dsr.api-1.2.0.jar,\
+	com.liferay.headless.dsr.client-1.2.0.jar,\
+	com.liferay.headless.dsr.impl-1.0.5.jar,\
+	com.liferay.site.dsr.analytics.rest.api-1.0.2.jar,\
+	com.liferay.site.dsr.analytics.rest.client-1.0.2.jar,\
+	com.liferay.site.dsr.analytics.rest.impl-1.0.1.jar,\
+	com.liferay.site.dsr.site.initializer-1.0.7.jar,\
+	com.liferay.site.dsr.site.initializer.api-2.3.0.jar,\
+	com.liferay.site.initializer.dsr-1.0.5.jar
+
+app.change.log-1.0.0=LPD-69509 LPD-69528 LPD-69570 LPD-69985 LPD-73189 LPD-76076 LPD-76076- LPD-79484 LPD-86504 LPD-90636 LPD-92365 LPD-92373 
+
+app.git.id-1.0.0=99459c431f4b5b5ce5929d9c08da6f430ecad29c
+
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.digital.sales.room.site.initializer-1.0.8.jar,\
+	com.liferay.headless.dsr.api-1.2.0.jar,\
+	com.liferay.headless.dsr.client-1.2.0.jar,\
+	com.liferay.headless.dsr.impl-1.0.5.jar,\
+	com.liferay.site.dsr.analytics.rest.api-1.0.2.jar,\
+	com.liferay.site.dsr.analytics.rest.client-1.0.2.jar,\
+	com.liferay.site.dsr.analytics.rest.impl-1.0.1.jar,\
+	com.liferay.site.dsr.site.initializer-1.0.7.jar,\
+	com.liferay.site.dsr.site.initializer.api-2.3.0.jar,\
+	com.liferay.site.initializer.dsr-1.0.5.jar
+
+app.change.log-1.0.0=LPD-69509 LPD-69528 LPD-69570 LPD-69985 LPD-73189 LPD-76076 LPD-76076- LPD-79484 LPD-86504 LPD-90636 LPD-92365 LPD-92373 
+
+app.git.id-1.0.0=99459c431f4b5b5ce5929d9c08da6f430ecad29c
+
+#
+# Liferay App Version 1.0.0
+#
+
+app.artifacts-1.0.0=\
+	com.liferay.digital.sales.room.site.initializer-1.0.8.jar,\
+	com.liferay.headless.dsr.api-1.2.0.jar,\
+	com.liferay.headless.dsr.client-1.2.0.jar,\
+	com.liferay.headless.dsr.impl-1.0.5.jar,\
+	com.liferay.site.dsr.analytics.rest.api-1.0.2.jar,\
+	com.liferay.site.dsr.analytics.rest.client-1.0.2.jar,\
+	com.liferay.site.dsr.analytics.rest.impl-1.0.1.jar,\
+	com.liferay.site.dsr.site.initializer-1.0.7.jar,\
+	com.liferay.site.dsr.site.initializer.api-2.3.0.jar,\
+	com.liferay.site.initializer.dsr-1.0.5.jar
+
+app.change.log-1.0.0=LPD-69509 LPD-69528 LPD-69570 LPD-69985 LPD-73189 LPD-76076 LPD-76076- LPD-79484 LPD-86504 LPD-90636 LPD-92365 LPD-92373 
+
+app.git.id-1.0.0=501c4095416f25a11d719eb64a01ecafd6f8facf
