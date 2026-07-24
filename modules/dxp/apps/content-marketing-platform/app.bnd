@@ -1,0 +1,15 @@
+Liferay-Releng-App-Description: A Content Marketing Platform (CMP) is a centralized software solution that streamlines the entire content marketing process, from planning and creation to multi-channel distribution. By offering full visibility across the content lifecycle, CMPs help ensure brand consistency, support data-driven decisions, and deliver relevant content to the right audience, ultimately driving engagement, lead nurturing, and revenue through high-quality storytelling.
+Liferay-Releng-App-Title: ${liferay.releng.app.title.prefix} Content Marketing Platform
+Liferay-Releng-Bundle: false
+Liferay-Releng-Category: Utility
+Liferay-Releng-Demo-Url:
+Liferay-Releng-Deprecated: false
+Liferay-Releng-Fix-Delivery-Method:
+Liferay-Releng-Labs: false
+Liferay-Releng-Marketplace: true
+Liferay-Releng-Portal-Required: false
+Liferay-Releng-Public: ${liferay.releng.public}
+Liferay-Releng-Restart-Required: true
+Liferay-Releng-Suite:
+Liferay-Releng-Support-Url: http://www.liferay.com
+Liferay-Releng-Supported: ${liferay.releng.supported}
