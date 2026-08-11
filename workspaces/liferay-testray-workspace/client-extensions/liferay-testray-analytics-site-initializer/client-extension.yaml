@@ -4,10 +4,32 @@ liferay-testray-analytics-site-initializer:
     siteExternalReferenceCode: LIFERAY_TESTRAY_ANALYTICS
     siteName: Liferay Testray Analytics
     type: siteInitializer
+# A siteInitializer CX takes exactly one oAuthApplicationHeadlessServer, so this
+# single app covers both jobs: `Liferay.Headless.Site.everything` for the
+# initializer's own provisioning, and the object scopes the testray-analytics
+# CLI authenticates with (client_credentials).
 liferay-testray-analytics-site-initializer-oahs:
     .serviceAddress: localhost:8080
     .serviceScheme: http
     name: Liferay Testray Analytics Site Initializer OAuth Application Headless Server
     scopes:
         -   Liferay.Headless.Site.everything
+        # Plain `.everything` is the only object-scope form that resolves for a
+        # headless-server app; `.read` / `.write` leaves are dropped silently at
+        # deploy (no build error), so always confirm what landed by reading the
+        # token's `scope` claim rather than trusting this list.
+        #
+        # This grants write on Build/Case/CaseResult too, which the CLI never
+        # uses — it only reads them (mirror_prod_to_local.py does write them,
+        # but that is local-only test tooling). No read-only alias exists to
+        # express that intent, so it is enforced in code, not by scope.
+        -   c_triageresult.everything
+        -   c_build.everything
+        -   c_case.everything
+        -   c_caseresult.everything
+        # Only the prod->local mirror needs this, to link mirrored routines and
+        # cases to a Project so they render in the Testray UI. Drop it if this
+        # CX ever targets an instance where seeding isn't wanted.
+        -   c_project.everything
     type: oAuthApplicationHeadlessServer
+    userAccountScreenName: default-service-account
