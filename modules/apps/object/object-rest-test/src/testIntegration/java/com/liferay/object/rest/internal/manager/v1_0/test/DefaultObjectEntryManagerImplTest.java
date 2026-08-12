@@ -145,6 +145,7 @@ import com.liferay.petra.string.StringPool;
 import com.liferay.portal.kernel.exception.NoSuchRoleException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.json.JSONUtil;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.lazy.referencing.LazyReferencingThreadLocal;
 import com.liferay.portal.kernel.model.Group;
@@ -207,6 +208,7 @@ import com.liferay.portal.kernel.util.Portal;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TempFileEntryUtil;
+import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.UnicodePropertiesBuilder;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -3606,10 +3608,28 @@ public class DefaultObjectEntryManagerImplTest
 					).build()),
 				false);
 
+		Class<?> clazz = getClass();
+
+		UnicodeProperties parametersUnicodeProperties =
+			UnicodePropertiesBuilder.create(
+				true
+			).put(
+				"script",
+				StringUtil.read(
+					clazz,
+					StringBundler.concat(
+						"dependencies/", clazz.getSimpleName(),
+						StringPool.PERIOD, testName.getMethodName(), ".groovy"))
+			).build();
+
 		_addObjectAction(
-			objectDefinition, ObjectActionTriggerConstants.KEY_ON_AFTER_ADD);
+			objectDefinition, ObjectActionExecutorConstants.KEY_GROOVY,
+			ObjectActionTriggerConstants.KEY_ON_AFTER_ADD,
+			parametersUnicodeProperties);
 		_addObjectAction(
-			objectDefinition, ObjectActionTriggerConstants.KEY_ON_AFTER_UPDATE);
+			objectDefinition, ObjectActionExecutorConstants.KEY_GROOVY,
+			ObjectActionTriggerConstants.KEY_ON_AFTER_UPDATE,
+			parametersUnicodeProperties);
 
 		int randomInt1 = RandomTestUtil.randomInt();
 
@@ -8574,6 +8594,120 @@ public class DefaultObjectEntryManagerImplTest
 	}
 
 	@Test
+	public void testPartialUpdateObjectEntryWithNestedObjectEntryObjectAction()
+		throws Exception {
+
+		ObjectDefinition objectDefinition =
+			ObjectDefinitionTestUtil.publishObjectDefinition(
+				Arrays.asList(
+					new TextObjectFieldBuilder(
+					).labelMap(
+						LocalizedMapUtil.getLocalizedMap(
+							RandomTestUtil.randomString())
+					).name(
+						"textObjectField"
+					).build(),
+					new TextObjectFieldBuilder(
+					).labelMap(
+						LocalizedMapUtil.getLocalizedMap(
+							RandomTestUtil.randomString())
+					).name(
+						"untouchedTextObjectField"
+					).build()),
+				false);
+
+		String predefinedValue = RandomTestUtil.randomString();
+
+		_addObjectAction(
+			objectDefinition,
+			ObjectActionExecutorConstants.KEY_UPDATE_OBJECT_ENTRY,
+			ObjectActionTriggerConstants.KEY_ON_AFTER_UPDATE,
+			UnicodePropertiesBuilder.create(
+				true
+			).put(
+				"objectDefinitionId",
+				String.valueOf(objectDefinition.getObjectDefinitionId())
+			).put(
+				"predefinedValues",
+				JSONUtil.putAll(
+					JSONUtil.put(
+						"inputAsValue", true
+					).put(
+						"name", "textObjectField"
+					).put(
+						"value", predefinedValue
+					)
+				).toString()
+			).build());
+
+		ObjectRelationship objectRelationship =
+			ObjectRelationshipTestUtil.addObjectRelationship(
+				ObjectRelationshipConstants.DELETION_TYPE_CASCADE,
+				_objectDefinition1, objectDefinition,
+				TestPropsValues.getUserId(),
+				ObjectRelationshipConstants.TYPE_MANY_TO_MANY);
+
+		String untouchedValue = RandomTestUtil.randomString();
+
+		ObjectEntry relatedObjectEntry =
+			_defaultObjectEntryManager.addObjectEntry(
+				_simpleDTOConverterContext, objectDefinition,
+				new ObjectEntry() {
+					{
+						properties = HashMapBuilder.<String, Object>put(
+							"textObjectField", RandomTestUtil.randomString()
+						).put(
+							"untouchedTextObjectField", untouchedValue
+						).build();
+					}
+				},
+				ObjectDefinitionConstants.SCOPE_COMPANY);
+
+		ObjectEntry objectEntry = _defaultObjectEntryManager.addObjectEntry(
+			_simpleDTOConverterContext, _objectDefinition1,
+			new ObjectEntry() {
+				{
+					properties = HashMapBuilder.<String, Object>put(
+						"textObjectFieldName", RandomTestUtil.randomString()
+					).build();
+				}
+			},
+			ObjectDefinitionConstants.SCOPE_COMPANY);
+
+		_defaultObjectEntryManager.partialUpdateObjectEntry(
+			_simpleDTOConverterContext, _objectDefinition1, objectEntry.getId(),
+			new ObjectEntry() {
+				{
+					properties = HashMapBuilder.<String, Object>put(
+						objectRelationship.getName(),
+						Collections.singletonList(
+							HashMapBuilder.<String, Object>put(
+								"externalReferenceCode",
+								relatedObjectEntry.getExternalReferenceCode()
+							).build())
+					).build();
+				}
+			});
+
+		ObjectEntry updatedRelatedObjectEntry =
+			_defaultObjectEntryManager.getObjectEntry(
+				_simpleDTOConverterContext, objectDefinition,
+				relatedObjectEntry.getId());
+
+		Assert.assertEquals(
+			predefinedValue,
+			MapUtil.getString(
+				updatedRelatedObjectEntry.getProperties(), "textObjectField"));
+		Assert.assertEquals(
+			untouchedValue,
+			MapUtil.getString(
+				updatedRelatedObjectEntry.getProperties(),
+				"untouchedTextObjectField"));
+
+		objectDefinitionLocalService.deleteObjectDefinition(objectDefinition);
+	}
+
+	@Test
 	public void testPartialUpdateObjectEntryWithPortletImportInProcess()
 		throws Exception {
 
@@ -8626,6 +8760,76 @@ public class DefaultObjectEntryManagerImplTest
 
 		Assert.assertEquals(
 			"Edited", objectEntry.getPropertyValue("textObjectFieldName"));
+	}
+
+	@Test
+	public void testPartialUpdateObjectEntryWithRequiredObjectField()
+		throws Exception {
+
+		ObjectDefinition objectDefinition =
+			ObjectDefinitionTestUtil.publishObjectDefinition(
+				Arrays.asList(
+					new TextObjectFieldBuilder(
+					).labelMap(
+						LocalizedMapUtil.getLocalizedMap(
+							RandomTestUtil.randomString())
+					).name(
+						"requiredTextObjectField"
+					).required(
+						true
+					).build(),
+					new TextObjectFieldBuilder(
+					).labelMap(
+						LocalizedMapUtil.getLocalizedMap(
+							RandomTestUtil.randomString())
+					).name(
+						"textObjectField"
+					).build()),
+				false);
+
+		String requiredTextObjectFieldValue = RandomTestUtil.randomString();
+
+		ObjectEntry objectEntry = _defaultObjectEntryManager.addObjectEntry(
+			_simpleDTOConverterContext, objectDefinition,
+			new ObjectEntry() {
+				{
+					displayDate = RandomTestUtil.nextDate();
+					properties = HashMapBuilder.<String, Object>put(
+						"requiredTextObjectField", requiredTextObjectFieldValue
+					).put(
+						"textObjectField", RandomTestUtil.randomString()
+					).build();
+				}
+			},
+			ObjectDefinitionConstants.SCOPE_COMPANY);
+
+		String textObjectFieldValue = RandomTestUtil.randomString();
+
+		ObjectEntry updatedObjectEntry =
+			_defaultObjectEntryManager.partialUpdateObjectEntry(
+				_simpleDTOConverterContext, objectDefinition,
+				objectEntry.getId(),
+				new ObjectEntry() {
+					{
+						properties = HashMapBuilder.<String, Object>put(
+							"textObjectField", textObjectFieldValue
+						).build();
+					}
+				});
+
+		Assert.assertNotNull(objectEntry.getDisplayDate());
+		Assert.assertEquals(
+			objectEntry.getDisplayDate(), updatedObjectEntry.getDisplayDate());
+		Assert.assertEquals(
+			requiredTextObjectFieldValue,
+			MapUtil.getString(
+				updatedObjectEntry.getProperties(), "requiredTextObjectField"));
+		Assert.assertEquals(
+			textObjectFieldValue,
+			MapUtil.getString(
+				updatedObjectEntry.getProperties(), "textObjectField"));
+
+		objectDefinitionLocalService.deleteObjectDefinition(objectDefinition);
 	}
 
 	@Test
@@ -10713,10 +10917,10 @@ public class DefaultObjectEntryManagerImplTest
 	}
 
 	private void _addObjectAction(
-			ObjectDefinition objectDefinition, String objectActionTriggerKey)
+			ObjectDefinition objectDefinition, String objectActionExecutorKey,
+			String objectActionTriggerKey,
+			UnicodeProperties parametersUnicodeProperties)
 		throws Exception {
-
-		Class<?> clazz = getClass();
 
 		_objectActionLocalService.addObjectAction(
 			RandomTestUtil.randomString(), TestPropsValues.getUserId(),
@@ -10724,19 +10928,8 @@ public class DefaultObjectEntryManagerImplTest
 			RandomTestUtil.randomString(),
 			LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
 			LocalizedMapUtil.getLocalizedMap(RandomTestUtil.randomString()),
-			RandomTestUtil.randomString(),
-			ObjectActionExecutorConstants.KEY_GROOVY, objectActionTriggerKey,
-			UnicodePropertiesBuilder.create(
-				true
-			).put(
-				"script",
-				StringUtil.read(
-					clazz,
-					StringBundler.concat(
-						"dependencies/", clazz.getSimpleName(),
-						StringPool.PERIOD, testName.getMethodName(), ".groovy"))
-			).build(),
-			false);
+			RandomTestUtil.randomString(), objectActionExecutorKey,
+			objectActionTriggerKey, parametersUnicodeProperties, false);
 	}
 
 	private ObjectDefinition _addObjectDefinition(
