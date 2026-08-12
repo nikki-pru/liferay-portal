@@ -186,7 +186,7 @@ test(
 			digitalSalesRoomSettingsPage.externalReferenceCodeInput
 		).toHaveValue(updatedExternalReferenceCode);
 		await expect(digitalSalesRoomSettingsPage.friendlyURLInput).toHaveValue(
-			updatedFriendlyURL
+			`/${updatedFriendlyURL}`
 		);
 		await expect(digitalSalesRoomSettingsPage.nameInput).toHaveValue(
 			updatedName
@@ -2207,9 +2207,10 @@ test(
 
 test(
 	'A room name containing markup is escaped in the room banner',
-	{tag: '@LPD-102192'},
+	{tag: ['@LPD-102192', '@LPD-97483']},
 	async ({
 		apiHelpers,
+		digitalSalesRoomSettingsPage,
 		digitalSalesRoomsPage,
 		editDigitalSalesRoomPage,
 		page,
@@ -2270,5 +2271,55 @@ test(
 				roomName
 			);
 		});
+	}
+);
+
+test(
+	'A room settings friendly URL is saved with a leading slash and dashes',
+	{tag: '@LPD-97483'},
+	async ({
+		apiHelpers,
+		digitalSalesRoomSettingsPage,
+		digitalSalesRoomsPage,
+		page,
+	}) => {
+		const account = await apiHelpers.headlessAdminUser.postAccount({
+			type: 'business',
+		});
+
+		const roomName = `A${getRandomInt()}`;
+
+		await apiHelpers.headlessDigitalSalesRoom.addRoom({
+			accountEntryId: account.id,
+			name: roomName,
+		});
+
+		const url = getRandomString().replace(/-/g, ' ');
+
+		await digitalSalesRoomsPage.goToRoomsPage();
+
+		await digitalSalesRoomsPage.clickRowActionsMenuItem(
+			roomName,
+			digitalSalesRoomsPage.settingsMenuItem
+		);
+
+		await expect(
+			digitalSalesRoomSettingsPage.friendlyURLInput
+		).toBeVisible();
+
+		await digitalSalesRoomSettingsPage.friendlyURLInput.fill(url);
+
+		await digitalSalesRoomSettingsPage.saveButton.click();
+
+		await waitForAlert(page);
+
+		await digitalSalesRoomsPage.clickRowActionsMenuItem(
+			roomName,
+			digitalSalesRoomsPage.settingsMenuItem
+		);
+
+		await expect(digitalSalesRoomSettingsPage.friendlyURLInput).toHaveValue(
+			`/${url.replace(/ /g, '-')}`
+		);
 	}
 );
