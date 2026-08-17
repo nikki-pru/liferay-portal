@@ -14,6 +14,7 @@
     "workspaces": {
         "packages": [
             "client-extensions/liferay-testray-custom-element",
+            "client-extensions/liferay-testray-analytics-custom-element",
             "client-extensions/liferay-testray-etc-jira"
         ]
     }

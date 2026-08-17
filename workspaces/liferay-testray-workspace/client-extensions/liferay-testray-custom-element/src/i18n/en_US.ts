@@ -480,6 +480,7 @@ export default {
 	'total-estimated-time': 'Total Estimated Time',
 	'total-issues': 'Total Issues',
 	'total-test-cases': 'Total test cases',
+	'triage': 'Triage',
 	'true': 'True',
 	'type': 'Type',
 	'type-is-a-required-field': 'Type is a required field',

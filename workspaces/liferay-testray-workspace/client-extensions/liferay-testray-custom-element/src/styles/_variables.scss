@@ -248,6 +248,17 @@ $sidebar-divider-color: #8b8db2;
 	}
 }
 
+// Triage state in the build index. A rotated square rather than .label-chart's
+// circle: the neighbouring Build Status column already uses a circle for
+// task/testflow state, so repeating the shape would read as the same
+// vocabulary. Colour is set inline from the run status.
+.tr-triage-diamond {
+	display: inline-block;
+	height: 9px;
+	transform: rotate(45deg);
+	width: 9px;
+}
+
 .label-chart {
 	font-weight: 500;
 

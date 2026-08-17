@@ -11,6 +11,7 @@ import {Link, useLocation} from 'react-router-dom';
 import {STORAGE_KEYS} from '~/core/Storage';
 import {CONSENT_TYPE} from '~/util/enum';
 
+import {TRIAGE_PATH} from '../../hooks/useTriageRuns';
 import useStorage from '../../hooks/useStorage';
 import i18n from '../../i18n';
 import {TestrayIcon, TestrayIconBrand} from '../../images';
@@ -83,6 +84,33 @@ const Sidebar = () => {
 		</div>
 	);
 
+	// Links out to the analytics client extension. A plain anchor, not a
+	// react-router Link: the triage view is a separate portal page rather than
+	// a route inside this SPA. Renders regardless of whether that CX is
+	// deployed — the page itself reports if it is missing, which keeps this
+	// side free of any triage logic.
+	const TriageContent = (
+		<div
+			className={classNames(
+				'tr-sidebar__content__list__item tr-sidebar__content__list__item'
+			)}
+		>
+			<ClayIcon
+				className="tr-sidebar__content__list__item__clayicon"
+				fill="#8b8db2"
+				symbol="rule"
+			/>
+
+			<span
+				className={classNames('tr-sidebar__content__list__item__text', {
+					'tr-sidebar__content__list__item__text--expanded': expanded,
+				})}
+			>
+				{i18n.translate('triage')}
+			</span>
+		</div>
+	);
+
 	const CompareRunsRef = useRef<HTMLDivElement>(null);
 	const AutofillRef = useRef<HTMLDivElement>(null);
 
@@ -145,6 +173,23 @@ const Sidebar = () => {
 						{CompareRunsContent}
 					</Tooltip>
 				</div>
+			),
+		},
+
+		// Appended last on purpose: the render loop below branches on array
+		// index (`index <= 2` for path items, `index === 4` for the
+		// compare-runs active state), so inserting anywhere earlier would
+		// silently renumber those checks.
+		{
+			element: (
+				<a href={TRIAGE_PATH}>
+					<Tooltip
+						position="right"
+						title={expanded ? undefined : i18n.translate('triage')}
+					>
+						{TriageContent}
+					</Tooltip>
+				</a>
 			),
 		},
 	];

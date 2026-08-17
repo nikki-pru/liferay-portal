@@ -17,6 +17,11 @@ import {testrayBuildAlertProperties} from '~/util/constants';
 import dayjs from '~/util/date';
 import {filterStatuses} from '~/util/statuses';
 
+import useTriageRuns, {
+	TRIAGE_RUN_DISPLAY,
+	triageURL,
+} from '~/hooks/useTriageRuns';
+
 import BuildHistoryChart from './Builds/BuildHistoryChart';
 import useBuildActions from './Builds/useBuildActions';
 
@@ -30,6 +35,12 @@ const Routine = () => {
 	const {testrayRoutine}: OutletContext = useOutletContext();
 
 	const teamId = testrayRoutine.r_teamToRoutines_c_teamId
+
+	// Side-fetched rather than read off the row: the build list comes from
+	// testray-builds-metrics, hand-written SQL in TestrayStatusMetricResourceImpl,
+	// and adding a field there would mean editing Testray core. One request per
+	// routine — the routine FK makes it independent of pagination.
+	const triageRuns = useTriageRuns(routineId);
 
 	const baseResoruceURL = `/testray-status-metrics/by-testray-routineId/${routineId}/testray-builds-metrics`;
 
@@ -103,6 +114,47 @@ const Routine = () => {
 								</>
 							),
 							value: i18n.translate('build-status'),
+						},
+						{
+							key: 'triage',
+							render: (_, {id}: TestrayBuild) => {
+								const status =
+									triageRuns.get(Number(id))
+										?.triageRunStatus?.key;
+
+								// Nothing at all when a build has no triage
+								// run — the same way an unpromoted build shows
+								// no star. This is what keeps the column quiet
+								// on routines that never triage, and what makes
+								// it inert when the analytics CX is absent.
+								if (!status) {
+									return null;
+								}
+
+								const {clickable, color, label} =
+									TRIAGE_RUN_DISPLAY[status];
+
+								const diamond = (
+									<span
+										className="tr-triage-diamond"
+										style={{backgroundColor: color}}
+									/>
+								);
+
+								return (
+									<span title={label}>
+										{clickable ? (
+											<a href={triageURL(id)}>
+												{diamond}
+											</a>
+										) : (
+											diamond
+										)}
+									</span>
+								);
+							},
+							size: 'sm',
+							value: i18n.translate('triage'),
 						},
 						{
 							clickable: true,
