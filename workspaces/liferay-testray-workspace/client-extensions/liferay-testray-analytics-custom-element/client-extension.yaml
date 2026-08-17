@@ -1,0 +1,25 @@
+assemble:
+    -   from: build/static
+        into: static
+
+# The triage UI. Everything that renders lives here, in our own CX, so the whole
+# feature can be deployed or not deployed independently of Testray. The only
+# piece that cannot live here is the entry point inside Testray's own SPA (the
+# 'Triage' sidebar item and the build-index column): that app is a single
+# customElements.define() with its own React root and no extension point, and
+# its ListView columnsContext only *hides* columns from a static literal — it
+# cannot add one. So those two links are a small feature-detected patch to
+# liferay-testray-custom-element, and they render nothing when this CX is absent.
+# See ARCHITECTURE.md §8 "Triggering a run".
+liferay-testray-analytics-custom-element:
+    cssURLs:
+        -   index.*.css
+    friendlyURLMapping: liferay-testray-analytics
+    htmlElementName: liferay-testray-analytics-custom-element
+    instanceable: false
+    name: Liferay Testray Analytics Custom Element
+    portletCategoryName: category.client-extensions
+    type: customElement
+    urls:
+        -   index*.js
+    useESM: true

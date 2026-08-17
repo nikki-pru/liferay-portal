@@ -1,0 +1,135 @@
+/**
+ * SPDX-FileCopyrightText: (c) 2000 Liferay, Inc. https://liferay.com
+ * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
+ */
+
+// Testray's surface colours, so this view sits inside the product rather than
+// beside it. Kept in step with report.py's _CSS and _variables.scss.
+$surface: #fff;
+$page: #f1f2f5;
+$border: #e7e7ed;
+$muted: #6b6c7e;
+$ink: #272833;
+
+.triage-report {
+	color: $ink;
+
+	h1 {
+		font-size: 1.25rem;
+		margin: 0 0 0.25rem;
+	}
+}
+
+.triage-meta {
+	color: $muted;
+	font-size: 13px;
+	margin-bottom: 1rem;
+}
+
+.triage-pills {
+	margin-top: 0.5rem;
+}
+
+.triage-pill {
+	border-radius: 10px;
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 600;
+	margin-right: 6px;
+	padding: 2px 9px;
+	white-space: nowrap;
+}
+
+.triage-error {
+	background: #fff0f1;
+	border: 1px solid #fe5160;
+	border-radius: 6px;
+	margin-bottom: 10px;
+	padding: 10px 12px;
+}
+
+.triage-card {
+	background: $surface;
+	border: 1px solid $border;
+	border-radius: 6px;
+	margin: 0 0 10px;
+	overflow: hidden;
+
+	summary {
+		align-items: baseline;
+		cursor: pointer;
+		display: flex;
+		gap: 10px;
+		list-style: none;
+		padding: 10px 12px;
+
+		&::-webkit-details-marker {
+			display: none;
+		}
+
+		&:hover {
+			background: #f7f8f9;
+		}
+	}
+
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	th,
+	td {
+		border-top: 1px solid $border;
+		font-size: 13px;
+		padding: 6px 10px;
+		text-align: left;
+		vertical-align: top;
+	}
+
+	th {
+		background: #f7f8f9;
+		border-top: none;
+		color: $muted;
+		font-weight: 600;
+	}
+}
+
+.triage-culprit {
+	padding: 6px 12px;
+}
+
+.triage-sig {
+	flex: 1;
+	font-size: 13px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.triage-count {
+	color: $muted;
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	font-size: 12px;
+	word-break: break-all;
+}
+
+/**
+ * The build-index diamond, used by the hook in liferay-testray-custom-element.
+ * Shipped from this CX so the colour vocabulary lives in one place; the hook
+ * only adds the markup.
+ */
+.triage-diamond {
+	display: inline-block;
+	height: 10px;
+	transform: rotate(45deg);
+	width: 10px;
+
+	&.is-clickable {
+		cursor: pointer;
+	}
+}
