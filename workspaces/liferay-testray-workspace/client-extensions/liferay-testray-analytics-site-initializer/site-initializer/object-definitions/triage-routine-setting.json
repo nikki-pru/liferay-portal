@@ -1,0 +1,52 @@
+{
+	"enableIndexSearch": false,
+	"label": {
+		"en_US": "Triage Routine Setting"
+	},
+	"name": "TriageRoutineSetting",
+	"objectFields": [
+		{
+			"DBType": "Boolean",
+			"businessType": "Boolean",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Auto Triage"
+			},
+			"name": "autoTriage",
+			"required": false,
+			"type": "Boolean"
+		},
+		{
+			"DBType": "String",
+			"businessType": "Picklist",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Baseline Strategy"
+			},
+			"listTypeDefinitionId": "[$LIST_TYPE_DEFINITION_ID:Triage Baseline Strategies$]",
+			"name": "baselineStrategy",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"businessType": "Picklist",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Classification Mode"
+			},
+			"listTypeDefinitionId": "[$LIST_TYPE_DEFINITION_ID:Triage Classification Modes$]",
+			"name": "classificationMode",
+			"required": false,
+			"type": "String"
+		}
+	],
+	"objectFolderExternalReferenceCode": "TESTRAY",
+	"pluralLabel": {
+		"en_US": "Triage Routine Settings"
+	},
+	"scope": "company"
+}

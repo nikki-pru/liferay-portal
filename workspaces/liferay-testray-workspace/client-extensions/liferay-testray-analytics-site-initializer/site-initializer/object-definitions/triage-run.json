@@ -1,0 +1,167 @@
+{
+	"enableIndexSearch": false,
+	"label": {
+		"en_US": "Triage Run"
+	},
+	"name": "TriageRun",
+	"objectFields": [
+		{
+			"DBType": "String",
+			"businessType": "Picklist",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Triage Run Status"
+			},
+			"listTypeDefinitionId": "[$LIST_TYPE_DEFINITION_ID:Triage Run Statuses$]",
+			"name": "triageRunStatus",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Analysis Mode"
+			},
+			"name": "analysisMode",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Classifier"
+			},
+			"name": "classifier",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "DateTime",
+			"businessType": "DateTime",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Started At"
+			},
+			"name": "startedAt",
+			"objectFieldSettings": [
+				{
+					"name": "timeStorage",
+					"value": "convertToUTC"
+				}
+			],
+			"required": false,
+			"type": "DateTime"
+		},
+		{
+			"DBType": "DateTime",
+			"businessType": "DateTime",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Finished At"
+			},
+			"name": "finishedAt",
+			"objectFieldSettings": [
+				{
+					"name": "timeStorage",
+					"value": "convertToUTC"
+				}
+			],
+			"required": false,
+			"type": "DateTime"
+		},
+		{
+			"DBType": "Clob",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Error Message"
+			},
+			"name": "errorMessage",
+			"required": false,
+			"type": "Clob"
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Total Failures"
+			},
+			"name": "totalFailures",
+			"required": false,
+			"type": "Integer"
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Total Clusters"
+			},
+			"name": "totalClusters",
+			"required": false,
+			"type": "Integer"
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Total Classified"
+			},
+			"name": "totalClassified",
+			"required": false,
+			"type": "Integer"
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Total Written"
+			},
+			"name": "totalWritten",
+			"required": false,
+			"type": "Integer"
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Total Excluded"
+			},
+			"name": "totalExcluded",
+			"required": false,
+			"type": "Integer"
+		},
+		{
+			"DBType": "Clob",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Verdict Counts"
+			},
+			"name": "verdictCounts",
+			"required": false,
+			"type": "Clob"
+		}
+	],
+	"objectFolderExternalReferenceCode": "TESTRAY",
+	"pluralLabel": {
+		"en_US": "Triage Runs"
+	},
+	"scope": "company"
+}

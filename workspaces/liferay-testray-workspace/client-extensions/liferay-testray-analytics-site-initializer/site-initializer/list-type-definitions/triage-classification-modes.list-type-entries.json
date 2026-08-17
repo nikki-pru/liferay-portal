@@ -1,0 +1,18 @@
+[
+	{
+		"key": "PERTEST",
+		"name": "Per Test",
+		"name_i18n": {
+			"en-US": "Per Test"
+		},
+		"type": "string"
+	},
+	{
+		"key": "BYCLUSTER",
+		"name": "By Cluster",
+		"name_i18n": {
+			"en-US": "By Cluster"
+		},
+		"type": "string"
+	}
+]

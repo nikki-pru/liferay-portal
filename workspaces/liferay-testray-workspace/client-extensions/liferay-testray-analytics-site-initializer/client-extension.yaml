@@ -24,6 +24,12 @@ liferay-testray-analytics-site-initializer-oahs:
         # but that is local-only test tooling). No read-only alias exists to
         # express that intent, so it is enforced in code, not by scope.
         -   c_triageresult.everything
+        -   c_triagerun.everything
+        -   c_triageroutinesetting.everything
+        # Read-only in practice for the CLI, but Routine has no read-only alias
+        # either (see the note above) — the build-index column and the settings
+        # screen both resolve routines through it.
+        -   c_routine.everything
         -   c_build.everything
         -   c_case.everything
         -   c_caseresult.everything

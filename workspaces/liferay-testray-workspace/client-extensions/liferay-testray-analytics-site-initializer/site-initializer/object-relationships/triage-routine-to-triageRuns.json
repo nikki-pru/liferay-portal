@@ -1,0 +1,11 @@
+{
+	"deletionType": "cascade",
+	"label": {
+		"en-US": "Triage Run"
+	},
+	"name": "routineToTriageRuns",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:Routine$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:TriageRun$]",
+	"objectDefinitionName2": "TriageRun",
+	"type": "oneToMany"
+}

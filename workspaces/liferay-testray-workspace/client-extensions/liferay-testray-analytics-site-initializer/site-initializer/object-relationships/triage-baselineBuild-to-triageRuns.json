@@ -1,0 +1,11 @@
+{
+	"deletionType": "disassociate",
+	"label": {
+		"en-US": "Triage Run (Baseline)"
+	},
+	"name": "baselineBuildToTriageRuns",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:Build$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:TriageRun$]",
+	"objectDefinitionName2": "TriageRun",
+	"type": "oneToMany"
+}

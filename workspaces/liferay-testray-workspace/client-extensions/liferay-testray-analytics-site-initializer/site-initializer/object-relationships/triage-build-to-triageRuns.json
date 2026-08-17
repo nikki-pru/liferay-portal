@@ -1,0 +1,11 @@
+{
+	"deletionType": "cascade",
+	"label": {
+		"en-US": "Triage Run"
+	},
+	"name": "buildToTriageRuns",
+	"objectDefinitionId1": "[$OBJECT_DEFINITION_ID:Build$]",
+	"objectDefinitionId2": "[$OBJECT_DEFINITION_ID:TriageRun$]",
+	"objectDefinitionName2": "TriageRun",
+	"type": "oneToMany"
+}
