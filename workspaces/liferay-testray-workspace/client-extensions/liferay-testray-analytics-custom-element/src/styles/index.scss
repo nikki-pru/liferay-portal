@@ -3,133 +3,582 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-// Testray's surface colours, so this view sits inside the product rather than
-// beside it. Kept in step with report.py's _CSS and _variables.scss.
-$surface: #fff;
-$page: #f1f2f5;
-$border: #e7e7ed;
-$muted: #6b6c7e;
-$ink: #272833;
+// Ported from `report.py`'s _CSS so the in-app view and the CLI artifact look
+// like one report. Kept as a near-verbatim port rather than rewritten in Clay:
+// the two renderers are meant to stay diffable, and a Clay rewrite would drift
+// the moment either side is touched.
+//
+// Three changes were needed to live inside a portal page. Everything is nested
+// under `.triage-report`, so the report cannot restyle Testray around it. The
+// `:root` custom properties moved onto that same element for the same reason.
+// And the artifact's `html, body`, `main` and `*` resets are dropped — the
+// portal owns the page box, and a global `box-sizing` reset from a custom
+// element would reach the whole page.
+
+// Testray's page recipe, measured off a routine page rather than guessed from
+// tokens: a #f5f6f7 body with 25px/30px gutters holding a square white card
+// with 24px of padding — no border, no shadow, no rounding (Clay's `rounded-xs`
+// resolves to 0 in this theme). Matching it is what makes the triage view read
+// as part of the product instead of a document embedded in it.
+liferay-testray-analytics-custom-element {
+	background: #f5f6f7;
+
+	// A custom element is `display: inline` by default, so without this the
+	// grey paints only behind the text and the gutters collapse.
+	display: block;
+	padding: 25px 30px 30px;
+}
 
 .triage-report {
-	color: $ink;
+	background: #fff;
+	box-sizing: border-box;
+	color: var(--c-fg);
+	font-size: 14px;
+	line-height: 1.55;
 
-	h1 {
-		font-size: 1.25rem;
-		margin: 0 0 0.25rem;
+	// The artifact got its page box from `main`, which the port dropped as a
+	// global reset — leaving the report flush to the viewport edges and, on a
+	// wide monitor, over 2000px of unbroken table. The 1640px cap is the
+	// artifact's own: eleven columns stretched wider than that stop being
+	// readable as rows. Testray's cards do not cap, but its content is
+	// narrower than this table to begin with.
+	margin: 0 auto;
+	max-width: 1640px;
+	padding: 24px;
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
 	}
-}
 
-.triage-meta {
-	color: $muted;
-	font-size: 13px;
-	margin-bottom: 1rem;
-}
+	--c-bug: #c0392b;
+	    --c-pbug: #e74c3c;
+	    --c-needs: #d68910;
+	    --c-testfix: #2471a3;
+	    --c-fp: #5d6d7e;
+	    --c-auto: #7f8c8d;
+	    --c-bg: #fdfdfd;
+	    --c-fg: #1c1c1c;
+	    --c-muted: #5a6772;
+	    --c-border: #e1e4e8;
+	    --c-row: #f6f8fa;
+	    --c-code-bg: #eef1f4;
 
-.triage-pills {
-	margin-top: 0.5rem;
-}
+	h1 { margin: 0 0 4px; font-size: 26px; }
 
-.triage-pill {
-	border-radius: 10px;
-	display: inline-block;
-	font-size: 12px;
-	font-weight: 600;
-	margin-right: 6px;
-	padding: 2px 9px;
-	white-space: nowrap;
-}
+	h1 a.build-link { color: #0747a6; text-decoration: none; }
 
-.triage-error {
-	background: #fff0f1;
-	border: 1px solid #fe5160;
-	border-radius: 6px;
-	margin-bottom: 10px;
-	padding: 10px 12px;
-}
+	h1 a.build-link:hover { text-decoration: underline; }
 
-.triage-card {
-	background: $surface;
-	border: 1px solid $border;
-	border-radius: 6px;
-	margin: 0 0 10px;
-	overflow: hidden;
+	h1 .role {
+	    font-size: 13px; font-weight: 400; color: var(--c-muted);
+	    text-transform: uppercase; letter-spacing: .04em;
+	  }
 
-	summary {
-		align-items: baseline;
-		cursor: pointer;
-		display: flex;
-		gap: 10px;
-		list-style: none;
-		padding: 10px 12px;
+	.summary {
+	    color: var(--c-muted); font-size: 14px; margin-bottom: 20px;
+	    padding-bottom: 14px; border-bottom: 1px solid var(--c-border);
+	  }
 
-		&::-webkit-details-marker {
-			display: none;
+	h2 {
+	    margin: 36px 0 14px; font-size: 20px;
+	    border-bottom: 1px solid var(--c-border); padding-bottom: 6px;
+	  }
+
+	code {
+	    background: var(--c-code-bg); padding: 1px 5px; border-radius: 3px;
+	    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	    font-size: 0.92em;
+	    /* Explicit, because the portal theme sets `code` to a pink (#ff73c3)
+	       that the artifact never sees — it has no theme to inherit from. A
+	       file path is not a keyword and should not be highlighted like one. */
+	    color: var(--c-fg);
+	  }
+
+	/* ---- totals ---------------------------------------------------------- */
+	  /* Headline: counts on the left, the A x B matrix on the right. */
+	  /* Two columns: the controls you act with on the left, the numbers you read
+	     on the right, with the totals tucked under the matrix. Grid rather than
+	     flex on purpose — `minmax(0, 1fr)` guarantees the controls column can
+	     shrink below its content width, which three attempts at flex-basis plus
+	     min-width:0 could not do reliably (a flex item's automatic minimum size
+	     kept forcing the matrix onto its own row). */
+	  .headline {
+	    display: grid;
+	    /* The right track is capped: `auto` sized it to the totals pill row,
+	       which is very wide, and starved the controls column. Capping it lets
+	       the pills wrap under the matrix instead. */
+	    grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+	    gap: 18px; align-items: start; margin: 12px 0 14px;
+	  }
+
+	.headline .controls {
+	    display: flex; flex-direction: column; gap: 10px; min-width: 0;
+	  }
+
+	.headline .controls .viewbar,
+	  .headline .controls .filters { margin: 0; }
+
+	.headline .side {
+	    display: flex; flex-direction: column; gap: 10px; min-width: 0;
+	  }
+
+	@media (max-width: 1100px) {
+	    .headline { grid-template-columns: minmax(0, 1fr); }
+	  }
+
+	/* Full width, above the control band: the counts are the first thing read,
+	     and they are the one element that benefits from the whole page width. */
+	  .totals {
+	    display: flex; flex-direction: row; flex-wrap: wrap;
+	    gap: 8px 16px; align-items: baseline;
+	    padding: 11px 14px; margin: 0; background: var(--c-row);
+	    border-radius: 4px; border: 1px solid var(--c-border);
+	  }
+
+	.matrix {
+	    display: flex; flex-direction: column;
+	    padding: 12px 18px 14px; background: var(--c-row);
+	    border: 1px solid var(--c-border); border-radius: 4px;
+	  }
+
+	.matrix table { margin: 0 auto; }
+
+	.matrix-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+
+	.matrix table { width: auto; border-collapse: collapse; font-size: 12px; }
+
+	.matrix th {
+	    position: static; background: none; border: none; padding: 5px 20px;
+	    color: var(--c-muted); font-weight: 600; text-align: center;
+	    font-size: 11px; line-height: 1.3; white-space: nowrap;
+	  }
+
+	.matrix th span { font-weight: 700; color: var(--c-fg); }
+
+	.matrix td {
+	    padding: 9px 20px; text-align: center; font-weight: 700;
+	    border: 1px solid #edf0f3; font-size: 13px; min-width: 74px;
+	  }
+
+	.matrix td.same   { background: #f4f6f8; color: var(--c-fg); }
+
+	.matrix td.worse  { background: #fdecea; color: #a4302a; }
+
+	.matrix td.better { background: #e9f7ef; color: #1e6b45; }
+
+	.matrix td.zero   { background: #fbfcfd; }
+
+	.totals .pill {
+	    display: inline-flex; align-items: baseline; gap: 6px; font-size: 13px;
+	  }
+
+	.totals .pill .n { font-weight: 700; font-size: 16px; }
+
+	/* The fan-out: how many case rows the clusters cover. Secondary on purpose
+	     — clusters are the unit of work, cases are the blast radius. */
+	  .totals .pill .fanout { color: var(--c-muted); font-size: 11.5px; }
+
+	.totals a.pill { text-decoration: none; color: inherit; cursor: pointer; }
+
+	.totals a.pill:hover { text-decoration: underline; }
+
+	.verdict {
+	    display: inline-block; padding: 2px 8px; border-radius: 10px;
+	    font-size: 12px; font-weight: 600; color: white; white-space: nowrap;
+	  }
+
+	.verdict.bug { background: var(--c-bug); }
+
+	.verdict.pbug { background: var(--c-pbug); }
+
+	.verdict.needs { background: var(--c-needs); }
+
+	/* Deliberately muted: it is the absence of a finding, not a finding. */
+	  .verdict.unattr { background: #8895a4; }
+
+	.verdict.testfix { background: var(--c-testfix); }
+
+	.verdict.fp { background: var(--c-fp); }
+
+	.verdict.auto { background: var(--c-auto); }
+
+	.conf { display: inline-block; font-size: 12px; color: var(--c-muted); text-transform: lowercase; }
+
+	.conf.high { color: #1e8449; font-weight: 600; }
+
+	.conf.medium { color: #b9770e; font-weight: 600; }
+
+	.conf.low { color: #7d3c98; }
+
+	.status {
+	    display: inline-block;
+	    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	    font-size: 11px; color: var(--c-muted);
+	  }
+
+	.status .arrow { color: var(--c-muted); margin: 0 3px; }
+
+	.status .failed { color: var(--c-bug); font-weight: 600; }
+
+	.status .passed { color: #1e8449; }
+
+	.status .untested, .status .blocked { color: var(--c-needs); }
+
+	/* ---- banners --------------------------------------------------------- */
+	  section.rationale {
+	    margin: 14px 0 8px; padding: 14px 18px;
+	    background: #fff8e7; border-left: 3px solid var(--c-needs);
+	    border-radius: 4px; font-size: 13.5px;
+	  }
+
+	section.rationale h2 { margin: 0 0 8px; font-size: 15px; border: none; padding: 0; }
+
+	section.rationale ul, section.rationale ol { margin: 6px 0 0; padding-left: 22px; }
+
+	section.rationale li { margin-bottom: 5px; }
+
+	/* ---- controls -------------------------------------------------------- */
+	  .viewbar {
+	    display: flex; align-items: center; gap: 22px; flex-wrap: wrap; min-width: 0;
+	    margin: 18px 0 0; padding: 10px 14px;
+	    background: #f4f5f7; border: 1px solid var(--c-border);
+	    border-radius: 4px; font-size: 13px;
+	  }
+
+	.viewbar-group { display: flex; align-items: center; gap: 8px; }
+
+	.viewbar-label { font-weight: 600; }
+
+	.viewbar-note { color: var(--c-muted); font-size: 12px; }
+
+	.viewbar select, .filters select, .filters input[type="search"] {
+	    font: inherit; padding: 4px 6px; border: 1px solid var(--c-border);
+	    border-radius: 3px; background: #fff;
+	  }
+
+	.filters {
+	    display: flex; flex-direction: column; gap: 8px; min-width: 0;
+	    margin: 18px 0 14px; padding: 10px 14px;
+	    background: var(--c-row); border: 1px solid var(--c-border);
+	    border-radius: 4px; font-size: 13px;
+	  }
+
+	/* min-width:0 has to be repeated down the nesting: a flex item's default
+	     min-width is its min-content size, so without it the filter row keeps the
+	     controls column ~1580px wide and the matrix wraps to its own line. */
+	  .filters-row {
+	    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+	    min-width: 0;
+	  }
+
+	.filters label { font-weight: 600; }
+
+	/* The selects must be able to shrink: five of them at a fixed 200px kept
+	     the controls column above 1000px, which forced the matrix to wrap onto
+	     its own row instead of sitting beside them. */
+	  .filters select { min-width: 0; flex: 1 1 140px; max-width: 220px; }
+
+	.filters input[type="search"] { min-width: 0; flex: 1 1 220px; }
+
+	.filters-row > label { white-space: nowrap; }
+
+	.filters .visible-count { color: var(--c-muted); margin-left: auto; }
+
+	button.cluster-btn {
+	    font: inherit; font-size: 12.5px; padding: 4px 10px;
+	    border: 1px solid var(--c-border); border-radius: 3px;
+	    background: #fff; color: #0747a6; cursor: pointer;
+	  }
+
+	button.cluster-btn:hover { background: #f0f3f6; }
+
+	p.hint { color: var(--c-muted); font-size: 12.5px; margin: 4px 0 8px; }
+
+	p.hint kbd {
+	    background: #fff; border: 1px solid var(--c-border); border-bottom-width: 2px;
+	    border-radius: 3px; padding: 0 5px;
+	    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px;
+	  }
+
+	/* ---- table ----------------------------------------------------------- */
+	  table { width: 100%; border-collapse: collapse; font-size: 12.5px; table-layout: auto; }
+
+	thead th {
+	    position: sticky; top: 0; background: #f0f3f6; text-align: left;
+	    padding: 8px; border-bottom: 2px solid var(--c-border); font-weight: 600;
+	    cursor: pointer; user-select: none;
+	  }
+
+	thead th .sort-ind { color: var(--c-muted); font-size: 11px; margin-left: 4px; }
+
+	thead th.sorted .sort-ind { color: var(--c-fg); }
+
+	tbody td {
+	    padding: 8px; border-bottom: 1px solid var(--c-border); vertical-align: top;
+	    overflow-wrap: anywhere; word-break: break-word;
+	  }
+
+	th.col-idx { width: 62px; }
+
+	td.col-idx { white-space: nowrap; color: var(--c-muted); }
+
+	th.col-test, td.col-test { min-width: 220px; max-width: 340px; }
+
+	td.col-test {
+	    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	    font-size: 12px;
+	  }
+
+	td.col-test a.test-link { color: #0747a6; text-decoration: none; }
+
+	td.col-test a.test-link:hover { text-decoration: underline; }
+
+	th.col-comp { width: 130px; }
+
+	th.col-team { width: 110px; }
+
+	th.col-status { width: 130px; }
+
+	/* Status wraps at whitespace only (between the two state spans), never
+	     mid-word — overrides the global overflow-wrap:anywhere. */
+	  td.col-status { word-break: normal; overflow-wrap: normal; }
+
+	td.col-status .status > span { white-space: nowrap; }
+
+	th.col-baseline, td.col-baseline { width: 78px; text-align: center; }
+
+	td.col-baseline { font-weight: 700; font-size: 12px; }
+
+	td.col-baseline.novel   { color: var(--c-bug); }
+
+	td.col-baseline.rare    { color: #b9770e; }
+
+	td.col-baseline.chronic { color: var(--c-muted); font-weight: 400; }
+
+	th.col-verdict { width: 130px; }
+
+	th.col-confidence, td.col-confidence { width: 90px; text-align: center; }
+
+	th.col-culprit, td.col-culprit { min-width: 220px; }
+
+	th.col-reasoning, td.col-reasoning { min-width: 320px; }
+
+	td.col-culprit, td.col-reasoning { white-space: normal; line-height: 1.45; }
+
+	th.col-jira, td.col-jira { width: 110px; text-align: center; }
+
+	th.col-jira { cursor: help; }
+
+	a.jira-create {
+	    display: inline-block; padding: 4px 10px; background: #0052cc;
+	    color: #fff; border-radius: 3px; font-size: 12px;
+	    text-decoration: none; white-space: nowrap;
+	  }
+
+	a.jira-create:hover { background: #0747a6; }
+
+	/* ---- click-to-expand rows -------------------------------------------- */
+	  tr.case-row { cursor: pointer; }
+
+	tr.case-row:hover td { background: #eef1f4; }
+
+	tr.case-row td.col-idx::before { content: "\25B8 "; color: var(--c-muted); font-size: 11px; }
+
+	tr.case-row.expanded td.col-idx::before { content: "\25BE "; color: var(--c-fg); }
+
+	tr.case-row.expanded td { background: #f0f3f6; border-bottom-color: transparent; }
+
+	tr.case-detail > td { padding: 0; background: #fafbfc; border-bottom: 2px solid var(--c-border); }
+
+	tr.case-detail .case-detail-inner {
+	    padding: 14px 18px 16px; border-left: 3px solid var(--c-border); margin-left: 40px;
+	  }
+
+	tr.case-detail.bug .case-detail-inner { border-left-color: var(--c-bug); }
+
+	tr.case-detail.pbug .case-detail-inner { border-left-color: var(--c-pbug); }
+
+	tr.case-detail.needs .case-detail-inner { border-left-color: var(--c-needs); }
+
+	tr.case-detail.testfix .case-detail-inner { border-left-color: var(--c-testfix); }
+
+	tr.case-detail.fp .case-detail-inner { border-left-color: var(--c-fp); }
+
+	tr.case-detail.auto .case-detail-inner { border-left-color: var(--c-auto); }
+
+	tr.case-detail dl {
+	    margin: 0; display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 6px 14px;
+	  }
+
+	tr.case-detail dt { font-weight: 600; color: var(--c-muted); font-size: 13px; }
+
+	tr.case-detail dd {
+	    margin: 0; font-size: 13px; min-width: 0;
+	    overflow-wrap: anywhere; word-break: break-word;
+	  }
+
+	pre.error { white-space: pre-wrap; margin: 0; font-size: 12px; }
+
+	/* ---- cluster header rows --------------------------------------------
+	     A header sits on the same column grid as its members: count under Test,
+	     rollups under Component / Team, shared culprit and reason under theirs.
+	     It reads as a header through weight and tint, not through a colspan. */
+	  tr.cluster-row { cursor: pointer; }
+
+	tr.cluster-row > td {
+	    background: #eceff3; border-top: 2px solid #b3bac5;
+	    border-bottom: 1px solid var(--c-border); vertical-align: top;
+	    padding-top: 10px; padding-bottom: 11px;
+	  }
+
+	tr.cluster-row:hover > td { background: #e4e8ee; }
+
+	tr.cluster-row > td.col-idx {
+	    text-align: right; font-weight: 700; color: var(--c-muted);
+	    white-space: nowrap; border-left: 4px solid var(--c-border);
+	  }
+
+	tr.cluster-row > td.col-idx::before { content: "\25B8 "; color: var(--c-muted); font-size: 11px; }
+
+	tr.cluster-row.expanded > td.col-idx::before { content: "\25BE "; color: var(--c-fg); }
+
+	tr.cluster-row.bug > td.col-idx { border-left-color: var(--c-bug); }
+
+	tr.cluster-row.pbug > td.col-idx { border-left-color: var(--c-pbug); }
+
+	tr.cluster-row.needs > td.col-idx { border-left-color: var(--c-needs); }
+
+	tr.cluster-row.testfix > td.col-idx { border-left-color: var(--c-testfix); }
+
+	tr.cluster-row.fp > td.col-idx { border-left-color: var(--c-fp); }
+
+	tr.cluster-row.auto > td.col-idx { border-left-color: var(--c-auto); }
+
+	tr.cluster-row > td.col-test { font-family: inherit; white-space: nowrap; }
+
+	tr.cluster-row .cluster-n { font-weight: 700; font-size: 13px; }
+
+	tr.cluster-row > td.cluster-rollup { font-size: 11.5px; color: #42526e; white-space: normal; }
+
+	tr.cluster-row > td.cluster-rollup.multiple { font-style: italic; color: var(--c-muted); cursor: help; }
+
+	tr.cluster-row > td.cluster-culprit { font-size: 12px; color: #42526e; white-space: normal; }
+
+	tr.cluster-row .cluster-culprit-none { color: var(--c-muted); font-style: italic; }
+
+	tr.cluster-row > td.cluster-reason { font-size: 12.5px; line-height: 1.5; white-space: normal; }
+
+	tr.cluster-row .cluster-title { font-weight: 700; }
+
+	.cluster-reason-mixed { font-style: italic; color: #42526e; }
+
+	tr.cluster-row a.jira-create { font-size: 11.5px; padding: 3px 8px; white-space: normal; }
+
+	/* Member rows: indented, shared cells collapse to a pointer. */
+	  tr.case-row.in-cluster td.col-idx { padding-left: 18px; }
+
+	.same-as-cluster { color: var(--c-muted); font-size: 12px; white-space: nowrap; }
+
+	/* The arrow is only meaningful while the visible group IS the cluster. */
+	  table.per-test-table[data-mode="cluster"] .own-value { display: none; }
+
+	table.per-test-table:not([data-mode="cluster"]) .same-as-cluster { display: none; }
+
+	.same-as-cluster a { color: #0747a6; text-decoration: none; }
+
+	.same-as-cluster a:hover { text-decoration: underline; }
+
+	.cluster-key { font-size: 11px; color: var(--c-muted); }
+
+	/* The ticket/commit that touched the culprit file — the actionable half. */
+	  .culprit-commits {
+	    font-size: 11.5px; color: #42526e; margin-top: 3px; line-height: 1.4;
+	  }
+
+	// --- additions the CLI artifact has no need for -----------------------
+	// A static file cannot fail to load, be sorted by clicking, or filter
+	// itself, so these have no counterpart in report.py's _CSS.
+
+	h1 .subtitle {
+		color: var(--c-muted);
+		font-size: 14px;
+		font-weight: 400;
+
+		// The baseline build is still a link, but a blue one inside muted text
+		// fights it for attention — and the target build is the subject here.
+		a.build-link {
+			color: inherit;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
 		}
+	}
+
+	.triage-error {
+		background: #fdecea;
+		border: 1px solid var(--c-bug);
+		border-radius: 4px;
+		color: #7d1f16;
+		margin: 12px 0;
+		padding: 10px 14px;
+	}
+
+	// The write policy leaves rows out of the table on purpose, so the count
+	// that says so is tinted rather than sitting silently among the others.
+	.totals .pill.warn {
+		background: #fff8e6;
+		border-color: #e0b74a;
+	}
+
+	// The active verdict filter, set by clicking its own pill.
+	.totals .pill.on {
+		box-shadow: inset 0 0 0 2px var(--c-fg);
+	}
+
+	.clear-filters {
+		background: var(--c-bg);
+		border: 1px solid var(--c-border);
+		border-radius: 3px;
+		cursor: pointer;
+		font: inherit;
+		font-size: 12px;
+		padding: 3px 10px;
+	}
+
+	table.per-test-table th.sortable {
+		cursor: pointer;
+		user-select: none;
 
 		&:hover {
-			background: #f7f8f9;
+			color: var(--c-fg);
+			text-decoration: underline;
 		}
 	}
 
-	table {
-		border-collapse: collapse;
-		width: 100%;
+	.sort-arrow {
+		font-size: 10px;
 	}
 
-	th,
-	td {
-		border-top: 1px solid $border;
-		font-size: 13px;
-		padding: 6px 10px;
-		text-align: left;
-		vertical-align: top;
-	}
-
-	th {
-		background: #f7f8f9;
-		border-top: none;
-		color: $muted;
-		font-weight: 600;
-	}
-}
-
-.triage-culprit {
-	padding: 6px 12px;
-}
-
-.triage-sig {
-	flex: 1;
-	font-size: 13px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
-
-.triage-count {
-	color: $muted;
-	font-size: 12px;
-	white-space: nowrap;
-}
-
-code {
-	font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-	font-size: 12px;
-	word-break: break-all;
-}
-
-/**
- * The build-index diamond, used by the hook in liferay-testray-custom-element.
- * Shipped from this CX so the colour vocabulary lives in one place; the hook
- * only adds the markup.
- */
-.triage-diamond {
-	display: inline-block;
-	height: 10px;
-	transform: rotate(45deg);
-	width: 10px;
-
-	&.is-clickable {
+	// Rows open their detail panel on click, so say so with the cursor.
+	table.per-test-table tr.case-row {
 		cursor: pointer;
+	}
+
+	// Back-to-routine. The artifact has no counterpart: a downloaded file has
+	// nowhere to go back to.
+	.back-link {
+		color: #0747a6;
+		display: inline-block;
+		font-size: 13px;
+		margin-bottom: 6px;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
 	}
 }

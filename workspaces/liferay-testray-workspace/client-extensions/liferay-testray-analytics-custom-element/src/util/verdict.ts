@@ -6,52 +6,183 @@
 /**
  * Verdict presentation, kept in step with the CLI's `report.py`.
  *
- * Colours are Testray's own, so the triage view reads as part of the product:
- * `styles/_variables.scss` ($failedColor, $passedColor, $blockedColor) and
- * `util/constants.ts` DATA_COLORS. Verdicts are ours rather than Testray
- * statuses, so they are mapped onto the nearest product meaning — BUG takes the
- * FAILED red, POSSIBLEBUG the lighter status-pill red, NEEDSREVIEW the BLOCKED
- * amber ("needs attention"), TESTFIX the exact TEST_FIX blue, and the
- * non-actionable buckets the incomplete/untested greys.
+ * The two renderers must agree, so this file mirrors `_VERDICT_ORDER`,
+ * `_VERDICT_CLASS`, `display_verdict`, `_rollup` and the explicit sort ranks
+ * rather than inventing a second vocabulary. Where they disagree the report is
+ * the authority — it is the artifact people have already read.
  *
- * Picklist keys arrive flattened (`POSSIBLEBUG`, not `POSSIBLE_BUG`): Liferay
- * strips underscores from list-type entry keys, which is why the writer
- * flattens enums on the way in.
+ * Verdicts are ours rather than Testray statuses, so colours are mapped onto
+ * the nearest product meaning from `styles/_variables.scss`: BUG takes the
+ * FAILED red, POSSIBLE_BUG the lighter status-pill red, NEEDS_REVIEW the
+ * BLOCKED amber, TEST_FIX the exact TEST_FIX blue, and the non-actionable
+ * buckets the incomplete/untested greys.
  */
 
-type Swatch = {bg: string; fg: string; label: string};
-
-/** Severity order — index doubles as the sort rank. */
-export const VERDICT_ORDER = [
-	'BUG',
-	'POSSIBLEBUG',
-	'TESTFIX',
-	'NEEDSREVIEW',
-	'FALSEPOSITIVE',
-	'ENVFAILURE',
-	'DIDNOTRUN',
-] as const;
-
-const UNKNOWN: Swatch = {bg: '#E3E9EE', fg: '#22262a', label: 'Unclassified'};
-
-export const VERDICT: Record<string, Swatch> = {
-	BUG: {bg: '#E73A45', fg: '#fff', label: 'Bug'},
-	DIDNOTRUN: {bg: '#E3E9EE', fg: '#22262a', label: 'Did Not Run'},
-	ENVFAILURE: {bg: '#E3E9EE', fg: '#22262a', label: 'Env Failure'},
-	FALSEPOSITIVE: {bg: '#BCBDC0', fg: '#22262a', label: 'False Positive'},
-	NEEDSREVIEW: {bg: '#F8D72E', fg: '#3a3000', label: 'Needs Review'},
-	POSSIBLEBUG: {bg: '#FE5160', fg: '#fff', label: 'Possible Bug'},
-	TESTFIX: {bg: '#59BBFC', fg: '#08243c', label: 'Test Fix'},
+/**
+ * Liferay strips underscores from picklist entry keys, so the stored verdict
+ * reads back as POSSIBLEBUG where the report says POSSIBLE_BUG. Canonicalise
+ * on the way in: one vocabulary downstream, and it is the report's.
+ */
+const CANONICAL: Record<string, string> = {
+	AUTOCLASSIFIED: 'AUTO_CLASSIFIED',
+	DIDNOTRUN: 'DID_NOT_RUN',
+	ENVFAILURE: 'ENV_FAILURE',
+	FALSEPOSITIVE: 'FALSE_POSITIVE',
+	NEEDSREVIEW: 'NEEDS_REVIEW',
+	NOTATTRIBUTABLE: 'NOT_ATTRIBUTABLE',
+	POSSIBLEBUG: 'POSSIBLE_BUG',
+	TESTFIX: 'TEST_FIX',
 };
 
-export const swatch = (verdict?: string): Swatch =>
-	(verdict && VERDICT[verdict]) || UNKNOWN;
+export const canonicalVerdict = (key?: string): string =>
+	key ? CANONICAL[key] ?? key : '';
+
+/** Severity order — the index doubles as the sort rank. */
+export const VERDICT_ORDER = [
+	'BUG',
+	'POSSIBLE_BUG',
+	'NEEDS_REVIEW',
+	'TEST_FIX',
+	'NOT_ATTRIBUTABLE',
+	'FALSE_POSITIVE',
+	'ENV_FAILURE',
+	'DID_NOT_RUN',
+	'AUTO_CLASSIFIED',
+	'PENDING',
+] as const;
+
+/**
+ * NOT_ATTRIBUTABLE is a DISPLAY label, never a stored verdict.
+ *
+ * A low-confidence NEEDS_REVIEW is the classifier saying "I could not
+ * attribute this", not "a human must review 153 failures" — and reporting the
+ * latter to a dev team misrepresents what was actually said. The stored
+ * classification stays NEEDS_REVIEW, so nothing in the picklist or the writer
+ * moves.
+ */
+const UNATTRIBUTED_FROM = 'NEEDS_REVIEW';
+const UNATTRIBUTED_AT = new Set(['low', '']);
+
+export function displayVerdict(verdict?: string, confidence?: string): string {
+	const canonical = canonicalVerdict(verdict);
+
+	return canonical === UNATTRIBUTED_FROM &&
+		UNATTRIBUTED_AT.has((confidence ?? '').toLowerCase())
+		? 'NOT_ATTRIBUTABLE'
+		: canonical;
+}
+
+/**
+ * CSS class per verdict. Several non-actionable buckets share `auto` because
+ * they are all "the pipeline decided this without reasoning about it".
+ */
+const VERDICT_CLASS: Record<string, string> = {
+	AUTO_CLASSIFIED: 'auto',
+	BUG: 'bug',
+	DID_NOT_RUN: 'auto',
+	ENV_FAILURE: 'auto',
+	FALSE_POSITIVE: 'fp',
+	NEEDS_REVIEW: 'needs',
+	NOT_ATTRIBUTABLE: 'unattr',
+	PENDING: 'auto',
+	POSSIBLE_BUG: 'pbug',
+	TEST_FIX: 'testfix',
+};
+
+export const verdictClass = (verdict?: string): string =>
+	VERDICT_CLASS[verdict ?? ''] ?? 'auto';
 
 export const verdictRank = (verdict?: string): number => {
-	const index = VERDICT_ORDER.indexOf(verdict as never);
+	const index = VERDICT_ORDER.indexOf((verdict ?? '') as never);
 
 	return index === -1 ? VERDICT_ORDER.length : index;
 };
+
+/**
+ * The most severe verdict in a group — what a cluster header shows.
+ *
+ * A cluster is only as safe as its worst member: one BUG among thirty
+ * FALSE_POSITIVEs is still a BUG, and rolling up to the majority would hide
+ * exactly the row worth acting on. Returns '' when nothing is classified.
+ */
+export function rollup(verdicts: Array<string | undefined>): string {
+	let best = '';
+	let bestRank: number = VERDICT_ORDER.length;
+
+	for (const verdict of verdicts) {
+		if (!verdict) {
+			continue;
+		}
+
+		const rank = verdictRank(verdict);
+
+		if (rank < bestRank) {
+			best = verdict;
+			bestRank = rank;
+		}
+	}
+
+	return best;
+}
+
+export const CONFIDENCE_ORDER: Record<string, number> = {
+	high: 0,
+	low: 2,
+	medium: 1,
+};
+
+export const confidenceRank = (confidence?: string): number =>
+	CONFIDENCE_ORDER[(confidence ?? '').toLowerCase()] ?? 9;
+
+/**
+ * Signature novelty.
+ *
+ * Confidence cannot rank this data — a representative run split 140 low / 13
+ * medium / 0 high — so a reader falls back to the transition label, which
+ * invites a cut that looks obvious and destroys real defects. Novelty is
+ * uniform across `new` and `changed`, and it is the honest key.
+ */
+const NOVELTY: Array<[number, number, string, string]> = [
+	[0, 0, 'novel', 'Never seen in the baseline'],
+	[1, 4, 'rare', 'Rare in the baseline (1-4)'],
+	[5, Number.MAX_SAFE_INTEGER, 'chronic', 'Already chronic in the baseline (5+)'],
+];
+
+export function noveltyBucket(count?: number): {label: string; key: string} {
+	if (count === undefined || count === null || Number.isNaN(count)) {
+		return {key: '', label: ''};
+	}
+
+	for (const [lo, hi, key, label] of NOVELTY) {
+		if (count >= lo && count <= hi) {
+			return {key, label};
+		}
+	}
+
+	return {key: '', label: ''};
+}
+
+/** PASSED is the only good state, so anything else is a regression from it. */
+export const worse = (a: string, b: string): boolean =>
+	a === 'PASSED' && b !== 'PASSED';
+
+export const STATUS_ORDER = [
+	'PASSED',
+	'FAILED',
+	'BLOCKED',
+	'TESTFIX',
+	'UNTESTED',
+	'DIDNOTRUN',
+];
+
+const STATUS_LABEL: Record<string, string> = {
+	DIDNOTRUN: 'DNR',
+	TESTFIX: 'Test Fix',
+	UNTESTED: 'DNR',
+};
+
+export const statusLabel = (code: string): string =>
+	STATUS_LABEL[code] ?? code.charAt(0) + code.slice(1).toLowerCase();
 
 /**
  * Triage-run state for the build-index diamond.

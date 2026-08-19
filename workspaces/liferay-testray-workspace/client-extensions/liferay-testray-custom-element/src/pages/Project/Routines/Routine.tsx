@@ -117,10 +117,23 @@ const Routine = () => {
 						},
 						{
 							key: 'triage',
-							render: (_, {id}: TestrayBuild) => {
+							render: (
+								_,
+								{testrayBuildId}: TestrayBuild
+							) => {
+								// testrayBuildId, not id: this row comes
+								// from testray-builds-metrics, whose DTO
+								// prefixes every field. Reading `id` gave
+								// undefined, so the map lookup always missed
+								// and the column rendered empty. It is
+								// optional on the DTO, so coerce once — NaN
+								// misses the map, which is the same "no run"
+								// outcome as an absent key.
+								const buildId = Number(testrayBuildId);
+
 								const status =
-									triageRuns.get(Number(id))
-										?.triageRunStatus?.key;
+									triageRuns.get(buildId)?.triageRunStatus
+										?.key;
 
 								// Nothing at all when a build has no triage
 								// run — the same way an unpromoted build shows
@@ -144,7 +157,7 @@ const Routine = () => {
 								return (
 									<span title={label}>
 										{clickable ? (
-											<a href={triageURL(id)}>
+											<a href={triageURL(buildId)}>
 												{diamond}
 											</a>
 										) : (
@@ -153,7 +166,6 @@ const Routine = () => {
 									</span>
 								);
 							},
-							size: 'sm',
 							value: i18n.translate('triage'),
 						},
 						{

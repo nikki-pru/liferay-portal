@@ -6,20 +6,221 @@
 import useSWR from 'swr';
 
 import type {
-	Cluster,
+	CaseResult,
 	Page,
+	Row,
 	TriageResult,
 	TriageRoutineSetting,
 	TriageRun,
 } from '~/types';
-import {verdictRank} from '~/util/verdict';
-import {fetcher, fkEquals, fkIn} from './fetcher';
+import {displayVerdict} from '~/util/verdict';
+import {
+	chunk,
+	fetcher,
+	fkEquals,
+	fkIn,
+	idIn,
+	paginate,
+	request,
+} from './fetcher';
 
 const PAGE_SIZE = 200;
 
 const q = (path: string, filter?: string, pageSize = PAGE_SIZE) =>
 	`${path}?pageSize=${pageSize}` +
 	(filter ? `&filter=${encodeURIComponent(filter)}` : '');
+
+/**
+ * The columns the table and detail panel actually read.
+ *
+ * A `fields=` projection is not premature tuning here: the unprojected row
+ * carries the full build log twice over, and on a real run it was the
+ * difference between 402 KiB and 135 KiB. The nested CaseResult is NOT
+ * projected — `fields` does not reach into an expansion — so the expansion is
+ * what the payload costs, and it is why only one relationship is expanded.
+ */
+const RESULT_FIELDS = [
+	'id',
+	'externalReferenceCode',
+	'clusterKey',
+	'classification',
+	'confidence',
+	'culpritFile',
+	'reason',
+	'specificChange',
+	'transition',
+	'statusA',
+	'baselineSignatureCount',
+	'suspiciousCommits',
+	'caseResultToTriageResults',
+].join(',');
+
+/**
+ * Every TriageResult for a build, with its CaseResult and Case expanded.
+ *
+ * `nestedFieldsDepth=2` is what makes this one request instead of three: depth
+ * 1 expands the CaseResult (status, error text, component and team ids) and
+ * depth 2 reaches the Case, which is the only place the test NAME lives. Only
+ * `case` and `creator` expand at depth 2 — component and team do not — so
+ * those two still need resolving by id, which `useReport` does below.
+ */
+const resultsURL = (buildId: number) => (page: number) =>
+	`/o/c/triageresults?page=${page}&pageSize=${PAGE_SIZE}` +
+	`&filter=${encodeURIComponent(`startswith(externalReferenceCode,'${buildId}_')`)}` +
+	`&fields=${encodeURIComponent(RESULT_FIELDS)}` +
+	`&nestedFields=caseResultToTriageResults&nestedFieldsDepth=2`;
+
+/** Object REST serialises bigint columns as strings; '' and null both mean absent. */
+const num = (value: unknown): number | undefined => {
+	if (value === undefined || value === null || value === '') {
+		return undefined;
+	}
+
+	const n = Number(value);
+
+	return Number.isNaN(n) ? undefined : n;
+};
+
+const str = (value: unknown): string =>
+	value === undefined || value === null ? '' : String(value);
+
+/**
+ * The expansion lands under a different key depending on the query: with a
+ * `fields=` projection it is `caseResultToTriageResults`, without one it is
+ * `r_caseResultToTriageResults_c_caseResult`. Read whichever is present rather
+ * than coupling this to the projection above.
+ */
+const caseResultOf = (result: TriageResult): CaseResult =>
+	result.caseResultToTriageResults ??
+	result.r_caseResultToTriageResults_c_caseResult ??
+	{};
+
+/** Resolve `{id: name}` for a set of ids, batched to stay inside the URL limit. */
+async function namesById(
+	path: string,
+	ids: number[]
+): Promise<Map<number, string>> {
+	const out = new Map<number, string>();
+
+	if (!ids.length) {
+		return out;
+	}
+
+	const pages = await Promise.all(
+		chunk(ids).map((batch) =>
+			request<Page<{id: number | string; name?: string}>>(
+				`${path}?pageSize=${batch.length}` +
+					`&fields=${encodeURIComponent('id,name')}` +
+					`&filter=${encodeURIComponent(idIn(batch))}`
+			)
+		)
+	);
+
+	for (const page of pages) {
+		for (const item of page.items ?? []) {
+			const id = num(item.id);
+
+			if (id !== undefined) {
+				out.set(id, str(item.name));
+			}
+		}
+	}
+
+	return out;
+}
+
+/**
+ * Flatten TriageResults into table rows.
+ *
+ * Field names match `report.py`'s dataframe columns so the two renderers can
+ * be read side by side. Every FK and string-typed number is resolved here so
+ * no component below has to know about Liferay's relationship key naming.
+ */
+export function toRows(
+	results: TriageResult[],
+	teams: Map<number, string>,
+	components: Map<number, string>
+): Row[] {
+	return results.map((result) => {
+		const caseResult = caseResultOf(result);
+		const verdict = str(result.classification?.key);
+		const confidence = str(result.confidence?.key).toLowerCase();
+		const teamId = num(caseResult.r_teamToCaseResult_c_teamId);
+		const componentId = num(caseResult.r_componentToCaseResult_c_componentId);
+
+		return {
+			baselineSignatureCount: num(result.baselineSignatureCount),
+			caseName:
+				str(caseResult.r_caseToCaseResult_c_case?.name) || '(unnamed)',
+			caseResultId: num(caseResult.id),
+			// An unclustered row must not merge with other unclustered rows,
+			// so it gets a key of its own rather than a shared '' bucket.
+			clusterKey: result.clusterKey || `unclustered:${result.id}`,
+			component: componentId === undefined ? '' : components.get(componentId) ?? '',
+			confidence,
+			culpritCommits: str(result.suspiciousCommits),
+			culpritFile: str(result.culpritFile),
+			displayVerdict: displayVerdict(verdict, confidence),
+			errorMessage: str(caseResult.errors),
+			id: result.id,
+			linkedIssues: str(caseResult.issues),
+			reason: str(result.reason),
+			specificChange: str(result.specificChange),
+			statusA: str(result.statusA),
+			statusB: str(caseResult.dueStatus?.key),
+			team: teamId === undefined ? '' : teams.get(teamId) ?? '',
+			transition: str(result.transition),
+			verdict,
+		};
+	});
+}
+
+/**
+ * Everything the report view needs for one build.
+ *
+ * One SWR key so the three requests load and revalidate as a unit — a table
+ * rendered from results that arrived before their team names would show a
+ * column of blanks and then reflow.
+ */
+export function useReport(buildId?: number) {
+	const {data, error, isLoading} = useSWR(
+		buildId ? ['report', buildId] : null,
+		async () => {
+			const results = await paginate<TriageResult>(resultsURL(buildId!));
+
+			const teamIds = new Set<number>();
+			const componentIds = new Set<number>();
+
+			for (const result of results) {
+				const caseResult = caseResultOf(result);
+				const teamId = num(caseResult.r_teamToCaseResult_c_teamId);
+				const componentId = num(
+					caseResult.r_componentToCaseResult_c_componentId
+				);
+
+				if (teamId) {
+					teamIds.add(teamId);
+				}
+
+				if (componentId) {
+					componentIds.add(componentId);
+				}
+			}
+
+			// By id rather than wholesale: a run touches a few dozen of the
+			// ~840 components and ~80 teams, and the id sets are already in
+			// hand.
+			const [teams, components] = await Promise.all([
+				namesById('/o/c/teams', [...teamIds]),
+				namesById('/o/c/components', [...componentIds]),
+			]);
+
+			return toRows(results, teams, components);
+		}
+	);
+
+	return {error, isLoading, rows: data ?? []};
+}
 
 /**
  * Triage runs for a set of builds — the build-index column's single query.
@@ -69,28 +270,6 @@ export function useTriageRun(buildId?: number) {
 	return {error, isLoading, run: data?.items?.[0]};
 }
 
-/**
- * A build's triage results.
- *
- * Reached by ERC prefix rather than a relationship: the writer's idempotency
- * key is `<buildB>_<caseId>_<classifier>` (open-Q #1), so the build id is
- * already the leading segment. That is why `TriageRun` needs no
- * `TriageRun`→`TriageResult` relationship — one less field, and no risk of a
- * late-added relationship landing in the `_x` table.
- */
-export function useTriageResults(buildId?: number) {
-	const key = buildId
-		? q(
-				'/o/c/triageresults',
-				`startswith(externalReferenceCode,'${buildId}_')`
-			)
-		: null;
-
-	const {data, error, isLoading} = useSWR<Page<TriageResult>>(key, fetcher);
-
-	return {error, isLoading, results: data?.items ?? []};
-}
-
 export function useRoutineSetting(routineId?: number) {
 	const key = routineId
 		? q(
@@ -111,45 +290,56 @@ export function useRoutineSetting(routineId?: number) {
 }
 
 /**
- * Group results by clusterKey, worst verdict first and biggest within that.
+ * Build names, for the report title.
  *
- * Severity outranks size deliberately: a 30-member NEEDSREVIEW cluster still
- * sorts below a single BUG, because the BUG is the thing to act on. Mirrors
- * `report.py::_clusters` so the CLI preview and this view agree.
+ * `TriageRun` stores the build FKs but not their names, so this is one extra
+ * request for the target and baseline together.
+ *
+ * Worth knowing: `/o/c/builds` appears to 404 by id and return an empty
+ * collection when probed with a bare `fetch`. That is not a permission wall —
+ * it is a missing `x-csrf-token`, which `request()` always sends. Do not
+ * conclude the object is unreadable without that header.
  */
-export function toClusters(results: TriageResult[]): Cluster[] {
-	const buckets = new Map<string, TriageResult[]>();
+export function useBuildNames(ids: Array<number | undefined>) {
+	const wanted = [...new Set(ids.filter((id): id is number => Boolean(id)))];
 
-	for (const result of results) {
-		const key = result.clusterKey || `unclustered:${result.id}`;
-		const bucket = buckets.get(key);
+	const {data} = useSWR(
+		wanted.length ? ['buildNames', ...wanted] : null,
+		async () => {
+			const page = await request<Page<{id: number | string; name?: string}>>(
+				`/o/c/builds?pageSize=${wanted.length}` +
+					`&fields=${encodeURIComponent('id,name')}` +
+					`&filter=${encodeURIComponent(idIn(wanted))}`
+			);
 
-		if (bucket) {
-			bucket.push(result);
+			const names = new Map<number, string>();
+
+			for (const item of page.items ?? []) {
+				const id = num(item.id);
+
+				if (id !== undefined) {
+					names.set(id, str(item.name));
+				}
+			}
+
+			return names;
 		}
-		else {
-			buckets.set(key, [result]);
-		}
+	);
+
+	return data ?? new Map<number, string>();
+}
+
+/** Parse one of TriageRun's JSON blob fields, tolerating absence and garbage. */
+export function parseBlob<T>(raw: string | undefined, fallback: T): T {
+	if (!raw) {
+		return fallback;
 	}
 
-	const clusters: Cluster[] = [...buckets].map(([clusterKey, members]) => {
-		const sorted = [...members].sort(
-			(a, b) =>
-				verdictRank(a.classification?.key) -
-				verdictRank(b.classification?.key)
-		);
-
-		return {
-			clusterKey,
-			culpritFile: sorted.find((m) => m.culpritFile)?.culpritFile,
-			members: sorted,
-			worstVerdict: sorted[0]?.classification?.key,
-		};
-	});
-
-	return clusters.sort(
-		(a, b) =>
-			verdictRank(a.worstVerdict) - verdictRank(b.worstVerdict) ||
-			b.members.length - a.members.length
-	);
+	try {
+		return JSON.parse(raw) as T;
+	}
+	catch {
+		// A malformed blob is a writer bug, not a reason to blank the report.
+		return fallback;
+	}
 }

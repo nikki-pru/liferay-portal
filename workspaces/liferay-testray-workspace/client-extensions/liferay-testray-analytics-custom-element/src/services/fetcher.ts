@@ -69,3 +69,50 @@ export const fkEquals = (field: string, id: number | string) =>
 
 export const fkIn = (field: string, ids: Array<number | string>) =>
 	`${field} in (${ids.map((id) => `'${id}'`).join(',')})`;
+
+/**
+ * `id` follows the same rule as the relationship FKs above: `id eq 282268`
+ * fails with `Incompatible types` and `id in ('282268')` works. There is no
+ * `eq` form that accepts an unquoted primary key, so single-id lookups go
+ * through `in` too.
+ */
+export const idIn = (ids: Array<number | string>) => fkIn('id', ids);
+
+/**
+ * Split ids into URL-safe batches.
+ *
+ * An `in (…)` filter is a query-string parameter, so a run with ~550 rows
+ * would push a single filter past the container's header limit and fail as an
+ * opaque 400. 100 ids is roughly 800 characters — comfortably inside it.
+ */
+export function chunk<T>(items: T[], size = 100): T[][] {
+	const out: T[][] = [];
+
+	for (let i = 0; i < items.length; i += size) {
+		out.push(items.slice(i, i + size));
+	}
+
+	return out;
+}
+
+/**
+ * Follow `lastPage` and return every item.
+ *
+ * Object REST caps a page well below the row count of a large run, and a
+ * silently truncated first page is worse than a slower load: the table would
+ * under-report failures without saying so.
+ */
+export async function paginate<T>(
+	url: (page: number) => string
+): Promise<T[]> {
+	const first = await request<{items: T[]; lastPage: number}>(url(1));
+	const items = [...(first.items ?? [])];
+
+	for (let page = 2; page <= (first.lastPage ?? 1); page++) {
+		const next = await request<{items: T[]}>(url(page));
+
+		items.push(...(next.items ?? []));
+	}
+
+	return items;
+}

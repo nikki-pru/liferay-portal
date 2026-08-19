@@ -5,12 +5,26 @@
 
 import ClayEmptyState from '@clayui/empty-state';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
-import {useMemo} from 'react';
+import {useMemo, useState} from 'react';
+import useSWR from 'swr';
 
-import ClusterCard from '~/components/ClusterCard';
-import VerdictPill from '~/components/VerdictPill';
-import {toClusters, useTriageResults, useTriageRun} from '~/services/triage';
-import {VERDICT_ORDER} from '~/util/verdict';
+import Controls, {
+	EMPTY_FILTERS,
+	type Filters,
+	applyFilters,
+} from '~/components/Controls';
+import StatusMatrix from '~/components/StatusMatrix';
+import Totals from '~/components/Totals';
+import TriageTable, {type SortKey} from '~/components/TriageTable';
+import {
+	parseBlob,
+	useBuildNames,
+	useReport,
+	useTriageRun,
+} from '~/services/triage';
+import type {GroupMode} from '~/types';
+import type {ReportMeta} from '~/util/jira';
+import {toClusters, toGroups} from '~/util/rows';
 
 type Props = {
 	buildId: number;
@@ -20,39 +34,120 @@ type Props = {
  * The clustered triage view — the in-app replacement for `report.html`.
  *
  * Renders from the TriageResult rows already in Testray rather than from a
- * generated artifact, so there is nothing to host and no second copy of data
- * we already store. `report.py` stays as the local dev preview for inspecting
- * a run without DXP.
+ * generated artifact, so there is nothing to host and no second copy of data we
+ * already store. `report.py` stays as the local dev preview for inspecting a
+ * run without DXP, and the two are deliberately kept diffable: same column
+ * order, same verdict vocabulary, same cluster-led totals.
  */
 const TriageReport: React.FC<Props> = ({buildId}) => {
 	const {isLoading: runLoading, run} = useTriageRun(buildId);
-	const {isLoading: resultsLoading, results} = useTriageResults(buildId);
+	const {error, isLoading: rowsLoading, rows} = useReport(buildId);
 
-	const clusters = useMemo(() => toClusters(results), [results]);
+	const [mode, setMode] = useState<GroupMode>('cluster');
+	const [filters, setFilters] = useState<Filters>(EMPTY_FILTERS);
+	const [sort, setSort] = useState<{ascending: boolean; key: SortKey}>({
+		ascending: true,
+		key: '',
+	});
 
-	const counts = useMemo(() => {
-		const tally = new Map<string, number>();
+	// Collapsed by default (view contract rule 4): the cluster list IS the
+	// overview, and unfolding every member on load buries it under hundreds of
+	// rows. Keyed by group label rather than index so the set survives a
+	// regroup or a sort.
+	const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
-		for (const result of results) {
-			const key = result.classification?.key ?? 'UNCLASSIFIED';
+	const routineId = run?.r_routineToTriageRuns_c_routineId;
+	const baselineId = run?.r_baselineBuildToTriageRuns_c_buildId;
 
-			tally.set(key, (tally.get(key) ?? 0) + 1);
-		}
+	const buildNames = useBuildNames([buildId, baselineId]);
 
-		return [...tally].sort(
-			(a, b) =>
-				VERDICT_ORDER.indexOf(a[0] as never) -
-				VERDICT_ORDER.indexOf(b[0] as never)
-		);
-	}, [results]);
+	// Falls back to the id so the title is never blank while the names load or
+	// if a build has since been removed. An id is a worse label than a name but
+	// it still identifies the run.
+	const targetLabel = buildNames.get(buildId) || String(buildId);
+	const baselineLabel = baselineId
+		? buildNames.get(baselineId) || String(baselineId)
+		: '';
 
-	if (runLoading || resultsLoading) {
+	// The case deep-link needs a project id, which TriageRun does not store —
+	// the routine is the only place to get it. A half-built link would read as
+	// a Testray bug rather than a missing field here, so `caseURL` returns ''
+	// until this resolves. The routine's name comes along for the back link.
+	const {data: routine} = useSWR<{
+		name?: string;
+		r_routineToProjects_c_projectId?: number;
+	}>(routineId ? `/o/c/routines/${routineId}` : null);
+
+	const projectId = routine?.r_routineToProjects_c_projectId;
+
+	// Same assumption as `TRIAGE_PATH` in the Testray hook: the site lives at
+	// this friendly URL. Wrong anywhere but a local instance, and it has to come
+	// from configuration before this ships — see ARCHITECTURE §9.
+	const routineURL =
+		projectId && routineId
+			? `${window.location.origin}/web/liferay-testray#/project/${projectId}` +
+				`/routines/${routineId}`
+			: '';
+
+	const visible = useMemo(() => applyFilters(rows, filters), [rows, filters]);
+
+	const clusters = useMemo(() => toClusters(visible), [visible]);
+
+	const clustersByKey = useMemo(
+		() => new Map(clusters.map((cluster) => [cluster.clusterKey, cluster])),
+		[clusters]
+	);
+
+	const groups = useMemo(() => toGroups(visible, mode), [visible, mode]);
+
+	const filtering = useMemo(
+		() => Object.values(filters).some(Boolean),
+		[filters]
+	);
+
+	const buildURL = (id?: number) =>
+		routineURL && id ? `${routineURL}/build/${id}` : '';
+
+	const meta: ReportMeta = useMemo(() => {
+		return {
+			buildId,
+			buildName: buildNames.get(buildId),
+			caseURL: (caseResultId?: number) =>
+				routineURL && caseResultId
+					? `${routineURL}/build/${buildId}/case-result/${caseResultId}`
+					: '',
+			classifier: run?.classifier,
+			runId: run?.externalReferenceCode,
+		};
+	}, [buildId, buildNames, routineURL, run]);
+
+	const matrix = useMemo(
+		() =>
+			parseBlob<Record<string, Record<string, number>>>(
+				run?.statusMatrix,
+				{}
+			),
+		[run]
+	);
+
+	if (runLoading || rowsLoading) {
 		return <ClayLoadingIndicator displayType="secondary" size="md" />;
+	}
+
+	if (error) {
+		return (
+			<ClayEmptyState
+				description={`Could not load the triage results for build ${buildId}. ${
+					(error as Error).message ?? ''
+				}`}
+				title="Failed to load"
+			/>
+		);
 	}
 
 	// No run and no results is the ordinary case for most builds, not an error:
 	// triage is opt-in per routine (autoTriage) and manual otherwise.
-	if (!run && !results.length) {
+	if (!run && !rows.length) {
 		return (
 			<ClayEmptyState
 				description="This build has not been triaged. Select a baseline and target from the Triage panel to run one."
@@ -65,31 +160,50 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 
 	return (
 		<div className="triage-report">
-			<h1>Triage report — build {buildId}</h1>
+			{/* The view is its own portal page, outside Testray's router, so
+			    it inherits none of Testray's navigation — no sidebar and no
+			    breadcrumb. Until it becomes a route inside their Layout, this
+			    one link is the way back to where the reader came from. */}
+			{routineURL ? (
+				<a className="back-link" href={routineURL}>
+					&larr; {routine?.name || 'Back to routine'}
+				</a>
+			) : null}
 
-			<div className="triage-meta">
-				{run?.r_baselineBuildToTriageRuns_c_buildId ? (
-					<>baseline {run.r_baselineBuildToTriageRuns_c_buildId} &middot; </>
+			{/* Build names, not ids: "270748 vs 270750" tells a reader nothing,
+			    and the version pair is the whole subject of the report. The
+			    baseline half is muted because the two names are often wildly
+			    asymmetric in length — one routine's builds are named
+			    "2026.q1.12-lts", another's carry the routine, sequence and a
+			    timestamp — and letting the longer one set the type size makes
+			    the target hard to find. */}
+			<h1>
+				Triage report:{' '}
+				{buildURL(buildId) ? (
+					<a className="build-link" href={buildURL(buildId)}>
+						{targetLabel}
+					</a>
+				) : (
+					targetLabel
+				)}
+
+				{baselineLabel ? (
+					<span className="subtitle" title={baselineLabel}>
+						{' '}
+						vs baseline{' '}
+						{buildURL(baselineId) ? (
+							<a
+								className="build-link"
+								href={buildURL(baselineId)}
+							>
+								{baselineLabel}
+							</a>
+						) : (
+							baselineLabel
+						)}
+					</span>
 				) : null}
-
-				{run?.analysisMode ?? 'build-vs-build'}
-
-				{run?.classifier ? <> &middot; {run.classifier}</> : null}
-
-				<> &middot; {results.length} failures</>
-
-				<> &middot; {clusters.length} clusters</>
-
-				<div className="triage-pills">
-					{counts.map(([verdict, count]) => (
-						<VerdictPill
-							count={count}
-							key={verdict}
-							verdict={verdict}
-						/>
-					))}
-				</div>
-			</div>
+			</h1>
 
 			{failed && (
 				<div className="triage-error">
@@ -99,9 +213,86 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 				</div>
 			)}
 
-			{clusters.map((cluster) => (
-				<ClusterCard cluster={cluster} key={cluster.clusterKey} />
-			))}
+			<div className="headline">
+				<div className="controls">
+					<Totals
+						activeVerdict={filters.verdict}
+						clusters={clusters}
+						onPickVerdict={(verdict) =>
+							setFilters({...filters, verdict})
+						}
+						rows={visible}
+						run={run}
+					/>
+
+					<Controls
+						filters={filters}
+						mode={mode}
+						onExpandAll={(expand) =>
+							setExpanded(
+								expand
+									? new Set(
+											groups.map((group) => group.label)
+										)
+									: new Set()
+							)
+						}
+						onFilters={setFilters}
+						onMode={setMode}
+						rows={rows}
+					/>
+				</div>
+
+				<div className="side">
+					<StatusMatrix matrix={matrix} />
+				</div>
+			</div>
+
+			<p className="hint">
+				Cluster headers sit on the same columns as their member rows: the
+				test count and signature stand where a test name would, and a{' '}
+				<span className="same-as-cluster">
+					<a href="#">&uarr;</a>
+				</span>{' '}
+				means the row carries the same value as its cluster header. Click
+				a cluster header to fold its members in or out; click a row to
+				open its own detail panel.
+			</p>
+
+			{visible.length ? (
+				<TriageTable
+					clustersByKey={clustersByKey}
+					expanded={expanded}
+					filtering={filtering}
+					groups={groups}
+					meta={meta}
+					mode={mode}
+					onSort={(key) =>
+						setSort((current) =>
+							current.key === key
+								? {ascending: !current.ascending, key}
+								: {ascending: true, key}
+						)
+					}
+					onToggleGroup={(label) =>
+						setExpanded((current) => {
+							const next = new Set(current);
+
+							if (!next.delete(label)) {
+								next.add(label);
+							}
+
+							return next;
+						})
+					}
+					sort={sort}
+				/>
+			) : (
+				<ClayEmptyState
+					description="No rows match the current filters."
+					title="Nothing to show"
+				/>
+			)}
 		</div>
 	);
 };

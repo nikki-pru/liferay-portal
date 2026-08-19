@@ -14,17 +14,33 @@ export type Page<T> = {
 	totalCount: number;
 };
 
-export type Verdict =
-	| 'BUG'
-	| 'POSSIBLEBUG'
-	| 'TESTFIX'
-	| 'NEEDSREVIEW'
-	| 'FALSEPOSITIVE';
-
 export type TriageRunStatus = 'QUEUED' | 'RUNNING' | 'DONE' | 'FAILED';
+
+/**
+ * A Testray CaseResult, as expanded onto a TriageResult.
+ *
+ * Two things to know about the shape. Numbers arrive as STRINGS — `id`,
+ * `baselineSignatureCount` and every `…Id` field — because Object REST
+ * serialises bigint columns as text; everything here is coerced through
+ * `Number()` in `toRows`. And the expansion key differs by query: with a
+ * `fields=` projection the object lands under `caseResultToTriageResults`,
+ * without one under `r_caseResultToTriageResults_c_caseResult`. Both are read.
+ */
+export type CaseResult = {
+	dueStatus?: Picklist;
+	errors?: string;
+	id?: number | string;
+	issues?: string;
+	r_caseToCaseResult_c_case?: {id?: number | string; name?: string};
+	r_caseToCaseResult_c_caseId?: number | string;
+	r_componentToCaseResult_c_componentId?: number | string;
+	r_teamToCaseResult_c_teamId?: number | string;
+};
 
 export type TriageResult = {
 	analysisMode?: string;
+	baselineSignatureCount?: number | string;
+	caseResultToTriageResults?: CaseResult;
 	classification?: Picklist;
 	classifier?: string;
 	clusterKey?: string;
@@ -34,14 +50,18 @@ export type TriageResult = {
 	gitHashA?: string;
 	gitHashB?: string;
 	id: number;
-	r_caseResultToTriageResults_c_caseResultId?: number;
+	r_caseResultToTriageResults_c_caseResult?: CaseResult;
+	r_caseResultToTriageResults_c_caseResultId?: number | string;
 	reason?: string;
 	specificChange?: string;
+	statusA?: string;
 	suspiciousCommits?: string;
+	transition?: string;
 };
 
 export type TriageRun = {
 	analysisMode?: string;
+	baselineRows?: number | string;
 	classifier?: string;
 	errorMessage?: string;
 	externalReferenceCode: string;
@@ -51,12 +71,19 @@ export type TriageRun = {
 	r_buildToTriageRuns_c_buildId?: number;
 	r_routineToTriageRuns_c_routineId?: number;
 	startedAt?: string;
+	/** JSON blob: {"PASSED": {"FAILED": 226, …}, …}. */
+	statusMatrix?: string;
+	targetRows?: number | string;
 	totalClassified?: number;
 	totalClusters?: number;
 	totalExcluded?: number;
 	totalFailures?: number;
 	totalWritten?: number;
+	/** JSON blob: {"new": 226, "changed": 197, …}. */
+	transitionCounts?: string;
 	triageRunStatus?: Picklist;
+	/** JSON blob keyed by verdict, counting CLUSTERS rather than rows. */
+	verdictClusterCounts?: string;
 	/** JSON blob: {"BUG": 2, "TEST_FIX": 7, …}. Schemaless on purpose — the
 	 *  verdict taxonomy has churned once already and a field added after the
 	 *  Object exists lands in the `_x` table. */
@@ -72,10 +99,53 @@ export type TriageRoutineSetting = {
 	r_routineToTriageRoutineSettings_c_routineId?: number;
 };
 
-/** A clusterKey and the failures that share it. Built client-side. */
+/**
+ * One table row, flattened.
+ *
+ * The view never touches Liferay's `r_<relationship>_c_<target>Id` keys or the
+ * string-typed numbers behind them: `toRows` resolves all of that once, so
+ * every component below reads plain fields. Field names deliberately match
+ * `report.py`'s dataframe columns so the two renderers can be diffed.
+ */
+export type Row = {
+	baselineSignatureCount?: number;
+	caseResultId?: number;
+	caseName: string;
+	clusterKey: string;
+	component: string;
+	confidence: string;
+	culpritCommits: string;
+	culpritFile: string;
+	/** Derived, never stored — see `displayVerdict`. */
+	displayVerdict: string;
+	errorMessage: string;
+	id: number;
+	linkedIssues: string;
+	reason: string;
+	specificChange: string;
+	statusA: string;
+	statusB: string;
+	team: string;
+	transition: string;
+	/** The stored classification, before the NOT_ATTRIBUTABLE relabel. */
+	verdict: string;
+};
+
+/** A clusterKey and the rows that share it. Built client-side. */
 export type Cluster = {
 	clusterKey: string;
-	culpritFile?: string;
-	members: TriageResult[];
-	worstVerdict?: string;
+	/** 1-based display number, stable across regrouping. */
+	number: number;
+	rows: Row[];
+	/** Columns whose value is identical across every member. */
+	shared: Set<string>;
+	worstVerdict: string;
+};
+
+export type GroupMode = 'cluster' | 'component' | 'team' | 'verdict';
+
+export type Group = {
+	label: string;
+	rows: Row[];
+	worstVerdict: string;
 };
