@@ -129,6 +129,42 @@
 			"name": "suspiciousCommits",
 			"required": false,
 			"type": "Clob"
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Baseline Signature Count"
+			},
+			"name": "baselineSignatureCount",
+			"required": false,
+			"type": "Integer"
+		},
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"indexed": true,
+			"indexedAsKeyword": true,
+			"label": {
+				"en_US": "Transition"
+			},
+			"name": "transition",
+			"required": false,
+			"type": "String"
+		},
+		{
+			"DBType": "String",
+			"businessType": "Text",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Baseline Status"
+			},
+			"name": "statusA",
+			"required": false,
+			"type": "String"
 		}
 	],
 	"objectFolderExternalReferenceCode": "TESTRAY",

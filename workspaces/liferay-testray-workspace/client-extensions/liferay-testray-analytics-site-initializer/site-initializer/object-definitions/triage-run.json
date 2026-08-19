@@ -157,6 +157,66 @@
 			"name": "verdictCounts",
 			"required": false,
 			"type": "Clob"
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Target Rows"
+			},
+			"name": "targetRows",
+			"required": false,
+			"type": "Integer"
+		},
+		{
+			"DBType": "Integer",
+			"businessType": "Integer",
+			"indexed": true,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Baseline Rows"
+			},
+			"name": "baselineRows",
+			"required": false,
+			"type": "Integer"
+		},
+		{
+			"DBType": "Clob",
+			"businessType": "LongText",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Status Matrix"
+			},
+			"name": "statusMatrix",
+			"required": false,
+			"type": "Clob"
+		},
+		{
+			"DBType": "Clob",
+			"businessType": "LongText",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Transition Counts"
+			},
+			"name": "transitionCounts",
+			"required": false,
+			"type": "Clob"
+		},
+		{
+			"DBType": "Clob",
+			"businessType": "LongText",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Verdict Cluster Counts"
+			},
+			"name": "verdictClusterCounts",
+			"required": false,
+			"type": "Clob"
 		}
 	],
 	"objectFolderExternalReferenceCode": "TESTRAY",
