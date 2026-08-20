@@ -10,10 +10,18 @@ import {Verdict} from './Cells';
 type Props = {
 	activeVerdict: string;
 	clusters: Cluster[];
+	/** Case results that ran on BOTH builds — the size of the diff's join. */
+	compared?: number;
 	onPickVerdict: (verdict: string) => void;
 	rows: Row[];
 	run?: TriageRun;
 };
+
+/**
+ * Below this share of the target build, the comparison covers so little that
+ * its verdicts describe a different test suite than the one that ran.
+ */
+const LOW_COVERAGE = 0.5;
 
 const int = (value?: number | string): number | undefined => {
 	if (value === undefined || value === null || value === '') {
@@ -37,6 +45,7 @@ const int = (value?: number | string): number | undefined => {
 const Totals: React.FC<Props> = ({
 	activeVerdict,
 	clusters,
+	compared,
 	onPickVerdict,
 	rows,
 	run,
@@ -66,6 +75,7 @@ const Totals: React.FC<Props> = ({
 	}
 
 	const triaged = int(run?.totalFailures);
+	const targetRows = int(run?.targetRows);
 	const written = rows.length;
 
 	// The writer skips high-confidence FALSE_POSITIVE and pre-classified rows,
@@ -136,12 +146,41 @@ const Totals: React.FC<Props> = ({
 				</span>
 			)}
 
-			{int(run?.targetRows) !== undefined && (
+			{targetRows !== undefined && (
 				<span className="pill" title="Case results in the target build.">
 					<strong>Tests in build:</strong>{' '}
-					<span className="n">
-						{int(run?.targetRows)!.toLocaleString()}
-					</span>
+					<span className="n">{targetRows.toLocaleString()}</span>
+				</span>
+			)}
+
+			{/* How much of the build the comparison could see. The diff is an
+			    inner join on case id, so a pair whose suites were re-selected
+			    between them shares almost nothing — and "Tests in build:
+			    3,579" beside a 54-row matrix reads as a full comparison. */}
+			{compared !== undefined && compared > 0 && (
+				<span
+					className={`pill${
+						targetRows !== undefined &&
+						compared < targetRows * LOW_COVERAGE
+							? ' warn'
+							: ''
+					}`}
+					title="Case results that ran on BOTH builds. The diff is an inner join on case id, so anything outside this is invisible to it."
+				>
+					<strong>Compared:</strong>{' '}
+					<span className="n">{compared.toLocaleString()}</span>
+
+					{targetRows ? (
+						<span className="fanout">
+							{`(${
+								(100 * compared) / targetRows < 10
+									? ((100 * compared) / targetRows).toFixed(1)
+									: Math.round(
+											(100 * compared) / targetRows
+										)
+							}%)`}
+						</span>
+					) : null}
 				</span>
 			)}
 

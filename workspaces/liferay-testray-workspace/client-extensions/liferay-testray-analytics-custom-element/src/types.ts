@@ -14,7 +14,12 @@ export type Page<T> = {
 	totalCount: number;
 };
 
-export type TriageRunStatus = 'QUEUED' | 'RUNNING' | 'DONE' | 'FAILED';
+export type TriageRunStatus =
+	| 'QUEUED'
+	| 'RUNNING'
+	| 'DONE'
+	| 'FAILED'
+	| 'ABORTED';
 
 /**
  * A Testray CaseResult, as expanded onto a TriageResult.
@@ -148,4 +153,30 @@ export type Group = {
 	label: string;
 	rows: Row[];
 	worstVerdict: string;
+};
+
+/**
+ * One row of the Triage index: a run, with the names its FKs point at and its
+ * stored per-verdict counts already parsed.
+ */
+export type IndexRow = {
+	baselineBuildId?: number;
+	baselineName: string;
+	buildId: number;
+	buildName: string;
+	/** Per-verdict CLUSTER counts — the headline unit, see the view contract. */
+	clusterCounts: Record<string, number>;
+	externalReferenceCode: string;
+	failures?: number;
+	id: number;
+	projectId?: number;
+	projectName: string;
+	routineId?: number;
+	routineName: string;
+	/** Per-verdict ROW counts, shown as fan-out where they differ. */
+	rowCounts: Record<string, number>;
+	startedAt?: string;
+	status: string;
+	totalClusters?: number;
+	written?: number;
 };

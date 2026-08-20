@@ -197,8 +197,11 @@ export const RUN_STATUS: Record<
 	string,
 	{clickable: boolean; color: string; title: string}
 > = {
+	// Grey, deliberately outside the traffic-light set: an aborted run is not a
+	// failure to investigate, it is a request someone withdrew.
+	ABORTED: {clickable: false, color: '#a7a9bc', title: 'Triage aborted'},
 	DONE: {clickable: true, color: '#37d27e', title: 'Triage ready'},
 	FAILED: {clickable: true, color: '#fe5160', title: 'Triage failed'},
 	QUEUED: {clickable: false, color: '#ffd764', title: 'Triage queued'},
-	RUNNING: {clickable: false, color: '#ffd764', title: 'Triage generating'},
+	RUNNING: {clickable: false, color: '#ffd764', title: 'Triage in progress'},
 };

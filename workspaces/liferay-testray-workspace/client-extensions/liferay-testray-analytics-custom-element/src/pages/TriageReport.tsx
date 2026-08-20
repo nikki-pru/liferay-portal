@@ -130,6 +130,19 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 		[run]
 	);
 
+	// The matrix IS the join, so summing it gives what was compared — no extra
+	// field and nothing for the writer to keep in step.
+	const compared = useMemo(
+		() =>
+			Object.values(matrix).reduce(
+				(total, row) =>
+					total +
+					Object.values(row).reduce((sum, n) => sum + Number(n || 0), 0),
+				0
+			),
+		[matrix]
+	);
+
 	if (runLoading || rowsLoading) {
 		return <ClayLoadingIndicator displayType="secondary" size="md" />;
 	}
@@ -162,13 +175,28 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 		<div className="triage-report">
 			{/* The view is its own portal page, outside Testray's router, so
 			    it inherits none of Testray's navigation — no sidebar and no
-			    breadcrumb. Until it becomes a route inside their Layout, this
-			    one link is the way back to where the reader came from. */}
-			{routineURL ? (
-				<a className="back-link" href={routineURL}>
-					&larr; {routine?.name || 'Back to routine'}
-				</a>
-			) : null}
+			    breadcrumb of its own. A trail rather than a single back link
+			    because there are two ways in: the Triage index, and the
+			    diamond in a routine's build list. One "back" cannot serve
+			    both, and guessing from a `from=` param breaks on a shared or
+			    bookmarked URL. */}
+			<nav className="crumbs">
+				<a href="?">Triage</a>
+
+				{routineURL ? (
+					<>
+						<span className="sep">/</span>
+
+						<a href={routineURL}>
+							{routine?.name || 'Routine'}
+						</a>
+					</>
+				) : null}
+
+				<span className="sep">/</span>
+
+				<span className="here">{targetLabel}</span>
+			</nav>
 
 			{/* Build names, not ids: "270748 vs 270750" tells a reader nothing,
 			    and the version pair is the whole subject of the report. The
@@ -218,6 +246,7 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 					<Totals
 						activeVerdict={filters.verdict}
 						clusters={clusters}
+						compared={compared}
 						onPickVerdict={(verdict) =>
 							setFilters({...filters, verdict})
 						}

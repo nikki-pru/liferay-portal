@@ -581,4 +581,189 @@ liferay-testray-analytics-custom-element {
 			text-decoration: underline;
 		}
 	}
+
+	// Breadcrumb. Replaces the single back link: two entry paths (the index and
+	// a routine's build list) need two destinations.
+	.crumbs {
+		font-size: 13px;
+		margin-bottom: 6px;
+
+		a {
+			color: #0747a6;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+
+		.sep {
+			color: var(--c-muted);
+			margin: 0 6px;
+		}
+
+		.here {
+			color: var(--c-muted);
+		}
+	}
+
+	// --- Triage index ----------------------------------------------------
+
+	table.index-table {
+		th.col-verdict-count,
+		td.col-verdict-count {
+			min-width: 74px;
+			text-align: center;
+			white-space: nowrap;
+		}
+
+		// The verdict pill is the column header, so it must not also try to be
+		// a full-width block the way it is inside a row.
+		th.col-verdict-count .verdict {
+			font-size: 9.5px;
+		}
+
+		th.col-num-metric,
+		td.col-num-metric {
+			text-align: right;
+			white-space: nowrap;
+			width: 88px;
+		}
+
+		// The run's worst verdict, so a row's severity is findable without
+		// reading every column.
+		td.col-verdict-count.worst {
+			font-weight: 700;
+		}
+
+		td.col-verdict-count .fanout {
+			color: var(--c-muted);
+			display: block;
+			font-size: 11px;
+		}
+
+		.run-status {
+			align-items: center;
+			display: flex;
+			gap: 6px;
+			white-space: nowrap;
+		}
+
+		// Matches the build-index indicator and the sidebar item — one shape
+		// for triage state everywhere it appears.
+		.tr-triage-diamond {
+			display: inline-block;
+			height: 9px;
+			transform: rotate(45deg);
+			width: 9px;
+		}
+	}
+
+	// --- picker ------------------------------------------------------------
+
+	.picker {
+		background: var(--c-row);
+		border: 1px solid var(--c-border);
+		border-radius: 4px;
+		// Sits above the run list, so the gap belongs below it.
+		margin-bottom: 18px;
+		padding: 14px 16px 16px;
+
+		h2 {
+			border: 0;
+			font-size: 16px;
+			margin: 0 0 10px;
+			padding: 0;
+		}
+
+		.filters-row {
+			align-items: center;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 10px;
+			margin-bottom: 8px;
+			min-width: 0;
+		}
+
+		label {
+			font-weight: 600;
+		}
+
+		select {
+			background: #fff;
+			border: 1px solid var(--c-border);
+			border-radius: 3px;
+			flex: 1 1 200px;
+			font: inherit;
+			max-width: 320px;
+			min-width: 0;
+			padding: 4px 6px;
+		}
+	}
+
+	.picker-note {
+		color: var(--c-muted);
+		font-size: 13px;
+		margin: 10px 0 0;
+	}
+
+	.picker-command {
+		background: var(--c-code-bg);
+		border-radius: 3px;
+		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+		font-size: 12px;
+		margin: 6px 0 0;
+		overflow-x: auto;
+		padding: 8px 10px;
+		white-space: pre;
+	}
+
+	// Abort, under the status it applies to. A quiet link-button, not a danger
+	// button: withdrawing a request you just made is routine, not destructive.
+	.abort-run {
+		background: none;
+		border: 0;
+		color: #0747a6;
+		cursor: pointer;
+		display: block;
+		font: inherit;
+		font-size: 11px;
+		margin-top: 2px;
+		padding: 0;
+
+		&:hover:not(:disabled) {
+			text-decoration: underline;
+		}
+
+		&:disabled {
+			color: var(--c-muted);
+			cursor: default;
+		}
+	}
+
+	.abort-error {
+		color: var(--c-bug);
+		font-size: 11px;
+		margin-top: 2px;
+		max-width: 180px;
+	}
+
+	// An incomparable pair is a data problem, not an error — tinted, not red,
+	// but it must not read as ordinary help text either.
+	.picker-note.picker-warn {
+		background: #fff8e6;
+		border: 1px solid #e0b74a;
+		border-radius: 4px;
+		color: var(--c-fg);
+		padding: 8px 10px;
+	}
+
+	.filters-label {
+		color: var(--c-muted);
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
 }

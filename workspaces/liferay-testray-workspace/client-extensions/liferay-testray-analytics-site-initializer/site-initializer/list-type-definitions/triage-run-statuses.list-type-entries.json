@@ -30,5 +30,13 @@
 			"en-US": "Failed"
 		},
 		"type": "string"
+	},
+	{
+		"key": "ABORTED",
+		"name": "Aborted",
+		"name_i18n": {
+			"en-US": "Aborted"
+		},
+		"type": "string"
 	}
 ]
