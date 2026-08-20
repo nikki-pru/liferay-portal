@@ -19,8 +19,12 @@ import {filterStatuses} from '~/util/statuses';
 
 import useTriageRuns, {
 	TRIAGE_RUN_DISPLAY,
+	queueTriageRun,
 	triageURL,
 } from '~/hooks/useTriageRuns';
+import useTriageSelection from '~/hooks/useTriageSelection';
+
+import TriageSelectionCell from './Builds/TriageSelectionCell';
 
 import BuildHistoryChart from './Builds/BuildHistoryChart';
 import useBuildActions from './Builds/useBuildActions';
@@ -41,6 +45,7 @@ const Routine = () => {
 	// and adding a field there would mean editing Testray core. One request per
 	// routine — the routine FK makes it independent of pagination.
 	const triageRuns = useTriageRuns(routineId);
+	const {selection: triageSelection} = useTriageSelection();
 
 	const baseResoruceURL = `/testray-status-metrics/by-testray-routineId/${routineId}/testray-builds-metrics`;
 
@@ -134,6 +139,38 @@ const Routine = () => {
 								const status =
 									triageRuns.get(buildId)?.triageRunStatus
 										?.key;
+
+								const isBaseline =
+									triageSelection.baselineBuildId ===
+									buildId;
+								const isTarget =
+									triageSelection.targetBuildId === buildId;
+
+								// The selected pair takes the column over: it
+								// is the thing the user is mid-way through, and
+								// showing only a prior run's diamond would hide
+								// that a selection is even in progress. The
+								// baseline side is a label because there is
+								// nothing to do on it; the action belongs on
+								// the target, which is the build being judged.
+								if (isBaseline || isTarget) {
+									const ready =
+										isTarget &&
+										!!triageSelection.baselineBuildId;
+
+									return (
+										<TriageSelectionCell
+											baselineBuildId={
+												triageSelection.baselineBuildId
+											}
+											isBaseline={isBaseline}
+											queued={status === 'QUEUED'}
+											ready={ready}
+											routineId={Number(routineId)}
+											targetBuildId={buildId}
+										/>
+									);
+								}
 
 								// Nothing at all when a build has no triage
 								// run — the same way an unpromoted build shows

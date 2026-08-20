@@ -252,6 +252,26 @@ $sidebar-divider-color: #8b8db2;
 // circle: the neighbouring Build Status column already uses a circle for
 // task/testflow state, so repeating the shape would read as the same
 // vocabulary. Colour is set inline from the run status.
+// Baseline/target selection in the Triage column. A quiet chip, not a status
+// colour: a selection is a pending intent, and borrowing the run palette would
+// read as a run that already exists.
+.tr-triage-chip {
+	background-color: $color-gray-lighter;
+	border: 1px solid $color-gray-light;
+	border-radius: 3px;
+	color: $color-gray-dark;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.02em;
+	padding: 1px 6px;
+	text-transform: uppercase;
+	white-space: nowrap;
+
+	&--queued {
+		background-color: $color-yellow-light;
+	}
+}
+
 .tr-triage-diamond {
 	display: inline-block;
 	height: 9px;

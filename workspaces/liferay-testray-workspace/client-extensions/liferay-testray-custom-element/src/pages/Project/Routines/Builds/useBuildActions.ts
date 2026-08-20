@@ -6,6 +6,7 @@
 import {useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import useAutofillBuild from '~/hooks/useAutofillBuild';
+import useTriageSelection from '~/hooks/useTriageSelection';
 import usePermission from '~/hooks/usePermission';
 import {Liferay} from '~/services/liferay';
 import {TestrayRole} from '~/util/constants';
@@ -23,6 +24,8 @@ import {Action, ActionsHookParameter} from '../../../../types';
 const useBuildActions = ({isHeaderActions}: ActionsHookParameter = {}) => {
 	const {removeItemFromList} = useMutate();
 	const {setBuildA, setBuildB} = useAutofillBuild();
+	const {setBaseline: setTriageBaseline, setTarget: setTriageTarget} =
+		useTriageSelection();
 	const formModal = useFormModal();
 	const hasPermission = usePermission([
 		TestrayRole.TESTRAY_ADMINISTRATOR,
@@ -161,6 +164,42 @@ const useBuildActions = ({isHeaderActions}: ActionsHookParameter = {}) => {
 			},
 			icon: 'select-from-list',
 			name: i18n.translate('select-build-b'),
+		},
+
+		// Triage's baseline/target pair, deliberately using the same menu and
+		// the same toast as Build A/B above: it is the same kind of decision,
+		// so it should not need a second interaction to learn. Neither entry
+		// contains triage logic — each records one id and the Triage column
+		// decides what to offer once both are set.
+		{
+			action: (build) => {
+				const buildId = build?.id
+					? build?.id
+					: (build?.testrayBuildId as number);
+
+				setTriageBaseline(buildId);
+
+				return Liferay.Util.openToast({
+					message: i18n.translate('triage-baseline-selected'),
+				});
+			},
+			icon: 'select-from-list',
+			name: i18n.translate('select-triage-baseline'),
+		},
+		{
+			action: (build) => {
+				const buildId = build?.id
+					? build?.id
+					: (build?.testrayBuildId as number);
+
+				setTriageTarget(buildId);
+
+				return Liferay.Util.openToast({
+					message: i18n.translate('triage-target-selected'),
+				});
+			},
+			icon: 'select-from-list',
+			name: i18n.translate('select-triage-target'),
 		},
 	] as Action<TestrayBuild>[]);
 

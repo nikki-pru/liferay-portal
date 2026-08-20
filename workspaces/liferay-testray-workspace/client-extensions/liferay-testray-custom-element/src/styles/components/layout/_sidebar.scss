@@ -139,6 +139,10 @@ $normal-transition: all 0.3s ease;
 					fill: $color-white;
 				}
 
+				&:hover > &__diamond::before {
+					background-color: $color-white;
+				}
+
 				&.active {
 					background-color: $color-indigo;
 					color: $color-indigo-light;
@@ -159,6 +163,28 @@ $normal-transition: all 0.3s ease;
 					fill: $color-indigo-light;
 					min-height: 22px;
 					min-width: 35px;
+				}
+
+				// Triage. A diamond rather than a glyph, matching the
+				// build-index indicator — the two mean the same thing, so a
+				// second symbol for it would read as a second concept. Drawn
+				// as a rotated square, which means `background-color` and not
+				// `fill`: the hover rules above only reach SVG, so this needs
+				// its own, below.
+				&__diamond {
+					align-items: center;
+					display: flex;
+					justify-content: center;
+					min-height: 22px;
+					min-width: 35px;
+
+					&::before {
+						background-color: $color-indigo-light;
+						content: '';
+						height: 10px;
+						transform: rotate(45deg);
+						width: 10px;
+					}
 				}
 
 				&__text {

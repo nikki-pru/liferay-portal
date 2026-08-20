@@ -95,11 +95,7 @@ const Sidebar = () => {
 				'tr-sidebar__content__list__item tr-sidebar__content__list__item'
 			)}
 		>
-			<ClayIcon
-				className="tr-sidebar__content__list__item__clayicon"
-				fill="#8b8db2"
-				symbol="rule"
-			/>
+			<span className="tr-sidebar__content__list__item__diamond" />
 
 			<span
 				className={classNames('tr-sidebar__content__list__item__text', {

@@ -5,6 +5,8 @@
 
 import useSWR from 'swr';
 
+import {Liferay} from '~/services/liferay';
+
 /**
  * Triage state for a routine's builds — the only Testray-side dependency on the
  * analytics client extension.
@@ -21,7 +23,12 @@ import useSWR from 'swr';
  * ship to instances that never triage. Never throw from here.
  */
 
-export type TriageRunStatus = 'QUEUED' | 'RUNNING' | 'DONE' | 'FAILED';
+export type TriageRunStatus =
+	| 'QUEUED'
+	| 'RUNNING'
+	| 'DONE'
+	| 'FAILED'
+	| 'ABORTED';
 
 type TriageRun = {
 	externalReferenceCode: string;
@@ -37,14 +44,26 @@ type TriageRun = {
 // win, and only the newest per build is ever displayed.
 const PAGE_SIZE = 500;
 
-export default function useTriageRuns(routineId?: string) {
-	const key = routineId
+/**
+ * The SWR key for a routine's triage runs.
+ *
+ * Exported because Testray persists its whole SWR cache to storage on
+ * `beforeunload` and restores it on boot (`SWRCacheProvider`). A write that
+ * does not invalidate this key is therefore invisible not just until the next
+ * revalidation but *across reloads* — the restored cache serves the pre-write
+ * answer. Anything that creates or changes a TriageRun must `mutate` this.
+ */
+export const triageRunsKey = (routineId?: string | number) =>
+	routineId
 		? `/triageruns?pageSize=${PAGE_SIZE}&sort=startedAt:desc&filter=${encodeURIComponent(
 				// Relationship FKs compare as strings even though the column is
 				// a bigint; unquoted yields 400 "Incompatible types".
 				`r_routineToTriageRuns_c_routineId eq '${routineId}'`
 			)}`
 		: null;
+
+export default function useTriageRuns(routineId?: string) {
+	const key = triageRunsKey(routineId);
 
 	const {data} = useSWR<{items: TriageRun[]}>(key, {
 		// A stock Testray has no such Object. That is an expected state, not a
@@ -77,11 +96,65 @@ export const TRIAGE_RUN_DISPLAY: Record<
 	TriageRunStatus,
 	{clickable: boolean; color: string; label: string}
 > = {
+	// Grey, outside the traffic-light set: a withdrawn request is not a failure.
+	ABORTED: {clickable: false, color: '#a7a9bc', label: 'Triage aborted'},
 	DONE: {clickable: true, color: '#37d27e', label: 'Triage ready'},
 	FAILED: {clickable: true, color: '#fe5160', label: 'Triage failed'},
 	QUEUED: {clickable: false, color: '#ffd764', label: 'Triage queued'},
-	RUNNING: {clickable: false, color: '#ffd764', label: 'Triage generating'},
+	RUNNING: {clickable: false, color: '#ffd764', label: 'Triage in progress'},
 };
+
+/**
+ * Queue a triage run for a baseline/target pair.
+ *
+ * The ONE write this side performs, and it writes nothing triage-specific
+ * beyond identity: a status and three foreign keys. Everything else on the row
+ * — counts, clusters, the status matrix — is filled in by the pipeline when it
+ * runs. So this stays a request, not a result.
+ *
+ * The ERC is derived from the pair rather than random, so double-clicking the
+ * button upserts the same row instead of queueing the work twice.
+ *
+ * Returns the created/updated run, or throws. Callers surface failure via a
+ * toast: a queue write that silently fails would leave the user believing a run
+ * was requested.
+ */
+export async function queueTriageRun({
+	baselineBuildId,
+	routineId,
+	targetBuildId,
+}: {
+	baselineBuildId: number;
+	routineId: number;
+	targetBuildId: number;
+}) {
+	const erc = `queued-${baselineBuildId}-${targetBuildId}`;
+
+	const response = await fetch(
+		`/o/c/triageruns/by-external-reference-code/${encodeURIComponent(erc)}`,
+		{
+			body: JSON.stringify({
+				analysisMode: 'build-vs-build',
+				r_baselineBuildToTriageRuns_c_buildId: baselineBuildId,
+				r_buildToTriageRuns_c_buildId: targetBuildId,
+				r_routineToTriageRuns_c_routineId: routineId,
+				triageRunStatus: {key: 'QUEUED'},
+			}),
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+				'x-csrf-token': Liferay.authToken,
+			},
+			method: 'PUT',
+		}
+	);
+
+	if (!response.ok) {
+		throw new Error(`Could not queue the run (HTTP ${response.status})`);
+	}
+
+	return response.json();
+}
 
 /** Where the analytics CX renders. Kept here so both call sites agree. */
 export const TRIAGE_PATH = '/web/liferay-testray/triage';
