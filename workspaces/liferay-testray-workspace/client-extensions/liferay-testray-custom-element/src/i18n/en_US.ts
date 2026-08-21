@@ -104,6 +104,7 @@ export default {
 	'change-password': 'Change Password',
 	'choose-an-option': 'Choose an Option',
 	'clear': 'Clear',
+	'clear-triage-selection': 'Clear triage selection',
 	'clear-history': 'Clear History',
 	'clicking-save-will-assign-you-to-this-case-result':
 		'Clicking save will assign you to this case result.',

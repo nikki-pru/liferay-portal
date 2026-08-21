@@ -270,6 +270,45 @@ $sidebar-divider-color: #8b8db2;
 	&--queued {
 		background-color: $color-yellow-light;
 	}
+
+	// Dismiss. Inside the chip rather than beside it, so the control sits on
+	// the thing it removes.
+	&__clear {
+		background: none;
+		border: 0;
+		color: $color-gray-dark;
+		cursor: pointer;
+		font-size: 13px;
+		line-height: 1;
+		margin-left: 4px;
+		padding: 0 1px;
+
+		&:hover {
+			color: $color-primary;
+		}
+	}
+}
+
+.tr-triage-run {
+	align-items: center;
+	display: flex;
+	gap: 8px;
+	white-space: nowrap;
+
+	// Quiet next to the primary button: abandoning the pair is the secondary
+	// action, and a second solid button would compete with Run Triage.
+	&__clear {
+		background: none;
+		border: 0;
+		color: $color-primary;
+		cursor: pointer;
+		font-size: 11px;
+		padding: 0;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 }
 
 .tr-triage-diamond {

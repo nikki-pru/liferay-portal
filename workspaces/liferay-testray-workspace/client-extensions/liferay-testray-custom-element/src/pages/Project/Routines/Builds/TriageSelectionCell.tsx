@@ -40,29 +40,43 @@ const TriageSelectionCell: React.FC<Props> = ({
 	routineId,
 	targetBuildId,
 }) => {
-	const {clear} = useTriageSelection();
+	const {clear, clearBaseline, clearTarget} = useTriageSelection();
 	const {mutate} = useSWRConfig();
 	const [busy, setBusy] = useState(false);
 
-	if (isBaseline) {
-		return (
-			<span
-				className="tr-triage-chip"
-				title={i18n.translate('triage-baseline-selected')}
+	// The chip carries its own dismiss. A selection made by accident, or left
+	// behind after running the pipeline by hand, otherwise has no way out of
+	// localStorage short of the browser console — the persistence that makes
+	// the two-step selection work is also what strands it.
+	const chip = (label: string, title: string, onClear: () => void) => (
+		<span className="tr-triage-chip" title={title}>
+			{label}
+
+			<button
+				aria-label={i18n.translate('clear-triage-selection')}
+				className="tr-triage-chip__clear"
+				onClick={onClear}
+				title={i18n.translate('clear-triage-selection')}
+				type="button"
 			>
-				{i18n.translate('baseline')}
-			</span>
+				&times;
+			</button>
+		</span>
+	);
+
+	if (isBaseline) {
+		return chip(
+			i18n.translate('baseline'),
+			i18n.translate('triage-baseline-selected'),
+			clearBaseline
 		);
 	}
 
 	if (!ready) {
-		return (
-			<span
-				className="tr-triage-chip"
-				title={i18n.translate('triage-target-selected')}
-			>
-				{i18n.translate('target')}
-			</span>
+		return chip(
+			i18n.translate('target'),
+			i18n.translate('triage-target-selected'),
+			clearTarget
 		);
 	}
 
@@ -75,51 +89,63 @@ const TriageSelectionCell: React.FC<Props> = ({
 	}
 
 	return (
-		<ClayButton
-			disabled={busy}
-			displayType="primary"
-			onClick={async () => {
-				setBusy(true);
+		<div className="tr-triage-run">
+			<ClayButton
+				disabled={busy}
+				displayType="primary"
+				onClick={async () => {
+					setBusy(true);
 
-				try {
-					await queueTriageRun({
-						baselineBuildId: baselineBuildId!,
-						routineId,
-						targetBuildId,
-					});
+					try {
+						await queueTriageRun({
+							baselineBuildId: baselineBuildId!,
+							routineId,
+							targetBuildId,
+						});
 
-					// Revalidate before clearing, so the column has the new
-					// QUEUED run to fall back to. Without this the cell goes
-					// blank instead of amber — and because Testray persists its
-					// SWR cache across reloads, it stays blank even after F5,
-					// which reads as "the click did nothing".
-					await mutate(triageRunsKey(routineId));
+						// Revalidate before clearing, so the column has the new
+						// QUEUED run to fall back to. Without this the cell goes
+						// blank instead of amber — and because Testray persists its
+						// SWR cache across reloads, it stays blank even after F5,
+						// which reads as "the click did nothing".
+						await mutate(triageRunsKey(routineId));
 
-					// Clearing on success is what makes the column settle back
-					// to the run indicator; leaving the pair selected would
-					// keep offering a button for work already requested.
-					clear();
+						// Clearing on success is what makes the column settle back
+						// to the run indicator; leaving the pair selected would
+						// keep offering a button for work already requested.
+						clear();
 
-					Liferay.Util.openToast({
-						message: i18n.translate('triage-run-queued'),
-					});
-				}
-				catch (error) {
-					// A silent failure here is the worst outcome: the user
-					// walks away believing a run was requested.
-					Liferay.Util.openToast({
-						message: (error as Error).message,
-						type: 'danger',
-					});
-				}
-				finally {
-					setBusy(false);
-				}
-			}}
-			small
-		>
-			{i18n.translate('run-triage')}
-		</ClayButton>
+						Liferay.Util.openToast({
+							message: i18n.translate('triage-run-queued'),
+						});
+					}
+					catch (error) {
+						// A silent failure here is the worst outcome: the user
+						// walks away believing a run was requested.
+						Liferay.Util.openToast({
+							message: (error as Error).message,
+							type: 'danger',
+						});
+					}
+					finally {
+						setBusy(false);
+					}
+				}}
+				small
+			>
+				{i18n.translate('run-triage')}
+			</ClayButton>
+
+			{/* Clears both sides — for abandoning the pair rather than
+			    correcting one half of it. */}
+			<button
+				className="tr-triage-run__clear"
+				onClick={clear}
+				type="button"
+			>
+				{i18n.translate('clear')}
+			</button>
+		</div>
 	);
 };
 

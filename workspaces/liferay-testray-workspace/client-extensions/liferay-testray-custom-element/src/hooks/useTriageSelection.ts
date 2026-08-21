@@ -98,5 +98,30 @@ export default function useTriageSelection() {
 
 	const clear = useCallback(() => write({}), []);
 
-	return {clear, selection, setBaseline, setTarget};
+	// Per-side, because the common correction is "wrong baseline", not "start
+	// over" — and re-picking the other side to reset it would be a puzzle.
+	const clearBaseline = useCallback(() => {
+		const next = {...read()};
+
+		delete next.baselineBuildId;
+
+		write(next);
+	}, []);
+
+	const clearTarget = useCallback(() => {
+		const next = {...read()};
+
+		delete next.targetBuildId;
+
+		write(next);
+	}, []);
+
+	return {
+		clear,
+		clearBaseline,
+		clearTarget,
+		selection,
+		setBaseline,
+		setTarget,
+	};
 }
