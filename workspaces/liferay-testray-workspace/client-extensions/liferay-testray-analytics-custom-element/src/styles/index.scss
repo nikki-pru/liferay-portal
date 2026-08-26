@@ -610,6 +610,23 @@ liferay-testray-analytics-custom-element {
 	// --- Triage index ----------------------------------------------------
 
 	table.index-table {
+		// Zebra striping. The runs here are unrelated to one another — each is
+		// a different build pair — and the row is wide enough that the eye
+		// loses its line between the Build column and the verdict counts on
+		// the right. The 1px rule alone was not holding it.
+		tbody tr:nth-child(even) td {
+			background: #f2f5f7;
+		}
+
+		// Restated inside this block for two reasons: the stripe above would
+		// otherwise out-specify the global `tr.case-row:hover td` and kill the
+		// hover on every even row, and the global hover colour is so close to
+		// the stripe that hovering a striped row looked like nothing happened.
+		// A step darker than both keeps the cursor's row obvious either way.
+		tr.case-row:hover td {
+			background: #e4eaf0;
+		}
+
 		th.col-verdict-count,
 		td.col-verdict-count {
 			min-width: 74px;
