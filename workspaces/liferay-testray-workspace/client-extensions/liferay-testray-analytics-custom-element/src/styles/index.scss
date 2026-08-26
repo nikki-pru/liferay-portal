@@ -724,15 +724,29 @@ liferay-testray-analytics-custom-element {
 		margin: 10px 0 0;
 	}
 
-	.picker-command {
-		background: var(--c-code-bg);
-		border-radius: 3px;
-		font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-		font-size: 12px;
-		margin: 6px 0 0;
-		overflow-x: auto;
-		padding: 8px 10px;
-		white-space: pre;
+	// Run Triage is the page's one primary action, so unlike .abort-run it is a
+	// real button. Solid rather than outlined: nothing else on the index
+	// competes with it, and the picker is otherwise all selects and prose.
+	.run-triage {
+		background: #0b5fff;
+		border: 0;
+		border-radius: 4px;
+		color: #fff;
+		cursor: pointer;
+		font: inherit;
+		font-size: 13px;
+		font-weight: 600;
+		margin-top: 10px;
+		padding: 7px 16px;
+
+		&:hover:not(:disabled) {
+			background: #0a53e0;
+		}
+
+		&:disabled {
+			background: #c1c7d0;
+			cursor: default;
+		}
 	}
 
 	// Abort, under the status it applies to. A quiet link-button, not a danger

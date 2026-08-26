@@ -104,7 +104,7 @@ const TriageIndex: React.FC = () => {
 
 				<h1>Triage</h1>
 
-				<TriagePicker runs={rows} />
+				<TriagePicker onQueued={mutate} runs={rows} />
 
 				<ClayEmptyState
 					description="No build has been triaged yet. A run is created either by a routine with autoTriage enabled, or by picking a baseline and target above."
@@ -120,7 +120,7 @@ const TriageIndex: React.FC = () => {
 
 			<h1>Triage</h1>
 
-			<TriagePicker runs={rows} />
+			<TriagePicker onQueued={mutate} runs={rows} />
 
 			{/* The picker above has its own Project/Routine pair, so these
 			    need saying what they are for — adjacent identical labels

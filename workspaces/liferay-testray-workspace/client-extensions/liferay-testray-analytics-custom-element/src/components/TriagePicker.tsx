@@ -6,6 +6,7 @@
 import {useMemo, useState} from 'react';
 
 import {
+	queueTriageRun,
 	useComparability,
 	usePickerBuilds,
 	usePickerProjects,
@@ -14,6 +15,8 @@ import {
 import type {IndexRow} from '~/types';
 
 type Props = {
+	/** Revalidate the index so a freshly queued run appears in the list. */
+	onQueued: () => void;
 	/** Existing runs, so an already-triaged pair links out instead of re-running. */
 	runs: IndexRow[];
 };
@@ -24,17 +27,25 @@ type Props = {
  * Mirrors Testray's compare-runs affordance (select A, select B, act) so it
  * needs no new interaction vocabulary — see ARCHITECTURE "Triggering a run".
  *
- * What it deliberately does NOT do is queue the run. `TriageRun` has a QUEUED
- * state and the build-index diamond renders it as "generating", but nothing
- * consumes that queue yet: the Jenkins job is step 6 of the build sequence. A
- * button that wrote a QUEUED row today would leave a permanently amber diamond
- * on the build list and a run that never finishes — worse than no button. So
- * until there is a runner, the picker resolves the pair and hands over the
- * exact command that produces it, which is the step a person is actually
- * blocked on. The button slots in here unchanged when the runner lands.
+ * Run Triage queues the pair and stops there. It writes the same QUEUED
+ * `TriageRun` as Testray's build-list menu, against the same derived ERC, so
+ * the two entry points are one request as far as `runner.py` is concerned.
+ *
+ * This used to print a `testray-analysis prepare` command instead, because
+ * nothing drained the queue. The runner now exists, and the command was never
+ * usable by the people who read this page — it assumes a portal checkout, a
+ * configured CLI and credentials. Queueing is the only affordance a Testray
+ * user actually has.
+ *
+ * What it still cannot promise is that the run STARTS: a runner has to be
+ * watching (`testray-analysis watch --classify`), and if none is, the row sits
+ * QUEUED. So the copy says the run was requested, never that it is running.
  */
-const TriagePicker: React.FC<Props> = ({runs}) => {
+const TriagePicker: React.FC<Props> = ({onQueued, runs}) => {
 	const projects = usePickerProjects();
+
+	const [queueing, setQueueing] = useState(false);
+	const [queueError, setQueueError] = useState('');
 
 	const [projectId, setProjectId] = useState<number>();
 	const [routineId, setRoutineId] = useState<number>();
@@ -63,11 +74,6 @@ const TriagePicker: React.FC<Props> = ({runs}) => {
 				: undefined,
 		[ready, runs, baseline, target]
 	);
-
-	const command = ready
-		? `testray-analysis prepare --baseline-build-id ${baseline} ` +
-			`--target-build-id ${target}`
-		: '';
 
 	const buildOptions = (exclude?: number) =>
 		builds
@@ -195,8 +201,13 @@ const TriagePicker: React.FC<Props> = ({runs}) => {
 				</p>
 			)}
 
+			{/* Four outcomes, because "a run exists" is not one state: a
+			    finished run is a link, a pending one is a wait, and a failed
+			    or withdrawn one is a reason to try again. Collapsing them
+			    would either hide a usable report or offer a second run for
+			    work already in flight. */}
 			{ready &&
-				(existing ? (
+				(existing?.status === 'DONE' ? (
 					<p className="picker-note">
 						This pair has already been triaged.{' '}
 						<a href={`?buildId=${existing.buildId}`}>
@@ -204,15 +215,74 @@ const TriagePicker: React.FC<Props> = ({runs}) => {
 						</a>
 						.
 					</p>
+				) : existing?.status === 'QUEUED' ||
+				  existing?.status === 'RUNNING' ? (
+					<p className="picker-note">
+						A triage of this pair is already{' '}
+						{existing.status === 'QUEUED'
+							? 'queued'
+							: 'in progress'}
+						. It appears in the list below, and the report opens
+						from there once it finishes.
+					</p>
 				) : (
 					<>
 						<p className="picker-note">
-							No triage exists for this pair yet. Run the pipeline
-							from a checkout, then <code>classify</code> and{' '}
-							<code>submit</code> the bundle it prints:
+							{existing
+								? `The last triage of this pair ${
+										existing.status === 'ABORTED'
+											? 'was withdrawn'
+											: 'failed'
+									}. Queueing again replaces it.`
+								: 'No triage exists for this pair yet.'}{' '}
+							Queueing requests a run; it starts when a runner
+							picks it up.
 						</p>
 
-						<pre className="picker-command">{command}</pre>
+						<button
+							className="run-triage"
+							disabled={queueing || !routineId}
+							onClick={async () => {
+								setQueueing(true);
+								setQueueError('');
+
+								try {
+									await queueTriageRun({
+										baselineBuildId: baseline!,
+										routineId: routineId!,
+										targetBuildId: target!,
+									});
+
+									// Revalidate before returning: the queued
+									// row is what flips this block to the
+									// "already queued" branch, so without it
+									// the button stays and invites a second
+									// click on work already requested.
+									onQueued();
+								}
+								catch (e) {
+									// Silence here is the worst outcome — the
+									// user walks away believing a run was
+									// requested.
+									setQueueError(
+										(e as Error).message ||
+											'Could not queue the run'
+									);
+								}
+								finally {
+									setQueueing(false);
+								}
+							}}
+							type="button"
+						>
+							{queueing ? 'Queueing…' : 'Run Triage'}
+						</button>
+
+						{queueError ? (
+							<p className="picker-note picker-warn">
+								{queueError}
+							</p>
+						) : null}
 					</>
 				))}
 		</div>

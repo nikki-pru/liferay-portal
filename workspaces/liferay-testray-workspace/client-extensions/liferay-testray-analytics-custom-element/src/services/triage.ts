@@ -455,6 +455,72 @@ export function useTriageIndex() {
 }
 
 /**
+ * Queue a triage run for a baseline/target pair.
+ *
+ * The mirror of Testray's build-list "Run Triage", and deliberately identical
+ * to it — same ERC shape, same payload, same Object — so a pair queued from
+ * either place is the same request and `runner.py` cannot tell them apart.
+ *
+ * Writes nothing but identity: a status and three foreign keys. Every other
+ * column on the row — counts, clusters, the status matrix — is filled in by
+ * `submit` when the pipeline finishes. So this is a request, not a result.
+ *
+ * The ERC is derived from the pair rather than random, so a double click
+ * upserts the same row instead of queueing the work twice. `runner.py` deletes
+ * this row on success, because submit writes its own keyed by the bundle id
+ * and leaving both would give one build two runs.
+ *
+ * Nothing here starts a pipeline. A runner has to be draining the queue
+ * (`testray-analysis watch --classify`) or the row sits QUEUED — which is why
+ * the caller tells the user a run was *requested*, not that it is running.
+ */
+export async function queueTriageRun({
+	baselineBuildId,
+	routineId,
+	targetBuildId,
+}: {
+	baselineBuildId: number;
+	routineId: number;
+	targetBuildId: number;
+}) {
+	const erc = `queued-${baselineBuildId}-${targetBuildId}`;
+
+	try {
+		return await request(
+			`/o/c/triageruns/by-external-reference-code/${encodeURIComponent(
+				erc
+			)}`,
+			{
+				body: JSON.stringify({
+					analysisMode: 'build-vs-build',
+					r_baselineBuildToTriageRuns_c_buildId: baselineBuildId,
+					r_buildToTriageRuns_c_buildId: targetBuildId,
+					r_routineToTriageRuns_c_routineId: routineId,
+					triageRunStatus: {key: 'QUEUED'},
+				}),
+				method: 'PUT',
+			}
+		);
+	}
+	catch (error) {
+		// Same reasoning as abortTriageRun: `Request failed: 400` tells the
+		// reader nothing they can act on, and a missing picklist entry is a
+		// one-line fix in Picklists rather than anything in this code.
+		const info = (error as FetchError).info as {title?: string} | undefined;
+		const title = info?.title ?? '';
+
+		if (/list type entry/i.test(title)) {
+			throw new Error(
+				'The QUEUED status is missing from the Triage Run Statuses ' +
+					'picklist — add it (key QUEUED) and try again.'
+			);
+		}
+
+		throw new Error(title || (error as Error).message);
+	}
+}
+
+/**
  * Withdraw a queued run.
  *
  * Sets ABORTED rather than deleting the row: a withdrawn request is a fact
