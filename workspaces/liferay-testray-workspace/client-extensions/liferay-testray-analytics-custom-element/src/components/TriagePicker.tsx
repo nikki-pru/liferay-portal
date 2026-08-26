@@ -52,7 +52,7 @@ const TriagePicker: React.FC<Props> = ({onQueued, runs}) => {
 	const [baseline, setBaseline] = useState<number>();
 	const [target, setTarget] = useState<number>();
 
-	const routines = usePickerRoutines(projectId);
+	const {isLoading: routinesLoading, routines} = usePickerRoutines(projectId);
 	const {builds, isLoading: buildsLoading} = usePickerBuilds(routineId);
 	const {comparability, isLoading: checking} = useComparability(
 		baseline,
@@ -115,7 +115,7 @@ const TriagePicker: React.FC<Props> = ({onQueued, runs}) => {
 				<label htmlFor="pick-routine">Routine:</label>
 
 				<select
-					disabled={!projectId}
+					disabled={!projectId || routinesLoading}
 					id="pick-routine"
 					onChange={(event) => {
 						setRoutineId(Number(event.target.value) || undefined);
@@ -124,7 +124,9 @@ const TriagePicker: React.FC<Props> = ({onQueued, runs}) => {
 					}}
 					value={routineId ?? ''}
 				>
-					<option value="">Select…</option>
+					<option value="">
+						{routinesLoading ? 'Loading…' : 'Select…'}
+					</option>
 
 					{routines.map((routine) => (
 						<option key={routine.id} value={routine.id}>
@@ -169,6 +171,14 @@ const TriagePicker: React.FC<Props> = ({onQueued, runs}) => {
 					{buildOptions(baseline)}
 				</select>
 			</div>
+
+			{projectId && !routinesLoading && !routines.length && (
+				<p className="picker-note">
+					No routine in this project has any builds mirrored, so
+					there is nothing to compare. Routines with no builds are
+					not listed.
+				</p>
+			)}
 
 			{routineId && !buildsLoading && builds.length < 2 && (
 				<p className="picker-note">

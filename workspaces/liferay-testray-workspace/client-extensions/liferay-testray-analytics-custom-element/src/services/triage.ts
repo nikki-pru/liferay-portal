@@ -610,20 +610,66 @@ export function usePickerProjects() {
 	return (data ?? []).map((p) => ({id: num(p.id) ?? 0, name: str(p.name)}));
 }
 
+/**
+ * Routines for a project, EXCLUDING any with no builds mirrored.
+ *
+ * Most routines are empty here. Liferay Portal 7.4 has 41 and four of them
+ * have builds; 2024 Q1 has seven and one does. Offering the other 37 is not a
+ * neutral cost — picking one produced two empty Baseline/Target dropdowns and
+ * no explanation, so the picker looked broken rather than the routine looking
+ * empty.
+ *
+ * Emptiness is established with one `pageSize=1` count query per routine,
+ * concurrently, reading `totalCount`. Deliberately NOT one query for every
+ * build in the project: that reads the whole build history to learn a yes/no,
+ * and while this mirror holds 56 builds for 7.4, a live routine accumulates
+ * thousands. Cost here is bounded by the ROUTINE count, which is small and
+ * stays small, whatever the build volume does.
+ *
+ * A count that fails counts as "has builds". Showing a routine that turns out
+ * empty is the behaviour we already had; hiding a real one because a request
+ * blipped would be a new and much worse failure, and an invisible one.
+ */
 export function usePickerRoutines(projectId?: number) {
-	const {data} = useSWR(
+	const {data, isLoading} = useSWR(
 		projectId ? ['pickerRoutines', projectId] : null,
-		() =>
-			paginate<{id: number | string; name?: string}>(
+		async () => {
+			const routines = await paginate<{
+				id: number | string;
+				name?: string;
+			}>(
 				(page) =>
 					`/o/c/routines?page=${page}&pageSize=${PAGE_SIZE}` +
 					`&fields=${encodeURIComponent('id,name')}` +
 					`&filter=${encodeURIComponent(fkEquals('r_routineToProjects_c_projectId', projectId!))}` +
 					`&sort=${encodeURIComponent('name:asc')}`
-			)
+			);
+
+			const counted = await Promise.all(
+				routines.map(async (routine) => {
+					const id = num(routine.id) ?? 0;
+					const entry = {id, name: str(routine.name)};
+
+					try {
+						const page = await request<{totalCount?: number}>(
+							`/o/c/builds?pageSize=1` +
+								`&fields=${encodeURIComponent('id')}` +
+								`&filter=${encodeURIComponent(fkEquals('r_routineToBuilds_c_routineId', id))}`
+						);
+
+						return {...entry, hasBuilds: (page.totalCount ?? 0) > 0};
+					}
+					catch {
+						return {...entry, hasBuilds: true};
+					}
+				})
+			);
+
+			return counted.filter((routine) => routine.hasBuilds);
+		}
 	);
 
-	return (data ?? []).map((r) => ({id: num(r.id) ?? 0, name: str(r.name)}));
+	return {isLoading, routines: data ?? []};
 }
 
 export type PickerBuild = {
