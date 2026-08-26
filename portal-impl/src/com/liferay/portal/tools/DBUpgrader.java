@@ -463,8 +463,7 @@ public class DBUpgrader {
 			int buildNumber = _getBuildNumber();
 
 			try (Connection connection = DataAccess.getConnection()) {
-				if (PortalUpgradeProcess.isInCompatibleSchemaVersion(
-						connection) &&
+				if (PortalUpgradeProcess.isInLatestSchemaVersion(connection) &&
 					(buildNumber == ReleaseInfo.getParentBuildNumber())) {
 
 					_checkClassNamesAndResourceActions();
@@ -517,9 +516,7 @@ public class DBUpgrader {
 			IndexUpdaterUtil.updatePortalIndexes();
 
 			try (Connection connection = DataAccess.getConnection()) {
-				if (PortalUpgradeProcess.isInCompatibleSchemaVersion(
-						connection)) {
-
+				if (PortalUpgradeProcess.isInLatestSchemaVersion(connection)) {
 					updatePortalServiceComponent();
 				}
 

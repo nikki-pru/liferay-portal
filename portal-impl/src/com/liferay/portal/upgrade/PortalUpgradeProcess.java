@@ -227,7 +227,7 @@ public class PortalUpgradeProcess extends UpgradeProcess {
 		return true;
 	}
 
-	public static boolean isInCompatibleSchemaVersion(Connection connection)
+	public static boolean isInLatestSchemaVersion(Connection connection)
 		throws SQLException {
 
 		Version currentSchemaVersion = getCurrentSchemaVersion(connection);

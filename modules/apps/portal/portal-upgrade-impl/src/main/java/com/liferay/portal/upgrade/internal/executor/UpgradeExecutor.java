@@ -165,7 +165,7 @@ public class UpgradeExecutor {
 		_bundleContext = bundleContext;
 
 		try (Connection connection = DataAccess.getConnection()) {
-			_portalUpgraded = PortalUpgradeProcess.isInCompatibleSchemaVersion(
+			_portalUpgraded = PortalUpgradeProcess.isInLatestSchemaVersion(
 				connection);
 		}
 		catch (SQLException sqlException) {

@@ -57,8 +57,7 @@ public class PreupgradeVerifyDatabaseState extends PreupgradeVerifyProcess {
 		try {
 			try (Connection connection = getConnection()) {
 				if (StartupHelperUtil.isDBNew() ||
-					PortalUpgradeProcess.isInCompatibleSchemaVersion(
-						connection) ||
+					PortalUpgradeProcess.isInLatestSchemaVersion(connection) ||
 					(PortalUpgradeProcess.getCurrentState(connection) !=
 						ReleaseConstants.STATE_GOOD)) {
 
