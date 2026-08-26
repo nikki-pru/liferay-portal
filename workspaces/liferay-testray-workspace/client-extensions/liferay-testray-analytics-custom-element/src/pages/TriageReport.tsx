@@ -13,6 +13,7 @@ import Controls, {
 	type Filters,
 	applyFilters,
 } from '~/components/Controls';
+import HomeLink from '~/components/HomeLink';
 import StatusMatrix from '~/components/StatusMatrix';
 import Totals from '~/components/Totals';
 import TriageTable, {type SortKey} from '~/components/TriageTable';
@@ -25,6 +26,7 @@ import {
 import type {GroupMode} from '~/types';
 import type {ReportMeta} from '~/util/jira';
 import {toClusters, toGroups} from '~/util/rows';
+import {testrayURL} from '~/util/testray';
 
 type Props = {
 	buildId: number;
@@ -80,13 +82,9 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 
 	const projectId = routine?.r_routineToProjects_c_projectId;
 
-	// Same assumption as `TRIAGE_PATH` in the Testray hook: the site lives at
-	// this friendly URL. Wrong anywhere but a local instance, and it has to come
-	// from configuration before this ships — see ARCHITECTURE §9.
 	const routineURL =
 		projectId && routineId
-			? `${window.location.origin}/web/liferay-testray#/project/${projectId}` +
-				`/routines/${routineId}`
+			? testrayURL(`/project/${projectId}/routines/${routineId}`)
 			: '';
 
 	const visible = useMemo(() => applyFilters(rows, filters), [rows, filters]);
@@ -181,6 +179,10 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 			    both, and guessing from a `from=` param breaks on a shared or
 			    bookmarked URL. */}
 			<nav className="crumbs">
+				<HomeLink />
+
+				<span className="sep">/</span>
+
 				<a href="?">Triage</a>
 
 				{routineURL ? (

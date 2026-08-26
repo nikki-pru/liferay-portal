@@ -8,9 +8,11 @@ import ClayLoadingIndicator from '@clayui/loading-indicator';
 import {useMemo, useState} from 'react';
 
 import {Verdict} from '~/components/Cells';
+import HomeLink from '~/components/HomeLink';
 import TriagePicker from '~/components/TriagePicker';
 import {abortTriageRun, useTriageIndex} from '~/services/triage';
 import type {IndexRow} from '~/types';
+import {testrayURL} from '~/util/testray';
 import {RUN_STATUS, VERDICT_ORDER, verdictRank} from '~/util/verdict';
 
 /**
@@ -231,8 +233,18 @@ const TriageIndex: React.FC = () => {
  */
 const BackLink: React.FC = () => (
 	<nav className="crumbs">
+		{/* Home first, then Back: they answer different questions. Back
+		    returns to whatever you were looking at, which is usually a build
+		    list, but it depends on history and a bookmarked or shared link has
+		    none. Home always goes to the same place and says so. */}
+		<HomeLink />
+
+		{/* A dot, not the breadcrumb slash: Back is not a child of Home, it is
+		    a second way out. The slash claimed a hierarchy that is not there. */}
+		<span className="sep-dot">&middot;</span>
+
 		<a
-			href={`${window.location.origin}/web/liferay-testray`}
+			href={testrayURL()}
 			onClick={(event) => {
 				if (window.history.length > 1) {
 					event.preventDefault();

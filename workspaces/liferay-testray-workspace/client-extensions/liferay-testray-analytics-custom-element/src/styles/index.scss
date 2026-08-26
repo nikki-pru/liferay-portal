@@ -632,6 +632,19 @@ liferay-testray-analytics-custom-element {
 		font-size: 13px;
 		margin-bottom: 6px;
 
+		.sep-dot {
+			color: var(--c-muted);
+			margin: 0 6px;
+		}
+
+		// The house sits on the text baseline rather than the line box, so it
+		// does not ride high next to the crumb it precedes.
+		.home-link svg {
+			fill: currentColor;
+			position: relative;
+			top: 1px;
+		}
+
 		a {
 			color: #0747a6;
 			text-decoration: none;
