@@ -134,34 +134,6 @@ export const CONFIDENCE_ORDER: Record<string, number> = {
 export const confidenceRank = (confidence?: string): number =>
 	CONFIDENCE_ORDER[(confidence ?? '').toLowerCase()] ?? 9;
 
-/**
- * Signature novelty.
- *
- * Confidence cannot rank this data — a representative run split 140 low / 13
- * medium / 0 high — so a reader falls back to the transition label, which
- * invites a cut that looks obvious and destroys real defects. Novelty is
- * uniform across `new` and `changed`, and it is the honest key.
- */
-const NOVELTY: Array<[number, number, string, string]> = [
-	[0, 0, 'novel', 'Never seen in the baseline'],
-	[1, 4, 'rare', 'Rare in the baseline (1-4)'],
-	[5, Number.MAX_SAFE_INTEGER, 'chronic', 'Already chronic in the baseline (5+)'],
-];
-
-export function noveltyBucket(count?: number): {label: string; key: string} {
-	if (count === undefined || count === null || Number.isNaN(count)) {
-		return {key: '', label: ''};
-	}
-
-	for (const [lo, hi, key, label] of NOVELTY) {
-		if (count >= lo && count <= hi) {
-			return {key, label};
-		}
-	}
-
-	return {key: '', label: ''};
-}
-
 /** PASSED is the only good state, so anything else is a regression from it. */
 export const worse = (a: string, b: string): boolean =>
 	a === 'PASSED' && b !== 'PASSED';

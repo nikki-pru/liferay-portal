@@ -347,15 +347,23 @@ liferay-testray-analytics-custom-element {
 
 	td.col-status .status > span { white-space: nowrap; }
 
-	th.col-baseline, td.col-baseline { width: 78px; text-align: center; }
+	/* Issues already linked on the CaseResult. Its own column so a key is
+	   scannable down the table; the global overflow-wrap:anywhere would
+	   otherwise split one mid-token ("LPD-" / "99999"), so wrap BETWEEN keys. */
+	  th.col-ticket, td.col-ticket { width: 92px; text-align: center; }
 
-	td.col-baseline { font-weight: 700; font-size: 12px; }
+	td.col-ticket { font-size: 11.5px; }
 
-	td.col-baseline.novel   { color: var(--c-bug); }
+	/* One key per span, each unbreakable. Normal wrapping would still split
+	   "LPD-99999" at its hyphen; wrapping happens between keys instead. */
+	  .ticket-key {
+	    display: inline-block; overflow-wrap: normal; white-space: nowrap;
+	    word-break: normal;
+	  }
 
-	td.col-baseline.rare    { color: #b9770e; }
+	.ticket-key + .ticket-key { margin-left: 4px; }
 
-	td.col-baseline.chronic { color: var(--c-muted); font-weight: 400; }
+	.ticket-none { color: var(--c-muted); }
 
 	th.col-verdict { width: 130px; }
 
@@ -367,17 +375,55 @@ liferay-testray-analytics-custom-element {
 
 	td.col-culprit, td.col-reasoning { white-space: normal; line-height: 1.45; }
 
-	th.col-jira, td.col-jira { width: 110px; text-align: center; }
+	/* A kebab needs a fraction of the 110px the "Create ticket" button did.
+	   Linked issues used to share this cell and forced it wider; they have
+	   their own Ticket column now. */
+	  th.col-jira, td.col-jira { width: 56px; text-align: center; }
 
 	th.col-jira { cursor: help; }
 
-	a.jira-create {
-	    display: inline-block; padding: 4px 10px; background: #0052cc;
-	    color: #fff; border-radius: 3px; font-size: 12px;
-	    text-decoration: none; white-space: nowrap;
+	.actions-menu { display: inline-block; position: relative; }
+
+	.actions-kebab {
+	    background: none; border: 1px solid transparent; border-radius: 3px;
+	    color: var(--c-muted); cursor: pointer; line-height: 0;
+	    padding: 4px 6px;
 	  }
 
-	a.jira-create:hover { background: #0747a6; }
+	.actions-kebab:hover, .actions-kebab.is-open {
+	    background: #e4eaf0; border-color: #c9d2db; color: var(--c-fg);
+	  }
+
+	.actions-kebab svg { fill: currentColor; }
+
+	/* Right-aligned because this is the last column — a left-aligned menu
+	   would run off the page. z-index clears the rows below it. */
+	  .actions-list {
+	    background: #fff; border: 1px solid #cdd5dd; border-radius: 4px;
+	    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
+	    min-width: 190px; padding: 4px 0; position: absolute; right: 0;
+	    text-align: left; top: calc(100% + 2px); z-index: 20;
+	  }
+
+	.actions-item {
+	    color: var(--c-fg); display: block; font-size: 12.5px;
+	    padding: 6px 12px; text-decoration: none; white-space: nowrap;
+	  }
+
+	a.actions-item:hover { background: #eef1f4; }
+
+	/* Disabled, not hidden: the menu is landing before two of its three
+	   actions work, and saying what is coming is the point. */
+	  .actions-item.is-pending {
+	    align-items: center; color: var(--c-muted); cursor: default;
+	    display: flex; gap: 8px; justify-content: space-between;
+	  }
+
+	.actions-soon {
+	    background: #eef1f4; border-radius: 8px; color: var(--c-muted);
+	    font-size: 9.5px; letter-spacing: 0.04em; padding: 1px 6px;
+	    text-transform: uppercase;
+	  }
 
 	/* ---- click-to-expand rows -------------------------------------------- */
 	  tr.case-row { cursor: pointer; }
@@ -473,8 +519,6 @@ liferay-testray-analytics-custom-element {
 	tr.cluster-row .cluster-title { font-weight: 700; }
 
 	.cluster-reason-mixed { font-style: italic; color: #42526e; }
-
-	tr.cluster-row a.jira-create { font-size: 11.5px; padding: 3px 8px; white-space: normal; }
 
 	/* Member rows: indented, shared cells collapse to a pointer. */
 	  tr.case-row.in-cluster td.col-idx { padding-left: 18px; }

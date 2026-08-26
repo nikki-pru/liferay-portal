@@ -6,16 +6,17 @@
 import {Fragment, useState} from 'react';
 
 import type {Cluster, Group, GroupMode, Row} from '~/types';
+import ActionsMenu, {type Action} from '~/components/ActionsMenu';
 import {type ReportMeta, jiraDraftURL} from '~/util/jira';
 import {confidenceRank, verdictClass, verdictRank} from '~/util/verdict';
-import {Confidence, Novelty, Status, Verdict} from './Cells';
+import {Confidence, Status, Tickets, Verdict} from './Cells';
 import RowDetail from './RowDetail';
 
 export type SortKey =
 	| 'caseName'
 	| 'team'
 	| 'component'
-	| 'baselineSignatureCount'
+	| 'linkedIssues'
 	| 'displayVerdict'
 	| 'confidence'
 	| 'culpritFile'
@@ -61,22 +62,57 @@ const COLUMNS: Array<{
 		label: 'Status',
 		title: 'Status on the baseline → status on the target',
 	},
-	{
-		cls: 'col-baseline',
-		key: 'baselineSignatureCount',
-		label: 'Baseline',
-		title: 'How many times this error signature appeared in the baseline. Blank when unknown.',
-	},
 	{cls: 'col-verdict', key: 'displayVerdict', label: 'Verdict'},
 	{cls: 'col-confidence', key: 'confidence', label: 'Confidence'},
 	{cls: 'col-culprit', key: 'culpritFile', label: 'Culprit'},
 	{cls: 'col-reasoning', key: 'reason', label: 'Reasoning'},
 	{
+		cls: 'col-ticket',
+		key: 'linkedIssues',
+		label: 'Ticket',
+		title: 'Issues already linked to this case result in Testray',
+	},
+	{
 		cls: 'col-jira',
 		key: '',
-		label: 'Jira',
-		title: 'Opens a prefilled Jira draft — nothing is filed automatically',
+		label: 'Actions',
+		title: 'What you can do about this row — file it, correct it, or ask for a test fix',
 	},
+];
+
+/**
+ * The two actions that are not wired yet, declared once so a cluster and a
+ * member row cannot drift into advertising different things.
+ */
+const PENDING_ACTIONS: Action[] = [
+	{
+		label: 'Change verdict',
+		pending: 'not wired yet',
+		title:
+			'Correct the AI verdict, link an issue and leave a comment — the ' +
+			'same shape as Edit on a Testray case result. Changing a cluster ' +
+			'will apply to every test in it; changing one row stays on that row',
+	},
+	{
+		label: 'Send Test Fix PR',
+		pending: 'not wired yet',
+		title:
+			'Triggers the /test-fix skill and opens a pull request for the ' +
+			'team to review — nothing is merged automatically',
+	},
+];
+
+/** Alphabetical: Change verdict, Create Jira Ticket, Send Test Fix PR. */
+const actionsFor = (jiraHref: string): Action[] => [
+	PENDING_ACTIONS[0],
+	{
+		href: jiraHref,
+		label: 'Create Jira Ticket',
+		title:
+			'Opens a prefilled Jira draft in a new tab for you to confirm — ' +
+			'nothing is filed automatically',
+	},
+	PENDING_ACTIONS[1],
 ];
 
 /**
@@ -92,15 +128,6 @@ function compare(a: Row, b: Row, key: Exclude<SortKey, ''>): number {
 
 	if (key === 'confidence') {
 		return confidenceRank(a.confidence) - confidenceRank(b.confidence);
-	}
-
-	if (key === 'baselineSignatureCount') {
-		// Unknown sorts last either way rather than reading as zero, which
-		// would claim the signature is novel.
-		const av = a.baselineSignatureCount ?? Number.MAX_SAFE_INTEGER;
-		const bv = b.baselineSignatureCount ?? Number.MAX_SAFE_INTEGER;
-
-		return av - bv;
 	}
 
 	return String(a[key] ?? '').localeCompare(String(b[key] ?? ''));
@@ -242,10 +269,6 @@ const TriageTable: React.FC<Props> = ({
 					),
 				];
 
-				const baselineCounts = group.rows
-					.map((row) => row.baselineSignatureCount)
-					.filter((count): count is number => count !== undefined);
-
 				const n = group.rows.length;
 
 				return (
@@ -287,14 +310,6 @@ const TriageTable: React.FC<Props> = ({
 							/>
 
 							<td className="col-status cluster-cell" />
-
-							<Novelty
-								count={
-									baselineCounts.length
-										? Math.min(...baselineCounts)
-										: undefined
-								}
-							/>
 
 							<td className="col-verdict cluster-cell">
 								<Verdict verdict={verdict} />
@@ -353,23 +368,28 @@ const TriageTable: React.FC<Props> = ({
 								)}
 							</td>
 
+							<Tickets
+								cluster
+								values={group.rows.map(
+									(row) => row.linkedIssues
+								)}
+							/>
+
 							<td className="col-jira cluster-cell">
-								<a
-									className="jira-create"
-									href={jiraDraftURL(meta, {
-										count: n,
-										rows: group.rows,
-										summaryText:
-											reasons.length === 1 ? reasons[0] : '',
-										verdict,
-									})}
-									onClick={(event) => event.stopPropagation()}
-									rel="noopener"
-									target="_blank"
-									title="Opens a prefilled Jira draft — nothing is filed automatically"
-								>
-									Create ticket
-								</a>
+								<ActionsMenu
+									actions={actionsFor(
+										jiraDraftURL(meta, {
+											count: n,
+											rows: group.rows,
+											summaryText:
+												reasons.length === 1
+													? reasons[0]
+													: '',
+											verdict,
+										})
+									)}
+									label="Actions for this cluster"
+								/>
 							</td>
 						</tr>
 
@@ -437,10 +457,6 @@ const TriageTable: React.FC<Props> = ({
 											/>
 										</td>
 
-										<Novelty
-											count={row.baselineSignatureCount}
-										/>
-
 										<td className="col-verdict">
 											{collapsed('displayVerdict') ? (
 												<Pointer
@@ -501,31 +517,24 @@ const TriageTable: React.FC<Props> = ({
 											)}
 										</td>
 
+										{/* Its own column rather than stacked
+										    in the Actions cell: an issue key
+										    is text a reader scans down, and
+										    at the Actions column's width it
+										    broke across two lines. */}
+										<Tickets values={[row.linkedIssues]} />
+
 										<td className="col-jira">
-											{/* An already-linked issue wins:
-											    the button exists to avoid
-											    filing a duplicate. */}
-											{row.linkedIssues ? (
-												row.linkedIssues
-											) : (
-												<a
-													className="jira-create"
-													href={jiraDraftURL(meta, {
+											<ActionsMenu
+												actions={actionsFor(
+													jiraDraftURL(meta, {
 														rows: [row],
 														summaryText: row.reason,
 														verdict:
 															row.displayVerdict,
-													})}
-													onClick={(event) =>
-														event.stopPropagation()
-													}
-													rel="noopener"
-													target="_blank"
-													title="Opens a prefilled Jira draft — nothing is filed automatically"
-												>
-													Create ticket
-												</a>
-											)}
+													})
+												)}
+											/>
 										</td>
 									</tr>
 
