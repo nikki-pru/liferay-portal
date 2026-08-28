@@ -31,7 +31,9 @@
 	"private": true,
 	"resolutions": {
 		"@types/html-minifier-terser": "5.1.0",
-		"ua-parser-js": "^0.7.30"
+		"liferay-theme-tasks/**/websocket-driver": "0.7.5",
+		"ua-parser-js": "^0.7.30",
+		"webpack-dev-server/**/websocket-driver": "0.7.5"
 	},
 	"scripts": {
 		"checkFormat": "node-scripts format --check --current-branch",
