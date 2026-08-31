@@ -809,8 +809,8 @@ public class ExportProcessResourceTest
 		String errorMessage = failedExportProcess.getErrorMessage();
 
 		Assert.assertNotEquals(_STACK_TRACE_STATUS_MESSAGE, errorMessage);
-		Assert.assertFalse(errorMessage, errorMessage.contains("\tat "));
 		Assert.assertFalse(errorMessage, errorMessage.contains(".java:"));
+		Assert.assertFalse(errorMessage, errorMessage.contains("\tat "));
 		Assert.assertFalse(errorMessage, errorMessage.contains("java.lang."));
 	}
 
