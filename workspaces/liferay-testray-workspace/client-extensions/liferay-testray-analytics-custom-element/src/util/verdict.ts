@@ -61,15 +61,38 @@ export const VERDICT_ORDER = [
  * moves.
  */
 const UNATTRIBUTED_FROM = 'NEEDS_REVIEW';
-const UNATTRIBUTED_AT = new Set(['low', '']);
+const UNATTRIBUTED_AT = new Set(['low']);
 
-export function displayVerdict(verdict?: string, confidence?: string): string {
-	const canonical = canonicalVerdict(verdict);
+/** Candidate tickets the classifier names in `specificChange`. The display
+ *  rule depends on it. Mirrors verdicts.CANDIDATE_RE. */
+const CANDIDATE_RE = /\b(?:LPD|LPP|LPS)-\d+\b/;
 
-	return canonical === UNATTRIBUTED_FROM &&
-		UNATTRIBUTED_AT.has((confidence ?? '').toLowerCase())
-		? 'NOT_ATTRIBUTABLE'
-		: canonical;
+export function displayVerdict(
+	verdict?: string,
+	confidence?: string,
+	specificChange?: string
+): string {
+	const cls = canonicalVerdict(verdict);
+
+	if (cls !== UNATTRIBUTED_FROM) {
+		return cls;
+	}
+
+	// Only a genuine `low` from the classifier relabels. A row with NO
+	// confidence never reached the model — it carries an auto label, and
+	// nothing failed to attribute it because nothing was asked.
+	if ((confidence ?? '').toLowerCase() !== 'low') {
+		return cls;
+	}
+
+	// A low-confidence verdict that still NAMED candidate tickets attributed
+	// something; it just could not choose. Only a verdict naming nothing is
+	// honestly "not attributable".
+	if (CANDIDATE_RE.test(specificChange ?? '')) {
+		return cls;
+	}
+
+	return 'NOT_ATTRIBUTABLE';
 }
 
 /**

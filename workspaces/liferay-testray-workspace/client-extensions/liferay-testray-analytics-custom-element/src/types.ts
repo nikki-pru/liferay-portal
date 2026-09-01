@@ -124,6 +124,10 @@ export type Row = {
 	/** Derived, never stored — see `displayVerdict`. */
 	displayVerdict: string;
 	errorMessage: string;
+	/** The run's commit range. Same on every row; carried per-row because that
+	 *  is where TriageResult stores it, and the handoff prompt needs it. */
+	gitHashA: string;
+	gitHashB: string;
 	id: number;
 	linkedIssues: string;
 	reason: string;
