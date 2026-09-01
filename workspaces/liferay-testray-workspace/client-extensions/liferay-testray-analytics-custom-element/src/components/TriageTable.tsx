@@ -7,9 +7,10 @@ import {Fragment, useState} from 'react';
 
 import type {Cluster, Group, GroupMode, Row} from '~/types';
 import ActionsMenu, {type Action} from '~/components/ActionsMenu';
+import {NEEDS_HUMAN, verificationPrompt} from '~/util/prompt';
 import {type ReportMeta, jiraDraftURL} from '~/util/jira';
 import {confidenceRank, verdictClass, verdictRank} from '~/util/verdict';
-import {Confidence, Status, Tickets, Verdict} from './Cells';
+import {CauseTickets, Confidence, Status, Tickets, Verdict} from './Cells';
 import RowDetail from './RowDetail';
 
 export type SortKey =
@@ -62,15 +63,44 @@ const COLUMNS: Array<{
 		label: 'Status',
 		title: 'Status on the baseline → status on the target',
 	},
-	{cls: 'col-verdict', key: 'displayVerdict', label: 'Verdict'},
-	{cls: 'col-confidence', key: 'confidence', label: 'Confidence'},
-	{cls: 'col-culprit', key: 'culpritFile', label: 'Culprit'},
-	{cls: 'col-reasoning', key: 'reason', label: 'Reasoning'},
+	{
+		cls: 'col-verdict',
+		key: 'displayVerdict',
+		label: 'Verdict',
+		title:
+			'What the classifier concluded about the failure. A cluster header ' +
+			"shows its most severe member's verdict",
+	},
+	{
+		cls: 'col-confidence',
+		key: 'confidence',
+		label: 'Confidence',
+		title:
+			'How sure the classifier was: high, medium or low. "auto" means the ' +
+			'row was pre-classified and never sent to the model',
+	},
+	{
+		cls: 'col-culprit',
+		key: 'culpritFile',
+		label: 'Suspicious cause',
+		title:
+			'The file the classifier blamed. When it would not narrow to one, ' +
+			'the candidate tickets it named instead',
+	},
+	{
+		cls: 'col-reasoning',
+		key: 'reason',
+		label: 'Reasoning',
+		title: 'Why the classifier reached this verdict, in its own words',
+	},
 	{
 		cls: 'col-ticket',
 		key: 'linkedIssues',
-		label: 'Ticket',
-		title: 'Issues already linked to this case result in Testray',
+		label: 'Existing Ticket',
+		title:
+			'Whether a ticket already exists for this failure — the tickets ' +
+			'already linked to the case result, if any. Not a place to file a ' +
+			'new one (see Actions)',
 	},
 	{
 		cls: 'col-jira',
@@ -102,9 +132,29 @@ const PENDING_ACTIONS: Action[] = [
 	},
 ];
 
-/** Alphabetical: Change verdict, Create Jira Ticket, Send Test Fix PR. */
-const actionsFor = (jiraHref: string): Action[] => [
+/**
+ * Alphabetical: Change verdict, Copy prompt for local verification, Create
+ * Jira Ticket, Send Test Fix PR. Change < Copy < Create, so the copy item
+ * slots in without disturbing the order.
+ *
+ * `prompt` is omitted for verdicts that already named their cause — a
+ * "go investigate" action is noise on a BUG or a TEST_FIX.
+ */
+const actionsFor = (jiraHref: string, prompt?: string): Action[] => [
 	PENDING_ACTIONS[0],
+	...(prompt
+		? [
+				{
+					copy: prompt,
+					label: 'Copy prompt for local verification',
+					title:
+						'Copies a ready-to-paste prompt describing this ' +
+						'failure, the commit range and the candidate causes, ' +
+						'to run against a local liferay-portal checkout in ' +
+						'your own Claude Code session',
+				},
+			]
+		: []),
 	{
 		href: jiraHref,
 		label: 'Create Jira Ticket',
@@ -344,9 +394,20 @@ const TriageTable: React.FC<Props> = ({
 									>
 										{culprits.length} files
 									</span>
+								) : group.rows.some((row) =>
+										/\b(?:LPD|LPP|LPS)-\d+\b/.test(
+											row.specificChange ?? ''
+										)
+									) ? (
+									<CauseTickets
+										specificChange={group.rows
+											.map((row) => row.specificChange)
+											.filter(Boolean)
+											.join(' ; ')}
+									/>
 								) : (
 									<span className="cluster-culprit-none">
-										no culprit named
+										no cause named
 									</span>
 								)}
 							</td>
@@ -386,7 +447,17 @@ const TriageTable: React.FC<Props> = ({
 													? reasons[0]
 													: '',
 											verdict,
-										})
+										}),
+										NEEDS_HUMAN.has(verdict) &&
+											group.rows.length
+											? verificationPrompt(
+													group.rows[0],
+													group.rows.map(
+														(r) => r.caseName
+													),
+													verdict
+												)
+											: undefined
 									)}
 									label="Actions for this cluster"
 								/>
@@ -501,6 +572,14 @@ const TriageTable: React.FC<Props> = ({
 														</div>
 													)}
 												</>
+											) : row.specificChange?.match(
+													/\b(?:LPD|LPP|LPS)-\d+\b/
+												) ? (
+												<CauseTickets
+													specificChange={
+														row.specificChange
+													}
+												/>
 											) : (
 												'—'
 											)}
@@ -532,7 +611,19 @@ const TriageTable: React.FC<Props> = ({
 														summaryText: row.reason,
 														verdict:
 															row.displayVerdict,
-													})
+													}),
+													NEEDS_HUMAN.has(
+														row.displayVerdict
+													)
+														? verificationPrompt(
+																row,
+																group.rows.map(
+																	(r) =>
+																		r.caseName
+																),
+																row.displayVerdict
+															)
+														: undefined
 												)}
 											/>
 										</td>

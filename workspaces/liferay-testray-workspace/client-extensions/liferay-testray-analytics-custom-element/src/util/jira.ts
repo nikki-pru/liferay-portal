@@ -19,7 +19,7 @@ import type {Row} from '~/types';
 /** Liferay's LPD project and its Task issue type. */
 const PROJECT_ID = '11106';
 const ISSUE_TYPE = '10002';
-const BASE_URL = 'https://liferay.atlassian.net';
+export const BASE_URL = 'https://liferay.atlassian.net';
 
 /**
  * Jira's CreateIssueDetails takes these as URL parameters, so an over-long

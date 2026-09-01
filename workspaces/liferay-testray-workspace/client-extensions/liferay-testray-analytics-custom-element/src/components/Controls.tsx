@@ -45,10 +45,19 @@ const Select: React.FC<{
 	id: string;
 	label: string;
 	onChange: (value: string) => void;
+	/** Width class, tuned to the vocabulary the control holds. */
+	size?: 'lg' | 'md' | 'sm';
+	title?: string;
 	value: string;
 	values: string[];
-}> = ({id, label, onChange, value, values}) => (
-	<>
+}> = ({id, label, onChange, size = 'md', title, value, values}) => (
+	// The pair is ONE flex item. `.filters-row` wraps, and while the label and
+	// the select are two separate children the break can land between them --
+	// which stranded "Transition:" on one line with its dropdown on the next.
+	// The earlier attempt wrapped them in the <label>, which is not a flex
+	// container, so the selects stopped shrinking; a flex span fixes both.
+	// The title sits on the wrapper so it fires over the label AND the select.
+	<span className={`filter-field ff-${size}`} title={title}>
 		<label htmlFor={id}>{label}:</label>
 
 		<select
@@ -64,7 +73,7 @@ const Select: React.FC<{
 				</option>
 			))}
 		</select>
-	</>
+	</span>
 );
 
 /**
@@ -88,7 +97,12 @@ const Controls: React.FC<Props> = ({
 		<>
 			<div className="viewbar">
 				<span className="viewbar-group">
-					<span className="viewbar-label">Group by</span>
+					<span
+						className="viewbar-label"
+						title="Re-cuts the same rows into different groups. Nothing is re-classified."
+					>
+						Group by
+					</span>
 
 					<select
 						onChange={(event) =>
@@ -145,6 +159,7 @@ const Controls: React.FC<Props> = ({
 						id="triage-team"
 						label="Team"
 						onChange={set('team')}
+						size="lg"
 						value={filters.team}
 						values={distinct(rows, 'team')}
 					/>
@@ -153,6 +168,7 @@ const Controls: React.FC<Props> = ({
 						id="triage-component"
 						label="Component"
 						onChange={set('component')}
+						size="lg"
 						value={filters.component}
 						values={distinct(rows, 'component')}
 					/>
@@ -163,6 +179,7 @@ const Controls: React.FC<Props> = ({
 						id="triage-verdict"
 						label="Verdict"
 						onChange={set('verdict')}
+						title="Show only rows the classifier gave this verdict."
 						value={filters.verdict}
 						values={distinct(rows, 'displayVerdict')}
 					/>
@@ -171,6 +188,11 @@ const Controls: React.FC<Props> = ({
 						id="triage-confidence"
 						label="Confidence"
 						onChange={set('confidence')}
+						size="sm"
+						title={
+							"Show only rows at this confidence. 'auto' means " +
+							'pre-classified, never sent to the model.'
+						}
 						value={filters.confidence}
 						values={distinct(rows, 'confidence')}
 					/>

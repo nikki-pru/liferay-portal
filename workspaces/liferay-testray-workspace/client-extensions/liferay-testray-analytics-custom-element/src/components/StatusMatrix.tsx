@@ -3,7 +3,12 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-import {STATUS_ORDER, statusLabel, worse} from '~/util/verdict';
+import {
+	CELL_NOTE,
+	cellClass,
+	STATUS_ORDER,
+	statusLabel,
+} from '~/util/verdict';
 
 type Props = {
 	matrix: Record<string, Record<string, number>>;
@@ -40,7 +45,9 @@ const StatusMatrix: React.FC<Props> = ({matrix}) => {
 
 	return (
 		<div className="matrix">
-			<div className="matrix-title">Runs</div>
+			<div className="matrix-title">
+				Where A is the previous build, and B is the new build
+			</div>
 
 			<table>
 				<thead>
@@ -69,18 +76,21 @@ const StatusMatrix: React.FC<Props> = ({matrix}) => {
 							{columns.map((column) => {
 								const n = matrix[row]?.[column] ?? 0;
 
-								// An unchanged diagonal is context, not news;
-								// a transition is news.
-								const cls =
-									row === column
-										? 'same'
-										: worse(row, column)
-											? 'worse'
-											: 'better';
+								const cls = cellClass(row, column);
+
+								const note = CELL_NOTE[`${row}|${column}`];
 
 								return n ? (
 									<td className={cls} key={column}>
-										{n.toLocaleString()}
+										<span className="cell-n">
+											{n.toLocaleString()}
+										</span>
+
+										{note ? (
+											<span className="cell-note">
+												{note}
+											</span>
+										) : null}
 									</td>
 								) : (
 									<td className="zero" key={column} />

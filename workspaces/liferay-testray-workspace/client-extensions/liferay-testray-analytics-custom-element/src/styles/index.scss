@@ -145,7 +145,12 @@ liferay-testray-analytics-custom-element {
 
 	.matrix table { margin: 0 auto; }
 
-	.matrix-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; }
+	/* Was "Runs", which named the thing without explaining how to read it.
+	     Wraps rather than forcing the panel wider. */
+	  .matrix-title {
+	    font-weight: 600; font-size: 12px; margin-bottom: 8px;
+	    color: var(--c-muted); line-height: 1.35; text-align: center;
+	  }
 
 	.matrix table { width: auto; border-collapse: collapse; font-size: 12px; }
 
@@ -162,11 +167,24 @@ liferay-testray-analytics-custom-element {
 	    border: 1px solid #edf0f3; font-size: 13px; min-width: 74px;
 	  }
 
+	/* The count stays the loud thing; the caption is a note under it, not a
+	     second number competing with it. */
+	  .matrix .cell-n { display: block; }
+
+	.matrix .cell-note {
+	    display: block; font-size: 9.5px; font-weight: 500; line-height: 1.2;
+	    margin-top: 2px; opacity: .75; white-space: nowrap;
+	  }
+
 	.matrix td.same   { background: #f4f6f8; color: var(--c-fg); }
 
 	.matrix td.worse  { background: #fdecea; color: #a4302a; }
 
 	.matrix td.better { background: #e9f7ef; color: #1e6b45; }
+
+	/* Neither a fix nor a regression — counted, but making no claim. Kept
+	     visually distinct from the grey diagonal, which means "unchanged". */
+	  .matrix td.neutral { background: #fbfcfd; color: var(--c-fg); }
 
 	.matrix td.zero   { background: #fbfcfd; }
 
@@ -273,12 +291,26 @@ liferay-testray-analytics-custom-element {
 	    min-width: 0;
 	  }
 
-	.filters label { font-weight: 600; }
+	.filters label { font-weight: 600; white-space: nowrap; }
+
+	/* A label and its select are ONE flex item, so a wrap can never separate
+	     them -- that is what stranded "Transition:" above its own dropdown. */
+	  .filter-field {
+	    display: flex; align-items: center; gap: 6px; min-width: 0;
+	    flex: 0 1 auto;
+	  }
 
 	/* The selects must be able to shrink: five of them at a fixed 200px kept
 	     the controls column above 1000px, which forced the matrix to wrap onto
-	     its own row instead of sitting beside them. */
-	  .filters select { min-width: 0; flex: 1 1 140px; max-width: 220px; }
+	     its own row instead of sitting beside them. Widths are per-vocabulary
+	     so all five fit one row. */
+	  .filters select { min-width: 0; flex: 1 1 auto; }
+
+	.ff-lg select { flex-basis: 130px; max-width: 190px; }
+
+	.ff-md select { flex-basis: 104px; max-width: 132px; }
+
+	.ff-sm select { flex-basis: 74px;  max-width: 92px; }
 
 	.filters input[type="search"] { min-width: 0; flex: 1 1 220px; }
 
@@ -350,7 +382,7 @@ liferay-testray-analytics-custom-element {
 	/* Issues already linked on the CaseResult. Its own column so a key is
 	   scannable down the table; the global overflow-wrap:anywhere would
 	   otherwise split one mid-token ("LPD-" / "99999"), so wrap BETWEEN keys. */
-	  th.col-ticket, td.col-ticket { width: 92px; text-align: center; }
+	  th.col-ticket, td.col-ticket { width: 112px; text-align: center; }
 
 	td.col-ticket { font-size: 11.5px; }
 
@@ -371,6 +403,19 @@ liferay-testray-analytics-custom-element {
 
 	th.col-culprit, td.col-culprit { min-width: 220px; }
 
+	/* Candidate tickets, shown when the classifier named causes but no file. */
+	  .cause-tickets { display: flex; flex-wrap: wrap; gap: 4px; }
+
+	a.cause-ticket {
+	    display: inline-block; padding: 1px 6px; border-radius: 3px;
+	    background: var(--c-code-bg); border: 1px solid var(--c-border);
+	    color: #0747a6; text-decoration: none;
+	    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+	    font-size: 11px;
+	  }
+
+	a.cause-ticket:hover { text-decoration: underline; }
+
 	th.col-reasoning, td.col-reasoning { min-width: 320px; }
 
 	td.col-culprit, td.col-reasoning { white-space: normal; line-height: 1.45; }
@@ -380,7 +425,7 @@ liferay-testray-analytics-custom-element {
 	   their own Ticket column now. */
 	  th.col-jira, td.col-jira { width: 56px; text-align: center; }
 
-	th.col-jira { cursor: help; }
+	th[title], .filter-field[title], .viewbar-label[title] { cursor: help; }
 
 	.actions-menu { display: inline-block; position: relative; }
 
@@ -411,6 +456,14 @@ liferay-testray-analytics-custom-element {
 	  }
 
 	a.actions-item:hover { background: #eef1f4; }
+
+	/* A copy action is a button, not a link, but must sit on the same grid. */
+	  button.actions-item {
+	    background: none; border: 0; cursor: pointer; font: inherit;
+	    font-size: 12.5px; padding: 6px 12px; text-align: left; width: 100%;
+	  }
+
+	button.actions-item:hover { background: #eef1f4; }
 
 	/* Disabled, not hidden: the menu is landing before two of its three
 	   actions work, and saying what is coming is the point. */

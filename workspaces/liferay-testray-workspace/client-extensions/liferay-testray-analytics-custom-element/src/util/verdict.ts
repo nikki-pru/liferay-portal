@@ -161,6 +161,42 @@ export const confidenceRank = (confidence?: string): number =>
 export const worse = (a: string, b: string): boolean =>
 	a === 'PASSED' && b !== 'PASSED';
 
+/**
+ * Colour for one status-matrix cell.
+ *
+ * Green means ONLY "ended up passing", red means ONLY "was passing and no
+ * longer is". Everything else is uncoloured, because it is neither.
+ *
+ * This used to read `worse(a, b) ? red : green`, which made green the default
+ * for every off-diagonal cell — so DNR -> FAILED and FAILED -> DNR both
+ * rendered green, reading as good news when nothing good happened. Green is a
+ * claim about the target column, not the absence of a regression.
+ *
+ * Mirrors `_cell_class` in report.py (§12 view contract).
+ */
+export const cellClass = (a: string, b: string): string => {
+	if (a === b) {
+		return 'same';
+	}
+
+	if (b === 'PASSED') {
+		return 'better';
+	}
+
+	// Red mirrors green: "ended up failing", wherever it came from, PLUS "was
+	// passing and no longer is" (which also covers ending up BLOCKED or
+	// not-run). UNTESTED -> FAILED is red on purpose — that is
+	// TRANSITION_NO_BASELINE, which prepare treats as a triage candidate
+	// because the usual cause is a NEW test that fails.
+	if (b === 'FAILED' || worse(a, b)) {
+		return 'worse';
+	}
+
+	// A move between two non-passing states that does not end in a failure: a
+	// lost signal rather than a failure.
+	return 'neutral';
+};
+
 export const STATUS_ORDER = [
 	'PASSED',
 	'FAILED',
@@ -178,6 +214,25 @@ const STATUS_LABEL: Record<string, string> = {
 
 export const statusLabel = (code: string): string =>
 	STATUS_LABEL[code] ?? code.charAt(0) + code.slice(1).toLowerCase();
+
+/**
+ * What each PASSED/FAILED cell MEANS, printed under the number in the status
+ * matrix. Reading a cross-tab means holding "row = baseline, column = target"
+ * in your head and re-deriving the meaning four times; the caption does that
+ * once. Keyed `${A status}|${B status}`.
+ *
+ * Only the four pass/fail combinations are named. BLOCKED / Test Fix / DNR
+ * cells stay bare on purpose — a phrase for every combination would be nine
+ * captions of clutter to explain the four a reader acts on.
+ *
+ * Mirrors `_CELL_NOTE` in report.py (§12 view contract).
+ */
+export const CELL_NOTE: Record<string, string> = {
+	'FAILED|FAILED': 'failed in both',
+	'FAILED|PASSED': 'now passing',
+	'PASSED|FAILED': 'new failures',
+	'PASSED|PASSED': 'passed in both',
+};
 
 /**
  * Triage-run state for the build-index diamond.

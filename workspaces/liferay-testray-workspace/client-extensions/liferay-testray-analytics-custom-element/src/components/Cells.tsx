@@ -3,7 +3,52 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
+import {BASE_URL} from '~/util/jira';
 import {verdictClass} from '~/util/verdict';
+
+/** Ticket keys the classifier names in `specificChange`. Mirrors report._TICKET_RE. */
+const TICKET_RE = /\b((?:LPD|LPP|LPS)-\d+)\b/g;
+
+/**
+ * The Suspicious cause cell: the culprit file when the classifier committed to
+ * one, otherwise the candidate tickets it named instead.
+ *
+ * The rubric tells the classifier to leave `culpritFile` NULL and list every
+ * candidate in `specificChange` whenever two or more changes could explain a
+ * failure ("NEEDS_REVIEW - two or more candidate causes"). Without this the
+ * actionable half of that answer never reaches the column: `culpritCommits` is
+ * derived from the FILE, so a null culprit yields no commits either and the
+ * cell rendered "-" for a row the classifier did have an opinion about.
+ *
+ * `culpritFile` itself is untouched - it is a stored verdict field feeding
+ * defect-attribution training data and the cluster key, so this is a rendering
+ * fallback, not a repurposing of the field.
+ */
+export const CauseTickets: React.FC<{specificChange?: string}> = ({
+	specificChange,
+}) => {
+	const keys = [...new Set(specificChange?.match(TICKET_RE) ?? [])];
+
+	if (!keys.length) {
+		return null;
+	}
+
+	return (
+		<div className="cause-tickets">
+			{keys.map((key) => (
+				<a
+					className="cause-ticket"
+					href={`${BASE_URL}/browse/${key}`}
+					key={key}
+					rel="noopener"
+					target="_blank"
+				>
+					{key}
+				</a>
+			))}
+		</div>
+	);
+};
 
 /** The stored verdict, or an em dash when nothing classified the row. */
 export const Verdict: React.FC<{verdict?: string}> = ({verdict}) =>

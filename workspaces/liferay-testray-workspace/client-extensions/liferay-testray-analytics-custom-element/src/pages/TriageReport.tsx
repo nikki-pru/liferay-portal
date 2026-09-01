@@ -208,7 +208,7 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 			    timestamp — and letting the longer one set the type size makes
 			    the target hard to find. */}
 			<h1>
-				Triage report:{' '}
+				Analysis for:{' '}
 				{buildURL(buildId) ? (
 					<a className="build-link" href={buildURL(buildId)}>
 						{targetLabel}
@@ -278,17 +278,6 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 					<StatusMatrix matrix={matrix} />
 				</div>
 			</div>
-
-			<p className="hint">
-				Cluster headers sit on the same columns as their member rows: the
-				test count and signature stand where a test name would, and a{' '}
-				<span className="same-as-cluster">
-					<a href="#">&uarr;</a>
-				</span>{' '}
-				means the row carries the same value as its cluster header. Click
-				a cluster header to fold its members in or out; click a row to
-				open its own detail panel.
-			</p>
 
 			{visible.length ? (
 				<TriageTable

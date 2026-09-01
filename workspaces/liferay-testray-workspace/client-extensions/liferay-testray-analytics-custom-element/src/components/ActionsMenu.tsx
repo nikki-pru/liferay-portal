@@ -40,9 +40,52 @@ export type Action = {
 	pending?: string;
 	/** Absent on a pending action; present ones open in a new tab. */
 	href?: string;
+	/** Text to put on the clipboard. Mutually exclusive with `href`. */
+	copy?: string;
 	label: string;
 	title: string;
 };
+
+/**
+ * Put `text` on the clipboard, reporting honestly whether it worked.
+ *
+ * navigator.clipboard is rejected outright in some embedded contexts, so the
+ * throwaway-textarea route is a real fallback rather than decoration. What it
+ * must never do is claim success it did not achieve: an earlier version
+ * selected a hidden element and told the reader to press Ctrl-C, which copied
+ * nothing because a display:none element has no selectable content.
+ */
+async function writeClipboard(text: string): Promise<boolean> {
+	try {
+		await navigator.clipboard.writeText(text);
+
+		return true;
+	}
+	catch {
+		const ta = document.createElement('textarea');
+
+		ta.value = text;
+		ta.setAttribute('readonly', '');
+		ta.style.opacity = '0';
+		ta.style.position = 'fixed';
+		ta.style.top = '0';
+		document.body.appendChild(ta);
+		ta.select();
+
+		let ok = false;
+
+		try {
+			ok = document.execCommand('copy');
+		}
+		catch {
+			ok = false;
+		}
+
+		document.body.removeChild(ta);
+
+		return ok;
+	}
+}
 
 const ActionsMenu: React.FC<{actions: Action[]; label?: string}> = ({
 	actions,
@@ -121,6 +164,32 @@ const ActionsMenu: React.FC<{actions: Action[]; label?: string}> = ({
 
 								<span className="actions-soon">Soon</span>
 							</span>
+						) : action.copy ? (
+							<button
+								className="actions-item actions-copy"
+								key={action.label}
+								onClick={async (event) => {
+									event.preventDefault();
+									const el = event.currentTarget;
+									const was = el.textContent;
+									const ok = await writeClipboard(
+										action.copy as string
+									);
+
+									el.textContent = ok
+										? 'Copied'
+										: 'Copy failed';
+									setTimeout(() => {
+										el.textContent = was;
+										setOpen(false);
+									}, 1400);
+								}}
+								role="menuitem"
+								title={action.title}
+								type="button"
+							>
+								{action.label}
+							</button>
 						) : (
 							<a
 								className="actions-item"
