@@ -133,6 +133,14 @@ public class ImportProcessResourceTest
 
 	@Override
 	@Test
+	public void testGetImportProcess() throws Exception {
+		super.testGetImportProcess();
+
+		_testGetImportProcessErrorMessageWhenStatusMessageIsNotJSON();
+	}
+
+	@Override
+	@Test
 	public void testPostAssetLibraryImportProcess() throws Exception {
 		assertHttpResponseStatusCode(
 			403,
@@ -743,6 +751,29 @@ public class ImportProcessResourceTest
 		return objectDefinition;
 	}
 
+	@TestInfo("LPD-102315")
+	private void _testGetImportProcessErrorMessageWhenStatusMessageIsNotJSON()
+		throws Exception {
+
+		ImportProcess importProcess = _addImportProcess(
+			testGroup.getGroupId(), RandomTestUtil.randomString(),
+			BackgroundTaskExecutorNames.LAYOUT_IMPORT_BACKGROUND_TASK_EXECUTOR);
+
+		_backgroundTaskLocalService.amendBackgroundTask(
+			importProcess.getId(), null, BackgroundTaskConstants.STATUS_FAILED,
+			_STACK_TRACE_STATUS_MESSAGE, null);
+
+		ImportProcess failedImportProcess =
+			importProcessResource.getImportProcess(importProcess.getId());
+
+		String errorMessage = failedImportProcess.getErrorMessage();
+
+		Assert.assertNotEquals(_STACK_TRACE_STATUS_MESSAGE, errorMessage);
+		Assert.assertFalse(errorMessage, errorMessage.contains(".java:"));
+		Assert.assertFalse(errorMessage, errorMessage.contains("\tat "));
+		Assert.assertFalse(errorMessage, errorMessage.contains("java.lang."));
+	}
+
 	private void _testPostImportProcessWithLayoutSet(
 			UnsafeFunction<File, ImportPreview, Exception>
 				postImportPreviewUnsafeFunction,
@@ -973,6 +1004,11 @@ public class ImportProcessResourceTest
 			MapUtil.getString(
 				parameterMap, PortletDataHandlerKeys.USER_ID_STRATEGY));
 	}
+
+	private static final String _STACK_TRACE_STATUS_MESSAGE =
+		"java.lang.NullPointerException\n\tat com.liferay.exportimport." +
+			"internal.controller.LayoutImportController.importFile(" +
+				"LayoutImportController.java:181)";
 
 	private User _adminUser;
 
