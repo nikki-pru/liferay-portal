@@ -81,6 +81,7 @@ import com.liferay.object.service.ObjectRelationshipLocalService;
 import com.liferay.object.service.ObjectRelationshipService;
 import com.liferay.object.system.SystemObjectDefinitionManager;
 import com.liferay.object.system.SystemObjectDefinitionManagerRegistry;
+import com.liferay.object.util.comparator.ObjectEntryVersionVersionComparator;
 import com.liferay.petra.function.UnsafeFunction;
 import com.liferay.petra.function.transform.TransformUtil;
 import com.liferay.petra.io.StreamUtil;
@@ -2507,9 +2508,18 @@ public class DefaultObjectEntryManagerImpl
 			objectDefinition, serviceBuilderObjectEntry);
 		_checkRootDescendantNode(serviceBuilderObjectEntry, false);
 
-		return _toObjectEntry(
-			dtoConverterContext, objectDefinition, serviceBuilderObjectEntry,
-			null);
+		_setLatestApprovedObjectEntryVersionAttribute(
+			dtoConverterContext, objectDefinition, serviceBuilderObjectEntry);
+
+		try {
+			return _toObjectEntry(
+				dtoConverterContext, objectDefinition,
+				serviceBuilderObjectEntry, null);
+		}
+		finally {
+			dtoConverterContext.removeAttribute(
+				"latestApprovedObjectEntryVersion");
+		}
 	}
 
 	private ObjectEntry _getObjectEntryByVersion(
@@ -3473,6 +3483,28 @@ public class DefaultObjectEntryManagerImpl
 			values.put(
 				objectField.getName(),
 				_getNewValue(groupId, objectDefinition, objectField, value));
+		}
+	}
+
+	private void _setLatestApprovedObjectEntryVersionAttribute(
+		DTOConverterContext dtoConverterContext,
+		ObjectDefinition objectDefinition,
+		com.liferay.object.model.ObjectEntry serviceBuilderObjectEntry) {
+
+		if (!objectDefinition.isEnableObjectEntryVersioning()) {
+			return;
+		}
+
+		ObjectEntryVersion latestApprovedObjectEntryVersion =
+			_objectEntryVersionLocalService.
+				fetchLatestApprovedObjectEntryVersion(
+					serviceBuilderObjectEntry.getObjectEntryId(),
+					ObjectEntryVersionVersionComparator.getInstance(false));
+
+		if (latestApprovedObjectEntryVersion != null) {
+			dtoConverterContext.setAttribute(
+				"latestApprovedObjectEntryVersion",
+				latestApprovedObjectEntryVersion);
 		}
 	}
 
