@@ -761,14 +761,14 @@ public class ImportProcessResourceTest
 
 		_backgroundTaskLocalService.amendBackgroundTask(
 			importProcess.getId(), null, BackgroundTaskConstants.STATUS_FAILED,
-			_STACK_TRACE_STATUS_MESSAGE, null);
+			_STATUS_MESSAGE, null);
 
 		ImportProcess failedImportProcess =
 			importProcessResource.getImportProcess(importProcess.getId());
 
 		String errorMessage = failedImportProcess.getErrorMessage();
 
-		Assert.assertNotEquals(_STACK_TRACE_STATUS_MESSAGE, errorMessage);
+		Assert.assertNotEquals(_STATUS_MESSAGE, errorMessage);
 		Assert.assertFalse(errorMessage, errorMessage.contains(".java:"));
 		Assert.assertFalse(errorMessage, errorMessage.contains("\tat "));
 		Assert.assertFalse(errorMessage, errorMessage.contains("java.lang."));
@@ -1005,7 +1005,7 @@ public class ImportProcessResourceTest
 				parameterMap, PortletDataHandlerKeys.USER_ID_STRATEGY));
 	}
 
-	private static final String _STACK_TRACE_STATUS_MESSAGE =
+	private static final String _STATUS_MESSAGE =
 		"java.lang.NullPointerException\n\tat com.liferay.exportimport." +
 			"internal.controller.LayoutImportController.importFile(" +
 				"LayoutImportController.java:181)";
