@@ -529,12 +529,6 @@ public class CPConfigurationListLocalServiceImpl
 			cpConfigurationListPersistence.findByPrimaryKey(
 				cpConfigurationListId);
 
-		if (externalReferenceCode.equals(
-				cpConfigurationList.getExternalReferenceCode())) {
-
-			return cpConfigurationList;
-		}
-
 		cpConfigurationList.setExternalReferenceCode(externalReferenceCode);
 
 		return cpConfigurationListPersistence.update(cpConfigurationList);
