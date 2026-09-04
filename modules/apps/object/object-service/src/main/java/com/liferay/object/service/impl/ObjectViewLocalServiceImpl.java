@@ -58,6 +58,27 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class ObjectViewLocalServiceImpl extends ObjectViewLocalServiceBaseImpl {
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 *             #addObjectView(String, long, long, boolean, Map, List, List,
+	 *             List)}
+	 */
+	@Deprecated
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public ObjectView addObjectView(
+			long userId, long objectDefinitionId, boolean defaultObjectView,
+			Map<Locale, String> nameMap,
+			List<ObjectViewColumn> objectViewColumns,
+			List<ObjectViewFilterColumn> objectViewFilterColumns,
+			List<ObjectViewSortColumn> objectViewSortColumns)
+		throws PortalException {
+
+		return addObjectView(
+			null, userId, objectDefinitionId, defaultObjectView, nameMap,
+			objectViewColumns, objectViewFilterColumns, objectViewSortColumns);
+	}
+
 	@Indexable(type = IndexableType.REINDEX)
 	@Override
 	public ObjectView addObjectView(
@@ -247,6 +268,27 @@ public class ObjectViewLocalServiceImpl extends ObjectViewLocalServiceBaseImpl {
 			_objectViewSortColumnPersistence.removeByOVI_OFN(
 				objectView.getObjectViewId(), objectField.getName());
 		}
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 *             #updateObjectView(String, long, boolean, Map, List, List,
+	 *             List)}
+	 */
+	@Deprecated
+	@Indexable(type = IndexableType.REINDEX)
+	@Override
+	public ObjectView updateObjectView(
+			long objectViewId, boolean defaultObjectView,
+			Map<Locale, String> nameMap,
+			List<ObjectViewColumn> objectViewColumns,
+			List<ObjectViewFilterColumn> objectViewFilterColumns,
+			List<ObjectViewSortColumn> objectViewSortColumns)
+		throws PortalException {
+
+		return updateObjectView(
+			null, objectViewId, defaultObjectView, nameMap, objectViewColumns,
+			objectViewFilterColumns, objectViewSortColumns);
 	}
 
 	@Indexable(type = IndexableType.REINDEX)

@@ -36,6 +36,25 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class ObjectViewServiceImpl extends ObjectViewServiceBaseImpl {
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 *             #addObjectView(String, long, boolean, Map, List, List, List)}
+	 */
+	@Deprecated
+	@Override
+	public ObjectView addObjectView(
+			long objectDefinitionId, boolean defaultObjectView,
+			Map<Locale, String> nameMap,
+			List<ObjectViewColumn> objectViewColumns,
+			List<ObjectViewFilterColumn> objectViewFilterColumns,
+			List<ObjectViewSortColumn> objectViewSortColumns)
+		throws PortalException {
+
+		return addObjectView(
+			null, objectDefinitionId, defaultObjectView, nameMap,
+			objectViewColumns, objectViewFilterColumns, objectViewSortColumns);
+	}
+
 	@Override
 	public ObjectView addObjectView(
 			String externalReferenceCode, long objectDefinitionId,
@@ -82,6 +101,26 @@ public class ObjectViewServiceImpl extends ObjectViewServiceBaseImpl {
 			ActionKeys.VIEW);
 
 		return objectViewLocalService.getObjectView(objectViewId);
+	}
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 *             #updateObjectView(String, long, boolean, Map, List, List,
+	 *             List)}
+	 */
+	@Deprecated
+	@Override
+	public ObjectView updateObjectView(
+			long objectViewId, boolean defaultObjectView,
+			Map<Locale, String> nameMap,
+			List<ObjectViewColumn> objectViewColumns,
+			List<ObjectViewFilterColumn> objectViewFilterColumns,
+			List<ObjectViewSortColumn> objectViewSortColumns)
+		throws PortalException {
+
+		return updateObjectView(
+			null, objectViewId, defaultObjectView, nameMap, objectViewColumns,
+			objectViewFilterColumns, objectViewSortColumns);
 	}
 
 	@Override
