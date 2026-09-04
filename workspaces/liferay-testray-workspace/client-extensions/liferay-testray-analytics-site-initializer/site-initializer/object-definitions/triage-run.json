@@ -217,6 +217,17 @@
 			"name": "verdictClusterCounts",
 			"required": false,
 			"type": "Clob"
+		},
+		{
+			"DBType": "String",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Repo Slug"
+			},
+			"name": "repoSlug",
+			"required": false,
+			"type": "String"
 		}
 	],
 	"objectFolderExternalReferenceCode": "TESTRAY",

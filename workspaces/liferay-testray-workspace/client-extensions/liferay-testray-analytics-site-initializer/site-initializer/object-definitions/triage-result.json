@@ -165,6 +165,18 @@
 			"name": "statusA",
 			"required": false,
 			"type": "String"
+		},
+		{
+			"DBType": "Clob",
+			"businessType": "LongText",
+			"indexed": false,
+			"indexedAsKeyword": false,
+			"label": {
+				"en_US": "Candidates"
+			},
+			"name": "candidates",
+			"required": false,
+			"type": "Clob"
 		}
 	],
 	"objectFolderExternalReferenceCode": "TESTRAY",
