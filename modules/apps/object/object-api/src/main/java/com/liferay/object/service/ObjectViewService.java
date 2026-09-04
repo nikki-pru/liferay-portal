@@ -47,9 +47,23 @@ public interface ObjectViewService extends BaseService {
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.object.service.impl.ObjectViewServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the object view remote service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link ObjectViewServiceUtil} if injection and service tracking are not available.
 	 */
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 #addObjectView(String, long, boolean, Map, List, List, List)}
+	 */
+	@Deprecated
 	public ObjectView addObjectView(
 			long objectDefinitionId, boolean defaultObjectView,
 			Map<Locale, String> nameMap,
+			List<ObjectViewColumn> objectViewColumns,
+			List<ObjectViewFilterColumn> objectViewFilterColumns,
+			List<ObjectViewSortColumn> objectViewSortColumns)
+		throws PortalException;
+
+	public ObjectView addObjectView(
+			String externalReferenceCode, long objectDefinitionId,
+			boolean defaultObjectView, Map<Locale, String> nameMap,
 			List<ObjectViewColumn> objectViewColumns,
 			List<ObjectViewFilterColumn> objectViewFilterColumns,
 			List<ObjectViewSortColumn> objectViewSortColumns)
@@ -68,6 +82,12 @@ public interface ObjectViewService extends BaseService {
 	 */
 	public String getOSGiServiceIdentifier();
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 #updateObjectView(String, long, boolean, Map, List, List,
+	 List)}
+	 */
+	@Deprecated
 	public ObjectView updateObjectView(
 			long objectViewId, boolean defaultObjectView,
 			Map<Locale, String> nameMap,
@@ -76,5 +96,13 @@ public interface ObjectViewService extends BaseService {
 			List<ObjectViewSortColumn> objectViewSortColumns)
 		throws PortalException;
 
+	public ObjectView updateObjectView(
+			String externalReferenceCode, long objectViewId,
+			boolean defaultObjectView, Map<Locale, String> nameMap,
+			List<ObjectViewColumn> objectViewColumns,
+			List<ObjectViewFilterColumn> objectViewFilterColumns,
+			List<ObjectViewSortColumn> objectViewSortColumns)
+		throws PortalException;
+
 }
-// LIFERAY-SERVICE-BUILDER-HASH:575750889
+// LIFERAY-SERVICE-BUILDER-HASH:-1430400918

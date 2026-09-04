@@ -31,6 +31,12 @@ public class ObjectViewServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to <code>com.liferay.object.service.impl.ObjectViewServiceImpl</code> and rerun ServiceBuilder to regenerate this class.
 	 */
+
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 #addObjectView(String, long, boolean, Map, List, List, List)}
+	 */
+	@Deprecated
 	public static ObjectView addObjectView(
 			long objectDefinitionId, boolean defaultObjectView,
 			Map<java.util.Locale, String> nameMap,
@@ -44,6 +50,22 @@ public class ObjectViewServiceUtil {
 		return getService().addObjectView(
 			objectDefinitionId, defaultObjectView, nameMap, objectViewColumns,
 			objectViewFilterColumns, objectViewSortColumns);
+	}
+
+	public static ObjectView addObjectView(
+			String externalReferenceCode, long objectDefinitionId,
+			boolean defaultObjectView, Map<java.util.Locale, String> nameMap,
+			List<com.liferay.object.model.ObjectViewColumn> objectViewColumns,
+			List<com.liferay.object.model.ObjectViewFilterColumn>
+				objectViewFilterColumns,
+			List<com.liferay.object.model.ObjectViewSortColumn>
+				objectViewSortColumns)
+		throws PortalException {
+
+		return getService().addObjectView(
+			externalReferenceCode, objectDefinitionId, defaultObjectView,
+			nameMap, objectViewColumns, objectViewFilterColumns,
+			objectViewSortColumns);
 	}
 
 	public static ObjectView deleteObjectView(long objectViewId)
@@ -67,6 +89,12 @@ public class ObjectViewServiceUtil {
 		return getService().getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 #updateObjectView(String, long, boolean, Map, List, List,
+	 List)}
+	 */
+	@Deprecated
 	public static ObjectView updateObjectView(
 			long objectViewId, boolean defaultObjectView,
 			Map<java.util.Locale, String> nameMap,
@@ -82,6 +110,21 @@ public class ObjectViewServiceUtil {
 			objectViewFilterColumns, objectViewSortColumns);
 	}
 
+	public static ObjectView updateObjectView(
+			String externalReferenceCode, long objectViewId,
+			boolean defaultObjectView, Map<java.util.Locale, String> nameMap,
+			List<com.liferay.object.model.ObjectViewColumn> objectViewColumns,
+			List<com.liferay.object.model.ObjectViewFilterColumn>
+				objectViewFilterColumns,
+			List<com.liferay.object.model.ObjectViewSortColumn>
+				objectViewSortColumns)
+		throws PortalException {
+
+		return getService().updateObjectView(
+			externalReferenceCode, objectViewId, defaultObjectView, nameMap,
+			objectViewColumns, objectViewFilterColumns, objectViewSortColumns);
+	}
+
 	public static ObjectViewService getService() {
 		return _serviceSnapshot.get();
 	}
@@ -90,4 +133,4 @@ public class ObjectViewServiceUtil {
 		new Snapshot<>(ObjectViewServiceUtil.class, ObjectViewService.class);
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:649967739
+// LIFERAY-SERVICE-BUILDER-HASH:-1268448151

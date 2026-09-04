@@ -25,6 +25,11 @@ public class ObjectViewServiceWrapper
 		_objectViewService = objectViewService;
 	}
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 #addObjectView(String, long, boolean, Map, List, List, List)}
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.object.model.ObjectView addObjectView(
 			long objectDefinitionId, boolean defaultObjectView,
@@ -40,6 +45,25 @@ public class ObjectViewServiceWrapper
 		return _objectViewService.addObjectView(
 			objectDefinitionId, defaultObjectView, nameMap, objectViewColumns,
 			objectViewFilterColumns, objectViewSortColumns);
+	}
+
+	@Override
+	public com.liferay.object.model.ObjectView addObjectView(
+			String externalReferenceCode, long objectDefinitionId,
+			boolean defaultObjectView,
+			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.List<com.liferay.object.model.ObjectViewColumn>
+				objectViewColumns,
+			java.util.List<com.liferay.object.model.ObjectViewFilterColumn>
+				objectViewFilterColumns,
+			java.util.List<com.liferay.object.model.ObjectViewSortColumn>
+				objectViewSortColumns)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectViewService.addObjectView(
+			externalReferenceCode, objectDefinitionId, defaultObjectView,
+			nameMap, objectViewColumns, objectViewFilterColumns,
+			objectViewSortColumns);
 	}
 
 	@Override
@@ -67,6 +91,12 @@ public class ObjectViewServiceWrapper
 		return _objectViewService.getOSGiServiceIdentifier();
 	}
 
+	/**
+	 * @deprecated As of Cavanaugh (7.4.x), replaced by {@link
+	 #updateObjectView(String, long, boolean, Map, List, List,
+	 List)}
+	 */
+	@Deprecated
 	@Override
 	public com.liferay.object.model.ObjectView updateObjectView(
 			long objectViewId, boolean defaultObjectView,
@@ -85,6 +115,24 @@ public class ObjectViewServiceWrapper
 	}
 
 	@Override
+	public com.liferay.object.model.ObjectView updateObjectView(
+			String externalReferenceCode, long objectViewId,
+			boolean defaultObjectView,
+			java.util.Map<java.util.Locale, String> nameMap,
+			java.util.List<com.liferay.object.model.ObjectViewColumn>
+				objectViewColumns,
+			java.util.List<com.liferay.object.model.ObjectViewFilterColumn>
+				objectViewFilterColumns,
+			java.util.List<com.liferay.object.model.ObjectViewSortColumn>
+				objectViewSortColumns)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _objectViewService.updateObjectView(
+			externalReferenceCode, objectViewId, defaultObjectView, nameMap,
+			objectViewColumns, objectViewFilterColumns, objectViewSortColumns);
+	}
+
+	@Override
 	public ObjectViewService getWrappedService() {
 		return _objectViewService;
 	}
@@ -97,4 +145,4 @@ public class ObjectViewServiceWrapper
 	private ObjectViewService _objectViewService;
 
 }
-// LIFERAY-SERVICE-BUILDER-HASH:534288747
+// LIFERAY-SERVICE-BUILDER-HASH:983500547
