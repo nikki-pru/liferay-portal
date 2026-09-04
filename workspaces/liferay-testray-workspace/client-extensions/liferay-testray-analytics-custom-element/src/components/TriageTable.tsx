@@ -10,7 +10,14 @@ import ActionsMenu, {type Action} from '~/components/ActionsMenu';
 import {NEEDS_HUMAN, verificationPrompt} from '~/util/prompt';
 import {type ReportMeta, jiraDraftURL} from '~/util/jira';
 import {confidenceRank, verdictClass, verdictRank} from '~/util/verdict';
-import {CauseTickets, Confidence, Status, Tickets, Verdict} from './Cells';
+import {
+	CauseTickets,
+	Confidence,
+	Status,
+	SuspiciousCommits,
+	Tickets,
+	Verdict,
+} from './Cells';
 import RowDetail from './RowDetail';
 
 export type SortKey =
@@ -394,6 +401,8 @@ const TriageTable: React.FC<Props> = ({
 									>
 										{culprits.length} files
 									</span>
+								) : commits.length ? (
+									<SuspiciousCommits value={commits[0]} />
 								) : group.rows.some((row) =>
 										/\b(?:LPD|LPP|LPS)-\d+\b/.test(
 											row.specificChange ?? ''
@@ -572,6 +581,25 @@ const TriageTable: React.FC<Props> = ({
 														</div>
 													)}
 												</>
+											) : row.culpritCommits ? (
+												/* No file, but the classifier
+												   ranked commits. A commit
+												   beats a ticket here: it
+												   identifies the change AND
+												   the author, which is what a
+												   stable failure needs, since
+												   it blocks the sync until
+												   someone acts. */
+												collapsed('culpritCommits') ? (
+													<Pointer
+														anchor={anchor}
+														title={row.culpritCommits}
+													/>
+												) : (
+													<SuspiciousCommits
+														value={row.culpritCommits}
+													/>
+												)
 											) : row.specificChange?.match(
 													/\b(?:LPD|LPP|LPS)-\d+\b/
 												) ? (

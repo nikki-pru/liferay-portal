@@ -153,3 +153,113 @@ export const Status: React.FC<{a?: string; b?: string}> = ({a, b}) => {
 		</span>
 	);
 };
+
+/**
+ * Ranked candidate commits, parsed out of `suspiciousCommits`.
+ *
+ * The classifier emits structured candidates — ticket, commit, author, and
+ * whether it actually explains the failure — but `TriageResult` has no field
+ * for them yet, so `submit` flattens them into one human-readable string and
+ * this parses it back:
+ *
+ *   LPD-102498 (brianchandotcom/liferay-portal@35393a15) Eudaldo Alonso? · ...
+ *
+ * The `candidates` field IS added to the object definition in the site
+ * initializer; only a fresh site picks it up, so until then the string is the
+ * transport. When the field lands this becomes a fallback rather than the
+ * primary path.
+ *
+ * A trailing "?" means the classifier said the commit does NOT account for the
+ * failure — it is the closest change in range, not the cause. Those render
+ * dimmed, because showing a rejected lead identically to a confirmed culprit
+ * turns a hint into an accusation.
+ *
+ * The repo slug travels WITH each commit rather than being assumed, because
+ * which repo a build was cut from is per-routine: stable runs on the control
+ * repo (brianchandotcom/liferay-portal) and its commits have not synced to
+ * liferay/liferay-portal yet — that is precisely why the build is being
+ * triaged. Linking a stable commit to upstream would 404 exactly when it
+ * matters. Older rows carry a bare sha and simply render unlinked.
+ */
+const CANDIDATE_RE =
+	/(?:([A-Z][A-Z0-9]+-\d+)\s*)?\(([^)]+)\)\s*([^?·]*?)\s*(\?)?(?=\s*·|\s*$)/g;
+
+/** `owner/repo@sha` when the slug travelled with it, else a bare sha. */
+const splitRef = (ref: string): {sha: string; slug?: string} => {
+	const at = ref.lastIndexOf('@');
+
+	return at === -1
+		? {sha: ref.trim()}
+		: {sha: ref.slice(at + 1).trim(), slug: ref.slice(0, at).trim()};
+};
+
+export const SuspiciousCommits: React.FC<{value?: string}> = ({value}) => {
+	if (!value) {
+		return null;
+	}
+
+	const parsed = [...value.matchAll(CANDIDATE_RE)].map(
+		([, ticket, ref, author, weak]) => {
+			const {sha, slug} = splitRef(ref);
+
+			return {
+				author: (author ?? '').trim(),
+				sha,
+				slug,
+				ticket,
+				weak: Boolean(weak),
+			};
+		}
+	);
+
+	// Anything the pattern does not recognise still has to reach the reader —
+	// an older row, or a value shaped by a future change — so fall back to the
+	// raw string rather than rendering an empty cell.
+	if (!parsed.length) {
+		return <div className="culprit-commits">{value}</div>;
+	}
+
+	return (
+		<div className="cands">
+			{parsed.map(({author, sha, slug, ticket, weak}) => (
+				<div className={`cand${weak ? ' weak' : ''}`} key={sha}>
+					{ticket ? (
+						<a
+							className="cand-ticket"
+							href={`${BASE_URL}/browse/${ticket}`}
+							rel="noopener"
+							target="_blank"
+						>
+							{ticket}
+						</a>
+					) : null}
+
+					{slug ? (
+						<a
+							className="cand-sha"
+							href={`https://github.com/${slug}/commit/${sha}`}
+							rel="noopener"
+							target="_blank"
+							title={`${slug}@${sha}`}
+						>
+							{sha.slice(0, 9)}
+						</a>
+					) : (
+						<span className="cand-sha">{sha.slice(0, 9)}</span>
+					)}
+
+					{author ? <span className="cand-author">{author}</span> : null}
+
+					{weak ? (
+						<span
+							className="cand-weak"
+							title="The classifier said this does not account for the failure — it is the closest change in range, not the cause."
+						>
+							?
+						</span>
+					) : null}
+				</div>
+			))}
+		</div>
+	);
+};

@@ -12,6 +12,10 @@ export const SHARED_COLUMNS = [
 	'culpritFile',
 	'displayVerdict',
 	'confidence',
+	// Ranked candidate commits. Worth collapsing more than the others: a
+	// 47-row cluster repeated the same chips 47 times, and each chip is a
+	// ticket, a commit and an author rather than a single word.
+	'culpritCommits',
 ] as const;
 
 export const GROUP_MODES: Array<{label: string; mode: GroupMode}> = [

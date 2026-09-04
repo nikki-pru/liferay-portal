@@ -78,13 +78,6 @@ const Totals: React.FC<Props> = ({
 	const targetRows = int(run?.targetRows);
 	const written = rows.length;
 
-	// The writer skips high-confidence FALSE_POSITIVE and pre-classified rows,
-	// so the table holds fewer rows than the run triaged. Showing 183 with no
-	// denominator reads as "this build had 183 failures", which is wrong by a
-	// factor of three. Say both numbers.
-	const excluded =
-		triaged !== undefined && triaged > written ? triaged - written : 0;
-
 	return (
 		<div className="totals">
 			{VERDICT_ORDER.filter(
@@ -136,15 +129,6 @@ const Totals: React.FC<Props> = ({
 				</span>
 			)}
 
-			{excluded > 0 && (
-				<span
-					className="pill warn"
-					title="Triaged but not written: high-confidence FALSE_POSITIVE and pre-classified rows are excluded by the write policy, so they are counted above but absent from the table."
-				>
-					<strong>Not written:</strong>{' '}
-					<span className="n">{excluded.toLocaleString()}</span>
-				</span>
-			)}
 
 			{targetRows !== undefined && (
 				<span className="pill" title="Case results in the target build.">
@@ -197,6 +181,34 @@ const Totals: React.FC<Props> = ({
 					</span>
 				) : null}
 			</span>
+
+
+			{/* Ported from report.py's totals bar. A way IN to the rubric, not
+			    just a note that one exists: every verdict in the table below is
+			    a cell in that grid, and a reader meeting NOT_ATTRIBUTABLE for
+			    the first time has no other route to the meaning.
+
+			    The anchor names the <details> itself, so the browser would jump
+			    to a collapsed box and show nothing. Open it first, then let the
+			    scroll happen — same handler report.py uses. */}
+			<a
+				className="rubric-link"
+				href="#verdict-rubric"
+				onClick={(event) => {
+					const box = document.getElementById('verdict-rubric');
+
+					if (!box) {
+						return;
+					}
+
+					event.preventDefault();
+					(box as HTMLDetailsElement).open = true;
+					box.scrollIntoView({behavior: 'smooth', block: 'start'});
+				}}
+				title="Jump to the rubric matrix at the foot of the page, and open it"
+			>
+				How a verdict is decided &darr;
+			</a>
 		</div>
 	);
 };

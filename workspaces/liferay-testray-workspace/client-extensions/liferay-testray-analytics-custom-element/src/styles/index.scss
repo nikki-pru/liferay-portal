@@ -908,3 +908,355 @@ liferay-testray-analytics-custom-element {
 		white-space: nowrap;
 	}
 }
+
+/* Sits at the end of the totals row. Deliberately not a pill — the pills are
+   counts and filters, this is a way out of the page. `margin-left: auto`
+   pushes it to the far end so it reads as a footnote to the row rather than
+   another figure in it. Ported from report.py. */
+.totals a.rubric-link {
+	align-self: center;
+	border-bottom: 1px solid rgba(7, 71, 166, 0.35);
+	color: #0747a6;
+	font-size: 12px;
+	margin-left: auto;
+	text-decoration: none;
+	white-space: nowrap;
+
+	&:hover {
+		border-bottom-color: #0747a6;
+	}
+}
+
+/* The verdict rubric grid. Ported from report.py's `_verdict_matrix`, so the
+   two renderers show the same thing. Verdict pills reuse the real `.verdict-*`
+   classes rather than a second palette — a cell here has to read the same as a
+   row in the table above it, or the grid stops being a legend. */
+.verdict-rubric {
+	border-top: 1px solid var(--c-border);
+	margin-top: 24px;
+	padding-top: 12px;
+
+	summary {
+		cursor: pointer;
+		font-size: 13px;
+	}
+
+	summary .hint {
+		color: var(--c-muted);
+		font-weight: 400;
+	}
+
+	/* Capped rather than stretched: five columns of prose spread the full
+	   width stop reading as a grid. Still scrolls on a narrow viewport. */
+	.mx-scroll {
+		margin: 12px auto 0;
+		max-width: 1000px;
+		overflow-x: auto;
+	}
+
+	table.mx {
+		border-collapse: collapse;
+		font-size: 12px;
+		max-width: 1000px;
+		min-width: 760px;
+		width: 100%;
+	}
+
+	table.mx td,
+	table.mx th {
+		border: 1px solid var(--c-border);
+		text-align: left;
+		vertical-align: top;
+	}
+
+	table.mx thead th {
+		background: var(--c-row);
+		font-size: 11.5px;
+		font-weight: 600;
+		padding: 8px 10px;
+	}
+
+	/* Without these two the axis codes D1/E1 are opaque: the grid has to say
+	   what D and E stand for and which question each axis asks. */
+	table.mx thead th.mx-axis-band,
+	table.mx thead th.mx-corner {
+		background: var(--c-code-bg);
+		vertical-align: top;
+	}
+
+	.mx-axis-name {
+		color: var(--c-fg);
+		display: block;
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+
+	.mx-axis-q {
+		color: var(--c-muted);
+		display: block;
+		font-size: 11px;
+		font-weight: 400;
+		line-height: 1.35;
+		margin-top: 3px;
+	}
+
+	table.mx tbody th {
+		background: var(--c-row);
+		font-size: 11.5px;
+		font-weight: 600;
+		min-width: 140px;
+		padding: 9px 10px;
+		width: 150px;
+	}
+
+	.mx-axis {
+		color: var(--c-muted);
+		display: block;
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 10.5px;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		margin-bottom: 2px;
+	}
+
+	.mx-desc {
+		color: var(--c-muted);
+		display: block;
+		font-size: 10.5px;
+		font-weight: 400;
+		margin-top: 2px;
+	}
+
+	table.mx td {
+		padding: 8px 10px;
+	}
+
+	.mx-conf {
+		color: var(--c-muted);
+		display: block;
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		font-size: 10.5px;
+		margin-top: 4px;
+	}
+
+	.mx-note {
+		color: var(--c-muted);
+		display: block;
+		font-size: 10.5px;
+		line-height: 1.35;
+		margin-top: 4px;
+	}
+
+	.mx-field-rule {
+		color: var(--c-muted);
+		font-size: 12px;
+		margin: 12px auto 0;
+		max-width: 1000px;
+	}
+
+	/* Cell wash, ported from report.py. A tint of the verdict's own colour, not
+	   a second palette: the grid has to read as a legend for the table above
+	   it, so a POSSIBLE_BUG cell and a POSSIBLE_BUG row must look related. */
+	table.mx td.mx-bug {
+		background: #fdeceb;
+	}
+
+	table.mx td.mx-pbug {
+		background: #fdf0ef;
+	}
+
+	table.mx td.mx-needs {
+		background: #fdf4e3;
+	}
+
+	table.mx td.mx-testfix {
+		background: #eaf2f8;
+	}
+
+	table.mx td.mx-fp {
+		background: #f1f3f5;
+	}
+
+	/* Cards are label-then-text, so the pill needs a column of its own or it
+	   stretches to the card width and stops reading as a pill. */
+	.mx-card {
+		align-items: baseline;
+		display: grid;
+		gap: 12px;
+		grid-template-columns: max-content 1fr;
+	}
+
+	/* One implicit column, matching report.py. Four across looked tidier and
+	   read worse: each card carries a full sentence of explanation, so side by
+	   side they wrap into narrow ragged blocks. Stacked, they scan as the list
+	   of exceptions they are. */
+	.mx-cards {
+		display: grid;
+		gap: 8px;
+		margin: 14px auto 4px;
+		max-width: 1000px;
+	}
+
+	.mx-card {
+		background: var(--c-row);
+		border: 1px solid var(--c-border);
+		border-radius: 3px;
+		padding: 9px 11px;
+	}
+
+	.mx-card-text {
+		color: var(--c-muted);
+		display: block;
+		font-size: 11.5px;
+		line-height: 1.4;
+		margin-top: 5px;
+	}
+}
+
+/* Counts for rows the tool does not store — never-ran and shard failures.
+   Secondary on purpose: they are context for the headline verdict counts, not
+   peers of them, and they lead out to Testray rather than filtering in place.
+   Muted rather than hidden, because a suite quietly shrinking is exactly the
+   thing nobody notices until it matters. */
+.totals a.pill.quiet {
+	/* Underlined at rest, unlike the file's other links which underline only
+	   on hover. Those sit in prose or a table cell where the context already
+	   says "link"; these sit in a row of pills that are otherwise filters and
+	   counts, so without the affordance they read as two more static numbers.
+	   Reported as exactly that. */
+	color: #0747a6;
+	text-decoration: underline;
+
+	.n {
+		color: #0747a6;
+		font-size: 14px;
+		font-weight: 600;
+	}
+
+	&:hover {
+		color: #05377d;
+		text-decoration: underline;
+
+		.n {
+			color: #05377d;
+		}
+	}
+}
+
+/* What the build holds that the table does not. Under the table, where
+   report.py puts its batch and pre-existing sections: context for the
+   verdicts, not peers of them. Counts link out to Testray, which holds the
+   rows — nothing here is stored as a triage result. */
+.not-analysed {
+	border-top: 1px solid var(--c-border);
+	margin-top: 24px;
+	padding-top: 14px;
+
+	h2 {
+		font-size: 14px;
+		margin: 0 0 4px;
+	}
+
+	> p {
+		color: var(--c-muted);
+		font-size: 12.5px;
+		margin: 0 0 10px;
+		max-width: 640px;
+	}
+
+	.not-analysed-items {
+		display: grid;
+		gap: 8px;
+		max-width: 1000px;
+	}
+
+	a {
+		background: var(--c-row);
+		border: 1px solid var(--c-border);
+		border-radius: 4px;
+		color: #0747a6;
+		display: block;
+		font-size: 13px;
+		padding: 10px 12px;
+		text-decoration: none;
+
+		strong {
+			font-size: 16px;
+			font-weight: 700;
+		}
+
+		span {
+			color: var(--c-muted);
+			display: block;
+			font-size: 12px;
+			line-height: 1.45;
+			margin-top: 3px;
+		}
+
+		&:hover {
+			border-color: #0747a6;
+			text-decoration: underline;
+		}
+	}
+}
+
+/* Ranked candidate commits, mirroring report.py. Each chip is three answers —
+   ticket, commit, author — because on the stable routine the deliverable is a
+   person to ask, not a verdict: a failure there blocks the sync to upstream
+   until someone acts. A dimmed chip with "?" is one the classifier said does
+   NOT account for the failure; rendering it like a confirmed culprit would
+   turn a lead into an accusation. */
+.cands {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.cand {
+	font-size: 11.5px;
+	line-height: 1.4;
+
+	&.weak {
+		opacity: 0.72;
+	}
+
+	a.cand-ticket {
+		color: #0747a6;
+		font-weight: 600;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.cand-sha {
+		color: var(--c-muted);
+		font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+		margin-left: 4px;
+	}
+
+	a.cand-sha {
+		color: #0747a6;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	.cand-author {
+		color: var(--c-muted);
+		margin-left: 4px;
+	}
+
+	.cand-weak {
+		color: var(--c-muted);
+		cursor: help;
+		font-weight: 700;
+		margin-left: 3px;
+	}
+}

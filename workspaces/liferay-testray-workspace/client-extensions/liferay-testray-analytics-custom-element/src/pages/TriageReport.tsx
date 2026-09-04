@@ -15,6 +15,8 @@ import Controls, {
 } from '~/components/Controls';
 import HomeLink from '~/components/HomeLink';
 import StatusMatrix from '~/components/StatusMatrix';
+import NotAnalysed from '~/components/NotAnalysed';
+import VerdictMatrix from '~/components/VerdictMatrix';
 import Totals from '~/components/Totals';
 import TriageTable, {type SortKey} from '~/components/TriageTable';
 import {
@@ -81,6 +83,48 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 	}>(routineId ? `/o/c/routines/${routineId}` : null);
 
 	const projectId = routine?.r_routineToProjects_c_projectId;
+
+	// Rows this tool deliberately does not store: tests that never ran, and
+	// shard failures with nothing written down. Counted straight off Testray's
+	// case results rather than persisted as TriageResult rows — those rows
+	// would be verdicts no classifier ever made, and ~199 of them per Stable
+	// build buried the one real failure when they were written.
+	const countURL = (filter: string) =>
+		`/o/c/caseresults?pageSize=1&filter=${encodeURIComponent(filter)}`;
+
+	const {data: neverRan} = useSWR<{totalCount?: number}>(
+		buildId
+			? countURL(
+					`r_buildToCaseResult_c_buildId eq '${buildId}' and dueStatus eq 'UNTESTED'`
+				)
+			: null
+	);
+
+	// The batch/shard component id differs per instance, so it is resolved by
+	// name rather than hardcoded — a wrong id silently counts zero.
+	//
+	// Scoped to the PROJECT, which is not optional: every project has its own
+	// component called "Batch" (four of them on this instance), so an unscoped
+	// lookup returns whichever sorts first and the count is always 0 — a pill
+	// that never appears rather than an error anyone would notice.
+	const {data: batchComponent} = useSWR<{items?: Array<{id: number}>}>(
+		projectId
+			? `/o/c/components?pageSize=1&filter=${encodeURIComponent(
+					`name eq 'Batch' and r_projectToComponents_c_projectId eq '${projectId}'`
+				)}`
+			: null
+	);
+
+	const batchComponentId = batchComponent?.items?.[0]?.id;
+
+	const {data: shardFailures} = useSWR<{totalCount?: number}>(
+		buildId && batchComponentId
+			? countURL(
+					`r_buildToCaseResult_c_buildId eq '${buildId}' and dueStatus eq 'FAILED' ` +
+						`and r_componentToCaseResult_c_componentId eq '${batchComponentId}'`
+				)
+			: null
+	);
 
 	const routineURL =
 		projectId && routineId
@@ -313,6 +357,17 @@ const TriageReport: React.FC<Props> = ({buildId}) => {
 					title="Nothing to show"
 				/>
 			)}
+
+			<NotAnalysed
+				batchComponentId={batchComponentId}
+				buildId={buildId}
+				neverRanCount={neverRan?.totalCount}
+				projectId={projectId}
+				routineId={routineId}
+				shardFailureCount={shardFailures?.totalCount}
+			/>
+
+			<VerdictMatrix />
 		</div>
 	);
 };
