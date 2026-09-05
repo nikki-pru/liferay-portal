@@ -644,8 +644,7 @@ public class ExportProcessResourceTest
 						new RequestPortletDataHandler[] {
 							new RequestPortletDataHandler() {
 								{
-									name =
-										"PORTLET_DATA_" + _PORTLET_ID;
+									name = "PORTLET_DATA_" + _PORTLET_ID;
 
 									setRequestPortletDataHandlerControls(
 										new RequestPortletDataHandlerControl[] {
