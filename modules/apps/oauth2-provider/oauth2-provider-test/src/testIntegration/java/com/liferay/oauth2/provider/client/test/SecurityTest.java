@@ -41,11 +41,14 @@ import java.awt.image.BufferedImage;
 
 import java.net.URI;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.junit.Assert;
 import org.junit.ClassRule;
@@ -303,10 +306,19 @@ public class SecurityTest extends BaseClientTestCase {
 	}
 
 	private void _assertThumbnailURLIsEscaped(String bodyString) {
+		Matcher matcher = _imageSrcPattern.matcher(bodyString);
+
+		List<String> imageSrcs = new ArrayList<>();
+
+		while (matcher.find()) {
+			imageSrcs.add(matcher.group(1));
+		}
+
 		Assert.assertTrue(
-			bodyString.contains(
-				"src=\"http://localhost/documents/1/2/icon.png?version=1.0" +
-					"&amp;t=1&amp;imageThumbnail=1&#39;\""));
+			String.valueOf(imageSrcs),
+			imageSrcs.contains(
+				"http://localhost/documents/1/2/icon.png?version=1.0&amp;" +
+					"t=1&amp;imageThumbnail=1&#39;"));
 	}
 
 	private String _getAuthorizationPageBodyString(
@@ -424,6 +436,9 @@ public class SecurityTest extends BaseClientTestCase {
 			"OAuth2ConnectedApplicationsPortlet";
 
 	private static final String _INJECTED_SCRIPT = "<script>alert(1)</script>";
+
+	private static final Pattern _imageSrcPattern = Pattern.compile(
+		"<img[^>]*\\ssrc=\"([^\"]*)\"");
 
 	private long _oAuth2ApplicationId;
 
