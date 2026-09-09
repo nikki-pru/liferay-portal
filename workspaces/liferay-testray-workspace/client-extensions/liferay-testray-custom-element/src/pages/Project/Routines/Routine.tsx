@@ -11,9 +11,10 @@ import {useOutletContext, useParams} from 'react-router-dom';
 import Container from '~/components/Layout/Container';
 import ListView from '~/components/ListView';
 import ProgressBar from '~/components/ProgressBar';
+import usePermission from '~/hooks/usePermission';
 import i18n from '~/i18n';
 import {TestrayBuild, TestrayRoutine} from '~/services/rest';
-import {testrayBuildAlertProperties} from '~/util/constants';
+import {TestrayRole, testrayBuildAlertProperties} from '~/util/constants';
 import dayjs from '~/util/date';
 import {filterStatuses} from '~/util/statuses';
 
@@ -46,6 +47,10 @@ const Routine = () => {
 	// routine — the routine FK makes it independent of pagination.
 	const triageRuns = useTriageRuns(routineId);
 	const {selection: triageSelection} = useTriageSelection();
+
+	// Only an administrator can queue a run, so only an administrator is shown
+	// a pair mid-selection. Everyone else reads the column.
+	const canTriage = usePermission([TestrayRole.TESTRAY_ADMINISTRATOR]);
 
 	const baseResoruceURL = `/testray-status-metrics/by-testray-routineId/${routineId}/testray-builds-metrics`;
 
@@ -153,7 +158,13 @@ const Routine = () => {
 								// baseline side is a label because there is
 								// nothing to do on it; the action belongs on
 								// the target, which is the build being judged.
-								if (isBaseline || isTarget) {
+								//
+								// Gated, so a stale selection in localStorage
+								// — made before the role changed, or left by
+								// another account on this browser — cannot
+								// blank the column for someone who is only
+								// reading it.
+								if (canTriage && (isBaseline || isTarget)) {
 									const ready =
 										isTarget &&
 										!!triageSelection.baselineBuildId;

@@ -10,6 +10,7 @@ import {useMemo, useState} from 'react';
 import {Verdict} from '~/components/Cells';
 import HomeLink from '~/components/HomeLink';
 import TriagePicker from '~/components/TriagePicker';
+import {useCanTriage} from '~/services/permission';
 import {abortTriageRun, useTriageIndex} from '~/services/triage';
 import type {IndexRow} from '~/types';
 import {testrayURL} from '~/util/testray';
@@ -29,6 +30,11 @@ import {RUN_STATUS, VERDICT_ORDER, verdictRank} from '~/util/verdict';
  */
 const TriageIndex: React.FC = () => {
 	const {error, isLoading, mutate, rows} = useTriageIndex();
+
+	// Starting and withdrawing a run are administrator-only; reading what a
+	// run found is not. See services/permission.ts — the enforced gate is
+	// ADD_OBJECT_ENTRY on TriageRun, not this.
+	const canTriage = useCanTriage();
 
 	const [project, setProject] = useState('');
 	const [routine, setRoutine] = useState('');
@@ -106,10 +112,14 @@ const TriageIndex: React.FC = () => {
 
 				<h1>Triage</h1>
 
-				<TriagePicker onQueued={mutate} runs={rows} />
+				{canTriage && <TriagePicker onQueued={mutate} runs={rows} />}
 
 				<ClayEmptyState
-					description="No build has been triaged yet. A run is created either by a routine with autoTriage enabled, or by picking a baseline and target above."
+					description={
+						canTriage
+							? 'No build has been triaged yet. A run is created either by a routine with autoTriage enabled, or by picking a baseline and target above.'
+							: 'No build has been triaged yet. A run is created by a routine with autoTriage enabled, or by a Testray Administrator picking a baseline and target.'
+					}
 					title="No triage runs"
 				/>
 			</div>
@@ -122,7 +132,7 @@ const TriageIndex: React.FC = () => {
 
 			<h1>Triage</h1>
 
-			<TriagePicker onQueued={mutate} runs={rows} />
+			{canTriage && <TriagePicker onQueued={mutate} runs={rows} />}
 
 			{/* The picker above has its own Project/Routine pair, so these
 			    need saying what they are for — adjacent identical labels
@@ -211,6 +221,7 @@ const TriageIndex: React.FC = () => {
 				<tbody>
 					{visible.map((row) => (
 						<IndexRowView
+							canTriage={canTriage}
 							columns={columns}
 							key={row.id}
 							onChange={mutate}
@@ -258,10 +269,11 @@ const BackLink: React.FC = () => (
 );
 
 const IndexRowView: React.FC<{
+	canTriage: boolean;
 	columns: string[];
 	onChange: () => void;
 	row: IndexRow;
-}> = ({columns, onChange, row}) => {
+}> = ({canTriage, columns, onChange, row}) => {
 	const worst = useMemo(() => {
 		const present = Object.entries(row.clusterCounts)
 			.filter(([, n]) => n > 0)
@@ -313,8 +325,10 @@ const IndexRowView: React.FC<{
 
 				{/* Only QUEUED can be withdrawn. Once the runner claims a row
 				    it owns the state, so offering abort on RUNNING would
-				    promise a cancellation nothing can deliver. */}
-				{row.status === 'QUEUED' && (
+				    promise a cancellation nothing can deliver. Withdrawing is
+				    a write on TriageRun, so it takes the same role as
+				    starting one. */}
+				{canTriage && row.status === 'QUEUED' && (
 					<button
 						className="abort-run"
 						disabled={aborting}

@@ -8,9 +8,11 @@ import {useState} from 'react';
 import {useSWRConfig} from 'swr';
 
 import {queueTriageRun, triageRunsKey} from '~/hooks/useTriageRuns';
+import usePermission from '~/hooks/usePermission';
 import useTriageSelection from '~/hooks/useTriageSelection';
 import i18n from '~/i18n';
 import {Liferay} from '~/services/liferay';
+import {TestrayRole} from '~/util/constants';
 
 type Props = {
 	baselineBuildId?: number;
@@ -31,6 +33,12 @@ type Props = {
  * (the pair is incomplete), and only a complete pair gets the button. Offering
  * "Run Triage" on a half-made selection would queue a run against an undefined
  * baseline.
+ *
+ * All three states are administrator-only. The real gate is ADD_OBJECT_ENTRY on
+ * TriageRun, granted to Testray Administrator alone by the analytics site
+ * initializer: this button writes as the session user, so a
+ * non-administrator's click 403s at the REST layer whatever the UI renders.
+ * The check here exists so nobody is offered a button that cannot work.
  */
 const TriageSelectionCell: React.FC<Props> = ({
 	baselineBuildId,
@@ -43,6 +51,7 @@ const TriageSelectionCell: React.FC<Props> = ({
 	const {clear, clearBaseline, clearTarget} = useTriageSelection();
 	const {mutate} = useSWRConfig();
 	const [busy, setBusy] = useState(false);
+	const canTriage = usePermission([TestrayRole.TESTRAY_ADMINISTRATOR]);
 
 	// The chip carries its own dismiss. A selection made by accident, or left
 	// behind after running the pipeline by hand, otherwise has no way out of
@@ -63,6 +72,13 @@ const TriageSelectionCell: React.FC<Props> = ({
 			</button>
 		</span>
 	);
+
+	// Undefined while /my-user-account is in flight, which is the usual state
+	// on a first render — so this fails closed, and the cell appears once the
+	// answer arrives rather than flashing a button at everyone.
+	if (!canTriage) {
+		return null;
+	}
 
 	if (isBaseline) {
 		return chip(

@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-import {useRef} from 'react';
+import {useMemo, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import useAutofillBuild from '~/hooks/useAutofillBuild';
 import useTriageSelection from '~/hooks/useTriageSelection';
@@ -31,6 +31,11 @@ const useBuildActions = ({isHeaderActions}: ActionsHookParameter = {}) => {
 		TestrayRole.TESTRAY_ADMINISTRATOR,
 		TestrayRole.TESTRAY_LEAD,
 	]);
+
+	// Narrower than hasPermission on purpose: queueing a triage run spends
+	// wall clock and model usage on a build nobody asked this of, so it is an
+	// administrator's call, not a lead's.
+	const canTriage = usePermission([TestrayRole.TESTRAY_ADMINISTRATOR]);
 	const navigate = useNavigate();
 
 	const modal = formModal.modal;
@@ -165,12 +170,22 @@ const useBuildActions = ({isHeaderActions}: ActionsHookParameter = {}) => {
 			icon: 'select-from-list',
 			name: i18n.translate('select-build-b'),
 		},
+	] as Action<TestrayBuild>[]);
 
-		// Triage's baseline/target pair, deliberately using the same menu and
-		// the same toast as Build A/B above: it is the same kind of decision,
-		// so it should not need a second interaction to learn. Neither entry
-		// contains triage logic — each records one id and the Triage column
-		// decides what to offer once both are set.
+	// Triage's baseline/target pair, deliberately using the same menu and
+	// the same toast as Build A/B above: it is the same kind of decision,
+	// so it should not need a second interaction to learn. Neither entry
+	// contains triage logic — each records one id and the Triage column
+	// decides what to offer once both are set.
+	//
+	// Held apart from the array above, and appended only for an administrator,
+	// because the `permission` field cannot express this safely here:
+	// `usePermission` answers undefined until /my-user-account resolves, and
+	// `Permission.filterActions` SHOWS any action whose permission is not a
+	// boolean. A permission-gated entry inside a useRef array is therefore
+	// frozen open for whoever mounted the view before the account arrived.
+	// Being absent from the array is unambiguous.
+	const triageActionsRef = useRef([
 		{
 			action: (build) => {
 				const buildId = build?.id
@@ -203,8 +218,18 @@ const useBuildActions = ({isHeaderActions}: ActionsHookParameter = {}) => {
 		},
 	] as Action<TestrayBuild>[]);
 
+	// Recomputed when the role answer lands, which is after the first render
+	// of any build list: the account behind usePermission is side-fetched.
+	const actions = useMemo(
+		() =>
+			canTriage
+				? [...actionsRef.current, ...triageActionsRef.current]
+				: actionsRef.current,
+		[canTriage]
+	);
+
 	return {
-		actions: actionsRef.current,
+		actions,
 		formModal,
 	};
 };
