@@ -3,13 +3,16 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-import type {Cluster, Row, TriageRun} from '~/types';
 import {VERDICT_ORDER} from '~/util/verdict';
+
 import {Verdict} from './Cells';
+
+import type {Cluster, Row, TriageRun} from '~/types';
 
 type Props = {
 	activeVerdict: string;
 	clusters: Cluster[];
+
 	/** Case results that ran on BOTH builds — the size of the diff's join. */
 	compared?: number;
 	onPickVerdict: (verdict: string) => void;
@@ -63,6 +66,7 @@ const Totals: React.FC<Props> = ({
 
 	// A cluster's verdict is its worst member's — the same rollup the cluster
 	// header shows, so the pill and the table cannot disagree.
+
 	const clusterCounts = new Map<string, number>();
 
 	for (const cluster of clusters) {

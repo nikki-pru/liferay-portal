@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-import type {Cluster, Group, GroupMode, Row} from '~/types';
 import {rollup, verdictRank} from './verdict';
+
+import type {Cluster, Group, GroupMode, Row} from '~/types';
 
 /** The columns a cluster collapses when every member agrees. Mirrors `report.py`. */
 export const SHARED_COLUMNS = [
@@ -12,9 +13,11 @@ export const SHARED_COLUMNS = [
 	'culpritFile',
 	'displayVerdict',
 	'confidence',
+
 	// Ranked candidate commits. Worth collapsing more than the others: a
 	// 47-row cluster repeated the same chips 47 times, and each chip is a
 	// ticket, a commit and an author rather than a single word.
+
 	'culpritCommits',
 ] as const;
 
@@ -90,6 +93,7 @@ export function toClusters(rows: Row[]): Cluster[] {
 	// Numbered after ordering so the number a member row points at is the one
 	// on screen, and stable while regrouping — the deep-link anchors depend on
 	// it not moving.
+
 	clusters.forEach((cluster, index) => {
 		cluster.number = index + 1;
 	});

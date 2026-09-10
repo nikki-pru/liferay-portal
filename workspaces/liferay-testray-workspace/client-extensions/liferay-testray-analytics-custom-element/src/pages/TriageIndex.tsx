@@ -6,15 +6,15 @@
 import ClayEmptyState from '@clayui/empty-state';
 import ClayLoadingIndicator from '@clayui/loading-indicator';
 import {useMemo, useState} from 'react';
-
 import {Verdict} from '~/components/Cells';
 import HomeLink from '~/components/HomeLink';
 import TriagePicker from '~/components/TriagePicker';
 import {useCanTriage} from '~/services/permission';
 import {abortTriageRun, useTriageIndex} from '~/services/triage';
-import type {IndexRow} from '~/types';
 import {testrayURL} from '~/util/testray';
 import {RUN_STATUS, VERDICT_ORDER, verdictRank} from '~/util/verdict';
+
+import type {IndexRow} from '~/types';
 
 /**
  * Which builds have a triage analysis, and what each one found.
@@ -28,12 +28,179 @@ import {RUN_STATUS, VERDICT_ORDER, verdictRank} from '~/util/verdict';
  * unit a person works through, and leading with rows made a tractable morning
  * read like a crisis. Row counts ride along as fan-out where they differ.
  */
+const BackLink: React.FC = () => (
+	<nav className="crumbs">
+		{/* Home first, then Back: they answer different questions. Back
+		    returns to whatever you were looking at, which is usually a build
+		    list, but it depends on history and a bookmarked or shared link has
+		    none. Home always goes to the same place and says so. */}
+		<HomeLink />
+
+		{/* A dot, not the breadcrumb slash: Back is not a child of Home, it is
+		    a second way out. The slash claimed a hierarchy that is not there. */}
+		<span className="sep-dot">&middot;</span>
+
+		<a
+			href={testrayURL()}
+			onClick={(event) => {
+				if (window.history.length > 1) {
+					event.preventDefault();
+					window.history.back();
+				}
+			}}
+		>
+			&larr; Back
+		</a>
+	</nav>
+);
+
+const IndexRowView: React.FC<{
+	canTriage: boolean;
+	columns: string[];
+	onChange: () => void;
+	row: IndexRow;
+}> = ({canTriage, columns, onChange, row}) => {
+	const worst = useMemo(() => {
+		const present = Object.entries(row.clusterCounts)
+			.filter(([, n]) => n > 0)
+			.map(([verdict]) => verdict);
+
+		return present.sort((a, b) => verdictRank(a) - verdictRank(b))[0] ?? '';
+	}, [row.clusterCounts]);
+
+	const [aborting, setAborting] = useState(false);
+	const [abortError, setAbortError] = useState('');
+
+	const status = RUN_STATUS[row.status];
+
+	// Only a finished run has anything to show; a queued or failed one would
+	// link to an empty report.
+
+	const openable = row.status === 'DONE';
+
+	return (
+		<tr className="case-row">
+			<td className="col-test">
+				{openable ? (
+					<a
+						className="test-link"
+						href={`?buildId=${row.buildId}`}
+						title="Open the triage report"
+					>
+						{row.buildName}
+					</a>
+				) : (
+					row.buildName
+				)}
+			</td>
+
+			<td className="col-team">{row.baselineName || '—'}</td>
+
+			<td className="col-comp">{row.routineName || '—'}</td>
+
+			<td className="col-status">
+				<span
+					className="run-status"
+					title={status?.title ?? row.status}
+				>
+					<span
+						className="tr-triage-diamond"
+						style={{backgroundColor: status?.color ?? '#e3e9ee'}}
+					/>{' '}
+					{status?.title?.replace('Triage ', '') ?? row.status}
+				</span>
+
+				{/* Only QUEUED can be withdrawn. Once the runner claims a row
+				    it owns the state, so offering abort on RUNNING would
+				    promise a cancellation nothing can deliver. Withdrawing is
+				    a write on TriageRun, so it takes the same role as
+				    starting one. */}
+				{canTriage && row.status === 'QUEUED' && (
+					<button
+						className="abort-run"
+						disabled={aborting}
+						onClick={async () => {
+							setAborting(true);
+
+							try {
+								await abortTriageRun(
+									row.externalReferenceCode
+								);
+								onChange();
+							}
+							catch (e) {
+								// Most likely the ABORTED picklist entry is
+								// missing, which fails the write outright.
+								// Saying so beats a row that silently stays
+								// queued.
+
+								setAbortError(
+									(e as Error).message ||
+										'Could not abort the run'
+								);
+							}
+							finally {
+								setAborting(false);
+							}
+						}}
+						type="button"
+					>
+						Abort
+					</button>
+				)}
+
+				{abortError ? (
+					<div className="abort-error" title={abortError}>
+						{abortError}
+					</div>
+				) : null}
+			</td>
+
+			{columns.map((verdict) => {
+				const clusters = row.clusterCounts[verdict] ?? 0;
+				const rowCount = row.rowCounts[verdict] ?? 0;
+
+				return (
+					<td
+						className={`col-verdict-count${
+							clusters && verdict === worst ? ' worst' : ''
+						}`}
+						key={verdict}
+						title={
+							clusters || rowCount
+								? `${clusters} cluster(s), ${rowCount} case row(s)`
+								: undefined
+						}
+					>
+						{clusters || rowCount ? (
+							<>
+								{clusters || rowCount}
+
+								{rowCount && rowCount !== clusters ? (
+									<span className="fanout">{rowCount}</span>
+								) : null}
+							</>
+						) : null}
+					</td>
+				);
+			})}
+
+			<td className="col-num-metric">{row.totalClusters ?? '—'}</td>
+
+			<td className="col-num-metric">
+				{row.failures?.toLocaleString() ?? '—'}
+			</td>
+		</tr>
+	);
+};
+
 const TriageIndex: React.FC = () => {
 	const {error, isLoading, mutate, rows} = useTriageIndex();
 
 	// Starting and withdrawing a run are administrator-only; reading what a
 	// run found is not. See services/permission.ts — the enforced gate is
 	// ADD_OBJECT_ENTRY on TriageRun, not this.
+
 	const canTriage = useCanTriage();
 
 	const [project, setProject] = useState('');
@@ -46,6 +213,7 @@ const TriageIndex: React.FC = () => {
 
 	// Routine options follow the chosen project, so the pair cannot be set to a
 	// combination with no runs behind it.
+
 	const routines = useMemo(
 		() =>
 			[
@@ -147,9 +315,11 @@ const TriageIndex: React.FC = () => {
 						id="index-project"
 						onChange={(event) => {
 							setProject(event.target.value);
+
 							// The old routine may not exist under the new
 							// project, which would filter everything away and
 							// look like "no runs".
+
 							setRoutine('');
 						}}
 						value={project}
@@ -188,7 +358,7 @@ const TriageIndex: React.FC = () => {
 				</div>
 			</div>
 
-			<table className="per-test-table index-table">
+			<table className="index-table per-test-table">
 				<thead>
 					<tr>
 						<th className="col-test">Build</th>
@@ -231,178 +401,6 @@ const TriageIndex: React.FC = () => {
 				</tbody>
 			</table>
 		</div>
-	);
-};
-
-/**
- * Back to wherever the reader came from.
- *
- * The index is reached from the sidebar, which is reachable from every page in
- * Testray, so there is no single parent to point at the way the report can
- * point at its routine. History is the only thing that knows. Falls back to
- * Testray's home when there is no history — a direct link, or a fresh tab.
- */
-const BackLink: React.FC = () => (
-	<nav className="crumbs">
-		{/* Home first, then Back: they answer different questions. Back
-		    returns to whatever you were looking at, which is usually a build
-		    list, but it depends on history and a bookmarked or shared link has
-		    none. Home always goes to the same place and says so. */}
-		<HomeLink />
-
-		{/* A dot, not the breadcrumb slash: Back is not a child of Home, it is
-		    a second way out. The slash claimed a hierarchy that is not there. */}
-		<span className="sep-dot">&middot;</span>
-
-		<a
-			href={testrayURL()}
-			onClick={(event) => {
-				if (window.history.length > 1) {
-					event.preventDefault();
-					window.history.back();
-				}
-			}}
-		>
-			&larr; Back
-		</a>
-	</nav>
-);
-
-const IndexRowView: React.FC<{
-	canTriage: boolean;
-	columns: string[];
-	onChange: () => void;
-	row: IndexRow;
-}> = ({canTriage, columns, onChange, row}) => {
-	const worst = useMemo(() => {
-		const present = Object.entries(row.clusterCounts)
-			.filter(([, n]) => n > 0)
-			.map(([verdict]) => verdict);
-
-		return present.sort((a, b) => verdictRank(a) - verdictRank(b))[0] ?? '';
-	}, [row.clusterCounts]);
-
-	const [aborting, setAborting] = useState(false);
-	const [abortError, setAbortError] = useState('');
-
-	const status = RUN_STATUS[row.status];
-
-	// Only a finished run has anything to show; a queued or failed one would
-	// link to an empty report.
-	const openable = row.status === 'DONE';
-
-	return (
-		<tr className="case-row">
-			<td className="col-test">
-				{openable ? (
-					<a
-						className="test-link"
-						href={`?buildId=${row.buildId}`}
-						title="Open the triage report"
-					>
-						{row.buildName}
-					</a>
-				) : (
-					row.buildName
-				)}
-			</td>
-
-			<td className="col-team">{row.baselineName || '—'}</td>
-
-			<td className="col-comp">{row.routineName || '—'}</td>
-
-			<td className="col-status">
-				<span
-					className="run-status"
-					title={status?.title ?? row.status}
-				>
-					<span
-						className="tr-triage-diamond"
-						style={{backgroundColor: status?.color ?? '#e3e9ee'}}
-					/>{' '}
-					{status?.title?.replace('Triage ', '') ?? row.status}
-				</span>
-
-				{/* Only QUEUED can be withdrawn. Once the runner claims a row
-				    it owns the state, so offering abort on RUNNING would
-				    promise a cancellation nothing can deliver. Withdrawing is
-				    a write on TriageRun, so it takes the same role as
-				    starting one. */}
-				{canTriage && row.status === 'QUEUED' && (
-					<button
-						className="abort-run"
-						disabled={aborting}
-						onClick={async () => {
-							setAborting(true);
-
-							try {
-								await abortTriageRun(
-									row.externalReferenceCode
-								);
-								onChange();
-							}
-							catch (e) {
-								// Most likely the ABORTED picklist entry is
-								// missing, which fails the write outright.
-								// Saying so beats a row that silently stays
-								// queued.
-								setAbortError(
-									(e as Error).message ||
-										'Could not abort the run'
-								);
-							}
-							finally {
-								setAborting(false);
-							}
-						}}
-						type="button"
-					>
-						Abort
-					</button>
-				)}
-
-				{abortError ? (
-					<div className="abort-error" title={abortError}>
-						{abortError}
-					</div>
-				) : null}
-			</td>
-
-			{columns.map((verdict) => {
-				const clusters = row.clusterCounts[verdict] ?? 0;
-				const rowCount = row.rowCounts[verdict] ?? 0;
-
-				return (
-					<td
-						className={`col-verdict-count${
-							clusters && verdict === worst ? ' worst' : ''
-						}`}
-						key={verdict}
-						title={
-							clusters || rowCount
-								? `${clusters} cluster(s), ${rowCount} case row(s)`
-								: undefined
-						}
-					>
-						{clusters || rowCount ? (
-							<>
-								{clusters || rowCount}
-
-								{rowCount && rowCount !== clusters ? (
-									<span className="fanout">{rowCount}</span>
-								) : null}
-							</>
-						) : null}
-					</td>
-				);
-			})}
-
-			<td className="col-num-metric">{row.totalClusters ?? '—'}</td>
-
-			<td className="col-num-metric">
-				{row.failures?.toLocaleString() ?? '—'}
-			</td>
-		</tr>
 	);
 };
 

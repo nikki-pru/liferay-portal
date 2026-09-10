@@ -5,8 +5,8 @@
 
 import {
 	CELL_NOTE,
-	cellClass,
 	STATUS_ORDER,
+	cellClass,
 	statusLabel,
 } from '~/util/verdict';
 

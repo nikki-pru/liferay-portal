@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: LGPL-2.1-or-later OR LicenseRef-Liferay-DXP-EULA-2.0.0-2023-06
  */
 
-import type {GroupMode, Row} from '~/types';
 import {GROUP_MODES, distinct} from '~/util/rows';
+
+import type {GroupMode, Row} from '~/types';
 
 export type Filters = {
 	component: string;
@@ -45,18 +46,21 @@ const Select: React.FC<{
 	id: string;
 	label: string;
 	onChange: (value: string) => void;
+
 	/** Width class, tuned to the vocabulary the control holds. */
 	size?: 'lg' | 'md' | 'sm';
 	title?: string;
 	value: string;
 	values: string[];
 }> = ({id, label, onChange, size = 'md', title, value, values}) => (
+
 	// The pair is ONE flex item. `.filters-row` wraps, and while the label and
 	// the select are two separate children the break can land between them --
 	// which stranded "Transition:" on one line with its dropdown on the next.
 	// The earlier attempt wrapped them in the <label>, which is not a flex
 	// container, so the selects stopped shrinking; a flex span fixes both.
 	// The title sits on the wrapper so it fires over the label AND the select.
+
 	<span className={`filter-field ff-${size}`} title={title}>
 		<label htmlFor={id}>{label}:</label>
 

@@ -4,7 +4,6 @@
  */
 
 import {useMemo, useState} from 'react';
-
 import {
 	queueTriageRun,
 	useComparability,
@@ -12,11 +11,14 @@ import {
 	usePickerProjects,
 	usePickerRoutines,
 } from '~/services/triage';
+
 import type {IndexRow} from '~/types';
 
 type Props = {
+
 	/** Revalidate the index so a freshly queued run appears in the list. */
 	onQueued: () => void;
+
 	/** Existing runs, so an already-triaged pair links out instead of re-running. */
 	runs: IndexRow[];
 };
@@ -61,6 +63,7 @@ const TriagePicker: React.FC<Props> = ({onQueued, runs}) => {
 
 	// A pair is only meaningful across two different builds; comparing a build
 	// with itself yields an empty diff and a report with nothing in it.
+
 	const ready = Boolean(baseline && target && baseline !== target);
 
 	const existing = useMemo(
@@ -96,7 +99,9 @@ const TriagePicker: React.FC<Props> = ({onQueued, runs}) => {
 					id="pick-project"
 					onChange={(event) => {
 						setProjectId(Number(event.target.value) || undefined);
+
 						// Everything downstream belonged to the old project.
+
 						setRoutineId(undefined);
 						setBaseline(undefined);
 						setTarget(undefined);
@@ -268,12 +273,14 @@ const TriagePicker: React.FC<Props> = ({onQueued, runs}) => {
 									// "already queued" branch, so without it
 									// the button stays and invites a second
 									// click on work already requested.
+
 									onQueued();
 								}
 								catch (e) {
 									// Silence here is the worst outcome — the
 									// user walks away believing a run was
 									// requested.
+
 									setQueueError(
 										(e as Error).message ||
 											'Could not queue the run'

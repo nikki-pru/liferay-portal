@@ -6,9 +6,8 @@
 import ClayButton from '@clayui/button';
 import {useState} from 'react';
 import {useSWRConfig} from 'swr';
-
-import {queueTriageRun, triageRunsKey} from '~/hooks/useTriageRuns';
 import usePermission from '~/hooks/usePermission';
+import {queueTriageRun, triageRunsKey} from '~/hooks/useTriageRuns';
 import useTriageSelection from '~/hooks/useTriageSelection';
 import i18n from '~/i18n';
 import {Liferay} from '~/services/liferay';
@@ -17,8 +16,10 @@ import {TestrayRole} from '~/util/constants';
 type Props = {
 	baselineBuildId?: number;
 	isBaseline: boolean;
+
 	/** A run for this build is already QUEUED, so there is nothing to request. */
 	queued: boolean;
+
 	/** This is the target AND a baseline is chosen — the pair is complete. */
 	ready: boolean;
 	routineId: number;
@@ -57,6 +58,7 @@ const TriageSelectionCell: React.FC<Props> = ({
 	// behind after running the pipeline by hand, otherwise has no way out of
 	// localStorage short of the browser console — the persistence that makes
 	// the two-step selection work is also what strands it.
+
 	const chip = (label: string, title: string, onClear: () => void) => (
 		<span className="tr-triage-chip" title={title}>
 			{label}
@@ -76,6 +78,7 @@ const TriageSelectionCell: React.FC<Props> = ({
 	// Undefined while /my-user-account is in flight, which is the usual state
 	// on a first render — so this fails closed, and the cell appears once the
 	// answer arrives rather than flashing a button at everyone.
+
 	if (!canTriage) {
 		return null;
 	}
@@ -124,11 +127,13 @@ const TriageSelectionCell: React.FC<Props> = ({
 						// blank instead of amber — and because Testray persists its
 						// SWR cache across reloads, it stays blank even after F5,
 						// which reads as "the click did nothing".
+
 						await mutate(triageRunsKey(routineId));
 
 						// Clearing on success is what makes the column settle back
 						// to the run indicator; leaving the pair selected would
 						// keep offering a button for work already requested.
+
 						clear();
 
 						Liferay.Util.openToast({
@@ -138,6 +143,7 @@ const TriageSelectionCell: React.FC<Props> = ({
 					catch (error) {
 						// A silent failure here is the worst outcome: the user
 						// walks away believing a run was requested.
+
 						Liferay.Util.openToast({
 							message: (error as Error).message,
 							type: 'danger',

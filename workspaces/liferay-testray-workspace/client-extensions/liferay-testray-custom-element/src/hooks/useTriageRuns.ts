@@ -4,7 +4,6 @@
  */
 
 import useSWR from 'swr';
-
 import {Liferay} from '~/services/liferay';
 
 /**
@@ -42,6 +41,7 @@ type TriageRun = {
 // pagination does not change the query, so paging the build list costs nothing
 // extra. Bounded because a long-lived routine accumulates runs — the newest
 // win, and only the newest per build is ever displayed.
+
 const PAGE_SIZE = 500;
 
 /**
@@ -56,8 +56,10 @@ const PAGE_SIZE = 500;
 export const triageRunsKey = (routineId?: string | number) =>
 	routineId
 		? `/triageruns?pageSize=${PAGE_SIZE}&sort=startedAt:desc&filter=${encodeURIComponent(
+
 				// Relationship FKs compare as strings even though the column is
 				// a bigint; unquoted yields 400 "Incompatible types".
+
 				`r_routineToTriageRuns_c_routineId eq '${routineId}'`
 			)}`
 		: null;
@@ -68,6 +70,7 @@ export default function useTriageRuns(routineId?: string) {
 	const {data} = useSWR<{items: TriageRun[]}>(key, {
 		// A stock Testray has no such Object. That is an expected state, not a
 		// failure, so do not retry and do not surface an error.
+
 		shouldRetryOnError: false,
 	});
 
@@ -79,9 +82,11 @@ export default function useTriageRuns(routineId?: string) {
 		// error — the hardest failure to notice. Object REST returns this as a
 		// number today, on prod ids too; this costs nothing and removes the
 		// class of bug.
+
 		const buildId = Number(run.r_buildToTriageRuns_c_buildId);
 
 		// sort=startedAt:desc means the first run seen for a build is newest.
+
 		if (buildId && !byBuildId.has(buildId)) {
 			byBuildId.set(buildId, run);
 		}
@@ -102,6 +107,7 @@ export const TRIAGE_RUN_DISPLAY: Record<
 	{clickable: boolean; color: string; label: string}
 > = {
 	// Grey, outside the traffic-light set: a withdrawn request is not a failure.
+
 	ABORTED: {clickable: false, color: '#a7a9bc', label: 'Triage aborted'},
 	DONE: {clickable: true, color: '#37d27e', label: 'Triage ready'},
 	FAILED: {clickable: true, color: '#fe5160', label: 'Triage failed'},
@@ -175,7 +181,6 @@ const sitePath = (): string => {
 	return prefix && site ? `/${prefix}/${site}` : '/web/testray';
 };
 
-/** Where the analytics CX renders. Kept here so both call sites agree. */
 /** Where the analytics CX renders. Kept here so both call sites agree. */
 export const TRIAGE_PATH = `${sitePath()}/triage`;
 

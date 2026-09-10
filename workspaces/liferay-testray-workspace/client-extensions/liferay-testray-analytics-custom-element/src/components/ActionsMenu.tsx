@@ -33,16 +33,21 @@ import {useEffect, useRef, useState} from 'react';
  */
 
 export type Action = {
+
+	/** Text to put on the clipboard. Mutually exclusive with `href`. */
+	copy?: string;
+
+	/** Absent on a pending action; present ones open in a new tab. */
+	href?: string;
+
+	label: string;
+
 	/**
 	 * Why the action cannot be used yet. Present means disabled — there is no
 	 * separate flag, so an action cannot be disabled without saying why.
 	 */
 	pending?: string;
-	/** Absent on a pending action; present ones open in a new tab. */
-	href?: string;
-	/** Text to put on the clipboard. Mutually exclusive with `href`. */
-	copy?: string;
-	label: string;
+
 	title: string;
 };
 
@@ -102,6 +107,7 @@ const ActionsMenu: React.FC<{actions: Action[]; label?: string}> = ({
 		// Pointer-down rather than click: a click listener would fire on the
 		// same event that opened the menu if this ever moves inside a label,
 		// and closing on the press feels immediate.
+
 		const onPointerDown = (event: MouseEvent) => {
 			if (!wrapRef.current?.contains(event.target as Node)) {
 				setOpen(false);
@@ -124,8 +130,10 @@ const ActionsMenu: React.FC<{actions: Action[]; label?: string}> = ({
 	}, [open]);
 
 	return (
+
 		// Every handler stops propagation: the row underneath expands on
 		// click, and opening a menu must not also toggle the detail panel.
+
 		<div
 			className="actions-menu"
 			onClick={(event) => event.stopPropagation()}
@@ -166,7 +174,7 @@ const ActionsMenu: React.FC<{actions: Action[]; label?: string}> = ({
 							</span>
 						) : action.copy ? (
 							<button
-								className="actions-item actions-copy"
+								className="actions-copy actions-item"
 								key={action.label}
 								onClick={async (event) => {
 									event.preventDefault();

@@ -215,6 +215,7 @@ export const SuspiciousCommits: React.FC<{value?: string}> = ({value}) => {
 	// Anything the pattern does not recognise still has to reach the reader —
 	// an older row, or a value shaped by a future change — so fall back to the
 	// raw string rather than rendering an empty cell.
+
 	if (!parsed.length) {
 		return <div className="culprit-commits">{value}</div>;
 	}

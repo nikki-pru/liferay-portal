@@ -81,6 +81,7 @@ export function displayVerdict(
 	// Only a genuine `low` from the classifier relabels. A row with NO
 	// confidence never reached the model — it carries an auto label, and
 	// nothing failed to attribute it because nothing was asked.
+
 	if (!UNATTRIBUTED_AT.has((confidence ?? '').toLowerCase())) {
 		return cls;
 	}
@@ -88,6 +89,7 @@ export function displayVerdict(
 	// A low-confidence verdict that still NAMED candidate tickets attributed
 	// something; it just could not choose. Only a verdict naming nothing is
 	// honestly "not attributable".
+
 	if (CANDIDATE_RE.test(specificChange ?? '')) {
 		return cls;
 	}
@@ -188,12 +190,14 @@ export const cellClass = (a: string, b: string): string => {
 	// not-run). UNTESTED -> FAILED is red on purpose — that is
 	// TRANSITION_NO_BASELINE, which prepare treats as a triage candidate
 	// because the usual cause is a NEW test that fails.
+
 	if (b === 'FAILED' || worse(a, b)) {
 		return 'worse';
 	}
 
 	// A move between two non-passing states that does not end in a failure: a
 	// lost signal rather than a failure.
+
 	return 'neutral';
 };
 
@@ -249,6 +253,7 @@ export const RUN_STATUS: Record<
 > = {
 	// Grey, deliberately outside the traffic-light set: an aborted run is not a
 	// failure to investigate, it is a request someone withdrew.
+
 	ABORTED: {clickable: false, color: '#a7a9bc', title: 'Triage aborted'},
 	DONE: {clickable: true, color: '#37d27e', title: 'Triage ready'},
 	FAILED: {clickable: true, color: '#fe5160', title: 'Triage failed'},

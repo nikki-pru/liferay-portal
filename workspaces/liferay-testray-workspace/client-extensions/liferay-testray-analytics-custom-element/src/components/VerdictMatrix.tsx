@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-
 import {verdictClass} from '~/util/verdict';
+
 import {Verdict} from './Cells';
 
 /**

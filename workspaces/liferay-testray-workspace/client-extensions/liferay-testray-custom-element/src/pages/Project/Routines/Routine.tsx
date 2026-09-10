@@ -12,21 +12,19 @@ import Container from '~/components/Layout/Container';
 import ListView from '~/components/ListView';
 import ProgressBar from '~/components/ProgressBar';
 import usePermission from '~/hooks/usePermission';
+import useTriageRuns, {
+	TRIAGE_RUN_DISPLAY,
+	triageURL,
+} from '~/hooks/useTriageRuns';
+import useTriageSelection from '~/hooks/useTriageSelection';
 import i18n from '~/i18n';
 import {TestrayBuild, TestrayRoutine} from '~/services/rest';
 import {TestrayRole, testrayBuildAlertProperties} from '~/util/constants';
 import dayjs from '~/util/date';
 import {filterStatuses} from '~/util/statuses';
 
-import useTriageRuns, {
-	TRIAGE_RUN_DISPLAY,
-	triageURL,
-} from '~/hooks/useTriageRuns';
-import useTriageSelection from '~/hooks/useTriageSelection';
-
-import TriageSelectionCell from './Builds/TriageSelectionCell';
-
 import BuildHistoryChart from './Builds/BuildHistoryChart';
+import TriageSelectionCell from './Builds/TriageSelectionCell';
 import useBuildActions from './Builds/useBuildActions';
 
 type OutletContext = {
@@ -44,11 +42,13 @@ const Routine = () => {
 	// testray-builds-metrics, hand-written SQL in TestrayStatusMetricResourceImpl,
 	// and adding a field there would mean editing Testray core. One request per
 	// routine — the routine FK makes it independent of pagination.
+
 	const triageRuns = useTriageRuns(routineId);
 	const {selection: triageSelection} = useTriageSelection();
 
 	// Only an administrator can queue a run, so only an administrator is shown
 	// a pair mid-selection. Everyone else reads the column.
+
 	const canTriage = usePermission([TestrayRole.TESTRAY_ADMINISTRATOR]);
 
 	const baseResoruceURL = `/testray-status-metrics/by-testray-routineId/${routineId}/testray-builds-metrics`;
@@ -138,6 +138,7 @@ const Routine = () => {
 								// optional on the DTO, so coerce once — NaN
 								// misses the map, which is the same "no run"
 								// outcome as an absent key.
+
 								const buildId = Number(testrayBuildId);
 
 								const status =
@@ -163,6 +164,7 @@ const Routine = () => {
 								// another account on this browser — cannot
 								// blank the column for someone who is only
 								// reading it.
+
 								if (canTriage && (isBaseline || isTarget)) {
 									const ready =
 										isTarget &&
@@ -187,6 +189,7 @@ const Routine = () => {
 								// no star. This is what keeps the column quiet
 								// on routines that never triage, and what makes
 								// it inert when the analytics CX is absent.
+
 								if (!status) {
 									return null;
 								}
@@ -378,7 +381,7 @@ const Routine = () => {
 						// take the long form.
 
 						if (Number(routineId) === Number(testrayRoutineId)) {
-							return `build/${testrayBuildId}`
+							return `build/${testrayBuildId}`;
 						}
 						
 						return `build/${testrayBuildId}${filter}`

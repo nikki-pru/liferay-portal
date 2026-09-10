@@ -76,6 +76,7 @@ export type TriageRun = {
 	r_buildToTriageRuns_c_buildId?: number;
 	r_routineToTriageRuns_c_routineId?: number;
 	startedAt?: string;
+
 	/** JSON blob: {"PASSED": {"FAILED": 226, …}, …}. */
 	statusMatrix?: string;
 	targetRows?: number | string;
@@ -84,11 +85,14 @@ export type TriageRun = {
 	totalExcluded?: number;
 	totalFailures?: number;
 	totalWritten?: number;
+
 	/** JSON blob: {"new": 226, "changed": 197, …}. */
 	transitionCounts?: string;
 	triageRunStatus?: Picklist;
+
 	/** JSON blob keyed by verdict, counting CLUSTERS rather than rows. */
 	verdictClusterCounts?: string;
+
 	/** JSON blob: {"BUG": 2, "TEST_FIX": 7, …}. Schemaless on purpose — the
 	 *  verdict taxonomy has churned once already and a field added after the
 	 *  Object exists lands in the `_x` table. */
@@ -114,16 +118,18 @@ export type TriageRoutineSetting = {
  */
 export type Row = {
 	baselineSignatureCount?: number;
-	caseResultId?: number;
 	caseName: string;
+	caseResultId?: number;
 	clusterKey: string;
 	component: string;
 	confidence: string;
 	culpritCommits: string;
 	culpritFile: string;
+
 	/** Derived, never stored — see `displayVerdict`. */
 	displayVerdict: string;
 	errorMessage: string;
+
 	/** The run's commit range. Same on every row; carried per-row because that
 	 *  is where TriageResult stores it, and the handoff prompt needs it. */
 	gitHashA: string;
@@ -136,6 +142,7 @@ export type Row = {
 	statusB: string;
 	team: string;
 	transition: string;
+
 	/** The stored classification, before the NOT_ATTRIBUTABLE relabel. */
 	verdict: string;
 };
@@ -143,9 +150,11 @@ export type Row = {
 /** A clusterKey and the rows that share it. Built client-side. */
 export type Cluster = {
 	clusterKey: string;
+
 	/** 1-based display number, stable across regrouping. */
 	number: number;
 	rows: Row[];
+
 	/** Columns whose value is identical across every member. */
 	shared: Set<string>;
 	worstVerdict: string;
@@ -168,6 +177,7 @@ export type IndexRow = {
 	baselineName: string;
 	buildId: number;
 	buildName: string;
+
 	/** Per-verdict CLUSTER counts — the headline unit, see the view contract. */
 	clusterCounts: Record<string, number>;
 	externalReferenceCode: string;
@@ -177,6 +187,7 @@ export type IndexRow = {
 	projectName: string;
 	routineId?: number;
 	routineName: string;
+
 	/** Per-verdict ROW counts, shown as fan-out where they differ. */
 	rowCounts: Record<string, number>;
 	startedAt?: string;

@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-
 import {
 	NEVER_RAN_FILTER,
 	buildResultsURL,
@@ -47,6 +46,7 @@ const NotAnalysed: React.FC<Props> = ({
 	// Three async lookups feed the route; until all resolve the link would
 	// point at /project/undefined/… , which reads as broken rather than
 	// pending.
+
 	const ready =
 		projectId !== undefined &&
 		routineId !== undefined &&

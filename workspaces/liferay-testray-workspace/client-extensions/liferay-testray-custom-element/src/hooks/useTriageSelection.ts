@@ -41,6 +41,7 @@ const read = (): TriageSelection => {
 	}
 	catch {
 		// A corrupt or unavailable store is not worth failing a build list for.
+
 		return {};
 	}
 };
@@ -56,6 +57,7 @@ const write = (selection: TriageSelection) => {
 
 	// localStorage does not fire `storage` in the tab that wrote it, so the
 	// column and the menu in THIS tab would not see each other's writes.
+
 	window.dispatchEvent(new CustomEvent(KEY));
 };
 
@@ -79,6 +81,7 @@ export default function useTriageSelection() {
 
 		// Selecting the same build for both sides yields an empty diff, so the
 		// other side yields rather than producing a run with nothing in it.
+
 		if (next.targetBuildId === buildId) {
 			delete next.targetBuildId;
 		}
@@ -100,6 +103,7 @@ export default function useTriageSelection() {
 
 	// Per-side, because the common correction is "wrong baseline", not "start
 	// over" — and re-picking the other side to reset it would be a puzzle.
+
 	const clearBaseline = useCallback(() => {
 		const next = {...read()};
 

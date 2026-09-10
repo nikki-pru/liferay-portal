@@ -6,8 +6,8 @@
 import {useMemo, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import useAutofillBuild from '~/hooks/useAutofillBuild';
-import useTriageSelection from '~/hooks/useTriageSelection';
 import usePermission from '~/hooks/usePermission';
+import useTriageSelection from '~/hooks/useTriageSelection';
 import {Liferay} from '~/services/liferay';
 import {TestrayRole} from '~/util/constants';
 
@@ -35,6 +35,7 @@ const useBuildActions = ({isHeaderActions}: ActionsHookParameter = {}) => {
 	// Narrower than hasPermission on purpose: queueing a triage run spends
 	// wall clock and model usage on a build nobody asked this of, so it is an
 	// administrator's call, not a lead's.
+
 	const canTriage = usePermission([TestrayRole.TESTRAY_ADMINISTRATOR]);
 	const navigate = useNavigate();
 
@@ -185,6 +186,7 @@ const useBuildActions = ({isHeaderActions}: ActionsHookParameter = {}) => {
 	// boolean. A permission-gated entry inside a useRef array is therefore
 	// frozen open for whoever mounted the view before the account arrived.
 	// Being absent from the array is unambiguous.
+
 	const triageActionsRef = useRef([
 		{
 			action: (build) => {
@@ -220,6 +222,7 @@ const useBuildActions = ({isHeaderActions}: ActionsHookParameter = {}) => {
 
 	// Recomputed when the role answer lands, which is after the first render
 	// of any build list: the account behind usePermission is side-fetched.
+
 	const actions = useMemo(
 		() =>
 			canTriage

@@ -10,6 +10,7 @@ import {defineConfig} from 'vite';
 // Output layout mirrors liferay-testray-custom-element exactly: the
 // client-extension.yaml `assemble` block copies build/static, and the
 // cssURLs/urls globs expect index.*.css and index*.js at that path.
+
 export default defineConfig({
 	build: {
 		assetsDir: 'static',

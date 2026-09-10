@@ -11,8 +11,8 @@ import {Link, useLocation} from 'react-router-dom';
 import {STORAGE_KEYS} from '~/core/Storage';
 import {CONSENT_TYPE} from '~/util/enum';
 
-import {TRIAGE_PATH} from '../../hooks/useTriageRuns';
 import useStorage from '../../hooks/useStorage';
+import {TRIAGE_PATH} from '../../hooks/useTriageRuns';
 import i18n from '../../i18n';
 import {TestrayIcon, TestrayIconBrand} from '../../images';
 import AutofillBuildsPopover from '../AutofillPopover';
@@ -89,6 +89,7 @@ const Sidebar = () => {
 	// a route inside this SPA. Renders regardless of whether that CX is
 	// deployed — the page itself reports if it is missing, which keeps this
 	// side free of any triage logic.
+
 	const TriageContent = (
 		<div
 			className={classNames(
@@ -176,6 +177,7 @@ const Sidebar = () => {
 		// index (`index <= 2` for path items, `index === 4` for the
 		// compare-runs active state), so inserting anywhere earlier would
 		// silently renumber those checks.
+
 		{
 			element: (
 				<a href={TRIAGE_PATH}>

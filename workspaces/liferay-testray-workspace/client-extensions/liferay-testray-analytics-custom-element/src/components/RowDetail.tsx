@@ -5,9 +5,10 @@
 
 import {Fragment} from 'react';
 
+import {Status} from './Cells';
+
 import type {Row} from '~/types';
 import type {ReportMeta} from '~/util/jira';
-import {Status} from './Cells';
 
 type Props = {
 	css: string;
@@ -36,6 +37,14 @@ const CHANGED = new Set(['changed', 'changed_failure']);
 const isChangedFailure = (transition: string): boolean =>
 	CHANGED.has(transition.trim().toLowerCase());
 
+/* eslint-disable react/jsx-key --
+ * `items` is a list of [label, node] PAIRS, not a list of siblings: the render
+ * below maps it and puts the key on the Fragment that wraps each <dt>/<dd>.
+ * The nodes pushed here are children of a <dd>, so React never reconciles them
+ * as an array and a key on them would mean nothing. The rule cannot see that
+ * and flags every JSX value in the array.
+ */
+
 /** The per-row detail panel: everything the table had to truncate. */
 const RowDetail: React.FC<Props> = ({css, meta, row}) => {
 	const items: Array<[string, React.ReactNode]> = [];
@@ -56,6 +65,7 @@ const RowDetail: React.FC<Props> = ({css, meta, row}) => {
 	// was triaged rather than pointing at the run bundle — that bundle lives on
 	// the machine that ran `prepare` and is not reachable from Testray, so
 	// naming it just told the reader to go somewhere they cannot go.
+
 	if (isChangedFailure(row.transition)) {
 		items.push([
 			'Note',
