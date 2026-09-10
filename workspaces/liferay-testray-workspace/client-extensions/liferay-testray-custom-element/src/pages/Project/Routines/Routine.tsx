@@ -191,8 +191,21 @@ const Routine = () => {
 									return null;
 								}
 
-								const {clickable, color, label} =
-									TRIAGE_RUN_DISPLAY[status];
+								// Guarded, not indexed: an unrecognised
+								// status key would throw inside the build
+								// list and take the whole page with it. The
+								// analytics side already reads this map
+								// defensively; this is the same rule. A new
+								// picklist entry deployed ahead of the UI is
+								// exactly how that happens.
+
+								const display = TRIAGE_RUN_DISPLAY[status];
+
+								if (!display) {
+									return null;
+								}
+
+								const {clickable, color, label} = display;
 
 								const diamond = (
 									<span
@@ -357,7 +370,14 @@ const Routine = () => {
 						},
 					],
 					navigateTo: ({testrayBuildId, testrayRoutineId}) => {
-						if(routineId == testrayRoutineId) {
+
+						// Number() on both sides, not ===: routineId comes
+						// from useParams() as a string and testrayRoutineId
+						// arrives as a number, so a bare === compares "123"
+						// to 123 and never matches — the link would always
+						// take the long form.
+
+						if (Number(routineId) === Number(testrayRoutineId)) {
 							return `build/${testrayBuildId}`
 						}
 						
