@@ -1,3 +1,20 @@
+# WHY THIS PROVISIONS ITS OWN SITE, when nothing is ever served from it.
+#
+# The triage PAGE belongs to the Testray site — liferay-testray-site-initializer
+# creates it under layouts/triage — and TRIAGE_PATH points there. This
+# initializer creates only the Objects, list types, relationships and
+# permissions. So `Liferay Testray Analytics` ends up an empty site.
+#
+# It is the mechanism, not an oversight. A siteInitializer client extension is
+# defined by the site it initializes, and an initializer runs when a site is
+# PROVISIONED. Point this at the existing Testray site and it never runs there,
+# because that site already exists — and the Objects would never be created.
+# Putting the definitions in the Testray initializer instead would mean
+# patching a client extension shared with upstream Testray, which is the one
+# thing this design exists to avoid.
+#
+# Harmless, because the Objects are `scope: company`: they are reachable from
+# Testray's own pages regardless of which site provisioned them.
 liferay-testray-analytics-site-initializer:
     name: Liferay Testray Analytics Site Initializer
     oAuthApplicationHeadlessServer: liferay-testray-analytics-site-initializer-oahs

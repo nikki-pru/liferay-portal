@@ -8,8 +8,12 @@ assemble:
 # 'Triage' sidebar item and the build-index column): that app is a single
 # customElements.define() with its own React root and no extension point, and
 # its ListView columnsContext only *hides* columns from a static literal — it
-# cannot add one. So those two links are a small feature-detected patch to
-# liferay-testray-custom-element, and they render nothing when this CX is absent.
+# cannot add one. So those two links are a small patch to
+# liferay-testray-custom-element. They degrade differently, and that decides how
+# the two zips deploy: the build-index COLUMN is feature-detected (/o/c/triageruns
+# 404s, the hook answers undefined, the column renders nothing), but the SIDEBAR
+# ITEM renders unconditionally, so on its own it is a dead link. Deploy the two
+# together, or the Testray CX advertises a page that does not exist.
 # See ARCHITECTURE.md §8 "Triggering a run".
 liferay-testray-analytics-custom-element:
     cssURLs:
