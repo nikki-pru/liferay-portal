@@ -302,8 +302,14 @@ public class SecurityTest extends BaseClientTestCase {
 		Invocation.Builder invocationBuilder = invocationBuilderFunction.apply(
 			webTarget);
 
-		String bodyString = getBodyAsString(invocationBuilder.get());
+		response = invocationBuilder.get();
 
+		Assert.assertEquals(200, getStatus(response));
+
+		String bodyString = getBodyAsString(response);
+
+		Assert.assertTrue(bodyString.contains("app-icon"));
+		Assert.assertTrue(bodyString.contains("oauthDecision"));
 		Assert.assertFalse(bodyString.contains(_INJECTED_SCRIPT));
 		Assert.assertTrue(
 			bodyString.contains(HtmlUtil.escape(_INJECTED_SCRIPT)));
