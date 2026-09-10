@@ -4,18 +4,29 @@
  */
 
 /**
- * Where Testray itself renders.
+ * The Liferay site this page is served from, e.g. `/web/testray`.
  *
- * The same assumption as `TRIAGE_PATH` in the Testray-side hook: the site
- * lives at this friendly URL. Correct locally, wrong anywhere else, and it has
- * to come from configuration before this ships — see ARCHITECTURE §9.
+ * Derived rather than configured, because the friendly URL differs per
+ * environment — `/web/testray` on dev and prod, `/web/liferay-testray` on the
+ * local docker instance — and a literal is wrong in at least one of them. Both
+ * client extensions render inside the site, so the first two path segments
+ * ARE the site: `/web/<site>` or `/group/<site>`, whatever comes after.
  *
- * It is here rather than inline at each call site precisely BECAUSE it is
- * wrong: when the config lands there is one line to change, not a grep. The
- * report's routine crumb and the home link already disagreed about whether to
- * include the `#`, which is the kind of drift this prevents.
+ * The fallback matters on a page served from outside a site (a preview, a
+ * direct widget render): prefer the deployed name, since that is the common
+ * case, and a wrong link beats a crash.
  */
-export const TESTRAY_PATH = '/web/liferay-testray';
+export const sitePath = (): string => {
+	const [, prefix, site] = window.location.pathname.split('/');
+
+	return prefix && site ? `/${prefix}/${site}` : '/web/testray';
+};
+
+/**
+ * Where Testray itself renders. This CX is served at `<site>/triage`, so the
+ * site path is what its own URL already tells us.
+ */
+export const TESTRAY_PATH = sitePath();
 
 /**
  * A URL into Testray's hash router. `testrayURL()` is its home — the route the

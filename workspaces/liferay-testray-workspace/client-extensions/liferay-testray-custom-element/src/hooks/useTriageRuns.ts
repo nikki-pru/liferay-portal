@@ -156,8 +156,23 @@ export async function queueTriageRun({
 	return response.json();
 }
 
+/**
+ * The Liferay site this page is served from, e.g. `/web/testray`.
+ *
+ * Derived rather than hardcoded: the friendly URL differs per environment —
+ * `/web/testray` on dev and prod, `/web/liferay-testray` on local docker — so
+ * a literal 404s in at least one of them. Testray renders inside the site, so
+ * the first two path segments ARE the site, whatever route follows.
+ */
+const sitePath = (): string => {
+	const [, prefix, site] = window.location.pathname.split('/');
+
+	return prefix && site ? `/${prefix}/${site}` : '/web/testray';
+};
+
 /** Where the analytics CX renders. Kept here so both call sites agree. */
-export const TRIAGE_PATH = '/web/liferay-testray/triage';
+/** Where the analytics CX renders. Kept here so both call sites agree. */
+export const TRIAGE_PATH = `${sitePath()}/triage`;
 
 export const triageURL = (buildId: number | string) =>
 	`${TRIAGE_PATH}?buildId=${buildId}`;
