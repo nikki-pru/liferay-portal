@@ -270,14 +270,34 @@ export function useTriageRunsForBuilds(buildIds: number[]) {
 	return {byBuildId, error, isLoading};
 }
 
+/**
+ * The triage run to render for a build.
+ *
+ * A build can legitimately have MORE THAN ONE run row at the same moment: the
+ * completed analysis, plus a request row for a re-run somebody just queued.
+ * They are not interchangeable — a request row carries only the build ids, so
+ * picking it renders a report with no status matrix and no counts, and a
+ * finished build that reads "in progress".
+ *
+ * This used to ask for one row with no ordering and take it, which made that a
+ * coin flip. So: ask for several, newest first, and prefer a run that actually
+ * has results. A request row is still returned when it is all there is, so a
+ * queued or running build can say so rather than looking empty.
+ */
 export function useTriageRun(buildId?: number) {
 	const key = buildId
-		? q('/o/c/triageruns', fkEquals('r_buildToTriageRuns_c_buildId', buildId), 1)
+		? q('/o/c/triageruns', fkEquals('r_buildToTriageRuns_c_buildId', buildId), 10) +
+			`&sort=${encodeURIComponent('dateCreated:desc')}`
 		: null;
 
 	const {data, error, isLoading} = useSWR<Page<TriageRun>>(key, fetcher);
 
-	return {error, isLoading, run: data?.items?.[0]};
+	const items = data?.items ?? [];
+	const finished = items.find(
+		(item) => item.triageRunStatus?.key === 'DONE'
+	);
+
+	return {error, isLoading, run: finished ?? items[0]};
 }
 
 export function useRoutineSetting(routineId?: number) {
