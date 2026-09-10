@@ -81,7 +81,7 @@ export function displayVerdict(
 	// Only a genuine `low` from the classifier relabels. A row with NO
 	// confidence never reached the model — it carries an auto label, and
 	// nothing failed to attribute it because nothing was asked.
-	if ((confidence ?? '').toLowerCase() !== 'low') {
+	if (!UNATTRIBUTED_AT.has((confidence ?? '').toLowerCase())) {
 		return cls;
 	}
 

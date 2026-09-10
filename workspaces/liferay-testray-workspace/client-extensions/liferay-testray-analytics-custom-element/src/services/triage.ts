@@ -28,6 +28,13 @@ import {
 
 const PAGE_SIZE = 200;
 
+/**
+ * How many routine build-counts to fetch at once when populating the picker.
+ * One request per routine is unavoidable — totalCount is per-filter — but they
+ * do not all have to be in flight together.
+ */
+const ROUTINE_COUNT_CONCURRENCY = 6;
+
 const q = (path: string, filter?: string, pageSize = PAGE_SIZE) =>
 	`${path}?pageSize=${pageSize}` +
 	(filter ? `&filter=${encodeURIComponent(filter)}` : '');
@@ -147,7 +154,12 @@ export function toRows(
 ): Row[] {
 	return results.map((result) => {
 		const caseResult = caseResultOf(result);
-		const verdict = str(result.classification?.key);
+		// canonicalVerdict, not the raw picklist key: the Object stores
+		// POSSIBLEBUG and NOT_ATTRIBUTABLE-style keys without separators, and
+		// this value is carried on the row for anything that wants the stored
+		// classification rather than the display relabel. Leaving it raw hands
+		// a future reader a vocabulary nothing else in the CX speaks.
+		const verdict = canonicalVerdict(str(result.classification?.key));
 		const confidence = str(result.confidence?.key).toLowerCase();
 		const teamId = num(caseResult.r_teamToCaseResult_c_teamId);
 		const componentId = num(caseResult.r_componentToCaseResult_c_componentId);
@@ -290,7 +302,7 @@ export function useTriageRunsForBuilds(buildIds: number[]) {
 export function useTriageRun(buildId?: number) {
 	const key = buildId
 		? q('/o/c/triageruns', fkEquals('r_buildToTriageRuns_c_buildId', buildId), 10) +
-			`&sort=${encodeURIComponent('dateCreated:desc')}`
+			`&sort=${encodeURIComponent('startedAt:desc')}`
 		: null;
 
 	const {data, error, isLoading} = useSWR<Page<TriageRun>>(key, fetcher);
@@ -676,25 +688,50 @@ export function usePickerRoutines(projectId?: number) {
 					`&sort=${encodeURIComponent('name:asc')}`
 			);
 
-			const counted = await Promise.all(
-				routines.map(async (routine) => {
-					const id = num(routine.id) ?? 0;
-					const entry = {id, name: str(routine.name)};
+			// One count request per routine, run a few at a time rather than
+			// all at once: Liferay Portal 7.4 has 41 routines, and firing 41
+			// concurrent requests at a shared instance to populate one dropdown
+			// is rude to everyone else on it. Six keeps the wait short without
+			// the burst.
+			//
+			// A failed count is treated as "has builds" on purpose — hiding a
+			// routine because a request wobbled is worse than showing one with
+			// nothing behind it.
+			const countBuilds = async (routine: {
+				id: number | string;
+				name?: string;
+			}) => {
+				const id = num(routine.id) ?? 0;
+				const entry = {id, name: str(routine.name)};
 
-					try {
-						const page = await request<{totalCount?: number}>(
-							`/o/c/builds?pageSize=1` +
-								`&fields=${encodeURIComponent('id')}` +
-								`&filter=${encodeURIComponent(fkEquals('r_routineToBuilds_c_routineId', id))}`
-						);
+				try {
+					const page = await request<{totalCount?: number}>(
+						`/o/c/builds?pageSize=1` +
+							`&fields=${encodeURIComponent('id')}` +
+							`&filter=${encodeURIComponent(fkEquals('r_routineToBuilds_c_routineId', id))}`
+					);
 
-						return {...entry, hasBuilds: (page.totalCount ?? 0) > 0};
-					}
-					catch {
-						return {...entry, hasBuilds: true};
-					}
-				})
-			);
+					return {...entry, hasBuilds: (page.totalCount ?? 0) > 0};
+				}
+				catch {
+					return {...entry, hasBuilds: true};
+				}
+			};
+
+			const counted: Array<{
+				hasBuilds: boolean;
+				id: number;
+				name: string;
+			}> = [];
+
+			for (let i = 0; i < routines.length; i += ROUTINE_COUNT_CONCURRENCY) {
+				const slice = routines.slice(
+					i,
+					i + ROUTINE_COUNT_CONCURRENCY
+				);
+
+				counted.push(...(await Promise.all(slice.map(countBuilds))));
+			}
 
 			return counted.filter((routine) => routine.hasBuilds);
 		}
