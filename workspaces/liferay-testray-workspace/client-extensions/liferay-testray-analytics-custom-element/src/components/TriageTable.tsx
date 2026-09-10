@@ -449,6 +449,8 @@ const TriageTable: React.FC<Props> = ({
 								<ActionsMenu
 									actions={actionsFor(
 										jiraDraftURL(meta, {
+											anchor,
+											clusterNumber: cluster?.number,
 											count: n,
 											rows: group.rows,
 											summaryText:
@@ -635,6 +637,9 @@ const TriageTable: React.FC<Props> = ({
 											<ActionsMenu
 												actions={actionsFor(
 													jiraDraftURL(meta, {
+														anchor,
+														clusterNumber:
+															cluster?.number,
 														rows: [row],
 														summaryText: row.reason,
 														verdict:
