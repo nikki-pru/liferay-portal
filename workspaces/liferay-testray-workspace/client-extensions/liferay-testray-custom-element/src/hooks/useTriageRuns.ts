@@ -74,7 +74,12 @@ export default function useTriageRuns(routineId?: string) {
 	const byBuildId = new Map<number, TriageRun>();
 
 	for (const run of data?.items ?? []) {
-		const buildId = run.r_buildToTriageRuns_c_buildId;
+		// Normalised, because the lookup side uses Number(): a Map keyed by a
+		// string would miss every build and render the column empty with no
+		// error — the hardest failure to notice. Object REST returns this as a
+		// number today, on prod ids too; this costs nothing and removes the
+		// class of bug.
+		const buildId = Number(run.r_buildToTriageRuns_c_buildId);
 
 		// sort=startedAt:desc means the first run seen for a build is newest.
 		if (buildId && !byBuildId.has(buildId)) {

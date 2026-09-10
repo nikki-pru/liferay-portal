@@ -254,7 +254,10 @@ export function useTriageRunsForBuilds(buildIds: number[]) {
 
 	// Newest run wins when a build has been triaged more than once.
 	for (const run of data?.items ?? []) {
-		const buildId = run.r_buildToTriageRuns_c_buildId;
+		// Through num() like every other FK read: the map is keyed by number
+		// and looked up by number, so a string key would silently match
+		// nothing.
+		const buildId = num(run.r_buildToTriageRuns_c_buildId);
 
 		if (!buildId) {
 			continue;
