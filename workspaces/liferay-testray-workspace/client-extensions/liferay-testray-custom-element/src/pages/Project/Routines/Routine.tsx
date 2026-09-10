@@ -20,7 +20,6 @@ import {filterStatuses} from '~/util/statuses';
 
 import useTriageRuns, {
 	TRIAGE_RUN_DISPLAY,
-	queueTriageRun,
 	triageURL,
 } from '~/hooks/useTriageRuns';
 import useTriageSelection from '~/hooks/useTriageSelection';
