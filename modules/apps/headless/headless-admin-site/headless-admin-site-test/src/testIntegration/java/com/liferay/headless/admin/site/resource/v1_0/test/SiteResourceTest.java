@@ -32,9 +32,11 @@ import com.liferay.portal.kernel.model.GroupConstants;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.LayoutSet;
 import com.liferay.portal.kernel.model.LayoutSetPrototype;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.Role;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.model.role.RoleConstants;
+import com.liferay.portal.kernel.security.permission.ActionKeys;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.LayoutLocalServiceUtil;
 import com.liferay.portal.kernel.service.LayoutSetPrototypeLocalService;
@@ -58,9 +60,12 @@ import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.LinkedHashMapBuilder;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.PortletKeys;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.UnicodePropertiesBuilder;
+import com.liferay.portal.kernel.zip.ZipWriter;
+import com.liferay.portal.kernel.zip.ZipWriterFactory;
 import com.liferay.portal.test.log.LogCapture;
 import com.liferay.portal.test.log.LoggerTestUtil;
 import com.liferay.portal.test.rule.Inject;
@@ -272,6 +277,7 @@ public class SiteResourceTest extends BaseSiteResourceTestCase {
 
 		_testPutSiteSiteInitializerPreservesFriendlyUrlPath();
 		_testPutSiteSiteInitializerSystemSite();
+		_testPutSiteSiteInitializerWithoutPermission();
 	}
 
 	@Override
@@ -1708,6 +1714,66 @@ public class SiteResourceTest extends BaseSiteResourceTestCase {
 		_groupLocalService.updateGroup(group);
 	}
 
+	private void _testPutSiteSiteInitializerWithoutPermission()
+		throws Exception {
+
+		User user = UserTestUtil.addUser(false);
+
+		user = _userLocalService.updatePassword(
+			user.getUserId(), "test", "test", false, true);
+
+		Role role = RoleTestUtil.addRole(RoleConstants.TYPE_REGULAR);
+
+		RoleTestUtil.addResourcePermission(
+			role, PortletKeys.PORTAL, ResourceConstants.SCOPE_COMPANY,
+			String.valueOf(TestPropsValues.getCompanyId()),
+			ActionKeys.ADD_COMMUNITY);
+
+		_userLocalService.addRoleUser(role.getRoleId(), user.getUserId());
+
+		ZipWriter zipWriter = _zipWriterFactory.getZipWriter();
+
+		zipWriter.addEntry(
+			"site-initializer/user-roles.json",
+			JSONUtil.putAll(
+				JSONUtil.put(
+					"emailAddress", user.getEmailAddress()
+				).put(
+					"roles", JSONUtil.putAll(RoleConstants.ADMINISTRATOR)
+				)
+			).toString());
+
+		SiteResource siteResource = SiteResource.builder(
+		).authentication(
+			user.getEmailAddress(), "test"
+		).endpoint(
+			testCompany.getVirtualHostname(),
+			PortalUtil.getPortalServerPort(false), "http"
+		).locale(
+			LocaleUtil.getDefault()
+		).build();
+
+		try {
+			siteResource.putSiteSiteInitializer(
+				RandomTestUtil.randomString(), randomSite(),
+				HashMapBuilder.<String, File>put(
+					"file", zipWriter.getFile()
+				).build());
+
+			Assert.fail();
+		}
+		catch (Problem.ProblemException problemException) {
+			Problem problem = problemException.getProblem();
+
+			Assert.assertEquals("FORBIDDEN", problem.getStatus());
+		}
+
+		Assert.assertFalse(
+			_userLocalService.hasRoleUser(
+				TestPropsValues.getCompanyId(), RoleConstants.ADMINISTRATOR,
+				user.getUserId(), true));
+	}
+
 	private void _testPutSiteWithExcludedTypeSettings() throws Exception {
 		Site postSite = testPutSite_addSite();
 
@@ -1845,6 +1911,9 @@ public class SiteResourceTest extends BaseSiteResourceTestCase {
 
 	@Inject
 	private UserLocalService _userLocalService;
+
+	@Inject
+	private ZipWriterFactory _zipWriterFactory;
 
 	private class TestSiteInitializer implements SiteInitializer {
 
