@@ -2207,10 +2207,9 @@ test(
 
 test(
 	'A room name containing markup is escaped in the room banner',
-	{tag: ['@LPD-102192', '@LPD-97483']},
+	{tag: '@LPD-102192'},
 	async ({
 		apiHelpers,
-		digitalSalesRoomSettingsPage,
 		digitalSalesRoomsPage,
 		editDigitalSalesRoomPage,
 		page,
