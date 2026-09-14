@@ -38,6 +38,8 @@ components:
                     readOnly: true
                     type: string
                 errorMessage:
+                    description:
+                        The export process's error message when it failed.
                     readOnly: true
                     type: string
                 id:
@@ -150,6 +152,8 @@ components:
                     readOnly: true
                     type: string
                 errorMessage:
+                    description:
+                        The import process's error message when it failed.
                     readOnly: true
                     type: string
                 id:
