@@ -113,7 +113,6 @@ import org.osgi.service.component.annotations.Reference;
 	import ${apiPackagePath}.model.${versionEntity.name};
 	import com.liferay.portal.kernel.service.version.VersionService;
 	import com.liferay.portal.kernel.service.version.VersionServiceListener;
-
 	<#if entity.localizedEntity??>
 		<#assign
 			localizedEntity = entity.localizedEntity
